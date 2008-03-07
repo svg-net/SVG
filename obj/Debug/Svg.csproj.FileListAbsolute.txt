@@ -1,5 +1,0 @@
-F:\Projects\Svg\Svg\bin\Debug\Svg.dll
-F:\Projects\Svg\Svg\bin\Debug\Svg.pdb
-F:\Projects\Svg\Svg\obj\Debug\ResolveAssemblyReference.cache
-F:\Projects\Svg\Svg\obj\Debug\Svg.dll
-F:\Projects\Svg\Svg\obj\Debug\Svg.pdb
