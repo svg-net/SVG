@@ -1,0 +1,178 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{886A98C5-37C0-4E8B-885E-30C1D2F98B47}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Svg</RootNamespace>
+    <AssemblyName>Svg</AssemblyName>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRules>
+    </CodeAnalysisRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.JScript" />
+    <Reference Include="Microsoft.Vsa" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Basic Shapes\SvgGraphicsElement.cs" />
+    <Compile Include="Basic Shapes\SvgGraphicsElementEvents.cs" />
+    <Compile Include="Basic Shapes\SvgCircle.cs" />
+    <Compile Include="Basic Shapes\SvgEllipse.cs" />
+    <Compile Include="Basic Shapes\SvgLine.cs" />
+    <Compile Include="Basic Shapes\SvgPolygon.cs" />
+    <Compile Include="Basic Shapes\SvgPolyline.cs" />
+    <Compile Include="DataTypes\ISvgViewPort.cs" />
+    <Compile Include="DataTypes\SvgElementStyle.cs" />
+    <Compile Include="DataTypes\SvgUnitCollection.cs" />
+    <Compile Include="DataTypes\SvgViewBox.cs" />
+    <Compile Include="Document Structure\SvgDefinitionList.cs" />
+    <Compile Include="Document Structure\SvgDescription.cs" />
+    <Compile Include="Document Structure\SvgGroup.cs" />
+    <Compile Include="Document Structure\SvgFragment.cs" />
+    <Compile Include="Document Structure\SvgUse.cs" />
+    <Compile Include="Filter Effects\ISvgFilter.cs" />
+    <Compile Include="Filter Effects\ISvgFilterable.cs" />
+    <Compile Include="Filter Effects\SvgFilter.cs" />
+    <Compile Include="Filter Effects\SvgFilterPrimitive.cs" />
+    <Compile Include="Filter Effects\SvgGaussianBlur.cs" />
+    <Compile Include="Filter Effects\SvgMerge.cs" />
+    <Compile Include="ISvgRenderer.cs" />
+    <Compile Include="Painting\SvgColourConverter.cs" />
+    <Compile Include="Painting\SvgGradientSpreadMethod.cs" />
+    <Compile Include="Painting\SvgGradientUnit.cs" />
+    <Compile Include="SvgDtdResolver.cs" />
+    <Compile Include="Exceptions\SvgException.cs" />
+    <Compile Include="Painting\SvgFillRule.cs" />
+    <Compile Include="Painting\SvgGradientServer.cs" />
+    <Compile Include="Painting\SvgGradientStop.cs" />
+    <Compile Include="Painting\ISvgStylable.cs" />
+    <Compile Include="Painting\SvgColourServer.cs" />
+    <Compile Include="Painting\SvgLinearGradientServer.cs" />
+    <Compile Include="Painting\SvgPaintServer.cs" />
+    <Compile Include="Painting\SvgPaintServerFactory.cs" />
+    <Compile Include="Painting\SvgPatternServer.cs" />
+    <Compile Include="Painting\SvgRadialGradientServer.cs" />
+    <Compile Include="Painting\SvgStrokeLineCap.cs" />
+    <Compile Include="Painting\SvgStrokeLineJoin.cs" />
+    <Compile Include="Basic Shapes\SvgGraphicsElementStyle.cs" />
+    <Compile Include="Paths\SvgArcSegment.cs" />
+    <Compile Include="Paths\SvgClosePathSegment.cs" />
+    <Compile Include="Paths\SvgCubicCurveSegment.cs" />
+    <Compile Include="Paths\SvgLineSegment.cs" />
+    <Compile Include="Paths\SvgMoveToSegment.cs" />
+    <Compile Include="Paths\SvgPath.cs" />
+    <Compile Include="Basic Shapes\SvgRectangle.cs" />
+    <Compile Include="Paths\SvgPathSegment.cs" />
+    <Compile Include="Paths\SvgPathSegmentList.cs" />
+    <Compile Include="Paths\SvgQuadraticCurveSegment.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Document Structure\SvgDocument.cs" />
+    <Compile Include="SvgAttributeAttribute.cs" />
+    <Compile Include="SvgAttributeCollection.cs" />
+    <Compile Include="SvgElement.cs" />
+    <Compile Include="SvgElementCollection.cs" />
+    <Compile Include="SvgElementFactory.cs" />
+    <Compile Include="Paths\SvgPathBuilder.cs" />
+    <Compile Include="DataTypes\SvgPoint.cs" />
+    <Compile Include="SvgElementIdManager.cs" />
+    <Compile Include="DataTypes\SvgUnit.cs" />
+    <Compile Include="DataTypes\SvgUnitConverter.cs" />
+    <Compile Include="Text\SvgText.cs" />
+    <Compile Include="Text\SvgTextAnchor.cs" />
+    <Compile Include="Text\SvgTextSpan.cs" />
+    <Compile Include="Transforms\ISvgTransformable.cs" />
+    <Compile Include="Transforms\SvgRotate.cs" />
+    <Compile Include="Transforms\SvgScale.cs" />
+    <Compile Include="Transforms\SvgTransform.cs" />
+    <Compile Include="Transforms\SvgTransformCollection.cs" />
+    <Compile Include="Transforms\SvgTransformConverter.cs" />
+    <Compile Include="Transforms\SvgTranslate.cs" />
+    <Compile Include="Web\SvgHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\svg11.dtd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Clipping and Masking\" />
+    <Folder Include="Web\Resources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

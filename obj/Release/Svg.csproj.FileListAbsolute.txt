@@ -1,0 +1,11 @@
+F:\Projects\Svg\Svg\bin\Release\Svg.dll
+F:\Projects\Svg\Svg\bin\Release\Svg.pdb
+F:\Projects\Svg\Svg\obj\Release\ResolveAssemblyReference.cache
+F:\Projects\Svg\Svg\obj\Release\Svg.dll
+F:\Projects\Svg\Svg\obj\Release\Svg.pdb
+I:\Projects\Svg\Svg\bin\Release\Svg.dll
+I:\Projects\Svg\Svg\bin\Release\Svg.pdb
+I:\Projects\Svg\Svg\bin\Release\Svg.RegularExpressions.dll
+I:\Projects\Svg\Svg\obj\Release\ResolveAssemblyReference.cache
+I:\Projects\Svg\Svg\obj\Release\Svg.dll
+I:\Projects\Svg\Svg\obj\Release\Svg.pdb

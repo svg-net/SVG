@@ -1,0 +1,11 @@
+bin\Debug\Svg.dll
+bin\Debug\Svg.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Svg.dll
+obj\Debug\Svg.pdb
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\Svg.dll
+obj\Release\Svg.pdb
+bin\Release\Svg.dll
+bin\Release\Svg.pdb
+bin\Release\Svg.RegularExpressions.dll
