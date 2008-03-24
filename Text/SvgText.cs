@@ -30,6 +30,7 @@ namespace Svg
         {
             Bitmap bitmap = new Bitmap(1, 1);
             _stringMeasure = Graphics.FromImage(bitmap);
+            _stringMeasure.TextRenderingHint = TextRenderingHint.AntiAlias;
         }
 
         /// <summary>
@@ -193,6 +194,14 @@ namespace Svg
             base.Render(graphics);
         }
 
+        static private int MeasureString(Graphics graphics, string text, Font font)
+        {
+            GraphicsPath p = new GraphicsPath();
+            p.AddString(text, font.FontFamily, 0, font.Size, new PointF(0.0f, 0.0f), StringFormat.GenericTypographic);
+            p.Transform(graphics.Transform);
+            return (int)(p.GetBounds().Width + 1.0f);
+        }
+
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
@@ -205,7 +214,7 @@ namespace Svg
                 if (_path == null || this.IsPathDirty && !string.IsNullOrEmpty(this.Text))
                 {
                     float fontSize = this.FontSize.ToDeviceValue(this);
-                    SizeF stringSize = SizeF.Empty;
+                    int stringWidth;
                     PointF location = PointF.Empty;
 
                     // Minus FontSize because the x/y coords mark the bottom left, not bottom top.
@@ -215,12 +224,12 @@ namespace Svg
                             location = new PointF(this.X.ToDeviceValue(this), this.Y.ToDeviceValue(this, true) - fontSize);
                             break;
                         case SvgTextAnchor.Middle:
-                            stringSize = _stringMeasure.MeasureString(this.Text, new Font(this._font.FontFamily, fontSize));
-                            location = new PointF(this.X.ToDeviceValue(this) - (stringSize.Width / 2), this.Y.ToDeviceValue(this, true) - fontSize);
+                            stringWidth = SvgText.MeasureString(_stringMeasure, this.Text, new Font(this._font.FontFamily, fontSize));
+                            location = new PointF(this.X.ToDeviceValue(this) - (stringWidth / 2), this.Y.ToDeviceValue(this, true) - fontSize);
                             break;
                         case SvgTextAnchor.End:
-                            stringSize = _stringMeasure.MeasureString(this.Text, new Font(this._font.FontFamily, fontSize));
-                            location = new PointF(this.X.ToDeviceValue(this) - stringSize.Width, this.Y.ToDeviceValue(this, true) - fontSize);
+                            stringWidth = SvgText.MeasureString(_stringMeasure, this.Text, new Font(this._font.FontFamily, fontSize));
+                            location = new PointF(this.X.ToDeviceValue(this) - stringWidth, this.Y.ToDeviceValue(this, true) - fontSize);
                             break;
                     }
 
@@ -244,12 +253,14 @@ namespace Svg
                                 char[] characters = word.ToCharArray();
                                 foreach (char currentCharacter in characters)
                                 {
-                                    _path.AddString(currentCharacter.ToString(), this._font.FontFamily, 0, fontSize, location, StringFormat.GenericDefault);
+                                    _path.AddString(currentCharacter.ToString(), this._font.FontFamily, 0, fontSize, location, StringFormat.GenericTypographic);
                                     location = new PointF(_path.GetBounds().Width + start + letterSpacing, location.Y);
                                 }
                             }
                             else
-                                _path.AddString(word, this._font.FontFamily, 0, fontSize, location, StringFormat.GenericDefault);
+                            {
+                                _path.AddString(word, this._font.FontFamily, 0, fontSize, location, StringFormat.GenericTypographic);
+                            }
 
                             // Move the location of the word to be written along
                             location = new PointF(_path.GetBounds().Width + start + wordSpacing, location.Y);
@@ -257,7 +268,7 @@ namespace Svg
                     }
                     else
                     {
-                        _path.AddString(this.Text, this._font.FontFamily, 0, fontSize, location, StringFormat.GenericDefault);
+                        _path.AddString(this.Text, this._font.FontFamily, 0, fontSize, location, StringFormat.GenericTypographic);
                     }
 
                     _path.CloseFigure();

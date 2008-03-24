@@ -71,8 +71,12 @@
     <Compile Include="Basic Shapes\SvgLine.cs" />
     <Compile Include="Basic Shapes\SvgPolygon.cs" />
     <Compile Include="Basic Shapes\SvgPolyline.cs" />
+    <Compile Include="Clipping and Masking\ISvgClipable.cs" />
+    <Compile Include="Clipping and Masking\SvgClipPath.cs" />
+    <Compile Include="Clipping and Masking\SvgMask.cs" />
     <Compile Include="DataTypes\ISvgViewPort.cs" />
     <Compile Include="DataTypes\SvgElementStyle.cs" />
+    <Compile Include="DataTypes\SvgCoordinateUnits.cs" />
     <Compile Include="DataTypes\SvgUnitCollection.cs" />
     <Compile Include="DataTypes\SvgViewBox.cs" />
     <Compile Include="Document Structure\SvgDefinitionList.cs" />
@@ -89,7 +93,6 @@
     <Compile Include="ISvgRenderer.cs" />
     <Compile Include="Painting\SvgColourConverter.cs" />
     <Compile Include="Painting\SvgGradientSpreadMethod.cs" />
-    <Compile Include="Painting\SvgGradientUnit.cs" />
     <Compile Include="SvgDtdResolver.cs" />
     <Compile Include="Exceptions\SvgException.cs" />
     <Compile Include="Painting\SvgFillRule.cs" />
@@ -160,7 +163,6 @@
     <EmbeddedResource Include="Resources\svg11.dtd" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Clipping and Masking\" />
     <Folder Include="Web\Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

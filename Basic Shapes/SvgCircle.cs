@@ -15,9 +15,6 @@ namespace Svg
     public class SvgCircle : SvgGraphicsElement
     {
         private GraphicsPath _path;
-        private SvgUnit _cx;
-        private SvgUnit _cy;
-        private SvgUnit _radius;
 
         /// <summary>
         /// Gets the center point of the circle.
@@ -35,11 +32,14 @@ namespace Svg
         [SvgAttribute("cx")]
         public SvgUnit CenterX
         {
-            get { return this._cx; }
+            get { return this.Attributes.GetAttribute<SvgUnit>("cx"); }
             set
             {
-                this._cx = value;
-                this.IsPathDirty = true;
+                if (this.Attributes.GetAttribute<SvgUnit>("cx") != value)
+                {
+                    this.Attributes["cx"] = value;
+                    this.IsPathDirty = true;
+                }
             }
         }
 
@@ -50,11 +50,14 @@ namespace Svg
         [SvgAttribute("cy")]
         public SvgUnit CenterY
         {
-            get { return this._cy; }
+            get { return this.Attributes.GetAttribute<SvgUnit>("cy"); }
             set
             {
-                this._cy = value;
-                this.IsPathDirty = true;
+                if (this.Attributes.GetAttribute<SvgUnit>("cy") != value)
+                {
+                    this.Attributes["cy"] = value;
+                    this.IsPathDirty = true;
+                }
             }
         }
 
@@ -65,18 +68,20 @@ namespace Svg
         [SvgAttribute("r")]
         public SvgUnit Radius
         {
-            get { return this._radius; }
+            get { return this.Attributes.GetAttribute<SvgUnit>("r"); }
             set
             {
-                this._radius = value;
-                this.IsPathDirty = true;
+                if (this.Attributes.GetAttribute<SvgUnit>("r") != value)
+                {
+                    this.Attributes["r"] = value;
+                    this.IsPathDirty = true;
+                }
             }
         }
 
         /// <summary>
         /// Gets the name of the element.
         /// </summary>
-        /// <value></value>
         protected override string ElementName
         {
             get { return "circle"; }
@@ -85,7 +90,7 @@ namespace Svg
         /// <summary>
         /// Gets the bounds of the circle.
         /// </summary>
-        /// <value>The bounds.</value>
+        /// <value>The rectangular bounds of the circle.</value>
         public override RectangleF Bounds
         {
             get { return this.Path.GetBounds(); }
@@ -102,6 +107,9 @@ namespace Svg
             get { return true; }
         }
 
+        /// <summary>
+        /// Gets the <see cref="GraphicsPath"/> representing this element.
+        /// </summary>
         public override GraphicsPath Path
         {
             get

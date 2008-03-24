@@ -59,6 +59,9 @@ namespace Svg
                 case "desc":
                     createdElement = new SvgDescription();
                     break;
+                case "clipPath":
+                    createdElement = new SvgClipPath();
+                    break;
                 case "svg":
                     if (!fragmentIsDocument)
                         fragment = new SvgFragment();
@@ -156,132 +159,5 @@ namespace Svg
                 }
             }
         }
-
-        //private static void SetAttributes(SvgElement element, Dictionary<string, string> attributes, SvgDocument document)
-        //{
-        //    // Parse attributes
-        //    foreach(KeyValuePair<string, string> keyValuePair in attributes)
-        //    {
-        //        string name = keyValuePair.Key;
-        //        string value = keyValuePair.Value;
-
-        //        switch (name)
-        //        {
-        //            case "id":
-        //                if (!String.IsNullOrEmpty(value))
-        //                    SetProperty(element, name, value);
-        //                break;
-        //            case "style":
-        //                string[] styles = value.Split(';');
-        //                Dictionary<string, string> styleAttributes = new Dictionary<string, string>();
-        //                foreach (string style in styles)
-        //                {
-        //                    if (String.IsNullOrEmpty(style) || style.IndexOf(":") == -1)
-        //                        continue;
-
-        //                    string[] pair = style.Split(':');
-        //                    styleAttributes.Add(pair[0].Trim(), pair[1].Trim());
-        //                }
-        //                SetAttributes(element, styleAttributes, document);
-        //                break;
-        //            case "href":
-        //                if (element is SvgUse)
-        //                    SetProperty(element, name, document.GetElementById(value));
-        //                break;
-        //            case "transform":
-        //                SetProperty(element, name, _transformConverter.ConvertFrom(value));
-        //                break;
-        //            case "stroke":
-        //            case "fill":
-        //                SetProperty(element, name, SvgPaintServerFactory.Create(value, document));
-        //                break;
-        //            case "font":
-        //                break;
-        //            case "font-family":
-        //                // TODO: create font family converter, loop through families list. return generic if it's not in the list
-        //                try
-        //                {
-        //                    SetProperty(element, name, new FontFamily(value));
-        //                }
-        //                catch
-        //                {
-        //                    Trace.TraceWarning("\"{0}\" is not a recognised font.", value);
-        //                    SetProperty(element, name, FontFamily.GenericSansSerif);
-        //                }
-        //                break;
-        //            case "font-weight":
-        //                //SetProperty(createdElement, reader.LocalName, reader.Value);
-        //                break;
-        //            case "fill-opacity":
-        //            case "stroke-opacity":
-        //            case "stop-opacity":
-        //            case "opacity":
-        //                SetProperty(element, name, float.Parse(value));
-        //                break;
-        //            case "points":
-        //                // TODO: TypeConverter for this?
-        //                string points = value.Replace(",", " ").Trim();
-        //                Regex spaceReplace = new Regex(@"\s+");
-        //                points = spaceReplace.Replace(points, " ");
-        //                string[] pts = points.Split(' ');
-        //                List<SvgUnit> units = new List<SvgUnit>();
-
-        //                foreach (string point in pts)
-        //                    units.Add((SvgUnit)_unitConverter.ConvertFrom(point));
-
-        //                SetProperty(element, name, units);
-        //                break;
-        //            case "font-size":
-        //            case "letter-spacing":
-        //            case "word-spacing":
-        //            case "r":
-        //            case "width":
-        //            case "height":
-        //            case "ry":
-        //            case "rx":
-        //            case "x":
-        //            case "y":
-        //            case "x1":
-        //            case "y1":
-        //            case "x2":
-        //            case "y2":
-        //            case "cy":
-        //            case "cx":
-        //            case "offset":
-        //            case "stroke-width":
-        //                SetProperty(element, name, (SvgUnit)_unitConverter.ConvertFrom(value));
-        //                break;
-        //            case "stop-color":
-        //                SetProperty(element, name, (Color)_colourConverter.ConvertFrom(value));
-        //                break;
-        //            case "d":
-        //                SvgPathBuilder.Parse(value, ((SvgPath)element).PathData);
-        //                break;
-        //            case "pathLength":
-        //                SetProperty(element, name, int.Parse(value));
-        //                break;
-        //            default:
-        //                break;
-        //        }
-        //    }
-        //}
-
-        //private static void SetProperty(object element, string attributeName, object attributeValue)
-        //{
-        //    string key = String.Format("{0}{1}", element.GetType().Name, attributeName);
-
-        //    if (!_propertyDescriptorLookup.ContainsKey(key))
-        //    {
-        //        PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(element.GetType(), new Attribute[] { new SvgAttributeAttribute(attributeName) });
-
-        //        if (properties.Count == 0)
-        //            return;
-
-        //        _propertyDescriptorLookup.Add(key, properties[0]);
-        //    }
-
-        //    PropertyDescriptor property = _propertyDescriptorLookup[key];
-        //    property.SetValue(element, attributeValue);
-        //}
     }
 }

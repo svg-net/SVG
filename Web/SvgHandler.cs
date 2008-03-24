@@ -93,7 +93,6 @@ namespace Svg.Web
                 this._state._context.Response.WriteFile(this._state._context.Request.PhysicalPath);
                 this._state._context.Response.End();
                 this._state.CompleteRequest();
-                return;
             }
 
             public void RenderSvg()
@@ -101,35 +100,38 @@ namespace Svg.Web
                 this._state._context.Response.AddFileDependency(this._state._context.Request.PhysicalPath);
                 this._state._context.Response.Cache.SetLastModifiedFromFileDependencies();
                 this._state._context.Response.Cache.SetETagFromFileDependencies();
+                this._state._context.Response.Buffer = false;
 
                 // Allow crawlers to see the raw XML - they can get more information from it that way
                 if (this._state._context.Request.Browser.Crawler || !string.IsNullOrEmpty(this._state._context.Request.QueryString["raw"]))
                 {
                     this.RenderRawSvg();
                 }
-
-                try
+                else
                 {
-                    SvgDocument document = SvgDocument.Open(this._state._context.Request.PhysicalPath);
-
-                    using (Bitmap bitmap = document.Draw())
+                    try
                     {
-                        using (MemoryStream ms = new MemoryStream())
+                        SvgDocument document = SvgDocument.Open(this._state._context.Request.PhysicalPath);
+
+                        using (Bitmap bitmap = document.Draw())
                         {
-                            bitmap.Save(ms, ImageFormat.Png);
-                            this._state._context.Response.ContentType = "image/png";
-                            ms.WriteTo(this._state._context.Response.OutputStream);
+                            using (MemoryStream ms = new MemoryStream())
+                            {
+                                bitmap.Save(ms, ImageFormat.Png);
+                                this._state._context.Response.ContentType = "image/png";
+                                ms.WriteTo(this._state._context.Response.OutputStream);
+                            }
                         }
                     }
-                }
-                catch (Exception exc)
-                {
-                    System.Diagnostics.Trace.TraceError("An error occured while attempting to render the SVG image '" + this._state._context.Request.PhysicalPath + "': " + exc.Message);
-                }
-                finally
-                {
-                    this._state._context.Response.End();
-                    this._state.CompleteRequest();
+                    catch (Exception exc)
+                    {
+                        System.Diagnostics.Trace.TraceError("An error occured while attempting to render the SVG image '" + this._state._context.Request.PhysicalPath + "': " + exc.Message);
+                    }
+                    finally
+                    {
+                        this._state._context.Response.End();
+                        this._state.CompleteRequest();
+                    }
                 }
             }
         }
@@ -151,8 +153,7 @@ namespace Svg.Web
             /// <param name="context">The <see cref="HttpContext"/> of the request.</param>
             /// <param name="callback">The delegate to be called when the rendering is complete.</param>
             /// <param name="extraData">The extra data.</param>
-            public SvgAsyncRenderState(HttpContext context, AsyncCallback callback,
-                                     object extraData)
+            public SvgAsyncRenderState(HttpContext context, AsyncCallback callback, object extraData)
             {
                 _context = context;
                 _callback = callback;
@@ -167,9 +168,9 @@ namespace Svg.Web
                 _isCompleted = true;
                 lock (this)
                 {
-                    if (_callCompleteEvent != null)
+                    if (this.AsyncWaitHandle != null)
                     {
-                        _callCompleteEvent.Set();
+                        this._callCompleteEvent.Set();
                     }
                 }
                 // if a callback was registered, invoke it now
@@ -179,8 +180,6 @@ namespace Svg.Web
                 }
             }
 
-            // IAsyncResult
-            //
             /// <summary>
             /// Gets a user-defined object that qualifies or contains information about an asynchronous operation.
             /// </summary>

@@ -52,7 +52,9 @@ namespace Svg
             SvgElement element = this[index];
 
             if (element != null)
+            {
                 this.Remove(element);
+            }
         }
 
         public SvgElement this[int index]

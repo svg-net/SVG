@@ -15,7 +15,6 @@ namespace Svg
     public abstract class SvgElement : ISvgElement, ISvgTransformable, ICloneable
     {
         internal SvgElement _parent;
-        private string _content;
         private string _elementName;
         private SvgAttributeCollection _attributes;
         private EventHandlerList _eventHandlers;
@@ -36,8 +35,8 @@ namespace Svg
         /// </summary>
         public virtual string Content
         {
-            get { return this._content; }
-            set { this._content = value; }
+            get;
+            set;
         }
 
         /// <summary>
@@ -93,12 +92,18 @@ namespace Svg
                 if (Parent == null)
                 {
                     if (this is SvgDocument)
+                    {
                         return (SvgDocument)this;
+                    }
                     else
+                    {
                         return null;
+                    }
                 }
                 else
+                {
                     return Parent.OwnerDocument;
+                }
             }
         }
 
@@ -120,13 +125,13 @@ namespace Svg
 
         protected internal virtual void PushTransforms(Graphics graphics)
         {
+            _graphicsMatrix = graphics.Transform;
+
             // Return if there are no transforms
             if (this.Transforms == null || this.Transforms.Count == 0)
             {
                 return;
             }
-
-            _graphicsMatrix = graphics.Transform;
 
             Matrix transformMatrix = new Matrix();
 
@@ -140,11 +145,6 @@ namespace Svg
 
         protected internal virtual void PopTransforms(Graphics graphics)
         {
-            if (this.Transforms == null || this.Transforms.Count == 0 || _graphicsMatrix == null)
-            {
-                return;
-            }
-
             graphics.Transform = _graphicsMatrix;
             _graphicsMatrix = null;
         }
@@ -182,7 +182,9 @@ namespace Svg
             {
                 // Don't do anything if it hasn't changed
                 if (string.Compare(this.ID, value) == 0)
+                {
                     return;
+                }
 
                 if (this.OwnerDocument != null)
                 {

@@ -21,7 +21,9 @@ namespace Svg
         public virtual SvgElement GetElementById(string id)
         {
             if (id.StartsWith("#"))
+            {
                 id = id.Substring(1);
+            }
             return this._idValueMap[id];
         }
 

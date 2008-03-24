@@ -17,7 +17,7 @@ namespace Svg
         private bool _isEmpty;
         private float? _deviceValue;
 
-        public static readonly SvgUnit Empty = new SvgUnit(0.0f);
+        public static readonly SvgUnit Empty = new SvgUnit();
 
         /// <summary>
         /// Gets a value to determine whether the unit is empty.
@@ -114,10 +114,14 @@ namespace Svg
         public override bool Equals(object obj)
         {
             if (obj == null)
+            {
                 return false;
+            }
 
             if (!(obj.GetType() == typeof(SvgUnit)))
+            {
                 return false;
+            }
 
             SvgUnit unit = (SvgUnit)obj;
             return (unit.Value == this.Value && unit.Type == this.Type);

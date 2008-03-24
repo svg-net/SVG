@@ -9,14 +9,14 @@ namespace Svg
 {
     public abstract class SvgGradientServer : SvgPaintServer
     {
-        private SvgGradientUnit _gradientUnits;
+        private SvgCoordinateUnits _gradientUnits;
         private SvgGradientSpreadMethod _spreadMethod = SvgGradientSpreadMethod.Pad;
         private SvgGradientServer _inheritGradient;
         private List<SvgGradientStop> _stops;
 
         internal SvgGradientServer()
         {
-            this.GradientUnits = SvgGradientUnit.ObjectBoundingBox;
+            this.GradientUnits = SvgCoordinateUnits.ObjectBoundingBox;
             this._stops = new List<SvgGradientStop>();
         }
 
@@ -47,7 +47,7 @@ namespace Svg
         }
 
         [SvgAttribute("gradientUnits")]
-        public SvgGradientUnit GradientUnits
+        public SvgCoordinateUnits GradientUnits
         {
             get { return this._gradientUnits; }
             set { this._gradientUnits = value; }

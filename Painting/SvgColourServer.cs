@@ -28,9 +28,8 @@ namespace Svg
         {
             int alpha = (int)((opacity * (this.Colour.A/255) ) * 255);
             Color colour = Color.FromArgb(alpha, this.Colour);
-            SolidBrush brush = new SolidBrush(colour);
 
-            return brush;
+            return new SolidBrush(colour);
         }
 
         public override string ToString()
@@ -39,7 +38,9 @@ namespace Svg
 
             // Return the name if it exists
             if (c.IsKnownColor)
+            {
                 return c.Name;
+            }
 
             // Return the hex value
             return String.Format("#{0}", c.ToArgb().ToString("x").Substring(2));

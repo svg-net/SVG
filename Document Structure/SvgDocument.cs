@@ -211,7 +211,8 @@ namespace Svg
 
             using (Graphics g = Graphics.FromImage(bitmap))
             {
-                g.TextContrast = 0;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                g.TextContrast = 1;
                 g.PixelOffsetMode = PixelOffsetMode.Half;
                 this.Render(g);
                 g.Save();

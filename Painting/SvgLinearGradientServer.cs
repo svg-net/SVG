@@ -84,11 +84,13 @@ namespace Svg
         {
             // Need at least 2 colours to do the gradient fill
             if (this.Stops.Count < 2)
+            {
                 return null;
+            }
 
             PointF start;
             PointF end;
-            RectangleF bounds = (this.GradientUnits == SvgGradientUnit.ObjectBoundingBox) ? owner.Bounds : owner.OwnerDocument.GetDimensions();
+            RectangleF bounds = (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) ? owner.Bounds : owner.OwnerDocument.GetDimensions();
 
             // Have start/end points been set? If not the gradient is horizontal
             if (!this.End.IsEmpty())

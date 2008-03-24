@@ -4,6 +4,7 @@ using System.Text;
 using System.Web;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Drawing.Drawing2D;
 
 namespace Svg
 {
@@ -16,6 +17,26 @@ namespace Svg
         {
             get { return this._referencedElement; }
             set { this._referencedElement = value; }
+        }
+
+        [SvgAttribute("x")]
+        public virtual SvgUnit X
+        {
+            get { return this.Attributes.GetAttribute<SvgUnit>("x"); }
+            set { this.Attributes["x"] = value; }
+        }
+
+        [SvgAttribute("y")]
+        public virtual SvgUnit Y
+        {
+            get { return this.Attributes.GetAttribute<SvgUnit>("y"); }
+            set { this.Attributes["y"] = value; }
+        }
+
+        protected internal override void PushTransforms(System.Drawing.Graphics graphics)
+        {
+            base.PushTransforms(graphics);
+            graphics.TranslateTransform(this.X.ToDeviceValue(this), this.Y.ToDeviceValue(this, true));
         }
 
         public SvgUse()

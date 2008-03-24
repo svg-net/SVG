@@ -64,7 +64,7 @@ namespace Svg
             float left = this.CenterX.ToDeviceValue(renderingElement);
             float top = this.CenterY.ToDeviceValue(renderingElement, true);
             float radius = this.Radius.ToDeviceValue(renderingElement);
-            RectangleF boundingBox = (this.GradientUnits == SvgGradientUnit.ObjectBoundingBox) ? renderingElement.Bounds : renderingElement.OwnerDocument.GetDimensions();
+            RectangleF boundingBox = (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) ? renderingElement.Bounds : renderingElement.OwnerDocument.GetDimensions();
 
             path.AddEllipse(left-radius, top-radius, radius*2, radius*2);
 
