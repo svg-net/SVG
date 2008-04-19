@@ -27,7 +27,14 @@ namespace Svg
         /// <exception cref="T:System.Exception">There is a runtime error (for example, an interrupted server connection). </exception>
         public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
         {
-            return Assembly.GetExecutingAssembly().GetManifestResourceStream("Svg.Resources.svg11.dtd");
+            if (absoluteUri.ToString().IndexOf("svg", StringComparison.InvariantCultureIgnoreCase) > -1)
+            {
+                return Assembly.GetExecutingAssembly().GetManifestResourceStream("Svg.Resources.svg11.dtd");
+            }
+            else
+            {
+                return base.GetEntity(absoluteUri, role, ofObjectToReturn);
+            }
         }
     }
 }

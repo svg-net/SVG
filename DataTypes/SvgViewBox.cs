@@ -2,8 +2,8 @@
 using System.Drawing;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using System.Globalization;
 
 namespace Svg
 {
@@ -13,7 +13,7 @@ namespace Svg
     [TypeConverter(typeof(SvgViewBoxConverter))]
     public struct SvgViewBox
     {
-        public static readonly SvgViewBox Empty = new SvgViewBox(-1, -1, -1, -1);
+        public static readonly SvgViewBox Empty = new SvgViewBox();
 
         /// <summary>
         /// Gets or sets the position where the viewport starts horizontally.
@@ -100,7 +100,10 @@ namespace Svg
                     throw new SvgException("The 'viewBox' attribute must be in the format 'minX, minY, width, height'.");
                 }
 
-                return new SvgViewBox(float.Parse(coords[0]), float.Parse(coords[1]), float.Parse(coords[2]), float.Parse(coords[3]));
+                return new SvgViewBox(float.Parse(coords[0], NumberStyles.Float, CultureInfo.InvariantCulture),
+                    float.Parse(coords[1], NumberStyles.Float, CultureInfo.InvariantCulture),
+                    float.Parse(coords[2], NumberStyles.Float, CultureInfo.InvariantCulture),
+                    float.Parse(coords[3], NumberStyles.Float, CultureInfo.InvariantCulture));
             }
 
             return base.ConvertFrom(context, culture, value);

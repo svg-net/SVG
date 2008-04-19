@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace Svg.Transforms
 {
@@ -57,16 +58,16 @@ namespace Svg.Transforms
                     {
                         case "translate":
                             string[] coords = contents.Split(new char[]{',', ' '}, StringSplitOptions.RemoveEmptyEntries);
-                            float x = float.Parse(coords[0].Trim());
-                            float y = float.Parse(coords[1].Trim());
+                            float x = float.Parse(coords[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                            float y = float.Parse(coords[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
                             transformList.Add(new SvgTranslate(x, y));
                             break;
                         case "rotate":
-                            float angle = float.Parse(contents);
+                            float angle = float.Parse(contents, NumberStyles.Float, CultureInfo.InvariantCulture);
                             transformList.Add(new SvgRotate(angle));
                             break;
                         case "scale":
-                            float scaleFactor = float.Parse(contents);
+                            float scaleFactor = float.Parse(contents, NumberStyles.Float, CultureInfo.InvariantCulture);
                             transformList.Add(new SvgScale(scaleFactor));
                             break;
                     }

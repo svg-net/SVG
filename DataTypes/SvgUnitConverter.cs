@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.ComponentModel;
 using System.Web.UI.WebControls;
-using System.Diagnostics;
 
 namespace Svg
 {
@@ -38,7 +39,7 @@ namespace Svg
             }
 
             float val = 0.0f;
-            float.TryParse((identifierIndex > -1) ? unit.Substring(0, identifierIndex) : unit, out val);
+            float.TryParse((identifierIndex > -1) ? unit.Substring(0, identifierIndex) : unit, NumberStyles.Float, CultureInfo.InvariantCulture, out val);
 
             if (identifierIndex == -1)
             {

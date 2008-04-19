@@ -65,9 +65,9 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the specified graphics.
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
-        /// <param name="graphics">The graphics.</param>
+        /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
         protected override void Render(Graphics graphics)
         {
             Matrix oldTransform = null;

@@ -88,11 +88,11 @@ namespace Svg
             return null;
         }
 
-        public static SvgDocument Open(Stream stream, ValidationEventHandler validationEventHandler)
+        public static SvgDocument Open(Stream stream, Dictionary<string, string> entities)
         {
             Trace.TraceInformation("Begin Read");
 
-            using (XmlTextReader reader = new XmlTextReader(stream))
+            using (SvgTextReader reader = new SvgTextReader(stream, entities))
             {
                 Stack<SvgElement> elementStack = new Stack<SvgElement>();
                 StringBuilder value = new StringBuilder();
@@ -100,10 +100,7 @@ namespace Svg
                 SvgElement parent = null;
                 SvgDocument svgDocument = null;
                 reader.XmlResolver = new SvgDtdResolver();
-                reader.EntityHandling = EntityHandling.ExpandEntities;
                 bool isEmpty;
-
-                // Don't need it
                 reader.WhitespaceHandling = WhitespaceHandling.None;
 
                 while (reader.Read())
@@ -142,7 +139,9 @@ namespace Svg
 
                                 // Need to process if the element is empty
                                 if (isEmpty)
+                                {
                                     goto case XmlNodeType.EndElement;
+                                }
 
                                 break;
                             case XmlNodeType.EndElement:

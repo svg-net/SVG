@@ -130,6 +130,7 @@
     <Compile Include="SvgElementIdManager.cs" />
     <Compile Include="DataTypes\SvgUnit.cs" />
     <Compile Include="DataTypes\SvgUnitConverter.cs" />
+    <Compile Include="SvgTextReader.cs" />
     <Compile Include="Text\SvgText.cs" />
     <Compile Include="Text\SvgTextAnchor.cs" />
     <Compile Include="Text\SvgTextSpan.cs" />

@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Xml;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Globalization;
 
 using Svg.Pathing;
 
@@ -201,8 +202,8 @@ namespace Svg
 
             for (int i = 0; i < parts.Length; i += 2)
             {
-                x = float.Parse(parts[i]);
-                y = float.Parse(parts[i + 1]);
+                x = float.Parse(parts[i], NumberStyles.Float, CultureInfo.InvariantCulture);
+                y = float.Parse(parts[i + 1], NumberStyles.Float, CultureInfo.InvariantCulture);
                 point = new PointF(x, y);
 
                 if (relative)
