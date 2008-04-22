@@ -70,12 +70,17 @@ namespace Svg
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
         public static SvgDocument Open(string path)
         {
+            return Open(path, null);
+        }
+
+        public static SvgDocument Open(string path, Dictionary<string, string> entities)
+        {
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException("The specified document cannot be found.", path);
             }
 
-            return Open(File.OpenRead(path));
+            return Open(File.OpenRead(path), entities);
         }
 
         public static SvgDocument Open(Stream stream)

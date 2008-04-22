@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Threading;
-using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Web;
 
 namespace Svg.Web
@@ -111,7 +113,15 @@ namespace Svg.Web
                 {
                     try
                     {
-                        SvgDocument document = SvgDocument.Open(this._state._context.Request.PhysicalPath);
+                        Dictionary<string, string> entities = new Dictionary<string, string>();
+                        NameValueCollection queryString = this._state._context.Request.QueryString;
+
+                        for (int i = 0; i < queryString.Count; i++)
+                        {
+                            entities.Add(queryString.Keys[i], queryString[i]);
+                        }
+
+                        SvgDocument document = SvgDocument.Open(this._state._context.Request.PhysicalPath, entities);
 
                         using (Bitmap bitmap = document.Draw())
                         {
