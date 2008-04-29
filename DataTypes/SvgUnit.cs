@@ -111,6 +111,22 @@ namespace Svg
             return this._deviceValue.Value;
         }
 
+        public SvgUnit ToPercentage()
+        {
+            switch (this.Type)
+            {
+                case SvgUnitType.Percentage:
+                    return this;
+                case SvgUnitType.User:
+                    return new SvgUnit(SvgUnitType.Percentage, this.Value * 100);
+                default:
+                    throw new NotImplementedException();
+                    break;
+            }
+
+            return this;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)

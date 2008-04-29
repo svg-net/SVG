@@ -106,7 +106,7 @@ namespace Svg
                 }
 
                 float x = (this.End.X.IsEmpty) ? start.X : this.End.X.ToDeviceValue(owner);
-                end = new PointF(x, (start.Y + this.End.Y.ToDeviceValue(owner, true)));
+                end = new PointF(x, this.End.Y.ToDeviceValue(owner, true));
             }
             else
             {

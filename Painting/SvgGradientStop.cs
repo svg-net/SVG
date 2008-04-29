@@ -16,7 +16,10 @@ namespace Svg
         public SvgUnit Offset
         {
             get { return this._offset; }
-            set { this._offset = value; }
+            set
+            {
+                this._offset = value.ToPercentage();
+            }
         }
 
         [SvgAttribute("stop-color")]
