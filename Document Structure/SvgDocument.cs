@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Xml;
-using System.Drawing.Drawing2D;
-using System.Xml.Schema;
 
 namespace Svg
 {
@@ -17,22 +16,18 @@ namespace Svg
     /// </summary>
     public class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
-        private SvgElementIdManager _idManager;
-        private int _ppi;
         public static readonly int PPI = 96;
+
         /// <summary>
         /// Gets a <see cref="string"/> containing the XLink namespace (http://www.w3.org/1999/xlink).
         /// </summary>
         public static readonly string XLinkNamespace = "http://www.w3.org/1999/xlink";
 
-        /// <summary>
-        /// Retrieves the <see cref="SvgElement"/> with the specified ID.
-        /// </summary>
-        /// <param name="id">A <see cref="string"/> containing the ID of the element to find.</param>
-        /// <returns>An <see cref="SvgElement"/> of one exists with the specified ID; otherwise false.</returns>
-        public virtual SvgElement GetElementById(string id)
+        private SvgElementIdManager _idManager;
+
+        public SvgDocument()
         {
-            return this.IdManager.GetElementById(id);
+            Ppi = 96;
         }
 
         /// <summary>
@@ -42,24 +37,57 @@ namespace Svg
         {
             get
             {
-                if (this._idManager == null)
-                {
-                    this._idManager = new SvgElementIdManager(this);
-                }
+                if (_idManager == null)
+                    _idManager = new SvgElementIdManager(this);
 
-                return this._idManager;
+                return _idManager;
             }
         }
 
-        public int Ppi
+        public int Ppi { get; set; }
+
+        #region ITypeDescriptorContext Members
+
+        IContainer ITypeDescriptorContext.Container
         {
-            get { return this._ppi; }
-            set { this._ppi = value; }
+            get { throw new NotImplementedException(); }
         }
 
-        public SvgDocument()
+        object ITypeDescriptorContext.Instance
         {
-            this._ppi = 96;
+            get { return this; }
+        }
+
+        void ITypeDescriptorContext.OnComponentChanged()
+        {
+            throw new NotImplementedException();
+        }
+
+        bool ITypeDescriptorContext.OnComponentChanging()
+        {
+            throw new NotImplementedException();
+        }
+
+        PropertyDescriptor ITypeDescriptorContext.PropertyDescriptor
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        object IServiceProvider.GetService(Type serviceType)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Retrieves the <see cref="SvgElement"/> with the specified ID.
+        /// </summary>
+        /// <param name="id">A <see cref="string"/> containing the ID of the element to find.</param>
+        /// <returns>An <see cref="SvgElement"/> of one exists with the specified ID; otherwise false.</returns>
+        public virtual SvgElement GetElementById(string id)
+        {
+            return IdManager.GetElementById(id);
         }
 
         /// <summary>
@@ -76,9 +104,7 @@ namespace Svg
         public static SvgDocument Open(string path, Dictionary<string, string> entities)
         {
             if (!File.Exists(path))
-            {
                 throw new FileNotFoundException("The specified document cannot be found.", path);
-            }
 
             return Open(File.OpenRead(path), entities);
         }
@@ -97,15 +123,14 @@ namespace Svg
         {
             Trace.TraceInformation("Begin Read");
 
-            using (SvgTextReader reader = new SvgTextReader(stream, entities))
+            using (var reader = new SvgTextReader(stream, entities))
             {
-                Stack<SvgElement> elementStack = new Stack<SvgElement>();
-                StringBuilder value = new StringBuilder();
+                var elementStack = new Stack<SvgElement>();
+                var value = new StringBuilder();
                 SvgElement element = null;
-                SvgElement parent = null;
+                SvgElement parent;
                 SvgDocument svgDocument = null;
                 reader.XmlResolver = new SvgDtdResolver();
-                bool isEmpty;
                 reader.WhitespaceHandling = WhitespaceHandling.None;
 
                 while (reader.Read())
@@ -117,16 +142,14 @@ namespace Svg
                             case XmlNodeType.Element:
                                 // Does this element have a value or children
                                 // (Must do this check here before we progress to another node)
-                                isEmpty = reader.IsEmptyElement;
+                                bool isEmpty = reader.IsEmptyElement;
                                 // Create element
                                 if (elementStack.Count > 0)
-                                {
                                     element = SvgElementFactory.CreateElement(reader, svgDocument);
-                                }
                                 else
                                 {
                                     element = SvgElementFactory.CreateDocument(reader);
-                                    svgDocument = (SvgDocument)element;
+                                    svgDocument = (SvgDocument) element;
                                 }
 
                                 if (element == null)
@@ -144,9 +167,7 @@ namespace Svg
 
                                 // Need to process if the element is empty
                                 if (isEmpty)
-                                {
                                     goto case XmlNodeType.EndElement;
-                                }
 
                                 break;
                             case XmlNodeType.EndElement:
@@ -180,7 +201,7 @@ namespace Svg
             }
         }
 
-        public static SvgDocument Open(System.Xml.XmlDocument document)
+        public static SvgDocument Open(XmlDocument document)
         {
             return null;
         }
@@ -190,36 +211,44 @@ namespace Svg
             return null;
         }
 
-        public static Bitmap OpenAsBitmap(System.Xml.XmlDocument document)
+        public static Bitmap OpenAsBitmap(XmlDocument document)
         {
             return null;
         }
 
         public RectangleF GetDimensions()
         {
-            return new RectangleF(0, 0, this.Width.ToDeviceValue(), this.Height.ToDeviceValue());
-            return new RectangleF();
+            return new RectangleF(0, 0, Width.ToDeviceValue(), Height.ToDeviceValue());
         }
 
         public void Draw(Graphics graphics)
         {
-            this.Render(graphics);
+            Render(graphics);
         }
 
         public virtual Bitmap Draw()
         {
             Trace.TraceInformation("Begin Render");
 
-            RectangleF size = this.GetDimensions();
-            Bitmap bitmap = new Bitmap((int)this.Width.ToDeviceValue(), (int)this.Height.ToDeviceValue());
+            var size = GetDimensions();
 
-            using (Graphics g = Graphics.FromImage(bitmap))
+            var bitmap = new Bitmap((int) Math.Ceiling(size.Width), (int) Math.Ceiling(size.Height));
+
+            try
             {
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                g.TextContrast = 1;
-                g.PixelOffsetMode = PixelOffsetMode.Half;
-                this.Render(g);
-                g.Save();
+                using (var g = Graphics.FromImage(bitmap))
+                {
+                    g.TextRenderingHint = TextRenderingHint.AntiAlias;
+                    g.TextContrast = 1;
+                    g.PixelOffsetMode = PixelOffsetMode.Half;
+                    Render(g);
+                    g.Save();
+                }
+            }
+            catch
+            {
+                bitmap.Dispose();
+                throw;
             }
 
             Trace.TraceInformation("End Render");
@@ -228,44 +257,14 @@ namespace Svg
 
         public void Write(Stream stream)
         {
-            using (XmlTextWriter writer = new XmlTextWriter(stream, Encoding.UTF8))
+            using (new XmlTextWriter(stream, Encoding.UTF8))
             {
             }
         }
 
         public void Write(string path)
         {
-            this.Write(File.Create(path));
-        }
-
-        IContainer ITypeDescriptorContext.Container
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        object ITypeDescriptorContext.Instance
-        {
-            get { return this; }
-        }
-
-        void ITypeDescriptorContext.OnComponentChanged()
-        {
-            throw new NotImplementedException();
-        }
-
-        bool ITypeDescriptorContext.OnComponentChanging()
-        {
-            throw new NotImplementedException();
-        }
-
-        PropertyDescriptor ITypeDescriptorContext.PropertyDescriptor
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        object IServiceProvider.GetService(Type serviceType)
-        {
-            throw new NotImplementedException();
+            Write(File.Create(path));
         }
     }
 }
