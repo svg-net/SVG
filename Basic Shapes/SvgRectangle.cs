@@ -26,12 +26,6 @@ namespace Svg
             get { return new SvgPoint(X, Y); }
         }
 
-        public override SvgPaintServer Fill
-        {
-            get { return (this.Attributes["Fill"] == null) ? new SvgColourServer(Color.Black) : (SvgPaintServer)this.Attributes["Fill"]; }
-            set { this.Attributes["Fill"] = value; }
-        }
-
         [SvgAttribute("x")]
         public SvgUnit X
         {

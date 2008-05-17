@@ -10,7 +10,7 @@ namespace Svg
     [TypeConverter(typeof(SvgPaintServerFactory))]
     public abstract class SvgPaintServer : SvgElement
     {
-        public static readonly SvgPaintServer None = new SvgColourServer(Color.Transparent);
+        public static readonly SvgPaintServer None = new SvgColourServer();
 
         public SvgPaintServer()
         {

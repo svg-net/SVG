@@ -58,6 +58,12 @@ namespace Svg.Transforms
                     {
                         case "translate":
                             string[] coords = contents.Split(new char[]{',', ' '}, StringSplitOptions.RemoveEmptyEntries);
+
+                            if (coords.Length != 2)
+                            {
+                                throw new FormatException("Translate transforms must be in the format 'translate(x, y)'");
+                            }
+
                             float x = float.Parse(coords[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
                             float y = float.Parse(coords[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
                             transformList.Add(new SvgTranslate(x, y));
@@ -67,8 +73,25 @@ namespace Svg.Transforms
                             transformList.Add(new SvgRotate(angle));
                             break;
                         case "scale":
-                            float scaleFactor = float.Parse(contents, NumberStyles.Float, CultureInfo.InvariantCulture);
-                            transformList.Add(new SvgScale(scaleFactor));
+                            string[] scales = contents.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            if (scales.Length == 0 || scales.Length > 2)
+                            {
+                                throw new FormatException("Scale transforms must be in the format 'scale(x [,y])'");
+                            }
+
+                            float sx = float.Parse(scales[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
+
+                            if (scales.Length > 1)
+                            {
+                                float sy = float.Parse(scales[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                                transformList.Add(new SvgScale(sx, sy));
+                            }
+                            else
+                            {
+                                transformList.Add(new SvgScale(sx));
+                            }
+
                             break;
                     }
                 }

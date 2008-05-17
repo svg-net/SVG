@@ -7,7 +7,7 @@ namespace Svg
 {
     public sealed class SvgColourServer : SvgPaintServer
     {
-        public SvgColourServer() : this(Color.Transparent)
+        public SvgColourServer() : this(Color.Black)
         {
         }
 

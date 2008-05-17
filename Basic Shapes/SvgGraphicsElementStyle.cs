@@ -25,6 +25,9 @@ namespace Svg
             set { this.Attributes["Visible"] = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the fill <see cref="SvgPaintServer"/> of this element.
+        /// </summary>
         [SvgAttribute("fill")]
         public virtual SvgPaintServer Fill
         {
@@ -32,6 +35,9 @@ namespace Svg
             set { this.Attributes["Fill"] = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="SvgPaintServer"/> to be used when rendering a stroke around this element.
+        /// </summary>
         [SvgAttribute("stroke")]
         public virtual SvgPaintServer Stroke
         {
@@ -46,6 +52,9 @@ namespace Svg
             set { this.Attributes["FillRule"] = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the opacity of this element's <see cref="Fill"/>.
+        /// </summary>
         [SvgAttribute("fill-opacity")]
         public virtual float FillOpacity
         {
