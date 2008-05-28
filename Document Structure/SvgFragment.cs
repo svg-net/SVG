@@ -65,33 +65,21 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
+        /// Pushes the transforms.
         /// </summary>
-        /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
-        protected override void Render(Graphics graphics)
+        /// <param name="graphics">The graphics.</param>
+        protected internal override void PushTransforms(Graphics graphics)
         {
-            Matrix oldTransform = null;
+            base.PushTransforms(graphics);
 
             if (!this.ViewBox.Equals(SvgViewBox.Empty))
             {
-                oldTransform = graphics.Transform;
-                Matrix viewBoxTransform = new Matrix();
-
                 if (this.ViewBox.MinX > 0 || this.ViewBox.MinY > 0)
                 {
-                    viewBoxTransform.Translate(this.ViewBox.MinX, this.ViewBox.MinY, MatrixOrder.Append);
+                    graphics.TranslateTransform(this.ViewBox.MinX, this.ViewBox.MinY, MatrixOrder.Append);
                 }
 
-                viewBoxTransform.Scale(this.Width.ToDeviceValue()/this.ViewBox.Width, this.Height.ToDeviceValue()/this.ViewBox.Height);
-
-                graphics.Transform = viewBoxTransform;
-            }
-
-            base.Render(graphics);
-
-            if (oldTransform != null)
-            {
-                graphics.Transform = oldTransform;
+                graphics.ScaleTransform(this.Width.ToDeviceValue() / this.ViewBox.Width, this.Height.ToDeviceValue() / this.ViewBox.Height, MatrixOrder.Append);
             }
         }
 
