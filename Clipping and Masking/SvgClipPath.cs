@@ -27,14 +27,6 @@ namespace Svg
             this._clipPathUnits = SvgCoordinateUnits.ObjectBoundingBox;
         }
 
-        /// <summary>
-        /// Gets the name of the element.
-        /// </summary>
-        protected override string ElementName
-        {
-            get { return "clipPath"; }
-        }
-
         private Region GetClipRegion()
         {
             if (_region == null || _pathDirty)
@@ -67,19 +59,19 @@ namespace Svg
             }
         }
 
-        protected override void ElementAdded(SvgElement child, int index)
+        protected override void AddElement(SvgElement child, int index)
         {
-            base.ElementAdded(child, index);
+            base.AddElement(child, index);
             this._pathDirty = true;
         }
 
-        protected override void ElementRemoved(SvgElement child)
+        protected override void RemoveElement(SvgElement child)
         {
-            base.ElementRemoved(child);
+            base.RemoveElement(child);
             this._pathDirty = true;
         }
 
-        protected override void Render(System.Drawing.Graphics graphics)
+        protected override void Render(SvgRenderer renderer)
         {
             // Do nothing
         }

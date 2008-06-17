@@ -48,11 +48,11 @@ namespace Svg
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
         /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
-        protected override void Render(System.Drawing.Graphics graphics)
+        protected override void Render(SvgRenderer renderer)
         {
-            this.PushTransforms(graphics);
-            base.RenderContents(graphics);
-            this.PopTransforms(graphics);
+            this.PushTransforms(renderer);
+            base.RenderChildren(renderer);
+            this.PopTransforms(renderer);
         }
     }
 }

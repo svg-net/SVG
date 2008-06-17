@@ -20,18 +20,18 @@ namespace Svg
             this._stops = new List<SvgGradientStop>();
         }
 
-        protected override void ElementAdded(SvgElement child, int index)
+        protected override void AddElement(SvgElement child, int index)
         {
             if (child is SvgGradientStop)
                 this.Stops.Add((SvgGradientStop)child);
-            base.ElementAdded(child, index);
+            base.AddElement(child, index);
         }
 
-        protected override void ElementRemoved(SvgElement child)
+        protected override void RemoveElement(SvgElement child)
         {
             if (child is SvgGradientStop)
                 this.Stops.Add((SvgGradientStop)child);
-            base.ElementRemoved(child);
+            base.RemoveElement(child);
         }
 
         public List<SvgGradientStop> Stops

@@ -21,7 +21,7 @@ namespace Svg
         private Font _font;
         private GraphicsPath _path;
         private SvgTextAnchor _textAnchor = SvgTextAnchor.Start;
-        private static readonly Graphics _stringMeasure;
+        private static readonly SvgRenderer _stringMeasure;
 
         /// <summary>
         /// Initializes the <see cref="SvgText"/> class.
@@ -29,7 +29,7 @@ namespace Svg
         static SvgText()
         {
             Bitmap bitmap = new Bitmap(1, 1);
-            _stringMeasure = Graphics.FromImage(bitmap);
+            _stringMeasure = SvgRenderer.FromImage(bitmap);
             _stringMeasure.TextRenderingHint = TextRenderingHint.AntiAlias;
         }
 
@@ -189,16 +189,16 @@ namespace Svg
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
         /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
-        protected override void Render(Graphics graphics)
+        protected override void Render(SvgRenderer renderer)
         {
-            base.Render(graphics);
+            base.Render(renderer);
         }
 
-        static private int MeasureString(Graphics graphics, string text, Font font)
+        static private int MeasureString(SvgRenderer renderer, string text, Font font)
         {
             GraphicsPath p = new GraphicsPath();
             p.AddString(text, font.FontFamily, 0, font.Size, new PointF(0.0f, 0.0f), StringFormat.GenericTypographic);
-            p.Transform(graphics.Transform);
+            p.Transform(renderer.Transform);
             return (int)(p.GetBounds().Width + 1.0f);
         }
 
@@ -214,6 +214,10 @@ namespace Svg
                 if (_path == null || this.IsPathDirty && !string.IsNullOrEmpty(this.Text))
                 {
                     float fontSize = this.FontSize.ToDeviceValue(this);
+                    if (fontSize == 0.0f)
+                    {
+                        fontSize = 1.0f;
+                    }
                     int stringWidth;
                     PointF location = PointF.Empty;
 
@@ -268,7 +272,10 @@ namespace Svg
                     }
                     else
                     {
-                        _path.AddString(this.Text, this._font.FontFamily, 0, fontSize, location, StringFormat.GenericTypographic);
+                        if (!string.IsNullOrEmpty(this.Text))
+                        {
+                            _path.AddString(this.Text, this._font.FontFamily, 0, fontSize, location, StringFormat.GenericTypographic);
+                        }
                     }
 
                     _path.CloseFigure();

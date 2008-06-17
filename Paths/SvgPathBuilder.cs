@@ -11,10 +11,16 @@ namespace Svg
 {
     internal class SvgPathBuilder : TypeConverter
     {
+        /// <summary>
+        /// Parses the specified string into a collection of path segments.
+        /// </summary>
+        /// <param name="path">A <see cref="string"/> containing path data.</param>
         public static SvgPathSegmentList Parse(string path)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 throw new ArgumentNullException("path");
+            }
 
             var segments = new SvgPathSegmentList();
 
@@ -119,9 +125,9 @@ namespace Svg
                     }
                 }
             }
-            catch
+            catch (Exception exc)
             {
-                Trace.TraceError("Error parsing path \"{0}\".", path);
+                Trace.TraceError("Error parsing path \"{0}\": {1}", path, exc.Message);
             }
 
             return segments;

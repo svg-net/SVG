@@ -44,7 +44,7 @@ namespace Svg.FilterEffects
             this._results = new Dictionary<string, Bitmap>();
         }
 
-        protected override void Render(Graphics graphics)
+        protected override void Render(SvgRenderer renderer)
         {
             // Do nothing
         }

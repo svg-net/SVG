@@ -61,50 +61,50 @@ namespace Svg
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
         /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
-        protected override void Render(Graphics graphics)
+        protected override void Render(SvgRenderer renderer)
         {
             if (this.Path != null && this.Visible)
             {
-                this.PushTransforms(graphics);
+                this.PushTransforms(renderer);
 
                 // If this element needs smoothing enabled turn anti aliasing on
                 if (this.RequiresSmoothRendering)
                 {
-                    graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    renderer.SmoothingMode = SmoothingMode.AntiAlias;
                 }
 
                 // Fill first so that the stroke can overlay
-                if (!SvgPaintServer.IsNullOrEmpty(this.Fill))
+                if (this.Fill != null)
                 {
                     using (Brush brush = this.Fill.GetBrush(this, this.FillOpacity))
                     {
                         if (brush != null)
                         {
-                            graphics.FillPath(brush, this.Path);
+                            renderer.FillPath(brush, this.Path);
                         }
                     }
                 }
 
                 // Stroke is the last thing to do
-                if (!SvgPaintServer.IsNullOrEmpty(this.Stroke))
+                if (this.Stroke != null)
                 {
                     float strokeWidth = this.StrokeWidth.ToDeviceValue(this);
                     using (Pen pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
                     {
                         if (pen != null)
                         {
-                            graphics.DrawPath(pen, this.Path);
+                            renderer.DrawPath(pen, this.Path);
                         }
                     }
                 }
 
                 // Reset the smoothing mode
-                if (this.RequiresSmoothRendering && graphics.SmoothingMode == SmoothingMode.AntiAlias)
+                if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
                 {
-                    graphics.SmoothingMode = SmoothingMode.Default;
+                    renderer.SmoothingMode = SmoothingMode.Default;
                 }
 
-                this.PopTransforms(graphics);
+                this.PopTransforms(renderer);
             }
         }
     }

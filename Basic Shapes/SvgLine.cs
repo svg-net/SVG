@@ -7,6 +7,9 @@ using System.Drawing.Drawing2D;
 
 namespace Svg
 {
+    /// <summary>
+    /// Represents and SVG line element.
+    /// </summary>
     public class SvgLine : SvgGraphicsElement
     {
         private SvgUnit _startX;

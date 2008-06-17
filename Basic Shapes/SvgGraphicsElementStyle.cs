@@ -31,7 +31,7 @@ namespace Svg
         [SvgAttribute("fill")]
         public virtual SvgPaintServer Fill
         {
-            get { return (this.Attributes["Fill"] == null) ? SvgPaintServer.None : (SvgPaintServer)this.Attributes["Fill"]; }
+            get { return (this.Attributes["Fill"] == null) ? new SvgColourServer() : (SvgPaintServer)this.Attributes["Fill"]; }
             set { this.Attributes["Fill"] = value; }
         }
 
@@ -41,7 +41,7 @@ namespace Svg
         [SvgAttribute("stroke")]
         public virtual SvgPaintServer Stroke
         {
-            get { return (this.Attributes["Stroke"] == null) ? SvgPaintServer.None : (SvgPaintServer)this.Attributes["Stroke"]; }
+            get { return (this.Attributes["Stroke"] == null) ? null : (SvgPaintServer)this.Attributes["Stroke"]; }
             set { this.Attributes["Stroke"] = value; }
         }
 

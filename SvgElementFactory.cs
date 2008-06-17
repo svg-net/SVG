@@ -35,6 +35,8 @@ namespace Svg
             SvgFragment fragment;
             string elementName = reader.LocalName;
 
+            Trace.TraceInformation("Begin CreateElement: {0}", elementName);
+
             // Parse element
             switch (elementName)
             {
@@ -64,9 +66,13 @@ namespace Svg
                     break;
                 case "svg":
                     if (!fragmentIsDocument)
+                    {
                         fragment = new SvgFragment();
+                    }
                     else
+                    {
                         fragment = new SvgDocument();
+                    }
 
                     createdElement = (fragmentIsDocument) ? (SvgDocument)fragment : fragment;
                     break;
@@ -99,16 +105,25 @@ namespace Svg
                     break;
                 default:
                     // Do nothing - unsupported
-                    return null;
+                    createdElement = null;
+                    break;
             }
 
-            SetAttributes(createdElement, reader, document);
+            if (createdElement != null)
+            {
+                createdElement.ElementName = elementName;
+                SetAttributes(createdElement, reader, document);
+            }
+
+            Trace.TraceInformation("End CreateElement");
 
             return createdElement;
         }
 
         private static void SetAttributes(SvgElement element, XmlTextReader reader, SvgDocument document)
         {
+            Trace.TraceInformation("Begin SetAttributes");
+
             string[] styles = null;
             string[] style = null;
             int i = 0;
@@ -136,11 +151,13 @@ namespace Svg
 
                 SetPropertyValue(element, reader.LocalName, reader.Value, document);
             }
+
+            Trace.TraceInformation("End SetAttributes");
         }
 
         private static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
         {
-            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(element.GetType(), new SvgAttributeAttribute[] { new SvgAttributeAttribute(attributeName) });
+            var properties = TypeDescriptor.GetProperties(element.GetType(), new SvgAttributeAttribute[] { new SvgAttributeAttribute(attributeName) });
             PropertyDescriptor descriptor = null;
             TypeConverter converter = null;
 

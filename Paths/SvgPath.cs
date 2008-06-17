@@ -10,13 +10,18 @@ using Svg.Pathing;
 
 namespace Svg
 {
-    [Serializable()]
+    /// <summary>
+    /// Represents an SVG path element.
+    /// </summary>
     public class SvgPath : SvgGraphicsElement
     {
         private SvgPathSegmentList _pathData;
         private GraphicsPath _path;
         private int _pathLength;
 
+        /// <summary>
+        /// Gets or sets a <see cref="SvgPathSegmentList"/> of path data.
+        /// </summary>
         [SvgAttribute("d")]
         public SvgPathSegmentList PathData
         {
@@ -29,6 +34,9 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Gets or sets the length of the path.
+        /// </summary>
         [SvgAttribute("pathLength")]
         public int PathLength
         {
@@ -63,21 +71,26 @@ namespace Svg
             this.IsPathDirty = true;
         }
 
+        /// <summary>
+        /// Gets or sets a value to determine if anti-aliasing should occur when the element is being rendered.
+        /// </summary>
         protected override bool RequiresSmoothRendering
         {
             get { return true; }
         }
 
+        /// <summary>
+        /// Gets the bounds of the element.
+        /// </summary>
+        /// <value>The bounds.</value>
         public override System.Drawing.RectangleF Bounds
         {
             get { return this.Path.GetBounds(); }
         }
 
-        protected override string ElementName
-        {
-            get { return "path"; }
-        }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgPath"/> class.
+        /// </summary>
         public SvgPath()
         {
             this._pathData = new SvgPathSegmentList();

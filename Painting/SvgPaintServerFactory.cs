@@ -24,7 +24,7 @@ namespace Svg
             // If it's pointing to a paint server
             if (string.IsNullOrEmpty(value) || value.ToLower().Trim() == "none")
             {
-                return SvgPaintServer.None;
+                return new SvgColourServer(Color.Transparent);
             }
             else if (value.IndexOf("url(#") > -1)
             {

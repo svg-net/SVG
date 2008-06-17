@@ -4,20 +4,25 @@ using System.Text;
 
 namespace Svg
 {
+    /// <summary>
+    /// Represents a list of re-usable SVG components.
+    /// </summary>
     public class SvgDefinitionList : SvgElement
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgDefinitionList"/> class.
+        /// </summary>
         public SvgDefinitionList()
         {
         }
 
-        protected override void Render(System.Drawing.Graphics graphics)
+        /// <summary>
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="SvgRenderer"/> object.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
+        protected override void Render(SvgRenderer renderer)
         {
             // Do nothing. Children should NOT be rendered.
-        }
-
-        protected override string ElementName
-        {
-            get { return "defs"; }
         }
     }
 }

@@ -17,17 +17,12 @@ namespace Svg
             
         }
 
-        protected override void Render(Graphics graphics)
+        protected override void Render(SvgRenderer renderer)
         {
             // Never render paint servers or their children
         }
 
         public abstract Brush GetBrush(SvgGraphicsElement styleOwner, float opacity);
-
-        public static bool IsNullOrEmpty(SvgPaintServer server)
-        {
-            return (server == null || server == SvgPaintServer.None);
-        }
 
         public override string ToString()
         {

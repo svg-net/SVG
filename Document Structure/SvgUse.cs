@@ -33,10 +33,10 @@ namespace Svg
             set { this.Attributes["y"] = value; }
         }
 
-        protected internal override void PushTransforms(System.Drawing.Graphics graphics)
+        protected internal override void PushTransforms(SvgRenderer renderer)
         {
-            base.PushTransforms(graphics);
-            graphics.TranslateTransform(this.X.ToDeviceValue(this), this.Y.ToDeviceValue(this, true));
+            base.PushTransforms(renderer);
+            renderer.TranslateTransform(this.X.ToDeviceValue(this), this.Y.ToDeviceValue(this, true));
         }
 
         public SvgUse()
@@ -54,24 +54,19 @@ namespace Svg
             get { return new System.Drawing.RectangleF(); }
         }
 
-        protected override string  ElementName
+        protected override void Render(SvgRenderer renderer)
         {
-            get { return "use"; }
-        }
-
-        protected override void Render(System.Drawing.Graphics graphics)
-        {
-            this.PushTransforms(graphics);
+            this.PushTransforms(renderer);
 
             SvgGraphicsElement element = (SvgGraphicsElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
             // For the time of rendering we want the referenced element to inherit
             // this elements transforms
             SvgElement parent = element._parent;
             element._parent = this;
-            element.RenderElement(graphics);
+            element.RenderElement(renderer);
             element._parent = parent;
 
-            this.PopTransforms(graphics);
+            this.PopTransforms(renderer);
         }
     }
 }

@@ -80,14 +80,6 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets the name of the element.
-        /// </summary>
-        protected override string ElementName
-        {
-            get { return "circle"; }
-        }
-
-        /// <summary>
         /// Gets the bounds of the circle.
         /// </summary>
         /// <value>The rectangular bounds of the circle.</value>
@@ -130,12 +122,12 @@ namespace Svg
         /// Renders the circle to the specified <see cref="Graphics"/> object.
         /// </summary>
         /// <param name="graphics">The graphics object.</param>
-        protected override void Render(Graphics graphics)
+        protected override void Render(SvgRenderer renderer)
         {
             // Don't draw if there is no radius set
             if (this.Radius.Value > 0.0f)
             {
-                base.Render(graphics);
+                base.Render(renderer);
             }
         }
 

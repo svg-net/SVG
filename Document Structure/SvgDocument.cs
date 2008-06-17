@@ -25,6 +25,9 @@ namespace Svg
 
         private SvgElementIdManager _idManager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgDocument"/> class.
+        /// </summary>
         public SvgDocument()
         {
             Ppi = 96;
@@ -101,24 +104,36 @@ namespace Svg
             return Open(path, null);
         }
 
+        /// <summary>
+        /// Opens the document at the specified path and loads the contents.
+        /// </summary>
+        /// <param name="path">A <see cref="string"/> containing the path of the file to open.</param>
+        /// <param name="entities">A dictionary of custom entity definitions to be used when resolving XML entities within the document.</param>
+        /// <returns>An <see cref="SvgDocument"/> with the contents loaded.</returns>
         public static SvgDocument Open(string path, Dictionary<string, string> entities)
         {
             if (!File.Exists(path))
+            {
                 throw new FileNotFoundException("The specified document cannot be found.", path);
+            }
 
             return Open(File.OpenRead(path), entities);
         }
 
+        /// <summary>
+        /// Attempts to open an SVG document from the specified <see cref="Stream"/>.
+        /// </summary>
+        /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
         public static SvgDocument Open(Stream stream)
         {
             return Open(stream, null);
         }
 
-        public static SvgDocument OpenRender(Stream stream, Graphics graphics)
-        {
-            return null;
-        }
-
+        /// <summary>
+        /// Attempts to open an SVG document from the specified <see cref="Stream"/> and adds the specified entities.
+        /// </summary>
+        /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
+        /// <param name="entities">Custom entity definitions.</param>
         public static SvgDocument Open(Stream stream, Dictionary<string, string> entities)
         {
             Trace.TraceInformation("Begin Read");
@@ -145,15 +160,19 @@ namespace Svg
                                 bool isEmpty = reader.IsEmptyElement;
                                 // Create element
                                 if (elementStack.Count > 0)
+                                {
                                     element = SvgElementFactory.CreateElement(reader, svgDocument);
+                                }
                                 else
                                 {
                                     element = SvgElementFactory.CreateDocument(reader);
-                                    svgDocument = (SvgDocument) element;
+                                    svgDocument = (SvgDocument)element;
                                 }
 
                                 if (element == null)
+                                {
                                     continue;
+                                }
 
                                 // Add to the parents children
                                 if (elementStack.Count > 0)
@@ -167,13 +186,18 @@ namespace Svg
 
                                 // Need to process if the element is empty
                                 if (isEmpty)
+                                {
                                     goto case XmlNodeType.EndElement;
+                                }
 
                                 break;
                             case XmlNodeType.EndElement:
-                                // Skip if no element was created
-                                if (element == null)
+                                // Skip if no element was created and is not the closing tag for the last
+                                // known element
+                                if (element == null && reader.LocalName != elementStack.Peek().ElementName)
+                                {
                                     continue;
+                                }
                                 // Pop the element out of the stack
                                 element = elementStack.Pop();
 
@@ -221,28 +245,35 @@ namespace Svg
             return new RectangleF(0, 0, Width.ToDeviceValue(), Height.ToDeviceValue());
         }
 
-        public void Draw(Graphics graphics)
+        /// <summary>
+        /// Renders the <see cref="SvgDocument"/> to the specified <see cref="SvgRenderer"/>.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> to render the document with.</param>
+        public void Draw(SvgRenderer renderer)
         {
-            Render(graphics);
+            Render(renderer);
         }
 
+        /// <summary>
+        /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
+        /// </summary>
+        /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
         public virtual Bitmap Draw()
         {
             Trace.TraceInformation("Begin Render");
 
             var size = GetDimensions();
-
-            var bitmap = new Bitmap((int) Math.Ceiling(size.Width), (int) Math.Ceiling(size.Height));
+            var bitmap = new Bitmap((int)Math.Ceiling(size.Width), (int)Math.Ceiling(size.Height));
 
             try
             {
-                using (var g = Graphics.FromImage(bitmap))
+                using (var renderer = SvgRenderer.FromImage(bitmap))
                 {
-                    g.TextRenderingHint = TextRenderingHint.AntiAlias;
-                    g.TextContrast = 1;
-                    g.PixelOffsetMode = PixelOffsetMode.Half;
-                    Render(g);
-                    g.Save();
+                    renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
+                    renderer.TextContrast = 1;
+                    renderer.PixelOffsetMode = PixelOffsetMode.Half;
+                    this.Render(renderer);
+                    renderer.Save();
                 }
             }
             catch
@@ -257,14 +288,12 @@ namespace Svg
 
         public void Write(Stream stream)
         {
-            using (new XmlTextWriter(stream, Encoding.UTF8))
-            {
-            }
+
         }
 
         public void Write(string path)
         {
-            Write(File.Create(path));
+
         }
     }
 }

@@ -25,9 +25,10 @@ namespace Svg
         /// <summary>
         /// Gets the name of the element.
         /// </summary>
-        protected virtual string ElementName
+        protected internal string ElementName
         {
             get { return this._elementName; }
+            internal set { this._elementName = value; }
         }
 
         /// <summary>
@@ -67,7 +68,6 @@ namespace Svg
         /// <summary>
         /// Gets a value to determine whether the element has children.
         /// </summary>
-        /// <returns></returns>
         public virtual bool HasChildren()
         {
             return (this.Children.Count > 0);
@@ -123,9 +123,13 @@ namespace Svg
             }
         }
 
-        protected internal virtual void PushTransforms(Graphics graphics)
+        /// <summary>
+        /// Applies the required transforms to <see cref="SvgRenderer"/>.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
+        protected internal virtual void PushTransforms(SvgRenderer renderer)
         {
-            _graphicsMatrix = graphics.Transform;
+            _graphicsMatrix = renderer.Transform;
 
             // Return if there are no transforms
             if (this.Transforms == null || this.Transforms.Count == 0)
@@ -133,30 +137,42 @@ namespace Svg
                 return;
             }
 
-            Matrix transformMatrix = new Matrix();
+            Matrix transformMatrix = renderer.Transform;
 
             foreach (SvgTransform transformation in this.Transforms)
             {
                 transformMatrix.Multiply(transformation.Matrix);
             }
 
-            graphics.Transform = transformMatrix;
+            renderer.Transform = transformMatrix;
         }
 
-        protected internal virtual void PopTransforms(Graphics graphics)
+        /// <summary>
+        /// Removes any previously applied transforms from the specified <see cref="SvgRenderer"/>.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> that should have transforms removed.</param>
+        protected internal virtual void PopTransforms(SvgRenderer renderer)
         {
-            graphics.Transform = _graphicsMatrix;
+            renderer.Transform = _graphicsMatrix;
             _graphicsMatrix = null;
         }
 
-        void ISvgTransformable.PushTransforms(Graphics graphics)
+        /// <summary>
+        /// Applies the required transforms to <see cref="SvgRenderer"/>.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
+        void ISvgTransformable.PushTransforms(SvgRenderer renderer)
         {
-            this.PushTransforms(graphics);
+            this.PushTransforms(renderer);
         }
 
-        void ISvgTransformable.PopTransforms(Graphics graphics)
+        /// <summary>
+        /// Removes any previously applied transforms from the specified <see cref="SvgRenderer"/>.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> that should have transforms removed.</param>
+        void ISvgTransformable.PopTransforms(SvgRenderer renderer)
         {
-            this.PopTransforms(graphics);
+            this.PopTransforms(renderer);
         }
 
         /// <summary>
@@ -200,22 +216,22 @@ namespace Svg
             }
         }
 
-        protected virtual void ElementAdded(SvgElement child, int index)
+        protected virtual void AddElement(SvgElement child, int index)
         {
         }
 
         internal void OnElementAdded(SvgElement child, int index)
         {
-            this.ElementAdded(child, index);
+            this.AddElement(child, index);
         }
 
-        protected virtual void ElementRemoved(SvgElement child)
+        protected virtual void RemoveElement(SvgElement child)
         {
         }
 
         internal void OnElementRemoved(SvgElement child)
         {
-            this.ElementRemoved(child);
+            this.RemoveElement(child);
         }
 
         /// <summary>
@@ -228,9 +244,13 @@ namespace Svg
             this._elementName = string.Empty;
         }
 
-        public void RenderElement(Graphics graphics)
+        /// <summary>
+        /// Renders this element to the <see cref="SvgRenderer"/>.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> that the element should use to render itself.</param>
+        public void RenderElement(SvgRenderer renderer)
         {
-            this.Render(graphics);
+            this.Render(renderer);
         }
 
         public void WriteElement(XmlTextWriter writer)
@@ -279,29 +299,43 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="SvgRenderer"/> object.
         /// </summary>
-        /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
-        protected virtual void Render(Graphics graphics)
+        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
+        protected virtual void Render(SvgRenderer renderer)
         {
-            this.PushTransforms(graphics);
-            this.RenderContents(graphics);
-            this.PopTransforms(graphics);
+            this.PushTransforms(renderer);
+            this.RenderChildren(renderer);
+            this.PopTransforms(renderer);
         }
 
-        protected virtual void RenderContents(Graphics graphics)
+        /// <summary>
+        /// Renders the children of this <see cref="SvgElement"/>.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> to render the child <see cref="SvgElement"/>s to.</param>
+        protected virtual void RenderChildren(SvgRenderer renderer)
         {
             foreach (SvgElement element in this.Children)
             {
-                element.Render(graphics);
+                element.Render(renderer);
             }
         }
 
-        void ISvgElement.Render(Graphics graphics)
+        /// <summary>
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="SvgRenderer"/> object.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
+        void ISvgElement.Render(SvgRenderer renderer)
         {
-            this.Render(graphics);
+            this.Render(renderer);
         }
 
+        /// <summary>
+        /// Creates a new object that is a copy of the current instance.
+        /// </summary>
+        /// <returns>
+        /// A new object that is a copy of this instance.
+        /// </returns>
         public virtual object Clone()
         {
             return this.MemberwiseClone();
@@ -310,6 +344,6 @@ namespace Svg
 
     internal interface ISvgElement
     {
-        void Render(Graphics graphics);
+        void Render(SvgRenderer renderer);
     }
 }

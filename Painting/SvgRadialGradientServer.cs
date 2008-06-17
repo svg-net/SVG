@@ -50,14 +50,6 @@ namespace Svg
         {
         }
 
-        /// <summary>
-        /// Gets the name of the element.
-        /// </summary>
-        protected override string ElementName
-        {
-            get { return "radialGradient"; }
-        }
-
         public override Brush GetBrush(SvgGraphicsElement renderingElement, float opacity)
         {
             GraphicsPath path = new GraphicsPath();

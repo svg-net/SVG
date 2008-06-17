@@ -53,7 +53,7 @@ namespace Svg
                 case "cm":
                     return new SvgUnit(SvgUnitType.Centimeter, val);
                 case "in":
-                    return new SvgUnit(SvgUnitType.Millimeter, val);
+                    return new SvgUnit(SvgUnitType.Inch, val);
                 case "px":
                     return new SvgUnit(SvgUnitType.Pixel, val);
                 case "pt":
@@ -62,11 +62,11 @@ namespace Svg
                     return new SvgUnit(SvgUnitType.Pica, val);
                 case "%":
                     return new SvgUnit(SvgUnitType.Percentage, val);
+                case "em":
+                    return new SvgUnit(SvgUnitType.Em, val);
                 default:
                     throw new FormatException("Unit is in an invalid format '" + unit + "'.");
             }
-
-            return new SvgUnit(0.0f);
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)

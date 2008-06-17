@@ -74,7 +74,7 @@ namespace Svg
             float height = this._height.ToDeviceValue(renderingElement, true);
 
             Bitmap image = new Bitmap((int)width, (int)height);
-            using (Graphics graphics = Graphics.FromImage(image))
+            using (SvgRenderer renderer = SvgRenderer.FromImage(image))
             {
                 Matrix patternMatrix = new Matrix();
 
@@ -93,17 +93,17 @@ namespace Svg
                     patternMatrix.Scale(this.Width.ToDeviceValue() / this.ViewBox.Width, this.Height.ToDeviceValue() / this.ViewBox.Height);
                 }
 
-                graphics.Transform = patternMatrix;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                graphics.PixelOffsetMode = PixelOffsetMode.Half;
+                renderer.Transform = patternMatrix;
+                renderer.CompositingQuality = CompositingQuality.HighQuality;
+                renderer.SmoothingMode = SmoothingMode.AntiAlias;
+                renderer.PixelOffsetMode = PixelOffsetMode.Half;
 
                 foreach (SvgElement child in this.Children)
                 {
-                    child.RenderElement(graphics);
+                    child.RenderElement(renderer);
                 }
 
-                graphics.Save();
+                renderer.Save();
             }
 
             TextureBrush textureBrush = new TextureBrush(image);

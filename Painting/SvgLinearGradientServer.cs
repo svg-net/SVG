@@ -72,14 +72,6 @@ namespace Svg
             get { return new SvgPoint(this.X2, this.Y2); }
         }
 
-        /// <summary>
-        /// Gets the name of the element.
-        /// </summary>
-        protected override string ElementName
-        {
-            get { return "linearGradient"; }
-        }
-
         public override Brush GetBrush(SvgGraphicsElement owner, float opacity)
         {
             // Need at least 2 colours to do the gradient fill

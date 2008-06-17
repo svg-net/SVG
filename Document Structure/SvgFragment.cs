@@ -23,7 +23,7 @@ namespace Svg
         public static readonly Uri Namespace = new Uri("http://www.w3.org/2000/svg");
 
         /// <summary>
-        /// Gets or sets the width.
+        /// Gets or sets the width of the fragment.
         /// </summary>
         /// <value>The width.</value>
         [SvgAttribute("width")]
@@ -34,7 +34,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets or sets the height.
+        /// Gets or sets the height of the fragment.
         /// </summary>
         /// <value>The height.</value>
         [SvgAttribute("height")]
@@ -56,30 +56,21 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets the name of the element.
+        /// Applies the required transforms to <see cref="SvgRenderer"/>.
         /// </summary>
-        /// <value></value>
-        protected override string ElementName
+        /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
+        protected internal override void PushTransforms(SvgRenderer renderer)
         {
-            get { return "svg"; }
-        }
-
-        /// <summary>
-        /// Pushes the transforms.
-        /// </summary>
-        /// <param name="graphics">The graphics.</param>
-        protected internal override void PushTransforms(Graphics graphics)
-        {
-            base.PushTransforms(graphics);
+            base.PushTransforms(renderer);
 
             if (!this.ViewBox.Equals(SvgViewBox.Empty))
             {
                 if (this.ViewBox.MinX > 0 || this.ViewBox.MinY > 0)
                 {
-                    graphics.TranslateTransform(this.ViewBox.MinX, this.ViewBox.MinY, MatrixOrder.Append);
+                    renderer.TranslateTransform(this.ViewBox.MinX, this.ViewBox.MinY, MatrixOrder.Append);
                 }
 
-                graphics.ScaleTransform(this.Width.ToDeviceValue() / this.ViewBox.Width, this.Height.ToDeviceValue() / this.ViewBox.Height, MatrixOrder.Append);
+                renderer.ScaleTransform(this.Width.ToDeviceValue() / this.ViewBox.Width, this.Height.ToDeviceValue() / this.ViewBox.Height, MatrixOrder.Append);
             }
         }
 

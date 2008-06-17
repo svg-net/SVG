@@ -4,7 +4,9 @@ using System.Drawing.Drawing2D;
 
 namespace Svg
 {
-    [Serializable]
+    /// <summary>
+    /// Represents and SVG rectangle that could also have reounded edges.
+    /// </summary>
     public class SvgRectangle : SvgGraphicsElement
     {
         private SvgUnit _cornerRadiusX;
@@ -15,17 +17,26 @@ namespace Svg
         private SvgUnit _x;
         private SvgUnit _y;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgRectangle"/> class.
+        /// </summary>
         public SvgRectangle()
         {
             _width = new SvgUnit(0.0f);
             _height = new SvgUnit(0.0f);
         }
 
+        /// <summary>
+        /// Gets an <see cref="SvgPoint"/> representing the top left point of the rectangle.
+        /// </summary>
         public SvgPoint Location
         {
             get { return new SvgPoint(X, Y); }
         }
 
+        /// <summary>
+        /// Gets or sets the position where the left point of the rectangle should start.
+        /// </summary>
         [SvgAttribute("x")]
         public SvgUnit X
         {
@@ -37,6 +48,9 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Gets or sets the position where the top point of the rectangle should start.
+        /// </summary>
         [SvgAttribute("y")]
         public SvgUnit Y
         {
@@ -48,6 +62,9 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Gets or sets the width of the rectangle.
+        /// </summary>
         [SvgAttribute("width")]
         public SvgUnit Width
         {
@@ -59,6 +76,9 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Gets or sets the height of the rectangle.
+        /// </summary>
         [SvgAttribute("height")]
         public SvgUnit Height
         {
@@ -70,6 +90,9 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Gets or sets the X-radius of the rounded edges of this rectangle.
+        /// </summary>
         [SvgAttribute("rx")]
         public SvgUnit CornerRadiusX
         {
@@ -88,6 +111,9 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Y-radius of the rounded edges of this rectangle.
+        /// </summary>
         [SvgAttribute("ry")]
         public SvgUnit CornerRadiusY
         {
@@ -106,16 +132,26 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value to determine if anti-aliasing should occur when the element is being rendered.
+        /// </summary>
         protected override bool RequiresSmoothRendering
         {
             get { return (CornerRadiusX.Value > 0 || CornerRadiusY.Value > 0); }
         }
 
+        /// <summary>
+        /// Gets the bounds of the element.
+        /// </summary>
+        /// <value>The bounds.</value>
         public override RectangleF Bounds
         {
             get { return Path.GetBounds(); }
         }
 
+        /// <summary>
+        /// Gets the <see cref="GraphicsPath"/> for this element.
+        /// </summary>
         public override GraphicsPath Path
         {
             get
@@ -203,10 +239,15 @@ namespace Svg
             }
         }
 
-        protected override void Render(Graphics graphics)
+        /// <summary>
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
+        /// </summary>
+        protected override void Render(SvgRenderer renderer)
         {
             if (Width.Value > 0.0f && Height.Value > 0.0f)
-                base.Render(graphics);
+            {
+                base.Render(renderer);
+            }
         }
     }
 }

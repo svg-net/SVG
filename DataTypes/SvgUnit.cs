@@ -17,6 +17,9 @@ namespace Svg
         private bool _isEmpty;
         private float? _deviceValue;
 
+        /// <summary>
+        /// Gets and empty <see cref="SvgUnit"/>.
+        /// </summary>
         public static readonly SvgUnit Empty = new SvgUnit();
 
         /// <summary>
@@ -35,21 +38,36 @@ namespace Svg
             get { return this._value; }
         }
 
+        /// <summary>
+        /// Gets the <see cref="SvgUnitType"/> of unit.
+        /// </summary>
         public SvgUnitType Type
         {
             get { return this._type; }
         }
 
+        /// <summary>
+        /// Converts the current unit to one that can be used at render time.
+        /// </summary>
+        /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
         public float ToDeviceValue()
         {
             return this.ToDeviceValue(null);
         }
 
+        /// <summary>
+        /// Converts the current unit to one that can be used at render time.
+        /// </summary>
+        /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
         public float ToDeviceValue(ISvgStylable styleOwner)
         {
             return this.ToDeviceValue(styleOwner, false);
         }
 
+        /// <summary>
+        /// Converts the current unit to one that can be used at render time.
+        /// </summary>
+        /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
         public float ToDeviceValue(ISvgStylable styleOwner, bool vertical)
         {
             // If it's already been calculated
@@ -111,6 +129,10 @@ namespace Svg
             return this._deviceValue.Value;
         }
 
+        /// <summary>
+        /// Converts the current unit to a percentage, if applicable.
+        /// </summary>
+        /// <returns>An <see cref="SvgUnit"/> of type <see cref="SvgUnitType.Perscentage"/>.</returns>
         public SvgUnit ToPercentage()
         {
             switch (this.Type)
@@ -127,6 +149,13 @@ namespace Svg
             return this;
         }
 
+        /// <summary>
+        /// Indicates whether this instance and a specified object are equal.
+        /// </summary>
+        /// <param name="obj">Another object to compare to.</param>
+        /// <returns>
+        /// true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+        /// </returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -143,6 +172,12 @@ namespace Svg
             return (unit.Value == this.Value && unit.Type == this.Type);
         }
 
+        /// <summary>
+        /// Returns the fully qualified type name of this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.String"/> containing a fully qualified type name.
+        /// </returns>
         public override string ToString()
         {
             string type = string.Empty;
@@ -175,16 +210,31 @@ namespace Svg
             return string.Concat(this.Value.ToString(), type);
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Svg.SvgUnit"/> to <see cref="System.Single"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator float(SvgUnit value)
         {
             return value.ToDeviceValue();
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.Single"/> to <see cref="Svg.SvgUnit"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator SvgUnit(float value)
         {
             return new SvgUnit(value);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgUnit"/> struct.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="value">The value.</param>
         public SvgUnit(SvgUnitType type, float value)
         {
             this._type = type;
@@ -193,6 +243,10 @@ namespace Svg
             this._deviceValue = null;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgUnit"/> struct.
+        /// </summary>
+        /// <param name="value">The value.</param>
         public SvgUnit(float value)
         {
             this._value = value;
