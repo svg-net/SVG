@@ -11,12 +11,19 @@ namespace Svg
     {
         private List<SvgElement> _elements;
         private SvgElement _owner;
+        private bool _mock;
 
         /// <summary>
         /// Initialises a new instance of an <see cref="SvgElementCollection"/> class.
         /// </summary>
         /// <param name="owner">The owner <see cref="SvgElement"/> of the collection.</param>
         internal SvgElementCollection(SvgElement owner)
+            : this(owner, false)
+        {
+
+        }
+
+        internal SvgElementCollection(SvgElement owner, bool mock)
         {
             if (owner == null)
             {
@@ -25,6 +32,7 @@ namespace Svg
 
             this._elements = new List<SvgElement>();
             this._owner = owner;
+            this._mock = mock;
         }
 
         /// <summary>
@@ -65,14 +73,19 @@ namespace Svg
 
         public void Add(SvgElement item)
         {
-            if (this._owner.OwnerDocument != null)
+            if (!this._mock)
             {
-                this._owner.OwnerDocument.IdManager.Add(item);
+                if (this._owner.OwnerDocument != null)
+                {
+                    this._owner.OwnerDocument.IdManager.Add(item);
+                }
+
+                item._parent = this._owner;
             }
 
-            this._elements.Add(item);
-            item._parent = this._owner;
             item._parent.OnElementAdded(item, this.Count - 1);
+
+            this._elements.Add(item);
         }
 
         public void Clear()
@@ -111,11 +124,15 @@ namespace Svg
             if (removed)
             {
                 this._owner.OnElementRemoved(item);
-                item._parent = null;
 
-                if (this._owner.OwnerDocument != null)
+                if (!this._mock)
                 {
-                    this._owner.OwnerDocument.IdManager.Remove(item);
+                    item._parent = null;
+
+                    if (this._owner.OwnerDocument != null)
+                    {
+                        this._owner.OwnerDocument.IdManager.Remove(item);
+                    }
                 }
             }
 

@@ -13,10 +13,11 @@ namespace Svg
     /// <summary>
     /// The class that all SVG elements should derive from when they are to be rendered.
     /// </summary>
-    public abstract partial class SvgGraphicsElement : SvgElement, ISvgStylable
+    public abstract partial class SvgGraphicsElement : SvgElement, ISvgStylable, ISvgClipable
     {
         private bool _dirty;
         private bool _requiresSmoothRendering;
+        private Region _previousClip;
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
@@ -38,6 +39,16 @@ namespace Svg
         {
             get { return this._dirty; }
             set { this._dirty = value; }
+        }
+
+        /// <summary>
+        /// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
+        /// </summary>
+        [SvgAttribute("clip-path")]
+        public virtual Uri ClipPath
+        {
+            get { return this.Attributes.GetAttribute<Uri>("clip-path"); }
+            set { this.Attributes["clip-path"] = value; }
         }
 
         /// <summary>
@@ -66,6 +77,7 @@ namespace Svg
             if (this.Path != null && this.Visible)
             {
                 this.PushTransforms(renderer);
+                this.SetClip(renderer);
 
                 // If this element needs smoothing enabled turn anti aliasing on
                 if (this.RequiresSmoothRendering)
@@ -104,8 +116,38 @@ namespace Svg
                     renderer.SmoothingMode = SmoothingMode.Default;
                 }
 
+                this.ResetClip(renderer);
                 this.PopTransforms(renderer);
             }
+        }
+
+        protected internal virtual void SetClip(SvgRenderer renderer)
+        {
+            if (this.ClipPath != null)
+            {
+                SvgClipPath clipPath = this.OwnerDocument.GetElementById<SvgClipPath>(this.ClipPath.ToString());
+                this._previousClip = renderer.Clip;
+                renderer.SetClip(clipPath.GetClipRegion());
+            }
+        }
+
+        protected internal virtual void ResetClip(SvgRenderer renderer)
+        {
+            if (this.ClipPath != null)
+            {
+                renderer.SetClip(this._previousClip);
+                this._previousClip = null;
+            }
+        }
+
+        void ISvgClipable.SetClip(SvgRenderer renderer)
+        {
+            this.SetClip(renderer);
+        }
+
+        void ISvgClipable.ResetClip(SvgRenderer renderer)
+        {
+            this.ResetClip(renderer);
         }
     }
 }

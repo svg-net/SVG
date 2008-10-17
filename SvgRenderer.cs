@@ -19,6 +19,12 @@ namespace Svg
         {
         }
 
+        public Region Clip
+        {
+            get { return this._innerGraphics.Clip; }
+            set { this._innerGraphics.Clip = value; }
+        }
+
         /// <summary>
         /// Creates a new <see cref="SvgRenderer"/> from the specified <see cref="Image"/>.
         /// </summary>
@@ -28,6 +34,11 @@ namespace Svg
             SvgRenderer renderer = new SvgRenderer();
             renderer._innerGraphics = Graphics.FromImage(image);
             return renderer;
+        }
+
+        public void SetClip(Region region)
+        {
+            this._innerGraphics.SetClip(region, CombineMode.Union);
         }
 
         public void FillPath(Brush brush, GraphicsPath path)

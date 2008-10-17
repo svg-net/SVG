@@ -20,7 +20,7 @@ namespace Svg.Transforms
                 if (transforms[i] == ')')
                 {
                     yield return transforms.Substring(transformEnd, i - transformEnd + 1).Trim();
-                    transformEnd = i+1;
+                    transformEnd = i + 1;
                 }
             }
         }
@@ -57,7 +57,7 @@ namespace Svg.Transforms
                     switch (transformName)
                     {
                         case "translate":
-                            string[] coords = contents.Split(new char[]{',', ' '}, StringSplitOptions.RemoveEmptyEntries);
+                            string[] coords = contents.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                             if (coords.Length != 2)
                             {
@@ -92,6 +92,51 @@ namespace Svg.Transforms
                                 transformList.Add(new SvgScale(sx));
                             }
 
+                            break;
+                        case "matrix":
+                            string[] points = contents.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            if (points.Length != 6)
+                            {
+                                throw new FormatException("Matrix transforms must be in the format 'matrix(m11, m12, m21, m22, dx, dy)'");
+                            }
+
+                            List<float> mPoints = new List<float>();
+                            foreach (string point in points)
+                            {
+                                mPoints.Add(float.Parse(point.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture));
+                            }
+
+                            transformList.Add(new SvgMatrix(mPoints));
+                            break;
+                        case "shear":
+                            string[] shears = contents.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            if (shears.Length == 0 || shears.Length > 2)
+                            {
+                                throw new FormatException("Shear transforms must be in the format 'shear(x [,y])'");
+                            }
+
+                            float hx = float.Parse(shears[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
+
+                            if (shears.Length > 1)
+                            {
+                                float hy = float.Parse(shears[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                                transformList.Add(new SvgShear(hx, hy));
+                            }
+                            else
+                            {
+                                transformList.Add(new SvgShear(hx));
+                            }
+
+                            break;
+                        case "skewX":
+                            float ax = float.Parse(contents, NumberStyles.Float, CultureInfo.InvariantCulture);
+                            transformList.Add(new SvgSkew(ax, 0));
+                            break;
+                        case "skewY":
+                            float ay = float.Parse(contents, NumberStyles.Float, CultureInfo.InvariantCulture);
+                            transformList.Add(new SvgSkew(0, ay));
                             break;
                     }
                 }

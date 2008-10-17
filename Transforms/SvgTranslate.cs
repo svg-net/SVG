@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Svg.Transforms
 {
-    public class SvgTranslate : SvgTransform
+    public sealed class SvgTranslate : SvgTransform
     {
         private float x;
         private float y;

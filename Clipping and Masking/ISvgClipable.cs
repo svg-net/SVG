@@ -8,8 +8,11 @@ namespace Svg
 {
     public interface ISvgClipable
     {
-        SvgClipPath ClipPath { get; set; }
-        void SetClip(Graphics graphics);
-        void ResetClip(Graphics graphics);
+        /// <summary>
+        /// Gets or sets the ID of the associated <see cref="SvgClipPath"/> if one has been specified.
+        /// </summary>
+        Uri ClipPath { get; set; }
+        void SetClip(SvgRenderer renderer);
+        void ResetClip(SvgRenderer renderer);
     }
 }

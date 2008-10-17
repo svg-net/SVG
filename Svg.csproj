@@ -135,8 +135,11 @@
     <Compile Include="Text\SvgTextAnchor.cs" />
     <Compile Include="Text\SvgTextSpan.cs" />
     <Compile Include="Transforms\ISvgTransformable.cs" />
+    <Compile Include="Transforms\SvgMatrix.cs" />
     <Compile Include="Transforms\SvgRotate.cs" />
     <Compile Include="Transforms\SvgScale.cs" />
+    <Compile Include="Transforms\SvgShear.cs" />
+    <Compile Include="Transforms\SvgSkew.cs" />
     <Compile Include="Transforms\SvgTransform.cs" />
     <Compile Include="Transforms\SvgTransformCollection.cs" />
     <Compile Include="Transforms\SvgTransformConverter.cs" />

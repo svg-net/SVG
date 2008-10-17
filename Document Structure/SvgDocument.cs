@@ -94,6 +94,16 @@ namespace Svg
         }
 
         /// <summary>
+        /// Retrieves the <see cref="SvgElement"/> with the specified ID.
+        /// </summary>
+        /// <param name="id">A <see cref="string"/> containing the ID of the element to find.</param>
+        /// <returns>An <see cref="SvgElement"/> of one exists with the specified ID; otherwise false.</returns>
+        public virtual TSvgElement GetElementById<TSvgElement>(string id) where TSvgElement : SvgElement
+        {
+            return (this.GetElementById(id) as TSvgElement);
+        }
+
+        /// <summary>
         /// Opens the document at the specified path and loads the contents.
         /// </summary>
         /// <param name="path">A <see cref="string"/> containing the path of the file to open.</param>

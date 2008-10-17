@@ -6,12 +6,18 @@ using System.Drawing.Drawing2D;
 
 namespace Svg
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class SvgClipPath : SvgElement
     {
         private SvgCoordinateUnits _clipPathUnits;
         private bool _pathDirty;
         private Region _region;
 
+        /// <summary>
+        /// 
+        /// </summary>
         [SvgAttribute("clipPathUnits")]
         public SvgCoordinateUnits ClipPathUnits
         {
@@ -27,7 +33,11 @@ namespace Svg
             this._clipPathUnits = SvgCoordinateUnits.ObjectBoundingBox;
         }
 
-        private Region GetClipRegion()
+        /// <summary>
+        /// Gets this <see cref="SvgClipPath"/>'s region to be clipped.
+        /// </summary>
+        /// <returns>A new <see cref="Region"/> containing the area to be clipped.</returns>
+        protected internal Region GetClipRegion()
         {
             if (_region == null || _pathDirty)
             {
@@ -44,18 +54,23 @@ namespace Svg
             return _region;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="region"></param>
+        /// <param name="element"></param>
         private void ComplementRegion(Region region, SvgElement element)
         {
             SvgGraphicsElement graphicsElement = element as SvgGraphicsElement;
 
-            if (graphicsElement != null)
+            if (graphicsElement != null && graphicsElement.Path != null)
             {
                 region.Complement(graphicsElement.Path);
             }
 
             foreach (SvgElement child in element.Children)
             {
-                ComplementRegion(region, element);
+                ComplementRegion(region, child);
             }
         }
 
@@ -71,6 +86,10 @@ namespace Svg
             this._pathDirty = true;
         }
 
+        /// <summary>
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="SvgRenderer"/> object.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
         protected override void Render(SvgRenderer renderer)
         {
             // Do nothing

@@ -20,11 +20,20 @@ namespace Svg
         /// <returns>An <see cref="SvgElement"/> of one exists with the specified ID; otherwise false.</returns>
         public virtual SvgElement GetElementById(string id)
         {
+            if (id.StartsWith("url("))
+            {
+                id = id.Substring(4);
+                id = id.TrimEnd(')');
+            }
             if (id.StartsWith("#"))
             {
                 id = id.Substring(1);
             }
-            return this._idValueMap[id];
+
+            SvgElement element = null;
+            this._idValueMap.TryGetValue(id, out element);
+
+            return element;
         }
 
         public virtual SvgElement GetElementById(Uri uri)

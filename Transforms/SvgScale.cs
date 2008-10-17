@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 
 namespace Svg.Transforms
 {
-    public class SvgScale : SvgTransform
+    public sealed class SvgScale : SvgTransform
     {
         private float scaleFactorX;
         private float scaleFactorY;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Svg.Transforms
 {
-    public class SvgRotate : SvgTransform
+    public sealed class SvgRotate : SvgTransform
     {
         private float angle;
 

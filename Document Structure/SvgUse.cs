@@ -46,12 +46,27 @@ namespace Svg
 
         public override System.Drawing.Drawing2D.GraphicsPath Path
         {
-            get { return null; }
+            get
+            {
+                SvgGraphicsElement element = (SvgGraphicsElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
+                return (element != null) ? element.Path : null;
+            }
         }
 
         public override System.Drawing.RectangleF Bounds
         {
             get { return new System.Drawing.RectangleF(); }
+        }
+
+        public override SvgElementCollection Children
+        {
+            get
+            {
+                SvgElement element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
+                SvgElementCollection elements = new SvgElementCollection(this, true);
+                elements.Add(element);
+                return elements;
+            }
         }
 
         protected override void Render(SvgRenderer renderer)
