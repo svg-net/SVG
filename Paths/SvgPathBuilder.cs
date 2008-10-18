@@ -26,11 +26,15 @@ namespace Svg
 
             try
             {
+                List<float> coords;
+                char command;
+                bool isRelative;
+
                 foreach (var commandSet in SplitCommands(path.TrimEnd(null)))
                 {
-                    var coords = new List<float>(ParseCoordinates(commandSet));
-                    var command = commandSet[0];
-                    var isRelative = char.IsLower(command);
+                    coords = new List<float>(ParseCoordinates(commandSet));
+                    command = commandSet[0];
+                    isRelative = char.IsLower(command);
                     // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
 
                     switch (command)
@@ -48,7 +52,19 @@ namespace Svg
                             break;
                         case 'a':
                         case 'A':
-                            throw new NotImplementedException("Arc segments are not yet implemented");
+                            SvgArcSize size;
+                            SvgArcSweep sweep;
+
+                            for (var i = 0; i < coords.Count; i += 7)
+                            {
+                                size = (coords[i + 3] == 1.0f) ? SvgArcSize.Large : SvgArcSize.Small;
+                                sweep = (coords[i + 4] == 1.0f) ? SvgArcSweep.Positive : SvgArcSweep.Negative;
+
+                                // A|a rx ry x-axis-rotation large-arc-flag sweep-flag x y
+                                segments.Add(new SvgArcSegment(segments.Last.End, coords[i], coords[i + 1], coords[i + 2],
+                                    size, sweep, ToAbsolute(coords[i + 5], coords[i + 6], segments, isRelative)));
+                            }
+                            break;
                         case 'l': // relative lineto
                         case 'L': // lineto
                             for (var i = 0; i < coords.Count; i += 2)
@@ -213,17 +229,17 @@ namespace Svg
         private static IEnumerable<float> ParseCoordinates(string coords)
         {
             // TODO: Handle "1-1" (new PointF(1, -1);
-            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] {',', ' '},
+            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] { ',', ' ' },
                 StringSplitOptions.RemoveEmptyEntries);
 
-            for (var i = 0; i < parts.Length; i ++)
+            for (var i = 0; i < parts.Length; i++)
                 yield return float.Parse(parts[i], NumberStyles.Float, CultureInfo.InvariantCulture);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string)
-                return Parse((string) value);
+                return Parse((string)value);
 
             return base.ConvertFrom(context, culture, value);
         }

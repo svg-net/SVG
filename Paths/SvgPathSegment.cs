@@ -23,6 +23,16 @@ namespace Svg.Pathing
             set { this._end = value; }
         }
 
+        protected SvgPathSegment()
+        {
+        }
+
+        protected SvgPathSegment(PointF start, PointF end)
+        {
+            this.Start = start;
+            this.End = end;
+        }
+
         public abstract void AddToPath(GraphicsPath graphicsPath);
     }
 }

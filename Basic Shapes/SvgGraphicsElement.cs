@@ -127,7 +127,11 @@ namespace Svg
             {
                 SvgClipPath clipPath = this.OwnerDocument.GetElementById<SvgClipPath>(this.ClipPath.ToString());
                 this._previousClip = renderer.Clip;
-                renderer.SetClip(clipPath.GetClipRegion());
+
+                if (clipPath != null)
+                {
+                    renderer.SetClip(clipPath.GetClipRegion());
+                }
             }
         }
 
