@@ -69,8 +69,26 @@ namespace Svg.Transforms
                             transformList.Add(new SvgTranslate(x, y));
                             break;
                         case "rotate":
-                            float angle = float.Parse(contents, NumberStyles.Float, CultureInfo.InvariantCulture);
-                            transformList.Add(new SvgRotate(angle));
+                            string[] args = contents.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            if (args.Length != 1 && args.Length != 3)
+                            {
+                                throw new FormatException("Rotate transforms must be in the format 'rotate(angle [cx cy ])'");
+                            }
+
+                            float angle = float.Parse(args[0], NumberStyles.Float, CultureInfo.InvariantCulture);
+
+                            if (args.Length == 0)
+                            {
+                                transformList.Add(new SvgRotate(angle));
+                            }
+                            else
+                            {
+                                float cx = float.Parse(args[1], NumberStyles.Float, CultureInfo.InvariantCulture);
+                                float cy = float.Parse(args[2], NumberStyles.Float, CultureInfo.InvariantCulture);
+
+                                transformList.Add(new SvgRotate(angle, cx, cy));
+                            }
                             break;
                         case "scale":
                             string[] scales = contents.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);

@@ -159,16 +159,14 @@ namespace Svg
         {
             var properties = TypeDescriptor.GetProperties(element.GetType(), new SvgAttributeAttribute[] { new SvgAttributeAttribute(attributeName) });
             PropertyDescriptor descriptor = null;
-            TypeConverter converter = null;
 
             if (properties.Count > 0)
             {
                 descriptor = properties[0];
-                converter = (properties[0].Converter != null) ? properties[0].Converter : TypeDescriptor.GetConverter(descriptor.PropertyType);
 
                 try
                 {
-                    descriptor.SetValue(element, converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
+                    descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
                 }
                 catch
                 {

@@ -1,32 +1,52 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing.Drawing2D;
 
 namespace Svg.Transforms
 {
     public sealed class SvgRotate : SvgTransform
     {
-        private float angle;
-
         public float Angle
         {
-            get { return this.angle; }
-            set { this.angle = value; }
+            get;
+            set;
         }
 
-        public override System.Drawing.Drawing2D.Matrix Matrix
+        public float CenterX
+        {
+            get;
+            set;
+        }
+
+        public float CenterY
+        {
+            get;
+            set;
+        }
+
+        public override Matrix Matrix
         {
             get
             {
-                System.Drawing.Drawing2D.Matrix matrix = new System.Drawing.Drawing2D.Matrix();
+                Matrix matrix = new Matrix();
+                matrix.Translate(this.CenterX, this.CenterY);
                 matrix.Rotate(this.Angle);
+                matrix.Translate(-this.CenterX, -this.CenterY);
                 return matrix;
             }
         }
 
         public SvgRotate(float angle)
         {
-            this.angle = angle;
+            this.Angle = angle;
+        }
+
+        public SvgRotate(float angle, float centerX, float centerY)
+            : this(angle)
+        {
+            this.CenterX = centerX;
+            this.CenterY = centerY;
         }
     }
 }
