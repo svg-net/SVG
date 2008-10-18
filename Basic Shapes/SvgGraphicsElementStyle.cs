@@ -91,9 +91,9 @@ namespace Svg
         }
 
         [SvgAttribute("stroke-dasharray")]
-        public virtual SvgUnit[] StrokeDashArray
+        public virtual SvgUnitCollection StrokeDashArray
         {
-            get { return (this.Attributes["StrokeDashArray"] == null) ? null : (SvgUnit[])this.Attributes["StrokeDashArray"]; }
+            get { return this.Attributes["StrokeDashArray"] as SvgUnitCollection; }
             set { this.Attributes["StrokeDashArray"] = value; }
         }
 

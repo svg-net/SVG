@@ -21,7 +21,7 @@ namespace Svg
         SvgStrokeLineCap StrokeLineCap { get; set; }
         SvgStrokeLineJoin StrokeLineJoin { get; set; }
         float StrokeMiterLimit { get; set; }
-        SvgUnit[] StrokeDashArray { get; set; }
+        SvgUnitCollection StrokeDashArray { get; set; }
         SvgUnit StrokeDashOffset { get; set; }
         GraphicsPath Path { get; }
         RectangleF Bounds { get; }
