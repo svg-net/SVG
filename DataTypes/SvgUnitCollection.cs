@@ -34,7 +34,7 @@ namespace Svg
         {
             if (value is string)
             {
-                string[] points = ((string)value).Split(new char[]{',', ' '}, StringSplitOptions.RemoveEmptyEntries);
+                string[] points = ((string)value).Trim().Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 SvgUnitCollection units = new SvgUnitCollection();
 
                 foreach (string point in points)

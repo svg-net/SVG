@@ -32,7 +32,7 @@ namespace Svg
 
                 foreach (var commandSet in SplitCommands(path.TrimEnd(null)))
                 {
-                    coords = new List<float>(ParseCoordinates(commandSet));
+                    coords = new List<float>(ParseCoordinates(commandSet.Trim()));
                     command = commandSet[0];
                     isRelative = char.IsLower(command);
                     // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
@@ -211,17 +211,23 @@ namespace Svg
                     commandStart = i;
 
                     if (!string.IsNullOrEmpty(command))
+                    {
                         yield return command;
+                    }
 
                     if (path.Length == i + 1)
+                    {
                         yield return path[i].ToString();
+                    }
                 }
                 else if (path.Length == i + 1)
                 {
                     command = path.Substring(commandStart, i - commandStart + 1).Trim();
 
                     if (!string.IsNullOrEmpty(command))
+                    {
                         yield return command;
+                    }
                 }
             }
         }
@@ -229,17 +235,21 @@ namespace Svg
         private static IEnumerable<float> ParseCoordinates(string coords)
         {
             // TODO: Handle "1-1" (new PointF(1, -1);
-            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] { ',', ' ' },
+            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] { ',', ' '},
                 StringSplitOptions.RemoveEmptyEntries);
 
             for (var i = 0; i < parts.Length; i++)
-                yield return float.Parse(parts[i], NumberStyles.Float, CultureInfo.InvariantCulture);
+            {
+                yield return float.Parse(parts[i].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
+            }
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string)
+            {
                 return Parse((string)value);
+            }
 
             return base.ConvertFrom(context, culture, value);
         }

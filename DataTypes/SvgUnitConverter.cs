@@ -26,7 +26,7 @@ namespace Svg
             // http://www.w3.org/TR/CSS21/syndata.html#values
             // http://www.w3.org/TR/SVG11/coords.html#Units
 
-            string unit = value as string;
+            string unit = (string)value;
             int identifierIndex = -1;
 
             for (int i = 0; i < unit.Length; i++)

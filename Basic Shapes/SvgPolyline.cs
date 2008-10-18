@@ -46,9 +46,9 @@ namespace Svg
                             }
                         }
                     }
-                    catch
+                    catch (Exception exc)
                     {
-                        Trace.TraceError("Error rendering points.");
+                        Trace.TraceError("Error rendering points: " + exc.Message);
                     }
                     this.IsPathDirty = false;
                 }
