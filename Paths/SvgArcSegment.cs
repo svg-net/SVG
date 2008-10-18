@@ -99,7 +99,7 @@ namespace Svg.Pathing
             }
             else
             {
-                root = (this.Size == SvgArcSize.Large && this.Sweep == SvgArcSweep.Positive ? -1.0 : 1.0) * Math.Sqrt(numerator / (this.RadiusX * this.RadiusX * y1dash * y1dash + this.RadiusY * this.RadiusY * x1dash * x1dash));
+                root = ((this.Size == SvgArcSize.Large && this.Sweep == SvgArcSweep.Positive) || (this.Size == SvgArcSize.Small && this.Sweep == SvgArcSweep.Negative) ? -1.0 : 1.0) * Math.Sqrt(numerator / (this.RadiusX * this.RadiusX * y1dash * y1dash + this.RadiusY * this.RadiusY * x1dash * x1dash));
             }
 
             double cxdash = root * rx * y1dash / ry;

@@ -57,8 +57,8 @@ namespace Svg
 
                             for (var i = 0; i < coords.Count; i += 7)
                             {
-                                size = (coords[i + 3] == 1.0f) ? SvgArcSize.Large : SvgArcSize.Small;
-                                sweep = (coords[i + 4] == 1.0f) ? SvgArcSweep.Positive : SvgArcSweep.Negative;
+                                size = (coords[i + 3] != 0.0f) ? SvgArcSize.Large : SvgArcSize.Small;
+                                sweep = (coords[i + 4] != 0.0f) ? SvgArcSweep.Positive : SvgArcSweep.Negative;
 
                                 // A|a rx ry x-axis-rotation large-arc-flag sweep-flag x y
                                 segments.Add(new SvgArcSegment(segments.Last.End, coords[i], coords[i + 1], coords[i + 2],
@@ -235,7 +235,7 @@ namespace Svg
         private static IEnumerable<float> ParseCoordinates(string coords)
         {
             // TODO: Handle "1-1" (new PointF(1, -1);
-            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] { ',', ' '},
+            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] { ',', ' ' },
                 StringSplitOptions.RemoveEmptyEntries);
 
             for (var i = 0; i < parts.Length; i++)

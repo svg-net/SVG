@@ -110,7 +110,7 @@ namespace Svg
                                 pen.DashPattern = this.StrokeDashArray.ConvertAll<float>(delegate(SvgUnit unit)
                                 {
                                     // divide by stroke width - GDI behaviour that I don't quite understand yet.
-                                    return unit.Value / strokeWidth;
+                                    return unit.Value / ((strokeWidth <= 0) ? 1 : strokeWidth);
                                 }).ToArray();
                             }
 
