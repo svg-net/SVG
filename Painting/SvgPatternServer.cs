@@ -60,7 +60,7 @@ namespace Svg
             this._height = new SvgUnit(0.0f);
         }
 
-        public override Brush GetBrush(SvgGraphicsElement renderingElement, float opacity)
+        public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
         {
             // If there aren't any children, return null
             if (this.Children.Count == 0)

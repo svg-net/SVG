@@ -7,6 +7,9 @@ using System.Drawing.Drawing2D;
 
 namespace Svg
 {
+    /// <summary>
+    /// Provides the base class for all paint servers that wish to render a gradient.
+    /// </summary>
     public abstract class SvgGradientServer : SvgPaintServer
     {
         private SvgCoordinateUnits _gradientUnits;
@@ -14,6 +17,9 @@ namespace Svg
         private SvgGradientServer _inheritGradient;
         private List<SvgGradientStop> _stops;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgGradientServer"/> class.
+        /// </summary>
         internal SvgGradientServer()
         {
             this.GradientUnits = SvgCoordinateUnits.ObjectBoundingBox;
@@ -23,7 +29,10 @@ namespace Svg
         protected override void AddElement(SvgElement child, int index)
         {
             if (child is SvgGradientStop)
+            {
                 this.Stops.Add((SvgGradientStop)child);
+            }
+
             base.AddElement(child, index);
         }
 
@@ -59,7 +68,7 @@ namespace Svg
             set { this._inheritGradient = value; }
         }
 
-        protected ColorBlend GetColourBlend(SvgGraphicsElement owner, float opacity)
+        protected ColorBlend GetColourBlend(SvgVisualElement owner, float opacity)
         {
             ColorBlend blend = new ColorBlend();
             int colourBlends = this.Stops.Count;

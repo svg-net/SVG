@@ -13,7 +13,7 @@ namespace Svg
     /// <summary>
     /// The class that all SVG elements should derive from when they are to be rendered.
     /// </summary>
-    public abstract partial class SvgGraphicsElement : SvgElement, ISvgStylable, ISvgClipable
+    public abstract partial class SvgVisualElement : SvgElement, ISvgStylable, ISvgClipable
     {
         private bool _dirty;
         private bool _requiresSmoothRendering;
@@ -62,7 +62,7 @@ namespace Svg
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgGraphicsElement"/> class.
         /// </summary>
-        public SvgGraphicsElement()
+        public SvgVisualElement()
         {
             this._dirty = true;
             this._requiresSmoothRendering = false;
@@ -130,6 +130,10 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Sets the clipping region of the specified <see cref="SvgRenderer"/>.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region set.</param>
         protected internal virtual void SetClip(SvgRenderer renderer)
         {
             if (this.ClipPath != null)
@@ -144,6 +148,10 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Resets the clipping region of the specified <see cref="SvgRenderer"/> back to where it was before the <see cref="SetClip"/> method was called.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region reset.</param>
         protected internal virtual void ResetClip(SvgRenderer renderer)
         {
             if (this.ClipPath != null)
@@ -153,11 +161,19 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Sets the clipping region of the specified <see cref="SvgRenderer"/>.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region set.</param>
         void ISvgClipable.SetClip(SvgRenderer renderer)
         {
             this.SetClip(renderer);
         }
 
+        /// <summary>
+        /// Resets the clipping region of the specified <see cref="SvgRenderer"/> back to where it was before the <see cref="SetClip"/> method was called.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region reset.</param>
         void ISvgClipable.ResetClip(SvgRenderer renderer)
         {
             this.ResetClip(renderer);

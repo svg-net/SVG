@@ -11,7 +11,7 @@ namespace Svg
     /// <summary>
     /// SvgPolygon defines a closed shape consisting of a set of connected straight line segments.
     /// </summary>
-    public class SvgPolygon : SvgGraphicsElement
+    public class SvgPolygon : SvgVisualElement
     {
         protected GraphicsPath _path;
         protected SvgUnitCollection _points;

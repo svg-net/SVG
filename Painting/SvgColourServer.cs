@@ -24,7 +24,7 @@ namespace Svg
             set { this._colour = value; }
         }
 
-        public override Brush GetBrush(SvgGraphicsElement styleOwner, float opacity)
+        public override Brush GetBrush(SvgVisualElement styleOwner, float opacity)
         {
             int alpha = (int)((opacity * (this.Colour.A/255) ) * 255);
             Color colour = Color.FromArgb(alpha, this.Colour);

@@ -22,7 +22,7 @@ namespace Svg
             // Never render paint servers or their children
         }
 
-        public abstract Brush GetBrush(SvgGraphicsElement styleOwner, float opacity);
+        public abstract Brush GetBrush(SvgVisualElement styleOwner, float opacity);
 
         public override string ToString()
         {

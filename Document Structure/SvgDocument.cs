@@ -41,7 +41,9 @@ namespace Svg
             get
             {
                 if (_idManager == null)
+                {
                     _idManager = new SvgElementIdManager(this);
+                }
 
                 return _idManager;
             }
@@ -122,6 +124,11 @@ namespace Svg
         /// <returns>An <see cref="SvgDocument"/> with the contents loaded.</returns>
         public static SvgDocument Open(string path, Dictionary<string, string> entities)
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentNullException("path");
+            }
+
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException("The specified document cannot be found.", path);
@@ -146,6 +153,11 @@ namespace Svg
         /// <param name="entities">Custom entity definitions.</param>
         public static SvgDocument Open(Stream stream, Dictionary<string, string> entities)
         {
+            if (stream == null)
+            {
+                throw new ArgumentNullException("stream");
+            }
+
             Trace.TraceInformation("Begin Read");
 
             using (var reader = new SvgTextReader(stream, entities))

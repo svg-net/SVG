@@ -9,7 +9,7 @@ namespace Svg
     /// <summary>
     /// An element used to group SVG shapes.
     /// </summary>
-    public class SvgGroup : SvgGraphicsElement
+    public class SvgGroup : SvgVisualElement
     {
         public SvgGroup()
         {

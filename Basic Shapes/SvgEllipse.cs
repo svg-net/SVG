@@ -11,7 +11,7 @@ namespace Svg
     /// <summary>
     /// Represents and SVG ellipse element.
     /// </summary>
-    public class SvgEllipse : SvgGraphicsElement
+    public class SvgEllipse : SvgVisualElement
     {
         private SvgUnit _radiusX;
         private SvgUnit _radiusY;

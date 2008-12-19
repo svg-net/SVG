@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace Svg
 {
     /// <summary>
-    /// SvgPolyline defines a set of connected straight line segments. Typically, SvgPolyline defines open shapes.
+    /// SvgPolyline defines a set of connected straight line segments. Typically, <see cref="SvgPolyline"/> defines open shapes.
     /// </summary>
     public class SvgPolyline : SvgPolygon
     {

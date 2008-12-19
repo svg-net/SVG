@@ -8,7 +8,7 @@ using System.Drawing.Drawing2D;
 
 namespace Svg
 {
-    public class SvgUse : SvgGraphicsElement
+    public class SvgUse : SvgVisualElement
     {
         private Uri _referencedElement;
 
@@ -48,7 +48,7 @@ namespace Svg
         {
             get
             {
-                SvgGraphicsElement element = (SvgGraphicsElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
+                SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
                 return (element != null) ? element.Path : null;
             }
         }
@@ -73,7 +73,7 @@ namespace Svg
         {
             this.PushTransforms(renderer);
 
-            SvgGraphicsElement element = (SvgGraphicsElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
+            SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
             // For the time of rendering we want the referenced element to inherit
             // this elements transforms
             SvgElement parent = element._parent;

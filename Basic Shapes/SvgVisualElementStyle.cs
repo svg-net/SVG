@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Svg
 {
-    public abstract partial class SvgGraphicsElement
+    public abstract partial class SvgVisualElement
     {
         private static float FixOpacityValue(float value)
         {

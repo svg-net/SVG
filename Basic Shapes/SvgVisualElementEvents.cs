@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Svg
 {
-    public abstract partial class SvgGraphicsElement
+    public abstract partial class SvgVisualElement
     {
         private static readonly object _mouseOverKey = new object();
         private static readonly object _mouseOutKey = new object();

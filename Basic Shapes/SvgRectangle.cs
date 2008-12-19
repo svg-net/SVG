@@ -7,7 +7,7 @@ namespace Svg
     /// <summary>
     /// Represents and SVG rectangle that could also have reounded edges.
     /// </summary>
-    public class SvgRectangle : SvgGraphicsElement
+    public class SvgRectangle : SvgVisualElement
     {
         private SvgUnit _cornerRadiusX;
         private SvgUnit _cornerRadiusY;

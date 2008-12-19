@@ -11,7 +11,7 @@ namespace Svg
     /// <summary>
     /// The <see cref="SvgText"/> element defines a graphics element consisting of text.
     /// </summary>
-    public class SvgText : SvgGraphicsElement
+    public class SvgText : SvgVisualElement
     {
         private SvgUnit _x;
         private SvgUnit _y;

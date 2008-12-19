@@ -61,7 +61,7 @@ namespace Svg
         /// <param name="element"></param>
         private void ComplementRegion(Region region, SvgElement element)
         {
-            SvgGraphicsElement graphicsElement = element as SvgGraphicsElement;
+            SvgVisualElement graphicsElement = element as SvgVisualElement;
 
             if (graphicsElement != null && graphicsElement.Path != null)
             {

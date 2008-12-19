@@ -216,6 +216,12 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Called by the underlying <see cref="SvgElement"/> when an element has been added to the
+        /// <see cref="Children"/> collection.
+        /// </summary>
+        /// <param name="child">The <see cref="SvgElement"/> that has been added.</param>
+        /// <param name="index">An <see cref="int"/> representing the index where the element was added to the collection.</param>
         protected virtual void AddElement(SvgElement child, int index)
         {
         }
