@@ -12,15 +12,6 @@ namespace Svg
     /// </summary>
     public class SvgPolyline : SvgPolygon
     {
-        public override SvgPaintServer Fill
-        {
-            get { return null; /* Line can't have a fill */ }
-            set
-            {
-                // Do nothing
-            }
-        }
-
         public override GraphicsPath Path
         {
             get
