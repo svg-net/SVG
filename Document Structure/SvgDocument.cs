@@ -259,9 +259,30 @@ namespace Svg
         /// Renders the <see cref="SvgDocument"/> to the specified <see cref="SvgRenderer"/>.
         /// </summary>
         /// <param name="renderer">The <see cref="SvgRenderer"/> to render the document with.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="renderer"/> parameter cannot be <c>null</c>.</exception>
         public void Draw(SvgRenderer renderer)
         {
+            if (renderer == null)
+            {
+                throw new ArgumentNullException("renderer");
+            }
+
             Render(renderer);
+        }
+
+        /// <summary>
+        /// Renders the <see cref="SvgDocument"/> to the specified <see cref="Graphics"/>.
+        /// </summary>
+        /// <param name="graphics">The <see cref="Graphics"/> to be rendered to.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
+        public void Draw(Graphics graphics)
+        {
+            if (graphics == null)
+            {
+                throw new ArgumentNullException("graphics");
+            }
+
+            Render(SvgRenderer.FromGraphics(graphics));
         }
 
         /// <summary>

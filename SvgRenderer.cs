@@ -36,6 +36,17 @@ namespace Svg
             return renderer;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="SvgRenderer"/> from the specified <see cref="Graphics"/>.
+        /// </summary>
+        /// <param name="graphics">The <see cref="Graphics"/> to create the renderer from.</param>
+        public static SvgRenderer FromGraphics(Graphics graphics)
+        {
+            SvgRenderer renderer = new SvgRenderer();
+            renderer._innerGraphics = graphics;
+            return renderer;
+        }
+
         public void SetClip(Region region)
         {
             this._innerGraphics.SetClip(region, CombineMode.Union);
