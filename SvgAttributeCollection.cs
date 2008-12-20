@@ -35,7 +35,24 @@ namespace Svg
                 return (TAttributeType)base[attributeName];
             }
 
-            return default(TAttributeType);
+            return this.GetAttribute<TAttributeType>(attributeName, default(TAttributeType));
+        }
+
+        /// <summary>
+        /// Gets the attribute with the specified name.
+        /// </summary>
+        /// <typeparam name="T">The type of the attribute value.</typeparam>
+        /// <param name="attributeName">A <see cref="string"/> containing the name of the attribute.</param>
+        /// <param name="defaultValue">The value to return if a value hasn't already been specified.</param>
+        /// <returns>The attribute value if available; otherwise the default value of <typeparamref name="T"/>.</returns>
+        public T GetAttribute<T>(string attributeName, T defaultValue)
+        {
+            if (this.ContainsKey(attributeName) && base[attributeName] != null)
+            {
+                return (T)base[attributeName];
+            }
+
+            return defaultValue;
         }
 
         /// <summary>

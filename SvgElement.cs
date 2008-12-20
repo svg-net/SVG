@@ -226,15 +226,29 @@ namespace Svg
         {
         }
 
+        /// <summary>
+        /// Calls the <see cref="AddElement"/> method with the specified parameters.
+        /// </summary>
+        /// <param name="child">The <see cref="SvgElement"/> that has been added.</param>
+        /// <param name="index">An <see cref="int"/> representing the index where the element was added to the collection.</param>
         internal void OnElementAdded(SvgElement child, int index)
         {
             this.AddElement(child, index);
         }
 
+        /// <summary>
+        /// Called by the underlying <see cref="SvgElement"/> when an element has been removed from the
+        /// <see cref="Children"/> collection.
+        /// </summary>
+        /// <param name="child">The <see cref="SvgElement"/> that has been removed.</param>
         protected virtual void RemoveElement(SvgElement child)
         {
         }
 
+        /// <summary>
+        /// Calls the <see cref="RemoveElement"/> method with the specified <see cref="SvgElement"/> as the parameter.
+        /// </summary>
+        /// <param name="child">The <see cref="SvgElement"/> that has been removed.</param>
         internal void OnElementRemoved(SvgElement child)
         {
             this.RemoveElement(child);

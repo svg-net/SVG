@@ -13,6 +13,7 @@ namespace Svg
     /// <summary>
     /// Represents an SVG path element.
     /// </summary>
+    [SvgElement("path")]
     public class SvgPath : SvgVisualElement
     {
         private SvgPathSegmentList _pathData;

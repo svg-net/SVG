@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 
 namespace Svg
 {
+    [SvgElement("use")]
     public class SvgUse : SvgVisualElement
     {
         private Uri _referencedElement;
@@ -33,15 +34,21 @@ namespace Svg
             set { this.Attributes["y"] = value; }
         }
 
+        /// <summary>
+        /// Applies the required transforms to <see cref="SvgRenderer"/>.
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
         protected internal override void PushTransforms(SvgRenderer renderer)
         {
             base.PushTransforms(renderer);
             renderer.TranslateTransform(this.X.ToDeviceValue(this), this.Y.ToDeviceValue(this, true));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgUse"/> class.
+        /// </summary>
         public SvgUse()
         {
-            
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath Path

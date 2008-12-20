@@ -16,6 +16,10 @@ namespace Svg
         /// </summary>
         Uri ClipPath { get; set; }
         /// <summary>
+        /// Specifies the rule used to define the clipping region when the element is within a <see cref="SvgClipPath"/>.
+        /// </summary>
+        SvgClipRule ClipRule { get; set; }
+        /// <summary>
         /// Sets the clipping region of the specified <see cref="SvgRenderer"/>.
         /// </summary>
         /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region set.</param>

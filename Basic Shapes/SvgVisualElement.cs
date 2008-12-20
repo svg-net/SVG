@@ -18,6 +18,7 @@ namespace Svg
         private bool _dirty;
         private bool _requiresSmoothRendering;
         private Region _previousClip;
+        private SvgClipRule clipRule = SvgClipRule.NonZero;
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
@@ -49,6 +50,16 @@ namespace Svg
         {
             get { return this.Attributes.GetAttribute<Uri>("clip-path"); }
             set { this.Attributes["clip-path"] = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [SvgAttribute("clip-rule")]
+        public SvgClipRule ClipRule
+        {
+            get { return this.Attributes.GetAttribute<SvgClipRule>("clip-rule", SvgClipRule.NonZero); }
+            set { this.Attributes["clip-rule"] = value; }
         }
 
         /// <summary>
@@ -143,7 +154,7 @@ namespace Svg
 
                 if (clipPath != null)
                 {
-                    renderer.SetClip(clipPath.GetClipRegion());
+                    renderer.Clip = clipPath.GetClipRegion(this);
                 }
             }
         }
@@ -154,9 +165,9 @@ namespace Svg
         /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region reset.</param>
         protected internal virtual void ResetClip(SvgRenderer renderer)
         {
-            if (this.ClipPath != null)
+            if (this._previousClip != null)
             {
-                renderer.SetClip(this._previousClip);
+                renderer.Clip = this._previousClip;
                 this._previousClip = null;
             }
         }

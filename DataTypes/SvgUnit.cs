@@ -120,6 +120,7 @@ namespace Svg
                     if (styleOwner == null)
                     {
                         _deviceValue = this.Value;
+                        break;
                     }
 
                     // TODO : Support height percentages

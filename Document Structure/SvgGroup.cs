@@ -9,6 +9,7 @@ namespace Svg
     /// <summary>
     /// An element used to group SVG shapes.
     /// </summary>
+    [SvgElement("g")]
     public class SvgGroup : SvgVisualElement
     {
         public SvgGroup()
@@ -51,7 +52,9 @@ namespace Svg
         protected override void Render(SvgRenderer renderer)
         {
             this.PushTransforms(renderer);
+            this.SetClip(renderer);
             base.RenderChildren(renderer);
+            this.ResetClip(renderer);
             this.PopTransforms(renderer);
         }
     }

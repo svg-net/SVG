@@ -10,6 +10,7 @@ namespace Svg
     /// <summary>
     /// Represents and SVG line element.
     /// </summary>
+    [SvgElement("line")]
     public class SvgLine : SvgVisualElement
     {
         private SvgUnit _startX;

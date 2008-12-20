@@ -9,6 +9,10 @@ using Svg.Transforms;
 
 namespace Svg
 {
+    /// <summary>
+    /// A pattern is used to fill or stroke an object using a pre-defined graphic object which can be replicated ("tiled") at fixed intervals in x and y to cover the areas to be painted.
+    /// </summary>
+    [SvgElement("pattern")]
     public sealed class SvgPatternServer : SvgPaintServer, ISvgViewPort
     {
         private SvgUnit _width;
@@ -17,6 +21,10 @@ namespace Svg
         private SvgUnit _y;
         private SvgViewBox _viewBox;
 
+        /// <summary>
+        /// Specifies a supplemental transformation which is applied on top of any 
+        /// transformations necessary to create a new pattern coordinate system.
+        /// </summary>
         [SvgAttribute("viewBox")]
         public SvgViewBox ViewBox
         {
@@ -24,6 +32,9 @@ namespace Svg
             set { this._viewBox = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the width of the pattern.
+        /// </summary>
         [SvgAttribute("width")]
         public SvgUnit Width
         {
@@ -31,6 +42,9 @@ namespace Svg
             set { this._width = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the height of the pattern.
+        /// </summary>
         [SvgAttribute("height")]
         public SvgUnit Height
         {
@@ -38,6 +52,9 @@ namespace Svg
             set { this._height = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the X-axis location of the pattern.
+        /// </summary>
         [SvgAttribute("x")]
         public SvgUnit X
         {
@@ -45,6 +62,9 @@ namespace Svg
             set { this._x = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the Y-axis location of the pattern.
+        /// </summary>
         [SvgAttribute("y")]
         public SvgUnit Y
         {
@@ -52,6 +72,9 @@ namespace Svg
             set { this._y = value; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgPatternServer"/> class.
+        /// </summary>
         public SvgPatternServer()
         {
             this._x = new SvgUnit(0.0f);
@@ -60,6 +83,11 @@ namespace Svg
             this._height = new SvgUnit(0.0f);
         }
 
+        /// <summary>
+        /// Gets a <see cref="Brush"/> representing the current paint server.
+        /// </summary>
+        /// <param name="styleOwner">The owner <see cref="SvgVisualElement"/>.</param>
+        /// <param name="opacity">The opacity of the brush.</param>
         public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
         {
             // If there aren't any children, return null

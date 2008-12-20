@@ -7,6 +7,7 @@ using System.ComponentModel;
 
 namespace Svg
 {
+    [SvgElement("linearGradient")]
     public sealed class SvgLinearGradientServer : SvgGradientServer
     {
         private SvgUnit _x1;

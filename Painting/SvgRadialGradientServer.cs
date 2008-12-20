@@ -6,6 +6,7 @@ using System.Drawing.Drawing2D;
 
 namespace Svg
 {
+    [SvgElement("radialGradient")]
     public sealed class SvgRadialGradientServer : SvgGradientServer
     {
         [SvgAttribute("cx")]

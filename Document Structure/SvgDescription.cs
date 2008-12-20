@@ -6,6 +6,7 @@ using System.ComponentModel;
 namespace Svg
 {
     [DefaultProperty("Text")]
+    [SvgElement("desc")]
     public class SvgDescription : SvgElement
     {
         private string _text;

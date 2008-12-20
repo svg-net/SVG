@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;REFLECTION</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -72,6 +72,7 @@
     <Compile Include="Basic Shapes\SvgPolygon.cs" />
     <Compile Include="Basic Shapes\SvgPolyline.cs" />
     <Compile Include="Clipping and Masking\ISvgClipable.cs" />
+    <Compile Include="Clipping and Masking\SvgClipRule.cs" />
     <Compile Include="Clipping and Masking\SvgClipPath.cs" />
     <Compile Include="Clipping and Masking\SvgMask.cs" />
     <Compile Include="DataTypes\ISvgViewPort.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Filter Effects\SvgFilterPrimitive.cs" />
     <Compile Include="Filter Effects\SvgGaussianBlur.cs" />
     <Compile Include="Filter Effects\SvgMerge.cs" />
+    <Compile Include="SvgElementAttribute.cs" />
     <Compile Include="SvgRenderer.cs" />
     <Compile Include="Painting\SvgColourConverter.cs" />
     <Compile Include="Painting\SvgGradientSpreadMethod.cs" />

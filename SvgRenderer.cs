@@ -49,7 +49,7 @@ namespace Svg
 
         public void SetClip(Region region)
         {
-            this._innerGraphics.SetClip(region, CombineMode.Union);
+            this._innerGraphics.SetClip(region, CombineMode.Complement);
         }
 
         public void FillPath(Brush brush, GraphicsPath path)

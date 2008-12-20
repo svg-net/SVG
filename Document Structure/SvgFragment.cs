@@ -11,6 +11,7 @@ namespace Svg
     /// <summary>
     /// An <see cref="SvgFragment"/> represents an SVG fragment that can be the root element or an embedded fragment of an SVG document.
     /// </summary>
+    [SvgElement("svg")]
     public class SvgFragment : SvgElement, ISvgViewPort
     {
         private SvgUnit _width;

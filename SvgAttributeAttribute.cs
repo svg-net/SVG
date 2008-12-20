@@ -5,20 +5,23 @@ using System.ComponentModel;
 
 namespace Svg
 {
+    /// <summary>
+    /// Specifies the SVG attribute name of the associated property.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
     public class SvgAttributeAttribute : System.Attribute
     {
         private const string SVG_NAMESPACE = "http://www.w3.org/2000/svg";
         private string _name;
         private string _namespace;
 
-        public override object TypeId
-        {
-            get
-            {
-                return base.TypeId;
-            }
-        }
-
+        /// <summary>
+        /// When overridden in a derived class, returns a value that indicates whether this instance equals a specified object.
+        /// </summary>
+        /// <param name="obj">An <see cref="T:System.Object"/> to compare with this instance of <see cref="T:System.Attribute"/>.</param>
+        /// <returns>
+        /// true if this instance equals <paramref name="obj"/>; otherwise, false.
+        /// </returns>
         public override bool Match(object obj)
         {
             SvgAttributeAttribute indicator = obj as SvgAttributeAttribute;
@@ -33,27 +36,45 @@ namespace Svg
             return String.Compare(indicator.Name, this.Name) == 0;
         }
 
+        /// <summary>
+        /// Gets the name of the SVG attribute.
+        /// </summary>
         public string Name
         {
             get { return this._name; }
         }
 
+        /// <summary>
+        /// Gets the namespace of the SVG attribute.
+        /// </summary>
         public string NameSpace
         {
             get { return this._namespace; }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgAttributeAttribute"/> class.
+        /// </summary>
         internal SvgAttributeAttribute()
         {
             this._name = String.Empty;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgAttributeAttribute"/> class with the specified attribute name.
+        /// </summary>
+        /// <param name="name">The name of the SVG attribute.</param>
         internal SvgAttributeAttribute(string name)
         {
             this._name = name;
             this._namespace = SVG_NAMESPACE;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgAttributeAttribute"/> class with the specified SVG attribute name and namespace.
+        /// </summary>
+        /// <param name="name">The name of the SVG attribute.</param>
+        /// <param name="nameSpace">The namespace of the SVG attribute (e.g. http://www.w3.org/2000/svg).</param>
         public SvgAttributeAttribute(string name, string nameSpace)
         {
             this._name = name;

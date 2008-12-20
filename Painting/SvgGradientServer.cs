@@ -26,6 +26,12 @@ namespace Svg
             this._stops = new List<SvgGradientStop>();
         }
 
+        /// <summary>
+        /// Called by the underlying <see cref="SvgElement"/> when an element has been added to the
+        /// <see cref="Children"/> collection.
+        /// </summary>
+        /// <param name="child">The <see cref="SvgElement"/> that has been added.</param>
+        /// <param name="index">An <see cref="int"/> representing the index where the element was added to the collection.</param>
         protected override void AddElement(SvgElement child, int index)
         {
             if (child is SvgGradientStop)
@@ -36,18 +42,32 @@ namespace Svg
             base.AddElement(child, index);
         }
 
+        /// <summary>
+        /// Called by the underlying <see cref="SvgElement"/> when an element has been removed from the
+        /// <see cref="Children"/> collection.
+        /// </summary>
+        /// <param name="child">The <see cref="SvgElement"/> that has been removed.</param>
         protected override void RemoveElement(SvgElement child)
         {
             if (child is SvgGradientStop)
-                this.Stops.Add((SvgGradientStop)child);
+            {
+                this.Stops.Remove((SvgGradientStop)child);
+            }
+
             base.RemoveElement(child);
         }
 
+        /// <summary>
+        /// Gets the ramp of colors to use on a gradient.
+        /// </summary>
         public List<SvgGradientStop> Stops
         {
             get { return this._stops; }
         }
 
+        /// <summary>
+        /// Specifies what happens if the gradient starts or ends inside the bounds of the target rectangle.
+        /// </summary>
         [SvgAttribute("spreadMethod")]
         public SvgGradientSpreadMethod SpreadMethod
         {
@@ -55,6 +75,9 @@ namespace Svg
             set { this._spreadMethod = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the coordinate system of the gradient.
+        /// </summary>
         [SvgAttribute("gradientUnits")]
         public SvgCoordinateUnits GradientUnits
         {
@@ -68,6 +91,11 @@ namespace Svg
             set { this._inheritGradient = value; }
         }
 
+        /// <summary>
+        /// Gets a <see cref="ColourBlend"/> representing the <see cref="SvgGradientServer"/>'s gradient stops.
+        /// </summary>
+        /// <param name="owner">The parent <see cref="SvgVisualElement"/>.</param>
+        /// <param name="opacity">The opacity of the colour blend.</param>
         protected ColorBlend GetColourBlend(SvgVisualElement owner, float opacity)
         {
             ColorBlend blend = new ColorBlend();
@@ -138,7 +166,9 @@ namespace Svg
             List<SvgGradientStop> stops = new List<SvgGradientStop>();
 
             if (this.Stops.Count > 0)
+            {
                 return stops;
+            }
 
             if (this.InheritGradient != null)
             {
@@ -148,7 +178,5 @@ namespace Svg
 
             return stops;
         }
-
-
     }
 }

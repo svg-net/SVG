@@ -12,6 +12,7 @@ namespace Svg
     /// <summary>
     /// An SVG element to render circles to the document.
     /// </summary>
+    [SvgElement("circle")]
     public class SvgCircle : SvgVisualElement
     {
         private GraphicsPath _path;

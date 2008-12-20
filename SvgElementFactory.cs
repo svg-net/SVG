@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Threading;
+using System.Linq;
 
 using Svg.Transforms;
 
@@ -19,6 +20,25 @@ namespace Svg
 {
     internal class SvgElementFactory
     {
+        private static List<ElementInfo> availableElements;
+
+        private static List<ElementInfo> AvailableElements
+        {
+            get
+            {
+                if (availableElements == null)
+                {
+                    var svgTypes = from t in typeof(SvgDocument).Assembly.GetExportedTypes()
+                                   where t.GetCustomAttributes(typeof(SvgElementAttribute), true).Length > 0
+                                   select new ElementInfo { ElementName = ((SvgElementAttribute)t.GetCustomAttributes(typeof(SvgElementAttribute), true)[0]).ElementName, ElementType = t };
+
+                    availableElements = svgTypes.ToList();
+                }
+
+                return availableElements;
+            }
+        }
+
         public static SvgDocument CreateDocument(XmlTextReader reader)
         {
             return (SvgDocument)CreateElement(reader, true, null);
@@ -37,76 +57,18 @@ namespace Svg
 
             Trace.TraceInformation("Begin CreateElement: {0}", elementName);
 
-            // Parse element
-            switch (elementName)
+            if (elementName == "svg")
             {
-                case "path":
-                    createdElement = new SvgPath();
-                    break;
-                case "linearGradient":
-                    createdElement = new SvgLinearGradientServer();
-                    break;
-                case "radialGradient":
-                    createdElement = new SvgRadialGradientServer();
-                    break;
-                case "pattern":
-                    createdElement = new SvgPatternServer();
-                    break;
-                case "defs":
-                    createdElement = new SvgDefinitionList();
-                    break;
-                case "stop":
-                    createdElement = new SvgGradientStop();
-                    break;
-                case "desc":
-                    createdElement = new SvgDescription();
-                    break;
-                case "clipPath":
-                    createdElement = new SvgClipPath();
-                    break;
-                case "svg":
-                    if (!fragmentIsDocument)
-                    {
-                        fragment = new SvgFragment();
-                    }
-                    else
-                    {
-                        fragment = new SvgDocument();
-                    }
+                createdElement = (fragmentIsDocument) ? new SvgDocument() : new SvgFragment();
+            }
+            else
+            {
+                var validTypes = AvailableElements.Where(e => e.ElementName == elementName);
 
-                    createdElement = (fragmentIsDocument) ? (SvgDocument)fragment : fragment;
-                    break;
-                case "circle":
-                    createdElement = new SvgCircle();
-                    break;
-                case "ellipse":
-                    createdElement = new SvgEllipse();
-                    break;
-                case "rect":
-                    createdElement = new SvgRectangle();
-                    break;
-                case "line":
-                    createdElement = new SvgLine();
-                    break;
-                case "polyline":
-                    createdElement = new SvgPolyline();
-                    break;
-                case "polygon":
-                    createdElement = new SvgPolygon();
-                    break;
-                case "g":
-                    createdElement = new SvgGroup();
-                    break;
-                case "use":
-                    createdElement = new SvgUse();
-                    break;
-                case "text":
-                    createdElement = new SvgText();
-                    break;
-                default:
-                    // Do nothing - unsupported
-                    createdElement = null;
-                    break;
+                if (validTypes.Count() > 0)
+                {
+                    createdElement = Activator.CreateInstance(validTypes.First().ElementType) as SvgElement;
+                }
             }
 
             if (createdElement != null)
@@ -172,6 +134,19 @@ namespace Svg
                 {
                     Trace.TraceWarning(string.Format("Attribute '{0}' cannot be set - type '{1}' cannot convert from string '{2}'.", attributeName, descriptor.PropertyType.FullName, attributeValue));
                 }
+            }
+        }
+
+        private struct ElementInfo
+        {
+            public string ElementName { get; set; }
+            public Type ElementType { get; set; }
+
+            public ElementInfo(string elementName, Type elementType)
+                : this()
+            {
+                this.ElementName = elementName;
+                this.ElementType = elementType;
             }
         }
     }

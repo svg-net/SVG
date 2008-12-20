@@ -7,51 +7,46 @@ using System.Drawing.Drawing2D;
 namespace Svg
 {
     /// <summary>
-    /// 
+    /// Defines a path that can be used by other <see cref="ISvgClipable"/> elements.
     /// </summary>
+    [SvgElement("clipPath")]
     public sealed class SvgClipPath : SvgElement
     {
-        private SvgCoordinateUnits _clipPathUnits;
-        private bool _pathDirty;
-        private Region _region;
+        private bool _pathDirty = true;
 
         /// <summary>
-        /// 
+        /// Specifies the coordinate system for the clipping path.
         /// </summary>
         [SvgAttribute("clipPathUnits")]
-        public SvgCoordinateUnits ClipPathUnits
-        {
-            get { return this._clipPathUnits; }
-            set { this._clipPathUnits = value; }
-        }
+        public SvgCoordinateUnits ClipPathUnits { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgClipPath"/> class.
         /// </summary>
         public SvgClipPath()
         {
-            this._clipPathUnits = SvgCoordinateUnits.ObjectBoundingBox;
+            this.ClipPathUnits = SvgCoordinateUnits.ObjectBoundingBox;
         }
 
         /// <summary>
-        /// Gets this <see cref="SvgClipPath"/>'s region to be clipped.
+        /// Gets this <see cref="SvgClipPath"/>'s region to be used as a clipping region.
         /// </summary>
-        /// <returns>A new <see cref="Region"/> containing the area to be clipped.</returns>
-        protected internal Region GetClipRegion()
+        /// <returns>A new <see cref="Region"/> containing the <see cref="Region"/> to be used for clipping.</returns>
+        public Region GetClipRegion(SvgVisualElement owner)
         {
-            if (_region == null || _pathDirty)
-            {
-                _region = new Region();
+            var path = new GraphicsPath();
 
+            if (this._pathDirty)
+            {
                 foreach (SvgElement element in this.Children)
                 {
-                    ComplementRegion(_region, element);
+                    this.CombinePaths(path, element);
                 }
 
-                _pathDirty = false;
+                this._pathDirty = false;
             }
 
-            return _region;
+            return new Region(path);
         }
 
         /// <summary>
@@ -59,27 +54,39 @@ namespace Svg
         /// </summary>
         /// <param name="region"></param>
         /// <param name="element"></param>
-        private void ComplementRegion(Region region, SvgElement element)
+        private void CombinePaths(GraphicsPath path, SvgElement element)
         {
-            SvgVisualElement graphicsElement = element as SvgVisualElement;
+            var graphicsElement = element as SvgVisualElement;
 
             if (graphicsElement != null && graphicsElement.Path != null)
             {
-                region.Complement(graphicsElement.Path);
+                path.FillMode = (graphicsElement.ClipRule == SvgClipRule.NonZero) ? FillMode.Winding : FillMode.Alternate;
+                path.AddPath(graphicsElement.Path, false);
             }
 
             foreach (SvgElement child in element.Children)
             {
-                ComplementRegion(region, child);
+                this.CombinePaths(path, child);
             }
         }
 
+        /// <summary>
+        /// Called by the underlying <see cref="SvgElement"/> when an element has been added to the
+        /// <see cref="Children"/> collection.
+        /// </summary>
+        /// <param name="child">The <see cref="SvgElement"/> that has been added.</param>
+        /// <param name="index">An <see cref="int"/> representing the index where the element was added to the collection.</param>
         protected override void AddElement(SvgElement child, int index)
         {
             base.AddElement(child, index);
             this._pathDirty = true;
         }
 
+        /// <summary>
+        /// Called by the underlying <see cref="SvgElement"/> when an element has been removed from the
+        /// <see cref="Children"/> collection.
+        /// </summary>
+        /// <param name="child">The <see cref="SvgElement"/> that has been removed.</param>
         protected override void RemoveElement(SvgElement child)
         {
             base.RemoveElement(child);
