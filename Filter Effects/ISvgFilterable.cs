@@ -6,6 +6,6 @@ namespace Svg.FilterEffects
 {
     public interface ISvgFilterable
     {
-        ISvgFilter Filter { get; set; }
+        SvgFilter Filter { get; set; }
     }
 }

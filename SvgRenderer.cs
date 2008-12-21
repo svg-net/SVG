@@ -47,6 +47,11 @@ namespace Svg
             return renderer;
         }
 
+        public void DrawImageUnscaled(Image image, Point location)
+        {
+            this._innerGraphics.DrawImageUnscaled(image, location);
+        }
+
         public void SetClip(Region region)
         {
             this._innerGraphics.SetClip(region, CombineMode.Complement);

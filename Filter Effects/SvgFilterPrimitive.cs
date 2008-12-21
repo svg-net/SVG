@@ -6,42 +6,34 @@ using System.Drawing.Drawing2D;
 
 namespace Svg.FilterEffects
 {
-    public abstract class SvgFilterPrimitive
+    public abstract class SvgFilterPrimitive : SvgElement
     {
-        private string _in;
-        private string _in2;
-        private string _result;
-        private ISvgFilter _owner;
+        public static readonly string SourceGraphic = "SourceGraphic";
+        public static readonly string SourceAlpha = "SourceAlpha";
+        public static readonly string BackgroundImage = "BackgroundImage";
+        public static readonly string BackgroundAlpha = "BackgroundAlpha";
+        public static readonly string FillPaint = "FillPaint";
+        public static readonly string StrokePaint = "StrokePaint";
 
-        protected ISvgFilter Owner
+        [SvgAttribute("in")]
+        public string Input
         {
-            get { return this._owner; }
+            get { return this.Attributes.GetAttribute<string>("in"); }
+            set { this.Attributes["in"] = value; }
         }
 
-        public string In
-        {
-            get { return this._in; }
-            set { this._in = value; }
-        }
-
-        public string In2
-        {
-            get { return this._in2; }
-            set { this._in2 = value; }
-        }
-
+        [SvgAttribute("result")]
         public string Result
         {
-            get { return this._result; }
-            set { this._result = value; }
+            get { return this.Attributes.GetAttribute<string>("result"); }
+            set { this.Attributes["result"] = value; }
         }
 
-        public SvgFilterPrimitive(ISvgFilter owner, string input)
+        protected SvgFilter Owner
         {
-            this._in = input;
-            this._owner = owner;
+            get { return (SvgFilter)this.Parent; }
         }
 
-        public abstract Bitmap Apply();
+        public abstract Bitmap Process();
     }
 }
