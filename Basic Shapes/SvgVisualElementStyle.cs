@@ -62,6 +62,9 @@ namespace Svg
             set { this.Attributes["FillOpacity"] = FixOpacityValue(value); }
         }
 
+        /// <summary>
+        /// Gets or sets the width of the stroke (if the <see cref="Stroke"/> property has a valid value specified.
+        /// </summary>
         [SvgAttribute("stroke-width")]
         public virtual SvgUnit StrokeWidth
         {
@@ -104,6 +107,9 @@ namespace Svg
             set { this.Attributes["StrokeDashOffset"] = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the opacity of the stroke, if the <see cref="Stroke"/> property has been specified. 1.0 is fully opaque; 0.0 is transparent.
+        /// </summary>
         [SvgAttribute("stroke-opacity")]
         public virtual float StrokeOpacity
         {

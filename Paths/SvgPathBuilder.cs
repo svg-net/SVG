@@ -189,10 +189,14 @@ namespace Svg
                 var lastSegment = segments.Last;
 
                 if (isRelativeX)
+                {
                     point.X += lastSegment.End.X;
+                }
 
                 if (isRelativeY)
+                {
                     point.Y += lastSegment.End.Y;
+                }
             }
 
             return point;
@@ -235,7 +239,7 @@ namespace Svg
         private static IEnumerable<float> ParseCoordinates(string coords)
         {
             // TODO: Handle "1-1" (new PointF(1, -1);
-            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] { ',', ' ' },
+            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] { ',', ' ', '\r', '\n' },
                 StringSplitOptions.RemoveEmptyEntries);
 
             for (var i = 0; i < parts.Length; i++)

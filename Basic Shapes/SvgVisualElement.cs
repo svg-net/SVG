@@ -18,7 +18,6 @@ namespace Svg
         private bool _dirty;
         private bool _requiresSmoothRendering;
         private Region _previousClip;
-        private SvgClipRule clipRule = SvgClipRule.NonZero;
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
@@ -53,7 +52,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the algorithm which is to be used to determine the clipping region.
         /// </summary>
         [SvgAttribute("clip-rule")]
         public SvgClipRule ClipRule
@@ -82,7 +81,7 @@ namespace Svg
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
-        /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
+        /// <param name="graphics">The <see cref="SvgRenderer"/> object to render to.</param>
         protected override void Render(SvgRenderer renderer)
         {
             if (this.Path != null && this.Visible)
@@ -90,45 +89,14 @@ namespace Svg
                 this.PushTransforms(renderer);
                 this.SetClip(renderer);
 
-                // If this element needs smoothing enabled turn anti aliasing on
+                // If this element needs smoothing enabled turn anti-aliasing on
                 if (this.RequiresSmoothRendering)
                 {
                     renderer.SmoothingMode = SmoothingMode.AntiAlias;
                 }
 
-                // Fill first so that the stroke can overlay
-                if (this.Fill != null)
-                {
-                    using (Brush brush = this.Fill.GetBrush(this, this.FillOpacity))
-                    {
-                        if (brush != null)
-                        {
-                            renderer.FillPath(brush, this.Path);
-                        }
-                    }
-                }
-
-                // Stroke is the last thing to do
-                if (this.Stroke != null)
-                {
-                    float strokeWidth = this.StrokeWidth.ToDeviceValue(this);
-                    using (Pen pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
-                    {
-                        if (pen != null)
-                        {
-                            if (this.StrokeDashArray != null)
-                            {
-                                pen.DashPattern = this.StrokeDashArray.ConvertAll<float>(delegate(SvgUnit unit)
-                                {
-                                    // divide by stroke width - GDI behaviour that I don't quite understand yet.
-                                    return unit.Value / ((strokeWidth <= 0) ? 1 : strokeWidth);
-                                }).ToArray();
-                            }
-
-                            renderer.DrawPath(pen, this.Path);
-                        }
-                    }
-                }
+                this.RenderFill(renderer);
+                this.RenderStroke(renderer);
 
                 // Reset the smoothing mode
                 if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
@@ -138,6 +106,49 @@ namespace Svg
 
                 this.ResetClip(renderer);
                 this.PopTransforms(renderer);
+            }
+        }
+
+        /// <summary>
+        /// Renders the fill of the <see cref="SvgVisualElement"/> to the specified <see cref="SvgRenderer"/>
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
+        protected internal virtual void RenderFill(SvgRenderer renderer)
+        {
+            if (this.Fill != null)
+            {
+                using (Brush brush = this.Fill.GetBrush(this, this.FillOpacity))
+                {
+                    if (brush != null)
+                    {
+                        renderer.FillPath(brush, this.Path);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Renders the stroke of the <see cref="SvgVisualElement"/> to the specified <see cref="SvgRenderer"/>
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
+        protected internal virtual void RenderStroke(SvgRenderer renderer)
+        {
+            if (this.Stroke != null)
+            {
+                float strokeWidth = this.StrokeWidth.ToDeviceValue(this);
+                using (Pen pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
+                {
+                    if (pen != null)
+                    {
+                        if (this.StrokeDashArray != null)
+                        {
+                            /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
+                            pen.DashPattern = this.StrokeDashArray.ConvertAll(u => u.Value / ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
+                        }
+
+                        renderer.DrawPath(pen, this.Path);
+                    }
+                }
             }
         }
 

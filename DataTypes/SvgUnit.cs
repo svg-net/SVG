@@ -148,10 +148,7 @@ namespace Svg
                     return new SvgUnit(SvgUnitType.Percentage, this.Value * 100);
                 default:
                     throw new NotImplementedException();
-                    break;
             }
-
-            return this;
         }
 
         /// <summary>

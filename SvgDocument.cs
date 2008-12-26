@@ -265,7 +265,7 @@ namespace Svg
                 throw new ArgumentNullException("document");
             }
 
-            Stream stream = new MemoryStream(ASCIIEncoding.Default.GetBytes(document.InnerXml));
+            Stream stream = new MemoryStream(UTF8Encoding.Default.GetBytes(document.InnerXml));
             return Open(stream, null);
         }
 

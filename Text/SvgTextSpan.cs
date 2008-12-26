@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Svg
 {
+    [SvgElement("tspan")]
     public class SvgTextSpan : SvgText
     {
         /// <summary>

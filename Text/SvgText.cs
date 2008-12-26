@@ -186,15 +186,6 @@ namespace Svg
             get { return this.Path.GetBounds(); }
         }
 
-        /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
-        /// </summary>
-        /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
-        protected override void Render(SvgRenderer renderer)
-        {
-            base.Render(renderer);
-        }
-
         static private int MeasureString(SvgRenderer renderer, string text, Font font)
         {
             GraphicsPath p = new GraphicsPath();

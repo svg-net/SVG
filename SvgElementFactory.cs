@@ -101,11 +101,10 @@ namespace Svg
             }
             else
             {
-                var validTypes = AvailableElements.Where(e => e.ElementName == elementName);
-
-                if (validTypes.Count() > 0)
+                ElementInfo validType = AvailableElements.SingleOrDefault(e => e.ElementName == elementName);
+                if (validType != null)
                 {
-                    createdElement = Activator.CreateInstance(validTypes.First().ElementType) as SvgElement;
+                    createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
                 }
             }
 
@@ -158,11 +157,10 @@ namespace Svg
         private static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
         {
             var properties = TypeDescriptor.GetProperties(element.GetType(), new SvgAttributeAttribute[] { new SvgAttributeAttribute(attributeName) });
-            PropertyDescriptor descriptor = null;
 
             if (properties.Count > 0)
             {
-                descriptor = properties[0];
+                PropertyDescriptor descriptor = properties[0];
 
                 try
                 {
@@ -178,7 +176,8 @@ namespace Svg
         /// <summary>
         /// Contains information about a type inheriting from <see cref="SvgElement"/>.
         /// </summary>
-        private struct ElementInfo
+        [DebuggerDisplay("{ElementName}, {ElementType}")]
+        internal sealed class ElementInfo
         {
             /// <summary>
             /// Gets the SVG name of the <see cref="SvgElement"/>.
@@ -195,10 +194,16 @@ namespace Svg
             /// <param name="elementName">Name of the element.</param>
             /// <param name="elementType">Type of the element.</param>
             public ElementInfo(string elementName, Type elementType)
-                : this()
             {
                 this.ElementName = elementName;
                 this.ElementType = elementType;
+            }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ElementInfo"/> class.
+            /// </summary>
+            public ElementInfo()
+            {
             }
         }
     }
