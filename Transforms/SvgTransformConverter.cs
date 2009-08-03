@@ -78,7 +78,7 @@ namespace Svg.Transforms
 
                             float angle = float.Parse(args[0], NumberStyles.Float, CultureInfo.InvariantCulture);
 
-                            if (args.Length == 0)
+                            if (args.Length == 1)
                             {
                                 transformList.Add(new SvgRotate(angle));
                             }
