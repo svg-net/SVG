@@ -1,7 +1,5 @@
 ﻿﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing.Drawing2D;
+﻿using System.Drawing.Drawing2D;
 
 namespace Svg.Transforms
 {
@@ -10,34 +8,26 @@ namespace Svg.Transforms
     /// </summary>
     public sealed class SvgSkew : SvgTransform
     {
-        private float angleX, angleY;
+        public float AngleX { get; set; }
 
-        public float AngleX
-        {
-            get { return this.angleX; }
-            set { this.angleX = value; }
-        }
-
-        public float AngleY
-        {
-            get { return this.angleY; }
-            set { this.angleY = value; }
-        }
+        public float AngleY { get; set; }
 
         public override Matrix Matrix
         {
             get
             {
-                Matrix matrix = new Matrix();
-                matrix.Shear(this.AngleX, this.AngleY);
+                var matrix = new Matrix();
+                matrix.Shear(
+                    (float)Math.Tan(AngleX/180*Math.PI),
+                    (float)Math.Tan(AngleY/180*Math.PI));
                 return matrix;
             }
         }
 
         public SvgSkew(float x, float y)
         {
-            this.angleX = x;
-            this.angleY = y;
+            AngleX = x;
+            AngleY = y;
         }
     }
 }
