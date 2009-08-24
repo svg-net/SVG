@@ -163,7 +163,7 @@ namespace Svg
                 throw new ArgumentNullException("stream");
             }
 
-            Trace.TraceInformation("Begin Read");
+            //Trace.TraceInformation("Begin Read");
 
             using (var reader = new SvgTextReader(stream, entities))
             {
@@ -248,7 +248,7 @@ namespace Svg
                     }
                 }
 
-                Trace.TraceInformation("End Read");
+                //Trace.TraceInformation("End Read");
                 return svgDocument;
             }
         }
@@ -320,7 +320,7 @@ namespace Svg
         /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
         public virtual Bitmap Draw()
         {
-            Trace.TraceInformation("Begin Render");
+            //Trace.TraceInformation("Begin Render");
 
             var size = GetDimensions();
             var bitmap = new Bitmap((int)Math.Ceiling(size.Width), (int)Math.Ceiling(size.Height));
@@ -342,7 +342,7 @@ namespace Svg
                 throw;
             }
 
-            Trace.TraceInformation("End Render");
+            //Trace.TraceInformation("End Render");
             return bitmap;
         }
 

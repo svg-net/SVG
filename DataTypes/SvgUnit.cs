@@ -160,18 +160,16 @@ namespace Svg
         /// </returns>
         public override bool Equals(object obj)
         {
-            if (obj == null)
-            {
-                return false;
-            }
+            if (obj == null) return false;
+            if (!(obj.GetType() == typeof (SvgUnit))) return false;
 
-            if (!(obj.GetType() == typeof(SvgUnit)))
-            {
-                return false;
-            }
-
-            SvgUnit unit = (SvgUnit)obj;
+            var unit = (SvgUnit)obj;
             return (unit.Value == this.Value && unit.Type == this.Type);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         /// <summary>

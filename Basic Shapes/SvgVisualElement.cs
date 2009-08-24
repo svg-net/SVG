@@ -136,18 +136,15 @@ namespace Svg
             if (this.Stroke != null)
             {
                 float strokeWidth = this.StrokeWidth.ToDeviceValue(this);
-                using (Pen pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
+                using (var pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
                 {
-                    if (pen != null)
+                    if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
                     {
-                        if (this.StrokeDashArray != null)
-                        {
-                            /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
-                            pen.DashPattern = this.StrokeDashArray.ConvertAll(u => u.Value / ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
-                        }
-
-                        renderer.DrawPath(pen, this.Path);
+                        /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
+                        pen.DashPattern = this.StrokeDashArray.ConvertAll(u => u.Value/((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
                     }
+
+                    renderer.DrawPath(pen, this.Path);
                 }
             }
         }

@@ -35,14 +35,17 @@ namespace Svg
 
         public override bool Equals(object obj)
         {
-            if (obj == null)
-                return false;
+            if (obj == null) return false;
 
-            if (!(obj.GetType() == typeof(SvgPoint)))
-                return false;
+            if (!(obj.GetType() == typeof(SvgPoint))) return false;
 
-            SvgPoint point = (SvgPoint)obj;
+            var point = (SvgPoint)obj;
             return (point.X.Equals(this.X) && point.Y.Equals(this.Y));
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public SvgPoint(string x, string y)

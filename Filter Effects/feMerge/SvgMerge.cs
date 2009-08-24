@@ -10,11 +10,11 @@ namespace Svg.FilterEffects
 {
     public class SvgMerge : SvgFilterPrimitive
     {
-        private StringCollection _mergeResults;
+        public StringCollection MergeResults { get; private set; }
 
-        public StringCollection MergeResults
+        public SvgMerge()
         {
-            get { return this._mergeResults; }
+            MergeResults = new StringCollection();
         }
 
         public override Bitmap Process()

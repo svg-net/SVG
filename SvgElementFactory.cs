@@ -93,7 +93,7 @@ namespace Svg
             SvgElement createdElement = null;
             string elementName = reader.LocalName;
 
-            Trace.TraceInformation("Begin CreateElement: {0}", elementName);
+            //Trace.TraceInformation("Begin CreateElement: {0}", elementName);
 
             if (elementName == "svg")
             {
@@ -114,14 +114,14 @@ namespace Svg
                 SetAttributes(createdElement, reader, document);
             }
 
-            Trace.TraceInformation("End CreateElement");
+            //Trace.TraceInformation("End CreateElement");
 
             return createdElement;
         }
 
         private static void SetAttributes(SvgElement element, XmlTextReader reader, SvgDocument document)
         {
-            Trace.TraceInformation("Begin SetAttributes");
+            //Trace.TraceInformation("Begin SetAttributes");
 
             string[] styles = null;
             string[] style = null;
@@ -151,7 +151,7 @@ namespace Svg
                 SetPropertyValue(element, reader.LocalName, reader.Value, document);
             }
 
-            Trace.TraceInformation("End SetAttributes");
+            //Trace.TraceInformation("End SetAttributes");
         }
 
         private static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
