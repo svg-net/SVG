@@ -1,20 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Collections;
-using System.Text;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Xml;
 using System.ComponentModel;
-using System.Reflection;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Diagnostics;
-using System.Threading;
 using System.Linq;
-
-using Svg.Transforms;
 
 namespace Svg
 {
@@ -154,9 +144,32 @@ namespace Svg
             //Trace.TraceInformation("End SetAttributes");
         }
 
+        private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
+
         private static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
         {
-            var properties = TypeDescriptor.GetProperties(element.GetType(), new SvgAttributeAttribute[] { new SvgAttributeAttribute(attributeName) });
+            var elementType = element.GetType();
+
+            PropertyDescriptorCollection properties;
+            if (_propertyDescriptors.Keys.Contains(elementType))
+            {
+                if (_propertyDescriptors[elementType].Keys.Contains(attributeName))
+                {
+                    properties = _propertyDescriptors[elementType][attributeName];
+                }
+                else
+                {
+                    properties = TypeDescriptor.GetProperties(elementType, new[] { new SvgAttributeAttribute(attributeName) });
+                    _propertyDescriptors[elementType].Add(attributeName, properties);
+                }
+            }
+            else
+            {
+                properties = TypeDescriptor.GetProperties(element.GetType(), new[] { new SvgAttributeAttribute(attributeName) });
+                _propertyDescriptors.Add(elementType, new Dictionary<string, PropertyDescriptorCollection>());
+
+                _propertyDescriptors[elementType].Add(attributeName, properties);
+            }
 
             if (properties.Count > 0)
             {
