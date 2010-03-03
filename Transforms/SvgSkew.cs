@@ -1,5 +1,6 @@
 ﻿﻿using System;
 ﻿using System.Drawing.Drawing2D;
+using System.Globalization;
 
 namespace Svg.Transforms
 {
@@ -22,6 +23,11 @@ namespace Svg.Transforms
                     (float)Math.Tan(AngleY/180*Math.PI));
                 return matrix;
             }
+        }
+
+        public override string WriteToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "skew({0}, {1})", this.AngleX, this.AngleY);
         }
 
         public SvgSkew(float x, float y)

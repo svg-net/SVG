@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 
 namespace Svg.Transforms
 {
@@ -35,6 +36,11 @@ namespace Svg.Transforms
                 matrix.Translate(-this.CenterX, -this.CenterY);
                 return matrix;
             }
+        }
+
+        public override string WriteToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "rotate({0}, {1}, {2})", this.Angle, this.CenterX, this.CenterY);
         }
 
         public SvgRotate(float angle)

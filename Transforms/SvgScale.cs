@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 
 namespace Svg.Transforms
 {
@@ -30,6 +31,11 @@ namespace Svg.Transforms
                 matrix.Scale(this.X, this.Y);
                 return matrix;
             }
+        }
+
+        public override string WriteToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "scale({0}, {1})", this.X, this.Y);
         }
 
         public SvgScale(float x) : this(x, x) { }

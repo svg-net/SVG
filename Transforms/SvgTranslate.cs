@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Globalization;
 
 namespace Svg.Transforms
 {
@@ -29,6 +30,11 @@ namespace Svg.Transforms
                 matrix.Translate(this.X, this.Y);
                 return matrix;
             }
+        }
+
+        public override string WriteToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "translate({0}, {1})", this.X, this.Y);
         }
 
         public SvgTranslate(float x, float y)

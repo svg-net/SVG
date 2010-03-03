@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using System.Web.UI.WebControls;
+using System.Globalization;
 
 namespace Svg
 {
@@ -172,12 +173,6 @@ namespace Svg
             return base.GetHashCode();
         }
 
-        /// <summary>
-        /// Returns the fully qualified type name of this instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.String"/> containing a fully qualified type name.
-        /// </returns>
         public override string ToString()
         {
             string type = string.Empty;
@@ -207,7 +202,7 @@ namespace Svg
                     break;
             }
 
-            return string.Concat(this.Value.ToString(), type);
+            return string.Concat(this.Value.ToString(CultureInfo.InvariantCulture), type);
         }
 
         /// <summary>

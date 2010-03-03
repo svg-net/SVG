@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Drawing;
+using System.Globalization;
 
 namespace Svg
 {
@@ -34,14 +35,58 @@ namespace Svg
             }
             else // Otherwise try and parse as colour
             {
-                SvgColourServer server = new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Trim()));
-                return server;
+                return new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Trim()));
             }
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
-            return SvgPaintServerFactory.Create((string)value, (SvgDocument)context);
-        } 
+            if (value is string)
+            {
+                return SvgPaintServerFactory.Create((string)value, (SvgDocument)context);
+            }
+
+            return base.ConvertFrom(context, culture, value);
+        }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            if (sourceType == typeof(string))
+            {
+                return true;
+            }
+
+            return base.CanConvertFrom(context, sourceType);
+        }
+
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            if (destinationType == typeof(string))
+            {
+                return true;
+            }
+
+            return base.CanConvertTo(context, destinationType);
+        }
+
+        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string))
+            {
+                var colourServer = value as SvgColourServer;
+
+                if (colourServer != null)
+                {
+                    return new SvgColourConverter().ConvertTo(colourServer.Colour, typeof(string));
+                }
+
+                if (value != null)
+                {
+                    return string.Format(CultureInfo.InvariantCulture, "url(#{0})", ((SvgPaintServer)value).ID);
+                }
+            }
+
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
     }
 }

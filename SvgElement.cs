@@ -4,8 +4,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Xml;
-
+using System.Linq;
 using Svg.Transforms;
+using System.Reflection;
 
 namespace Svg
 {
@@ -27,7 +28,20 @@ namespace Svg
         /// </summary>
         protected internal string ElementName
         {
-            get { return this._elementName; }
+            get
+            {
+                if (string.IsNullOrEmpty(this._elementName))
+                {
+                    var attr = TypeDescriptor.GetAttributes(this).OfType<SvgElementAttribute>().SingleOrDefault();
+
+                    if (attr != null)
+                    {
+                        this._elementName = attr.ElementName;
+                    }
+                }
+
+                return this._elementName;
+            }
             internal set { this._elementName = value; }
         }
 
@@ -297,7 +311,25 @@ namespace Svg
 
         protected virtual void WriteAttributes(XmlTextWriter writer)
         {
-            
+            var attributes = from PropertyDescriptor a in TypeDescriptor.GetProperties(this)
+                             let attribute = a.Attributes[typeof(SvgAttributeAttribute)] as SvgAttributeAttribute
+                             where attribute != null
+                             select new { Property = a, Attribute = attribute };
+
+            foreach (var attr in attributes)
+            {
+                if (attr.Property.Converter.CanConvertTo(typeof(string)))
+                {
+                    object propertyValue = attr.Property.GetValue(this);
+
+                    if (propertyValue != null)
+                    {
+                        string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+
+                        writer.WriteAttributeString(attr.Attribute.Name, attr.Attribute.NameSpace, value);
+                    }
+                }
+            }
         }
 
         protected virtual void Write(XmlTextWriter writer)

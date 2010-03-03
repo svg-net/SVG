@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
+using System.Globalization;
 
 namespace Svg
 {
@@ -50,13 +52,40 @@ namespace Svg
                     colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
                     return base.ConvertFrom(context, culture, colour);
                 }
-                else
-                {
-                    return base.ConvertFrom(context, culture, value);
-                }
             }
 
             return base.ConvertFrom(context, culture, value);
+        }
+
+        public override bool CanConvertFrom(System.ComponentModel.ITypeDescriptorContext context, Type sourceType)
+        {
+            if (sourceType == typeof(string))
+            {
+                return true;
+            }
+
+            return base.CanConvertFrom(context, sourceType);
+        }
+
+        public override bool CanConvertTo(System.ComponentModel.ITypeDescriptorContext context, Type destinationType)
+        {
+            if (destinationType == typeof(string))
+            {
+                return true;
+            }
+
+            return base.CanConvertTo(context, destinationType);
+        }
+
+        public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string))
+            {
+                var colour = (Color)value;
+                return ColorTranslator.ToHtml(colour);
+            }
+
+            return base.ConvertTo(context, culture, value, destinationType);
         }
     }
 }

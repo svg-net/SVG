@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 
 namespace Svg.Transforms
 {
@@ -32,6 +33,12 @@ namespace Svg.Transforms
             	);
                 return matrix;
             }
+        }
+
+        public override string WriteToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "matrix({0}, {1}, {2}, {3}, {4}, {5})",
+                this.points[0], this.points[1], this.points[2], this.points[3], this.points[4], this.points[5]);
         }
 
         public SvgMatrix(List<float> m)

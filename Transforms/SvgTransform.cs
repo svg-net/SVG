@@ -9,5 +9,6 @@ namespace Svg.Transforms
     public abstract class SvgTransform
     {
         public abstract Matrix Matrix { get; }
+        public abstract string WriteToString();
     }
 }
