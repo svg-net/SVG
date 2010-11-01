@@ -33,6 +33,11 @@ namespace Svg
                 Uri id = new Uri(match.Groups[1].Value, UriKind.Relative);
                 return (SvgPaintServer)document.IdManager.GetElementById(id);
             }
+            // If referenced to to a different (linear or radial) gradient
+            else if (document.IdManager.GetElementById(value) != null && document.IdManager.GetElementById(value).GetType().BaseType == typeof(SvgGradientServer))
+            {
+                return (SvgPaintServer)document.IdManager.GetElementById(value);
+            }
             else // Otherwise try and parse as colour
             {
                 return new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Trim()));

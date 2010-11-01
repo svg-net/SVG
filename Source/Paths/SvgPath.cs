@@ -62,14 +62,6 @@ namespace Svg
                         segment.AddToPath(_path);
                     }
 
-                    if (base.Transforms != null)
-                    {
-                        foreach (SvgTransform transform in base.Transforms)
-                        {
-                            _path.Transform(transform.Matrix);
-                        }
-                    }
-
                     this.IsPathDirty = false;
                 }
                 return _path;

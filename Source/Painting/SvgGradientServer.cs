@@ -85,10 +85,18 @@ namespace Svg
             set { this._gradientUnits = value; }
         }
 
+        /// <summary>
+        /// Gets or sets another gradient fill from which to inherit the stops from.
+        /// </summary>
+        [SvgAttributeAttribute("href")]
         public SvgGradientServer InheritGradient
         {
             get { return this._inheritGradient; }
-            set { this._inheritGradient = value; }
+            set 
+            { 
+                this._inheritGradient = value;
+                this.InheritStops();
+            }
         }
 
         /// <summary>
@@ -161,22 +169,15 @@ namespace Svg
             return blend;
         }
 
-        protected virtual List<SvgGradientStop> InheritStops()
+        /// <summary>
+        // If this gradient contains no stops then it will search any inherited gradients for stops.
+        /// </summary>
+        protected virtual void InheritStops()
         {
-            List<SvgGradientStop> stops = new List<SvgGradientStop>();
-
-            if (this.Stops.Count > 0)
+            if (this.Stops.Count == 0 && this.InheritGradient != null)
             {
-                return stops;
+                _stops.AddRange(this.InheritGradient.Stops);
             }
-
-            if (this.InheritGradient != null)
-            {
-                List<SvgGradientStop> ownerStops = this.InheritGradient.InheritStops();
-                stops.AddRange(ownerStops);
-            }
-
-            return stops;
         }
     }
 }

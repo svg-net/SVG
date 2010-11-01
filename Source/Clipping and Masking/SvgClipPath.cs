@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using Svg.Transforms;
 
 namespace Svg
 {
@@ -63,7 +64,18 @@ namespace Svg
             if (graphicsElement != null && graphicsElement.Path != null)
             {
                 path.FillMode = (graphicsElement.ClipRule == SvgClipRule.NonZero) ? FillMode.Winding : FillMode.Alternate;
-                path.AddPath(graphicsElement.Path, false);
+
+                GraphicsPath childPath = graphicsElement.Path;
+
+                if (graphicsElement.Transforms != null)
+                {
+                    foreach (SvgTransform transform in graphicsElement.Transforms)
+                    {
+                        childPath.Transform(transform.Matrix);
+                    }
+                }
+
+                path.AddPath(childPath, false);
             }
 
             foreach (SvgElement child in element.Children)
