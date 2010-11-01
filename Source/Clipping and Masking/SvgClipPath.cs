@@ -28,25 +28,27 @@ namespace Svg
             this.ClipPathUnits = SvgCoordinateUnits.ObjectBoundingBox;
         }
 
+        private GraphicsPath cachedClipPath = null;
+
         /// <summary>
         /// Gets this <see cref="SvgClipPath"/>'s region to be used as a clipping region.
         /// </summary>
         /// <returns>A new <see cref="Region"/> containing the <see cref="Region"/> to be used for clipping.</returns>
         public Region GetClipRegion(SvgVisualElement owner)
         {
-            var path = new GraphicsPath();
-
-            if (this._pathDirty)
+            if (cachedClipPath == null || this._pathDirty)
             {
+                cachedClipPath = new GraphicsPath();
+
                 foreach (SvgElement element in this.Children)
                 {
-                    this.CombinePaths(path, element);
+                    this.CombinePaths(cachedClipPath, element);
                 }
 
                 this._pathDirty = false;
             }
 
-            return new Region(path);
+            return new Region(cachedClipPath);
         }
 
         /// <summary>
