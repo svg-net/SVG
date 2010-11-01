@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Diagnostics;
 using Svg.Pathing;
+using Svg.Transforms;
 
 namespace Svg
 {
@@ -59,6 +60,14 @@ namespace Svg
                     foreach (SvgPathSegment segment in this.PathData)
                     {
                         segment.AddToPath(_path);
+                    }
+
+                    if (base.Transforms != null)
+                    {
+                        foreach (SvgTransform transform in base.Transforms)
+                        {
+                            _path.Transform(transform.Matrix);
+                        }
                     }
 
                     this.IsPathDirty = false;
