@@ -49,6 +49,10 @@ namespace Svg
         /// </summary>
         public SvgRadialGradientServer()
         {
+            //Apply default values of 50% to cX,cY and r
+            CenterX = new SvgUnit(SvgUnitType.Percentage, 50);
+            CenterY = new SvgUnit(SvgUnitType.Percentage, 50);
+            Radius = new SvgUnit(SvgUnitType.Percentage, 50);
         }
 
         public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
@@ -59,15 +63,20 @@ namespace Svg
             float radius = this.Radius.ToDeviceValue(renderingElement);
             RectangleF boundingBox = (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) ? renderingElement.Bounds : renderingElement.OwnerDocument.GetDimensions();
 
-            path.AddEllipse(left-radius, top-radius, radius*2, radius*2);
+            if (radius > 0)
+            {
+                path.AddEllipse(left - radius, top - radius, radius * 2, radius * 2);
 
-            PathGradientBrush brush = new PathGradientBrush(path);
-            ColorBlend blend = base.GetColourBlend(renderingElement, opacity);
+                PathGradientBrush brush = new PathGradientBrush(path);
+                ColorBlend blend = base.GetColourBlend(renderingElement, opacity);
 
-            brush.InterpolationColors = blend;
-            brush.CenterPoint = new PointF(this.FocalX.ToDeviceValue(renderingElement), this.FocalY.ToDeviceValue(renderingElement, true));
-          
-            return brush;
+                brush.InterpolationColors = blend;
+                brush.CenterPoint = new PointF(this.FocalX.ToDeviceValue(renderingElement), this.FocalY.ToDeviceValue(renderingElement, true));
+
+                return brush;
+            }
+            
+            return null;            
         }
     }
 }
