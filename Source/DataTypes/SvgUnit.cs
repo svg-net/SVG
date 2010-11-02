@@ -37,6 +37,14 @@ namespace Svg
         }
 
         /// <summary>
+        /// Gets whether this unit is none.
+        /// </summary>
+        public bool IsNone
+        {
+            get { return _type == SvgUnitType.None; }
+        }
+
+        /// <summary>
         /// Gets the value of the unit.
         /// </summary>
         public float Value

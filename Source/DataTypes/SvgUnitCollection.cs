@@ -40,7 +40,7 @@ namespace Svg
                 foreach (string point in points)
                 {
                     SvgUnit newUnit = (SvgUnit)_unitConverter.ConvertFrom(point.Trim());
-                    if(newUnit != SvgUnit.None)
+                    if (!newUnit.IsNone)
                         units.Add(newUnit);
                 }
 
