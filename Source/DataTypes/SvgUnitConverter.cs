@@ -29,6 +29,9 @@ namespace Svg
             string unit = (string)value;
             int identifierIndex = -1;
 
+            if (unit == "none")
+                return SvgUnit.None;
+
             for (int i = 0; i < unit.Length; i++)
             {
                 if (char.IsLetter(unit[i]) || unit[i] == '%')

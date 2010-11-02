@@ -24,6 +24,11 @@ namespace Svg
         public static readonly SvgUnit Empty = new SvgUnit();
 
         /// <summary>
+        /// Gets an <see cref="SvgUnit"/> with a value of none.
+        /// </summary>
+        public static readonly SvgUnit None = new SvgUnit(SvgUnitType.None,0f);
+
+        /// <summary>
         /// Gets a value to determine whether the unit is empty.
         /// </summary>
         public bool IsEmpty
@@ -179,6 +184,8 @@ namespace Svg
 
             switch (this.Type)
             {
+                case SvgUnitType.None:
+                    return "none";
                 case SvgUnitType.Pixel:
                     type = "px";
                     break;
@@ -256,6 +263,10 @@ namespace Svg
     /// </summary>
     public enum SvgUnitType
     {
+        /// <summary>
+        /// Indicates that the unit holds no value.
+        /// </summary>
+        None,
         /// <summary>
         /// Indicates that the unit is in pixels.
         /// </summary>
