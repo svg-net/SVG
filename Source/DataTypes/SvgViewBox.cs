@@ -137,7 +137,7 @@ namespace Svg
 
                 return string.Format("{0}, {1}, {2}, {3}",
                     viewBox.MinX.ToString(CultureInfo.InvariantCulture), viewBox.MinY.ToString(CultureInfo.InvariantCulture),
-                    viewBox.MinX.ToString(CultureInfo.InvariantCulture), viewBox.MinY.ToString(CultureInfo.InvariantCulture));
+                    viewBox.Width.ToString(CultureInfo.InvariantCulture), viewBox.Height.ToString(CultureInfo.InvariantCulture));
             }
 
             return base.ConvertTo(context, culture, value, destinationType);

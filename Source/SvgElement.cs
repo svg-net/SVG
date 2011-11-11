@@ -297,6 +297,11 @@ namespace Svg
             if (this.ElementName != String.Empty)
             {
                 writer.WriteStartElement(this.ElementName);
+                if (this.ElementName == "svg")
+                {
+                    writer.WriteAttributeString("xmlns", "http://www.w3.org/2000/svg");
+                    writer.WriteAttributeString("version", "1.1");
+                }
             }
             this.WriteAttributes(writer);
         }
@@ -324,9 +329,23 @@ namespace Svg
 
                     if (propertyValue != null)
                     {
-                        string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+                        var type = propertyValue.GetType();
 
-                        writer.WriteAttributeString(attr.Attribute.Name, attr.Attribute.NameSpace, value);
+                        object defaultValue = null;
+                        if(type.IsValueType)
+                            defaultValue = Activator.CreateInstance(type);
+
+                        if (!propertyValue.Equals(defaultValue) || type == typeof(float) || type == typeof(bool) || type == typeof(SvgColourServer))
+                        {
+                            string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+
+                            writer.WriteAttributeString(attr.Attribute.Name, value);
+                        }
+                    }
+                    else if(attr.Attribute.Name == "fill") //if fill equals null, write 'none'
+                    {
+                    	string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+                        writer.WriteAttributeString(attr.Attribute.Name, value);	
                     }
                 }
             }
@@ -344,6 +363,11 @@ namespace Svg
 
         protected virtual void WriteChildren(XmlTextWriter writer)
         {
+            //write the content
+            if(!String.IsNullOrEmpty(this.Content))
+                writer.WriteString(this.Content);
+
+            //write all children
             foreach (SvgElement child in this.Children)
             {
                 child.Write(writer);

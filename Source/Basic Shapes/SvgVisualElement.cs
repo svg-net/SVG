@@ -76,6 +76,7 @@ namespace Svg
         {
             this._dirty = true;
             this._requiresSmoothRendering = false;
+            this.Fill = new SvgColourServer(); //in case fill attribute is not set by xml, default fill is black
         }
 
         /// <summary>
@@ -121,6 +122,7 @@ namespace Svg
                 {
                     if (brush != null)
                     {
+                    	this.Path.FillMode = this.FillRule == SvgFillRule.NonZero ? FillMode.Winding : FillMode.Alternate;
                         renderer.FillPath(brush, this.Path);
                     }
                 }

@@ -18,6 +18,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets a value to determine whether the element will be rendered.
         /// </summary>
+        [TypeConverter(typeof(SvgBoolConverter))]
         [SvgAttribute("visibility")]
         public virtual bool Visible
         {
@@ -31,7 +32,7 @@ namespace Svg
         [SvgAttribute("fill")]
         public virtual SvgPaintServer Fill
         {
-            get { return (this.Attributes["Fill"] == null) ? new SvgColourServer() : (SvgPaintServer)this.Attributes["Fill"]; }
+            get { return (this.Attributes["Fill"] == null) ? null : (SvgPaintServer)this.Attributes["Fill"]; }
             set { this.Attributes["Fill"] = value; }
         }
 

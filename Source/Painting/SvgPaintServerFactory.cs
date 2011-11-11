@@ -48,7 +48,11 @@ namespace Svg
         {
             if (value is string)
             {
-                return SvgPaintServerFactory.Create((string)value, (SvgDocument)context);
+            	var s = (string) value;
+            	if(s == "none")
+            		return null;
+            	else
+                	return SvgPaintServerFactory.Create(s, (SvgDocument)context);
             }
 
             return base.ConvertFrom(context, culture, value);
@@ -88,6 +92,10 @@ namespace Svg
                 if (value != null)
                 {
                     return string.Format(CultureInfo.InvariantCulture, "url(#{0})", ((SvgPaintServer)value).ID);
+                }
+                else
+                {
+                	return "none";
                 }
             }
 

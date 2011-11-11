@@ -66,10 +66,7 @@ namespace Svg
 
             if (!this.ViewBox.Equals(SvgViewBox.Empty))
             {
-                if (this.ViewBox.MinX > 0 || this.ViewBox.MinY > 0)
-                {
-                    renderer.TranslateTransform(this.ViewBox.MinX, this.ViewBox.MinY, MatrixOrder.Append);
-                }
+                renderer.TranslateTransform(-this.ViewBox.MinX, -this.ViewBox.MinY, MatrixOrder.Append);
 
                 renderer.ScaleTransform(this.Width.ToDeviceValue() / this.ViewBox.Width, this.Height.ToDeviceValue() / this.ViewBox.Height, MatrixOrder.Append);
             }

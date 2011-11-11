@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 namespace Svg
 {
@@ -12,6 +13,16 @@ namespace Svg
     [TypeConverter(typeof(SvgUnitCollectionConverter))]
     public class SvgUnitCollection : List<SvgUnit>
     {
+        public override string ToString()
+        {
+            string ret = "";
+            foreach (var unit in this)
+            {
+                ret += unit.ToString() + " ";
+            }
+
+            return ret;
+        }
     }
 
     /// <summary>
@@ -48,6 +59,25 @@ namespace Svg
             }
 
             return base.ConvertFrom(context, culture, value);
+        }
+
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            if (destinationType == typeof(string))
+            {
+                return true;
+            }
+            return base.CanConvertTo(context, destinationType);
+        }
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string))
+            {
+                return ((SvgUnitCollection)value).ToString();
+            }
+
+            return base.ConvertTo(context, culture, value, destinationType);
         }
     }
 }

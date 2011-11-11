@@ -8,6 +8,8 @@ using System.Drawing.Text;
 using System.IO;
 using System.Text;
 using System.Xml;
+using System.Threading;
+using System.Globalization;
 
 namespace Svg
 {
@@ -327,14 +329,7 @@ namespace Svg
 
             try
             {
-                using (var renderer = SvgRenderer.FromImage(bitmap))
-                {
-                    renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
-                    renderer.TextContrast = 1;
-                    renderer.PixelOffsetMode = PixelOffsetMode.Half;
-                    this.Render(renderer);
-                    renderer.Save();
-                }
+                Draw(bitmap);
             }
             catch
             {
@@ -346,14 +341,56 @@ namespace Svg
             return bitmap;
         }
 
+        /// <summary>
+        /// Renders the <see cref="SvgDocument"/> into a given Bitmap <see cref="Bitmap"/>.
+        /// </summary>
+        public virtual void Draw(Bitmap bitmap)
+        {
+            //Trace.TraceInformation("Begin Render");
+
+            try
+            {
+                using (var renderer = SvgRenderer.FromImage(bitmap))
+                {
+                    renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
+                    renderer.TextContrast = 1;
+                    renderer.PixelOffsetMode = PixelOffsetMode.Half;
+                    this.Render(renderer);
+                    renderer.Save();
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            //Trace.TraceInformation("End Render");
+        }
+
         public void Write(Stream stream)
         {
+            //Save previous culture and switch to invariant for writing
+            var previousCulture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
+            var xmlWriter = new XmlTextWriter(stream, Encoding.UTF8);
+            xmlWriter.Formatting = Formatting.Indented;
+
+            xmlWriter.WriteDocType("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", null);
+
+            this.WriteElement(xmlWriter);
+
+            xmlWriter.Close();
+
+            Thread.CurrentThread.CurrentCulture = previousCulture;
         }
 
         public void Write(string path)
         {
-
+            using(var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+            {
+                this.Write(fs);
+            }
         }
     }
 }

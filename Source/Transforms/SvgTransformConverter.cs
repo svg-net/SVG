@@ -194,7 +194,7 @@ namespace Svg.Transforms
 
                 if (transforms != null)
                 {
-                    return string.Join(",", transforms.Select(t => t.WriteToString()).ToArray());
+                    return string.Join(" ", transforms.Select(t => t.WriteToString()).ToArray());
                 }
             }
 

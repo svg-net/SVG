@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace Svg
 {
@@ -13,6 +14,7 @@ namespace Svg
     ///     that point to infinity in any direction and then examining the places where a segment of the 
     ///     shape crosses the ray.</para>
     /// </remarks>
+    [TypeConverter(typeof(SvgClipRuleConverter))]
     public enum SvgClipRule
     {
         /// <summary>
