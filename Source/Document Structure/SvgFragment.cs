@@ -71,6 +71,22 @@ namespace Svg
                 renderer.ScaleTransform(this.Width.ToDeviceValue() / this.ViewBox.Width, this.Height.ToDeviceValue() / this.ViewBox.Height, MatrixOrder.Append);
             }
         }
+        
+        /// <summary>
+        /// Gets the <see cref="GraphicsPath"/> for this element.
+        /// </summary>
+        /// <value></value>
+        public GraphicsPath Path
+        {
+            get 
+            { 
+            	var path = new GraphicsPath();
+
+            	AddPaths(this, path);
+  
+            	return path; 
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgFragment"/> class.
@@ -78,7 +94,7 @@ namespace Svg
         public SvgFragment()
         {
             this._height = new SvgUnit(SvgUnitType.Percentage, 100.0f);
-            this._width = 1000.0f;
+            this._width = new SvgUnit(SvgUnitType.Percentage, 100.0f);
             this.ViewBox = SvgViewBox.Empty;
         }
     }

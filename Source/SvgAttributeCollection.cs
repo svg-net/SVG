@@ -63,7 +63,7 @@ namespace Svg
         /// <returns>The attribute value if available; otherwise the ancestors value for the same attribute; otherwise the default value of <typeparamref name="TAttributeType"/>.</returns>
         public TAttributeType GetInheritedAttribute<TAttributeType>(string attributeName)
         {
-            if (this.ContainsKey(attributeName) && base[attributeName] != null)
+            if (this.ContainsKey(attributeName) /*&& base[attributeName] != null*/)
             {
                 return (TAttributeType)base[attributeName];
             }

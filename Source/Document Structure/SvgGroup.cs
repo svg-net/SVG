@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Svg
 {
@@ -33,7 +34,14 @@ namespace Svg
         /// <value></value>
         public override System.Drawing.Drawing2D.GraphicsPath Path
         {
-            get { return null; }
+            get 
+            { 
+            	var path = new GraphicsPath();
+
+            	AddPaths(this, path);
+  
+            	return path; 
+            }
         }
 
         /// <summary>

@@ -405,6 +405,26 @@ namespace Svg
         {
             this.Render(renderer);
         }
+        
+        /// <summary>
+        /// Recursive method to add up the paths of all children
+        /// </summary>
+        /// <param name="elem"></param>
+        /// <param name="path"></param>
+        protected void AddPaths(SvgElement elem, GraphicsPath path)
+        {
+        	foreach(var c in elem.Children)
+        	{
+        		if (c is SvgVisualElement)
+        		{
+        			var cp = ((SvgVisualElement)c).Path;
+        			if (cp != null) path.AddPath(cp, false);
+        		}
+        		
+        		AddPaths(c, path);
+        	}
+        	
+        }
 
         /// <summary>
         /// Creates a new object that is a copy of the current instance.
