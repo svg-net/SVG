@@ -283,7 +283,21 @@ namespace Svg
 
         public RectangleF GetDimensions()
         {
-            return new RectangleF(0, 0, Width.ToDeviceValue(), Height.ToDeviceValue());
+        	var w = Width.ToDeviceValue();
+        	var h = Height.ToDeviceValue();
+        	
+        	RectangleF bounds = new RectangleF();
+        	var isWidthperc = Width.Type == SvgUnitType.Percentage;
+        	var isHeightperc = Height.Type == SvgUnitType.Percentage;
+
+        	if(isWidthperc || isHeightperc)
+        	{
+        		bounds = this.Bounds; //do just one call to the recursive bounds property
+        		if(isWidthperc) w = (bounds.Width + bounds.X) * (w * 0.01f);
+        		if(isHeightperc) h = (bounds.Height + bounds.Y) * (h * 0.01f);
+        	}
+        	
+            return new RectangleF(0, 0, w, h);
         }
 
         /// <summary>

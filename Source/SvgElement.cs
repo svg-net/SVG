@@ -418,7 +418,17 @@ namespace Svg
         		if (c is SvgVisualElement)
         		{
         			var cp = ((SvgVisualElement)c).Path;
-        			if (cp != null) path.AddPath(cp, false);
+        		
+        			
+        			
+        			if (cp != null) 
+        			{
+        				cp = (GraphicsPath)cp.Clone();
+        				if(c.Transforms != null)
+        					cp.Transform(c.Transforms.GetMatrix());
+        				
+        				path.AddPath(cp, false);
+        			}
         		}
         		
         		AddPaths(c, path);

@@ -84,8 +84,21 @@ namespace Svg
 
             	AddPaths(this, path);
   
-            	return path; 
+            	return path;
             }
+        }
+        
+        /// <summary>
+        /// Gets the bounds of the svg element.
+        /// </summary>
+        /// <value>The bounds.</value>
+        public RectangleF Bounds 
+        { 
+        	get
+        	{
+        		return this.Path.GetBounds();
+        	}
+        		
         }
 
         /// <summary>
