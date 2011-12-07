@@ -413,25 +413,23 @@ namespace Svg
         /// <param name="path"></param>
         protected void AddPaths(SvgElement elem, GraphicsPath path)
         {
-        	foreach(var c in elem.Children)
+        	foreach(var child in elem.Children)
         	{
-        		if (c is SvgVisualElement)
+        		if (!(child is SvgGroup) && child is SvgVisualElement)
         		{
-        			var cp = ((SvgVisualElement)c).Path;
+        			var childPath = ((SvgVisualElement)child).Path;
         		
-        			
-        			
-        			if (cp != null) 
+        			if (childPath != null) 
         			{
-        				cp = (GraphicsPath)cp.Clone();
-        				if(c.Transforms != null)
-        					cp.Transform(c.Transforms.GetMatrix());
+        				childPath = (GraphicsPath)childPath.Clone();
+        				if(child.Transforms != null)
+        					childPath.Transform(child.Transforms.GetMatrix());
         				
-        				path.AddPath(cp, false);
+        				path.AddPath(childPath, false);
         			}
         		}
         		
-        		AddPaths(c, path);
+        		AddPaths(child, path);
         	}
         	
         }

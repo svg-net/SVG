@@ -60,6 +60,16 @@ namespace Svg
         {
             return new RectangleF(value.MinX, value.MinY, value.Width, value.Height);
         }
+        
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.Drawing.RectangleF"/> to <see cref="Svg.SvgViewBox"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The result of the conversion.</returns>
+        public static implicit operator SvgViewBox(RectangleF value)
+        {
+            return new SvgViewBox(value.X, value.Y, value.Width, value.Height);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgViewBox"/> struct.
