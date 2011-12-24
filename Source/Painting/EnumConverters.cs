@@ -95,5 +95,16 @@ namespace Svg
     //implementaton for clip rule
     public sealed class SvgClipRuleConverter : EnumBaseConverter<SvgClipRule>
     {
-    }	
+    }
+    
+    //implementaton for clip rule
+    public sealed class SvgTextAnchorConverter : EnumBaseConverter<SvgTextAnchor>
+    {
+    }
+    
+    //implementaton for preserve aspect ratio
+    public sealed class SvgPreserverAspectRatioConverter : EnumBaseConverter<SvgPreserveAspectRatio>
+    {
+    }
+    
 }

@@ -10,5 +10,11 @@ namespace Svg.Pathing
         {
             graphicsPath.CloseFigure();
         }
+        
+        public override string ToString()
+		{
+			return "z";
+		}
+
     }
 }

@@ -31,6 +31,17 @@ namespace Svg
             get { return this._viewBox; }
             set { this._viewBox = value; }
         }
+        
+        /// <summary>
+        /// Gets or sets the aspect of the viewport.
+        /// </summary>
+        /// <value></value>
+        [SvgAttribute("preserveAspectRatio")]
+        public SvgAspectRatio AspectRatio 
+		{
+			get;
+			set;
+		}
 
         /// <summary>
         /// Gets or sets the width of the pattern.
