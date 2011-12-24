@@ -394,7 +394,7 @@ namespace Svg
 
             this.WriteElement(xmlWriter);
 
-            xmlWriter.Close();
+            xmlWriter.Flush();
 
             Thread.CurrentThread.CurrentCulture = previousCulture;
         }
