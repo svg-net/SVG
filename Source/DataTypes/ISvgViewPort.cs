@@ -14,5 +14,6 @@ namespace Svg
         /// Gets or sets the viewport of the element.
         /// </summary>
         SvgViewBox ViewBox { get; set; }
+        SvgAspectRatio AspectRatio { get; set; }
     }
 }

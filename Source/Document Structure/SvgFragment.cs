@@ -17,6 +17,7 @@ namespace Svg
         private SvgUnit _width;
         private SvgUnit _height;
         private SvgViewBox _viewBox;
+        private SvgAspectRatio _aspect;
 
         /// <summary>
         /// Gets the SVG namespace string.
@@ -54,6 +55,17 @@ namespace Svg
         {
             get { return this._viewBox; }
             set { this._viewBox = value; }
+        }
+        
+        /// <summary>
+        /// Gets or sets the aspect of the viewport.
+        /// </summary>
+        /// <value></value>
+        [SvgAttribute("preserveAspectRatio")]
+        public SvgAspectRatio AspectRatio
+        {
+            get { return this._aspect; }
+            set { this._aspect = value; }
         }
 
         /// <summary>
@@ -109,6 +121,7 @@ namespace Svg
             this._height = new SvgUnit(SvgUnitType.Percentage, 100.0f);
             this._width = new SvgUnit(SvgUnitType.Percentage, 100.0f);
             this.ViewBox = SvgViewBox.Empty;
+            this.AspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.None);
         }
     }
 }
