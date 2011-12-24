@@ -38,9 +38,9 @@ namespace Svg
             { 
             	var path = new GraphicsPath();
 
-            	AddPaths(this, path);
+            	//AddPaths(this, path);
   
-            	return path; 
+            	return GetPaths(this);
             }
         }
 
@@ -50,7 +50,16 @@ namespace Svg
         /// <value>The bounds.</value>
         public override System.Drawing.RectangleF Bounds
         {
-            get { return new System.Drawing.RectangleF(); }
+            get 
+            { 
+            	var r = new RectangleF();
+            	foreach(var c in this.Children)
+            	{
+            		if(c is SvgVisualElement)
+            			r = RectangleF.Union(r, ((SvgVisualElement)c).Bounds);
+            	}
+				return r;         	
+            }
         }
 
         /// <summary>

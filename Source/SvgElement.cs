@@ -415,23 +415,64 @@ namespace Svg
         {
         	foreach(var child in elem.Children)
         	{
-        		if (!(child is SvgGroup) && child is SvgVisualElement)
+        		if (child is SvgVisualElement)
         		{
-        			var childPath = ((SvgVisualElement)child).Path;
-        		
-        			if (childPath != null) 
+        			if(!(child is SvgGroup))
         			{
-        				childPath = (GraphicsPath)childPath.Clone();
-        				if(child.Transforms != null)
-        					childPath.Transform(child.Transforms.GetMatrix());
+        				var childPath = ((SvgVisualElement)child).Path;
         				
-        				path.AddPath(childPath, false);
+        				if (childPath != null)
+        				{
+        					childPath = (GraphicsPath)childPath.Clone();
+        					if(child.Transforms != null)
+        						childPath.Transform(child.Transforms.GetMatrix());
+        					
+        					path.AddPath(childPath, false);
+        				}
         			}
         		}
-        		
+        			
         		AddPaths(child, path);
         	}
+        }
+        
+        /// <summary>
+        /// Recursive method to add up the paths of all children
+        /// </summary>
+        /// <param name="elem"></param>
+        /// <param name="path"></param>
+        protected GraphicsPath GetPaths(SvgElement elem)
+        {
+        	var ret = new GraphicsPath();
         	
+        	foreach(var child in elem.Children)
+        	{
+        		if (child is SvgVisualElement)
+        		{
+        			if(!(child is SvgGroup))
+        			{
+        				var childPath = ((SvgVisualElement)child).Path;
+        				
+        				if (childPath != null)
+        				{
+        					childPath = (GraphicsPath)childPath.Clone();
+        					if(child.Transforms != null)
+        						childPath.Transform(child.Transforms.GetMatrix());
+        					
+        					ret.AddPath(childPath, false);
+        				}
+        			}
+        			else
+        			{
+        				var childPath = GetPaths(child);
+        				if(child.Transforms != null)
+        					childPath.Transform(child.Transforms.GetMatrix());
+        			}
+        		}
+        			
+        	}
+        	
+        	return ret;
         }
 
         /// <summary>
