@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace Svg
 {
     /// <summary>
     /// Text anchor is used to align (start-, middle- or end-alignment) a string of text relative to a given point.
     /// </summary>
+    [TypeConverter(typeof(SvgTextAnchorConverter))]
     public enum SvgTextAnchor
     {
         /// <summary>

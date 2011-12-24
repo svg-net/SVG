@@ -191,6 +191,7 @@ namespace Svg
         {
             GraphicsPath p = new GraphicsPath();
             p.AddString(text, font.FontFamily, 0, font.Size, new PointF(0.0f, 0.0f), StringFormat.GenericTypographic);
+            
             p.Transform(renderer.Transform);
             return p.GetBounds();
         }
@@ -211,23 +212,22 @@ namespace Svg
                     {
                         fontSize = 1.0f;
                     }
-                    RectangleF stringBounds;
+
                     PointF location = PointF.Empty;
                     Font font = new Font(this._fontFamily, fontSize, FontStyle.Regular, GraphicsUnit.Pixel);
+                    SizeF stringBounds = _stringMeasure.MeasureString(this.Text, font);
 
                     // Minus FontSize because the x/y coords mark the bottom left, not bottom top.
                     switch (this.TextAnchor)
                     {
                         case SvgTextAnchor.Start:
-                            location = new PointF(this.X.ToDeviceValue(this), this.Y.ToDeviceValue(this, true) - this._fontSize);
+                            location = new PointF(this.X.ToDeviceValue(this), this.Y.ToDeviceValue(this, true) - stringBounds.Height);
                             break;
                         case SvgTextAnchor.Middle:
-                            stringBounds = SvgText.MeasureString(_stringMeasure, this.Text, font);
-                            location = new PointF(this.X.ToDeviceValue(this) - (stringBounds.Width / 2), this.Y.ToDeviceValue(this, true) - this._fontSize);
+                            location = new PointF(this.X.ToDeviceValue(this) - (stringBounds.Width / 2), this.Y.ToDeviceValue(this, true) - stringBounds.Height);
                             break;
                         case SvgTextAnchor.End:
-                            stringBounds = SvgText.MeasureString(_stringMeasure, this.Text, font);
-                            location = new PointF(this.X.ToDeviceValue(this) - stringBounds.Width, this.Y.ToDeviceValue(this, true) - this._fontSize);
+                            location = new PointF(this.X.ToDeviceValue(this) - stringBounds.Width, this.Y.ToDeviceValue(this, true) - stringBounds.Height);
                             break;
                     }
 
