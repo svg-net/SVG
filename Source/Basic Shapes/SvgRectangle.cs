@@ -178,8 +178,8 @@ namespace Svg
                         var lineEnd = new PointF();
                         var width = Width.ToDeviceValue();
                         var height = Height.ToDeviceValue();
-                        var rx = CornerRadiusX.ToDeviceValue();
-                        var ry = CornerRadiusY.ToDeviceValue();
+                        var rx = CornerRadiusX.ToDeviceValue() * 2;
+                        var ry = CornerRadiusY.ToDeviceValue() * 2;
                         var location = Location.ToDeviceValue();
 
                         // Start
@@ -192,9 +192,9 @@ namespace Svg
                         _path.AddArc(arcBounds, 180, 90);
 
                         // Add first line
-                        lineStart.X = location.X + rx;
+                        lineStart.X = Math.Min(location.X + rx, location.X + width * 0.5f);
                         lineStart.Y = location.Y;
-                        lineEnd.X = location.X + width - rx;
+                        lineEnd.X = Math.Max(location.X + width - rx, location.X + width * 0.5f);
                         lineEnd.Y = lineStart.Y;
                         _path.AddLine(lineStart, lineEnd);
 
@@ -204,9 +204,9 @@ namespace Svg
 
                         // Add second line
                         lineStart.X = location.X + width;
-                        lineStart.Y = location.Y + ry;
+                        lineStart.Y = Math.Min(location.Y + ry, location.Y + height * 0.5f);
                         lineEnd.X = lineStart.X;
-                        lineEnd.Y = location.Y + height - ry;
+                        lineEnd.Y = Math.Max(location.Y + height - ry, location.Y + height * 0.5f);
                         _path.AddLine(lineStart, lineEnd);
 
                         // Add third arc
@@ -214,9 +214,9 @@ namespace Svg
                         _path.AddArc(arcBounds, 0, 90);
 
                         // Add third line
-                        lineStart.X = location.X + width - rx;
+                        lineStart.X = Math.Max(location.X + width - rx, location.X + width * 0.5f);
                         lineStart.Y = location.Y + height;
-                        lineEnd.X = location.X + rx;
+                        lineEnd.X = Math.Min(location.X + rx, location.X + width * 0.5f);
                         lineEnd.Y = lineStart.Y;
                         _path.AddLine(lineStart, lineEnd);
 
@@ -226,9 +226,9 @@ namespace Svg
 
                         // Add fourth line
                         lineStart.X = location.X;
-                        lineStart.Y = location.Y + height - ry;
+                        lineStart.Y = Math.Max(location.Y + height - ry, location.Y + height * 0.5f);
                         lineEnd.X = lineStart.X;
-                        lineEnd.Y = location.Y + ry;
+                        lineEnd.Y = Math.Min(location.Y + ry, location.Y + height * 0.5f);
                         _path.AddLine(lineStart, lineEnd);
 
                         // Close
