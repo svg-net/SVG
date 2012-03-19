@@ -45,5 +45,12 @@ namespace Svg.Transforms
         {
         	this.points = m;
         }
+
+
+		public override object Clone()
+		{
+			return new SvgMatrix(this.Points);
+		}
+
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using Svg.Transforms;
 
 namespace Svg
 {
@@ -250,5 +251,23 @@ namespace Svg
                 base.Render(renderer);
             }
         }
+
+
+		public override SvgElement DeepCopy()
+		{
+			return DeepCopy<SvgRectangle>();
+		}
+
+		public override SvgElement DeepCopy<T>()
+		{
+ 			var newObj = base.DeepCopy<T>() as SvgRectangle;
+			newObj.CornerRadiusX = this.CornerRadiusX;
+			newObj.CornerRadiusY = this.CornerRadiusY;
+			newObj.Height = this.Height;
+			newObj.Width = this.Width;
+			newObj.X = this.X;
+			newObj.Y = this.Y;
+			return newObj;
+		}
     }
 }

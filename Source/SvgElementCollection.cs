@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Svg
@@ -138,6 +139,32 @@ namespace Svg
 
             return removed;
         }
+
+		/// <summary>
+		/// expensive recursive search for nodes of type T
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public IEnumerable<T> FindSvgElementsOf<T>() where T : SvgElement
+		{
+			return _elements.Where(x => x is T).Select(x => x as T).Concat(_elements.SelectMany(x => x.Children.FindSvgElementsOf<T>()));
+		}
+
+		/// <summary>
+		/// expensive recursive search for first node of type T
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
+		public T FindSvgElementOf<T>() where T : SvgElement
+		{
+			return _elements.OfType<T>().FirstOrDefault() ?? _elements.Select(x => x.Children.FindSvgElementOf<T>()).FirstOrDefault<T>(x => x != null);
+		}
+
+		public T GetSvgElementOf<T>() where T : SvgElement
+		{
+			return _elements.FirstOrDefault(x => x is T) as T;
+		}
+
 
         public IEnumerator<SvgElement> GetEnumerator()
         {

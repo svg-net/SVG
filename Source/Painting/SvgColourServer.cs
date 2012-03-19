@@ -45,5 +45,21 @@ namespace Svg
             // Return the hex value
             return String.Format("#{0}", c.ToArgb().ToString("x").Substring(2));
         }
+
+
+		public override SvgElement DeepCopy()
+		{
+			return DeepCopy<SvgColourServer>();
+		}
+
+
+		public override SvgElement DeepCopy<T>()
+		{
+			var newObj = base.DeepCopy<T>() as SvgColourServer;
+			newObj.Colour = this.Colour;
+			return newObj;
+
+		}
+
     }
 }

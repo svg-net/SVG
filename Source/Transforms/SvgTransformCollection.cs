@@ -31,6 +31,14 @@ namespace Svg.Transforms
 
             return transformMatrix;
     	}
+
+
+		public override bool Equals(object obj)
+		{
+			if (this.Count == 0 && this.Count == this.Count) //default will be an empty list 
+				return true;
+			return base.Equals(obj);
+		}
     		
     }
 }
