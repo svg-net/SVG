@@ -74,5 +74,20 @@ namespace Svg
         {
             get { return this.Path.GetBounds(); }
         }
+
+
+		public override SvgElement DeepCopy()
+		{
+			return DeepCopy<SvgPolygon>();
+		}
+
+		public override SvgElement DeepCopy<T>()
+		{
+			var newObj = base.DeepCopy<T>() as SvgPolygon;
+			newObj.Points = new SvgUnitCollection();
+			foreach (var pt in this.Points)
+				newObj.Points.Add(pt);
+			return newObj;
+		}
     }
 }

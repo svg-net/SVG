@@ -48,5 +48,11 @@ namespace Svg.Transforms
             this.shearFactorX = x;
             this.shearFactorY = y;
         }
+
+
+		public override object Clone()
+		{
+			return new SvgShear(this.X, this.Y);
+		}
     }
 }

@@ -71,5 +71,21 @@ namespace Svg
             this._colour = colour;
             this._opacity = 1.0f;
         }
+
+
+		public override SvgElement DeepCopy()
+		{
+			return DeepCopy<SvgGradientStop>();
+		}
+
+		public override SvgElement DeepCopy<T>()
+		{
+			var newObj = base.DeepCopy<T>() as SvgGradientStop;
+			newObj.Offset = this.Offset;
+			newObj.Colour = this.Colour;
+			newObj.Opacity = this.Opacity;
+
+			return newObj;
+		}
     }
 }

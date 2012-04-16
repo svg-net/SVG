@@ -100,8 +100,7 @@ namespace Svg
 
             if (createdElement != null)
             {
-                createdElement.ElementName = elementName;
-                SetAttributes(createdElement, reader, document);
+				SetAttributes(createdElement, reader, document);
             }
 
             //Trace.TraceInformation("End CreateElement");
@@ -135,7 +134,7 @@ namespace Svg
                         SetPropertyValue(element, style[0].Trim(), style[1].Trim(), document);
                     }
 
-                    continue;
+                    continue; 
                 }
 
                 SetPropertyValue(element, reader.LocalName, reader.Value, document);

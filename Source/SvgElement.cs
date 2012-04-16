@@ -196,7 +196,7 @@ namespace Svg
         [SvgAttribute("transform")]
         public SvgTransformCollection Transforms
         {
-            get { return this.Attributes.GetAttribute<SvgTransformCollection>("Transforms"); }
+            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("Transforms") ?? new SvgTransformCollection()); }
             set { this.Attributes["Transforms"] = value; }
         }
 
@@ -271,12 +271,19 @@ namespace Svg
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgElement"/> class.
         /// </summary>
-        internal SvgElement()
+        public SvgElement()
         {
             this._children = new SvgElementCollection(this);
             this._eventHandlers = new EventHandlerList();
             this._elementName = string.Empty;
         }
+
+
+		public virtual void InitialiseFromXML(XmlTextReader reader, SvgDocument document)
+		{
+			
+		}
+
 
         /// <summary>
         /// Renders this element to the <see cref="SvgRenderer"/>.
@@ -299,9 +306,15 @@ namespace Svg
                 writer.WriteStartElement(this.ElementName);
                 if (this.ElementName == "svg")
                 {
-                    writer.WriteAttributeString("xmlns", "http://www.w3.org/2000/svg");
-                    writer.WriteAttributeString("version", "1.1");
-                }
+					foreach (var ns in SvgAttributeAttribute.Namespaces)
+					{
+						if (string.IsNullOrEmpty(ns.Key))
+							writer.WriteAttributeString("xmlns", ns.Value);
+						else
+							writer.WriteAttributeString("xmlns:" + ns.Key, ns.Value);
+					}
+					writer.WriteAttributeString("version", "1.1");
+				}
             }
             this.WriteAttributes(writer);
         }
@@ -339,13 +352,13 @@ namespace Svg
                         {
                             string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
 
-                            writer.WriteAttributeString(attr.Attribute.Name, value);
+							writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
                         }
                     }
                     else if(attr.Attribute.Name == "fill") //if fill equals null, write 'none'
                     {
                     	string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
-                        writer.WriteAttributeString(attr.Attribute.Name, value);	
+						writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);	
                     }
                 }
             }
@@ -485,10 +498,39 @@ namespace Svg
         {
             return this.MemberwiseClone();
         }
+
+    	public abstract SvgElement DeepCopy();
+
+		public virtual SvgElement DeepCopy<T>() where T : SvgElement, new()
+		{
+			var newObj = new T();
+			newObj.Content = this.Content;
+			newObj.ElementName = this.ElementName;
+//			if (this.Parent != null)
+	//			this.Parent.Children.Add(newObj);
+
+			if (this.Transforms != null)
+			{
+				newObj.Transforms = new SvgTransformCollection();
+				foreach (var transform in this.Transforms)
+					newObj.Transforms.Add(transform.Clone() as SvgTransform);
+			}
+
+			foreach (var child in this.Children)
+			{
+				newObj.Children.Add(child.DeepCopy());
+			}
+				
+
+			return newObj;
+		}
     }
 
     internal interface ISvgElement
     {
+		SvgElement Parent {get;}
+		SvgElementCollection Children { get; }
+
         void Render(SvgRenderer renderer);
     }
 }

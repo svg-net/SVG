@@ -217,7 +217,7 @@ namespace Svg
             for (var i = 0; i < path.Length; i++)
             {
                 string command;
-                if (char.IsLetter(path[i]))
+				if (char.IsLetter(path[i]) && path[i] != 'e') //e is used in scientific notiation. but not svg path
                 {
                     command = path.Substring(commandStart, i - commandStart).Trim();
                     commandStart = i;
@@ -247,8 +247,9 @@ namespace Svg
         private static IEnumerable<float> ParseCoordinates(string coords)
         {
             // TODO: Handle "1-1" (new PointF(1, -1);
-            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] { ',', ' ', '\r', '\n' },
-                StringSplitOptions.RemoveEmptyEntries);
+			//            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] { ',', ' ', '\r', '\n' },StringSplitOptions.RemoveEmptyEntries);
+			//gareth: removed replacing '-' with ' -' - was screwing up scientific notiation
+			var parts = coords.Remove(0, 1).Split(new[] { ',', ' ', '\r', '\n' },StringSplitOptions.RemoveEmptyEntries);
 
             for (var i = 0; i < parts.Length; i++)
             {

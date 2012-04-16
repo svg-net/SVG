@@ -45,5 +45,11 @@ namespace Svg.Transforms
             this.scaleFactorX = x;
             this.scaleFactorY = y;
         }
+
+
+		public override object Clone()
+		{
+			return new SvgScale(this.X, this.Y);
+		}
     }
 }
