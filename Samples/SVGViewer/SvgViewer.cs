@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using Svg;
 using Svg.Transforms;
+using System.Xml;
+using System.IO;
 
 namespace SVGViewer
 {
@@ -22,13 +24,24 @@ namespace SVGViewer
         {
             if (openSvgFile.ShowDialog() == DialogResult.OK)
             {
-                SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
-                svgDoc.Transforms = new SvgTransformCollection();
-                svgDoc.Transforms.Add(new SvgScale(2, 2));
-                svgDoc.Width = new SvgUnit(svgDoc.Width.Type, svgDoc.Width * 2);
-                svgDoc.Height = new SvgUnit(svgDoc.Height.Type, svgDoc.Height * 2);
-                svgImage.Image = svgDoc.Draw();
+                
             }
+        }
+
+        private string FXML = "";
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+            var s = new MemoryStream(UTF8Encoding.Default.GetBytes(textBox1.Text));
+            SvgDocument svgDoc = SvgDocument.Open(s, null);
+
+            svgDoc.Transforms = new SvgTransformCollection();
+            svgDoc.Transforms.Add(new SvgScale(1, 1));
+            svgDoc.Width = new SvgUnit(svgDoc.Width.Type, svgDoc.Width * 0.25f);
+            svgDoc.Height = new SvgUnit(svgDoc.Height.Type, svgDoc.Height);
+            svgImage.Image = svgDoc.Draw();
+
         }
     }
 }

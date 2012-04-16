@@ -1,0 +1,5 @@
+C:\Dev\vvvv\SVG\Source\obj\Release\ResolveAssemblyReference.cache
+C:\Dev\vvvv\vvvv\public\common\src\thirdparty\Svg.dll
+C:\Dev\vvvv\vvvv\public\common\src\thirdparty\Svg.pdb
+C:\Dev\vvvv\SVG\Source\obj\Release\Svg.dll
+C:\Dev\vvvv\SVG\Source\obj\Release\Svg.pdb

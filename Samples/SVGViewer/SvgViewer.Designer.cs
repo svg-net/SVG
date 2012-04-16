@@ -33,6 +33,7 @@
             this.open = new System.Windows.Forms.ToolStripButton();
             this.svgImage = new System.Windows.Forms.PictureBox();
             this.openSvgFile = new System.Windows.Forms.OpenFileDialog();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.svgImage)).BeginInit();
             this.SuspendLayout();
@@ -52,16 +53,16 @@
             this.open.Image = ((System.Drawing.Image)(resources.GetObject("open.Image")));
             this.open.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.open.Name = "open";
-            this.open.Size = new System.Drawing.Size(53, 22);
+            this.open.Size = new System.Drawing.Size(56, 22);
             this.open.Text = "Open";
             this.open.Click += new System.EventHandler(this.open_Click);
             // 
             // svgImage
             // 
-            this.svgImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.svgImage.Dock = System.Windows.Forms.DockStyle.Left;
             this.svgImage.Location = new System.Drawing.Point(0, 25);
             this.svgImage.Name = "svgImage";
-            this.svgImage.Size = new System.Drawing.Size(527, 449);
+            this.svgImage.Size = new System.Drawing.Size(285, 449);
             this.svgImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.svgImage.TabIndex = 1;
             this.svgImage.TabStop = false;
@@ -70,11 +71,22 @@
             // 
             this.openSvgFile.Filter = "Vector Graphics (*.svg)|*.svg";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(291, 28);
+            this.textBox1.MaxLength = 327670;
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(135, 79);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
             // SVGViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(527, 474);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.svgImage);
             this.Controls.Add(this.toolStrip1);
             this.Name = "SVGViewer";
@@ -93,6 +105,7 @@
         private System.Windows.Forms.ToolStripButton open;
         private System.Windows.Forms.PictureBox svgImage;
         private System.Windows.Forms.OpenFileDialog openSvgFile;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

@@ -1,0 +1,6 @@
+C:\Dev\vvvv\vvvv\public\common\src\thirdparty\Svg.dll
+C:\Dev\vvvv\vvvv\public\common\src\thirdparty\Svg.pdb
+C:\Dev\vvvv\SVG\Source\obj\Debug\ResolveAssemblyReference.cache
+C:\Dev\vvvv\SVG\Source\obj\Debug\Svg.dll
+C:\Dev\vvvv\SVG\Source\obj\Debug\Svg.pdb
+C:\Dev\vvvv\vvvv\public\common\src\thirdparty\Svg.XML
