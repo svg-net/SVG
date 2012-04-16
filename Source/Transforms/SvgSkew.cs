@@ -35,5 +35,11 @@ namespace Svg.Transforms
             AngleX = x;
             AngleY = y;
         }
+
+
+		public override object Clone()
+		{
+			return new SvgSkew(this.AngleX, this.AngleY);
+		}
     }
 }

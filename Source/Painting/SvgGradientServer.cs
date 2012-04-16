@@ -179,5 +179,17 @@ namespace Svg
                 _stops.AddRange(this.InheritGradient.Stops);
             }
         }
+
+
+		public override SvgElement DeepCopy<T>()
+		{
+			var newObj = base.DeepCopy<T>() as SvgGradientServer;
+			newObj.SpreadMethod = this.SpreadMethod;
+			newObj.GradientUnits = this.GradientUnits;
+			newObj.InheritGradient = this.InheritGradient;
+			return newObj;
+
+		}
+
     }
 }

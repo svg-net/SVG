@@ -47,5 +47,12 @@ namespace Svg.Transforms
             : this(x, 0.0f)
         {
         }
+
+
+		public override object Clone()
+		{
+			return new SvgTranslate(this.x, this.y);
+		}
+
     }
 }

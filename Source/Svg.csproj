@@ -48,7 +48,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>Full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\vvvv\public\common\src\thirdparty\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;REFLECTION</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -59,7 +59,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>PdbOnly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\vvvv\public\common\src\thirdparty\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Basic Shapes\SvgImage.cs" />
     <Compile Include="Basic Shapes\SvgVisualElement.cs" />
     <Compile Include="Basic Shapes\SvgCircle.cs" />
     <Compile Include="Basic Shapes\SvgEllipse.cs" />
@@ -91,18 +92,28 @@
     <Compile Include="Clipping and Masking\SvgClipRule.cs" />
     <Compile Include="Clipping and Masking\SvgClipPath.cs" />
     <Compile Include="Clipping and Masking\SvgMask.cs" />
+    <Compile Include="DataTypes\SvgOrient.cs" />
     <Compile Include="DataTypes\ISvgViewPort.cs" />
     <Compile Include="DataTypes\SvgAspectRatio.cs" />
+    <Compile Include="DataTypes\SvgColourInterpolation.cs" />
     <Compile Include="DataTypes\SvgElementStyle.cs" />
     <Compile Include="DataTypes\SvgCoordinateUnits.cs" />
+    <Compile Include="DataTypes\SvgFontWeight.cs" />
+    <Compile Include="DataTypes\SvgOverflow.cs" />
     <Compile Include="DataTypes\SvgUnitCollection.cs" />
     <Compile Include="DataTypes\SvgViewBox.cs" />
+    <Compile Include="Document Structure\SvgDocumentMetadata.cs" />
+    <Compile Include="Painting\SvgMarker.cs" />
     <Compile Include="Document Structure\SvgDefinitionList.cs" />
     <Compile Include="Document Structure\SvgDescription.cs" />
-    <Compile Include="Document Structure\SvgGroup.cs" />
     <Compile Include="Document Structure\SvgFragment.cs" />
+    <Compile Include="Document Structure\SvgGroup.cs" />
     <Compile Include="Document Structure\SvgUse.cs" />
+    <Compile Include="Filter Effects\feColourMatrix\SvgColourMatrix.cs" />
+    <Compile Include="Filter Effects\feColourMatrix\SvgColourMatrixType.cs" />
     <Compile Include="Filter Effects\feGaussianBlur\RawBitmap.cs" />
+    <Compile Include="Filter Effects\feMerge\SvgMergeNode.cs" />
+    <Compile Include="Filter Effects\feOffset\SvgOffset.cs" />
     <Compile Include="Filter Effects\ISvgFilterable.cs" />
     <Compile Include="Filter Effects\SvgFilter.cs" />
     <Compile Include="Filter Effects\SvgFilterPrimitive.cs" />

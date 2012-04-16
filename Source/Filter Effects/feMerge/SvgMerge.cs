@@ -8,6 +8,8 @@ using System.Drawing.Imaging;
 
 namespace Svg.FilterEffects
 {
+
+	[SvgElement("feMerge")]
     public class SvgMerge : SvgFilterPrimitive
     {
         public StringCollection MergeResults { get; private set; }
@@ -19,6 +21,8 @@ namespace Svg.FilterEffects
 
         public override Bitmap Process()
         {
+			//Todo
+
             //Bitmap merged = new Bitmap((int)this.Owner.Width.Value, (int)this.Owner.Height.Value); 
             //Graphics mergedGraphics = Graphics.FromImage(merged);
 
@@ -34,5 +38,12 @@ namespace Svg.FilterEffects
 
             return null;
         }
+
+
+		public override SvgElement DeepCopy()
+		{
+			throw new NotImplementedException();
+		}
+
     }
 }

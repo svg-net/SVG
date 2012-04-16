@@ -46,6 +46,13 @@ namespace Svg
             set { this._height = value; }
         }
 
+		[SvgAttribute("overflow")]
+		public virtual SvgOverflow Overflow
+		{
+			get { return this.Attributes.GetAttribute<SvgOverflow>("overflow"); }
+			set { this.Attributes["overflow"] = value; }
+		}
+
         /// <summary>
         /// Gets or sets the viewport of the element.
         /// </summary>
@@ -123,5 +130,22 @@ namespace Svg
             this.ViewBox = SvgViewBox.Empty;
             this.AspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.None);
         }
+
+
+		public override SvgElement DeepCopy()
+		{
+			return DeepCopy<SvgFragment>();
+		}
+
+		public override SvgElement DeepCopy<T>()
+		{
+			var newObj = base.DeepCopy<T>() as SvgFragment;
+			newObj.Height = this.Height;
+			newObj.Width = this.Width;
+			newObj.Overflow = this.Overflow;
+			newObj.ViewBox = this.ViewBox;
+			newObj.AspectRatio = this.AspectRatio;
+			return newObj;
+		}
     }
 }

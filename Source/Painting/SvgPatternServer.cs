@@ -21,6 +21,14 @@ namespace Svg
         private SvgUnit _y;
         private SvgViewBox _viewBox;
 
+		[SvgAttribute("overflow")]
+		public SvgOverflow Overflow
+		{
+			get { return this.Attributes.GetAttribute<SvgOverflow>("overflow"); }
+			set { this.Attributes["overflow"] = value; }
+		}
+
+
         /// <summary>
         /// Specifies a supplemental transformation which is applied on top of any 
         /// transformations necessary to create a new pattern coordinate system.
@@ -149,5 +157,28 @@ namespace Svg
 
             return textureBrush;
         }
+
+
+
+
+		public override SvgElement DeepCopy()
+		{
+			return DeepCopy<SvgPatternServer>();
+		}
+
+
+		public override SvgElement DeepCopy<T>()
+		{
+			var newObj = base.DeepCopy<T>() as SvgPatternServer;
+			newObj.Overflow = this.Overflow;
+			newObj.ViewBox = this.ViewBox;
+			newObj.AspectRatio = this.AspectRatio;
+			newObj.X = this.X;
+			newObj.Y = this.Y;
+			newObj.Width = this.Width;
+			newObj.Height = this.Height;
+			return newObj;
+
+		}
     }
 }

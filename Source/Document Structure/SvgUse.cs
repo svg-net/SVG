@@ -90,5 +90,22 @@ namespace Svg
 
             this.PopTransforms(renderer);
         }
+
+
+		public override SvgElement DeepCopy()
+		{
+			return DeepCopy<SvgUse>();
+		}
+
+		public override SvgElement DeepCopy<T>()
+		{
+			var newObj = base.DeepCopy<T>() as SvgUse;
+			newObj.ReferencedElement = this.ReferencedElement;
+			newObj.X = this.X;
+			newObj.Y = this.Y;
+
+			return newObj;
+		}
+
     }
 }
