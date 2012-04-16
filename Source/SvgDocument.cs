@@ -19,13 +19,9 @@ namespace Svg
     public class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
         public static readonly int PPI = 96;
-
-        /// <summary>
-        /// Gets a <see cref="string"/> containing the XLink namespace (http://www.w3.org/1999/xlink).
-        /// </summary>
-        public static readonly string XLinkNamespace = "http://www.w3.org/1999/xlink";
-
         private SvgElementIdManager _idManager;
+
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgDocument"/> class.
@@ -340,7 +336,7 @@ namespace Svg
 
             var size = GetDimensions();
             var bitmap = new Bitmap((int)Math.Ceiling(size.Width), (int)Math.Ceiling(size.Height));
-
+       // 	bitmap.SetResolution(300, 300);
             try
             {
                 Draw(bitmap);
@@ -406,5 +402,6 @@ namespace Svg
                 this.Write(fs);
             }
         }
+
     }
 }
