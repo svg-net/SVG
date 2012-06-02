@@ -43,14 +43,14 @@ namespace Svg
 
                     try
                     {
-                        for (int i = 0; i < this._points.Count; i+=2)
+                        for (int i = 2; i < this._points.Count; i+=2)
                         {
                             PointF endPoint = new PointF(this._points[i].ToDeviceValue(this), this._points[i+1].ToDeviceValue(this));
 
-                            // TODO: Remove unrequired first line
+                            //first line
                             if (_path.PointCount == 0)
                             {
-                                _path.AddLine(endPoint, endPoint);
+                                _path.AddLine(new PointF(this._points[i-2].ToDeviceValue(this), this._points[i-1].ToDeviceValue(this)), endPoint);
                             }
                             else
                             {
