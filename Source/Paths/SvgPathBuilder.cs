@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using Svg.Pathing;
+using System.Text.RegularExpressions;
 
 namespace Svg
 {
@@ -246,14 +247,13 @@ namespace Svg
 
         private static IEnumerable<float> ParseCoordinates(string coords)
         {
-            // TODO: Handle "1-1" (new PointF(1, -1);
-			//            var parts = coords.Remove(0, 1).Replace("-", " -").Split(new[] { ',', ' ', '\r', '\n' },StringSplitOptions.RemoveEmptyEntries);
-			//gareth: removed replacing '-' with ' -' - was screwing up scientific notiation
-			var parts = coords.Remove(0, 1).Split(new[] { ',', ' ', '\r', '\n' },StringSplitOptions.RemoveEmptyEntries);
+            var parts = Regex.Split(coords.Remove(0, 1), @"[\s,]|(?=(?<!e)-)");
 
-            for (var i = 0; i < parts.Length; i++)
+            for (int i = 0; i < parts.Length; i++)
             {
-                yield return float.Parse(parts[i].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                if (!String.IsNullOrEmpty(parts[i]))
+                    yield return float.Parse(parts[i].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
+
             }
         }
 
