@@ -166,11 +166,28 @@ namespace Svg
 
         private static PointF Reflect(PointF point, PointF mirror)
         {
-            // TODO: Only works left to right???
-            var x = mirror.X + (mirror.X - point.X);
-            var y = mirror.Y + (mirror.Y - point.Y);
+            float x, y, dx, dy;
+            dx = Math.Abs(mirror.X - point.X);
+            dy = Math.Abs(mirror.Y - point.Y);
 
-            return new PointF(Math.Abs(x), Math.Abs(y));
+            if (mirror.X >= point.X)
+            {
+                x = mirror.X + dx;
+            }
+            else
+            {
+                x = mirror.X - dx;
+            }
+            if (mirror.Y >= point.Y)
+            {
+                y = mirror.Y + dy;
+            }
+            else
+            {
+                y = mirror.Y - dy;
+            }
+
+            return new PointF(x, y);
         }
 
         /// <summary>
