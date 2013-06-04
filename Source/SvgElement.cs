@@ -22,6 +22,7 @@ namespace Svg
         private SvgElementCollection _children;
         private static readonly object _loadEventKey = new object();
         private Matrix _graphicsMatrix;
+        private Dictionary<string, string> _customAttributes;
 
         /// <summary>
         /// Gets the name of the element.
@@ -135,6 +136,11 @@ namespace Svg
 
                 return this._attributes;
             }
+        }
+
+        public Dictionary<string, string> CustomAttributes
+        {
+            get { return this._customAttributes; }
         }
 
         /// <summary>
@@ -276,12 +282,13 @@ namespace Svg
             this._children = new SvgElementCollection(this);
             this._eventHandlers = new EventHandlerList();
             this._elementName = string.Empty;
+            this._customAttributes = new Dictionary<string, string>();
         }
 
 
 		public virtual void InitialiseFromXML(XmlTextReader reader, SvgDocument document)
 		{
-			
+            throw new NotImplementedException();
 		}
 
 
@@ -343,25 +350,27 @@ namespace Svg
                     if (propertyValue != null)
                     {
                         var type = propertyValue.GetType();
+                        string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
 
-                        object defaultValue = null;
-                        if(type.IsValueType)
-                            defaultValue = Activator.CreateInstance(type);
-
-                        if (!propertyValue.Equals(defaultValue) || type == typeof(float) || type == typeof(bool) || type == typeof(SvgColourServer))
+                        if (!SvgDefaults.IsDefault(attr.Attribute.Name, value))
                         {
-                            string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
-
 							writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
                         }
                     }
                     else if(attr.Attribute.Name == "fill") //if fill equals null, write 'none'
                     {
                     	string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
-						writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);	
+						writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
                     }
                 }
             }
+
+            //add the custom attributes
+            foreach (var item in this._customAttributes)
+            {
+                writer.WriteAttributeString(item.Key, item.Value);
+            }
+
         }
 
         protected virtual void Write(XmlTextWriter writer)

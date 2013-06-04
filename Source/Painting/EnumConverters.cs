@@ -106,5 +106,13 @@ namespace Svg
     public sealed class SvgPreserverAspectRatioConverter : EnumBaseConverter<SvgPreserveAspectRatio>
     {
     }
+
+    public sealed class SvgStrokeLineCapConverter : EnumBaseConverter<SvgStrokeLineCap>
+    {
+    }
+
+    public sealed class SvgStrokeLineJoinConverter : EnumBaseConverter<SvgStrokeLineJoin>
+    {
+    }
     
 }

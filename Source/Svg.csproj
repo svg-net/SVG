@@ -121,6 +121,7 @@
     <Compile Include="Filter Effects\feGaussianBlur\SvgGaussianBlur.cs" />
     <Compile Include="Filter Effects\feMerge\SvgMerge.cs" />
     <Compile Include="Painting\EnumConverters.cs" />
+    <Compile Include="SvgDefinitionDefaults.cs" />
     <Compile Include="SvgElementAttribute.cs" />
     <Compile Include="SvgRenderer.cs" />
     <Compile Include="Painting\SvgColourConverter.cs" />

@@ -18,7 +18,7 @@ namespace Svg
 		}
 	}
 	
-    internal class SvgPathBuilder : TypeConverter
+    public class SvgPathBuilder : TypeConverter
     {
         /// <summary>
         /// Parses the specified string into a collection of path segments.
@@ -46,6 +46,20 @@ namespace Svg
                     isRelative = char.IsLower(command);
                     // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
 
+                    CreatePathSegment(command, segments, coords, isRelative);
+                }
+            }
+            catch (Exception exc)
+            {
+                Trace.TraceError("Error parsing path \"{0}\": {1}", path, exc.Message);
+            }
+
+            return segments;
+        }
+
+        public static void CreatePathSegment(char command, SvgPathSegmentList segments, List<float> coords, bool isRelative)
+        {
+         
                     switch (command)
                     {
                         case 'm': // relative moveto
@@ -148,14 +162,6 @@ namespace Svg
                             segments.Add(new SvgClosePathSegment());
                             break;
                     }
-                }
-            }
-            catch (Exception exc)
-            {
-                Trace.TraceError("Error parsing path \"{0}\": {1}", path, exc.Message);
-            }
-
-            return segments;
         }
 
         private static PointF Reflect(PointF point, PointF mirror)

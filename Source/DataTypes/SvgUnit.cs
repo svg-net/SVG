@@ -21,12 +21,12 @@ namespace Svg
         /// <summary>
         /// Gets and empty <see cref="SvgUnit"/>.
         /// </summary>
-        public static readonly SvgUnit Empty = new SvgUnit();
+        public static readonly SvgUnit Empty = new SvgUnit(SvgUnitType.User, 0);
 
         /// <summary>
         /// Gets an <see cref="SvgUnit"/> with a value of none.
         /// </summary>
-        public static readonly SvgUnit None = new SvgUnit(SvgUnitType.None,0f);
+        public static readonly SvgUnit None = new SvgUnit(SvgUnitType.None, 0f);
 
         /// <summary>
         /// Gets a value to determine whether the unit is empty.
