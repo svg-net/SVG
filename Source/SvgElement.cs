@@ -161,7 +161,7 @@ namespace Svg
 
             foreach (SvgTransform transformation in this.Transforms)
             {
-                transformMatrix.Multiply(transformation.Matrix);
+                transformMatrix.Multiply(transformation.Matrix, MatrixOrder.Append);
             }
 
             renderer.Transform = transformMatrix;
