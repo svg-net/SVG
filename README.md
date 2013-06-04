@@ -1,7 +1,7 @@
 SVG.NET
 =======
 
-Public fork of the C# SVG library on codeplex:
+Public fork of the C# SVG rendering library on codeplex:
 https://svg.codeplex.com/
 
 This started out as a minor modification to enable the writing of proper SVG strings. But now after alsmost two years we have so many fixes and improvements that we decided to share our current codebase to the public in order to improve it even further.
