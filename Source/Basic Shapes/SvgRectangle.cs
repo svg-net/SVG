@@ -26,6 +26,8 @@ namespace Svg
         {
             _width = new SvgUnit(0.0f);
             _height = new SvgUnit(0.0f);
+            _cornerRadiusX = new SvgUnit(0.0f);
+            _cornerRadiusY = new SvgUnit(0.0f);
         }
 
         /// <summary>
