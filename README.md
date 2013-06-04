@@ -1,5 +1,5 @@
-SVG
-===
+SVG.NET
+=======
 
 Public fork of the C# SVG library on codeplex:
 https://svg.codeplex.com/
