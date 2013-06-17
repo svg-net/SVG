@@ -8,6 +8,10 @@ This started out as a minor modification to enable the writing of proper SVG str
 
 So please feel free to fork it and open pull requests for any fix, improvement or feature you add.
 
-License:
 Microsoft Public License:
 https://svg.codeplex.com/license
+
+It is also available via Nuget:
+PM> Install-Package Svg
+
+https://nuget.org/packages/Svg/
