@@ -61,5 +61,13 @@ namespace Svg
 
 		}
 
+        public override bool Equals(object obj)
+        {
+            var objColor = obj as SvgColourServer;
+            if (objColor == null)
+                return false;
+
+            return this.Colour.ToArgb() == objColor.Colour.ToArgb();
+        }
     }
 }

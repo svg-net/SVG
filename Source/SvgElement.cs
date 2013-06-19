@@ -347,20 +347,33 @@ namespace Svg
                 {
                     object propertyValue = attr.Property.GetValue(this);
 
+                    var forceWrite = false;
+                    if ((attr.Attribute.Name == "fill") && (Parent != null))
+                    {
+                        var parentValue = ResolveParentAttributeValue(attr.Attribute.Name);
+                        if (parentValue != null)
+                        {
+                            if (parentValue.Equals(propertyValue))
+                                continue;
+
+                            forceWrite = true;
+                        }
+                    }
+
                     if (propertyValue != null)
                     {
                         var type = propertyValue.GetType();
                         string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
 
-                        if (!SvgDefaults.IsDefault(attr.Attribute.Name, value))
+                        if (!SvgDefaults.IsDefault(attr.Attribute.Name, value) || forceWrite)
                         {
-							writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
+                            writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
                         }
                     }
-                    else if(attr.Attribute.Name == "fill") //if fill equals null, write 'none'
+                    else if (attr.Attribute.Name == "fill") //if fill equals null, write 'none'
                     {
-                    	string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
-						writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
+                        string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+                        writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
                     }
                 }
             }
@@ -370,7 +383,27 @@ namespace Svg
             {
                 writer.WriteAttributeString(item.Key, item.Value);
             }
+        }
 
+        private object ResolveParentAttributeValue(string attributeKey)
+        {
+            attributeKey = char.ToUpper(attributeKey[0]) + attributeKey.Substring(1);
+
+            object parentValue = null;
+
+            var currentParent = Parent;
+            while (currentParent != null)
+            {
+                if (currentParent.Attributes.ContainsKey(attributeKey))
+                {
+                    parentValue = currentParent.Attributes[attributeKey];
+                    if (parentValue != null)
+                        break;
+                }
+                currentParent = currentParent.Parent;
+            }
+
+            return parentValue;
         }
 
         protected virtual void Write(XmlTextWriter writer)
