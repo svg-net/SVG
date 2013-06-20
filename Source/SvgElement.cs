@@ -350,12 +350,13 @@ namespace Svg
                     var forceWrite = false;
                     if ((attr.Attribute.Name == "fill") && (Parent != null))
                     {
-                        var parentValue = ResolveParentAttributeValue(attr.Attribute.Name);
-                        if (parentValue != null)
+                        object parentValue;
+                        if (TryResolveParentAttributeValue(attr.Attribute.Name, out parentValue))
                         {
-                            if (parentValue.Equals(propertyValue))
+                            if ((parentValue == propertyValue) 
+                                || ((parentValue != null) &&  parentValue.Equals(propertyValue)))
                                 continue;
-
+                            
                             forceWrite = true;
                         }
                     }
@@ -370,7 +371,7 @@ namespace Svg
                             writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
                         }
                     }
-                    else if (attr.Attribute.Name == "fill") //if fill equals null, write 'none'
+                    else if(attr.Attribute.Name == "fill") //if fill equals null, write 'none'
                     {
                         string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
                         writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
@@ -385,25 +386,27 @@ namespace Svg
             }
         }
 
-        private object ResolveParentAttributeValue(string attributeKey)
+        private bool TryResolveParentAttributeValue(string attributeKey, out object parentAttributeValue)
         {
+            parentAttributeValue = null;
+
             attributeKey = char.ToUpper(attributeKey[0]) + attributeKey.Substring(1);
 
-            object parentValue = null;
-
             var currentParent = Parent;
+            var resolved = false;
             while (currentParent != null)
             {
                 if (currentParent.Attributes.ContainsKey(attributeKey))
                 {
-                    parentValue = currentParent.Attributes[attributeKey];
-                    if (parentValue != null)
+                    resolved = true;
+                    parentAttributeValue = currentParent.Attributes[attributeKey];
+                    if (parentAttributeValue != null)
                         break;
                 }
                 currentParent = currentParent.Parent;
             }
 
-            return parentValue;
+            return resolved;
         }
 
         protected virtual void Write(XmlTextWriter writer)

@@ -26,7 +26,7 @@ namespace Svg
         [SvgAttribute("fill")]
         public override SvgPaintServer Fill
         {
-            get { return (this.Attributes["Fill"] == null) ? new SvgColourServer(Color.Transparent) : (SvgPaintServer)this.Attributes["Fill"]; }
+            get { return (this.Attributes["Fill"] == null) ? null : (SvgPaintServer)this.Attributes["Fill"]; }
             set { this.Attributes["Fill"] = value; }
         }
 
