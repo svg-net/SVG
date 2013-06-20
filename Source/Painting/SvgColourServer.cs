@@ -26,7 +26,7 @@ namespace Svg
 
         public override Brush GetBrush(SvgVisualElement styleOwner, float opacity)
         {
-            int alpha = (int)((opacity * (this.Colour.A/255) ) * 255);
+            int alpha = (int)((opacity * (this.Colour.A/255.0f) ) * 255);
             Color colour = Color.FromArgb(alpha, this.Colour);
 
             return new SolidBrush(colour);
