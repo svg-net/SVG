@@ -61,5 +61,18 @@ namespace Svg
 
 		}
 
+        public override bool Equals(object obj)
+        {
+            var objColor = obj as SvgColourServer;
+            if (objColor == null)
+                return false;
+
+            return this.GetHashCode() == objColor.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return _colour.GetHashCode();
+        }
     }
 }
