@@ -28,6 +28,8 @@ namespace Svg
             _height = new SvgUnit(0.0f);
             _cornerRadiusX = new SvgUnit(0.0f);
             _cornerRadiusY = new SvgUnit(0.0f);
+            _x = new SvgUnit(0.0f);
+            _y = new SvgUnit(0.0f);
         }
 
         /// <summary>

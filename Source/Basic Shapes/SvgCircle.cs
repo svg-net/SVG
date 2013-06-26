@@ -137,7 +137,8 @@ namespace Svg
         /// </summary>
         public SvgCircle()
         {
-            
+            CenterX = new SvgUnit(0.0f);
+            CenterY = new SvgUnit(0.0f);
         }
 
 
