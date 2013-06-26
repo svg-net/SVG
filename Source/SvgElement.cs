@@ -15,6 +15,15 @@ namespace Svg
     /// </summary>
     public abstract class SvgElement : ISvgElement, ISvgTransformable, ICloneable
     {
+        //optimization
+        protected class AttributeTuple
+        {
+            public PropertyDescriptor Property;
+            public SvgAttributeAttribute Attribute;
+        }
+        protected IEnumerable<AttributeTuple> _svgAttributes;
+
+
         internal SvgElement _parent;
         private string _elementName;
         private SvgAttributeCollection _attributes;
@@ -283,6 +292,12 @@ namespace Svg
             this._eventHandlers = new EventHandlerList();
             this._elementName = string.Empty;
             this._customAttributes = new Dictionary<string, string>();
+
+            //fill svg attribute description
+            _svgAttributes = from PropertyDescriptor a in TypeDescriptor.GetProperties(this)
+                            let attribute = a.Attributes[typeof(SvgAttributeAttribute)] as SvgAttributeAttribute
+                            where attribute != null
+                            select new AttributeTuple { Property = a, Attribute = attribute };
         }
 
 
@@ -336,12 +351,7 @@ namespace Svg
 
         protected virtual void WriteAttributes(XmlTextWriter writer)
         {
-            var attributes = from PropertyDescriptor a in TypeDescriptor.GetProperties(this)
-                             let attribute = a.Attributes[typeof(SvgAttributeAttribute)] as SvgAttributeAttribute
-                             where attribute != null
-                             select new { Property = a, Attribute = attribute };
-
-            foreach (var attr in attributes)
+            foreach (var attr in _svgAttributes)
             {
                 if (attr.Property.Converter.CanConvertTo(typeof(string)))
                 {
