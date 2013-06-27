@@ -9,7 +9,7 @@ namespace Svg
     /// <summary>
     /// Specifies the SVG attribute name of the associated property.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property|AttributeTargets.Event)]
     public class SvgAttributeAttribute : System.Attribute
     {
 		/// <summary>

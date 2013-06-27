@@ -18,7 +18,7 @@ namespace Svg
         //optimization
         protected class AttributeTuple
         {
-            public PropertyDescriptor Property;
+            public MemberDescriptor Property;
             public SvgAttributeAttribute Attribute;
         }
         protected IEnumerable<AttributeTuple> _svgAttributes;
@@ -294,7 +294,12 @@ namespace Svg
             this._customAttributes = new Dictionary<string, string>();
 
             //fill svg attribute description
-            _svgAttributes = from PropertyDescriptor a in TypeDescriptor.GetProperties(this)
+
+            var search = TypeDescriptor.GetProperties(this).Cast<MemberDescriptor>()
+               .Concat(TypeDescriptor.GetEvents(this).Cast<MemberDescriptor>());
+
+
+            _svgAttributes = from MemberDescriptor c in search
                             let attribute = a.Attributes[typeof(SvgAttributeAttribute)] as SvgAttributeAttribute
                             where attribute != null
                             select new AttributeTuple { Property = a, Attribute = attribute };
@@ -578,7 +583,52 @@ namespace Svg
 				
 
 			return newObj;
-		}
+        }
+
+        #region graphical EVENTS
+
+        /*  
+            onfocusin = "<anything>"
+            onfocusout = "<anything>"
+            onactivate = "<anything>"
+            onclick = "<anything>"
+            onmousedown = "<anything>"
+            onmouseup = "<anything>"
+            onmouseover = "<anything>"
+            onmousemove = "<anything>"
+            onmouseout = "<anything>" 
+         */
+
+        [SvgAttribute("onclick")]
+        public event EventHandler<MouseArg> Click;
+
+        protected void OnClick(float x, float y, int button)
+        {
+            var handler = Click;
+            if(handler != null)
+            {
+                handler(this, new MouseArg { x=x, y=y, button=button});
+            }
+        }
+
+
+
+        #endregion graphical EVENTS
+
+    }
+
+    /// <summary>
+    /// Represents the state of the mouse at the moment the event occured.
+    /// </summary>
+    public class MouseArg : EventArgs
+    {
+        public float x;
+        public float y;
+
+        /// <summary>
+        /// 0 = left, 1 = middle, 2 = right
+        /// </summary>
+        public int button;
     }
 
     internal interface ISvgElement
