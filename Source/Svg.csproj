@@ -117,6 +117,7 @@
     <Compile Include="Painting\EnumConverters.cs" />
     <Compile Include="SvgDefinitionDefaults.cs" />
     <Compile Include="SvgElementAttribute.cs" />
+    <Compile Include="SvgExtentions.cs" />
     <Compile Include="SvgRenderer.cs" />
     <Compile Include="Painting\SvgColourConverter.cs" />
     <Compile Include="Painting\SvgGradientSpreadMethod.cs" />
