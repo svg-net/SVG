@@ -611,11 +611,11 @@ namespace Svg
             onfocusin = "<anything>"
             onfocusout = "<anything>"
             onactivate = "<anything>"
-            onclick = "<anything>"
-            onmousedown = "<anything>"
-            onmouseup = "<anything>"
-            onmouseover = "<anything>"
-            onmousemove = "<anything>"
+                onclick = "<anything>"
+                onmousedown = "<anything>"
+                onmouseup = "<anything>"
+                onmouseover = "<anything>"
+                onmousemove = "<anything>"
             onmouseout = "<anything>" 
          */
 
@@ -631,6 +631,10 @@ namespace Svg
                 var rpcID = this.ID + "/";
 
                 caller.RegisterAction<float, float, int>(rpcID + "onclick", OnClick);
+                caller.RegisterAction<float, float, int>(rpcID + "onmousedown", OnMouseDown);
+                caller.RegisterAction<float, float, int>(rpcID + "onmouseup", OnMouseUp);
+                caller.RegisterAction(rpcID + "onmouseover", OnMouseOver);
+                caller.RegisterAction(rpcID + "onmouseout", OnMouseOut);
                 caller.RegisterAction<float, float>(rpcID + "onmousemove", OnMouseMove);
             }
         }
@@ -638,15 +642,63 @@ namespace Svg
         [SvgAttribute("onclick")]
         public event EventHandler<MouseArg> Click;
 
+        [SvgAttribute("onmousedown")]
+        public event EventHandler<MouseArg> MouseDown;
+
+        [SvgAttribute("onmouseup")]
+        public event EventHandler<MouseArg> MouseUp;
+
+        [SvgAttribute("onmouseover")]
+        public event EventHandler MouseOver;
+
         [SvgAttribute("onmousemove")]
         public event EventHandler<PointArg> MouseMove;
+
+        [SvgAttribute("onmouseout")]
+        public event EventHandler MouseOut;
 
         protected void OnClick(float x, float y, int button)
         {
             var handler = Click;
             if(handler != null)
             {
-                handler(this, new MouseArg { x = x, y = y, button = button});
+                handler(this, new MouseArg { x = x, y = y, Button = button});
+            }
+        }
+
+        protected void OnMouseDown(float x, float y, int button)
+        {
+            var handler = MouseDown;
+            if (handler != null)
+            {
+                handler(this, new MouseArg { x = x, y = y, Button = button });
+            }
+        }
+
+        protected void OnMouseUp(float x, float y, int button)
+        {
+            var handler = MouseUp;
+            if (handler != null)
+            {
+                handler(this, new MouseArg { x = x, y = y, Button = button });
+            }
+        }
+
+        protected void OnMouseOver()
+        {
+            var handler = MouseOver;
+            if (handler != null)
+            {
+                handler(this, new EventArgs());
+            }
+        }
+
+        protected void OnMouseOut()
+        {
+            var handler = MouseOut;
+            if (handler != null)
+            {
+                handler(this, new EventArgs());
             }
         }
 
@@ -666,6 +718,7 @@ namespace Svg
     //deriving class registers event actions and calls the actions if the event occurs
     public interface ISvgEventCaller
     {
+        void RegisterAction(string rpcID, Action action);
         void RegisterAction<T1>(string rpcID, Action<T1> action);
         void RegisterAction<T1, T2>(string rpcID, Action<T1, T2> action);
         void RegisterAction<T1, T2, T3>(string rpcID, Action<T1, T2, T3> action);
@@ -681,9 +734,9 @@ namespace Svg
         public float y;
 
         /// <summary>
-        /// 0 = left, 1 = middle, 2 = right
+        /// 1 = left, 2 = middle, 3 = right
         /// </summary>
-        public int button;
+        public int Button;
     }
 
     /// <summary>
