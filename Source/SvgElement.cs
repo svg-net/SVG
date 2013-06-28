@@ -16,12 +16,20 @@ namespace Svg
     public abstract class SvgElement : ISvgElement, ISvgTransformable, ICloneable
     {
         //optimization
-        protected class AttributeTuple
+        protected class PropertyAttributeTuple
         {
-            public MemberDescriptor Property;
+            public PropertyDescriptor Property;
             public SvgAttributeAttribute Attribute;
         }
-        protected IEnumerable<AttributeTuple> _svgAttributes;
+
+        protected class EventAttributeTuple
+        {
+            public FieldInfo Event;
+            public SvgAttributeAttribute Attribute;
+        }
+
+        protected IEnumerable<PropertyAttributeTuple> _svgPropertyAttributes;
+        protected IEnumerable<EventAttributeTuple> _svgEventAttributes;
 
 
         internal SvgElement _parent;
@@ -293,18 +301,18 @@ namespace Svg
             this._elementName = string.Empty;
             this._customAttributes = new Dictionary<string, string>();
 
-            //fill svg attribute description
-
-            var search = TypeDescriptor.GetProperties(this).Cast<MemberDescriptor>()
-               .Concat(TypeDescriptor.GetEvents(this).Cast<MemberDescriptor>());
-
-
-            _svgAttributes = from MemberDescriptor c in search
+            //find svg attribute descriptions
+            _svgPropertyAttributes = from PropertyDescriptor a in TypeDescriptor.GetProperties(this)
                             let attribute = a.Attributes[typeof(SvgAttributeAttribute)] as SvgAttributeAttribute
                             where attribute != null
-                            select new AttributeTuple { Property = a, Attribute = attribute };
-        }
+                            select new PropertyAttributeTuple { Property = a, Attribute = attribute };
 
+            _svgEventAttributes = from EventDescriptor a in TypeDescriptor.GetEvents(this)
+                            let attribute = a.Attributes[typeof(SvgAttributeAttribute)] as SvgAttributeAttribute
+                            where attribute != null
+                            select new EventAttributeTuple { Event = a.ComponentType.GetField(a.Name, BindingFlags.Instance | BindingFlags.NonPublic), Attribute = attribute };
+
+        }
 
 		public virtual void InitialiseFromXML(XmlTextReader reader, SvgDocument document)
 		{
@@ -356,7 +364,8 @@ namespace Svg
 
         protected virtual void WriteAttributes(XmlTextWriter writer)
         {
-            foreach (var attr in _svgAttributes)
+            //properties
+            foreach (var attr in _svgPropertyAttributes)
             {
                 if (attr.Property.Converter.CanConvertTo(typeof(string)))
                 {
@@ -391,6 +400,17 @@ namespace Svg
                         string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
                         writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
                     }
+                }
+            }
+
+            //events
+            foreach (var attr in _svgEventAttributes)
+            {
+                var evt = attr.Event.GetValue(this);
+                
+                if (evt != null && !string.IsNullOrWhiteSpace(this.ID))
+                {
+                    writer.WriteAttributeString(attr.Attribute.Name, this.ID + "/" + attr.Attribute.Name);
                 }
             }
 
@@ -599,22 +619,57 @@ namespace Svg
             onmouseout = "<anything>" 
          */
 
+        /// <summary>
+        /// Use this method to provide your implementation ISvgEventCaller which can register Actions 
+        /// and call them if one of the events occurs. Make sure, that your SvgElement has a unique ID.
+        /// </summary>
+        /// <param name="caller"></param>
+        public void RegisterEvents(ISvgEventCaller caller)
+        {
+            if (caller != null && !string.IsNullOrWhiteSpace(this.ID))
+            {
+                var rpcID = this.ID + "/";
+
+                caller.RegisterAction<float, float, int>(rpcID + "onclick", OnClick);
+                caller.RegisterAction<float, float>(rpcID + "onmousemove", OnMouseMove);
+            }
+        }
+
         [SvgAttribute("onclick")]
         public event EventHandler<MouseArg> Click;
+
+        [SvgAttribute("onmousemove")]
+        public event EventHandler<PointArg> MouseMove;
 
         protected void OnClick(float x, float y, int button)
         {
             var handler = Click;
             if(handler != null)
             {
-                handler(this, new MouseArg { x=x, y=y, button=button});
+                handler(this, new MouseArg { x = x, y = y, button = button});
             }
         }
 
-
+        protected void OnMouseMove(float x, float y)
+        {
+            var handler = MouseMove;
+            if (handler != null)
+            {
+                handler(this, new PointArg { x = x, y = y});
+            }
+        }
 
         #endregion graphical EVENTS
 
+    }
+
+    //deriving class registers event actions and calls the actions if the event occurs
+    public interface ISvgEventCaller
+    {
+        void RegisterAction<T1>(string rpcID, Action<T1> action);
+        void RegisterAction<T1, T2>(string rpcID, Action<T1, T2> action);
+        void RegisterAction<T1, T2, T3>(string rpcID, Action<T1, T2, T3> action);
+        void RegisterAction<T1, T2, T3, T4>(string rpcID, Action<T1, T2, T3, T4> action);
     }
 
     /// <summary>
@@ -629,6 +684,15 @@ namespace Svg
         /// 0 = left, 1 = middle, 2 = right
         /// </summary>
         public int button;
+    }
+
+    /// <summary>
+    /// Represents the mouse position at the moment the event occured.
+    /// </summary>
+    public class PointArg : EventArgs
+    {
+        public float x;
+        public float y;
     }
 
     internal interface ISvgElement
