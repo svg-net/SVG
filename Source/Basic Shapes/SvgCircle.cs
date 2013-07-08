@@ -16,6 +16,10 @@ namespace Svg
     public class SvgCircle : SvgVisualElement
     {
         private GraphicsPath _path;
+        
+        private SvgUnit _radius;
+        private SvgUnit _centerX;
+        private SvgUnit _centerY;
 
         /// <summary>
         /// Gets the center point of the circle.
@@ -26,58 +30,33 @@ namespace Svg
             get { return new SvgPoint(this.CenterX, this.CenterY); }
         }
 
-        /// <summary>
-        /// Gets or sets the center X co-ordinate.
-        /// </summary>
-        /// <value>The center X.</value>
         [SvgAttribute("cx")]
-        public SvgUnit CenterX
+        public virtual SvgUnit CenterX
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("cx"); }
+            get { return this._centerX; }
             set
             {
-                if (this.Attributes.GetAttribute<SvgUnit>("cx") != value)
-                {
-                    this.Attributes["cx"] = value;
-                    this.IsPathDirty = true;
-                }
+                this._centerX = value;
+                this.IsPathDirty = true;
             }
         }
 
-        /// <summary>
-        /// Gets or sets the center Y co-ordinate.
-        /// </summary>
-        /// <value>The center Y.</value>
         [SvgAttribute("cy")]
-        public SvgUnit CenterY
+        public virtual SvgUnit CenterY
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("cy"); }
+            get { return this._centerY; }
             set
             {
-                if (this.Attributes.GetAttribute<SvgUnit>("cy") != value)
-                {
-                    this.Attributes["cy"] = value;
-                    this.IsPathDirty = true;
-                }
+                this._centerY = value;
+                this.IsPathDirty = true;
             }
         }
 
-        /// <summary>
-        /// Gets or sets the radius of the circle.
-        /// </summary>
-        /// <value>The radius.</value>
         [SvgAttribute("r")]
-        public SvgUnit Radius
+        public virtual SvgUnit Radius
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("r"); }
-            set
-            {
-                if (this.Attributes.GetAttribute<SvgUnit>("r") != value)
-                {
-                    this.Attributes["r"] = value;
-                    this.IsPathDirty = true;
-                }
-            }
+            get { return this._radius; }
+            set { this._radius = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
