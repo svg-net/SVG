@@ -22,8 +22,8 @@ namespace Svg
             _defaults["clip-rule"] = "nonzero";
 
             _defaults["transform"] = "";
-            _defaults["rx"] = "0";
-            _defaults["ry"] = "0";
+            _defaults["cx"] = "0";
+            _defaults["cy"] = "0";
 
             _defaults["fill"] = "Black";
             _defaults["fill-opacity"] = "1";
