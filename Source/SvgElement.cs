@@ -7,6 +7,8 @@ using System.Xml;
 using System.Linq;
 using Svg.Transforms;
 using System.Reflection;
+using System.Threading;
+using System.Globalization;
 
 namespace Svg
 {
@@ -331,7 +333,14 @@ namespace Svg
 
         public void WriteElement(XmlTextWriter writer)
         {
+            //Save previous culture and switch to invariant for writing
+            var previousCulture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
             this.Write(writer);
+
+            //Switch culture back
+            Thread.CurrentThread.CurrentCulture = previousCulture;
         }
 
         protected virtual void WriteStartElement(XmlTextWriter writer)

@@ -8,8 +8,6 @@ using System.Drawing.Text;
 using System.IO;
 using System.Text;
 using System.Xml;
-using System.Threading;
-using System.Globalization;
 
 namespace Svg
 {
@@ -379,9 +377,6 @@ namespace Svg
 
         public void Write(Stream stream)
         {
-            //Save previous culture and switch to invariant for writing
-            var previousCulture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
             var xmlWriter = new XmlTextWriter(stream, Encoding.UTF8);
             xmlWriter.Formatting = Formatting.Indented;
@@ -391,8 +386,6 @@ namespace Svg
             this.WriteElement(xmlWriter);
 
             xmlWriter.Flush();
-
-            Thread.CurrentThread.CurrentCulture = previousCulture;
         }
 
         public void Write(string path)
