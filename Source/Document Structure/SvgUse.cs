@@ -65,16 +65,16 @@ namespace Svg
             get { return new System.Drawing.RectangleF(); }
         }
 
-        public override SvgElementCollection Children
-        {
-            get
-            {
-                SvgElement element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
-                SvgElementCollection elements = new SvgElementCollection(this, true);
-                elements.Add(element);
-                return elements;
-            }
-        }
+//        public override SvgElementCollection Children
+//        {
+//            get
+//            {
+//                SvgElement element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
+//                SvgElementCollection elements = new SvgElementCollection(this, true);
+//                elements.Add(element);
+//                return elements;
+//            }
+//        }
 
         protected override void Render(SvgRenderer renderer)
         {
