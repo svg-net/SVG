@@ -666,21 +666,21 @@ namespace Svg
         [SvgAttribute("onmouseout")]
         public event EventHandler MouseOut;
 
-        protected void OnClick(float x, float y, int button)
+        protected void OnClick(float x, float y, int button, int clickCount)
         {
             var handler = Click;
             if(handler != null)
             {
-                handler(this, new MouseArg { x = x, y = y, Button = button});
+                handler(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount});
             }
         }
 
-        protected void OnMouseDown(float x, float y, int button)
+        protected void OnMouseDown(float x, float y, int button, int clickCount)
         {
             var handler = MouseDown;
             if (handler != null)
             {
-                handler(this, new MouseArg { x = x, y = y, Button = button });
+                handler(this, new MouseArg { x = x, y = y, Button = button});
             }
         }
 
@@ -689,7 +689,7 @@ namespace Svg
             var handler = MouseUp;
             if (handler != null)
             {
-                handler(this, new MouseArg { x = x, y = y, Button = button });
+                handler(this, new MouseArg { x = x, y = y, Button = button});
             }
         }
 
@@ -746,6 +746,8 @@ namespace Svg
         /// 1 = left, 2 = middle, 3 = right
         /// </summary>
         public int Button;
+        
+        public int ClickCount = -1;
     }
 
     /// <summary>
