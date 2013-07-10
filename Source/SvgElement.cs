@@ -639,8 +639,8 @@ namespace Svg
             {
                 var rpcID = this.ID + "/";
 
-                caller.RegisterAction<float, float, int>(rpcID + "onclick", OnClick);
-                caller.RegisterAction<float, float, int>(rpcID + "onmousedown", OnMouseDown);
+                caller.RegisterAction<float, float, int, int>(rpcID + "onclick", OnClick);
+                caller.RegisterAction<float, float, int, int>(rpcID + "onmousedown", OnMouseDown);
                 caller.RegisterAction<float, float, int>(rpcID + "onmouseup", OnMouseUp);
                 caller.RegisterAction(rpcID + "onmouseover", OnMouseOver);
                 caller.RegisterAction(rpcID + "onmouseout", OnMouseOut);
@@ -680,7 +680,7 @@ namespace Svg
             var handler = MouseDown;
             if (handler != null)
             {
-                handler(this, new MouseArg { x = x, y = y, Button = button});
+                handler(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount});
             }
         }
 
