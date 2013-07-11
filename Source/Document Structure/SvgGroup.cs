@@ -20,17 +20,6 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets or sets the fill.
-        /// </summary>
-        /// <value>The fill.</value>
-        [SvgAttribute("fill")]
-        public override SvgPaintServer Fill
-        {
-            get { return (this.Attributes["Fill"] == null) ? null : (SvgPaintServer)this.Attributes["Fill"]; }
-            set { this.Attributes["Fill"] = value; }
-        }
-
-        /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>

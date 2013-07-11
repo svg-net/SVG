@@ -7,6 +7,12 @@ namespace Svg
 {
     public sealed class SvgColourServer : SvgPaintServer
     {
+    	
+    	/// <summary>
+        /// An unspecified <see cref="SvgPaintServer"/>.
+        /// </summary>
+        public static readonly SvgPaintServer NotSet = new SvgColourServer();
+    	
         public SvgColourServer() : this(Color.Black)
         {
         }
@@ -34,6 +40,11 @@ namespace Svg
 
         public override string ToString()
         {
+        	if(this == SvgPaintServer.None)
+        		return "none";
+        	else if(this == SvgColourServer.NotSet)
+        		return "";
+        	
             Color c = this.Colour;
 
             // Return the name if it exists

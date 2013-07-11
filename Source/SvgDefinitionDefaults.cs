@@ -27,7 +27,7 @@ namespace Svg
             _defaults["cx"] = "0";
             _defaults["cy"] = "0";
 
-            _defaults["fill"] = "Black";
+            _defaults["fill"] = "";
             _defaults["fill-opacity"] = "1";
             _defaults["fill-rule"] = "nonzero";
 
@@ -51,7 +51,6 @@ namespace Svg
             if (_defaults.ContainsKey(attributeName))
             {
                 if (_defaults[attributeName] == value) return true;
-                else if (attributeName == "fill") return value == "#000000";
             }
             return false;
         }

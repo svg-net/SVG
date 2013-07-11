@@ -383,6 +383,8 @@ namespace Svg
                     var forceWrite = false;
                     if ((attr.Attribute.Name == "fill") && (Parent != null))
                     {
+                    	if(propertyValue == SvgColourServer.NotSet) continue;
+                    	
                         object parentValue;
                         if (TryResolveParentAttributeValue(attr.Attribute.Name, out parentValue))
                         {
@@ -609,8 +611,15 @@ namespace Svg
 			{
 				newObj.Children.Add(child.DeepCopy());
 			}
+			
+			if(this._customAttributes.Count > 0)
+			{
+				foreach (var element in _customAttributes) 
+				{
+					newObj.CustomAttributes.Add(element.Key, element.Value);
+				}
+			}
 				
-
 			return newObj;
         }
 

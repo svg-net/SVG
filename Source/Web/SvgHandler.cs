@@ -121,7 +121,7 @@ namespace Svg.Web
                             entities.Add(queryString.Keys[i], queryString[i]);
                         }
 
-                        SvgDocument document = SvgDocument.Open(this._state._context.Request.PhysicalPath, entities);
+                        SvgDocument document = SvgDocument.Open<SvgDocument>(this._state._context.Request.PhysicalPath, entities);
 
                         using (Bitmap bitmap = document.Draw())
                         {

@@ -88,7 +88,6 @@ namespace Svg
         {
             this._dirty = true;
             this._requiresSmoothRendering = false;
-            this.Fill = new SvgColourServer(); //in case fill attribute is not set by xml, default fill is black
         }
 
         /// <summary>

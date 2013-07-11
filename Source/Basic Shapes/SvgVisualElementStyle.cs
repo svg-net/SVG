@@ -32,7 +32,7 @@ namespace Svg
         [SvgAttribute("fill")]
         public virtual SvgPaintServer Fill
         {
-            get { return (this.Attributes["Fill"] == null) ? null : (SvgPaintServer)this.Attributes["Fill"]; }
+            get { return (this.Attributes["Fill"] == null) ? SvgColourServer.NotSet : (SvgPaintServer)this.Attributes["Fill"]; }
             set { this.Attributes["Fill"] = value; }
         }
 

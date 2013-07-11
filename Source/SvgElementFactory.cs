@@ -42,7 +42,7 @@ namespace Svg
         /// <param name="reader">The <see cref="XmlTextReader"/> containing the node to parse into an <see cref="SvgDocument"/>.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="reader"/> parameter cannot be <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">The CreateDocument method can only be used to parse root &lt;svg&gt; elements.</exception>
-        public static SvgDocument CreateDocument(XmlTextReader reader)
+        public static T CreateDocument<T>(XmlTextReader reader) where T : SvgDocument, new()
         {
             if (reader == null)
             {
@@ -54,7 +54,7 @@ namespace Svg
                 throw new InvalidOperationException("The CreateDocument method can only be used to parse root <svg> elements.");
             }
 
-            return (SvgDocument)CreateElement(reader, true, null);
+            return (T)CreateElement<T>(reader, true, null);
         }
 
         /// <summary>
@@ -70,15 +70,10 @@ namespace Svg
                 throw new ArgumentNullException("reader");
             }
 
-            if (document == null)
-            {
-                throw new ArgumentNullException("document");
-            }
-
-            return CreateElement(reader, false, document);
+            return CreateElement<SvgDocument>(reader, false, document);
         }
 
-        private static SvgElement CreateElement(XmlTextReader reader, bool fragmentIsDocument, SvgDocument document)
+        private static SvgElement CreateElement<T>(XmlTextReader reader, bool fragmentIsDocument, SvgDocument document)  where T : SvgDocument, new()
         {
             SvgElement createdElement = null;
             string elementName = reader.LocalName;
@@ -87,7 +82,7 @@ namespace Svg
 
             if (elementName == "svg")
             {
-                createdElement = (fragmentIsDocument) ? new SvgDocument() : new SvgFragment();
+                createdElement = (fragmentIsDocument) ? new T() : new SvgFragment();
             }
             else
             {
