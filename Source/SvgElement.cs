@@ -414,7 +414,9 @@ namespace Svg
                 }
             }
 
+            
             //events
+            if(AutoPublishEvents)
             foreach (var attr in _svgEventAttributes)
             {
                 var evt = attr.Event.GetValue(this);
@@ -431,6 +433,8 @@ namespace Svg
                 writer.WriteAttributeString(item.Key, item.Value);
             }
         }
+        
+        public bool AutoPublishEvents = true;
 
         private bool TryResolveParentAttributeValue(string attributeKey, out object parentAttributeValue)
         {
@@ -686,10 +690,15 @@ namespace Svg
 
         protected void OnMouseDown(float x, float y, int button, int clickCount)
         {
-            var handler = MouseDown;
+           RaiseMouseDown(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount});
+        }
+        
+        protected void RaiseMouseDown(object sender, MouseArg e)
+        {
+        	var handler = MouseDown;
             if (handler != null)
             {
-                handler(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount});
+                handler(sender, e);
             }
         }
 
