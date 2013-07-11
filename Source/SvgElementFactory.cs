@@ -164,7 +164,7 @@ namespace Svg
             }
             else
             {
-                properties = TypeDescriptor.GetProperties(element.GetType(), new[] { new SvgAttributeAttribute(attributeName) });
+                properties = TypeDescriptor.GetProperties(elementType, new[] { new SvgAttributeAttribute(attributeName) });
                 _propertyDescriptors.Add(elementType, new Dictionary<string, PropertyDescriptorCollection>());
 
                 _propertyDescriptors[elementType].Add(attributeName, properties);
@@ -182,6 +182,11 @@ namespace Svg
                 {
                     Trace.TraceWarning(string.Format("Attribute '{0}' cannot be set - type '{1}' cannot convert from string '{2}'.", attributeName, descriptor.PropertyType.FullName, attributeValue));
                 }
+            }
+            else
+            {
+            	//attribute is not a svg attribute, store it in custom attributes
+            	element.CustomAttributes[attributeName] = attributeValue;
             }
         }
 
