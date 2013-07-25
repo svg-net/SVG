@@ -417,14 +417,16 @@ namespace Svg
             
             //events
             if(AutoPublishEvents)
-            foreach (var attr in _svgEventAttributes)
             {
-                var evt = attr.Event.GetValue(this);
-                
-                if (evt != null && !string.IsNullOrWhiteSpace(this.ID))
-                {
-                    writer.WriteAttributeString(attr.Attribute.Name, this.ID + "/" + attr.Attribute.Name);
-                }
+	            foreach (var attr in _svgEventAttributes)
+	            {
+	                var evt = attr.Event.GetValue(this);
+	                
+	                if (evt != null && !string.IsNullOrWhiteSpace(this.ID))
+	                {
+	                    writer.WriteAttributeString(attr.Attribute.Name, this.ID + "/" + attr.Attribute.Name);
+	                }
+	            }
             }
 
             //add the custom attributes
@@ -655,9 +657,9 @@ namespace Svg
                 caller.RegisterAction<float, float, int, int>(rpcID + "onclick", OnClick);
                 caller.RegisterAction<float, float, int, int>(rpcID + "onmousedown", OnMouseDown);
                 caller.RegisterAction<float, float, int>(rpcID + "onmouseup", OnMouseUp);
+                caller.RegisterAction<float, float>(rpcID + "onmousemove", OnMouseMove);
                 caller.RegisterAction(rpcID + "onmouseover", OnMouseOver);
                 caller.RegisterAction(rpcID + "onmouseout", OnMouseOut);
-                caller.RegisterAction<float, float>(rpcID + "onmousemove", OnMouseMove);
             }
         }
 
@@ -669,28 +671,35 @@ namespace Svg
 
         [SvgAttribute("onmouseup")]
         public event EventHandler<MouseArg> MouseUp;
+        
+        [SvgAttribute("onmousemove")]
+        public event EventHandler<PointArg> MouseMove;
 
         [SvgAttribute("onmouseover")]
         public event EventHandler MouseOver;
 
-        [SvgAttribute("onmousemove")]
-        public event EventHandler<PointArg> MouseMove;
-
         [SvgAttribute("onmouseout")]
         public event EventHandler MouseOut;
 
+        //click
         protected void OnClick(float x, float y, int button, int clickCount)
         {
-            var handler = Click;
-            if(handler != null)
-            {
-                handler(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount});
+        	RaiseMouseClick(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount});
+        }
+        
+        protected void RaiseMouseClick(object sender, MouseArg e)
+        {
+        	var handler = Click;
+        	if (handler != null)
+        	{
+        		handler(sender, e);
             }
         }
 
+        //down
         protected void OnMouseDown(float x, float y, int button, int clickCount)
         {
-           RaiseMouseDown(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount});
+        	RaiseMouseDown(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount});
         }
         
         protected void RaiseMouseDown(object sender, MouseArg e)
@@ -702,39 +711,63 @@ namespace Svg
             }
         }
 
+        //up
         protected void OnMouseUp(float x, float y, int button)
         {
-            var handler = MouseUp;
-            if (handler != null)
-            {
-                handler(this, new MouseArg { x = x, y = y, Button = button});
-            }
+        	RaiseMouseUp(this, new MouseArg { x = x, y = y, Button = button});
         }
-
-        protected void OnMouseOver()
+        
+        protected void RaiseMouseUp(object sender, MouseArg e)
         {
-            var handler = MouseOver;
+        	var handler = MouseUp;
             if (handler != null)
             {
-                handler(this, new EventArgs());
+                handler(sender, e);
             }
         }
-
-        protected void OnMouseOut()
-        {
-            var handler = MouseOut;
-            if (handler != null)
-            {
-                handler(this, new EventArgs());
-            }
-        }
-
+        
+        //move
         protected void OnMouseMove(float x, float y)
         {
-            var handler = MouseMove;
+        	RaiseMouseMove(this, new PointArg { x = x, y = y});
+        }
+        
+        protected void RaiseMouseMove(object sender, PointArg e)
+        {
+        	var handler = MouseMove;
             if (handler != null)
             {
-                handler(this, new PointArg { x = x, y = y});
+                handler(sender, e);
+            }
+        }
+
+		//over        
+        protected void OnMouseOver()
+        {
+        	RaiseMouseOver(this);
+        }
+        
+        protected void RaiseMouseOver(object sender)
+        {
+        	var handler = MouseOver;
+            if (handler != null)
+            {
+                handler(sender, new EventArgs());
+            }
+        }
+
+        //out
+        protected void OnMouseOut()
+        {
+        	RaiseMouseOut(this);
+        }
+        
+        protected void RaiseMouseOut(object sender)
+        {
+        	var handler = MouseOut;
+            if (handler != null)
+            {
+                handler(sender, new EventArgs());
             }
         }
 

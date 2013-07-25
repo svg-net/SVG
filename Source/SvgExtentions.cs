@@ -47,5 +47,10 @@ namespace Svg
 
             }
         }
+        
+        public static bool HasNonEmptyCustomAttribute(this SvgElement element, string name)
+        {
+        	return element.CustomAttributes.ContainsKey(name) && !string.IsNullOrEmpty(element.CustomAttributes[name]);
+        }
     }
 }
