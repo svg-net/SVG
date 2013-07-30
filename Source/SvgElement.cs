@@ -41,7 +41,7 @@ namespace Svg
         private SvgElementCollection _children;
         private static readonly object _loadEventKey = new object();
         private Matrix _graphicsMatrix;
-        private Dictionary<string, string> _customAttributes;
+        private SvgCustomAttributeCollection _customAttributes;
 
         /// <summary>
         /// Gets the name of the element.
@@ -121,24 +121,20 @@ namespace Svg
         /// </summary>
         public virtual SvgDocument OwnerDocument
         {
-            get
-            {
-                if (Parent == null)
-                {
-                    if (this is SvgDocument)
-                    {
-                        return (SvgDocument)this;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    return Parent.OwnerDocument;
-                }
-            }
+        	get
+        	{
+        		if (this is SvgDocument)
+        		{
+        			return this as SvgDocument;
+        		}
+        		else
+        		{
+        			if(this.Parent != null)
+        				return Parent.OwnerDocument;
+        			else
+        				return null;
+        		}
+        	}
         }
 
         /// <summary>
@@ -157,7 +153,10 @@ namespace Svg
             }
         }
 
-        public Dictionary<string, string> CustomAttributes
+        /// <summary>
+        /// Gets a collection of custom attributes
+        /// </summary>
+        public SvgCustomAttributeCollection CustomAttributes
         {
             get { return this._customAttributes; }
         }
@@ -301,7 +300,11 @@ namespace Svg
             this._children = new SvgElementCollection(this);
             this._eventHandlers = new EventHandlerList();
             this._elementName = string.Empty;
-            this._customAttributes = new Dictionary<string, string>();
+            this._customAttributes = new SvgCustomAttributeCollection(this);
+            
+            //subscribe to attribute events
+            Attributes.AttributeChanged += Attributes_AttributeChanged;
+            CustomAttributes.AttributeChanged += Attributes_AttributeChanged;
 
             //find svg attribute descriptions
             _svgPropertyAttributes = from PropertyDescriptor a in TypeDescriptor.GetProperties(this)
@@ -314,6 +317,12 @@ namespace Svg
                             where attribute != null
                             select new EventAttributeTuple { Event = a.ComponentType.GetField(a.Name, BindingFlags.Instance | BindingFlags.NonPublic), Attribute = attribute };
 
+        }
+
+        //dispatch attribute event
+        void Attributes_AttributeChanged(object sender, AttributeEventArgs e)
+        {
+        	OnAttributeChanged(e);
         }
 
 		public virtual void InitialiseFromXML(XmlTextReader reader, SvgDocument document)
@@ -628,6 +637,20 @@ namespace Svg
 				
 			return newObj;
         }
+		
+		/// <summary>
+        /// Fired when an Atrribute of this Element has changed
+        /// </summary>
+		public event EventHandler<AttributeEventArgs> AttributeChanged;
+		
+		protected void OnAttributeChanged(AttributeEventArgs args)
+		{
+			var handler = AttributeChanged;
+			if(handler != null)
+			{
+				handler(this, args);
+			}
+		}
 
         #region graphical EVENTS
 
@@ -640,7 +663,7 @@ namespace Svg
                 onmouseup = "<anything>"
                 onmouseover = "<anything>"
                 onmousemove = "<anything>"
-            onmouseout = "<anything>" 
+            	onmouseout = "<anything>" 
          */
 
         /// <summary>
@@ -661,6 +684,25 @@ namespace Svg
                 caller.RegisterAction(rpcID + "onmouseover", OnMouseOver);
                 caller.RegisterAction(rpcID + "onmouseout", OnMouseOut);
             }
+        }
+        
+        /// <summary>
+        /// Use this method to provide your implementation ISvgEventCaller to unregister Actions
+        /// </summary>
+        /// <param name="caller"></param>
+        public void UnregisterEvents(ISvgEventCaller caller)
+        {
+        	if (caller != null && !string.IsNullOrWhiteSpace(this.ID))
+        	{
+        		var rpcID = this.ID + "/";
+
+        		caller.UnregisterAction(rpcID + "onclick");
+        		caller.UnregisterAction(rpcID + "onmousedown");
+        		caller.UnregisterAction(rpcID + "onmouseup");
+        		caller.UnregisterAction(rpcID + "onmousemove");
+        		caller.UnregisterAction(rpcID + "onmouseover");
+        		caller.UnregisterAction(rpcID + "onmouseout");
+        	}
         }
 
         [SvgAttribute("onclick")]
@@ -774,6 +816,15 @@ namespace Svg
         #endregion graphical EVENTS
 
     }
+    
+    /// <summary>
+    /// Describes the Attribute which was set
+    /// </summary>
+    public class AttributeEventArgs : EventArgs
+    {
+    	public string Attribute;
+    	public object Value;
+    }
 
     //deriving class registers event actions and calls the actions if the event occurs
     public interface ISvgEventCaller
@@ -783,6 +834,7 @@ namespace Svg
         void RegisterAction<T1, T2>(string rpcID, Action<T1, T2> action);
         void RegisterAction<T1, T2, T3>(string rpcID, Action<T1, T2, T3> action);
         void RegisterAction<T1, T2, T3, T4>(string rpcID, Action<T1, T2, T3, T4> action);
+        void UnregisterAction(string rpcID);
     }
 
     /// <summary>

@@ -87,7 +87,90 @@ namespace Svg
         public new object this[string attributeName]
         {
             get { return this.GetInheritedAttribute<object>(attributeName); }
-            set { base[attributeName] = value; }
+            set 
+            {
+            	if(base.ContainsKey(attributeName))
+            	{
+	            	var oldVal = base[attributeName];
+	            	base[attributeName] = value;
+	            	if(oldVal != value) OnAttributeChanged(attributeName, value);
+            	}
+            	else
+            	{
+            		base[attributeName] = value;
+	            	OnAttributeChanged(attributeName, value);
+            	}
+            }
+        }
+        
+        /// <summary>
+        /// Fired when an Atrribute has changed
+        /// </summary>
+        public event EventHandler<AttributeEventArgs> AttributeChanged;
+        
+        protected void OnAttributeChanged(string attribute, object value)
+        {
+        	var handler = AttributeChanged;
+        	if(handler != null)
+        	{
+        		handler(this._owner, new AttributeEventArgs { Attribute = attribute, Value = value });
+        	}
+        }
+    }
+    
+    
+    /// <summary>
+    /// A collection of Custom Attributes
+    /// </summary>
+    public sealed class SvgCustomAttributeCollection : Dictionary<string, string>
+    {
+        private SvgElement _owner;
+
+        /// <summary>
+        /// Initialises a new instance of a <see cref="SvgAttributeCollection"/> with the given <see cref="SvgElement"/> as the owner.
+        /// </summary>
+        /// <param name="owner">The <see cref="SvgElement"/> owner of the collection.</param>
+        public SvgCustomAttributeCollection(SvgElement owner)
+        {
+            this._owner = owner;
+        }
+
+        /// <summary>
+        /// Gets the attribute with the specified name.
+        /// </summary>
+        /// <param name="attributeName">A <see cref="string"/> containing the attribute name.</param>
+        /// <returns>The attribute value associated with the specified name; If there is no attribute the parent's value will be inherited.</returns>
+        public new string this[string attributeName]
+        {
+        	get { return base[attributeName]; }
+            set 
+            {
+            	if(base.ContainsKey(attributeName))
+            	{
+	            	var oldVal = base[attributeName];
+	            	base[attributeName] = value;
+	            	if(oldVal != value) OnAttributeChanged(attributeName, value);
+            	}
+            	else
+            	{
+            		base[attributeName] = value;
+	            	OnAttributeChanged(attributeName, value);
+            	}
+            }
+        }
+        
+        /// <summary>
+        /// Fired when an Atrribute has changed
+        /// </summary>
+        public event EventHandler<AttributeEventArgs> AttributeChanged;
+        
+        protected void OnAttributeChanged(string attribute, object value)
+        {
+        	var handler = AttributeChanged;
+        	if(handler != null)
+        	{
+        		handler(this._owner, new AttributeEventArgs { Attribute = attribute, Value = value });
+        	}
         }
     }
 }

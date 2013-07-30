@@ -61,7 +61,6 @@ namespace Svg
             set { this.Attributes["clip-rule"] = value; }
         }
 
-
 		/// <summary>
 		/// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
 		/// </summary>
@@ -71,7 +70,6 @@ namespace Svg
 			get { return this.Attributes.GetAttribute<Uri>("filter"); }
 			set { this.Attributes["filter"] = value; }
 		}
-
 
         /// <summary>
         /// Gets or sets a value to determine if anti-aliasing should occur when the element is being rendered.

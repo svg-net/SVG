@@ -88,7 +88,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets another gradient fill from which to inherit the stops from.
         /// </summary>
-        [SvgAttributeAttribute("href")]
+        [SvgAttribute("href")]
         public SvgGradientServer InheritGradient
         {
             get { return this._inheritGradient; }

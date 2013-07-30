@@ -44,6 +44,17 @@ namespace Svg
                 return _idManager;
             }
         }
+        
+        /// <summary>
+        /// Overwrites the current IdManager with a custom implementation. 
+        /// Be careful with this: If elements have been inserted into the document before,
+        /// you have to take care that the new IdManager also knows of them.
+        /// </summary>
+        /// <param name="manager"></param>
+        public void OverwriteIdManager(SvgElementIdManager manager)
+        {
+        	_idManager = manager;
+        }
 
         /// <summary>
         /// Gets or sets the Pixels Per Inch of the rendered image.

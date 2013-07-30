@@ -52,6 +52,8 @@ namespace Svg
                 this.EnsureValidId(element.ID);
                 this._idValueMap.Add(element.ID, element);
             }
+            
+            OnAdded(element);
         }
 
         /// <summary>
@@ -64,6 +66,8 @@ namespace Svg
             {
                 this._idValueMap.Remove(element.ID);
             }
+            
+            OnRemoved(element);
         }
 
         /// <summary>
@@ -101,5 +105,32 @@ namespace Svg
             this._document = document;
             this._idValueMap = new Dictionary<string, SvgElement>();
         }
+        
+        public event EventHandler<SvgElementEventArgs> ElementAdded;
+        public event EventHandler<SvgElementEventArgs> ElementRemoved;
+        
+        protected void OnAdded(SvgElement element)
+        {
+        	var handler = ElementAdded;
+        	if(handler != null)
+        	{
+        		handler(this._document, new SvgElementEventArgs{ Element = element });
+        	}
+        }
+        
+        protected void OnRemoved(SvgElement element)
+        {
+        	var handler = ElementRemoved;
+        	if(handler != null)
+        	{
+        		handler(this._document, new SvgElementEventArgs{ Element = element });
+        	}
+        }
+        
+    }
+    
+    public class SvgElementEventArgs : EventArgs
+    {
+    	public SvgElement Element;
     }
 }

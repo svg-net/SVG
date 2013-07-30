@@ -52,5 +52,16 @@ namespace Svg
         {
         	return element.CustomAttributes.ContainsKey(name) && !string.IsNullOrEmpty(element.CustomAttributes[name]);
         }
+        
+        public static void ApplyRecursive(this SvgElement elem, Action<SvgElement> action)
+        {
+        	action(elem);
+        	
+        	foreach (var element in elem.Children)
+        	{
+        		if(!(elem is SvgDocument))
+        			element.ApplyRecursive(action);
+        	}
+        }
     }
 }

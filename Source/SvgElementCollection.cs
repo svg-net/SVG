@@ -78,7 +78,7 @@ namespace Svg
             {
                 if (this._owner.OwnerDocument != null)
                 {
-                    this._owner.OwnerDocument.IdManager.Add(item);
+                    item.ApplyRecursive(this._owner.OwnerDocument.IdManager.Add);
                 }
 
                 item._parent = this._owner;
@@ -132,7 +132,7 @@ namespace Svg
 
                     if (this._owner.OwnerDocument != null)
                     {
-                        this._owner.OwnerDocument.IdManager.Remove(item);
+                        item.ApplyRecursive(this._owner.OwnerDocument.IdManager.Remove);
                     }
                 }
             }
