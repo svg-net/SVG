@@ -83,7 +83,12 @@ namespace Svg
         public virtual SvgUnit X
         {
             get { return this._x; }
-            set { this._x = value; this.IsPathDirty = true; }
+            set 
+            { 
+            	this._x = value; 
+            	this.IsPathDirty = true;
+            	OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
+            }
         }
 
         /// <summary>
@@ -94,7 +99,12 @@ namespace Svg
         public virtual SvgUnit Y
         {
             get { return this._y; }
-            set { this._y = value; this.IsPathDirty = true; }
+            set 
+            { 
+            	this._y = value; 
+            	this.IsPathDirty = true; 
+            	OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
+            }
         }
 
         /// <summary>

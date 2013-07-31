@@ -94,6 +94,7 @@ namespace Svg
         internal void OnPathUpdated()
         {
             this.IsPathDirty = true;
+            OnAttributeChanged(new AttributeEventArgs{ Attribute = "d", Value = this.PathData });
         }
 
         /// <summary>

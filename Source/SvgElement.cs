@@ -30,6 +30,7 @@ namespace Svg
             public SvgAttributeAttribute Attribute;
         }
 
+        //reflection cache
         protected IEnumerable<PropertyAttributeTuple> _svgPropertyAttributes;
         protected IEnumerable<EventAttributeTuple> _svgEventAttributes;
 
@@ -68,10 +69,28 @@ namespace Svg
         /// <summary>
         /// Gets or sets the content of the element.
         /// </summary>
+        private string _content;
         public virtual string Content
         {
-            get;
-            set;
+            get
+            {
+            	return _content;
+            }
+            set
+            {
+            	if(_content != null)
+            	{
+            		var oldVal = _content;
+            		_content = value;
+            		if(_content != oldVal)
+            			OnAttributeChanged(new AttributeEventArgs{ Attribute = "", Value = value });
+            	}
+            	else
+            	{
+            		_content = value;
+            		OnAttributeChanged(new AttributeEventArgs{ Attribute = "", Value = value });
+            	}
+            }
         }
 
         /// <summary>
@@ -220,8 +239,15 @@ namespace Svg
         [SvgAttribute("transform")]
         public SvgTransformCollection Transforms
         {
-            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("Transforms") ?? new SvgTransformCollection()); }
-            set { this.Attributes["Transforms"] = value; }
+            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("Transforms")); }
+            set 
+            { 
+            	var old = this.Transforms;
+            	if(old != null)
+            		old.TransformChanged -= Attributes_AttributeChanged;
+            	value.TransformChanged += Attributes_AttributeChanged;
+            	this.Attributes["Transforms"] = value; 
+            }
         }
 
         /// <summary>
@@ -301,6 +327,8 @@ namespace Svg
             this._eventHandlers = new EventHandlerList();
             this._elementName = string.Empty;
             this._customAttributes = new SvgCustomAttributeCollection(this);
+            
+            Transforms = new SvgTransformCollection();
             
             //subscribe to attribute events
             Attributes.AttributeChanged += Attributes_AttributeChanged;

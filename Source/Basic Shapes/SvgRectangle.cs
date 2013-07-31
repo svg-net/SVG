@@ -50,6 +50,7 @@ namespace Svg
             set
             {
                 _x = value;
+                OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
                 IsPathDirty = true;
             }
         }
@@ -64,6 +65,7 @@ namespace Svg
             set
             {
                 _y = value;
+                OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
                 IsPathDirty = true;
             }
         }
@@ -78,6 +80,7 @@ namespace Svg
             set
             {
                 _width = value;
+                OnAttributeChanged(new AttributeEventArgs{ Attribute = "width", Value = value });
                 IsPathDirty = true;
             }
         }
@@ -92,6 +95,7 @@ namespace Svg
             set
             {
                 _height = value;
+                OnAttributeChanged(new AttributeEventArgs{ Attribute = "height", Value = value });
                 IsPathDirty = true;
             }
         }

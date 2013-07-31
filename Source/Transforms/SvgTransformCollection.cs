@@ -10,6 +10,31 @@ namespace Svg.Transforms
     [TypeConverter(typeof(SvgTransformConverter))]
     public class SvgTransformCollection : List<SvgTransform>
     {
+	
+    	public new void Add(SvgTransform item)
+    	{
+    		base.Add(item);
+    		OnTransformChanged();
+    	}
+    	
+    	public new void AddRange(IEnumerable<SvgTransform> collection)
+    	{
+    		base.AddRange(collection);
+    		OnTransformChanged();
+    	}
+    	
+    	public new void Remove(SvgTransform item)
+    	{
+    		base.Remove(item);
+    		OnTransformChanged();
+    	}
+    	
+    	public new void RemoveAt(int index)
+    	{
+    		base.RemoveAt(index);
+    		OnTransformChanged();
+    	}
+    	
     	/// <summary>
     	/// Multiplies all matrices
     	/// </summary>
@@ -32,13 +57,38 @@ namespace Svg.Transforms
             return transformMatrix;
     	}
 
-
 		public override bool Equals(object obj)
 		{
-			if (this.Count == 0 && this.Count == this.Count) //default will be an empty list 
+			if (this.Count == 0 && this.Count == base.Count) //default will be an empty list 
 				return true;
 			return base.Equals(obj);
 		}
+		
+		public new SvgTransform this[int i]
+        {
+			get { return base[i]; }
+			set
+			{
+				var oldVal = base[i];
+				base[i] = value;
+				if(oldVal != value)
+					OnTransformChanged();
+			}
+		}
+		
+		/// <summary>
+        /// Fired when an SvgTransform has changed
+        /// </summary>
+        public event EventHandler<AttributeEventArgs> TransformChanged;
+        
+        protected void OnTransformChanged()
+        {
+        	var handler = TransformChanged;
+        	if(handler != null)
+        	{
+        		handler(this, new AttributeEventArgs { Attribute = "transform", Value = this });
+        	}
+        }
     		
     }
 }
