@@ -22,8 +22,8 @@ namespace Svg
         [SvgAttribute("visibility")]
         public virtual bool Visible
         {
-            get { return (this.Attributes["Visible"] == null) ? true : (bool)this.Attributes["Visible"]; }
-            set { this.Attributes["Visible"] = value; }
+            get { return (this.Attributes["visibility"] == null) ? true : (bool)this.Attributes["visibility"]; }
+            set { this.Attributes["visibility"] = value; }
         }
 
         /// <summary>
