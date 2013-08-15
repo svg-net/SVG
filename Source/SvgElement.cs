@@ -113,9 +113,10 @@ namespace Svg
             {
                 if (Parent == null)
                 {
-                    if (this is SvgDocument)
+                    var document = this as SvgDocument;
+                    if (document != null)
                     {
-                        return (SvgDocument)this;
+                        return document;
                     }
                     else
                     {
@@ -481,17 +482,18 @@ namespace Svg
         {
             foreach(var child in elem.Children)
             {
-                if (child is SvgVisualElement)
+                var element = child as SvgVisualElement;
+                if (element != null)
                 {
                     if(!(child is SvgGroup))
                     {
-                        var childPath = ((SvgVisualElement)child).Path;
+                        var childPath = element.Path;
                         
                         if (childPath != null)
                         {
                             childPath = (GraphicsPath)childPath.Clone();
-                            if(child.Transforms != null)
-                                childPath.Transform(child.Transforms.GetMatrix());
+                            if(element.Transforms != null)
+                                childPath.Transform(element.Transforms.GetMatrix());
                             
                             path.AddPath(childPath, false);
                         }
@@ -512,31 +514,31 @@ namespace Svg
             
             foreach(var child in elem.Children)
             {
-                if (child is SvgVisualElement)
+                var element = child as SvgVisualElement;
+                if (element != null)
                 {
                     if(!(child is SvgGroup))
                     {
-                        var childPath = ((SvgVisualElement)child).Path;
+                        var childPath = element.Path;
                         
                         if (childPath != null)
                         {
                             childPath = (GraphicsPath)childPath.Clone();
-                            if(child.Transforms != null)
-                                childPath.Transform(child.Transforms.GetMatrix());
+                            if(element.Transforms != null)
+                                childPath.Transform(element.Transforms.GetMatrix());
                             
                             ret.AddPath(childPath, false);
                         }
                     }
                     else
                     {
-                        var childPath = GetPaths(child);
-                        if(child.Transforms != null)
-                            childPath.Transform(child.Transforms.GetMatrix());
+                        var childPath = GetPaths(element);
+                        if(element.Transforms != null)
+                            childPath.Transform(element.Transforms.GetMatrix());
                     }
                 }
-                    
             }
-            
+
             return ret;
         }
 

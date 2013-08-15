@@ -31,9 +31,10 @@ namespace Svg
         /// <param name="index">An <see cref="int"/> representing the index where the element was added to the collection.</param>
         protected override void AddElement(SvgElement child, int index)
         {
-            if (child is SvgGradientStop)
+            var stop = child as SvgGradientStop;
+            if (stop != null)
             {
-                this.Stops.Add((SvgGradientStop)child);
+                this.Stops.Add(stop);
             }
 
             base.AddElement(child, index);
@@ -46,9 +47,10 @@ namespace Svg
         /// <param name="child">The <see cref="SvgElement"/> that has been removed.</param>
         protected override void RemoveElement(SvgElement child)
         {
-            if (child is SvgGradientStop)
+            var stop = child as SvgGradientStop;
+            if (stop != null)
             {
-                this.Stops.Remove((SvgGradientStop)child);
+                this.Stops.Remove(stop);
             }
 
             base.RemoveElement(child);

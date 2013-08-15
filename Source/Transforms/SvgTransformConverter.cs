@@ -34,7 +34,8 @@ namespace Svg.Transforms
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            var s = value as string;
+            if (s != null)
             {
                 SvgTransformCollection transformList = new SvgTransformCollection();
 
@@ -42,7 +43,7 @@ namespace Svg.Transforms
                 string contents;
                 string transformName;
 
-                foreach (string transform in SplitTransforms((string)value))
+                foreach (string transform in SplitTransforms(s))
                 {
                     if (string.IsNullOrEmpty(transform))
                         continue;
