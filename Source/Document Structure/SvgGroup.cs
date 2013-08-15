@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace Svg
 {
@@ -49,12 +50,7 @@ namespace Svg
             get 
             { 
                 var r = new RectangleF();
-                foreach(var c in this.Children)
-                {
-                    if(c is SvgVisualElement)
-                        r = RectangleF.Union(r, ((SvgVisualElement)c).Bounds);
-                }
-                return r;             
+                return this.Children.OfType<SvgVisualElement>().Aggregate(r, (current, c) => RectangleF.Union(current, (c).Bounds));             
             }
         }
 

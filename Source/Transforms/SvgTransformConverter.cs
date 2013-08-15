@@ -116,11 +116,7 @@ namespace Svg.Transforms
                                 throw new FormatException("Matrix transforms must be in the format 'matrix(m11, m12, m21, m22, dx, dy)'");
                             }
 
-                            List<float> mPoints = new List<float>();
-                            foreach (string point in points)
-                            {
-                                mPoints.Add(float.Parse(point.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture));
-                            }
+                            List<float> mPoints = points.Select(point => float.Parse(point.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture)).ToList();
 
                             transformList.Add(new SvgMatrix(mPoints));
                             break;

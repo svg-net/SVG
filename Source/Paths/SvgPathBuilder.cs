@@ -272,12 +272,7 @@ namespace Svg
         {
             var parts = Regex.Split(coords.Remove(0, 1), @"[\s,]|(?=(?<!e)-)");
 
-            for (int i = 0; i < parts.Length; i++)
-            {
-                if (!String.IsNullOrEmpty(parts[i]))
-                    yield return float.Parse(parts[i].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
-
-            }
+            return parts.Where(t => !String.IsNullOrEmpty(t)).Select(t => float.Parse(t.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture));
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 
 namespace Svg
 {
@@ -13,13 +14,7 @@ namespace Svg
     {
         public override string ToString()
         {
-            string ret = "";
-            foreach (var unit in this)
-            {
-                ret += unit.ToString() + " ";
-            }
-
-            return ret;
+            return this.Aggregate("", (current, unit) => current + (unit.ToString() + " "));
         }
     }
 
