@@ -72,7 +72,7 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
-                return ((SvgUnitCollection)value).ToString();
+                return value.ToString();
             }
 
             return base.ConvertTo(context, culture, value, destinationType);

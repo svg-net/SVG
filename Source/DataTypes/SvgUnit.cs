@@ -103,17 +103,17 @@ namespace Svg
             switch (this.Type)
             {
                 case SvgUnitType.Em:
-                    float points = (float)(this.Value * 9);
+                    float points = this.Value * 9;
                     _deviceValue = (points / 72) * ppi;
                     break;
                 case SvgUnitType.Centimeter:
-                    _deviceValue = (float)((this.Value / cmInInch) * ppi);
+                    _deviceValue = (this.Value / cmInInch) * ppi;
                     break;
                 case SvgUnitType.Inch:
                     _deviceValue = this.Value * ppi;
                     break;
                 case SvgUnitType.Millimeter:
-                    _deviceValue = (float)((this.Value / 10) / cmInInch) * ppi;
+                    _deviceValue = (this.Value / 10) / cmInInch * ppi;
                     break;
                 case SvgUnitType.Pica:
                     _deviceValue = ((this.Value * 12) / 72) * ppi;

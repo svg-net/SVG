@@ -118,7 +118,7 @@ namespace Svg.Pathing
                 dtheta += 2.0 * Math.PI;
             }
 
-            int segments = (int)Math.Ceiling((double)Math.Abs(dtheta / (Math.PI / 2.0)));
+            int segments = (int)Math.Ceiling(Math.Abs(dtheta / (Math.PI / 2.0)));
             double delta = dtheta / segments;
             double t = 8.0 / 3.0 * Math.Sin(delta / 4.0) * Math.Sin(delta / 4.0) / Math.Sin(delta / 2.0);
 

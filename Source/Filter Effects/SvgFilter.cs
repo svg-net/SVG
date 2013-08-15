@@ -98,7 +98,7 @@ namespace Svg.FilterEffects
         /// </returns>
         public override object Clone()
         {
-            return (SvgFilter)this.MemberwiseClone();
+            return this.MemberwiseClone();
         }
 
         public void ApplyFilter(SvgVisualElement element, SvgRenderer renderer)
