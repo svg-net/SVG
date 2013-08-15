@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
-using System.Web.UI.WebControls;
+using System.Drawing;
 using System.Globalization;
 
 namespace Svg
@@ -138,7 +136,7 @@ namespace Svg
                     }
 
                     // TODO : Support height percentages
-                    System.Drawing.RectangleF size = styleOwner.Bounds;
+                    RectangleF size = styleOwner.Bounds;
                     _deviceValue = (((vertical) ? size.Height : size.Width) / 100) * this.Value;
                     break;
                 default:

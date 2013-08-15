@@ -1,12 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Xml.Serialization;
-using System.ComponentModel;
-using System.Diagnostics;
 
 namespace Svg
 {

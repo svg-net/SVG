@@ -32,7 +32,7 @@ namespace Svg
     
     public sealed class SvgBoolConverter : BaseConverter
     {
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value == null)
             {
@@ -61,7 +61,7 @@ namespace Svg
     //converts enums to lower case strings
     public class EnumBaseConverter<T> : BaseConverter
     {
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value == null)
             {

@@ -5,8 +5,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using Svg.Pathing;
 using System.Text.RegularExpressions;
+using Svg.Pathing;
 
 namespace Svg
 {

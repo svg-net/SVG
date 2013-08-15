@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.ComponentModel;
 
 namespace Svg
 {
@@ -10,7 +8,7 @@ namespace Svg
     /// Specifies the SVG attribute name of the associated property.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class SvgAttributeAttribute : System.Attribute
+    public class SvgAttributeAttribute : Attribute
     {
         /// <summary>
         /// Gets a <see cref="string"/> containing the XLink namespace (http://www.w3.org/1999/xlink).

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 
@@ -10,7 +8,7 @@ namespace Svg
     /// <summary>
     /// Converts string representations of colours into <see cref="Color"/> objects.
     /// </summary>
-    public class SvgColourConverter : System.Drawing.ColorConverter
+    public class SvgColourConverter : ColorConverter
     {
         /// <summary>
         /// Converts the given object to the converter's native type.
@@ -25,7 +23,7 @@ namespace Svg
         /// <PermissionSet>
         ///     <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
         /// </PermissionSet>
-        public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             string colour = value as string;
 
@@ -40,7 +38,7 @@ namespace Svg
                         int start = colour.IndexOf("(") + 1;
                         string[] values = colour.Substring(start, colour.IndexOf(")") - start).Split(new char[]{',', ' '}, StringSplitOptions.RemoveEmptyEntries);
 
-                        return System.Drawing.Color.FromArgb(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
+                        return Color.FromArgb(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
                     }
                     catch
                     {
@@ -57,7 +55,7 @@ namespace Svg
             return base.ConvertFrom(context, culture, value);
         }
 
-        public override bool CanConvertFrom(System.ComponentModel.ITypeDescriptorContext context, Type sourceType)
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
             {
@@ -67,7 +65,7 @@ namespace Svg
             return base.CanConvertFrom(context, sourceType);
         }
 
-        public override bool CanConvertTo(System.ComponentModel.ITypeDescriptorContext context, Type destinationType)
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
@@ -77,7 +75,7 @@ namespace Svg
             return base.CanConvertTo(context, destinationType);
         }
 
-        public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {

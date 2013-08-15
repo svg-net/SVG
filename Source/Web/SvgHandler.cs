@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Web;
 
@@ -135,7 +134,7 @@ namespace Svg.Web
                     }
                     catch (Exception exc)
                     {
-                        System.Diagnostics.Trace.TraceError("An error occured while attempting to render the SVG image '" + this._state._context.Request.PhysicalPath + "': " + exc.Message);
+                        Trace.TraceError("An error occured while attempting to render the SVG image '" + this._state._context.Request.PhysicalPath + "': " + exc.Message);
                     }
                     finally
                     {

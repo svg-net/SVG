@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Drawing.Drawing2D;
 
 namespace Svg.Pathing
 {
     public sealed class SvgClosePathSegment : SvgPathSegment
     {
-        public override void AddToPath(System.Drawing.Drawing2D.GraphicsPath graphicsPath)
+        public override void AddToPath(GraphicsPath graphicsPath)
         {
             graphicsPath.CloseFigure();
         }

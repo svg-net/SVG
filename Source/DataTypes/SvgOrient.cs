@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
-using System.Web.UI.WebControls;
-using System.Globalization;
-
 namespace Svg
 {
     /// <summary>

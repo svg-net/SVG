@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -88,7 +85,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets another gradient fill from which to inherit the stops from.
         /// </summary>
-        [SvgAttributeAttribute("href")]
+        [SvgAttribute("href")]
         public SvgGradientServer InheritGradient
         {
             get { return this._inheritGradient; }

@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing.Drawing2D;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Svg.Pathing
 {
@@ -61,7 +59,7 @@ namespace Svg.Pathing
                 return tb - ta;
             }
 
-            return SvgArcSegment.DoublePI - (ta - tb);
+            return DoublePI - (ta - tb);
         }
 
         public override void AddToPath(GraphicsPath graphicsPath)
@@ -77,8 +75,8 @@ namespace Svg.Pathing
                 return;
             }
 
-            double sinPhi = Math.Sin(this.Angle * SvgArcSegment.RadiansPerDegree);
-            double cosPhi = Math.Cos(this.Angle * SvgArcSegment.RadiansPerDegree);
+            double sinPhi = Math.Sin(this.Angle * RadiansPerDegree);
+            double cosPhi = Math.Cos(this.Angle * RadiansPerDegree);
 
             double x1dash = cosPhi * (this.Start.X - this.End.X) / 2.0 + sinPhi * (this.Start.Y - this.End.Y) / 2.0;
             double y1dash = -sinPhi * (this.Start.X - this.End.X) / 2.0 + cosPhi * (this.Start.Y - this.End.Y) / 2.0;
@@ -108,8 +106,8 @@ namespace Svg.Pathing
             double cx = cosPhi * cxdash - sinPhi * cydash + (this.Start.X + this.End.X) / 2.0;
             double cy = sinPhi * cxdash + cosPhi * cydash + (this.Start.Y + this.End.Y) / 2.0;
 
-            double theta1 = SvgArcSegment.CalculateVectorAngle(1.0, 0.0, (x1dash - cxdash) / rx, (y1dash - cydash) / ry);
-            double dtheta = SvgArcSegment.CalculateVectorAngle((x1dash - cxdash) / rx, (y1dash - cydash) / ry, (-x1dash - cxdash) / rx, (-y1dash - cydash) / ry);
+            double theta1 = CalculateVectorAngle(1.0, 0.0, (x1dash - cxdash) / rx, (y1dash - cydash) / ry);
+            double dtheta = CalculateVectorAngle((x1dash - cxdash) / rx, (y1dash - cydash) / ry, (-x1dash - cxdash) / rx, (-y1dash - cydash) / ry);
 
             if (this.Sweep == SvgArcSweep.Negative && dtheta > 0)
             {

@@ -1,8 +1,5 @@
-﻿﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing.Drawing2D;
-using System.Globalization;
+﻿﻿using System.Drawing.Drawing2D;
+﻿using System.Globalization;
 
 namespace Svg.Transforms
 {

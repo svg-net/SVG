@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Linq;
 
@@ -36,7 +32,7 @@ namespace Svg.Transforms
         /// An <see cref="T:System.Object"/> that represents the converted value.
         /// </returns>
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string)
             {
@@ -46,7 +42,7 @@ namespace Svg.Transforms
                 string contents;
                 string transformName;
 
-                foreach (string transform in SvgTransformConverter.SplitTransforms((string)value))
+                foreach (string transform in SplitTransforms((string)value))
                 {
                     if (string.IsNullOrEmpty(transform))
                         continue;

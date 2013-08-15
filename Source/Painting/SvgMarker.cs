@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Xml;
-using System.Xml.Serialization;
+using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace Svg
 {
@@ -61,7 +56,7 @@ namespace Svg
         }
 
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path
+        public override GraphicsPath Path
         {
             get
             {
@@ -72,14 +67,14 @@ namespace Svg
             }
         }
 
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {
                 var path = this.Path;
                 if (path != null)
                     return path.GetBounds();
-                return new System.Drawing.RectangleF();
+                return new RectangleF();
             }
         }
 

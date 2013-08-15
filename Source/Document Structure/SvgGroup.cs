@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Xml;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using Svg.Transforms;
 
 namespace Svg
 {
@@ -34,7 +28,7 @@ namespace Svg
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path
+        public override GraphicsPath Path
         {
             get 
             { 
@@ -50,7 +44,7 @@ namespace Svg
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get 
             { 

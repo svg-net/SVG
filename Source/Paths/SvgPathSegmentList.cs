@@ -1,7 +1,6 @@
-using System;
-using System.ComponentModel;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
 
 namespace Svg.Pathing
 {
@@ -104,7 +103,7 @@ namespace Svg.Pathing
             return this._segments.GetEnumerator();
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return this._segments.GetEnumerator();
         }

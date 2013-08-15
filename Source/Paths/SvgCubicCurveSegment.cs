@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Svg.Pathing
 {
@@ -30,7 +28,7 @@ namespace Svg.Pathing
             this._secondControlPoint = secondControlPoint;
         }
 
-        public override void AddToPath(System.Drawing.Drawing2D.GraphicsPath graphicsPath)
+        public override void AddToPath(GraphicsPath graphicsPath)
         {
             graphicsPath.AddBezier(this.Start, this.FirstControlPoint, this.SecondControlPoint, this.End);
         }

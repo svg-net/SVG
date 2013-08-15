@@ -1,6 +1,6 @@
 ﻿﻿using System;
 ﻿using System.Drawing.Drawing2D;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace Svg.Transforms
 {

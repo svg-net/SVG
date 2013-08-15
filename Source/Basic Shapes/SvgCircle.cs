@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Xml;
-using System.Web.UI.WebControls;
-using System.ComponentModel;
 
 namespace Svg
 {

@@ -1,17 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web.UI.WebControls;
 
 namespace Svg
 {
     public sealed class SvgUnitConverter : TypeConverter
     {
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value == null)
             {

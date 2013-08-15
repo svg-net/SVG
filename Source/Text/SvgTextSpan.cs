@@ -1,11 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-
-namespace Svg
+﻿namespace Svg
 {
     [SvgElement("tspan")]
     public class SvgTextSpan : SvgElement

@@ -1,6 +1,4 @@
-using System;
 using System.Drawing;
-using System.Collections.Generic;
 using Svg.Filter_Effects.feColourMatrix;
 
 namespace Svg.FilterEffects
