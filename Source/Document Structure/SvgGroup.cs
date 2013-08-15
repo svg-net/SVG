@@ -38,11 +38,11 @@ namespace Svg
         {
             get 
             { 
-            	var path = new GraphicsPath();
+                var path = new GraphicsPath();
 
-            	//AddPaths(this, path);
+                //AddPaths(this, path);
   
-            	return GetPaths(this);
+                return GetPaths(this);
             }
         }
 
@@ -54,13 +54,13 @@ namespace Svg
         {
             get 
             { 
-            	var r = new RectangleF();
-            	foreach(var c in this.Children)
-            	{
-            		if(c is SvgVisualElement)
-            			r = RectangleF.Union(r, ((SvgVisualElement)c).Bounds);
-            	}
-				return r;         	
+                var r = new RectangleF();
+                foreach(var c in this.Children)
+                {
+                    if(c is SvgVisualElement)
+                        r = RectangleF.Union(r, ((SvgVisualElement)c).Bounds);
+                }
+                return r;             
             }
         }
 
@@ -77,18 +77,18 @@ namespace Svg
             this.PopTransforms(renderer);
         }
 
-		
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgGroup>();
-		}
+        
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgGroup>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgGroup;
-			if (this.Fill != null)
-				newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgGroup;
+            if (this.Fill != null)
+                newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
+            return newObj;
+        }
     }
 }

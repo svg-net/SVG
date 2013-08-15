@@ -15,15 +15,15 @@ namespace Svg
         private bool _isAuto = true;
         private float _angle;
   
-		public SvgOrient()
-		{
-			IsAuto = true;
-		}
+        public SvgOrient()
+        {
+            IsAuto = true;
+        }
 
-		public SvgOrient(float angle)
-		{
-			Angle = angle;
-		}
+        public SvgOrient(float angle)
+        {
+            Angle = angle;
+        }
 
         /// <summary>
         /// Gets the value of the unit.
@@ -33,12 +33,12 @@ namespace Svg
             get { return this._angle; }
             set
             {
-            	this._angle = value;
-            	this._isAuto = false;
+                this._angle = value;
+                this._isAuto = false;
             }
         }
 
-		
+        
         /// <summary>
         /// Gets the value of the unit.
         /// </summary>
@@ -46,9 +46,9 @@ namespace Svg
         {
             get { return this._isAuto; }
             set { 
-				this._isAuto = value;
-            	this._angle = 0f;
-			}
+                this._isAuto = value;
+                this._angle = 0f;
+            }
         }
 
 
@@ -77,21 +77,21 @@ namespace Svg
         {
             string type = string.Empty;
 
-			if (this.IsAuto)
-				return "auto";
-			else
-				return this.Angle.ToString();
+            if (this.IsAuto)
+                return "auto";
+            else
+                return this.Angle.ToString();
         }
 
-		///// <summary>
-		///// Performs an implicit conversion from <see cref="Svg.SvgUnit"/> to <see cref="System.Single"/>.
-		///// </summary>
-		///// <param name="value">The value.</param>
-		///// <returns>The result of the conversion.</returns>
-		//public static implicit operator float(SvgOrient value)
-		//{
-		//    return this.Angle;
-		//}
+        ///// <summary>
+        ///// Performs an implicit conversion from <see cref="Svg.SvgUnit"/> to <see cref="System.Single"/>.
+        ///// </summary>
+        ///// <param name="value">The value.</param>
+        ///// <returns>The result of the conversion.</returns>
+        //public static implicit operator float(SvgOrient value)
+        //{
+        //    return this.Angle;
+        //}
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="System.Single"/> to <see cref="Svg.SvgOrient"/>.

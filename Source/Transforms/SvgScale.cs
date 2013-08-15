@@ -47,9 +47,9 @@ namespace Svg.Transforms
         }
 
 
-		public override object Clone()
-		{
-			return new SvgScale(this.X, this.Y);
-		}
+        public override object Clone()
+        {
+            return new SvgScale(this.X, this.Y);
+        }
     }
 }

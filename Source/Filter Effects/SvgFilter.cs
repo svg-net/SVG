@@ -18,22 +18,22 @@ namespace Svg.FilterEffects
         private Bitmap sourceGraphic;
         private Bitmap sourceAlpha;
 
-	
-		/// <summary>
-		/// Gets or sets the position where the left point of the filter.
-		/// </summary>
-		[SvgAttribute("x")]
-		public SvgUnit X
+    
+        /// <summary>
+        /// Gets or sets the position where the left point of the filter.
+        /// </summary>
+        [SvgAttribute("x")]
+        public SvgUnit X
         {
             get { return this.Attributes.GetAttribute<SvgUnit>("x"); }
             set { this.Attributes["x"] = value; }
         }
 
-		/// <summary>
-		/// Gets or sets the position where the top point of the filter.
-		/// </summary>
-		[SvgAttribute("y")]
-		public SvgUnit Y 
+        /// <summary>
+        /// Gets or sets the position where the top point of the filter.
+        /// </summary>
+        [SvgAttribute("y")]
+        public SvgUnit Y 
         {
             get { return this.Attributes.GetAttribute<SvgUnit>("y"); }
             set { this.Attributes["y"] = value; }
@@ -62,8 +62,8 @@ namespace Svg.FilterEffects
 
 
         /// <summary>
-		/// Gets or sets the color-interpolation-filters of the resulting filter graphic.
-		/// NOT currently mapped through to bitmap
+        /// Gets or sets the color-interpolation-filters of the resulting filter graphic.
+        /// NOT currently mapped through to bitmap
         /// </summary>
         [SvgAttribute("color-interpolation-filters")]
         public SvgColourInterpolation ColorInterpolationFilters
@@ -89,7 +89,7 @@ namespace Svg.FilterEffects
         /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
         protected override void Render(SvgRenderer renderer)
         {
-			base.RenderChildren(renderer);
+            base.RenderChildren(renderer);
         }
 
         /// <summary>
@@ -203,20 +203,20 @@ namespace Svg.FilterEffects
 
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgFilter>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgFilter>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgFilter;
-			newObj.Height = this.Height;
-			newObj.Width = this.Width;
-			newObj.X = this.X;
-			newObj.Y = this.Y;
-			newObj.ColorInterpolationFilters = this.ColorInterpolationFilters;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgFilter;
+            newObj.Height = this.Height;
+            newObj.Width = this.Width;
+            newObj.X = this.X;
+            newObj.Y = this.Y;
+            newObj.ColorInterpolationFilters = this.ColorInterpolationFilters;
+            return newObj;
+        }
     }
 }

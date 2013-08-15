@@ -301,10 +301,10 @@ namespace Svg
         }
 
 
-		public virtual void InitialiseFromXML(XmlTextReader reader, SvgDocument document)
-		{
+        public virtual void InitialiseFromXML(XmlTextReader reader, SvgDocument document)
+        {
             throw new NotImplementedException();
-		}
+        }
 
 
         /// <summary>
@@ -328,15 +328,15 @@ namespace Svg
                 writer.WriteStartElement(this.ElementName);
                 if (this.ElementName == "svg")
                 {
-					foreach (var ns in SvgAttributeAttribute.Namespaces)
-					{
-						if (string.IsNullOrEmpty(ns.Key))
-							writer.WriteAttributeString("xmlns", ns.Value);
-						else
-							writer.WriteAttributeString("xmlns:" + ns.Key, ns.Value);
-					}
-					writer.WriteAttributeString("version", "1.1");
-				}
+                    foreach (var ns in SvgAttributeAttribute.Namespaces)
+                    {
+                        if (string.IsNullOrEmpty(ns.Key))
+                            writer.WriteAttributeString("xmlns", ns.Value);
+                        else
+                            writer.WriteAttributeString("xmlns:" + ns.Key, ns.Value);
+                    }
+                    writer.WriteAttributeString("version", "1.1");
+                }
             }
             this.WriteAttributes(writer);
         }
@@ -481,27 +481,27 @@ namespace Svg
         /// <param name="path"></param>
         protected void AddPaths(SvgElement elem, GraphicsPath path)
         {
-        	foreach(var child in elem.Children)
-        	{
-        		if (child is SvgVisualElement)
-        		{
-        			if(!(child is SvgGroup))
-        			{
-        				var childPath = ((SvgVisualElement)child).Path;
-        				
-        				if (childPath != null)
-        				{
-        					childPath = (GraphicsPath)childPath.Clone();
-        					if(child.Transforms != null)
-        						childPath.Transform(child.Transforms.GetMatrix());
-        					
-        					path.AddPath(childPath, false);
-        				}
-        			}
-        		}
-        			
-        		AddPaths(child, path);
-        	}
+            foreach(var child in elem.Children)
+            {
+                if (child is SvgVisualElement)
+                {
+                    if(!(child is SvgGroup))
+                    {
+                        var childPath = ((SvgVisualElement)child).Path;
+                        
+                        if (childPath != null)
+                        {
+                            childPath = (GraphicsPath)childPath.Clone();
+                            if(child.Transforms != null)
+                                childPath.Transform(child.Transforms.GetMatrix());
+                            
+                            path.AddPath(childPath, false);
+                        }
+                    }
+                }
+                    
+                AddPaths(child, path);
+            }
         }
         
         /// <summary>
@@ -511,36 +511,36 @@ namespace Svg
         /// <param name="path"></param>
         protected GraphicsPath GetPaths(SvgElement elem)
         {
-        	var ret = new GraphicsPath();
-        	
-        	foreach(var child in elem.Children)
-        	{
-        		if (child is SvgVisualElement)
-        		{
-        			if(!(child is SvgGroup))
-        			{
-        				var childPath = ((SvgVisualElement)child).Path;
-        				
-        				if (childPath != null)
-        				{
-        					childPath = (GraphicsPath)childPath.Clone();
-        					if(child.Transforms != null)
-        						childPath.Transform(child.Transforms.GetMatrix());
-        					
-        					ret.AddPath(childPath, false);
-        				}
-        			}
-        			else
-        			{
-        				var childPath = GetPaths(child);
-        				if(child.Transforms != null)
-        					childPath.Transform(child.Transforms.GetMatrix());
-        			}
-        		}
-        			
-        	}
-        	
-        	return ret;
+            var ret = new GraphicsPath();
+            
+            foreach(var child in elem.Children)
+            {
+                if (child is SvgVisualElement)
+                {
+                    if(!(child is SvgGroup))
+                    {
+                        var childPath = ((SvgVisualElement)child).Path;
+                        
+                        if (childPath != null)
+                        {
+                            childPath = (GraphicsPath)childPath.Clone();
+                            if(child.Transforms != null)
+                                childPath.Transform(child.Transforms.GetMatrix());
+                            
+                            ret.AddPath(childPath, false);
+                        }
+                    }
+                    else
+                    {
+                        var childPath = GetPaths(child);
+                        if(child.Transforms != null)
+                            childPath.Transform(child.Transforms.GetMatrix());
+                    }
+                }
+                    
+            }
+            
+            return ret;
         }
 
         /// <summary>
@@ -554,37 +554,37 @@ namespace Svg
             return this.MemberwiseClone();
         }
 
-    	public abstract SvgElement DeepCopy();
+        public abstract SvgElement DeepCopy();
 
-		public virtual SvgElement DeepCopy<T>() where T : SvgElement, new()
-		{
-			var newObj = new T();
-			newObj.Content = this.Content;
-			newObj.ElementName = this.ElementName;
-//			if (this.Parent != null)
-	//			this.Parent.Children.Add(newObj);
+        public virtual SvgElement DeepCopy<T>() where T : SvgElement, new()
+        {
+            var newObj = new T();
+            newObj.Content = this.Content;
+            newObj.ElementName = this.ElementName;
+//            if (this.Parent != null)
+    //            this.Parent.Children.Add(newObj);
 
-			if (this.Transforms != null)
-			{
-				newObj.Transforms = new SvgTransformCollection();
-				foreach (var transform in this.Transforms)
-					newObj.Transforms.Add(transform.Clone() as SvgTransform);
-			}
+            if (this.Transforms != null)
+            {
+                newObj.Transforms = new SvgTransformCollection();
+                foreach (var transform in this.Transforms)
+                    newObj.Transforms.Add(transform.Clone() as SvgTransform);
+            }
 
-			foreach (var child in this.Children)
-			{
-				newObj.Children.Add(child.DeepCopy());
-			}
-				
+            foreach (var child in this.Children)
+            {
+                newObj.Children.Add(child.DeepCopy());
+            }
+                
 
-			return newObj;
-		}
+            return newObj;
+        }
     }
 
     internal interface ISvgElement
     {
-		SvgElement Parent {get;}
-		SvgElementCollection Children { get; }
+        SvgElement Parent {get;}
+        SvgElementCollection Children { get; }
 
         void Render(SvgRenderer renderer);
     }

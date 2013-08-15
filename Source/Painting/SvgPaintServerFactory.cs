@@ -48,11 +48,11 @@ namespace Svg
         {
             if (value is string)
             {
-            	var s = (string) value;
-            	if(s == "none")
-            		return null;
-            	else
-                	return SvgPaintServerFactory.Create(s, (SvgDocument)context);
+                var s = (string) value;
+                if(s == "none")
+                    return null;
+                else
+                    return SvgPaintServerFactory.Create(s, (SvgDocument)context);
             }
 
             return base.ConvertFrom(context, culture, value);
@@ -95,7 +95,7 @@ namespace Svg
                 }
                 else
                 {
-                	return "none";
+                    return "none";
                 }
             }
 

@@ -19,9 +19,9 @@ namespace Svg.Pathing
         }
         
         public override string ToString()
-		{
-        	return "L" + this.End.ToSvgString();
-		}
+        {
+            return "L" + this.End.ToSvgString();
+        }
 
     }
 }

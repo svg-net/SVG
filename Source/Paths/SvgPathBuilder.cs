@@ -10,14 +10,14 @@ using System.Text.RegularExpressions;
 
 namespace Svg
 {
-	public static class PointFExtensions
-	{
-		public static string ToSvgString(this PointF p)
-		{
-			return p.X.ToString() + " " + p.Y.ToString();
-		}
-	}
-	
+    public static class PointFExtensions
+    {
+        public static string ToSvgString(this PointF p)
+        {
+            return p.X.ToString() + " " + p.Y.ToString();
+        }
+    }
+    
     public class SvgPathBuilder : TypeConverter
     {
         /// <summary>
@@ -241,7 +241,7 @@ namespace Svg
             for (var i = 0; i < path.Length; i++)
             {
                 string command;
-				if (char.IsLetter(path[i]) && path[i] != 'e') //e is used in scientific notiation. but not svg path
+                if (char.IsLetter(path[i]) && path[i] != 'e') //e is used in scientific notiation. but not svg path
                 {
                     command = path.Substring(commandStart, i - commandStart).Trim();
                     commandStart = i;
@@ -290,9 +290,9 @@ namespace Svg
             return base.ConvertFrom(context, culture, value);
         }
         
-		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-		{
-			if (destinationType == typeof(string))
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string))
             {
                 var paths = value as SvgPathSegmentList;
 
@@ -302,10 +302,10 @@ namespace Svg
                 }
             }
 
-			return base.ConvertTo(context, culture, value, destinationType);
-		}
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
         
-		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
             {

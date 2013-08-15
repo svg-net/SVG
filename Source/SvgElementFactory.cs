@@ -100,7 +100,7 @@ namespace Svg
 
             if (createdElement != null)
             {
-				SetAttributes(createdElement, reader, document);
+                SetAttributes(createdElement, reader, document);
             }
 
             //Trace.TraceInformation("End CreateElement");

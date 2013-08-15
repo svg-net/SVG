@@ -10,18 +10,18 @@ namespace Svg.Transforms
     [TypeConverter(typeof(SvgTransformConverter))]
     public class SvgTransformCollection : List<SvgTransform>
     {
-    	/// <summary>
-    	/// Multiplies all matrices
-    	/// </summary>
-    	/// <returns>The result of all transforms</returns>
-    	public Matrix GetMatrix()
-    	{
-    		var transformMatrix =  new Matrix();
-    		
-    		// Return if there are no transforms
+        /// <summary>
+        /// Multiplies all matrices
+        /// </summary>
+        /// <returns>The result of all transforms</returns>
+        public Matrix GetMatrix()
+        {
+            var transformMatrix =  new Matrix();
+            
+            // Return if there are no transforms
             if (this.Count == 0)
             {
-            	return transformMatrix;
+                return transformMatrix;
             }
 
             foreach (SvgTransform transformation in this)
@@ -30,15 +30,15 @@ namespace Svg.Transforms
             }
 
             return transformMatrix;
-    	}
+        }
 
 
-		public override bool Equals(object obj)
-		{
-			if (this.Count == 0 && this.Count == this.Count) //default will be an empty list 
-				return true;
-			return base.Equals(obj);
-		}
-    		
+        public override bool Equals(object obj)
+        {
+            if (this.Count == 0 && this.Count == this.Count) //default will be an empty list 
+                return true;
+            return base.Equals(obj);
+        }
+            
     }
 }

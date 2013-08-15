@@ -50,9 +50,9 @@ namespace Svg.Pathing
         }
         
         public override string ToString()
-		{
-			return "Q" + this.ControlPoint.ToSvgString() + " " + this.End.ToSvgString();
-		}
+        {
+            return "Q" + this.ControlPoint.ToSvgString() + " " + this.End.ToSvgString();
+        }
 
     }
 }

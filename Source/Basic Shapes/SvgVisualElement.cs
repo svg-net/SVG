@@ -33,7 +33,7 @@ namespace Svg
         /// Gets or sets a value indicating whether this element's <see cref="Path"/> is dirty.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if the path is dirty; otherwise, <c>false</c>.
+        ///     <c>true</c> if the path is dirty; otherwise, <c>false</c>.
         /// </value>
         protected virtual bool IsPathDirty
         {
@@ -62,15 +62,15 @@ namespace Svg
         }
 
 
-		/// <summary>
-		/// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
-		/// </summary>
-		[SvgAttribute("filter")]
-		public virtual Uri Filter
-		{
-			get { return this.Attributes.GetAttribute<Uri>("filter"); }
-			set { this.Attributes["filter"] = value; }
-		}
+        /// <summary>
+        /// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
+        /// </summary>
+        [SvgAttribute("filter")]
+        public virtual Uri Filter
+        {
+            get { return this.Attributes.GetAttribute<Uri>("filter"); }
+            set { this.Attributes["filter"] = value; }
+        }
 
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Svg
                 {
                     if (brush != null)
                     {
-                    	this.Path.FillMode = this.FillRule == SvgFillRule.NonZero ? FillMode.Winding : FillMode.Alternate;
+                        this.Path.FillMode = this.FillRule == SvgFillRule.NonZero ? FillMode.Winding : FillMode.Alternate;
                         renderer.FillPath(brush, this.Path);
                     }
                 }
@@ -212,31 +212,31 @@ namespace Svg
             this.ResetClip(renderer);
         }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgVisualElement;
-			newObj.ClipPath = this.ClipPath;
-			newObj.ClipRule = this.ClipRule;
-			newObj.Filter = this.Filter;
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgVisualElement;
+            newObj.ClipPath = this.ClipPath;
+            newObj.ClipRule = this.ClipRule;
+            newObj.Filter = this.Filter;
 
-			newObj.Visible = this.Visible;
-			if (this.Fill != null)
-				newObj.Fill = this.Fill;
-			if (this.Stroke != null)
-				newObj.Stroke = this.Stroke;
-			newObj.FillRule = this.FillRule;
-			newObj.FillOpacity = this.FillOpacity;
-			newObj.StrokeWidth = this.StrokeWidth;
-			newObj.StrokeLineCap = this.StrokeLineCap;
-			newObj.StrokeLineJoin = this.StrokeLineJoin;
-			newObj.StrokeMiterLimit = this.StrokeMiterLimit;
-			newObj.StrokeDashArray = this.StrokeDashArray;
-			newObj.StrokeDashOffset = this.StrokeDashOffset;
-			newObj.StrokeOpacity = this.StrokeOpacity;
-			newObj.Opacity = this.Opacity;
+            newObj.Visible = this.Visible;
+            if (this.Fill != null)
+                newObj.Fill = this.Fill;
+            if (this.Stroke != null)
+                newObj.Stroke = this.Stroke;
+            newObj.FillRule = this.FillRule;
+            newObj.FillOpacity = this.FillOpacity;
+            newObj.StrokeWidth = this.StrokeWidth;
+            newObj.StrokeLineCap = this.StrokeLineCap;
+            newObj.StrokeLineJoin = this.StrokeLineJoin;
+            newObj.StrokeMiterLimit = this.StrokeMiterLimit;
+            newObj.StrokeDashArray = this.StrokeDashArray;
+            newObj.StrokeDashOffset = this.StrokeDashOffset;
+            newObj.StrokeOpacity = this.StrokeOpacity;
+            newObj.Opacity = this.Opacity;
 
-			return newObj;
-		}
+            return newObj;
+        }
 
     }
 }

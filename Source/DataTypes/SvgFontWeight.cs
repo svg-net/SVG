@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Svg.DataTypes
 {
-	public enum SvgFontWeight
-	{
-		normal,
-		bold
-	}
+    public enum SvgFontWeight
+    {
+        normal,
+        bold
+    }
 
-	
+    
 }

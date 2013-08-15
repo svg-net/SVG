@@ -257,21 +257,21 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgRectangle>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgRectangle>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
- 			var newObj = base.DeepCopy<T>() as SvgRectangle;
-			newObj.CornerRadiusX = this.CornerRadiusX;
-			newObj.CornerRadiusY = this.CornerRadiusY;
-			newObj.Height = this.Height;
-			newObj.Width = this.Width;
-			newObj.X = this.X;
-			newObj.Y = this.Y;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+             var newObj = base.DeepCopy<T>() as SvgRectangle;
+            newObj.CornerRadiusX = this.CornerRadiusX;
+            newObj.CornerRadiusY = this.CornerRadiusY;
+            newObj.Height = this.Height;
+            newObj.Width = this.Width;
+            newObj.X = this.X;
+            newObj.Y = this.Y;
+            return newObj;
+        }
     }
 }

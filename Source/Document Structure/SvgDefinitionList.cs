@@ -27,10 +27,10 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgDefinitionList>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgDefinitionList>();
+        }
 
     }
 }

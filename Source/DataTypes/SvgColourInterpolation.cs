@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Svg.DataTypes
 {
-	public enum SvgColourInterpolation
-	{
-		auto,
-		sRGB,
-		linearRGB,
-		inherit
-	}
+    public enum SvgColourInterpolation
+    {
+        auto,
+        sRGB,
+        linearRGB,
+        inherit
+    }
 }

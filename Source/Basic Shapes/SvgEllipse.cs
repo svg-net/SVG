@@ -118,19 +118,19 @@ namespace Svg
 
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgEllipse>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgEllipse>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgEllipse;
-			newObj.CenterX = this.CenterX;
-			newObj.CenterY = this.CenterY;
-			newObj.RadiusX = this.RadiusX;
-			newObj.RadiusY = this.RadiusY;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgEllipse;
+            newObj.CenterX = this.CenterX;
+            newObj.CenterY = this.CenterY;
+            newObj.RadiusX = this.RadiusX;
+            newObj.RadiusY = this.RadiusY;
+            return newObj;
+        }
     }
 }

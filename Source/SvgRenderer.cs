@@ -135,17 +135,17 @@ namespace Svg
         
         public SizeF MeasureString(string text, Font font)
         {
-        	var ff = font.FontFamily;
-        	float lineSpace = ff.GetLineSpacing(font.Style);
-        	float ascent = ff.GetCellAscent(font.Style);
-        	float baseline =  font.GetHeight(this._innerGraphics) * ascent / lineSpace;
-        	
-        	StringFormat format = StringFormat.GenericTypographic;
-        	format.SetMeasurableCharacterRanges(new CharacterRange[]{new CharacterRange(0, text.Length)});
-        	Region[] r = this._innerGraphics.MeasureCharacterRanges(text, font, new Rectangle(0, 0, 1000, 1000), format);
-        	RectangleF rect = r[0].GetBounds(this._innerGraphics);
-        	
-        	return new SizeF(rect.Width, baseline);
+            var ff = font.FontFamily;
+            float lineSpace = ff.GetLineSpacing(font.Style);
+            float ascent = ff.GetCellAscent(font.Style);
+            float baseline =  font.GetHeight(this._innerGraphics) * ascent / lineSpace;
+            
+            StringFormat format = StringFormat.GenericTypographic;
+            format.SetMeasurableCharacterRanges(new CharacterRange[]{new CharacterRange(0, text.Length)});
+            Region[] r = this._innerGraphics.MeasureCharacterRanges(text, font, new Rectangle(0, 0, 1000, 1000), format);
+            RectangleF rect = r[0].GetBounds(this._innerGraphics);
+            
+            return new SizeF(rect.Width, baseline);
         }
     }
 }

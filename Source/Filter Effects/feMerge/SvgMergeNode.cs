@@ -9,7 +9,7 @@ using System.Drawing.Imaging;
 namespace Svg.FilterEffects
 {
 
-	[SvgElement("feMergeNode")]
+    [SvgElement("feMergeNode")]
     public class SvgMergeNode : SvgFilterPrimitive
     {
         public override Bitmap Process()
@@ -19,10 +19,10 @@ namespace Svg.FilterEffects
             return null;
         }
 
-		public override SvgElement DeepCopy()
-		{
-			throw new NotImplementedException();
-		}
+        public override SvgElement DeepCopy()
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }

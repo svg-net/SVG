@@ -12,9 +12,9 @@ namespace Svg.Pathing
         }
         
         public override string ToString()
-		{
-			return "z";
-		}
+        {
+            return "z";
+        }
 
     }
 }

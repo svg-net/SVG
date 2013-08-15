@@ -93,7 +93,7 @@ namespace Svg
         /// Gets a value indicating whether the circle requires anti-aliasing when being rendered.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if the circle requires anti-aliasing; otherwise, <c>false</c>.
+        ///     <c>true</c> if the circle requires anti-aliasing; otherwise, <c>false</c>.
         /// </value>
         protected override bool RequiresSmoothRendering
         {
@@ -142,18 +142,18 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgCircle>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgCircle>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgCircle;
-			newObj.CenterX = this.CenterX;
-			newObj.CenterY = this.CenterY;
-			newObj.Radius = this.Radius;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgCircle;
+            newObj.CenterX = this.CenterX;
+            newObj.CenterY = this.CenterY;
+            newObj.Radius = this.Radius;
+            return newObj;
+        }
     }
 }

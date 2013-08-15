@@ -50,9 +50,9 @@ namespace Svg.Transforms
         }
 
 
-		public override object Clone()
-		{
-			return new SvgShear(this.X, this.Y);
-		}
+        public override object Clone()
+        {
+            return new SvgShear(this.X, this.Y);
+        }
     }
 }

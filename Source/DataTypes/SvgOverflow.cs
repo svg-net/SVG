@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Svg
 {
-	public enum SvgOverflow
-	{
-		auto,
-		visible,
-		hidden,
-		scroll,
-		inherit
-	}
+    public enum SvgOverflow
+    {
+        auto,
+        visible,
+        hidden,
+        scroll,
+        inherit
+    }
 }

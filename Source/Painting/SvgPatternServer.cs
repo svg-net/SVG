@@ -21,12 +21,12 @@ namespace Svg
         private SvgUnit _y;
         private SvgViewBox _viewBox;
 
-		[SvgAttribute("overflow")]
-		public SvgOverflow Overflow
-		{
-			get { return this.Attributes.GetAttribute<SvgOverflow>("overflow"); }
-			set { this.Attributes["overflow"] = value; }
-		}
+        [SvgAttribute("overflow")]
+        public SvgOverflow Overflow
+        {
+            get { return this.Attributes.GetAttribute<SvgOverflow>("overflow"); }
+            set { this.Attributes["overflow"] = value; }
+        }
 
 
         /// <summary>
@@ -46,10 +46,10 @@ namespace Svg
         /// <value></value>
         [SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio 
-		{
-			get;
-			set;
-		}
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Gets or sets the width of the pattern.
@@ -161,24 +161,24 @@ namespace Svg
 
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgPatternServer>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgPatternServer>();
+        }
 
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgPatternServer;
-			newObj.Overflow = this.Overflow;
-			newObj.ViewBox = this.ViewBox;
-			newObj.AspectRatio = this.AspectRatio;
-			newObj.X = this.X;
-			newObj.Y = this.Y;
-			newObj.Width = this.Width;
-			newObj.Height = this.Height;
-			return newObj;
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgPatternServer;
+            newObj.Overflow = this.Overflow;
+            newObj.ViewBox = this.ViewBox;
+            newObj.AspectRatio = this.AspectRatio;
+            newObj.X = this.X;
+            newObj.Y = this.Y;
+            newObj.Width = this.Width;
+            newObj.Height = this.Height;
+            return newObj;
 
-		}
+        }
     }
 }
