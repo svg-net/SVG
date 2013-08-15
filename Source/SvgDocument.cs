@@ -358,20 +358,13 @@ namespace Svg
         {
             //Trace.TraceInformation("Begin Render");
 
-            try
+            using (var renderer = SvgRenderer.FromImage(bitmap))
             {
-                using (var renderer = SvgRenderer.FromImage(bitmap))
-                {
-                    renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
-                    renderer.TextContrast = 1;
-                    renderer.PixelOffsetMode = PixelOffsetMode.Half;
-                    this.Render(renderer);
-                    renderer.Save();
-                }
-            }
-            catch
-            {
-                throw;
+                renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
+                renderer.TextContrast = 1;
+                renderer.PixelOffsetMode = PixelOffsetMode.Half;
+                this.Render(renderer);
+                renderer.Save();
             }
 
             //Trace.TraceInformation("End Render");
