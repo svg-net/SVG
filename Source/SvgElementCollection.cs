@@ -147,7 +147,7 @@ namespace Svg
         /// <returns></returns>
         public IEnumerable<T> FindSvgElementsOf<T>() where T : SvgElement
         {
-            return _elements.Where(x => x is T).Select(x => x as T).Concat(_elements.SelectMany(x => x.Children.FindSvgElementsOf<T>()));
+            return _elements.OfType<T>().Concat(_elements.SelectMany(x => x.Children.FindSvgElementsOf<T>()));
         }
 
         /// <summary>

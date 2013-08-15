@@ -236,7 +236,7 @@ namespace Svg
                     if (!string.IsNullOrEmpty(this.Text))
                         DrawString(_path, this.X, this.Y, SvgUnit.Empty, SvgUnit.Empty, font, fontSize, this.Text);
 
-                    foreach (var tspan in this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan))
+                    foreach (var tspan in this.Children.OfType<SvgTextSpan>())
                     {
                         if (!string.IsNullOrEmpty(tspan.Text))
                             DrawString(
