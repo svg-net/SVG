@@ -22,8 +22,8 @@ namespace Svg
                                                                                 new KeyValuePair<string, string>("", SVG_NAMESPACE),
                                                                                 new KeyValuePair<string, string>(XLinkPrefix, XLinkNamespace)
                                                                             };
-        private string _name;
-        private string _namespace;
+        private readonly string _name;
+        private readonly string _namespace;
 
         /// <summary>
         /// When overridden in a derived class, returns a value that indicates whether this instance equals a specified object.

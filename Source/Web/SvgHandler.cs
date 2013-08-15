@@ -81,7 +81,7 @@ namespace Svg.Web
         /// </summary>
         protected sealed class SvgAsyncRender
         {
-            private SvgAsyncRenderState _state;
+            private readonly SvgAsyncRenderState _state;
 
             public SvgAsyncRender(SvgAsyncRenderState state)
             {
@@ -150,9 +150,9 @@ namespace Svg.Web
         /// </summary>
         protected sealed class SvgAsyncRenderState : IAsyncResult
         {
-            internal HttpContext _context;
-            internal AsyncCallback _callback;
-            internal object _extraData;
+            internal readonly HttpContext _context;
+            internal readonly AsyncCallback _callback;
+            internal readonly object _extraData;
             private bool _isCompleted = false;
             private ManualResetEvent _callCompleteEvent = null;
 

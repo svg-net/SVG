@@ -7,7 +7,7 @@ namespace Svg
     /// </summary>
     public sealed class SvgAttributeCollection : Dictionary<string, object>
     {
-        private SvgElement _owner;
+        private readonly SvgElement _owner;
 
         /// <summary>
         /// Initialises a new instance of a <see cref="SvgAttributeCollection"/> with the given <see cref="SvgElement"/> as the owner.

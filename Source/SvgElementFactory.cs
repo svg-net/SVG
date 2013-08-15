@@ -143,7 +143,7 @@ namespace Svg
             //Trace.TraceInformation("End SetAttributes");
         }
 
-        private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
+        private static readonly Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
 
         private static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
         {

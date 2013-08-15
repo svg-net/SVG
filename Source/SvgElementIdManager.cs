@@ -9,7 +9,7 @@ namespace Svg
     public class SvgElementIdManager
     {
         private SvgDocument _document;
-        private Dictionary<string, SvgElement> _idValueMap;
+        private readonly Dictionary<string, SvgElement> _idValueMap;
 
         /// <summary>
         /// Retrieves the <see cref="SvgElement"/> with the specified ID.

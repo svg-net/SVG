@@ -12,7 +12,7 @@ namespace Svg
         private SvgCoordinateUnits _gradientUnits;
         private SvgGradientSpreadMethod _spreadMethod = SvgGradientSpreadMethod.Pad;
         private SvgGradientServer _inheritGradient;
-        private List<SvgGradientStop> _stops;
+        private readonly List<SvgGradientStop> _stops;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgGradientServer"/> class.

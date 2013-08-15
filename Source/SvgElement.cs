@@ -19,17 +19,17 @@ namespace Svg
             public PropertyDescriptor Property;
             public SvgAttributeAttribute Attribute;
         }
-        protected IEnumerable<AttributeTuple> _svgAttributes;
+        protected readonly IEnumerable<AttributeTuple> _svgAttributes;
 
 
         internal SvgElement _parent;
         private string _elementName;
         private SvgAttributeCollection _attributes;
-        private EventHandlerList _eventHandlers;
-        private SvgElementCollection _children;
+        private readonly EventHandlerList _eventHandlers;
+        private readonly SvgElementCollection _children;
         private static readonly object _loadEventKey = new object();
         private Matrix _graphicsMatrix;
-        private Dictionary<string, string> _customAttributes;
+        private readonly Dictionary<string, string> _customAttributes;
 
         /// <summary>
         /// Gets the name of the element.

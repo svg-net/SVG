@@ -10,9 +10,9 @@ namespace Svg
     /// </summary>
     public sealed class SvgElementCollection : IList<SvgElement>
     {
-        private List<SvgElement> _elements;
-        private SvgElement _owner;
-        private bool _mock;
+        private readonly List<SvgElement> _elements;
+        private readonly SvgElement _owner;
+        private readonly bool _mock;
 
         /// <summary>
         /// Initialises a new instance of an <see cref="SvgElementCollection"/> class.

@@ -8,7 +8,7 @@ namespace Svg.Pathing
     public sealed class SvgPathSegmentList : IList<SvgPathSegment>
     {
         internal SvgPath _owner;
-        private List<SvgPathSegment> _segments;
+        private readonly List<SvgPathSegment> _segments;
 
         internal SvgPathSegmentList()
         {

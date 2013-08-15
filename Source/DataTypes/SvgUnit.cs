@@ -11,9 +11,9 @@ namespace Svg
     [TypeConverter(typeof(SvgUnitConverter))]
     public struct SvgUnit
     {
-        private SvgUnitType _type;
-        private float _value;
-        private bool _isEmpty;
+        private readonly SvgUnitType _type;
+        private readonly float _value;
+        private readonly bool _isEmpty;
         private float? _deviceValue;
 
         /// <summary>

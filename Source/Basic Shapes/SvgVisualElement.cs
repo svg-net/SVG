@@ -10,7 +10,7 @@ namespace Svg
     public abstract partial class SvgVisualElement : SvgElement, ISvgStylable, ISvgClipable
     {
         private bool _dirty;
-        private bool _requiresSmoothRendering;
+        private readonly bool _requiresSmoothRendering;
         private Region _previousClip;
 
         /// <summary>
