@@ -32,6 +32,7 @@ namespace Svg.Transforms
 
         public override bool Equals(object obj)
         {
+            // TODO the second comparison here has no effect -- is it supposed to be comparing something else, or can it be removed?
             if (this.Count == 0 && this.Count == this.Count) //default will be an empty list 
                 return true;
             return base.Equals(obj);
