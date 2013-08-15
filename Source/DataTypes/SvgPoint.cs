@@ -34,7 +34,7 @@ namespace Svg
         {
             if (obj == null) return false;
 
-            if (!(obj.GetType() == typeof(SvgPoint))) return false;
+            if (!(obj is SvgPoint)) return false;
 
             var point = (SvgPoint)obj;
             return (point.X.Equals(this.X) && point.Y.Equals(this.Y));
