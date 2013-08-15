@@ -116,7 +116,7 @@ namespace Svg
         /// <summary>
         /// Renders the circle to the specified <see cref="Graphics"/> object.
         /// </summary>
-        /// <param name="graphics">The graphics object.</param>
+        /// <param name="renderer">The SVG renderer.</param>
         protected override void Render(SvgRenderer renderer)
         {
             // Don't draw if there is no radius set

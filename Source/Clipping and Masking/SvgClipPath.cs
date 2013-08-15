@@ -52,7 +52,7 @@ namespace Svg
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="region"></param>
+        /// <param name="path"></param>
         /// <param name="element"></param>
         private void CombinePaths(GraphicsPath path, SvgElement element)
         {

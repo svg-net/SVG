@@ -149,7 +149,7 @@ namespace Svg
         /// <summary>
         /// Converts the current unit to a percentage, if applicable.
         /// </summary>
-        /// <returns>An <see cref="SvgUnit"/> of type <see cref="SvgUnitType.Perscentage"/>.</returns>
+        /// <returns>An <see cref="SvgUnit"/> of type <see cref="SvgUnitType.Percentage"/>.</returns>
         public SvgUnit ToPercentage()
         {
             switch (this.Type)

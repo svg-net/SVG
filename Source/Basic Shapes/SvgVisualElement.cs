@@ -76,7 +76,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SvgGraphicsElement"/> class.
+        /// Initializes a new instance of the <see cref="SvgVisualElement"/> class.
         /// </summary>
         public SvgVisualElement()
         {
@@ -88,7 +88,7 @@ namespace Svg
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
-        /// <param name="graphics">The <see cref="SvgRenderer"/> object to render to.</param>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
         protected override void Render(SvgRenderer renderer)
         {
             if (this.Path != null && this.Visible)

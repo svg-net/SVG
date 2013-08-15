@@ -6,7 +6,7 @@ using System.Globalization;
 namespace Svg
 {
     /// <summary>
-    /// Represents a list of <see cref="SvgUnits"/>.
+    /// Represents a list of <see cref="SvgUnit"/> objects.
     /// </summary>
     [TypeConverter(typeof(SvgUnitCollectionConverter))]
     public class SvgUnitCollection : List<SvgUnit>

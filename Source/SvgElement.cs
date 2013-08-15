@@ -80,7 +80,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets a collection of all child <see cref="SvgElements"/>.
+        /// Gets a collection of all child <see cref="SvgElement"/> objects.
         /// </summary>
         public virtual SvgElementCollection Children
         {
@@ -506,7 +506,6 @@ namespace Svg
         /// Recursive method to add up the paths of all children
         /// </summary>
         /// <param name="elem"></param>
-        /// <param name="path"></param>
         protected GraphicsPath GetPaths(SvgElement elem)
         {
             var ret = new GraphicsPath();
