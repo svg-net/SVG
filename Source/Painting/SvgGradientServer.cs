@@ -135,9 +135,9 @@ namespace Svg
 
             // Set positions and colour values
             int actualStops = 0;
-            float mergedOpacity = 0.0f;
-            float position = 0.0f;
-            Color colour = Color.Black;
+            float mergedOpacity;
+            float position;
+            Color colour;
 
             for (int i = 0; i < colourBlends; i++)
             {

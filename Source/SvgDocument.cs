@@ -282,7 +282,7 @@ namespace Svg
             var w = Width.ToDeviceValue();
             var h = Height.ToDeviceValue();
             
-            RectangleF bounds = new RectangleF();
+            RectangleF bounds;
             var isWidthperc = Width.Type == SvgUnitType.Percentage;
             var isHeightperc = Height.Type == SvgUnitType.Percentage;
 

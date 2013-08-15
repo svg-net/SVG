@@ -112,9 +112,9 @@ namespace Svg
         {
             //Trace.TraceInformation("Begin SetAttributes");
 
-            string[] styles = null;
-            string[] style = null;
-            int i = 0;
+            string[] styles;
+            string[] style;
+            int i;
 
             while (reader.MoveToNextAttribute())
             {

@@ -28,7 +28,7 @@ namespace Svg
                 id = id.Substring(1);
             }
 
-            SvgElement element = null;
+            SvgElement element;
             this._idValueMap.TryGetValue(id, out element);
 
             return element;

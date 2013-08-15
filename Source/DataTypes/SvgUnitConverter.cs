@@ -36,7 +36,7 @@ namespace Svg
                 }
             }
 
-            float val = 0.0f;
+            float val;
             float.TryParse((identifierIndex > -1) ? unit.Substring(0, identifierIndex) : unit, NumberStyles.Float, CultureInfo.InvariantCulture, out val);
 
             if (identifierIndex == -1)
