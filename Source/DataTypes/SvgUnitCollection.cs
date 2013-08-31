@@ -14,7 +14,7 @@ namespace Svg
     {
         public override string ToString()
         {
-            return this.Aggregate("", (current, unit) => current + (unit.ToString() + " "));
+            return string.Join(" ", this.Select(u => u.ToString()));
         }
     }
 
