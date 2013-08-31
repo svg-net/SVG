@@ -1,11 +1,8 @@
 using System;
 using System.ComponentModel;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml;
 using System.Drawing;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Svg
 {
@@ -44,15 +41,15 @@ namespace Svg
             }
         }
 
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            var s = value as string;
+            if (s != null)
             {
-            	var s = (string) value;
-            	if(s == "none")
-            		return null;
-            	else
-                	return SvgPaintServerFactory.Create(s, (SvgDocument)context);
+                if(s == "none")
+                    return null;
+                else
+                    return Create(s, (SvgDocument)context);
             }
 
             return base.ConvertFrom(context, culture, value);
@@ -78,7 +75,7 @@ namespace Svg
             return base.CanConvertTo(context, destinationType);
         }
 
-        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
@@ -95,7 +92,7 @@ namespace Svg
                 }
                 else
                 {
-                	return "none";
+                    return "none";
                 }
             }
 

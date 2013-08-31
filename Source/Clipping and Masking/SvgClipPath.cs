@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Svg.Transforms;
@@ -55,7 +52,7 @@ namespace Svg
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="region"></param>
+        /// <param name="path"></param>
         /// <param name="element"></param>
         private void CombinePaths(GraphicsPath path, SvgElement element)
         {
@@ -117,16 +114,16 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgClipPath>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgClipPath>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgClipPath;
-			newObj.ClipPathUnits = this.ClipPathUnits;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgClipPath;
+            newObj.ClipPathUnits = this.ClipPathUnits;
+            return newObj;
+        }
     }
 }

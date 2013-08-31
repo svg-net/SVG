@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Xml;
-using System.Web.UI.WebControls;
-using System.ComponentModel;
 
 namespace Svg
 {
@@ -93,7 +87,7 @@ namespace Svg
         /// Gets a value indicating whether the circle requires anti-aliasing when being rendered.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if the circle requires anti-aliasing; otherwise, <c>false</c>.
+        ///     <c>true</c> if the circle requires anti-aliasing; otherwise, <c>false</c>.
         /// </value>
         protected override bool RequiresSmoothRendering
         {
@@ -122,7 +116,7 @@ namespace Svg
         /// <summary>
         /// Renders the circle to the specified <see cref="Graphics"/> object.
         /// </summary>
-        /// <param name="graphics">The graphics object.</param>
+        /// <param name="renderer">The SVG renderer.</param>
         protected override void Render(SvgRenderer renderer)
         {
             // Don't draw if there is no radius set
@@ -142,18 +136,18 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgCircle>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgCircle>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgCircle;
-			newObj.CenterX = this.CenterX;
-			newObj.CenterY = this.CenterY;
-			newObj.Radius = this.Radius;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgCircle;
+            newObj.CenterX = this.CenterX;
+            newObj.CenterY = this.CenterY;
+            newObj.Radius = this.Radius;
+            return newObj;
+        }
     }
 }

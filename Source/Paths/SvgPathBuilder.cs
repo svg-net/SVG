@@ -5,19 +5,19 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using Svg.Pathing;
 using System.Text.RegularExpressions;
+using Svg.Pathing;
 
 namespace Svg
 {
-	public static class PointFExtensions
-	{
-		public static string ToSvgString(this PointF p)
-		{
-			return p.X.ToString() + " " + p.Y.ToString();
-		}
-	}
-	
+    public static class PointFExtensions
+    {
+        public static string ToSvgString(this PointF p)
+        {
+            return p.X.ToString() + " " + p.Y.ToString();
+        }
+    }
+    
     public class SvgPathBuilder : TypeConverter
     {
         /// <summary>
@@ -241,7 +241,7 @@ namespace Svg
             for (var i = 0; i < path.Length; i++)
             {
                 string command;
-				if (char.IsLetter(path[i]) && path[i] != 'e') //e is used in scientific notiation. but not svg path
+                if (char.IsLetter(path[i]) && path[i] != 'e') //e is used in scientific notiation. but not svg path
                 {
                     command = path.Substring(commandStart, i - commandStart).Trim();
                     commandStart = i;
@@ -272,27 +272,23 @@ namespace Svg
         {
             var parts = Regex.Split(coords.Remove(0, 1), @"[\s,]|(?=(?<!e)-)");
 
-            for (int i = 0; i < parts.Length; i++)
-            {
-                if (!String.IsNullOrEmpty(parts[i]))
-                    yield return float.Parse(parts[i].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
-
-            }
+            return parts.Where(t => !String.IsNullOrEmpty(t)).Select(t => float.Parse(t.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture));
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            var s = value as string;
+            if (s != null)
             {
-                return Parse((string)value);
+                return Parse(s);
             }
 
             return base.ConvertFrom(context, culture, value);
         }
         
-		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-		{
-			if (destinationType == typeof(string))
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string))
             {
                 var paths = value as SvgPathSegmentList;
 
@@ -302,10 +298,10 @@ namespace Svg
                 }
             }
 
-			return base.ConvertTo(context, culture, value, destinationType);
-		}
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
         
-		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
             {

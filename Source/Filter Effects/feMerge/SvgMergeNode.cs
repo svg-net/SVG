@@ -1,15 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Text;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 
 namespace Svg.FilterEffects
 {
 
-	[SvgElement("feMergeNode")]
+    [SvgElement("feMergeNode")]
     public class SvgMergeNode : SvgFilterPrimitive
     {
         public override Bitmap Process()
@@ -19,10 +14,10 @@ namespace Svg.FilterEffects
             return null;
         }
 
-		public override SvgElement DeepCopy()
-		{
-			throw new NotImplementedException();
-		}
+        public override SvgElement DeepCopy()
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }

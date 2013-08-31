@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Xml;
-using System.ComponentModel;
 
 namespace Svg
 {
@@ -100,7 +95,7 @@ namespace Svg
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
-        /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
+        /// <param name="renderer">The SVG renderer.</param>
         protected override void Render(SvgRenderer renderer)
         {
             if (this._radiusX.Value > 0.0f && this._radiusY.Value > 0.0f)
@@ -118,19 +113,19 @@ namespace Svg
 
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgEllipse>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgEllipse>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgEllipse;
-			newObj.CenterX = this.CenterX;
-			newObj.CenterY = this.CenterY;
-			newObj.RadiusX = this.RadiusX;
-			newObj.RadiusY = this.RadiusY;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgEllipse;
+            newObj.CenterX = this.CenterX;
+            newObj.CenterY = this.CenterY;
+            newObj.RadiusX = this.RadiusX;
+            newObj.RadiusY = this.RadiusY;
+            return newObj;
+        }
     }
 }

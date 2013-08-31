@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -15,7 +12,7 @@ namespace Svg
         private SvgCoordinateUnits _gradientUnits;
         private SvgGradientSpreadMethod _spreadMethod = SvgGradientSpreadMethod.Pad;
         private SvgGradientServer _inheritGradient;
-        private List<SvgGradientStop> _stops;
+        private readonly List<SvgGradientStop> _stops;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgGradientServer"/> class.
@@ -34,9 +31,10 @@ namespace Svg
         /// <param name="index">An <see cref="int"/> representing the index where the element was added to the collection.</param>
         protected override void AddElement(SvgElement child, int index)
         {
-            if (child is SvgGradientStop)
+            var stop = child as SvgGradientStop;
+            if (stop != null)
             {
-                this.Stops.Add((SvgGradientStop)child);
+                this.Stops.Add(stop);
             }
 
             base.AddElement(child, index);
@@ -49,9 +47,10 @@ namespace Svg
         /// <param name="child">The <see cref="SvgElement"/> that has been removed.</param>
         protected override void RemoveElement(SvgElement child)
         {
-            if (child is SvgGradientStop)
+            var stop = child as SvgGradientStop;
+            if (stop != null)
             {
-                this.Stops.Remove((SvgGradientStop)child);
+                this.Stops.Remove(stop);
             }
 
             base.RemoveElement(child);
@@ -88,7 +87,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets another gradient fill from which to inherit the stops from.
         /// </summary>
-        [SvgAttributeAttribute("href")]
+        [SvgAttribute("href")]
         public SvgGradientServer InheritGradient
         {
             get { return this._inheritGradient; }
@@ -100,7 +99,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets a <see cref="ColourBlend"/> representing the <see cref="SvgGradientServer"/>'s gradient stops.
+        /// Gets a <see cref="ColorBlend"/> representing the <see cref="SvgGradientServer"/>'s gradient stops.
         /// </summary>
         /// <param name="owner">The parent <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the colour blend.</param>
@@ -138,9 +137,9 @@ namespace Svg
 
             // Set positions and colour values
             int actualStops = 0;
-            float mergedOpacity = 0.0f;
-            float position = 0.0f;
-            Color colour = Color.Black;
+            float mergedOpacity;
+            float position;
+            Color colour;
 
             for (int i = 0; i < colourBlends; i++)
             {
@@ -181,15 +180,15 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgGradientServer;
-			newObj.SpreadMethod = this.SpreadMethod;
-			newObj.GradientUnits = this.GradientUnits;
-			newObj.InheritGradient = this.InheritGradient;
-			return newObj;
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgGradientServer;
+            newObj.SpreadMethod = this.SpreadMethod;
+            newObj.GradientUnits = this.GradientUnits;
+            newObj.InheritGradient = this.InheritGradient;
+            return newObj;
 
-		}
+        }
 
     }
 }

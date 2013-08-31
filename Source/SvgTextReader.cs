@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.IO;
-using System.Collections.Specialized;
+using System.Xml;
 
 namespace Svg
 {
@@ -116,9 +113,9 @@ namespace Svg
         {
             const string entityText = "<!ENTITY";
             string[] entities = this.Value.Split(new string[]{entityText}, StringSplitOptions.None);
-            string[] parts = null;
-            string name = null;
-            string value = null;
+            string[] parts;
+            string name;
+            string value;
 
             foreach (string entity in entities)
             {

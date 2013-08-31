@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Svg
 {
     /// <summary>
@@ -27,10 +23,10 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgDefinitionList>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgDefinitionList>();
+        }
 
     }
 }

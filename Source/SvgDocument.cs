@@ -5,11 +5,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Xml;
 using System.Threading;
-using System.Globalization;
+using System.Xml;
 
 namespace Svg
 {
@@ -279,20 +279,20 @@ namespace Svg
 
         public RectangleF GetDimensions()
         {
-        	var w = Width.ToDeviceValue();
-        	var h = Height.ToDeviceValue();
-        	
-        	RectangleF bounds = new RectangleF();
-        	var isWidthperc = Width.Type == SvgUnitType.Percentage;
-        	var isHeightperc = Height.Type == SvgUnitType.Percentage;
+            var w = Width.ToDeviceValue();
+            var h = Height.ToDeviceValue();
+            
+            RectangleF bounds;
+            var isWidthperc = Width.Type == SvgUnitType.Percentage;
+            var isHeightperc = Height.Type == SvgUnitType.Percentage;
 
-        	if(isWidthperc || isHeightperc)
-        	{
-        		bounds = this.Bounds; //do just one call to the recursive bounds property
-        		if(isWidthperc) w = (bounds.Width + bounds.X) * (w * 0.01f);
-        		if(isHeightperc) h = (bounds.Height + bounds.Y) * (h * 0.01f);
-        	}
-        	
+            if(isWidthperc || isHeightperc)
+            {
+                bounds = this.Bounds; //do just one call to the recursive bounds property
+                if(isWidthperc) w = (bounds.Width + bounds.X) * (w * 0.01f);
+                if(isHeightperc) h = (bounds.Height + bounds.Y) * (h * 0.01f);
+            }
+            
             return new RectangleF(0, 0, w, h);
         }
 
@@ -336,7 +336,7 @@ namespace Svg
 
             var size = GetDimensions();
             var bitmap = new Bitmap((int)Math.Ceiling(size.Width), (int)Math.Ceiling(size.Height));
-       // 	bitmap.SetResolution(300, 300);
+       //     bitmap.SetResolution(300, 300);
             try
             {
                 Draw(bitmap);
@@ -358,20 +358,13 @@ namespace Svg
         {
             //Trace.TraceInformation("Begin Render");
 
-            try
+            using (var renderer = SvgRenderer.FromImage(bitmap))
             {
-                using (var renderer = SvgRenderer.FromImage(bitmap))
-                {
-                    renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
-                    renderer.TextContrast = 1;
-                    renderer.PixelOffsetMode = PixelOffsetMode.Half;
-                    this.Render(renderer);
-                    renderer.Save();
-                }
-            }
-            catch
-            {
-                throw;
+                renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
+                renderer.TextContrast = 1;
+                renderer.PixelOffsetMode = PixelOffsetMode.Half;
+                this.Render(renderer);
+                renderer.Save();
             }
 
             //Trace.TraceInformation("End Render");

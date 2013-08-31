@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.ComponentModel;
 
 namespace Svg
 {
@@ -10,22 +8,22 @@ namespace Svg
     /// Specifies the SVG attribute name of the associated property.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class SvgAttributeAttribute : System.Attribute
+    public class SvgAttributeAttribute : Attribute
     {
-		/// <summary>
-		/// Gets a <see cref="string"/> containing the XLink namespace (http://www.w3.org/1999/xlink).
-		/// </summary>
-		public const string SVG_NAMESPACE = "http://www.w3.org/2000/svg";
-		public const string XLinkPrefix = "xlink";
-		public const string XLinkNamespace = "http://www.w3.org/1999/xlink";
+        /// <summary>
+        /// Gets a <see cref="string"/> containing the XLink namespace (http://www.w3.org/1999/xlink).
+        /// </summary>
+        public const string SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+        public const string XLinkPrefix = "xlink";
+        public const string XLinkNamespace = "http://www.w3.org/1999/xlink";
 
-		public static readonly List<KeyValuePair<string, string>> Namespaces = new List<KeyValuePair<string, string>>()
-    	                                                                	{
-																				new KeyValuePair<string, string>("", SVG_NAMESPACE),
-																				new KeyValuePair<string, string>(XLinkPrefix, XLinkNamespace)
-																			};
-        private string _name;
-        private string _namespace;
+        public static readonly List<KeyValuePair<string, string>> Namespaces = new List<KeyValuePair<string, string>>()
+                                                                            {
+                                                                                new KeyValuePair<string, string>("", SVG_NAMESPACE),
+                                                                                new KeyValuePair<string, string>(XLinkPrefix, XLinkNamespace)
+                                                                            };
+        private readonly string _name;
+        private readonly string _namespace;
 
         /// <summary>
         /// When overridden in a derived class, returns a value that indicates whether this instance equals a specified object.
@@ -48,18 +46,18 @@ namespace Svg
             return String.Compare(indicator.Name, this.Name) == 0;
         }
 
-		/// <summary>
-		/// Gets the name of the SVG attribute.
-		/// </summary>
-		public string NamespaceAndName
-		{
-			get
-			{
-				if (_namespace == SVG_NAMESPACE)
-					return _name;
-				return Namespaces.First(x => x.Value == _namespace).Key + ":" + _name;
-			}
-		}
+        /// <summary>
+        /// Gets the name of the SVG attribute.
+        /// </summary>
+        public string NamespaceAndName
+        {
+            get
+            {
+                if (_namespace == SVG_NAMESPACE)
+                    return _name;
+                return Namespaces.First(x => x.Value == _namespace).Key + ":" + _name;
+            }
+        }
 
 
         /// <summary>

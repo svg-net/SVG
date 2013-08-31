@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using System.Drawing.Drawing2D;
 using System.Drawing;
-using System.ComponentModel;
+using System.Drawing.Drawing2D;
 
 namespace Svg
 {
@@ -46,12 +42,12 @@ namespace Svg
             set { this._height = value; }
         }
 
-		[SvgAttribute("overflow")]
-		public virtual SvgOverflow Overflow
-		{
-			get { return this.Attributes.GetAttribute<SvgOverflow>("overflow"); }
-			set { this.Attributes["overflow"] = value; }
-		}
+        [SvgAttribute("overflow")]
+        public virtual SvgOverflow Overflow
+        {
+            get { return this.Attributes.GetAttribute<SvgOverflow>("overflow"); }
+            set { this.Attributes["overflow"] = value; }
+        }
 
         /// <summary>
         /// Gets or sets the viewport of the element.
@@ -99,11 +95,11 @@ namespace Svg
         {
             get 
             { 
-            	var path = new GraphicsPath();
+                var path = new GraphicsPath();
 
-            	AddPaths(this, path);
+                AddPaths(this, path);
   
-            	return path;
+                return path;
             }
         }
         
@@ -113,11 +109,11 @@ namespace Svg
         /// <value>The bounds.</value>
         public RectangleF Bounds 
         { 
-        	get
-        	{
-        		return this.Path.GetBounds();
-        	}
-        		
+            get
+            {
+                return this.Path.GetBounds();
+            }
+                
         }
 
         /// <summary>
@@ -132,20 +128,20 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgFragment>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgFragment>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgFragment;
-			newObj.Height = this.Height;
-			newObj.Width = this.Width;
-			newObj.Overflow = this.Overflow;
-			newObj.ViewBox = this.ViewBox;
-			newObj.AspectRatio = this.AspectRatio;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgFragment;
+            newObj.Height = this.Height;
+            newObj.Width = this.Width;
+            newObj.Overflow = this.Overflow;
+            newObj.ViewBox = this.ViewBox;
+            newObj.AspectRatio = this.AspectRatio;
+            return newObj;
+        }
     }
 }

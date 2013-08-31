@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Xml;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Xml;
 
 namespace Svg
 {
@@ -100,7 +100,7 @@ namespace Svg
 
             if (createdElement != null)
             {
-				SetAttributes(createdElement, reader, document);
+                SetAttributes(createdElement, reader, document);
             }
 
             //Trace.TraceInformation("End CreateElement");
@@ -112,9 +112,9 @@ namespace Svg
         {
             //Trace.TraceInformation("Begin SetAttributes");
 
-            string[] styles = null;
-            string[] style = null;
-            int i = 0;
+            string[] styles;
+            string[] style;
+            int i;
 
             while (reader.MoveToNextAttribute())
             {
@@ -143,7 +143,7 @@ namespace Svg
             //Trace.TraceInformation("End SetAttributes");
         }
 
-        private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
+        private static readonly Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
 
         private static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
         {

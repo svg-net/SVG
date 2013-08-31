@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using System.Xml;
-using System.Xml.Serialization;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace Svg
@@ -51,7 +47,7 @@ namespace Svg
         {
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path
+        public override GraphicsPath Path
         {
             get
             {
@@ -60,9 +56,9 @@ namespace Svg
             }
         }
 
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
-            get { return new System.Drawing.RectangleF(); }
+            get { return new RectangleF(); }
         }
 
         public override SvgElementCollection Children
@@ -92,20 +88,20 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgUse>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgUse>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgUse;
-			newObj.ReferencedElement = this.ReferencedElement;
-			newObj.X = this.X;
-			newObj.Y = this.Y;
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgUse;
+            newObj.ReferencedElement = this.ReferencedElement;
+            newObj.X = this.X;
+            newObj.Y = this.Y;
 
-			return newObj;
-		}
+            return newObj;
+        }
 
     }
 }

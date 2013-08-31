@@ -1,15 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Text;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 
 namespace Svg.FilterEffects
 {
 
-	[SvgElement("feMerge")]
+    [SvgElement("feMerge")]
     public class SvgMerge : SvgFilterPrimitive
     {
         public StringCollection MergeResults { get; private set; }
@@ -21,7 +17,7 @@ namespace Svg.FilterEffects
 
         public override Bitmap Process()
         {
-			//Todo
+            //Todo
 
             //Bitmap merged = new Bitmap((int)this.Owner.Width.Value, (int)this.Owner.Height.Value); 
             //Graphics mergedGraphics = Graphics.FromImage(merged);
@@ -40,10 +36,10 @@ namespace Svg.FilterEffects
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			throw new NotImplementedException();
-		}
+        public override SvgElement DeepCopy()
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }

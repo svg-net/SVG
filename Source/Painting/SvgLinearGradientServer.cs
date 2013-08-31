@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing.Drawing2D;
-using System.Drawing;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Svg
 {
@@ -118,21 +115,21 @@ namespace Svg
 
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgLinearGradientServer>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgLinearGradientServer>();
+        }
 
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgLinearGradientServer;
-			newObj.X1 = this.X1;
-			newObj.Y1 = this.Y1;
-			newObj.X2 = this.X2;
-			newObj.Y2 = this.Y2;
-			return newObj;
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgLinearGradientServer;
+            newObj.X1 = this.X1;
+            newObj.Y1 = this.Y1;
+            newObj.X2 = this.X2;
+            newObj.Y2 = this.Y2;
+            return newObj;
 
-		}
+        }
     }
 }

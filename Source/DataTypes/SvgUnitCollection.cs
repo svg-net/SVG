@@ -1,27 +1,20 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 
 namespace Svg
 {
     /// <summary>
-    /// Represents a list of <see cref="SvgUnits"/>.
+    /// Represents a list of <see cref="SvgUnit"/> objects.
     /// </summary>
     [TypeConverter(typeof(SvgUnitCollectionConverter))]
     public class SvgUnitCollection : List<SvgUnit>
     {
         public override string ToString()
         {
-            string ret = "";
-            foreach (var unit in this)
-            {
-                ret += unit.ToString() + " ";
-            }
-
-            return ret;
+            return string.Join(" ", this.Select(u => u.ToString()));
         }
     }
 
@@ -41,11 +34,12 @@ namespace Svg
         /// An <see cref="T:System.Object"/> that represents the converted value.
         /// </returns>
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            var s = value as string;
+            if (s != null)
             {
-                string[] points = ((string)value).Trim().Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] points = s.Trim().Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 SvgUnitCollection units = new SvgUnitCollection();
 
                 foreach (string point in points)
@@ -74,7 +68,7 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
-                return ((SvgUnitCollection)value).ToString();
+                return value.ToString();
             }
 
             return base.ConvertTo(context, culture, value, destinationType);

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Svg
 {
@@ -11,7 +9,7 @@ namespace Svg
     public class SvgElementIdManager
     {
         private SvgDocument _document;
-        private Dictionary<string, SvgElement> _idValueMap;
+        private readonly Dictionary<string, SvgElement> _idValueMap;
 
         /// <summary>
         /// Retrieves the <see cref="SvgElement"/> with the specified ID.
@@ -30,7 +28,7 @@ namespace Svg
                 id = id.Substring(1);
             }
 
-            SvgElement element = null;
+            SvgElement element;
             this._idValueMap.TryGetValue(id, out element);
 
             return element;

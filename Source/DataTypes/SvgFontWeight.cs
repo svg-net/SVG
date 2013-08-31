@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text;
-
-namespace Svg.DataTypes
+﻿namespace Svg.DataTypes
 {
-	public enum SvgFontWeight
-	{
-		normal,
-		bold
-	}
+    public enum SvgFontWeight
+    {
+        normal,
+        bold
+    }
 
-	
+    
 }

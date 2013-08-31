@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 
@@ -56,9 +53,9 @@ namespace Svg.Transforms
         }
 
 
-		public override object Clone()
-		{
-			return new SvgRotate(this.Angle, this.CenterX, this.CenterY);
-		}
+        public override object Clone()
+        {
+            return new SvgRotate(this.Angle, this.CenterX, this.CenterY);
+        }
     }
 }

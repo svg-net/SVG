@@ -1,7 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Svg
 {
@@ -10,9 +10,9 @@ namespace Svg
     /// </summary>
     public sealed class SvgElementCollection : IList<SvgElement>
     {
-        private List<SvgElement> _elements;
-        private SvgElement _owner;
-        private bool _mock;
+        private readonly List<SvgElement> _elements;
+        private readonly SvgElement _owner;
+        private readonly bool _mock;
 
         /// <summary>
         /// Initialises a new instance of an <see cref="SvgElementCollection"/> class.
@@ -140,30 +140,30 @@ namespace Svg
             return removed;
         }
 
-		/// <summary>
-		/// expensive recursive search for nodes of type T
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <returns></returns>
-		public IEnumerable<T> FindSvgElementsOf<T>() where T : SvgElement
-		{
-			return _elements.Where(x => x is T).Select(x => x as T).Concat(_elements.SelectMany(x => x.Children.FindSvgElementsOf<T>()));
-		}
+        /// <summary>
+        /// expensive recursive search for nodes of type T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public IEnumerable<T> FindSvgElementsOf<T>() where T : SvgElement
+        {
+            return _elements.OfType<T>().Concat(_elements.SelectMany(x => x.Children.FindSvgElementsOf<T>()));
+        }
 
-		/// <summary>
-		/// expensive recursive search for first node of type T
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <returns></returns>
-		public T FindSvgElementOf<T>() where T : SvgElement
-		{
-			return _elements.OfType<T>().FirstOrDefault() ?? _elements.Select(x => x.Children.FindSvgElementOf<T>()).FirstOrDefault<T>(x => x != null);
-		}
+        /// <summary>
+        /// expensive recursive search for first node of type T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T FindSvgElementOf<T>() where T : SvgElement
+        {
+            return _elements.OfType<T>().FirstOrDefault() ?? _elements.Select(x => x.Children.FindSvgElementOf<T>()).FirstOrDefault<T>(x => x != null);
+        }
 
-		public T GetSvgElementOf<T>() where T : SvgElement
-		{
-			return _elements.FirstOrDefault(x => x is T) as T;
-		}
+        public T GetSvgElementOf<T>() where T : SvgElement
+        {
+            return _elements.FirstOrDefault(x => x is T) as T;
+        }
 
 
         public IEnumerator<SvgElement> GetEnumerator()
@@ -171,7 +171,7 @@ namespace Svg
             return this._elements.GetEnumerator();
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return this._elements.GetEnumerator();
         }

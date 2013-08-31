@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Svg.DataTypes
+﻿namespace Svg.DataTypes
 {
-	public enum SvgColourInterpolation
-	{
-		auto,
-		sRGB,
-		linearRGB,
-		inherit
-	}
+    public enum SvgColourInterpolation
+    {
+        auto,
+        sRGB,
+        linearRGB,
+        inherit
+    }
 }

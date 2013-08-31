@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Diagnostics;
-using Svg.Pathing;
 
 namespace Svg
 {
@@ -76,18 +72,18 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgPolygon>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgPolygon>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgPolygon;
-			newObj.Points = new SvgUnitCollection();
-			foreach (var pt in this.Points)
-				newObj.Points.Add(pt);
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgPolygon;
+            newObj.Points = new SvgUnitCollection();
+            foreach (var pt in this.Points)
+                newObj.Points.Add(pt);
+            return newObj;
+        }
     }
 }

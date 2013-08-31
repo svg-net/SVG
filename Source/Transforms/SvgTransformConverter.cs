@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Linq;
 
@@ -36,9 +32,10 @@ namespace Svg.Transforms
         /// An <see cref="T:System.Object"/> that represents the converted value.
         /// </returns>
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            var s = value as string;
+            if (s != null)
             {
                 SvgTransformCollection transformList = new SvgTransformCollection();
 
@@ -46,7 +43,7 @@ namespace Svg.Transforms
                 string contents;
                 string transformName;
 
-                foreach (string transform in SvgTransformConverter.SplitTransforms((string)value))
+                foreach (string transform in SplitTransforms(s))
                 {
                     if (string.IsNullOrEmpty(transform))
                         continue;
@@ -120,11 +117,7 @@ namespace Svg.Transforms
                                 throw new FormatException("Matrix transforms must be in the format 'matrix(m11, m12, m21, m22, dx, dy)'");
                             }
 
-                            List<float> mPoints = new List<float>();
-                            foreach (string point in points)
-                            {
-                                mPoints.Add(float.Parse(point.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture));
-                            }
+                            List<float> mPoints = points.Select(point => float.Parse(point.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture)).ToList();
 
                             transformList.Add(new SvgMatrix(mPoints));
                             break;

@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
-using System.Web.UI.WebControls;
+using System.Drawing;
 using System.Globalization;
 
 namespace Svg
@@ -13,9 +11,9 @@ namespace Svg
     [TypeConverter(typeof(SvgUnitConverter))]
     public struct SvgUnit
     {
-        private SvgUnitType _type;
-        private float _value;
-        private bool _isEmpty;
+        private readonly SvgUnitType _type;
+        private readonly float _value;
+        private readonly bool _isEmpty;
         private float? _deviceValue;
 
         /// <summary>
@@ -105,17 +103,17 @@ namespace Svg
             switch (this.Type)
             {
                 case SvgUnitType.Em:
-                    float points = (float)(this.Value * 9);
+                    float points = this.Value * 9;
                     _deviceValue = (points / 72) * ppi;
                     break;
                 case SvgUnitType.Centimeter:
-                    _deviceValue = (float)((this.Value / cmInInch) * ppi);
+                    _deviceValue = (this.Value / cmInInch) * ppi;
                     break;
                 case SvgUnitType.Inch:
                     _deviceValue = this.Value * ppi;
                     break;
                 case SvgUnitType.Millimeter:
-                    _deviceValue = (float)((this.Value / 10) / cmInInch) * ppi;
+                    _deviceValue = (this.Value / 10) / cmInInch * ppi;
                     break;
                 case SvgUnitType.Pica:
                     _deviceValue = ((this.Value * 12) / 72) * ppi;
@@ -138,7 +136,7 @@ namespace Svg
                     }
 
                     // TODO : Support height percentages
-                    System.Drawing.RectangleF size = styleOwner.Bounds;
+                    RectangleF size = styleOwner.Bounds;
                     _deviceValue = (((vertical) ? size.Height : size.Width) / 100) * this.Value;
                     break;
                 default:
@@ -151,7 +149,7 @@ namespace Svg
         /// <summary>
         /// Converts the current unit to a percentage, if applicable.
         /// </summary>
-        /// <returns>An <see cref="SvgUnit"/> of type <see cref="SvgUnitType.Perscentage"/>.</returns>
+        /// <returns>An <see cref="SvgUnit"/> of type <see cref="SvgUnitType.Percentage"/>.</returns>
         public SvgUnit ToPercentage()
         {
             switch (this.Type)
@@ -175,7 +173,7 @@ namespace Svg
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            if (!(obj.GetType() == typeof (SvgUnit))) return false;
+            if (!(obj is SvgUnit)) return false;
 
             var unit = (SvgUnit)obj;
             return (unit.Value == this.Value && unit.Type == this.Type);

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Svg
 {
@@ -11,7 +7,7 @@ namespace Svg
     /// </summary>
     public sealed class SvgAttributeCollection : Dictionary<string, object>
     {
-        private SvgElement _owner;
+        private readonly SvgElement _owner;
 
         /// <summary>
         /// Initialises a new instance of a <see cref="SvgAttributeCollection"/> with the given <see cref="SvgElement"/> as the owner.

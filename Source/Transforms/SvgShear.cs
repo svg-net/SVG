@@ -1,8 +1,5 @@
-﻿﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing.Drawing2D;
-using System.Globalization;
+﻿﻿using System.Drawing.Drawing2D;
+﻿using System.Globalization;
 
 namespace Svg.Transforms
 {
@@ -50,9 +47,9 @@ namespace Svg.Transforms
         }
 
 
-		public override object Clone()
-		{
-			return new SvgShear(this.X, this.Y);
-		}
+        public override object Clone()
+        {
+            return new SvgShear(this.X, this.Y);
+        }
     }
 }

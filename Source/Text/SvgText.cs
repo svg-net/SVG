@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
-using Svg.DataTypes;
 using System.Linq;
+using Svg.DataTypes;
 
 namespace Svg
 {
@@ -21,7 +17,7 @@ namespace Svg
         private SvgUnit _letterSpacing;
         private SvgUnit _wordSpacing;
         private SvgUnit _fontSize;
-		private SvgFontWeight _fontWeight;
+        private SvgFontWeight _fontWeight;
         private string _font;
         private string _fontFamily;
         private GraphicsPath _path;
@@ -138,15 +134,15 @@ namespace Svg
         }
 
 
-		/// <summary>
-		/// Refers to the boldness of the font.
-		/// </summary>
-		[SvgAttribute("font-weight")]
-		public virtual SvgFontWeight FontWeight
-		{
-			get { return this._fontWeight; }
-			set { this._fontWeight = value; this.IsPathDirty = true; }
-		}
+        /// <summary>
+        /// Refers to the boldness of the font.
+        /// </summary>
+        [SvgAttribute("font-weight")]
+        public virtual SvgFontWeight FontWeight
+        {
+            get { return this._fontWeight; }
+            set { this._fontWeight = value; this.IsPathDirty = true; }
+        }
 
 
         /// <summary>
@@ -163,7 +159,7 @@ namespace Svg
         /// Gets or sets the fill.
         /// </summary>
         /// <remarks>
-        /// <para>Unlike other <see cref="SvgGraphicsElement"/>s, <see cref="SvgText"/> has a default fill of black rather than transparent.</para>
+        /// <para>Unlike other <see cref="SvgVisualElement"/>s, <see cref="SvgText"/> has a default fill of black rather than transparent.</para>
         /// </remarks>
         /// <value>The fill.</value>
         public override SvgPaintServer Fill
@@ -196,7 +192,7 @@ namespace Svg
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get { return this.Path.GetBounds(); }
         }
@@ -214,16 +210,16 @@ namespace Svg
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path
+        public override GraphicsPath Path
         {
             get
             {
                 // Make sure the path is always null if there is no text
-				//if (string.IsNullOrEmpty(this.Text))
-				//    _path = null;
-				//NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
+                //if (string.IsNullOrEmpty(this.Text))
+                //    _path = null;
+                //NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
 
-				if (_path == null || this.IsPathDirty)
+                if (_path == null || this.IsPathDirty)
                 {
                     float fontSize = this.FontSize.ToDeviceValue(this);
                     if (fontSize == 0.0f)
@@ -231,30 +227,30 @@ namespace Svg
                         fontSize = 1.0f;
                     }
 
-                	FontStyle fontWeight = (this.FontWeight == SvgFontWeight.bold ? FontStyle.Bold : FontStyle.Regular);
-					Font font = new Font(this._fontFamily, fontSize, fontWeight, GraphicsUnit.Pixel);
+                    FontStyle fontWeight = (this.FontWeight == SvgFontWeight.bold ? FontStyle.Bold : FontStyle.Regular);
+                    Font font = new Font(this._fontFamily, fontSize, fontWeight, GraphicsUnit.Pixel);
 
                     _path = new GraphicsPath();
                     _path.StartFigure();
 
-					if (!string.IsNullOrEmpty(this.Text))
-	                	DrawString(_path, this.X, this.Y, SvgUnit.Empty, SvgUnit.Empty, font, fontSize, this.Text);
+                    if (!string.IsNullOrEmpty(this.Text))
+                        DrawString(_path, this.X, this.Y, SvgUnit.Empty, SvgUnit.Empty, font, fontSize, this.Text);
 
-					foreach (var tspan in this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan))
-					{
-						if (!string.IsNullOrEmpty(tspan.Text))
-							DrawString(
-							_path, 
-							tspan.X == SvgUnit.Empty ? this.X: tspan.X,
-							tspan.Y == SvgUnit.Empty ? this.Y : tspan.Y, 
-							tspan.DX,
-							tspan.DY,
-							font, 
-							fontSize,
-							tspan.Text);
-					}
+                    foreach (var tspan in this.Children.OfType<SvgTextSpan>())
+                    {
+                        if (!string.IsNullOrEmpty(tspan.Text))
+                            DrawString(
+                            _path, 
+                            tspan.X == SvgUnit.Empty ? this.X: tspan.X,
+                            tspan.Y == SvgUnit.Empty ? this.Y : tspan.Y, 
+                            tspan.DX,
+                            tspan.DY,
+                            font, 
+                            fontSize,
+                            tspan.Text);
+                    }
 
-                	_path.CloseFigure();
+                    _path.CloseFigure();
                     this.IsPathDirty = false;
                 }
                 return _path;
@@ -262,87 +258,87 @@ namespace Svg
         }
 
 
-		private void DrawString(GraphicsPath path, SvgUnit x, SvgUnit y, SvgUnit dx, SvgUnit dy, Font font, float fontSize, string text)
-		{
-			PointF location = PointF.Empty;
-			SizeF stringBounds = _stringMeasure.MeasureString(text, font);
+        private void DrawString(GraphicsPath path, SvgUnit x, SvgUnit y, SvgUnit dx, SvgUnit dy, Font font, float fontSize, string text)
+        {
+            PointF location = PointF.Empty;
+            SizeF stringBounds = _stringMeasure.MeasureString(text, font);
 
-			float xToDevice = x.ToDeviceValue(this) + dx.ToDeviceValue(this);
-			float yToDevice = y.ToDeviceValue(this, true) + dy.ToDeviceValue(this, true);
+            float xToDevice = x.ToDeviceValue(this) + dx.ToDeviceValue(this);
+            float yToDevice = y.ToDeviceValue(this, true) + dy.ToDeviceValue(this, true);
 
-			// Minus FontSize because the x/y coords mark the bottom left, not bottom top.
-			switch (this.TextAnchor)
-			{
-				case SvgTextAnchor.Start:
-					location = new PointF(xToDevice, yToDevice - stringBounds.Height);
-					break;
-				case SvgTextAnchor.Middle:
-					location = new PointF(xToDevice - (stringBounds.Width / 2), yToDevice - stringBounds.Height);
-					break;
-				case SvgTextAnchor.End:
-					location = new PointF(xToDevice - stringBounds.Width, yToDevice - stringBounds.Height);
-					break;
-			}
+            // Minus FontSize because the x/y coords mark the bottom left, not bottom top.
+            switch (this.TextAnchor)
+            {
+                case SvgTextAnchor.Start:
+                    location = new PointF(xToDevice, yToDevice - stringBounds.Height);
+                    break;
+                case SvgTextAnchor.Middle:
+                    location = new PointF(xToDevice - (stringBounds.Width / 2), yToDevice - stringBounds.Height);
+                    break;
+                case SvgTextAnchor.End:
+                    location = new PointF(xToDevice - stringBounds.Width, yToDevice - stringBounds.Height);
+                    break;
+            }
 
-			// No way to do letter-spacing or word-spacing, so do manually
-			if (this.LetterSpacing.Value > 0.0f || this.WordSpacing.Value > 0.0f)
-			{
-				// Cut up into words, or just leave as required
-				string[] words = (this.WordSpacing.Value > 0.0f) ? text.Split(' ') : new string[] { text };
-				float wordSpacing = this.WordSpacing.ToDeviceValue(this);
-				float letterSpacing = this.LetterSpacing.ToDeviceValue(this);
-				float start = this.X.ToDeviceValue(this);
+            // No way to do letter-spacing or word-spacing, so do manually
+            if (this.LetterSpacing.Value > 0.0f || this.WordSpacing.Value > 0.0f)
+            {
+                // Cut up into words, or just leave as required
+                string[] words = (this.WordSpacing.Value > 0.0f) ? text.Split(' ') : new string[] { text };
+                float wordSpacing = this.WordSpacing.ToDeviceValue(this);
+                float letterSpacing = this.LetterSpacing.ToDeviceValue(this);
+                float start = this.X.ToDeviceValue(this);
 
-				foreach (string word in words)
-				{
-					// Only do if there is line spacing, just write the word otherwise
-					if (this.LetterSpacing.Value > 0.0f)
-					{
-						char[] characters = word.ToCharArray();
-						foreach (char currentCharacter in characters)
-						{
-							path.AddString(currentCharacter.ToString(), new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
-							location = new PointF(path.GetBounds().Width + start + letterSpacing, location.Y);
-						}
-					}
-					else
-					{
-						path.AddString(word, new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
-					}
+                foreach (string word in words)
+                {
+                    // Only do if there is line spacing, just write the word otherwise
+                    if (this.LetterSpacing.Value > 0.0f)
+                    {
+                        char[] characters = word.ToCharArray();
+                        foreach (char currentCharacter in characters)
+                        {
+                            path.AddString(currentCharacter.ToString(), new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
+                            location = new PointF(path.GetBounds().Width + start + letterSpacing, location.Y);
+                        }
+                    }
+                    else
+                    {
+                        path.AddString(word, new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
+                    }
 
-					// Move the location of the word to be written along
-					location = new PointF(path.GetBounds().Width + start + wordSpacing, location.Y);
-				}
-			}
-			else
-			{
-				if (!string.IsNullOrEmpty(text))
-				{
-					path.AddString(text, new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
-				}
-			}
+                    // Move the location of the word to be written along
+                    location = new PointF(path.GetBounds().Width + start + wordSpacing, location.Y);
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(text))
+                {
+                    path.AddString(text, new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
+                }
+            }
 
-		}
+        }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgText>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgText>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgText;
-			newObj.TextAnchor = this.TextAnchor;
-			newObj.WordSpacing = this.WordSpacing;
-			newObj.LetterSpacing = this.LetterSpacing;
-			newObj.Font = this.Font;
-			newObj.FontFamily = this.FontFamily;
-			newObj.FontSize = this.FontSize;
-			newObj.FontWeight = this.FontWeight;
-			newObj.X = this.X;
-			newObj.Y = this.Y;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgText;
+            newObj.TextAnchor = this.TextAnchor;
+            newObj.WordSpacing = this.WordSpacing;
+            newObj.LetterSpacing = this.LetterSpacing;
+            newObj.Font = this.Font;
+            newObj.FontFamily = this.FontFamily;
+            newObj.FontSize = this.FontSize;
+            newObj.FontWeight = this.FontWeight;
+            newObj.X = this.X;
+            newObj.Y = this.Y;
+            return newObj;
+        }
     }
 }

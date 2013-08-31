@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -60,7 +56,7 @@ namespace Svg
         {
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path
+        public override GraphicsPath Path
         {
             get
             {
@@ -77,28 +73,28 @@ namespace Svg
             }
         }
 
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get { return this.Path.GetBounds(); }
         }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgLine>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgLine>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgLine;
-			newObj.StartX = this.StartX;
-			newObj.EndX = this.EndX;
-			newObj.StartY = this.StartY;
-			newObj.EndY = this.EndY;
-			if (this.Fill != null)
-				newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgLine;
+            newObj.StartX = this.StartX;
+            newObj.EndX = this.EndX;
+            newObj.StartY = this.StartY;
+            newObj.EndY = this.EndY;
+            if (this.Fill != null)
+                newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
 
-			return newObj;
-		}
+            return newObj;
+        }
 
     }
 }

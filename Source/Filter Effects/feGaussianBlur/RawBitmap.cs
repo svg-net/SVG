@@ -7,10 +7,10 @@ namespace Svg.FilterEffects
 {
     internal sealed class RawBitmap : IDisposable
     {
-        private Bitmap _originBitmap;
-        private BitmapData _bitmapData;
-        private IntPtr _ptr;
-        private int _bytes;
+        private readonly Bitmap _originBitmap;
+        private readonly BitmapData _bitmapData;
+        private readonly IntPtr _ptr;
+        private readonly int _bytes;
         private byte[] _argbValues;
 
         public RawBitmap(Bitmap originBitmap)
