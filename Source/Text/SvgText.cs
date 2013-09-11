@@ -232,7 +232,7 @@ namespace Svg
                     }
 
                 	FontStyle fontWeight = (this.FontWeight == SvgFontWeight.bold ? FontStyle.Bold : FontStyle.Regular);
-					Font font = new Font(this._fontFamily, fontSize, fontWeight, GraphicsUnit.Pixel);
+					Font font = new Font(this._fontFamily.Split(new [] {','})[0], fontSize, fontWeight, GraphicsUnit.Pixel);
 
                     _path = new GraphicsPath();
                     _path.StartFigure();
