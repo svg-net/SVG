@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.ComponentModel;
 using System.Drawing;
@@ -242,7 +243,26 @@ namespace Svg
                     }
 
                 	FontStyle fontWeight = (this.FontWeight == SvgFontWeight.bold ? FontStyle.Bold : FontStyle.Regular);
-					Font font = new Font(this._fontFamily, fontSize, fontWeight, GraphicsUnit.Pixel);
+					Font font = null;
+                    var faces = this._fontFamily.Split(',');
+
+                    foreach (var face in faces)
+                    {
+                        try
+                        {
+                            font = new Font(face.Trim(), fontSize, fontWeight, GraphicsUnit.Pixel);
+                            break;
+                        }
+                        catch (ArgumentException e)
+                        {
+                            Debug.Write(e.Message);
+                        }
+                    }
+
+                    if (font == null)
+                    {
+                        throw new ArgumentException("No fonts found for: {0}", _fontFamily);
+                    }
 
                     _path = new GraphicsPath();
                     _path.StartFigure();
@@ -294,6 +314,25 @@ namespace Svg
 					break;
 			}
 
+            FontFamily family = null;
+            foreach (var f in _fontFamily.Split(','))
+            {
+                try
+                {
+                    family = new FontFamily(f.Trim());
+                    break;
+                }
+                catch (ArgumentException e)
+                {
+                    Debug.Write(e.Message);
+                }
+            }
+
+            if (family == null)
+            {
+                throw new ArgumentException("No fonts found for: {0}", _fontFamily);
+            }
+
 			// No way to do letter-spacing or word-spacing, so do manually
 			if (this.LetterSpacing.Value > 0.0f || this.WordSpacing.Value > 0.0f)
 			{
@@ -311,13 +350,13 @@ namespace Svg
 						char[] characters = word.ToCharArray();
 						foreach (char currentCharacter in characters)
 						{
-							path.AddString(currentCharacter.ToString(), new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
+                            path.AddString(word, family, (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
 							location = new PointF(path.GetBounds().Width + start + letterSpacing, location.Y);
 						}
 					}
 					else
 					{
-						path.AddString(word, new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
+					    path.AddString(word, family, (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
 					}
 
 					// Move the location of the word to be written along
@@ -328,7 +367,7 @@ namespace Svg
 			{
 				if (!string.IsNullOrEmpty(text))
 				{
-					path.AddString(text, new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
+                    path.AddString(text, family, (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
 				}
 			}
 
