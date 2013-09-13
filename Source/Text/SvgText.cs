@@ -265,7 +265,12 @@ namespace Svg
 		private void DrawString(GraphicsPath path, SvgUnit x, SvgUnit y, SvgUnit dx, SvgUnit dy, Font font, float fontSize, string text)
 		{
 			PointF location = PointF.Empty;
-			SizeF stringBounds = _stringMeasure.MeasureString(text, font);
+			SizeF stringBounds;
+
+			lock (_stringMeasure)
+			{
+				stringBounds = _stringMeasure.MeasureString(text, font);
+			}
 
 			float xToDevice = x.ToDeviceValue(this) + dx.ToDeviceValue(this);
 			float yToDevice = y.ToDeviceValue(this, true) + dy.ToDeviceValue(this, true);
