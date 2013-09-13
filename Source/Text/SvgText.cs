@@ -27,6 +27,8 @@ namespace Svg
         private GraphicsPath _path;
         private SvgTextAnchor _textAnchor = SvgTextAnchor.Start;
         private static readonly SvgRenderer _stringMeasure;
+        private const string DefaultFontFamily = "Times New Roman";
+
         /// <summary>
         /// Initializes the <see cref="SvgText"/> class.
         /// </summary>
@@ -42,7 +44,7 @@ namespace Svg
         /// </summary>
         public SvgText()
         {
-            this._fontFamily = "Times New Roman";
+            this._fontFamily = DefaultFontFamily;
             this._fontSize = new SvgUnit(0.0f);
         }
 
@@ -134,7 +136,11 @@ namespace Svg
         public virtual string FontFamily
         {
             get { return this._fontFamily; }
-            set { this._fontFamily = value; this.IsPathDirty = true; }
+            set
+            {
+                this._fontFamily = ValidateFontFamily(value);
+                this.IsPathDirty = true;
+            }
         }
 
         /// <summary>
@@ -271,6 +277,21 @@ namespace Svg
             }
         }
 
+        private static string ValidateFontFamily(string fontFamilyList)
+        {
+            // Split font family list on "," and then trim start and end spaces and quotes.
+            var fontParts = fontFamilyList.Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ' }));
+
+            var families = System.Drawing.FontFamily.Families;
+
+            // Find a the first font that exists in the list of installed font families.
+            foreach (var f in fontParts.Where(f => families.Any(family => family.Name == f)))
+            {
+                return f;
+            }
+            // No valid font family found from the list requested.
+            return DefaultFontFamily;
+        }
 
 		private void DrawString(GraphicsPath path, SvgUnit x, SvgUnit y, SvgUnit dx, SvgUnit dy, Font font, float fontSize, string text)
 		{
