@@ -50,7 +50,7 @@ namespace Svg
             {
             	var s = (string) value;
             	if(s == "none")
-            		return null;
+            		return SvgPaintServer.None;
             	else
                 	return SvgPaintServerFactory.Create(s, (SvgDocument)context);
             }
