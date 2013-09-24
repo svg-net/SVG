@@ -60,14 +60,21 @@ namespace Svg.Transforms
                         case "translate":
                             string[] coords = contents.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                            if (coords.Length != 2)
+                            if (coords.Length == 0 || coords.Length > 2)
                             {
-                                throw new FormatException("Translate transforms must be in the format 'translate(x, y)'");
+                                throw new FormatException("Translate transforms must be in the format 'translate(x [,y])'");
                             }
 
                             float x = float.Parse(coords[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
-                            float y = float.Parse(coords[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
-                            transformList.Add(new SvgTranslate(x, y));
+                            if (coords.Length > 1)
+                            {
+                                float y = float.Parse(coords[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                                transformList.Add(new SvgTranslate(x, y));
+                            }
+                            else
+                            {
+                                transformList.Add(new SvgTranslate(x));
+                            }
                             break;
                         case "rotate":
                             string[] args = contents.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
