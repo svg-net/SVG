@@ -709,6 +709,7 @@ namespace Svg
                 caller.RegisterAction<float, float, int, int>(rpcID + "onmousedown", OnMouseDown);
                 caller.RegisterAction<float, float, int>(rpcID + "onmouseup", OnMouseUp);
                 caller.RegisterAction<float, float>(rpcID + "onmousemove", OnMouseMove);
+                caller.RegisterAction<float>(rpcID + "onmousescroll", OnMouseScroll);
                 caller.RegisterAction(rpcID + "onmouseover", OnMouseOver);
                 caller.RegisterAction(rpcID + "onmouseout", OnMouseOut);
             }
@@ -728,6 +729,7 @@ namespace Svg
         		caller.UnregisterAction(rpcID + "onmousedown");
         		caller.UnregisterAction(rpcID + "onmouseup");
         		caller.UnregisterAction(rpcID + "onmousemove");
+        		caller.UnregisterAction(rpcID + "onmousescroll");
         		caller.UnregisterAction(rpcID + "onmouseover");
         		caller.UnregisterAction(rpcID + "onmouseout");
         	}
@@ -745,6 +747,9 @@ namespace Svg
         [SvgAttribute("onmousemove")]
         public event EventHandler<PointArg> MouseMove;
 
+        [SvgAttribute("onmousescroll")]
+        public event EventHandler<PointArg> MouseScroll;
+        
         [SvgAttribute("onmouseover")]
         public event EventHandler MouseOver;
 
@@ -805,6 +810,21 @@ namespace Svg
         protected void RaiseMouseMove(object sender, PointArg e)
         {
         	var handler = MouseMove;
+            if (handler != null)
+            {
+                handler(sender, e);
+            }
+        }
+        
+        //scroll
+        protected void OnMouseScroll(float y)
+        {
+        	RaiseMouseScroll(this, new PointArg { x = 0, y = y});
+        }
+        
+        protected void RaiseMouseScroll(object sender, PointArg e)
+        {
+        	var handler = MouseScroll;
             if (handler != null)
             {
                 handler(sender, e);
