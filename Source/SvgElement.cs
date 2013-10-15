@@ -459,6 +459,7 @@ namespace Svg
 	            {
 	                var evt = attr.Event.GetValue(this);
 	                
+	                //if someone has registered publish the attribute
 	                if (evt != null && !string.IsNullOrWhiteSpace(this.ID))
 	                {
 	                    writer.WriteAttributeString(attr.Attribute.Name, this.ID + "/" + attr.Attribute.Name);
@@ -638,8 +639,10 @@ namespace Svg
 		public virtual SvgElement DeepCopy<T>() where T : SvgElement, new()
 		{
 			var newObj = new T();
+			newObj.ID = this.ID;
 			newObj.Content = this.Content;
 			newObj.ElementName = this.ElementName;
+			
 //			if (this.Parent != null)
 	//			this.Parent.Children.Add(newObj);
 
@@ -653,6 +656,30 @@ namespace Svg
 			foreach (var child in this.Children)
 			{
 				newObj.Children.Add(child.DeepCopy());
+			}
+			
+			foreach (var attr in this._svgEventAttributes)
+			{
+				var evt = attr.Event.GetValue(this);
+				
+				//if someone has registered also register here
+				if (evt != null)
+				{
+					if(attr.Event.Name == "MouseDown")
+						newObj.MouseDown += delegate {  };
+					else if (attr.Event.Name == "MouseUp")
+						newObj.MouseUp += delegate {  };
+					else if (attr.Event.Name == "MouseOver")
+						newObj.MouseOver += delegate {  };
+					else if (attr.Event.Name == "MouseOut")
+						newObj.MouseOut += delegate {  };
+					else if (attr.Event.Name == "MouseMove")
+						newObj.MouseMove += delegate {  };
+					else if (attr.Event.Name == "MouseScroll")
+						newObj.MouseScroll += delegate {  };
+					else if (attr.Event.Name == "Click")
+						newObj.Click += delegate {  };
+				}
 			}
 			
 			if(this._customAttributes.Count > 0)
@@ -709,6 +736,7 @@ namespace Svg
                 caller.RegisterAction<float, float, int, int>(rpcID + "onmousedown", OnMouseDown);
                 caller.RegisterAction<float, float, int>(rpcID + "onmouseup", OnMouseUp);
                 caller.RegisterAction<float, float>(rpcID + "onmousemove", OnMouseMove);
+                caller.RegisterAction<float>(rpcID + "onmousescroll", OnMouseScroll);
                 caller.RegisterAction(rpcID + "onmouseover", OnMouseOver);
                 caller.RegisterAction(rpcID + "onmouseout", OnMouseOut);
             }
@@ -728,6 +756,7 @@ namespace Svg
         		caller.UnregisterAction(rpcID + "onmousedown");
         		caller.UnregisterAction(rpcID + "onmouseup");
         		caller.UnregisterAction(rpcID + "onmousemove");
+        		caller.UnregisterAction(rpcID + "onmousescroll");
         		caller.UnregisterAction(rpcID + "onmouseover");
         		caller.UnregisterAction(rpcID + "onmouseout");
         	}
@@ -745,6 +774,9 @@ namespace Svg
         [SvgAttribute("onmousemove")]
         public event EventHandler<PointArg> MouseMove;
 
+        [SvgAttribute("onmousescroll")]
+        public event EventHandler<PointArg> MouseScroll;
+        
         [SvgAttribute("onmouseover")]
         public event EventHandler MouseOver;
 
@@ -805,6 +837,21 @@ namespace Svg
         protected void RaiseMouseMove(object sender, PointArg e)
         {
         	var handler = MouseMove;
+            if (handler != null)
+            {
+                handler(sender, e);
+            }
+        }
+        
+        //scroll
+        protected void OnMouseScroll(float y)
+        {
+        	RaiseMouseScroll(this, new PointArg { x = 0, y = y});
+        }
+        
+        protected void RaiseMouseScroll(object sender, PointArg e)
+        {
+        	var handler = MouseScroll;
             if (handler != null)
             {
                 handler(sender, e);
