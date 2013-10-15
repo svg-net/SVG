@@ -459,6 +459,7 @@ namespace Svg
 	            {
 	                var evt = attr.Event.GetValue(this);
 	                
+	                //if someone has registered publish the attribute
 	                if (evt != null && !string.IsNullOrWhiteSpace(this.ID))
 	                {
 	                    writer.WriteAttributeString(attr.Attribute.Name, this.ID + "/" + attr.Attribute.Name);
@@ -638,8 +639,10 @@ namespace Svg
 		public virtual SvgElement DeepCopy<T>() where T : SvgElement, new()
 		{
 			var newObj = new T();
+			newObj.ID = this.ID;
 			newObj.Content = this.Content;
 			newObj.ElementName = this.ElementName;
+			
 //			if (this.Parent != null)
 	//			this.Parent.Children.Add(newObj);
 
@@ -653,6 +656,28 @@ namespace Svg
 			foreach (var child in this.Children)
 			{
 				newObj.Children.Add(child.DeepCopy());
+			}
+			
+			foreach (var attr in this._svgEventAttributes)
+			{
+				var evt = attr.Event.GetValue(this);
+				
+				//if someone has registered also register here
+				if (evt != null)
+				{
+					if(attr.Event.Name == "MouseDown")
+						newObj.MouseDown += delegate {  };
+					else if (attr.Event.Name == "MouseUp")
+						newObj.MouseUp += delegate {  };
+					else if (attr.Event.Name == "MouseOver")
+						newObj.MouseOver += delegate {  };
+					else if (attr.Event.Name == "MouseOut")
+						newObj.MouseOut += delegate {  };
+					else if (attr.Event.Name == "MouseMove")
+						newObj.MouseMove += delegate {  };
+					else if (attr.Event.Name == "MouseScroll")
+						newObj.MouseScroll += delegate {  };
+				}
 			}
 			
 			if(this._customAttributes.Count > 0)
