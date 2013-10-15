@@ -677,6 +677,8 @@ namespace Svg
 						newObj.MouseMove += delegate {  };
 					else if (attr.Event.Name == "MouseScroll")
 						newObj.MouseScroll += delegate {  };
+					else if (attr.Event.Name == "Click")
+						newObj.Click += delegate {  };
 				}
 			}
 			
