@@ -420,7 +420,7 @@ namespace Svg
                     var forceWrite = false;
                     if ((attr.Attribute.Name == "fill") && (Parent != null))
                     {
-                    	if(propertyValue == SvgColourServer.NotSet) continue;
+                    	if(propertyValue == SvgColourServer.NotSet || propertyValue == SvgPaintServer.None) continue;
                     	
                         object parentValue;
                         if (TryResolveParentAttributeValue(attr.Attribute.Name, out parentValue))
