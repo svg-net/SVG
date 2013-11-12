@@ -49,7 +49,7 @@ namespace Svg
             if (value is string)
             {
             	var s = (string) value;
-            	if(s == "none")
+            	if(String.Equals( s, "none", StringComparison.OrdinalIgnoreCase))
             		return SvgPaintServer.None;
             	else
                 	return SvgPaintServerFactory.Create(s, (SvgDocument)context);
