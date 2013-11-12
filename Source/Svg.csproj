@@ -97,6 +97,7 @@
     <Compile Include="DataTypes\SvgOverflow.cs" />
     <Compile Include="DataTypes\SvgUnitCollection.cs" />
     <Compile Include="DataTypes\SvgViewBox.cs" />
+    <Compile Include="Document Structure\SvgTitle.cs" />
     <Compile Include="Document Structure\SvgDocumentMetadata.cs" />
     <Compile Include="Painting\SvgMarker.cs" />
     <Compile Include="Document Structure\SvgDefinitionList.cs" />
