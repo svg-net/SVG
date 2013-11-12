@@ -180,8 +180,27 @@ namespace Svg
             }
             else
             {
-            	//attribute is not a svg attribute, store it in custom attributes
-            	element.CustomAttributes[attributeName] = attributeValue;
+                //check for namespace declaration in svg element
+                if (string.Equals(element.ElementName, "svg", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (string.Equals(attributeName, "xmlns", StringComparison.OrdinalIgnoreCase)
+                        || string.Equals(attributeName, "xlink", StringComparison.OrdinalIgnoreCase)
+                        || string.Equals(attributeName, "xmlns:xlink", StringComparison.OrdinalIgnoreCase)
+                        || string.Equals(attributeName, "version", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //nothing to do
+                    }
+                    else
+                    {
+                        //attribute is not a svg attribute, store it in custom attributes
+                        element.CustomAttributes[attributeName] = attributeValue;
+                    }
+                }
+                else
+                {
+                    //attribute is not a svg attribute, store it in custom attributes
+                    element.CustomAttributes[attributeName] = attributeValue;
+                }
             }
         }
 
