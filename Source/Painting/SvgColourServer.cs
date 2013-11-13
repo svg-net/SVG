@@ -32,6 +32,9 @@ namespace Svg
 
         public override Brush GetBrush(SvgVisualElement styleOwner, float opacity)
         {
+            //is none?
+            if (this == SvgPaintServer.None) return new SolidBrush(Color.Transparent);
+
             int alpha = (int)((opacity * (this.Colour.A/255.0f) ) * 255);
             Color colour = Color.FromArgb(alpha, this.Colour);
 
