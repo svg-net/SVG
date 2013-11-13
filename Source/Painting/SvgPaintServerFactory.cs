@@ -82,6 +82,9 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
+                //check for none
+                if (value == SvgPaintServer.None) return "none";
+
                 var colourServer = value as SvgColourServer;
 
                 if (colourServer != null)
