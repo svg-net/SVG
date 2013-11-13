@@ -23,9 +23,9 @@ namespace Svg
         public static SvgPaintServer Create(string value, SvgDocument document)
         {
             // If it's pointing to a paint server
-            if (string.IsNullOrEmpty(value) || value.ToLower().Trim() == "none")
+            if (string.IsNullOrEmpty(value))
             {
-                return new SvgColourServer(Color.Transparent);
+                return SvgColourServer.NotSet;
             }
             else if (value.IndexOf("url(#") > -1)
             {
@@ -49,7 +49,7 @@ namespace Svg
             if (value is string)
             {
             	var s = (string) value;
-            	if(String.Equals( s, "none", StringComparison.OrdinalIgnoreCase))
+            	if(String.Equals( s.Trim(), "none", StringComparison.OrdinalIgnoreCase))
             		return SvgPaintServer.None;
             	else
                 	return SvgPaintServerFactory.Create(s, (SvgDocument)context);
