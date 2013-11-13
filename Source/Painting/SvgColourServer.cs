@@ -13,7 +13,7 @@ namespace Svg
         /// </summary>
         public static readonly SvgPaintServer NotSet = new SvgColourServer();
     	
-        public SvgColourServer() : this(Color.Transparent)
+        public SvgColourServer() : this(Color.Black)
         {
         }
 
