@@ -679,6 +679,8 @@ namespace Svg
 						newObj.MouseScroll += delegate {  };
 					else if (attr.Event.Name == "Click")
 						newObj.Click += delegate {  };
+					else if (attr.Event.Name == "Change")
+						newObj.Change += delegate {  };
 				}
 			}
 			
@@ -739,6 +741,7 @@ namespace Svg
                 caller.RegisterAction<float>(rpcID + "onmousescroll", OnMouseScroll);
                 caller.RegisterAction(rpcID + "onmouseover", OnMouseOver);
                 caller.RegisterAction(rpcID + "onmouseout", OnMouseOut);
+                caller.RegisterAction<string>(rpcID + "onchange", OnChange);
             }
         }
         
@@ -759,6 +762,7 @@ namespace Svg
         		caller.UnregisterAction(rpcID + "onmousescroll");
         		caller.UnregisterAction(rpcID + "onmouseover");
         		caller.UnregisterAction(rpcID + "onmouseout");
+        		caller.UnregisterAction(rpcID + "onchange");
         	}
         }
 
@@ -782,6 +786,9 @@ namespace Svg
 
         [SvgAttribute("onmouseout")]
         public event EventHandler MouseOut;
+        
+        [SvgAttribute("onchange")]
+        public event EventHandler<StringArg> Change;
 
         //click
         protected void OnClick(float x, float y, int button, int clickCount)
@@ -887,6 +894,21 @@ namespace Svg
                 handler(sender, new EventArgs());
             }
         }
+        
+        //change
+        protected void OnChange(string newString)
+        {
+        	RaiseChange(this, new StringArg {s = newString});
+        }
+        
+        protected void RaiseChange(object sender, StringArg s)
+        {
+        	var handler = Change;
+            if (handler != null)
+            {
+                handler(sender, s);
+            }
+        }
 
         #endregion graphical EVENTS
 
@@ -935,6 +957,14 @@ namespace Svg
     {
         public float x;
         public float y;
+    }
+    
+    /// <summary>
+    /// Represents a string argument
+    /// </summary>
+    public class StringArg : EventArgs
+    {
+        public string s;
     }
 
     internal interface ISvgElement
