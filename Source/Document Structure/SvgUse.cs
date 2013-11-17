@@ -58,6 +58,8 @@ namespace Svg
                 SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
                 return (element != null) ? element.Path : null;
             }
+            protected set
+            { }
         }
 
         public override System.Drawing.RectangleF Bounds

@@ -100,7 +100,7 @@ namespace Svg
             // http://www.w3.org/TR/SVG11/coords.html#Units
 
             const float cmInInch = 2.54f;
-            int ppi = SvgDocument.PPI;
+            int ppi = SvgDocument.PointsPerInch;
 
             switch (this.Type)
             {

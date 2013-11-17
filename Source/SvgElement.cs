@@ -31,9 +31,8 @@ namespace Svg
         }
 
         //reflection cache
-        protected IEnumerable<PropertyAttributeTuple> _svgPropertyAttributes;
-        protected IEnumerable<EventAttributeTuple> _svgEventAttributes;
-
+        private IEnumerable<PropertyAttributeTuple> _svgPropertyAttributes;
+        private IEnumerable<EventAttributeTuple> _svgEventAttributes;
 
         internal SvgElement _parent;
         private string _elementName;

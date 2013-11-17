@@ -17,24 +17,24 @@ namespace Svg
         {
             get
             {
-                if (this._path == null || this.IsPathDirty)
+                if (Path == null || this.IsPathDirty)
                 {
-                    this._path = new GraphicsPath();
+                    Path = new GraphicsPath();
 
                     try
                     {
-                        for (int i = 0; i < this._points.Count; i += 2)
+                        for (int i = 0; i < Points.Count; i += 2)
                         {
-                            PointF endPoint = new PointF(this._points[i].ToDeviceValue(this), this._points[i + 1].ToDeviceValue(this));
+                            PointF endPoint = new PointF(Points[i].ToDeviceValue(this), Points[i + 1].ToDeviceValue(this));
 
                             // TODO: Remove unrequired first line
-                            if (_path.PointCount == 0)
+                            if (Path.PointCount == 0)
                             {
-                                _path.AddLine(endPoint, endPoint);
+                                Path.AddLine(endPoint, endPoint);
                             }
                             else
                             {
-                                _path.AddLine(_path.GetLastPoint(), endPoint);
+                                Path.AddLine(Path.GetLastPoint(), endPoint);
                             }
                         }
                     }
@@ -44,7 +44,7 @@ namespace Svg
                     }
                     this.IsPathDirty = false;
                 }
-                return this._path;
+                return Path;
             }
         }
     }

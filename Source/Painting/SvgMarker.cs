@@ -70,6 +70,10 @@ namespace Svg
 	            	return (path as SvgPath).Path;
 				return null;
             }
+            protected set
+            {
+                // No-op
+            }
         }
 
         public override System.Drawing.RectangleF Bounds
