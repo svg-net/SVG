@@ -27,12 +27,13 @@ namespace Svg
         {
             get 
             { 
-            	var path = new GraphicsPath();
-
+            	//var path = new GraphicsPath();
             	//AddPaths(this, path);
   
             	return GetPaths(this);
             }
+            protected set
+            { }
         }
 
         /// <summary>

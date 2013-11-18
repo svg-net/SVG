@@ -22,7 +22,7 @@ namespace Svg
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
-        public abstract GraphicsPath Path { get; }
+        public abstract GraphicsPath Path { get; protected set; }
         /// <summary>
         /// Gets the bounds of the element.
         /// </summary>

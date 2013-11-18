@@ -75,6 +75,10 @@ namespace Svg
                 }
                 return this._path;
             }
+            protected set
+            {
+                _path = value;
+            }
         }
 
         public override System.Drawing.RectangleF Bounds

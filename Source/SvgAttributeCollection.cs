@@ -108,7 +108,7 @@ namespace Svg
         /// </summary>
         public event EventHandler<AttributeEventArgs> AttributeChanged;
         
-        protected void OnAttributeChanged(string attribute, object value)
+        private void OnAttributeChanged(string attribute, object value)
         {
         	var handler = AttributeChanged;
         	if(handler != null)
@@ -164,7 +164,7 @@ namespace Svg
         /// </summary>
         public event EventHandler<AttributeEventArgs> AttributeChanged;
         
-        protected void OnAttributeChanged(string attribute, object value)
+        private void OnAttributeChanged(string attribute, object value)
         {
         	var handler = AttributeChanged;
         	if(handler != null)

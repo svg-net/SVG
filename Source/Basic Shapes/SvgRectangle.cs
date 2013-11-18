@@ -247,6 +247,10 @@ namespace Svg
                 }
                 return _path;
             }
+            protected set
+            {
+                _path = value;
+            }
         }
 
         /// <summary>

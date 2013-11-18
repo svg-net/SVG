@@ -84,6 +84,9 @@ namespace Svg
             {
 				return null;
             }
+            protected set
+            {
+            }
         }
 
         /// <summary>
