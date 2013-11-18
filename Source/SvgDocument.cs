@@ -16,7 +16,7 @@ namespace Svg
     /// </summary>
     public class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
-        public static readonly int PPI = 96;
+        public static readonly int PointsPerInch = 96;
         private SvgElementIdManager _idManager;
 
 

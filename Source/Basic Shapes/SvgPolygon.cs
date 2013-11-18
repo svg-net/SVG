@@ -14,8 +14,8 @@ namespace Svg
     [SvgElement("polygon")]
     public class SvgPolygon : SvgVisualElement
     {
-        protected GraphicsPath _path;
-        protected SvgUnitCollection _points;
+        private GraphicsPath _path;
+        private SvgUnitCollection _points;
 
         /// <summary>
         /// The points that make up the SvgPolygon
@@ -67,6 +67,10 @@ namespace Svg
                     this.IsPathDirty = false;
                 }
                 return this._path;
+            }
+            protected set
+            {
+                _path = value;
             }
         }
 

@@ -63,7 +63,12 @@ namespace Svg.Transforms
 				return true;
 			return base.Equals(obj);
 		}
-		
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
 		public new SvgTransform this[int i]
         {
 			get { return base[i]; }
