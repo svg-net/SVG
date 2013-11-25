@@ -733,14 +733,14 @@ namespace Svg
             {
                 var rpcID = this.ID + "/";
 
-                caller.RegisterAction<float, float, int, int>(rpcID + "onclick", OnClick);
-                caller.RegisterAction<float, float, int, int>(rpcID + "onmousedown", OnMouseDown);
-                caller.RegisterAction<float, float, int>(rpcID + "onmouseup", OnMouseUp);
-                caller.RegisterAction<float, float>(rpcID + "onmousemove", OnMouseMove);
-                caller.RegisterAction<float>(rpcID + "onmousescroll", OnMouseScroll);
-                caller.RegisterAction(rpcID + "onmouseover", OnMouseOver);
-                caller.RegisterAction(rpcID + "onmouseout", OnMouseOut);
-                caller.RegisterAction<string>(rpcID + "onchange", OnChange);
+                caller.RegisterAction<float, float, int, int, string>(rpcID + "onclick", OnClick);
+                caller.RegisterAction<float, float, int, int, string>(rpcID + "onmousedown", OnMouseDown);
+                caller.RegisterAction<float, float, int, string>(rpcID + "onmouseup", OnMouseUp);
+                caller.RegisterAction<float, float, string>(rpcID + "onmousemove", OnMouseMove);
+                caller.RegisterAction<float, string>(rpcID + "onmousescroll", OnMouseScroll);
+                caller.RegisterAction<string>(rpcID + "onmouseover", OnMouseOver);
+                caller.RegisterAction<string>(rpcID + "onmouseout", OnMouseOut);
+                caller.RegisterAction<string, string>(rpcID + "onchange", OnChange);
             }
         }
         
@@ -781,18 +781,18 @@ namespace Svg
         public event EventHandler<PointArg> MouseScroll;
         
         [SvgAttribute("onmouseover")]
-        public event EventHandler MouseOver;
+        public event EventHandler<SVGArg> MouseOver;
 
         [SvgAttribute("onmouseout")]
-        public event EventHandler MouseOut;
+        public event EventHandler<SVGArg> MouseOut;
         
         [SvgAttribute("onchange")]
         public event EventHandler<StringArg> Change;
 
         //click
-        protected void OnClick(float x, float y, int button, int clickCount)
+        protected void OnClick(float x, float y, int button, int clickCount, string sessionID)
         {
-        	RaiseMouseClick(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount});
+        	RaiseMouseClick(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount, SessionID = sessionID });
         }
         
         protected void RaiseMouseClick(object sender, MouseArg e)
@@ -805,9 +805,9 @@ namespace Svg
         }
 
         //down
-        protected void OnMouseDown(float x, float y, int button, int clickCount)
+        protected void OnMouseDown(float x, float y, int button, int clickCount, string sessionID)
         {
-        	RaiseMouseDown(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount});
+        	RaiseMouseDown(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount, SessionID = sessionID });
         }
         
         protected void RaiseMouseDown(object sender, MouseArg e)
@@ -820,9 +820,9 @@ namespace Svg
         }
 
         //up
-        protected void OnMouseUp(float x, float y, int button)
+        protected void OnMouseUp(float x, float y, int button, string sessionID)
         {
-        	RaiseMouseUp(this, new MouseArg { x = x, y = y, Button = button});
+        	RaiseMouseUp(this, new MouseArg { x = x, y = y, Button = button, SessionID = sessionID });
         }
         
         protected void RaiseMouseUp(object sender, MouseArg e)
@@ -835,9 +835,9 @@ namespace Svg
         }
         
         //move
-        protected void OnMouseMove(float x, float y)
+        protected void OnMouseMove(float x, float y, string sessionID)
         {
-        	RaiseMouseMove(this, new PointArg { x = x, y = y});
+        	RaiseMouseMove(this, new PointArg { x = x, y = y, SessionID = sessionID });
         }
         
         protected void RaiseMouseMove(object sender, PointArg e)
@@ -850,9 +850,9 @@ namespace Svg
         }
         
         //scroll
-        protected void OnMouseScroll(float y)
+        protected void OnMouseScroll(float y, string sessionID)
         {
-        	RaiseMouseScroll(this, new PointArg { x = 0, y = y});
+        	RaiseMouseScroll(this, new PointArg { x = 0, y = y, SessionID = sessionID});
         }
         
         protected void RaiseMouseScroll(object sender, PointArg e)
@@ -865,39 +865,39 @@ namespace Svg
         }
 
 		//over        
-        protected void OnMouseOver()
+        protected void OnMouseOver(string sessionID)
         {
-        	RaiseMouseOver(this);
+        	RaiseMouseOver(this, new SVGArg{ SessionID = sessionID });
         }
         
-        protected void RaiseMouseOver(object sender)
+        protected void RaiseMouseOver(object sender, SVGArg args)
         {
         	var handler = MouseOver;
             if (handler != null)
             {
-                handler(sender, new EventArgs());
+                handler(sender, args);
             }
         }
 
         //out
-        protected void OnMouseOut()
+        protected void OnMouseOut(string sessionID)
         {
-        	RaiseMouseOut(this);
+        	RaiseMouseOut(this, new SVGArg{ SessionID = sessionID });
         }
         
-        protected void RaiseMouseOut(object sender)
+        protected void RaiseMouseOut(object sender, SVGArg args)
         {
         	var handler = MouseOut;
             if (handler != null)
             {
-                handler(sender, new EventArgs());
+                handler(sender, args);
             }
         }
         
         //change
-        protected void OnChange(string newString)
+        protected void OnChange(string newString, string sessionID)
         {
-        	RaiseChange(this, new StringArg {s = newString});
+        	RaiseChange(this, new StringArg {s = newString, SessionID = sessionID});
         }
         
         protected void RaiseChange(object sender, StringArg s)
@@ -913,10 +913,16 @@ namespace Svg
 
     }
     
+    public class SVGArg : EventArgs
+    {
+    	public string SessionID;
+    }
+    	
+    
     /// <summary>
     /// Describes the Attribute which was set
     /// </summary>
-    public class AttributeEventArgs : EventArgs
+    public class AttributeEventArgs : SVGArg
     {
     	public string Attribute;
     	public object Value;
@@ -930,13 +936,14 @@ namespace Svg
         void RegisterAction<T1, T2>(string rpcID, Action<T1, T2> action);
         void RegisterAction<T1, T2, T3>(string rpcID, Action<T1, T2, T3> action);
         void RegisterAction<T1, T2, T3, T4>(string rpcID, Action<T1, T2, T3, T4> action);
+        void RegisterAction<T1, T2, T3, T4, T5>(string rpcID, Action<T1, T2, T3, T4, T5> action);
         void UnregisterAction(string rpcID);
     }
 
     /// <summary>
     /// Represents the state of the mouse at the moment the event occured.
     /// </summary>
-    public class MouseArg : EventArgs
+    public class MouseArg : SVGArg
     {
         public float x;
         public float y;
@@ -952,7 +959,7 @@ namespace Svg
     /// <summary>
     /// Represents the mouse position at the moment the event occured.
     /// </summary>
-    public class PointArg : EventArgs
+    public class PointArg : SVGArg
     {
         public float x;
         public float y;
@@ -961,7 +968,7 @@ namespace Svg
     /// <summary>
     /// Represents a string argument
     /// </summary>
-    public class StringArg : EventArgs
+    public class StringArg : SVGArg
     {
         public string s;
     }
