@@ -13,13 +13,14 @@ namespace Svg
     [SvgElement("polyline")]
     public class SvgPolyline : SvgPolygon
     {
+        private GraphicsPath _Path;
         public override GraphicsPath Path
         {
             get
             {
-                if (Path == null || this.IsPathDirty)
+                if (_Path == null || this.IsPathDirty)
                 {
-                    Path = new GraphicsPath();
+                    _Path = new GraphicsPath();
 
                     try
                     {
@@ -28,13 +29,13 @@ namespace Svg
                             PointF endPoint = new PointF(Points[i].ToDeviceValue(this), Points[i + 1].ToDeviceValue(this));
 
                             // TODO: Remove unrequired first line
-                            if (Path.PointCount == 0)
+                            if (_Path.PointCount == 0)
                             {
-                                Path.AddLine(endPoint, endPoint);
+                                _Path.AddLine(endPoint, endPoint);
                             }
                             else
                             {
-                                Path.AddLine(Path.GetLastPoint(), endPoint);
+                                _Path.AddLine(_Path.GetLastPoint(), endPoint);
                             }
                         }
                     }
@@ -44,7 +45,7 @@ namespace Svg
                     }
                     this.IsPathDirty = false;
                 }
-                return Path;
+                return _Path;
             }
         }
     }
