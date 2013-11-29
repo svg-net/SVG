@@ -259,24 +259,38 @@ namespace Svg
             get { return this.Attributes.GetAttribute<string>("ID"); }
             set
             {
-                // Don't do anything if it hasn't changed
-                if (string.Compare(this.ID, value) == 0)
-                {
-                    return;
-                }
-
-                if (this.OwnerDocument != null)
-                {
-                    this.OwnerDocument.IdManager.Remove(this);
-                }
-
-                this.Attributes["ID"] = value;
-
-                if (this.OwnerDocument != null)
-                {
-                    this.OwnerDocument.IdManager.Add(this);
-                }
+                SetAndFixID(value, false);
             }
+        }
+
+        public void SetAndFixID(string value, bool autoFixID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        {
+            // Don't do anything if it hasn't changed
+            if (string.Compare(this.ID, value) == 0)
+            {
+                return;
+            }
+
+            if (this.OwnerDocument != null)
+            {
+                this.OwnerDocument.IdManager.Remove(this);
+            }
+
+            this.Attributes["ID"] = value;
+
+            if (this.OwnerDocument != null)
+            {
+                this.OwnerDocument.IdManager.AddAndFixID(this, autoFixID, logElementOldIDNewID);
+            }
+        }
+
+        /// <summary>
+        /// Only used by the ID Manager
+        /// </summary>
+        /// <param name="newID"></param>
+        internal void FixID(string newID)
+        {
+            this.Attributes["ID"] = newID;
         }
 
         /// <summary>
