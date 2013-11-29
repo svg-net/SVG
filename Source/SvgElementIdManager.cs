@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Svg
 {
@@ -47,13 +48,35 @@ namespace Svg
         /// <param name="element">The <see cref="SvgElement"/> to be managed.</param>
         public virtual void Add(SvgElement element)
         {
+            AddAndFixID(element, false);
+        }
+
+        /// <summary>
+        /// Adds the specified <see cref="SvgElement"/> for ID management. 
+        /// And can auto fix the ID if it already exists or it starts with a number.
+        /// </summary>
+        /// <param name="element">The <see cref="SvgElement"/> to be managed.</param>
+        /// <param name="autoFixID">Pass true here, if you want the ID to be fixed</param>
+        /// <param name="logElementOldIDNewID">If not null, the action is called before the id is fixed</param>
+        /// <returns>true, if ID was altered</returns>
+        public virtual bool AddAndFixID(SvgElement element, bool autoFixID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        {
+            var result = false;
             if (!string.IsNullOrEmpty(element.ID))
             {
-                this.EnsureValidId(element.ID);
+                var newID = this.EnsureValidId(element.ID, autoFixID);
+                if (autoFixID && newID != element.ID)
+                {
+                    if(logElementOldIDNewID != null)
+                        logElementOldIDNewID(element, element.ID, newID);
+                    element.FixID(newID);
+                    result = true;
+                }
                 this._idValueMap.Add(element.ID, element);
             }
             
             OnAdded(element);
+            return result;
         }
 
         /// <summary>
@@ -78,23 +101,47 @@ namespace Svg
         /// <para>The ID cannot start with a digit.</para>
         /// <para>An element with the same ID already exists within the containing <see cref="SvgDocument"/>.</para>
         /// </exception>
-        public void EnsureValidId(string id)
+        public string EnsureValidId(string id, bool autoFixID = false)
         {
+
             if (string.IsNullOrEmpty(id))
             {
-                return;
+                return id;
             }
 
             if (char.IsDigit(id[0]))
             {
-                throw new SvgException("ID cannot start with a digit: '" + id + "'.");
+                if (autoFixID)
+                {
+                    return EnsureValidId("id" + id, true);
+                }
+                throw new SvgIDWrongFormatException("ID cannot start with a digit: '" + id + "'.");
             }
 
             if (this._idValueMap.ContainsKey(id))
             {
-                throw new SvgException("An element with the same ID already exists: '" + id + "'.");
+                if(autoFixID)
+                {
+                    var match = regex.Match(id);
+
+                    int number;
+                    if (match.Success && int.TryParse(match.Value.Substring(1), out number))
+                    {
+                        id = regex.Replace(id, "#" + (number + 1));
+                    }
+                    else
+                    {
+                        id += "#1";
+                    }
+
+                    return EnsureValidId(id, true);
+                }
+                throw new SvgIDExistsException("An element with the same ID already exists: '" + id + "'.");
             }
+
+            return id;
         }
+        private static readonly Regex regex = new Regex(@"#\d+$");
 
         /// <summary>
         /// Initialises a new instance of an <see cref="SvgElementIdManager"/>.

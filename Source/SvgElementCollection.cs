@@ -74,11 +74,20 @@ namespace Svg
 
         public void Add(SvgElement item)
         {
+            this.AddAndFixID(item, false, false);
+        }
+
+        public void AddAndFixID(SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        {
             if (!this._mock)
             {
                 if (this._owner.OwnerDocument != null)
                 {
-                    item.ApplyRecursive(this._owner.OwnerDocument.IdManager.Add);
+                    this._owner.OwnerDocument.IdManager.AddAndFixID(item, autoFixID, logElementOldIDNewID);
+                    foreach (var child in item.Children)
+                    {
+                        child.ApplyRecursive(e => this._owner.OwnerDocument.IdManager.AddAndFixID(e, autoFixChildrenID, logElementOldIDNewID));
+                    }
                 }
 
                 item._parent = this._owner;
