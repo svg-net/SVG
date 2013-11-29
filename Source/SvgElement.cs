@@ -459,7 +459,7 @@ namespace Svg
 	                var evt = attr.Event.GetValue(this);
 	                
 	                //if someone has registered publish the attribute
-	                if (evt != null && !string.IsNullOrWhiteSpace(this.ID))
+	                if (evt != null && !string.IsNullOrEmpty(this.ID))
 	                {
 	                    writer.WriteAttributeString(attr.Attribute.Name, this.ID + "/" + attr.Attribute.Name);
 	                }
@@ -729,7 +729,7 @@ namespace Svg
         /// <param name="caller"></param>
         public void RegisterEvents(ISvgEventCaller caller)
         {
-            if (caller != null && !string.IsNullOrWhiteSpace(this.ID))
+            if (caller != null && !string.IsNullOrEmpty(this.ID))
             {
                 var rpcID = this.ID + "/";
 
@@ -750,7 +750,7 @@ namespace Svg
         /// <param name="caller"></param>
         public void UnregisterEvents(ISvgEventCaller caller)
         {
-        	if (caller != null && !string.IsNullOrWhiteSpace(this.ID))
+        	if (caller != null && !string.IsNullOrEmpty(this.ID))
         	{
         		var rpcID = this.ID + "/";
 
