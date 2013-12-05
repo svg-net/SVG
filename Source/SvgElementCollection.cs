@@ -58,7 +58,7 @@ namespace Svg
 
         public void InsertAddAndFixID(int index, SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
-            AddToIdManager(item, autoFixID, autoFixChildrenID, logElementOldIDNewID);
+            AddToIdManager(item, this._elements[index], autoFixID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Insert(index, item);
             item._parent.OnElementAdded(item, index);
         }
@@ -86,24 +86,24 @@ namespace Svg
 
         public void AddAndFixID(SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
-            AddToIdManager(item, autoFixID, autoFixChildrenID, logElementOldIDNewID);
+            AddToIdManager(item, null, autoFixID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Add(item);
             item._parent.OnElementAdded(item, this.Count - 1);
         }
 
-        private void AddToIdManager(SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        private void AddToIdManager(SvgElement item, SvgElement sibling, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
             if (!this._mock)
             {
                 if (this._owner.OwnerDocument != null)
                 {
-                    this._owner.OwnerDocument.IdManager.AddAndFixID(item, autoFixID, logElementOldIDNewID);
+                    this._owner.OwnerDocument.IdManager.AddAndFixID(item, sibling, autoFixID, logElementOldIDNewID);
 
                     if (!(item is SvgDocument)) //don't add subtree of a document to parent document
                     {
                         foreach (var child in item.Children)
                         {
-                            child.ApplyRecursive(e => this._owner.OwnerDocument.IdManager.AddAndFixID(e, autoFixChildrenID, logElementOldIDNewID));
+                            child.ApplyRecursive(e => this._owner.OwnerDocument.IdManager.AddAndFixID(e, null, autoFixChildrenID, logElementOldIDNewID));
                         }
                     }
                 }

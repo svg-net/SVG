@@ -280,7 +280,7 @@ namespace Svg
 
             if (this.OwnerDocument != null)
             {
-                this.OwnerDocument.IdManager.AddAndFixID(this, autoFixID, logElementOldIDNewID);
+                this.OwnerDocument.IdManager.AddAndFixID(this, null, autoFixID, logElementOldIDNewID);
             }
         }
 
