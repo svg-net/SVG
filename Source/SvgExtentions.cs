@@ -57,10 +57,12 @@ namespace Svg
         {
         	action(elem);
         	
-        	foreach (var element in elem.Children)
+        	if(!(elem is SvgDocument)) //don't apply action to subtree of documents
         	{
-        		if(!(elem is SvgDocument))
+        		foreach (var element in elem.Children)
+        		{
         			element.ApplyRecursive(action);
+        		}
         	}
         }
     }

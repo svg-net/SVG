@@ -81,14 +81,18 @@ namespace Svg
         {
             if (!this._mock)
             {
-                if (this._owner.OwnerDocument != null)
-                {
-                    this._owner.OwnerDocument.IdManager.AddAndFixID(item, autoFixID, logElementOldIDNewID);
-                    foreach (var child in item.Children)
-                    {
-                        child.ApplyRecursive(e => this._owner.OwnerDocument.IdManager.AddAndFixID(e, autoFixChildrenID, logElementOldIDNewID));
-                    }
-                }
+            	if (this._owner.OwnerDocument != null)
+            	{
+            		this._owner.OwnerDocument.IdManager.AddAndFixID(item, autoFixID, logElementOldIDNewID);
+            		
+            		if(!(item is SvgDocument)) //don't add subtree of a document to parent document
+            		{
+            			foreach (var child in item.Children)
+            			{
+            				child.ApplyRecursive(e => this._owner.OwnerDocument.IdManager.AddAndFixID(e, autoFixChildrenID, logElementOldIDNewID));
+            			}
+            		}
+            	}
 
                 item._parent = this._owner;
             }
