@@ -53,7 +53,14 @@ namespace Svg
         /// <param name="item">The <see cref="SvgElement"/> to be added.</param>
         public void Insert(int index, SvgElement item)
         {
+            InsertAddAndFixID(index, item, false, false);
+        }
+
+        public void InsertAddAndFixID(int index, SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        {
+            AddToIdManager(item, autoFixID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Insert(index, item);
+            item._parent.OnElementAdded(item, index);
         }
 
         public void RemoveAt(int index)
@@ -79,27 +86,30 @@ namespace Svg
 
         public void AddAndFixID(SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
+            AddToIdManager(item, autoFixID, autoFixChildrenID, logElementOldIDNewID);
+            this._elements.Add(item);
+            item._parent.OnElementAdded(item, this.Count - 1);
+        }
+
+        private void AddToIdManager(SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        {
             if (!this._mock)
             {
-            	if (this._owner.OwnerDocument != null)
-            	{
-            		this._owner.OwnerDocument.IdManager.AddAndFixID(item, autoFixID, logElementOldIDNewID);
-            		
-            		if(!(item is SvgDocument)) //don't add subtree of a document to parent document
-            		{
-            			foreach (var child in item.Children)
-            			{
-            				child.ApplyRecursive(e => this._owner.OwnerDocument.IdManager.AddAndFixID(e, autoFixChildrenID, logElementOldIDNewID));
-            			}
-            		}
-            	}
+                if (this._owner.OwnerDocument != null)
+                {
+                    this._owner.OwnerDocument.IdManager.AddAndFixID(item, autoFixID, logElementOldIDNewID);
+
+                    if (!(item is SvgDocument)) //don't add subtree of a document to parent document
+                    {
+                        foreach (var child in item.Children)
+                        {
+                            child.ApplyRecursive(e => this._owner.OwnerDocument.IdManager.AddAndFixID(e, autoFixChildrenID, logElementOldIDNewID));
+                        }
+                    }
+                }
 
                 item._parent = this._owner;
             }
-
-            item._parent.OnElementAdded(item, this.Count - 1);
-
-            this._elements.Add(item);
         }
 
         public void Clear()
