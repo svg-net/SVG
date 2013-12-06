@@ -5,8 +5,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using Svg.Pathing;
 using System.Text.RegularExpressions;
+using System.Threading;
+
+using Svg.Pathing;
 
 namespace Svg
 {
@@ -298,7 +300,11 @@ namespace Svg
 
                 if (paths != null)
                 {
-                    return string.Join(" ", paths.Select(p => p.ToString()).ToArray());
+                	var curretCulture = CultureInfo.CurrentCulture;
+                	Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                	var s = string.Join(" ", paths.Select(p => p.ToString()).ToArray());
+                	Thread.CurrentThread.CurrentCulture = curretCulture;
+                    return s;
                 }
             }
 

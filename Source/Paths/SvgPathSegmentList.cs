@@ -11,7 +11,7 @@ namespace Svg.Pathing
         internal SvgPath _owner;
         private List<SvgPathSegment> _segments;
 
-        internal SvgPathSegmentList()
+        public SvgPathSegmentList()
         {
             this._segments = new List<SvgPathSegment>();
         }

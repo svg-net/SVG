@@ -17,7 +17,6 @@ namespace Svg
     [SvgElement("path")]
     public class SvgPath : SvgVisualElement
     {
-        private SvgPathSegmentList _pathData;
         private GraphicsPath _path;
         private int _pathLength;
 
@@ -27,11 +26,11 @@ namespace Svg
         [SvgAttribute("d")]
         public SvgPathSegmentList PathData
         {
-            get { return this._pathData; }
+        	get { return this.Attributes.GetAttribute<SvgPathSegmentList>("d"); }
             set
             {
-                this._pathData = value;
-                this._pathData._owner = this;
+            	this.Attributes["d"] = value;
+            	value._owner = this;
                 this.IsPathDirty = true;
             }
         }
@@ -98,7 +97,7 @@ namespace Svg
         internal void OnPathUpdated()
         {
             this.IsPathDirty = true;
-            OnAttributeChanged(new AttributeEventArgs{ Attribute = "d", Value = this.PathData });
+            OnAttributeChanged(new AttributeEventArgs{ Attribute = "d", Value = this.Attributes.GetAttribute<SvgPathSegmentList>("d") });
         }
 
         /// <summary>
@@ -123,8 +122,9 @@ namespace Svg
         /// </summary>
         public SvgPath()
         {
-            this._pathData = new SvgPathSegmentList();
-            this._pathData._owner = this;
+            var pathData = new SvgPathSegmentList();
+            this.Attributes["d"] = pathData;
+            pathData._owner = this;
         }
 
 		/// <summary>
