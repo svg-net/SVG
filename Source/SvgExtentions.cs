@@ -5,6 +5,8 @@ using System.Text;
 using System.Drawing;
 using System.IO;
 using System.Xml;
+using System.Threading;
+using System.Globalization;
 
 namespace Svg
 {
@@ -39,13 +41,22 @@ namespace Svg
 
         public static string GetXML(this SvgElement elem)
         {
-            using (StringWriter str = new StringWriter())
-            using (XmlTextWriter xml = new XmlTextWriter(str))
-            {
-                elem.WriteElement(xml);
-                return str.ToString();
+            var result = "";
 
+            var currentCulture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            using (StringWriter str = new StringWriter())
+            {
+                using (XmlTextWriter xml = new XmlTextWriter(str))
+                {
+                    elem.WriteElement(xml);
+                    result = str.ToString();
+
+                }
             }
+            Thread.CurrentThread.CurrentCulture = currentCulture;
+
+            return result;
         }
         
         public static bool HasNonEmptyCustomAttribute(this SvgElement element, string name)
