@@ -1,6 +1,9 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
+using System.Net;
 using Svg.Transforms;
 
 namespace Svg
@@ -94,11 +97,62 @@ namespace Svg
         /// </summary>
         protected override void Render(SvgRenderer renderer)
         {
-            if (Width.Value > 0.0f && Height.Value > 0.0f)
+            if (Width.Value > 0.0f && Height.Value > 0.0f && this.Href != null)
             {
-				//TODO:
-                //base.Render(renderer);
+                using (Image b = GetImage(this.Href))
+                {
+                    if (b != null)
+                    {
+                        this.PushTransforms(renderer);
+                        this.SetClip(renderer);
+
+                        RectangleF srcRect = new RectangleF(0, 0, b.Width, b.Height);
+                        var destRect = new RectangleF(this.Location.ToDeviceValue(),
+                                        new SizeF(Width.ToDeviceValue(), Height.ToDeviceValue()));
+
+                        renderer.DrawImage(b, destRect, srcRect, GraphicsUnit.Pixel);
+
+                        this.ResetClip(renderer);
+                        this.PopTransforms(renderer);
+                    }
+                }
+                // TODO: cache images... will need a shared context for this
+                // TODO: support preserveAspectRatio, etc
             }
+        }
+
+        protected Image GetImage(Uri uri)
+        {
+            try
+            {
+                // should work with http: and file: protocol urls
+                var httpRequest = WebRequest.Create(uri);
+
+                using (WebResponse webResponse = httpRequest.GetResponse())
+                {
+                    MemoryStream ms = BufferToMemoryStream(webResponse.GetResponseStream());
+                    Image b = Bitmap.FromStream(ms);
+                    return b;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError("Error loading image: '{0}', error: {1} ", uri, ex.Message);
+                return null;
+            }
+        }
+
+        protected static MemoryStream BufferToMemoryStream(Stream input)
+        {
+            byte[] buffer = new byte[4 * 1024];
+            int len;
+            MemoryStream ms = new MemoryStream();
+            while ((len = input.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                ms.Write(buffer, 0, len);
+            }
+            ms.Seek(0, SeekOrigin.Begin);
+            return ms;
         }
 
 
