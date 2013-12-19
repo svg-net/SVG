@@ -125,14 +125,29 @@ namespace Svg
         {
             try
             {
+                // handle data/uri embedded images (http://en.wikipedia.org/wiki/Data_URI_scheme)
+                if (uri.Scheme == "data")
+                {
+                    string uriString = uri.OriginalString;
+                    int dataIdx = uriString.IndexOf(",") + 1;
+                    if (dataIdx <= 0 || dataIdx + 1 > uriString.Length)
+                        throw new Exception("Invalid data URI");
+
+                    // we're assuming base64, as ascii encoding would be *highly* unsusual for images
+                    // also assuming it's png or jpeg mimetype
+                    byte[] imageBytes = Convert.FromBase64String(uriString.Substring(dataIdx));
+                    Image image = Image.FromStream(new MemoryStream(imageBytes));
+                    return image;
+                }
+
                 // should work with http: and file: protocol urls
                 var httpRequest = WebRequest.Create(uri);
 
                 using (WebResponse webResponse = httpRequest.GetResponse())
                 {
                     MemoryStream ms = BufferToMemoryStream(webResponse.GetResponseStream());
-                    Image b = Bitmap.FromStream(ms);
-                    return b;
+                    Image image = Bitmap.FromStream(ms);
+                    return image;
                 }
             }
             catch (Exception ex)
