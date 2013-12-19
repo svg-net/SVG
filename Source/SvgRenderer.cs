@@ -52,6 +52,11 @@ namespace Svg
             this._innerGraphics.DrawImageUnscaled(image, location);
         }
 
+        public void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit)
+        {
+            _innerGraphics.DrawImage(image, destRect, srcRect, graphicsUnit);
+        }
+
         public void SetClip(Region region)
         {
             this._innerGraphics.SetClip(region, CombineMode.Complement);
