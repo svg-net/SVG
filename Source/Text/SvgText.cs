@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -172,7 +173,36 @@ namespace Svg
         public virtual string Font
         {
             get { return this._font; }
-            set { this._font = value; this.IsPathDirty = true; }
+            set
+            {
+                var parts = value.Split(',');
+                foreach (var part in parts)
+                {
+                    //This deals with setting font size. Looks for either <number>px or <number>pt style="font: bold 16px/normal 'trebuchet ms', verdana, sans-serif;"
+                    Regex rx = new Regex(@"(\d+)+(?=pt|px)");
+                    var res = rx.Match(part);
+                    if (res.Success)
+                    {
+                        int fontSize = 10;
+                        int.TryParse(res.Value, out fontSize);
+                        this.FontSize = new SvgUnit((float)fontSize);
+                        break;
+                    }
+
+                    //this assumes "bold" has spaces around it. e.g.: style="font: bold 16px/normal 
+                    rx = new Regex(@"\sbold\s");
+                    res = rx.Match(part);
+                    if (res.Success)
+                    {
+                        this.FontWeight = SvgFontWeight.bold;
+                    }
+                }
+                var font = ValidateFontFamily(value);
+                this._fontFamily = font;
+                this._font = font; //not sure this is used?
+
+                this.IsPathDirty = true;
+            }
         }
 
         /// <summary>
@@ -289,7 +319,8 @@ namespace Svg
             var families = System.Drawing.FontFamily.Families;
 
             // Find a the first font that exists in the list of installed font families.
-            foreach (var f in fontParts.Where(f => families.Any(family => family.Name == f)))
+            //styles from IE get sent through as lowercase.
+            foreach (var f in fontParts.Where(f => families.Any(family => family.Name.ToLower() == f.ToLower())))
             {
                 return f;
             }
