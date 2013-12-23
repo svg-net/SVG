@@ -186,7 +186,6 @@ namespace Svg
                         int fontSize = 10;
                         int.TryParse(res.Value, out fontSize);
                         this.FontSize = new SvgUnit((float)fontSize);
-                        break;
                     }
 
                     //this assumes "bold" has spaces around it. e.g.: style="font: bold 16px/normal 
