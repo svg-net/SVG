@@ -25,7 +25,32 @@ namespace Svg
             get { return this._offset; }
             set
             {
-                this._offset = value.ToPercentage();
+                SvgUnit unit = value;
+
+                if (value.Type == SvgUnitType.Percentage)
+                {
+                    if (value.Value > 100)
+                    {
+                        unit = new SvgUnit(value.Type, 100);
+                    }
+                    else if (value.Value < 0)
+                    {
+                        unit = new SvgUnit(value.Type, 0);
+                    }
+                }
+                else if (value.Type == SvgUnitType.User)
+                {
+                    if (value.Value > 1)
+                    {
+                        unit = new SvgUnit(value.Type, 1);
+                    }
+                    else if (value.Value < 0)
+                    {
+                        unit = new SvgUnit(value.Type, 0);
+                    }
+                }
+
+                this._offset = unit.ToPercentage();
             }
         }
 
