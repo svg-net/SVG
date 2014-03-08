@@ -107,7 +107,8 @@ namespace Svg
                         }
                     }
                 }
-
+                
+                //if all checked, set parent
                 item._parent = this._owner;
             }
         }

@@ -22,6 +22,11 @@ namespace Svg
             r.Width = bounds.Width;
             r.Height = bounds.Height;
         }
+        
+        public static RectangleF GetRectangle(this SvgRectangle r)
+        {
+            return new RectangleF(r.X, r.Y, r.Width, r.Height);
+        }
 
         public static string GetXML(this SvgDocument doc)
         {
