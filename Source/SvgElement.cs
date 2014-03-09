@@ -302,6 +302,11 @@ namespace Svg
         protected virtual void AddElement(SvgElement child, int index)
         {
         }
+        
+        /// <summary>
+        /// Fired when an Element was added to the children of this Element
+        /// </summary>
+		public event EventHandler<ChildAddedEventArgs> ChildAdded;
 
         /// <summary>
         /// Calls the <see cref="AddElement"/> method with the specified parameters.
@@ -311,6 +316,11 @@ namespace Svg
         internal void OnElementAdded(SvgElement child, int index)
         {
             this.AddElement(child, index);
+            var handler = ChildAdded;
+            if(handler != null)
+            {
+            	handler(this, new ChildAddedEventArgs { NewChild = child });
+            }
         }
 
         /// <summary>
@@ -940,6 +950,14 @@ namespace Svg
     {
     	public string Attribute;
     	public object Value;
+    }
+    
+    /// <summary>
+    /// Describes the Attribute which was set
+    /// </summary>
+    public class ChildAddedEventArgs : SVGArg
+    {
+    	public SvgElement NewChild;
     }
 
     //deriving class registers event actions and calls the actions if the event occurs
