@@ -508,7 +508,7 @@ namespace Svg
         {
             parentAttributeValue = null;
 
-            attributeKey = char.ToUpper(attributeKey[0]) + attributeKey.Substring(1);
+            //attributeKey = char.ToUpper(attributeKey[0]) + attributeKey.Substring(1);
 
             var currentParent = Parent;
             var resolved = false;
