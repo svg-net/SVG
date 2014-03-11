@@ -316,10 +316,15 @@ namespace Svg
         internal void OnElementAdded(SvgElement child, int index)
         {
             this.AddElement(child, index);
+            SvgElement sibling = null;
+            if(index < (Children.Count - 1))
+            {
+            	sibling = Children[index + 1];
+            }
             var handler = ChildAdded;
             if(handler != null)
             {
-            	handler(this, new ChildAddedEventArgs { NewChild = child });
+            	handler(this, new ChildAddedEventArgs { NewChild = child, BeforeSibling = sibling });
             }
         }
 
@@ -980,6 +985,7 @@ namespace Svg
     public class ChildAddedEventArgs : SVGArg
     {
     	public SvgElement NewChild;
+    	public SvgElement BeforeSibling;
     }
 
     //deriving class registers event actions and calls the actions if the event occurs

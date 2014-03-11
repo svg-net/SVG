@@ -53,10 +53,10 @@ namespace Svg
         /// <param name="item">The <see cref="SvgElement"/> to be added.</param>
         public void Insert(int index, SvgElement item)
         {
-            InsertAddAndFixID(index, item, false, false);
+            InsertAndFixID(index, item, false, false);
         }
 
-        public void InsertAddAndFixID(int index, SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        public void InsertAndFixID(int index, SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
             AddToIdManager(item, this._elements[index], autoFixID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Insert(index, item);
