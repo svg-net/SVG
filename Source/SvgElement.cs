@@ -82,12 +82,12 @@ namespace Svg
             		var oldVal = _content;
             		_content = value;
             		if(_content != oldVal)
-            			OnAttributeChanged(new AttributeEventArgs{ Attribute = "", Value = value });
+            			OnContentChanged(new ContentEventArgs{ Content = value });
             	}
             	else
             	{
             		_content = value;
-            		OnAttributeChanged(new AttributeEventArgs{ Attribute = "", Value = value });
+            		OnContentChanged(new ContentEventArgs{ Content = value });
             	}
             }
         }
@@ -731,6 +731,20 @@ namespace Svg
 				handler(this, args);
 			}
 		}
+		
+		/// <summary>
+        /// Fired when an Atrribute of this Element has changed
+        /// </summary>
+		public event EventHandler<ContentEventArgs> ContentChanged;
+		
+		protected void OnContentChanged(ContentEventArgs args)
+		{
+			var handler = ContentChanged;
+			if(handler != null)
+			{
+				handler(this, args);
+			}
+		}
 
         #region graphical EVENTS
 
@@ -950,6 +964,14 @@ namespace Svg
     {
     	public string Attribute;
     	public object Value;
+    }
+    
+    /// <summary>
+    /// Content of this whas was set
+    /// </summary>
+    public class ContentEventArgs : SVGArg
+    {
+    	public string Content;
     }
     
     /// <summary>
