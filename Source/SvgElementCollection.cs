@@ -95,8 +95,8 @@ namespace Svg
         {
             if (!this._mock)
             {
-                if (this._owner.OwnerDocument != null)
-                {
+            	if (this._owner.OwnerDocument != null)
+            	{
                     this._owner.OwnerDocument.IdManager.AddAndFixID(item, sibling, autoFixID, logElementOldIDNewID);
 
                     if (!(item is SvgDocument)) //don't add subtree of a document to parent document
