@@ -14,6 +14,7 @@ namespace Svg
     internal class SvgElementFactory
     {
         private static List<ElementInfo> availableElements;
+        private const string svgNS = "http://www.w3.org/2000/svg";
 
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
@@ -77,25 +78,29 @@ namespace Svg
         {
             SvgElement createdElement = null;
             string elementName = reader.LocalName;
+            string elementNS = reader.NamespaceURI;
 
             //Trace.TraceInformation("Begin CreateElement: {0}", elementName);
 
-            if (elementName == "svg")
+            if (elementNS == svgNS)
             {
-                createdElement = (fragmentIsDocument) ? new T() : new SvgFragment();
-            }
-            else
-            {
-                ElementInfo validType = AvailableElements.SingleOrDefault(e => e.ElementName == elementName);
-                if (validType != null)
+                if (elementName == "svg")
                 {
-                    createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
+                    createdElement = (fragmentIsDocument) ? new T() : new SvgFragment();
                 }
-            }
+                else
+                {
+                    ElementInfo validType = AvailableElements.SingleOrDefault(e => e.ElementName == elementName);
+                    if (validType != null)
+                    {
+                        createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
+                    }
+                }
 
-            if (createdElement != null)
-            {
-				SetAttributes(createdElement, reader, document);
+                if (createdElement != null)
+                {
+                    SetAttributes(createdElement, reader, document);
+                }
             }
 
             //Trace.TraceInformation("End CreateElement");

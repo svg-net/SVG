@@ -215,16 +215,12 @@ namespace Svg
                                     element = svgDocument;
                                 }
 
-                                if (element == null)
-                                {
-                                    continue;
-                                }
-
                                 // Add to the parents children
                                 if (elementStack.Count > 0)
                                 {
                                     parent = elementStack.Peek();
-                                    parent.Children.Add(element);
+                                    if (parent != null && element != null)
+                                        parent.Children.Add(element);
                                 }
 
                                 // Push element into stack
@@ -236,11 +232,17 @@ namespace Svg
                                     goto case XmlNodeType.EndElement;
                                 }
 
+                                if (element == null)
+                                {
+                                    continue;
+                                }
+
                                 break;
                             case XmlNodeType.EndElement:
                                 // Skip if no element was created and is not the closing tag for the last
                                 // known element
-                                if (element == null && reader.LocalName != elementStack.Peek().ElementName)
+                                SvgElement topElement = elementStack.Peek();
+                                if (element == null && (topElement != null && reader.LocalName != topElement.ElementName))
                                 {
                                     continue;
                                 }
@@ -249,7 +251,8 @@ namespace Svg
 
                                 if (value.Length > 0)
                                 {
-                                    element.Content = value.ToString();
+                                    if (element != null)
+                                        element.Content = value.ToString();
                                     // Reset content value for new element
                                     value = new StringBuilder();
                                 }
