@@ -32,8 +32,8 @@ namespace Svg
         [SvgAttribute("fill")]
         public virtual SvgPaintServer Fill
         {
-            get { return (this.Attributes["Fill"] == null) ? SvgColourServer.NotSet : (SvgPaintServer)this.Attributes["Fill"]; }
-            set { this.Attributes["Fill"] = value; }
+            get { return (this.Attributes["fill"] == null) ? SvgColourServer.NotSet : (SvgPaintServer)this.Attributes["fill"]; }
+            set { this.Attributes["fill"] = value; }
         }
 
         /// <summary>
@@ -42,15 +42,15 @@ namespace Svg
         [SvgAttribute("stroke")]
         public virtual SvgPaintServer Stroke
         {
-            get { return (this.Attributes["Stroke"] == null) ? null : (SvgPaintServer)this.Attributes["Stroke"]; }
-            set { this.Attributes["Stroke"] = value; }
+            get { return (this.Attributes["stroke"] == null) ? null : (SvgPaintServer)this.Attributes["stroke"]; }
+            set { this.Attributes["stroke"] = value; }
         }
 
         [SvgAttribute("fill-rule")]
         public virtual SvgFillRule FillRule
         {
-            get { return (this.Attributes["FillRule"] == null) ? SvgFillRule.NonZero : (SvgFillRule)this.Attributes["FillRule"]; }
-            set { this.Attributes["FillRule"] = value; }
+            get { return (this.Attributes["fill-rule"] == null) ? SvgFillRule.NonZero : (SvgFillRule)this.Attributes["fill-rule"]; }
+            set { this.Attributes["fill-rule"] = value; }
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace Svg
         [SvgAttribute("fill-opacity")]
         public virtual float FillOpacity
         {
-            get { return (this.Attributes["FillOpacity"] == null) ? this.Opacity : (float)this.Attributes["FillOpacity"]; }
-            set { this.Attributes["FillOpacity"] = FixOpacityValue(value); }
+            get { return (this.Attributes["fill-opacity"] == null) ? this.Opacity : (float)this.Attributes["fill-opacity"]; }
+            set { this.Attributes["fill-opacity"] = FixOpacityValue(value); }
         }
 
         /// <summary>
@@ -69,43 +69,43 @@ namespace Svg
         [SvgAttribute("stroke-width")]
         public virtual SvgUnit StrokeWidth
         {
-            get { return (this.Attributes["StrokeWidth"] == null) ? new SvgUnit(1.0f) : (SvgUnit)this.Attributes["StrokeWidth"]; }
-            set { this.Attributes["StrokeWidth"] = value; }
+            get { return (this.Attributes["stroke-width"] == null) ? new SvgUnit(1.0f) : (SvgUnit)this.Attributes["stroke-width"]; }
+            set { this.Attributes["stroke-width"] = value; }
         }
 
         [SvgAttribute("stroke-linecap")]
         public virtual SvgStrokeLineCap StrokeLineCap
         {
-            get { return (this.Attributes["StrokeLineCap"] == null) ? SvgStrokeLineCap.Butt : (SvgStrokeLineCap)this.Attributes["StrokeLineCap"]; }
-            set { this.Attributes["StrokeLineCap"] = value; }
+            get { return (this.Attributes["stroke-linecap"] == null) ? SvgStrokeLineCap.Butt : (SvgStrokeLineCap)this.Attributes["stroke-linecap"]; }
+            set { this.Attributes["stroke-linecap"] = value; }
         }
 
         [SvgAttribute("stroke-linejoin")]
         public virtual SvgStrokeLineJoin StrokeLineJoin
         {
-            get { return (this.Attributes["StrokeLineJoin"] == null) ? SvgStrokeLineJoin.Miter : (SvgStrokeLineJoin)this.Attributes["StrokeLineJoin"]; }
-            set { this.Attributes["StrokeLineJoin"] = value; }
+            get { return (this.Attributes["stroke-linejoin"] == null) ? SvgStrokeLineJoin.Miter : (SvgStrokeLineJoin)this.Attributes["stroke-linejoin"]; }
+            set { this.Attributes["stroke-linejoin"] = value; }
         }
 
         [SvgAttribute("stroke-miterlimit")]
         public virtual float StrokeMiterLimit
         {
-            get { return (this.Attributes["StrokeMiterLimit"] == null) ? 4.0f : (float)this.Attributes["StrokeMiterLimit"]; }
-            set { this.Attributes["StrokeMiterLimit"] = value; }
+            get { return (this.Attributes["stroke-miterlimit"] == null) ? 4.0f : (float)this.Attributes["stroke-miterlimit"]; }
+            set { this.Attributes["stroke-miterlimit"] = value; }
         }
 
         [SvgAttribute("stroke-dasharray")]
         public virtual SvgUnitCollection StrokeDashArray
         {
-            get { return this.Attributes["StrokeDashArray"] as SvgUnitCollection; }
-            set { this.Attributes["StrokeDashArray"] = value; }
+            get { return this.Attributes["stroke-dasharray"] as SvgUnitCollection; }
+            set { this.Attributes["stroke-dasharray"] = value; }
         }
 
         [SvgAttribute("stroke-dashoffset")]
         public virtual SvgUnit StrokeDashOffset
         {
-            get { return (this.Attributes["StrokeDashOffset"] == null) ? SvgUnit.Empty : (SvgUnit)this.Attributes["StrokeDashOffset"]; }
-            set { this.Attributes["StrokeDashOffset"] = value; }
+            get { return (this.Attributes["stroke-dashoffset"] == null) ? SvgUnit.Empty : (SvgUnit)this.Attributes["stroke-dashoffset"]; }
+            set { this.Attributes["stroke-dashoffset"] = value; }
         }
 
         /// <summary>
@@ -114,8 +114,8 @@ namespace Svg
         [SvgAttribute("stroke-opacity")]
         public virtual float StrokeOpacity
         {
-            get { return (this.Attributes["StrokeOpacity"] == null) ? this.Opacity : (float)this.Attributes["StrokeOpacity"]; }
-            set { this.Attributes["StrokeOpacity"] = FixOpacityValue(value); }
+            get { return (this.Attributes["stroke-opacity"] == null) ? this.Opacity : (float)this.Attributes["stroke-opacity"]; }
+            set { this.Attributes["stroke-opacity"] = FixOpacityValue(value); }
         }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace Svg
         [SvgAttribute("opacity")]
         public virtual float Opacity
         {
-            get { return (this.Attributes["Opacity"] == null) ? 1.0f : (float)this.Attributes["Opacity"]; }
-            set { this.Attributes["Opacity"] = FixOpacityValue(value); }
+            get { return (this.Attributes["opacity"] == null) ? 1.0f : (float)this.Attributes["opacity"]; }
+            set { this.Attributes["opacity"] = FixOpacityValue(value); }
         }
     }
 }

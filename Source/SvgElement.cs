@@ -238,14 +238,14 @@ namespace Svg
         [SvgAttribute("transform")]
         public SvgTransformCollection Transforms
         {
-            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("Transforms")); }
+            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("transform")); }
             set 
             { 
             	var old = this.Transforms;
             	if(old != null)
             		old.TransformChanged -= Attributes_AttributeChanged;
             	value.TransformChanged += Attributes_AttributeChanged;
-            	this.Attributes["Transforms"] = value; 
+            	this.Attributes["transform"] = value; 
             }
         }
 
@@ -256,7 +256,7 @@ namespace Svg
         [SvgAttribute("id")]
         public string ID
         {
-            get { return this.Attributes.GetAttribute<string>("ID"); }
+            get { return this.Attributes.GetAttribute<string>("id"); }
             set
             {
                 SetAndFixID(value, false);
@@ -276,7 +276,7 @@ namespace Svg
                 this.OwnerDocument.IdManager.Remove(this);
             }
 
-            this.Attributes["ID"] = value;
+            this.Attributes["id"] = value;
 
             if (this.OwnerDocument != null)
             {
@@ -290,7 +290,7 @@ namespace Svg
         /// <param name="newID"></param>
         internal void FixID(string newID)
         {
-            this.Attributes["ID"] = newID;
+            this.Attributes["id"] = newID;
         }
 
         /// <summary>
