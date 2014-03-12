@@ -53,12 +53,12 @@ namespace Svg
         /// <param name="item">The <see cref="SvgElement"/> to be added.</param>
         public void Insert(int index, SvgElement item)
         {
-            InsertAndFixID(index, item, false, false);
+            InsertAndForceUniqueID(index, item, false, false);
         }
 
-        public void InsertAndFixID(int index, SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        public void InsertAndForceUniqueID(int index, SvgElement item, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
-            AddToIdManager(item, this._elements[index], autoFixID, autoFixChildrenID, logElementOldIDNewID);
+            AddToIdManager(item, this._elements[index], autoForceUniqueID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Insert(index, item);
             item._parent.OnElementAdded(item, index);
         }
@@ -81,29 +81,29 @@ namespace Svg
 
         public void Add(SvgElement item)
         {
-            this.AddAndFixID(item, false, false);
+            this.AddAndForceUniqueID(item, false, false);
         }
 
-        public void AddAndFixID(SvgElement item, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        public void AddAndForceUniqueID(SvgElement item, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
-            AddToIdManager(item, null, autoFixID, autoFixChildrenID, logElementOldIDNewID);
+            AddToIdManager(item, null, autoForceUniqueID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Add(item);
             item._parent.OnElementAdded(item, this.Count - 1);
         }
 
-        private void AddToIdManager(SvgElement item, SvgElement sibling, bool autoFixID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        private void AddToIdManager(SvgElement item, SvgElement sibling, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
             if (!this._mock)
             {
             	if (this._owner.OwnerDocument != null)
             	{
-                    this._owner.OwnerDocument.IdManager.AddAndFixID(item, sibling, autoFixID, logElementOldIDNewID);
+                    this._owner.OwnerDocument.IdManager.AddAndForceUniqueID(item, sibling, autoForceUniqueID, logElementOldIDNewID);
 
                     if (!(item is SvgDocument)) //don't add subtree of a document to parent document
                     {
                         foreach (var child in item.Children)
                         {
-                            child.ApplyRecursive(e => this._owner.OwnerDocument.IdManager.AddAndFixID(e, null, autoFixChildrenID, logElementOldIDNewID));
+                            child.ApplyRecursive(e => this._owner.OwnerDocument.IdManager.AddAndForceUniqueID(e, null, autoFixChildrenID, logElementOldIDNewID));
                         }
                     }
                 }

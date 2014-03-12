@@ -48,7 +48,7 @@ namespace Svg
         /// <param name="element">The <see cref="SvgElement"/> to be managed.</param>
         public virtual void Add(SvgElement element)
         {
-            AddAndFixID(element, null, false);
+            AddAndForceUniqueID(element, null, false);
         }
 
         /// <summary>
@@ -56,20 +56,20 @@ namespace Svg
         /// And can auto fix the ID if it already exists or it starts with a number.
         /// </summary>
         /// <param name="element">The <see cref="SvgElement"/> to be managed.</param>
-        /// <param name="autoFixID">Pass true here, if you want the ID to be fixed</param>
+        /// <param name="autoForceUniqueID">Pass true here, if you want the ID to be fixed</param>
         /// <param name="logElementOldIDNewID">If not null, the action is called before the id is fixed</param>
         /// <returns>true, if ID was altered</returns>
-        public virtual bool AddAndFixID(SvgElement element, SvgElement sibling, bool autoFixID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        public virtual bool AddAndForceUniqueID(SvgElement element, SvgElement sibling, bool autoForceUniqueID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
             var result = false;
             if (!string.IsNullOrEmpty(element.ID))
             {
-                var newID = this.EnsureValidId(element.ID, autoFixID);
-                if (autoFixID && newID != element.ID)
+                var newID = this.EnsureValidId(element.ID, autoForceUniqueID);
+                if (autoForceUniqueID && newID != element.ID)
                 {
                     if(logElementOldIDNewID != null)
                         logElementOldIDNewID(element, element.ID, newID);
-                    element.FixID(newID);
+                    element.ForceUniqueID(newID);
                     result = true;
                 }
                 this._idValueMap.Add(element.ID, element);
@@ -101,7 +101,7 @@ namespace Svg
         /// <para>The ID cannot start with a digit.</para>
         /// <para>An element with the same ID already exists within the containing <see cref="SvgDocument"/>.</para>
         /// </exception>
-        public string EnsureValidId(string id, bool autoFixID = false)
+        public string EnsureValidId(string id, bool autoForceUniqueID = false)
         {
 
             if (string.IsNullOrEmpty(id))
@@ -111,7 +111,7 @@ namespace Svg
 
             if (char.IsDigit(id[0]))
             {
-                if (autoFixID)
+                if (autoForceUniqueID)
                 {
                     return EnsureValidId("id" + id, true);
                 }
@@ -120,7 +120,7 @@ namespace Svg
 
             if (this._idValueMap.ContainsKey(id))
             {
-                if(autoFixID)
+                if(autoForceUniqueID)
                 {
                     var match = regex.Match(id);
 

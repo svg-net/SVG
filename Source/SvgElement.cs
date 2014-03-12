@@ -259,11 +259,11 @@ namespace Svg
             get { return this.Attributes.GetAttribute<string>("id"); }
             set
             {
-                SetAndFixID(value, false);
+                SetAndForceUniqueID(value, false);
             }
         }
 
-        public void SetAndFixID(string value, bool autoFixID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        public void SetAndForceUniqueID(string value, bool autoForceUniqueID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
             // Don't do anything if it hasn't changed
             if (string.Compare(this.ID, value) == 0)
@@ -280,7 +280,7 @@ namespace Svg
 
             if (this.OwnerDocument != null)
             {
-                this.OwnerDocument.IdManager.AddAndFixID(this, null, autoFixID, logElementOldIDNewID);
+                this.OwnerDocument.IdManager.AddAndForceUniqueID(this, null, autoForceUniqueID, logElementOldIDNewID);
             }
         }
 
@@ -288,7 +288,7 @@ namespace Svg
         /// Only used by the ID Manager
         /// </summary>
         /// <param name="newID"></param>
-        internal void FixID(string newID)
+        internal void ForceUniqueID(string newID)
         {
             this.Attributes["id"] = newID;
         }
