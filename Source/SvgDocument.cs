@@ -232,29 +232,18 @@ namespace Svg
                                     goto case XmlNodeType.EndElement;
                                 }
 
-                                if (element == null)
-                                {
-                                    continue;
-                                }
-
                                 break;
                             case XmlNodeType.EndElement:
-                                // Skip if no element was created and is not the closing tag for the last
-                                // known element
-                                SvgElement topElement = elementStack.Peek();
-                                if (element == null && (topElement != null && reader.LocalName != topElement.ElementName))
-                                {
-                                    continue;
-                                }
+
                                 // Pop the element out of the stack
                                 element = elementStack.Pop();
 
-                                if (value.Length > 0)
+                                if (value.Length > 0 && element != null)
                                 {
-                                    if (element != null)
-                                        element.Content = value.ToString();
+                                    element.Content = value.ToString();
+                                    
                                     // Reset content value for new element
-                                    value = new StringBuilder();
+                                    value.Clear();
                                 }
                                 break;
                             case XmlNodeType.CDATA:
