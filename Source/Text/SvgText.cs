@@ -393,7 +393,43 @@ namespace Svg
 			}
 
 		}
+		
+		[SvgAttribute("onchange")]
+        public event EventHandler<StringArg> Change;
+		
+		//change
+        protected void OnChange(string newString, string sessionID)
+        {
+        	RaiseChange(this, new StringArg {s = newString, SessionID = sessionID});
+        }
+        
+        protected void RaiseChange(object sender, StringArg s)
+        {
+        	var handler = Change;
+            if (handler != null)
+            {
+                handler(sender, s);
+            }
+        }
 
+		public override void RegisterEvents(ISvgEventCaller caller)
+		{
+			//register basic events
+			base.RegisterEvents(caller); 
+			
+			//add change event for text
+            caller.RegisterAction<string, string>(this.ID + "/onchange", OnChange);
+		}
+		
+		public override void UnregisterEvents(ISvgEventCaller caller)
+		{
+			//unregister base events
+			base.UnregisterEvents(caller);
+			
+			//unregister change event
+        	caller.UnregisterAction(this.ID + "/onchange");
+			
+		}
 
 		public override SvgElement DeepCopy()
 		{

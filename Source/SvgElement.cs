@@ -707,8 +707,8 @@ namespace Svg
 						newObj.MouseScroll += delegate {  };
 					else if (attr.Event.Name == "Click")
 						newObj.Click += delegate {  };
-					else if (attr.Event.Name == "Change")
-						newObj.Change += delegate {  };
+					else if (attr.Event.Name == "Change") //text element
+						(newObj as SvgText).Change += delegate {  };
 				}
 			}
 			
@@ -754,9 +754,9 @@ namespace Svg
         #region graphical EVENTS
 
         /*  
-            onfocusin = "<anything>"
-            onfocusout = "<anything>"
-            onactivate = "<anything>"
+            	onfocusin = "<anything>"
+            	onfocusout = "<anything>"
+            	onactivate = "<anything>"
                 onclick = "<anything>"
                 onmousedown = "<anything>"
                 onmouseup = "<anything>"
@@ -768,22 +768,22 @@ namespace Svg
         /// <summary>
         /// Use this method to provide your implementation ISvgEventCaller which can register Actions 
         /// and call them if one of the events occurs. Make sure, that your SvgElement has a unique ID.
+        /// The SvgTextElement overwrites this and regsiters the Change event tor its text content.
         /// </summary>
         /// <param name="caller"></param>
-        public void RegisterEvents(ISvgEventCaller caller)
+        public virtual void RegisterEvents(ISvgEventCaller caller)
         {
             if (caller != null && !string.IsNullOrEmpty(this.ID))
             {
                 var rpcID = this.ID + "/";
 
-                caller.RegisterAction<float, float, int, int, string>(rpcID + "onclick", OnClick);
-                caller.RegisterAction<float, float, int, int, string>(rpcID + "onmousedown", OnMouseDown);
-                caller.RegisterAction<float, float, int, string>(rpcID + "onmouseup", OnMouseUp);
-                caller.RegisterAction<float, float, string>(rpcID + "onmousemove", OnMouseMove);
-                caller.RegisterAction<float, string>(rpcID + "onmousescroll", OnMouseScroll);
-                caller.RegisterAction<string>(rpcID + "onmouseover", OnMouseOver);
-                caller.RegisterAction<string>(rpcID + "onmouseout", OnMouseOut);
-                caller.RegisterAction<string, string>(rpcID + "onchange", OnChange);
+                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onclick", CreateMouseEventAction(RaiseMouseClick));
+                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmousedown", CreateMouseEventAction(RaiseMouseDown));
+                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseup", CreateMouseEventAction(RaiseMouseUp));
+                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmousemove", CreateMouseEventAction(RaiseMouseMove));
+                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseover", CreateMouseEventAction(RaiseMouseOver));
+                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseout", CreateMouseEventAction(RaiseMouseOut));
+                caller.RegisterAction<int, string>(rpcID + "onmousescroll", OnMouseScroll);
             }
         }
         
@@ -791,7 +791,7 @@ namespace Svg
         /// Use this method to provide your implementation ISvgEventCaller to unregister Actions
         /// </summary>
         /// <param name="caller"></param>
-        public void UnregisterEvents(ISvgEventCaller caller)
+        public virtual void UnregisterEvents(ISvgEventCaller caller)
         {
         	if (caller != null && !string.IsNullOrEmpty(this.ID))
         	{
@@ -804,7 +804,6 @@ namespace Svg
         		caller.UnregisterAction(rpcID + "onmousescroll");
         		caller.UnregisterAction(rpcID + "onmouseover");
         		caller.UnregisterAction(rpcID + "onmouseout");
-        		caller.UnregisterAction(rpcID + "onchange");
         	}
         }
 
@@ -818,26 +817,24 @@ namespace Svg
         public event EventHandler<MouseArg> MouseUp;
         
         [SvgAttribute("onmousemove")]
-        public event EventHandler<PointArg> MouseMove;
+        public event EventHandler<MouseArg> MouseMove;
 
         [SvgAttribute("onmousescroll")]
-        public event EventHandler<PointArg> MouseScroll;
+        public event EventHandler<MouseScrollArg> MouseScroll;
         
         [SvgAttribute("onmouseover")]
-        public event EventHandler<SVGArg> MouseOver;
+        public event EventHandler<MouseArg> MouseOver;
 
         [SvgAttribute("onmouseout")]
-        public event EventHandler<SVGArg> MouseOut;
+        public event EventHandler<MouseArg> MouseOut;
         
-        [SvgAttribute("onchange")]
-        public event EventHandler<StringArg> Change;
-
-        //click
-        protected void OnClick(float x, float y, int button, int clickCount, string sessionID)
+        protected Action<float, float, int, int, bool, bool, bool, string> CreateMouseEventAction(Action<object, MouseArg> eventRaiser)
         {
-        	RaiseMouseClick(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount, SessionID = sessionID });
+        	return (x, y, button, clickCount, altKey, shiftKey, ctrlKey, sessionID) =>
+        		eventRaiser(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount, AltKey = altKey, ShiftKey = shiftKey, CtrlKey = ctrlKey, SessionID = sessionID });
         }
         
+        //click
         protected void RaiseMouseClick(object sender, MouseArg e)
         {
         	var handler = Click;
@@ -848,11 +845,6 @@ namespace Svg
         }
 
         //down
-        protected void OnMouseDown(float x, float y, int button, int clickCount, string sessionID)
-        {
-        	RaiseMouseDown(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount, SessionID = sessionID });
-        }
-        
         protected void RaiseMouseDown(object sender, MouseArg e)
         {
         	var handler = MouseDown;
@@ -863,11 +855,6 @@ namespace Svg
         }
 
         //up
-        protected void OnMouseUp(float x, float y, int button, string sessionID)
-        {
-        	RaiseMouseUp(this, new MouseArg { x = x, y = y, Button = button, SessionID = sessionID });
-        }
-        
         protected void RaiseMouseUp(object sender, MouseArg e)
         {
         	var handler = MouseUp;
@@ -876,14 +863,8 @@ namespace Svg
                 handler(sender, e);
             }
         }
-        
-        //move
-        protected void OnMouseMove(float x, float y, string sessionID)
-        {
-        	RaiseMouseMove(this, new PointArg { x = x, y = y, SessionID = sessionID });
-        }
-        
-        protected void RaiseMouseMove(object sender, PointArg e)
+
+        protected void RaiseMouseMove(object sender, MouseArg e)
         {
         	var handler = MouseMove;
             if (handler != null)
@@ -892,28 +873,8 @@ namespace Svg
             }
         }
         
-        //scroll
-        protected void OnMouseScroll(float y, string sessionID)
-        {
-        	RaiseMouseScroll(this, new PointArg { x = 0, y = y, SessionID = sessionID});
-        }
-        
-        protected void RaiseMouseScroll(object sender, PointArg e)
-        {
-        	var handler = MouseScroll;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
-        }
-
-		//over        
-        protected void OnMouseOver(string sessionID)
-        {
-        	RaiseMouseOver(this, new SVGArg{ SessionID = sessionID });
-        }
-        
-        protected void RaiseMouseOver(object sender, SVGArg args)
+        //over
+        protected void RaiseMouseOver(object sender, MouseArg args)
         {
         	var handler = MouseOver;
             if (handler != null)
@@ -923,12 +884,7 @@ namespace Svg
         }
 
         //out
-        protected void OnMouseOut(string sessionID)
-        {
-        	RaiseMouseOut(this, new SVGArg{ SessionID = sessionID });
-        }
-        
-        protected void RaiseMouseOut(object sender, SVGArg args)
+        protected void RaiseMouseOut(object sender, MouseArg args)
         {
         	var handler = MouseOut;
             if (handler != null)
@@ -937,21 +893,22 @@ namespace Svg
             }
         }
         
-        //change
-        protected void OnChange(string newString, string sessionID)
+        
+        //scroll
+        protected void OnMouseScroll(int scroll, string sessionID)
         {
-        	RaiseChange(this, new StringArg {s = newString, SessionID = sessionID});
+        	RaiseMouseScroll(this, new MouseScrollArg { Scroll = scroll, SessionID = sessionID});
         }
         
-        protected void RaiseChange(object sender, StringArg s)
+        protected void RaiseMouseScroll(object sender, MouseScrollArg e)
         {
-        	var handler = Change;
+        	var handler = MouseScroll;
             if (handler != null)
             {
-                handler(sender, s);
+                handler(sender, e);
             }
         }
-
+        
         #endregion graphical EVENTS
 
     }
@@ -997,6 +954,9 @@ namespace Svg
         void RegisterAction<T1, T2, T3>(string rpcID, Action<T1, T2, T3> action);
         void RegisterAction<T1, T2, T3, T4>(string rpcID, Action<T1, T2, T3, T4> action);
         void RegisterAction<T1, T2, T3, T4, T5>(string rpcID, Action<T1, T2, T3, T4, T5> action);
+        void RegisterAction<T1, T2, T3, T4, T5, T6>(string rpcID, Action<T1, T2, T3, T4, T5, T6> action);
+        void RegisterAction<T1, T2, T3, T4, T5, T6, T7>(string rpcID, Action<T1, T2, T3, T4, T5, T6, T7> action);
+        void RegisterAction<T1, T2, T3, T4, T5, T6, T7, T8>(string rpcID, Action<T1, T2, T3, T4, T5, T6, T7, T8> action);
         void UnregisterAction(string rpcID);
     }
 
@@ -1013,16 +973,25 @@ namespace Svg
         /// </summary>
         public int Button;
         
+        /// <summary>
+        /// Amount of mouse clicks, e.g. 2 for double click
+        /// </summary>
         public int ClickCount = -1;
-    }
-
-    /// <summary>
-    /// Represents the mouse position at the moment the event occured.
-    /// </summary>
-    public class PointArg : SVGArg
-    {
-        public float x;
-        public float y;
+        
+        /// <summary>
+        /// Alt modifier key pressed
+        /// </summary>
+        public bool AltKey;
+        
+        /// <summary>
+        /// Shift modifier key pressed
+        /// </summary>
+        public bool ShiftKey;
+        
+        /// <summary>
+        /// Control modifier key pressed
+        /// </summary>
+        public bool CtrlKey;
     }
     
     /// <summary>
@@ -1031,6 +1000,11 @@ namespace Svg
     public class StringArg : SVGArg
     {
         public string s;
+    }
+    
+    public class MouseScrollArg : SVGArg
+    {
+    	public int Scroll;
     }
 
     internal interface ISvgElement
