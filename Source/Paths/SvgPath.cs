@@ -18,7 +18,6 @@ namespace Svg
     public class SvgPath : SvgVisualElement
     {
         private GraphicsPath _path;
-        private int _pathLength;
 
         /// <summary>
         /// Gets or sets a <see cref="SvgPathSegmentList"/> of path data.
@@ -41,8 +40,8 @@ namespace Svg
         [SvgAttribute("pathLength")]
         public int PathLength
         {
-            get { return this._pathLength; }
-            set { this._pathLength = value; }
+        	get { return this.Attributes.GetAttribute<int>("pathLength"); }
+            set { this.Attributes["pathLength"] = value; }
         }
 
 		

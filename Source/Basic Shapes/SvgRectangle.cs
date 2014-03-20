@@ -46,13 +46,16 @@ namespace Svg
         [SvgAttribute("x")]
         public SvgUnit X
         {
-            get { return _x; }
-            set
-            {
-                _x = value;
-                OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
-                IsPathDirty = true;
-            }
+        	get { return _x; }
+        	set
+        	{
+        		if(_x != value)
+        		{
+        			_x = value;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
+        			IsPathDirty = true;
+        		}
+        	}
         }
 
         /// <summary>
@@ -61,13 +64,16 @@ namespace Svg
         [SvgAttribute("y")]
         public SvgUnit Y
         {
-            get { return _y; }
-            set
-            {
-                _y = value;
-                OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
-                IsPathDirty = true;
-            }
+        	get { return _y; }
+        	set
+        	{
+        		if(_y != value)
+        		{
+        			_y = value;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
+        			IsPathDirty = true;
+        		}
+        	}
         }
 
         /// <summary>
@@ -76,13 +82,16 @@ namespace Svg
         [SvgAttribute("width")]
         public SvgUnit Width
         {
-            get { return _width; }
-            set
-            {
-                _width = value;
-                OnAttributeChanged(new AttributeEventArgs{ Attribute = "width", Value = value });
-                IsPathDirty = true;
-            }
+        	get { return _width; }
+        	set
+        	{
+        		if(_width != value)
+        		{
+        			_width = value;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "width", Value = value });
+        			IsPathDirty = true;
+        		}
+        	}
         }
 
         /// <summary>
@@ -91,13 +100,16 @@ namespace Svg
         [SvgAttribute("height")]
         public SvgUnit Height
         {
-            get { return _height; }
-            set
-            {
-                _height = value;
-                OnAttributeChanged(new AttributeEventArgs{ Attribute = "height", Value = value });
-                IsPathDirty = true;
-            }
+        	get { return _height; }
+        	set
+        	{
+        		if(_height != value)
+        		{
+        			_height = value;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "height", Value = value });
+        			IsPathDirty = true;
+        		}
+        	}
         }
 
         /// <summary>

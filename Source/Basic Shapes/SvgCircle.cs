@@ -36,27 +36,43 @@ namespace Svg
             get { return this._centerX; }
             set
             {
-                this._centerX = value;
-                this.IsPathDirty = true;
+            	if(_centerX != value)
+            	{
+            		this._centerX = value;
+            		this.IsPathDirty = true;
+            		OnAttributeChanged(new AttributeEventArgs{ Attribute = "cx", Value = value });
+            	}
             }
         }
 
         [SvgAttribute("cy")]
         public virtual SvgUnit CenterY
         {
-            get { return this._centerY; }
-            set
-            {
-                this._centerY = value;
-                this.IsPathDirty = true;
-            }
+        	get { return this._centerY; }
+        	set
+        	{
+        		if(_centerY != value)
+        		{
+        			this._centerY = value;
+        			this.IsPathDirty = true;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "cy", Value = value });
+        		}
+        	}
         }
 
         [SvgAttribute("r")]
         public virtual SvgUnit Radius
         {
-            get { return this._radius; }
-            set { this._radius = value; this.IsPathDirty = true; }
+        	get { return this._radius; }
+        	set
+        	{
+        		if(_radius != value)
+        		{
+        			this._radius = value;
+        			this.IsPathDirty = true;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "r", Value = value });
+        		}
+        	}
         }
 
         /// <summary>

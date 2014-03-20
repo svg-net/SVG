@@ -85,13 +85,16 @@ namespace Svg
         [SvgAttribute("x")]
         public virtual SvgUnit X
         {
-            get { return this._x; }
-            set 
-            { 
-            	this._x = value; 
-            	this.IsPathDirty = true;
-            	OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
-            }
+        	get { return this._x; }
+        	set
+        	{
+        		if(_x != value)
+        		{
+        			this._x = value;
+        			this.IsPathDirty = true;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
+        		}
+        	}
         }
 
         /// <summary>
@@ -101,13 +104,16 @@ namespace Svg
         [SvgAttribute("y")]
         public virtual SvgUnit Y
         {
-            get { return this._y; }
-            set 
-            { 
-            	this._y = value; 
-            	this.IsPathDirty = true; 
-            	OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
-            }
+        	get { return this._y; }
+        	set
+        	{
+        		if(_y != value)
+        		{
+        			this._y = value;
+        			this.IsPathDirty = true;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
+        		}
+        	}
         }
 
         /// <summary>
