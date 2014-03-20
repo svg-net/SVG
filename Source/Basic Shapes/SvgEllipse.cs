@@ -26,34 +26,58 @@ namespace Svg
             get { return this._centerX; }
             set
             {
-                this._centerX = value;
-                this.IsPathDirty = true;
+            	if(_centerX != value)
+            	{
+            		this._centerX = value;
+            		this.IsPathDirty = true;
+            		OnAttributeChanged(new AttributeEventArgs{ Attribute = "cx", Value = value });
+            	}
             }
         }
 
         [SvgAttribute("cy")]
         public virtual SvgUnit CenterY
         {
-            get { return this._centerY; }
-            set
-            {
-                this._centerY = value;
-                this.IsPathDirty = true;
-            }
+        	get { return this._centerY; }
+        	set
+        	{
+        		if(_centerY != value)
+        		{
+        			this._centerY = value;
+        			this.IsPathDirty = true;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "cy", Value = value });
+        		}
+        	}
         }
 
         [SvgAttribute("rx")]
         public virtual SvgUnit RadiusX
         {
-            get { return this._radiusX; }
-            set { this._radiusX = value; this.IsPathDirty = true; }
+        	get { return this._radiusX; }
+        	set
+        	{
+        		if(_radiusX != value)
+        		{
+        			this._radiusX = value;
+        			this.IsPathDirty = true;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "rx", Value = value });
+        		}
+        	}
         }
 
         [SvgAttribute("ry")]
         public virtual SvgUnit RadiusY
         {
-            get { return this._radiusY; }
-            set { this._radiusY = value; this.IsPathDirty = true; }
+        	get { return this._radiusY; }
+        	set
+        	{
+        		if(_radiusY != value)
+        		{
+        			this._radiusY = value;
+        			this.IsPathDirty = true;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "ry", Value = value });
+        		}
+        	}
         }
 
         /// <summary>
