@@ -33,14 +33,36 @@ namespace Svg
         [SvgAttribute("fx")]
         public SvgUnit FocalX
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("fx"); }
+            get
+            {
+                var value = this.Attributes.GetAttribute<SvgUnit>("fx");
+
+                if (value.IsEmpty || value.IsNone)
+                {
+                    value = this.CenterX;
+                }
+
+                return value;
+            }
+
             set { this.Attributes["fx"] = value; }
         }
 
         [SvgAttribute("fy")]
         public SvgUnit FocalY
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("fy"); }
+            get
+            {
+                var value = this.Attributes.GetAttribute<SvgUnit>("fy");
+
+                if (value.IsEmpty || value.IsNone)
+                {
+                    value = this.CenterY;
+                }
+
+                return value;
+            }
+
             set { this.Attributes["fy"] = value; }
         }
 
