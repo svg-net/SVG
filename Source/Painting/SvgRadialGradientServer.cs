@@ -65,13 +65,20 @@ namespace Svg
 
             if (radius > 0)
             {
-                path.AddEllipse(left - radius, top - radius, radius * 2, radius * 2);
+                path.AddEllipse(
+                    boundingBox.Left + left - radius,
+                    boundingBox.Top + top - radius,
+                    radius * 2,
+                    radius * 2);
 
                 PathGradientBrush brush = new PathGradientBrush(path);
                 ColorBlend blend = base.GetColourBlend(renderingElement, opacity);
 
                 brush.InterpolationColors = blend;
-                brush.CenterPoint = new PointF(this.FocalX.ToDeviceValue(renderingElement), this.FocalY.ToDeviceValue(renderingElement, true));
+                brush.CenterPoint =
+                    new PointF(
+                        boundingBox.Left + this.FocalX.ToDeviceValue(renderingElement),
+                        boundingBox.Top + this.FocalY.ToDeviceValue(renderingElement, true));
 
                 return brush;
             }
