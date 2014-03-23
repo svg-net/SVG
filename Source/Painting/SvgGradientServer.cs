@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -106,12 +103,13 @@ namespace Svg
         /// <param name="opacity">The opacity of the colour blend.</param>
         protected ColorBlend GetColourBlend(SvgVisualElement owner, float opacity)
         {
-            ColorBlend blend = new ColorBlend();
             int colourBlends = this.Stops.Count;
             bool insertStart = false;
             bool insertEnd = false;
 
             //gradient.Transform = renderingElement.Transforms.Matrix;
+
+            //stops should be processed in reverse order
 
             // May need to increase the number of colour blends because the range *must* be from 0.0 to 1.0.
             // E.g. 0.5 - 0.8 isn't valid therefore the rest need to be calculated.
@@ -120,8 +118,8 @@ namespace Svg
             if (this.Stops[0].Offset.Value > 0)
             {
                 colourBlends++;
-                // Indicate that a colour has to be dynamically added at the start
-                insertStart = true;
+                // Indicate that a colour has to be dynamically added at the end
+                insertEnd = true;
             }
 
             // If the last stop doesn't end at 1 a stop
@@ -129,12 +127,11 @@ namespace Svg
             if (lastValue < 100 || lastValue < 1)
             {
                 colourBlends++;
-                // Indicate that a colour has to be dynamically added at the end
-                insertEnd = true;
+                // Indicate that a colour has to be dynamically added at the start
+                insertStart = true;
             }
 
-            blend.Positions = new float[colourBlends];
-            blend.Colors = new Color[colourBlends];
+            ColorBlend blend = new ColorBlend(colourBlends);
 
             // Set positions and colour values
             int actualStops = 0;
@@ -144,15 +141,21 @@ namespace Svg
 
             for (int i = 0; i < colourBlends; i++)
             {
-                mergedOpacity = opacity * this.Stops[actualStops].Opacity;
-                position = (this.Stops[actualStops].Offset.ToDeviceValue(owner) / owner.Bounds.Width);
-                colour = Color.FromArgb((int)(mergedOpacity * 255), this.Stops[actualStops++].Colour);
+                var currentStop = this.Stops[this.Stops.Count - 1 - actualStops];
+
+                mergedOpacity = opacity * currentStop.Opacity;
+                position = 1 - (currentStop.Offset.ToDeviceValue(owner) / owner.Bounds.Width);
+                colour = Color.FromArgb((int)(mergedOpacity * 255), currentStop.Colour);
+
+                actualStops++;
 
                 // Insert this colour before itself at position 0
                 if (insertStart && i == 0)
                 {
                     blend.Positions[i] = 0.0f;
-                    blend.Colors[i++] = colour;
+                    blend.Colors[i] = colour;
+
+                    i++;
                 }
 
                 blend.Positions[i] = position;
@@ -161,8 +164,10 @@ namespace Svg
                 // Insert this colour after itself at position 0
                 if (insertEnd && i == colourBlends - 2)
                 {
-                    blend.Positions[i + 1] = 1.0f;
-                    blend.Colors[++i] = colour;
+                    i++;
+
+                    blend.Positions[i] = 1.0f;
+                    blend.Colors[i] = colour;
                 }
             }
 
@@ -184,12 +189,12 @@ namespace Svg
 		public override SvgElement DeepCopy<T>()
 		{
 			var newObj = base.DeepCopy<T>() as SvgGradientServer;
-			newObj.SpreadMethod = this.SpreadMethod;
+			
+            newObj.SpreadMethod = this.SpreadMethod;
 			newObj.GradientUnits = this.GradientUnits;
 			newObj.InheritGradient = this.InheritGradient;
+
 			return newObj;
-
 		}
-
     }
 }
