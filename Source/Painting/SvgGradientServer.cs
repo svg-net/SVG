@@ -101,7 +101,7 @@ namespace Svg
         /// </summary>
         /// <param name="owner">The parent <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the colour blend.</param>
-        protected ColorBlend GetColourBlend(SvgVisualElement owner, float opacity)
+        protected ColorBlend GetColourBlend(SvgVisualElement owner, float opacity, bool radial)
         {
             int colourBlends = this.Stops.Count;
             bool insertStart = false;
@@ -109,7 +109,7 @@ namespace Svg
 
             //gradient.Transform = renderingElement.Transforms.Matrix;
 
-            //stops should be processed in reverse order
+            //stops should be processed in reverse order if it's a radial gradient
 
             // May need to increase the number of colour blends because the range *must* be from 0.0 to 1.0.
             // E.g. 0.5 - 0.8 isn't valid therefore the rest need to be calculated.
@@ -118,8 +118,15 @@ namespace Svg
             if (this.Stops[0].Offset.Value > 0)
             {
                 colourBlends++;
-                // Indicate that a colour has to be dynamically added at the end
-                insertEnd = true;
+                
+                if (radial)
+                {
+                    insertEnd = true;
+                }
+                else
+                {
+                    insertStart = true;
+                }
             }
 
             // If the last stop doesn't end at 1 a stop
@@ -127,8 +134,14 @@ namespace Svg
             if (lastValue < 100 || lastValue < 1)
             {
                 colourBlends++;
-                // Indicate that a colour has to be dynamically added at the start
-                insertStart = true;
+                if (radial)
+                {
+                    insertStart = true;
+                }
+                else
+                {
+                    insertEnd = true;
+                }
             }
 
             ColorBlend blend = new ColorBlend(colourBlends);
@@ -141,10 +154,13 @@ namespace Svg
 
             for (int i = 0; i < colourBlends; i++)
             {
-                var currentStop = this.Stops[this.Stops.Count - 1 - actualStops];
+                var currentStop = this.Stops[radial ? this.Stops.Count - 1 - actualStops : actualStops];
 
                 mergedOpacity = opacity * currentStop.Opacity;
-                position = 1 - (currentStop.Offset.ToDeviceValue(owner) / owner.Bounds.Width);
+                position =
+                    radial
+                    ? 1 - (currentStop.Offset.ToDeviceValue(owner) / owner.Bounds.Width)
+                    : (currentStop.Offset.ToDeviceValue(owner) / owner.Bounds.Width);
                 colour = Color.FromArgb((int)(mergedOpacity * 255), currentStop.Colour);
 
                 actualStops++;

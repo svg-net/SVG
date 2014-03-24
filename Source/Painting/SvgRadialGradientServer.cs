@@ -96,7 +96,7 @@ namespace Svg
                 radius * 2);
 
             PathGradientBrush brush = new PathGradientBrush(path);
-            ColorBlend blend = base.GetColourBlend(renderingElement, opacity);
+            ColorBlend blend = base.GetColourBlend(renderingElement, opacity, true);
 
             brush.InterpolationColors = blend;
             brush.CenterPoint =
