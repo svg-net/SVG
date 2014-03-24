@@ -100,7 +100,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets a <see cref="ColourBlend"/> representing the <see cref="SvgGradientServer"/>'s gradient stops.
+        /// Gets a <see cref="ColorBlend"/> representing the <see cref="SvgGradientServer"/>'s gradient stops.
         /// </summary>
         /// <param name="owner">The parent <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the colour blend.</param>
