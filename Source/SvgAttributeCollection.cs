@@ -92,7 +92,7 @@ namespace Svg
             	if(base.ContainsKey(attributeName))
             	{
 	            	var oldVal = base[attributeName];	            	
-	            	if(TryUnboxAndCheck(oldVal, value))
+	            	if(TryUnboxedCheck(oldVal, value))
 	            	{
 	            		base[attributeName] = value;
 	            		OnAttributeChanged(attributeName, value);
@@ -106,13 +106,10 @@ namespace Svg
             }
         }
         
-        private bool TryUnboxAndCheck(object a, object b)
+        private bool TryUnboxedCheck(object a, object b)
         {
-        	System.Diagnostics.Debug.WriteLine("object type: " + a.GetType().ToString());
         	if(IsValueType(a))
         	{
-        		System.Diagnostics.Debug.WriteLine("is value type");
-        		
         		if(a is SvgUnit)
         			return UnboxAndCheck<SvgUnit>(a, b);
         		else if(a is bool)

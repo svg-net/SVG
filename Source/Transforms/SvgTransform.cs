@@ -19,7 +19,17 @@ namespace Svg.Transforms
 			SvgTransform other = obj as SvgTransform;
 			if (other == null)
 				return false;
-			return this.Matrix == other.Matrix;
+			
+			var thisMatrix = this.Matrix.Elements;
+			var otherMatrix = other.Matrix.Elements;
+			
+			for (int i = 0; i < 6; i++) 
+			{
+				if(thisMatrix[i] != otherMatrix[i])
+					return false;
+			}
+			
+			return true;
 		}
     	
     	public override int GetHashCode()
