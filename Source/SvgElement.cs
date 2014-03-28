@@ -676,9 +676,7 @@ namespace Svg
 
 			if (this.Transforms != null)
 			{
-				newObj.Transforms = new SvgTransformCollection();
-				foreach (var transform in this.Transforms)
-					newObj.Transforms.Add(transform.Clone() as SvgTransform);
+				newObj.Transforms = this.Transforms.Clone() as SvgTransformCollection;
 			}
 
 			foreach (var child in this.Children)

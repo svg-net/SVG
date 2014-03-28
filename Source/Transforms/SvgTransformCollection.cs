@@ -8,12 +8,16 @@ using System.Text;
 namespace Svg.Transforms
 {
     [TypeConverter(typeof(SvgTransformConverter))]
-    public class SvgTransformCollection : List<SvgTransform>
+    public class SvgTransformCollection : List<SvgTransform>, ICloneable
     {
-	
-    	public new void Add(SvgTransform item)
+    	private void AddItem(SvgTransform item)
     	{
     		base.Add(item);
+    	}
+    	
+    	public new void Add(SvgTransform item)
+    	{
+    		AddItem(item);
     		OnTransformChanged();
     	}
     	
@@ -91,9 +95,19 @@ namespace Svg.Transforms
         	var handler = TransformChanged;
         	if(handler != null)
         	{
-        		handler(this, new AttributeEventArgs { Attribute = "transform", Value = this });
+        		//make a copy of the current value to avoid collection changed exceptions
+        		handler(this, new AttributeEventArgs { Attribute = "transform", Value = this.Clone() });
         	}
-        }
-    		
+        }	
+    	
+		public object Clone()
+		{
+			var result = new SvgTransformCollection();
+			foreach (var trans in this) 
+			{
+				result.AddItem(trans.Clone() as SvgTransform);
+			}
+			return result;
+		}
     }
 }
