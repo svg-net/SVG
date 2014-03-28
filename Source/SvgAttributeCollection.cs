@@ -91,9 +91,12 @@ namespace Svg
             {
             	if(base.ContainsKey(attributeName))
             	{
-	            	var oldVal = base[attributeName];
-	            	base[attributeName] = value;
-	            	if(oldVal != value) OnAttributeChanged(attributeName, value);
+	            	var oldVal = base[attributeName];	            	
+	            	if(TryUnboxAndCheck(oldVal, value))
+	            	{
+	            		base[attributeName] = value;
+	            		OnAttributeChanged(attributeName, value);
+	            	}
             	}
             	else
             	{
@@ -101,6 +104,40 @@ namespace Svg
 	            	OnAttributeChanged(attributeName, value);
             	}
             }
+        }
+        
+        private bool TryUnboxAndCheck(object a, object b)
+        {
+        	System.Diagnostics.Debug.WriteLine("object type: " + a.GetType().ToString());
+        	if(IsValueType(a))
+        	{
+        		System.Diagnostics.Debug.WriteLine("is value type");
+        		
+        		if(a is SvgUnit)
+        			return UnboxAndCheck<SvgUnit>(a, b);
+        		else if(a is bool)
+        			return UnboxAndCheck<bool>(a, b);
+        		else if(a is int)
+        			return UnboxAndCheck<int>(a, b);
+        		else if(a is float)
+        			return UnboxAndCheck<float>(a, b);
+        		else
+        			return true;
+        	}
+        	else
+        	{
+        		return a != b;
+        	}
+        }
+        
+        private bool UnboxAndCheck<T>(object a, object b)
+        {
+        	return !((T)a).Equals((T)b);
+        }
+        
+        private bool IsValueType(object obj) 
+        {
+        	return obj != null && obj.GetType().IsValueType;
         }
         
         /// <summary>
