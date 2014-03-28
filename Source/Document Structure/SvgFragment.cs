@@ -14,11 +14,6 @@ namespace Svg
     [SvgElement("svg")]
     public class SvgFragment : SvgElement, ISvgViewPort
     {
-        private SvgUnit _width;
-        private SvgUnit _height;
-        private SvgViewBox _viewBox;
-        private SvgAspectRatio _aspect;
-
         /// <summary>
         /// Gets the SVG namespace string.
         /// </summary>
@@ -31,8 +26,8 @@ namespace Svg
         [SvgAttribute("width")]
         public SvgUnit Width
         {
-            get { return this._width; }
-            set { this._width = value; }
+            get { return this.Attributes.GetAttribute<SvgUnit>("width"); }
+			set { this.Attributes["width"] = value; }
         }
 
         /// <summary>
@@ -42,8 +37,8 @@ namespace Svg
         [SvgAttribute("height")]
         public SvgUnit Height
         {
-            get { return this._height; }
-            set { this._height = value; }
+            get { return this.Attributes.GetAttribute<SvgUnit>("height"); }
+			set { this.Attributes["height"] = value; }
         }
 
 		[SvgAttribute("overflow")]
@@ -60,8 +55,8 @@ namespace Svg
         [SvgAttribute("viewBox")]
         public SvgViewBox ViewBox
         {
-            get { return this._viewBox; }
-            set { this._viewBox = value; }
+            get { return this.Attributes.GetAttribute<SvgViewBox>("viewBox"); }
+            set { this.Attributes["viewBox"] = value; }
         }
         
         /// <summary>
@@ -71,8 +66,8 @@ namespace Svg
         [SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio
         {
-            get { return this._aspect; }
-            set { this._aspect = value; }
+            get {return this.Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio"); }
+            set { this.Attributes["preserveAspectRatio"] = value; }
         }
 
         /// <summary>
@@ -117,7 +112,6 @@ namespace Svg
         	{
         		return this.Path.GetBounds();
         	}
-        		
         }
 
         /// <summary>
@@ -125,8 +119,8 @@ namespace Svg
         /// </summary>
         public SvgFragment()
         {
-            this._height = new SvgUnit(SvgUnitType.Percentage, 100.0f);
-            this._width = new SvgUnit(SvgUnitType.Percentage, 100.0f);
+            this.Height = new SvgUnit(SvgUnitType.Percentage, 100.0f);
+            this.Width = new SvgUnit(SvgUnitType.Percentage, 100.0f);
             this.ViewBox = SvgViewBox.Empty;
             this.AspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.None);
         }
