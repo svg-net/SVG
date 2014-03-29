@@ -23,28 +23,60 @@ namespace Svg
         public SvgUnit StartX
         {
             get { return this._startX; }
-            set { this._startX = value; this.IsPathDirty = true; }
+            set 
+            { 
+            	if(_startX != value)
+            	{
+            		this._startX = value;
+            		this.IsPathDirty = true;
+            		OnAttributeChanged(new AttributeEventArgs{ Attribute = "x1", Value = value });
+            	}
+            }
         }
 
         [SvgAttribute("y1")]
         public SvgUnit StartY
         {
             get { return this._startY; }
-            set { this._startY = value; this.IsPathDirty = true; }
+            set 
+            { 
+            	if(_startY != value)
+            	{
+            		this._startY = value;
+            		this.IsPathDirty = true;
+            		OnAttributeChanged(new AttributeEventArgs{ Attribute = "y1", Value = value });
+            	}
+            }
         }
 
         [SvgAttribute("x2")]
         public SvgUnit EndX
         {
             get { return this._endX; }
-            set { this._endX = value; this.IsPathDirty = true; }
+            set 
+            { 
+            	if(_endX != value)
+            	{
+            		this._endX = value;
+            		this.IsPathDirty = true;
+            		OnAttributeChanged(new AttributeEventArgs{ Attribute = "x2", Value = value });
+            	}
+            }
         }
 
         [SvgAttribute("y2")]
         public SvgUnit EndY
         {
             get { return this._endY; }
-            set { this._endY = value; this.IsPathDirty = true; }
+            set 
+            { 
+            	if(_endY != value)
+            	{
+            		this._endY = value;
+            		this.IsPathDirty = true;
+            		OnAttributeChanged(new AttributeEventArgs{ Attribute = "y2", Value = value });
+            	}
+            }
         }
 
         public override SvgPaintServer Fill
