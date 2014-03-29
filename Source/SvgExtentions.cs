@@ -81,5 +81,18 @@ namespace Svg
         		}
         	}
         }
+        
+        public static void ApplyRecursiveDepthFirst(this SvgElement elem, Action<SvgElement> action)
+        {
+        	if(!(elem is SvgDocument)) //don't apply action to subtree of documents
+        	{
+        		foreach (var element in elem.Children)
+        		{
+        			element.ApplyRecursiveDepthFirst(action);
+        		}
+        	}
+        	
+        	action(elem);
+        }
     }
 }

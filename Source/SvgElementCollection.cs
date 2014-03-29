@@ -156,7 +156,7 @@ namespace Svg
 
                     if (this._owner.OwnerDocument != null)
                     {
-                        item.ApplyRecursive(this._owner.OwnerDocument.IdManager.Remove);
+                        item.ApplyRecursiveDepthFirst(this._owner.OwnerDocument.IdManager.Remove);
                     }
                 }
             }
