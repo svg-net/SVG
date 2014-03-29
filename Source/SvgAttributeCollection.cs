@@ -118,6 +118,8 @@ namespace Svg
         			return UnboxAndCheck<int>(a, b);
         		else if(a is float)
         			return UnboxAndCheck<float>(a, b);
+        		else if(a is SvgViewBox)
+        			return UnboxAndCheck<SvgViewBox>(a, b);
         		else
         			return true;
         	}
