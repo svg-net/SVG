@@ -47,10 +47,18 @@ namespace Svg
             	var r = new RectangleF();
             	foreach(var c in this.Children)
             	{
-            		if(c is SvgVisualElement)
-            			r = RectangleF.Union(r, ((SvgVisualElement)c).Bounds);
+                    if (c is SvgVisualElement)
+                    {
+                    	// First it should check if rectangle is empty or it will return the wrong Bounds.
+                    	// This is because when the Rectangle is Empty, the Union method adds as if the first values where X=0, Y=0
+                        if (r.IsEmpty)
+                            r = ((SvgVisualElement)c).Bounds;
+                        else
+                            r = RectangleF.Union(r, ((SvgVisualElement)c).Bounds);
+                    }
             	}
-				return r;         	
+            	
+            	return r;
             }
         }
 
