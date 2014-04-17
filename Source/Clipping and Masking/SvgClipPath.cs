@@ -98,7 +98,7 @@ namespace Svg
 
         /// <summary>
         /// Called by the underlying <see cref="SvgElement"/> when an element has been removed from the
-        /// <see cref="Children"/> collection.
+        /// <see cref="SvgElement.Children"/> collection.
         /// </summary>
         /// <param name="child">The <see cref="SvgElement"/> that has been removed.</param>
         protected override void RemoveElement(SvgElement child)

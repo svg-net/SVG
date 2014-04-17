@@ -270,9 +270,10 @@ namespace Svg
             get
             {
                 // Make sure the path is always null if there is no text
-				//if (string.IsNullOrEmpty(this.Text))
-				//    _path = null;
+				if (string.IsNullOrWhiteSpace(this.Text))
+				    return _path = null;
 				//NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
+                // When an empty string is passed to GraphicsPath, it rises an InvalidArgumentException...
 
 				if (_path == null || this.IsPathDirty)
                 {
