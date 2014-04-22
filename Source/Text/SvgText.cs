@@ -319,7 +319,7 @@ namespace Svg
         private static string ValidateFontFamily(string fontFamilyList)
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
-            var fontParts = fontFamilyList.Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ' }));
+            var fontParts = fontFamilyList.Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ','\''  }));
 
             var families = System.Drawing.FontFamily.Families;
 
