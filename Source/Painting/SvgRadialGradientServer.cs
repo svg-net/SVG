@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -33,14 +30,36 @@ namespace Svg
         [SvgAttribute("fx")]
         public SvgUnit FocalX
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("fx"); }
+            get
+            {
+                var value = this.Attributes.GetAttribute<SvgUnit>("fx");
+
+                if (value.IsEmpty || value.IsNone)
+                {
+                    value = this.CenterX;
+                }
+
+                return value;
+            }
+
             set { this.Attributes["fx"] = value; }
         }
 
         [SvgAttribute("fy")]
         public SvgUnit FocalY
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("fy"); }
+            get
+            {
+                var value = this.Attributes.GetAttribute<SvgUnit>("fy");
+
+                if (value.IsEmpty || value.IsNone)
+                {
+                    value = this.CenterY;
+                }
+
+                return value;
+            }
+
             set { this.Attributes["fy"] = value; }
         }
 
@@ -57,26 +76,35 @@ namespace Svg
 
         public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
         {
+            float radius = this.Radius.ToDeviceValue(renderingElement);
+
+            if (radius <= 0)
+            {
+                return null;
+            }
+            
             GraphicsPath path = new GraphicsPath();
             float left = this.CenterX.ToDeviceValue(renderingElement);
             float top = this.CenterY.ToDeviceValue(renderingElement, true);
-            float radius = this.Radius.ToDeviceValue(renderingElement);
+            
             RectangleF boundingBox = (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) ? renderingElement.Bounds : renderingElement.OwnerDocument.GetDimensions();
 
-            if (radius > 0)
-            {
-                path.AddEllipse(left - radius, top - radius, radius * 2, radius * 2);
+            path.AddEllipse(
+                boundingBox.Left + left - radius,
+                boundingBox.Top + top - radius,
+                radius * 2,
+                radius * 2);
 
-                PathGradientBrush brush = new PathGradientBrush(path);
-                ColorBlend blend = base.GetColourBlend(renderingElement, opacity);
+            PathGradientBrush brush = new PathGradientBrush(path);
+            ColorBlend blend = base.GetColourBlend(renderingElement, opacity, true);
 
-                brush.InterpolationColors = blend;
-                brush.CenterPoint = new PointF(this.FocalX.ToDeviceValue(renderingElement), this.FocalY.ToDeviceValue(renderingElement, true));
+            brush.InterpolationColors = blend;
+            brush.CenterPoint =
+                new PointF(
+                    boundingBox.Left + this.FocalX.ToDeviceValue(renderingElement),
+                    boundingBox.Top + this.FocalY.ToDeviceValue(renderingElement, true));
 
-                return brush;
-            }
-            
-            return null;            
+            return brush;
         }
 
 
@@ -89,13 +117,14 @@ namespace Svg
 		public override SvgElement DeepCopy<T>()
 		{
 			var newObj = base.DeepCopy<T>() as SvgRadialGradientServer;
+
 			newObj.CenterX = this.CenterX;
 			newObj.CenterY = this.CenterY;
 			newObj.Radius = this.Radius;
 			newObj.FocalX = this.FocalX;
 			newObj.FocalY = this.FocalY;
-			return newObj;
 
+			return newObj;
 		}
     }
 }
