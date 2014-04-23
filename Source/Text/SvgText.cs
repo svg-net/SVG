@@ -19,6 +19,8 @@ namespace Svg
     {
         private SvgUnit _x;
         private SvgUnit _y;
+        private SvgUnit _dy;
+        private SvgUnit _dx;
         private SvgUnit _letterSpacing;
         private SvgUnit _wordSpacing;
         private SvgUnit _fontSize;
@@ -47,6 +49,8 @@ namespace Svg
         {
             this._fontFamily = DefaultFontFamily;
             this._fontSize = new SvgUnit(0.0f);
+            this._dy = new SvgUnit(0.0f);
+            this._dx = new SvgUnit(0.0f);
         }
 
         /// <summary>
@@ -98,6 +102,25 @@ namespace Svg
         }
 
         /// <summary>
+        /// Gets or sets the dX.
+        /// </summary>
+        /// <value>The dX.</value>
+        [SvgAttribute("dx")]
+        public virtual SvgUnit Dx
+        {
+            get { return this._dx; }
+            set
+            {
+                if (_dx != value)
+                {
+                    this._dx = value;
+                    this.IsPathDirty = true;
+                    OnAttributeChanged(new AttributeEventArgs { Attribute = "dx", Value = value });
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the Y.
         /// </summary>
         /// <value>The Y.</value>
@@ -114,6 +137,25 @@ namespace Svg
         			OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
         		}
         	}
+        }
+
+        /// <summary>
+        /// Gets or sets the dY.
+        /// </summary>
+        /// <value>The dY.</value>
+        [SvgAttribute("dy")]
+        public virtual SvgUnit Dy
+        {
+            get { return this._dy; }
+            set
+            {
+                if (_dy != value)
+                {
+                    this._dy = value;
+                    this.IsPathDirty = true;
+                    OnAttributeChanged(new AttributeEventArgs { Attribute = "dy", Value = value });
+                }
+            }
         }
 
         /// <summary>
@@ -290,7 +332,7 @@ namespace Svg
                     _path.StartFigure();
 
 					if (!string.IsNullOrEmpty(this.Text))
-	                	DrawString(_path, this.X, this.Y, SvgUnit.Empty, SvgUnit.Empty, font, fontSize, this.Text);
+	                	DrawString(_path, this.X, this.Y, this.Dx, this.Dy, font, fontSize, this.Text);
 
 					foreach (var tspan in this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan))
 					{
