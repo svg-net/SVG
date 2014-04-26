@@ -24,24 +24,47 @@ namespace SVGViewer
         {
             if (openSvgFile.ShowDialog() == DialogResult.OK)
             {
-                
+                SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
+
+                DrawDoc(svgDoc);
             }
         }
 
-        private string FXML = "";
+        private void ResizeDoc(SvgDocument document)
+        {
+            if (document.Height > svgImage.Image.Height)
+            {
+                document.Width = (int)(((double)document.Width / (double)document.Height) * (double)svgImage.Image.Height);
+                document.Height = svgImage.Image.Height;
+            }
+        }
+
+        private void DrawDoc(SvgDocument svgDoc)
+        {
+            ResizeDoc(svgDoc);
+            svgImage.Image = svgDoc.Draw();
+        }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBox1.Text))
+                return;
 
-            var s = new MemoryStream(UTF8Encoding.Default.GetBytes(textBox1.Text));
-            SvgDocument svgDoc = SvgDocument.Open(s, null);
+            // Need to now disable the DTD settings 
+            // (seems to throw an exception, be slow at .NET 4 if you don't)
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.XmlResolver = null;
+            settings.DtdProcessing = DtdProcessing.Parse;
 
-            svgDoc.Transforms = new SvgTransformCollection();
-            svgDoc.Transforms.Add(new SvgScale(1, 1));
-            svgDoc.Width = new SvgUnit(svgDoc.Width.Type, svgDoc.Width * 0.25f);
-            svgDoc.Height = new SvgUnit(svgDoc.Height.Type, svgDoc.Height);
-            svgImage.Image = svgDoc.Draw();
+            XmlReader xmlReader = XmlReader.Create(new StringReader(textBox1.Text), 
+                settings);
 
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(xmlReader);
+
+            SvgDocument svgDoc = SvgDocument.Open(xmlDoc);
+
+            DrawDoc(svgDoc);
         }
     }
 }
