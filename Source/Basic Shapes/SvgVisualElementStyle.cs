@@ -22,8 +22,27 @@ namespace Svg
         [SvgAttribute("visibility")]
         public virtual bool Visible
         {
-            get { return (this.Attributes["visibility"] == null) ? true : (bool)this.Attributes["visibility"]; }
+            // Add a check for display="none" (that also affects/sets Visible)
+            get 
+            { 
+                string checkForDisplayNone = this.Attributes["display"] as string;
+                if ((!string.IsNullOrEmpty(checkForDisplayNone)) && (checkForDisplayNone == "none"))
+                      return false;
+                   else
+                      return (this.Attributes["visibility"] == null) ? true : (bool)this.Attributes["visibility"];
+            }
             set { this.Attributes["visibility"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value to determine whether the element will be rendered.
+        /// Needed to support SVG attribute display="none"
+        /// </summary>
+        [SvgAttribute("display")]
+        public virtual string Display
+        {
+            get { return this.Attributes["display"] as string; }
+            set { this.Attributes["display"] = value; }
         }
 
         /// <summary>
