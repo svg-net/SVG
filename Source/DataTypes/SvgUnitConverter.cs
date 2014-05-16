@@ -23,6 +23,13 @@ namespace Svg
                 throw new ArgumentOutOfRangeException("value must be a string.");
             }
 
+			//support exponents (the SVG that comes back from IE may be an exponent ugh!!!)
+			if ((value as string).Contains("e"))
+			{
+				var d = Decimal.Parse((string)value, System.Globalization.NumberStyles.Float);
+				value = d.ToString();
+			}
+
             // http://www.w3.org/TR/CSS21/syndata.html#values
             // http://www.w3.org/TR/SVG11/coords.html#Units
 
