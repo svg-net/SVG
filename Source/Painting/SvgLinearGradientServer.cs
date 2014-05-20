@@ -109,7 +109,7 @@ namespace Svg
             }
 
             LinearGradientBrush gradient = new LinearGradientBrush(start, end, Color.Transparent, Color.Transparent);
-            gradient.InterpolationColors = base.GetColourBlend(owner, opacity);
+            gradient.InterpolationColors = base.GetColourBlend(owner, opacity, false);
 
             // Needed to fix an issue where the gradient was being wrapped when though it had the correct bounds
             gradient.WrapMode = WrapMode.TileFlipX;
