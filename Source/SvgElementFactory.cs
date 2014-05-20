@@ -134,6 +134,19 @@ namespace Svg
                         SetPropertyValue(element, style[0].Trim(), style[1].Trim(), document);
                     }
 
+					//defaults for text can come from the document
+					if (element.ElementName == "text")
+					{
+						if (!styles.Contains("font-size") && document.CustomAttributes.ContainsKey("font-size") && document.CustomAttributes["font-size"] != null)
+						{
+							SetPropertyValue(element, "font-size" , document.CustomAttributes["font-size"], document);
+						}
+						if (!styles.Contains("font-family") &&  document.CustomAttributes.ContainsKey("font-family") && document.CustomAttributes["font-family"] != null)
+						{
+							SetPropertyValue(element, "font-family", document.CustomAttributes["font-family"], document);
+						}
+						
+					}
                     continue; 
                 }
 
@@ -176,7 +189,14 @@ namespace Svg
 
                 try
                 {
-                    descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
+					if (attributeName == "opacity" && attributeValue == "undefined")
+					{
+						attributeValue = "1";
+					}
+
+					descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
+					
+
                 }
                 catch
                 {
