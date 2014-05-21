@@ -68,7 +68,7 @@ namespace Svg
         /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
         protected override void Render(SvgRenderer renderer)
         {
-            if (!Visible)
+            if (!Visible || !Displayable)
                 return;
 
             this.PushTransforms(renderer);

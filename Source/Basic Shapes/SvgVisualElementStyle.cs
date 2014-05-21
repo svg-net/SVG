@@ -22,15 +22,7 @@ namespace Svg
         [SvgAttribute("visibility")]
         public virtual bool Visible
         {
-            // Add a check for display="none" (that also affects/sets Visible)
-            get 
-            { 
-                string checkForDisplayNone = this.Attributes["display"] as string;
-                if ((!string.IsNullOrEmpty(checkForDisplayNone)) && (checkForDisplayNone == "none"))
-                      return false;
-                   else
-                      return (this.Attributes["visibility"] == null) ? true : (bool)this.Attributes["visibility"];
-            }
+            get { return (this.Attributes["visibility"] == null) ? true : (bool)this.Attributes["visibility"]; }
             set { this.Attributes["visibility"] = value; }
         }
 
@@ -43,6 +35,19 @@ namespace Svg
         {
             get { return this.Attributes["display"] as string; }
             set { this.Attributes["display"] = value; }
+        }
+
+        // Displayable - false if attribute display="none", true otherwise
+        protected virtual bool Displayable
+        {
+            get
+            {
+                string checkForDisplayNone = this.Attributes["display"] as string;
+                if ((!string.IsNullOrEmpty(checkForDisplayNone)) && (checkForDisplayNone == "none"))
+                    return false;
+                else
+                    return true;
+            }
         }
 
         /// <summary>
