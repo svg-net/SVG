@@ -194,8 +194,12 @@ namespace Svg
 						attributeValue = "1";
 					}
 
-					descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
-					
+					//if it is set to inherit then just dont set it.
+					//the default behaviour when an attribute is not set is to inherit from its parent
+					if (attributeValue != "inherit")
+					{
+						descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
+					}
 
                 }
                 catch
