@@ -95,7 +95,7 @@ namespace Svg
 		public bool Equals(SvgViewBox other)
 		{
 			return this.MinX == other.MinX 
-				&& this.MinY == MinY 
+				&& this.MinY == other.MinY 
 				&& this.Width == other.Width 
 				&& this.Height == other.Height;
 		}
