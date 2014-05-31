@@ -53,7 +53,12 @@ namespace Svg
         /// <param name="item">The <see cref="SvgElement"/> to be added.</param>
         public void Insert(int index, SvgElement item)
         {
-            InsertAndForceUniqueID(index, item, false, false);
+            InsertAndForceUniqueID(index, item, true, true, LogIDChange);
+        }
+        
+        private void LogIDChange(SvgElement elem, string oldId, string newID)
+        {
+        	Console.WriteLine("ID of SVG element " + elem.ToString() + " changed from " + oldId + " to " + newID);
         }
 
         public void InsertAndForceUniqueID(int index, SvgElement item, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
@@ -81,7 +86,7 @@ namespace Svg
 
         public void Add(SvgElement item)
         {
-            this.AddAndForceUniqueID(item, false, false);
+            this.AddAndForceUniqueID(item, true, true, LogIDChange);
         }
 
         public void AddAndForceUniqueID(SvgElement item, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)

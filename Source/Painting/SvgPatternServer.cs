@@ -105,7 +105,7 @@ namespace Svg
         /// <summary>
         /// Gets a <see cref="Brush"/> representing the current paint server.
         /// </summary>
-        /// <param name="styleOwner">The owner <see cref="SvgVisualElement"/>.</param>
+        /// <param name="renderingElement">The owner <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the brush.</param>
         public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
         {

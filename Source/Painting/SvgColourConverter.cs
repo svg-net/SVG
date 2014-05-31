@@ -38,9 +38,21 @@ namespace Svg
                     try
                     {
                         int start = colour.IndexOf("(") + 1;
-                        string[] values = colour.Substring(start, colour.IndexOf(")") - start).Split(new char[]{',', ' '}, StringSplitOptions.RemoveEmptyEntries);
+                        
+						//get the values from the RGB string
+						string[] values = colour.Substring(start, colour.IndexOf(")") - start).Split(new char[]{',', ' '}, StringSplitOptions.RemoveEmptyEntries);
 
-                        return System.Drawing.Color.FromArgb(int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
+						//determine the alpha value if this is an RGBA (it will be the 4th value if there is one)
+						int alphaValue = 255;
+						if (values.Length > 3)
+						{
+							//the alpha portion of the rgba is not an int 0-255 it is a decimal between 0 and 1
+							//so we have to determine the corosponding byte value
+							alphaValue = (int)(decimal.Parse(values[3]) * 255);
+						}
+						Color colorpart = System.Drawing.Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
+
+						return colorpart;
                     }
                     catch
                     {
