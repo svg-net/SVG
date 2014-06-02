@@ -18,6 +18,43 @@ namespace Svg
         /// Gets the SVG namespace string.
         /// </summary>
         public static readonly Uri Namespace = new Uri("http://www.w3.org/2000/svg");
+        
+        private SvgUnit _x;
+        private SvgUnit _y;
+        
+        /// <summary>
+        /// Gets or sets the position where the left point of the svg should start.
+        /// </summary>
+        [SvgAttribute("x")]
+        public SvgUnit X
+        {
+        	get { return _x; }
+        	set
+        	{
+        		if(_x != value)
+        		{
+        			_x = value;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
+        		}
+        	}
+        }
+
+        /// <summary>
+        /// Gets or sets the position where the top point of the svg should start.
+        /// </summary>
+        [SvgAttribute("y")]
+        public SvgUnit Y
+        {
+        	get { return _y; }
+        	set
+        	{
+        		if(_y != value)
+        		{
+        			_y = value;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
+        		}
+        	}
+        }
 
         /// <summary>
         /// Gets or sets the width of the fragment.
@@ -80,6 +117,7 @@ namespace Svg
 
             if (!this.ViewBox.Equals(SvgViewBox.Empty))
             {
+            	renderer.TranslateTransform(_x, _y, MatrixOrder.Append);
                 renderer.TranslateTransform(-this.ViewBox.MinX, -this.ViewBox.MinY, MatrixOrder.Append);
 
                 renderer.ScaleTransform(this.Width.ToDeviceValue() / this.ViewBox.Width, this.Height.ToDeviceValue() / this.ViewBox.Height, MatrixOrder.Append);
@@ -119,6 +157,8 @@ namespace Svg
         /// </summary>
         public SvgFragment()
         {
+        	_x = 0.0f;
+            _y = 0.0f;
             this.Height = new SvgUnit(SvgUnitType.Percentage, 100.0f);
             this.Width = new SvgUnit(SvgUnitType.Percentage, 100.0f);
             this.ViewBox = SvgViewBox.Empty;
