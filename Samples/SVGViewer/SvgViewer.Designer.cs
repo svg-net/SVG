@@ -60,10 +60,12 @@
             // svgImage
             // 
             this.svgImage.Dock = System.Windows.Forms.DockStyle.Left;
+            this.svgImage.Image = ((System.Drawing.Image)(resources.GetObject("svgImage.Image")));
+            this.svgImage.InitialImage = ((System.Drawing.Image)(resources.GetObject("svgImage.InitialImage")));
             this.svgImage.Location = new System.Drawing.Point(0, 25);
             this.svgImage.Name = "svgImage";
             this.svgImage.Size = new System.Drawing.Size(285, 449);
-            this.svgImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.svgImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.svgImage.TabIndex = 1;
             this.svgImage.TabStop = false;
             // 
@@ -77,7 +79,7 @@
             this.textBox1.MaxLength = 327670;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(135, 79);
+            this.textBox1.Size = new System.Drawing.Size(224, 159);
             this.textBox1.TabIndex = 2;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 

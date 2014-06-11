@@ -80,6 +80,9 @@ namespace Svg
 
         protected override void Render(SvgRenderer renderer)
         {
+            if (!Visible || !Displayable)
+                return;
+
             this.PushTransforms(renderer);
 
             SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
