@@ -1,28 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+# SharpDevelop 4.4
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svg", "Svg.csproj", "{886A98C5-37C0-4E8B-885E-30C1D2F98B47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVGViewer", "..\Samples\SVGViewer\SVGViewer.csproj", "{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{886A98C5-37C0-4E8B-885E-30C1D2F98B47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{886A98C5-37C0-4E8B-885E-30C1D2F98B47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{886A98C5-37C0-4E8B-885E-30C1D2F98B47}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{886A98C5-37C0-4E8B-885E-30C1D2F98B47}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{886A98C5-37C0-4E8B-885E-30C1D2F98B47}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{886A98C5-37C0-4E8B-885E-30C1D2F98B47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{886A98C5-37C0-4E8B-885E-30C1D2F98B47}.Release|Any CPU.Build.0 = Release|Any CPU
-		{886A98C5-37C0-4E8B-885E-30C1D2F98B47}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{886A98C5-37C0-4E8B-885E-30C1D2F98B47}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{886A98C5-37C0-4E8B-885E-30C1D2F98B47}.Release|x86.ActiveCfg = Release|Any CPU
+		{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD}.Debug|x86.Build.0 = Debug|Any CPU
+		{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD}.Debug|x86.ActiveCfg = Debug|x86
+		{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD}.Release|x86.Build.0 = Release|Any CPU
+		{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

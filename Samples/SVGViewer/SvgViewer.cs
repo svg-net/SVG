@@ -24,7 +24,9 @@ namespace SVGViewer
         {
             if (openSvgFile.ShowDialog() == DialogResult.OK)
             {
-                
+            	SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
+            	
+            	RenderSvg(svgDoc);
             }
         }
 
@@ -32,16 +34,16 @@ namespace SVGViewer
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
-            var s = new MemoryStream(UTF8Encoding.Default.GetBytes(textBox1.Text));
-            SvgDocument svgDoc = SvgDocument.Open(s, null);
-
-            svgDoc.Transforms = new SvgTransformCollection();
-            svgDoc.Transforms.Add(new SvgScale(1, 1));
-            svgDoc.Width = new SvgUnit(svgDoc.Width.Type, svgDoc.Width * 0.25f);
-            svgDoc.Height = new SvgUnit(svgDoc.Height.Type, svgDoc.Height);
+        	using(var s = new MemoryStream(UTF8Encoding.Default.GetBytes(textBox1.Text)))
+        	{
+        		SvgDocument svgDoc = SvgDocument.Open<SvgDocument>(s, null);
+        		RenderSvg(svgDoc);
+        	}
+        }
+        
+        private void RenderSvg(SvgDocument svgDoc)
+        {
             svgImage.Image = svgDoc.Draw();
-
         }
     }
 }
