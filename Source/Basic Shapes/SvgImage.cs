@@ -97,6 +97,9 @@ namespace Svg
         /// </summary>
         protected override void Render(SvgRenderer renderer)
         {
+            if (!Visible || !Displayable)
+                return;
+
             if (Width.Value > 0.0f && Height.Value > 0.0f && this.Href != null)
             {
                 using (Image b = GetImage(this.Href))

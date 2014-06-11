@@ -43,8 +43,14 @@ namespace Svg
 			{
 				throw new ArgumentOutOfRangeException("value must be a string.");
 			}
-			
-			return (string)value == "visible" ? true : false;
+
+			// Note: currently only used by SvgVisualElement.Visible but if
+			// conversion is used elsewhere these checks below will need to change
+			string visibility = (string)value;
+			if ((visibility == "hidden") || (visibility == "collapse"))
+				return false;
+			else
+				return true;
         }
 		
 		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)

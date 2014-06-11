@@ -94,7 +94,7 @@ namespace Svg
         /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
         protected override void Render(SvgRenderer renderer)
         {
-            if (this.Path != null && this.Visible)
+            if ((this.Path != null) && this.Visible && this.Displayable)
             {
                 this.PushTransforms(renderer);
                 this.SetClip(renderer);
