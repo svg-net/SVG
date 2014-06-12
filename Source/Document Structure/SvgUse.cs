@@ -49,6 +49,8 @@ namespace Svg
         /// </summary>
         public SvgUse()
         {
+        	this.X = 0;
+        	this.Y = 0;
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath Path

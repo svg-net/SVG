@@ -165,26 +165,43 @@ namespace Svg
             }
         }
 
-        /// <summary>
-        /// Indicates whether this instance and a specified object are equal.
-        /// </summary>
-        /// <param name="obj">Another object to compare to.</param>
-        /// <returns>
-        /// true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
-        /// </returns>
-        public override bool Equals(object obj)
-        {
-            if (obj == null) return false;
+		#region Equals and GetHashCode implementation
+		public override bool Equals(object obj)
+		{
+			if (obj == null) return false;
             if (!(obj.GetType() == typeof (SvgUnit))) return false;
 
             var unit = (SvgUnit)obj;
             return (unit.Value == this.Value && unit.Type == this.Type);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+		}
+		
+		public bool Equals(SvgUnit other)
+		{
+			return this._type == other._type && (this._value == other._value);
+		}
+		
+		public override int GetHashCode()
+		{
+			int hashCode = 0;
+			unchecked {
+				hashCode += 1000000007 * _type.GetHashCode();
+				hashCode += 1000000009 * _value.GetHashCode();
+				hashCode += 1000000021 * _isEmpty.GetHashCode();
+				hashCode += 1000000033 * _deviceValue.GetHashCode();
+			}
+			return hashCode;
+		}
+		
+		public static bool operator ==(SvgUnit lhs, SvgUnit rhs)
+		{
+			return lhs.Equals(rhs);
+		}
+		
+		public static bool operator !=(SvgUnit lhs, SvgUnit rhs)
+		{
+			return !(lhs == rhs);
+		}
+		#endregion
 
         public override string ToString()
         {
