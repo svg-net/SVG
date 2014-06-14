@@ -781,7 +781,7 @@ namespace Svg
                 caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmousemove", CreateMouseEventAction(RaiseMouseMove));
                 caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseover", CreateMouseEventAction(RaiseMouseOver));
                 caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseout", CreateMouseEventAction(RaiseMouseOut));
-                caller.RegisterAction<int, string>(rpcID + "onmousescroll", OnMouseScroll);
+                caller.RegisterAction<int, bool, bool, bool, string>(rpcID + "onmousescroll", OnMouseScroll);
             }
         }
         
@@ -893,9 +893,9 @@ namespace Svg
         
         
         //scroll
-        protected void OnMouseScroll(int scroll, string sessionID)
+        protected void OnMouseScroll(int scroll, bool ctrlKey, bool shiftKey, bool altKey, string sessionID)
         {
-        	RaiseMouseScroll(this, new MouseScrollArg { Scroll = scroll, SessionID = sessionID});
+        	RaiseMouseScroll(this, new MouseScrollArg { Scroll = scroll, AltKey = altKey, ShiftKey = shiftKey, CtrlKey = ctrlKey, SessionID = sessionID});
         }
         
         protected void RaiseMouseScroll(object sender, MouseScrollArg e)
@@ -1003,6 +1003,21 @@ namespace Svg
     public class MouseScrollArg : SVGArg
     {
     	public int Scroll;
+    	
+    	/// <summary>
+        /// Alt modifier key pressed
+        /// </summary>
+        public bool AltKey;
+        
+        /// <summary>
+        /// Shift modifier key pressed
+        /// </summary>
+        public bool ShiftKey;
+        
+        /// <summary>
+        /// Control modifier key pressed
+        /// </summary>
+        public bool CtrlKey;
     }
 
     internal interface ISvgElement
