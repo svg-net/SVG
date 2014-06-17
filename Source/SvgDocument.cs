@@ -250,6 +250,10 @@ namespace Svg
                             case XmlNodeType.Text:
                                 value.Append(reader.Value);
                                 break;
+                            case XmlNodeType.EntityReference:
+                                reader.ResolveEntity();
+                                value.Append(reader.Value);
+                                break;
                         }
                     }
                     catch (Exception exc)
