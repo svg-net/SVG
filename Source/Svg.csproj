@@ -16,7 +16,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <SccProjectName>
     </SccProjectName>
@@ -106,6 +106,7 @@
     <Compile Include="DataTypes\SvgElementStyle.cs" />
     <Compile Include="DataTypes\SvgCoordinateUnits.cs" />
     <Compile Include="DataTypes\SvgFontWeight.cs" />
+    <Compile Include="DataTypes\SvgOrientConverter.cs" />
     <Compile Include="DataTypes\SvgOverflow.cs" />
     <Compile Include="DataTypes\SvgUnitCollection.cs" />
     <Compile Include="DataTypes\SvgViewBox.cs" />

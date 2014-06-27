@@ -143,25 +143,32 @@ namespace Svg
 						pen.DashPattern = this.StrokeDashArray.ConvertAll(u => u.Value / ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
 					}
 
-					//hardcoded transformation matrix. I am not sure why this is not in proportion or rotated correctly (something to do with how the endcaps are determined in GDI)
-					var transMatrix = new Matrix();
-					transMatrix.Rotate(-90f);
-					transMatrix.Scale(.6f, .6f);
-
 					if (this.MarkerStart != null)
 					{
-						var marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerStart.ToString());
-						var markerPath = marker.Path.Clone() as GraphicsPath;
+                        var marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerStart.ToString()); 
+                        var markerPath = marker.Path.Clone() as GraphicsPath;
+
+                        var transMatrix = new Matrix();
+                        transMatrix.Scale(.5f, .5f);
+                        transMatrix.RotateAt(90f, new PointF(marker.RefX.ToDeviceValue(), marker.RefY.ToDeviceValue()));
+                        transMatrix.Translate(-1 * marker.RefX.ToDeviceValue(), -1 * marker.RefY.ToDeviceValue());
+
 						markerPath.Transform(transMatrix);
-						pen.CustomStartCap = new CustomLineCap(markerPath, null);
+                        pen.CustomStartCap = new CustomLineCap(markerPath, null);
 					}
 
 					if (this.MarkerEnd != null)
 					{
-						var marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerEnd.ToString());
+                        var marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerEnd.ToString()); 
 						var markerPath = marker.Path.Clone() as GraphicsPath;
+
+                        var transMatrix = new Matrix();
+                        transMatrix.Scale(.5f, .5f);
+                        transMatrix.Rotate(90f);
+                        transMatrix.Translate(-1 * marker.RefX.ToDeviceValue(), -1 * marker.RefY.ToDeviceValue());
+
 						markerPath.Transform(transMatrix);
-						pen.CustomEndCap = new CustomLineCap(markerPath, null);
+                        pen.CustomEndCap = new CustomLineCap(markerPath, null);
 					}
 
 					renderer.DrawPath(pen, this.Path);

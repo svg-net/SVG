@@ -22,12 +22,14 @@ namespace SVGViewer
 
         private void open_Click(object sender, EventArgs e)
         {
-            if (openSvgFile.ShowDialog() == DialogResult.OK)
-            {
-            	SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
+            //if (openSvgFile.ShowDialog() == DialogResult.OK)
+            //{
+                //var path = openSvgFile.FileName;
+                var path = @"C:\Users\edomke\AppData\Local\Temp\map.svg";
+                SvgDocument svgDoc = SvgDocument.Open(path);
             	
             	RenderSvg(svgDoc);
-            }
+            //}
         }
 
         private string FXML = "";

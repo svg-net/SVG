@@ -243,7 +243,7 @@ namespace Svg
                                     element.Content = value.ToString();
                                     
                                     // Reset content value for new element
-                                    value.Clear();
+                                    value.Length = 0;
                                 }
                                 break;
                             case XmlNodeType.CDATA:
