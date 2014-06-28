@@ -100,11 +100,11 @@ namespace Svg
         /// Gets or sets the aspect of the viewport.
         /// </summary>
         /// <value></value>
-        [SvgAttribute("preserveAspectRatio")]
+		[SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio
         {
-            get {return this.Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio"); }
-            set { this.Attributes["preserveAspectRatio"] = value; }
+			get { return this.Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio"); }
+			set { this.Attributes["preserveAspectRatio"] = value; }
         }
 
         /// <summary>
@@ -117,10 +117,60 @@ namespace Svg
 
             if (!this.ViewBox.Equals(SvgViewBox.Empty))
             {
-            	renderer.TranslateTransform(_x, _y, MatrixOrder.Append);
-                renderer.TranslateTransform(-this.ViewBox.MinX, -this.ViewBox.MinY, MatrixOrder.Append);
+				float fScaleX = this.Width.ToDeviceValue() / this.ViewBox.Width;
+				float fScaleY = this.Height.ToDeviceValue() / this.ViewBox.Height;
+				float fMinX = -this.ViewBox.MinX;
+				float fMinY = -this.ViewBox.MinY;
 
-                renderer.ScaleTransform(this.Width.ToDeviceValue() / this.ViewBox.Width, this.Height.ToDeviceValue() / this.ViewBox.Height, MatrixOrder.Append);
+				if (AspectRatio.Align != SvgPreserveAspectRatio.none)
+				{
+					fScaleX = Math.Min(fScaleX, fScaleY);
+					fScaleY = Math.Min(fScaleX, fScaleY);
+					float fViewMidX = (this.ViewBox.Width / 2) * fScaleX;
+					float fViewMidY = (this.ViewBox.Height / 2) * fScaleY;
+					float fMidX = this.Width.ToDeviceValue() / 2;
+					float fMidY = this.Height.ToDeviceValue() / 2;
+
+					switch (AspectRatio.Align)
+					{
+						case SvgPreserveAspectRatio.XMinYMin:
+							break;
+						case SvgPreserveAspectRatio.XMidYMin:
+							fMinX += (fMidX - fViewMidX) / fScaleX;
+							break;
+						case SvgPreserveAspectRatio.XMaxYMin:
+							fMinX += this.ViewBox.Width - this.Width.ToDeviceValue();
+							break;
+						case SvgPreserveAspectRatio.XMinYMid:
+							fMinY += (fMidY - fViewMidY) / fScaleY;
+							break;
+						case SvgPreserveAspectRatio.XMidYMid:
+							fMinX += (fMidX - fViewMidX) / fScaleX;
+							fMinY += (fMidY - fViewMidY) / fScaleY;
+							break;
+						case SvgPreserveAspectRatio.XMaxYMid:
+							fMinX += this.ViewBox.Width - this.Width.ToDeviceValue();
+							fMinY += (fMidY - fViewMidY) / fScaleY;
+							break;
+						case SvgPreserveAspectRatio.XMinYMax:
+							fMinY += this.ViewBox.Height - this.Height.ToDeviceValue();
+							break;
+						case SvgPreserveAspectRatio.XMidYMax:
+							fMinX += (fMidX - fViewMidX) / fScaleX;
+							fMinY += this.ViewBox.Height - this.Height.ToDeviceValue();
+							break;
+						case SvgPreserveAspectRatio.XMaxYMax:
+							fMinX += this.ViewBox.Width - this.Width.ToDeviceValue();
+							fMinY += this.ViewBox.Height - this.Height.ToDeviceValue();
+							break;
+						default:
+							break;
+					}
+				}
+
+            	renderer.TranslateTransform(_x, _y, MatrixOrder.Append);
+				renderer.TranslateTransform(fMinX, fMinY, MatrixOrder.Append);
+				renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Append);
             }
         }
         
@@ -162,7 +212,7 @@ namespace Svg
             this.Height = new SvgUnit(SvgUnitType.Percentage, 100.0f);
             this.Width = new SvgUnit(SvgUnitType.Percentage, 100.0f);
             this.ViewBox = SvgViewBox.Empty;
-            this.AspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.None);
+            this.AspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.XMidYMid);
         }
 
 

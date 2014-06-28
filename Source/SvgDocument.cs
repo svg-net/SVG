@@ -26,7 +26,7 @@ namespace Svg
         /// </summary>
         public SvgDocument()
         {
-            Ppi = 96;
+			Ppi = PointsPerInch;
         }
 
         /// <summary>

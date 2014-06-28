@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Svg.DataTypes;
 using System.ComponentModel;
-using System.Web.UI.WebControls;
-using System.Globalization;
 
 namespace Svg
 {
     /// <summary>
     /// Represents an orientation in an Scalable Vector Graphics document.
     /// </summary>
-    public class SvgOrient
+	[TypeConverter(typeof(SvgOrientConverter))]
+	public class SvgOrient
     {
         private bool _isAuto = true;
         private float _angle;

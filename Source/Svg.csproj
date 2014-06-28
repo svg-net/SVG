@@ -52,7 +52,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>Full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\vvvv\public\common\src\thirdparty\</OutputPath>
+     <OutputPath>..\..\vvvv\public\common\src\thirdparty\</OutputPath>
     <DefineConstants>TRACE;DEBUG;REFLECTION</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -99,6 +99,8 @@
     <Compile Include="Clipping and Masking\SvgClipRule.cs" />
     <Compile Include="Clipping and Masking\SvgClipPath.cs" />
     <Compile Include="Clipping and Masking\SvgMask.cs" />
+    <Compile Include="DataTypes\SvgAspectRatioConverter.cs" />
+    <Compile Include="DataTypes\SvgMarkerUnits.cs" />
     <Compile Include="DataTypes\SvgOrient.cs" />
     <Compile Include="DataTypes\ISvgViewPort.cs" />
     <Compile Include="DataTypes\SvgAspectRatio.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="DataTypes\SvgElementStyle.cs" />
     <Compile Include="DataTypes\SvgCoordinateUnits.cs" />
     <Compile Include="DataTypes\SvgFontWeight.cs" />
+    <Compile Include="DataTypes\SvgOrientConverter.cs" />
     <Compile Include="DataTypes\SvgOverflow.cs" />
     <Compile Include="DataTypes\SvgUnitCollection.cs" />
     <Compile Include="DataTypes\SvgViewBox.cs" />

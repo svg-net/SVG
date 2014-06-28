@@ -59,6 +59,17 @@ namespace Svg
 		/// <summary>
 		/// Gets or sets the marker (start cap) of the path.
 		/// </summary>
+		[SvgAttribute("marker-mid")]
+		public Uri MarkerMid
+		{
+			get { return this.Attributes.GetAttribute<Uri>("marker-mid"); }
+			set { this.Attributes["marker-mid"] = value; }
+		}
+
+
+		/// <summary>
+		/// Gets or sets the marker (start cap) of the path.
+		/// </summary>
 		[SvgAttribute("marker-start")]
 		public Uri MarkerStart
 		{
@@ -135,7 +146,7 @@ namespace Svg
  			if (this.Stroke != null)
 			{
 				float strokeWidth = this.StrokeWidth.ToDeviceValue(this);
-				using (var pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
+				using (Pen pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
 				{
 					if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
 					{
@@ -143,32 +154,29 @@ namespace Svg
 						pen.DashPattern = this.StrokeDashArray.ConvertAll(u => u.Value / ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
 					}
 
-					//hardcoded transformation matrix. I am not sure why this is not in proportion or rotated correctly (something to do with how the endcaps are determined in GDI)
-					var transMatrix = new Matrix();
-					transMatrix.Rotate(-90f);
-					transMatrix.Scale(.6f, .6f);
+					renderer.DrawPath(pen, this.Path);
 
 					if (this.MarkerStart != null)
 					{
-						var marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerStart.ToString());
-						var markerPath = marker.Path.Clone() as GraphicsPath;
-						markerPath.Transform(transMatrix);
-						pen.CustomStartCap = new CustomLineCap(markerPath, null);
+						SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerStart.ToString());
+						marker.RenderMarker(renderer, this, Path.PathPoints[0], Path.PathPoints[0], Path.PathPoints[1]);
+					}
+
+					if (this.MarkerMid != null)
+					{
+						SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerMid.ToString());
+						for (int i = 1; i <= Path.PathPoints.Length - 2; i++)
+							marker.RenderMarker(renderer, this, Path.PathPoints[i], Path.PathPoints[i - 1], Path.PathPoints[i], Path.PathPoints[i + 1]);
 					}
 
 					if (this.MarkerEnd != null)
 					{
-						var marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerEnd.ToString());
-						var markerPath = marker.Path.Clone() as GraphicsPath;
-						markerPath.Transform(transMatrix);
-						pen.CustomEndCap = new CustomLineCap(markerPath, null);
+						SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerEnd.ToString());
+						marker.RenderMarker(renderer, this, Path.PathPoints[Path.PathPoints.Length - 1], Path.PathPoints[Path.PathPoints.Length - 2], Path.PathPoints[Path.PathPoints.Length - 1]);
 					}
-
-					renderer.DrawPath(pen, this.Path);
 				}
 			}
 		}
-
 
 		public override SvgElement DeepCopy()
 		{
@@ -186,9 +194,5 @@ namespace Svg
 			return newObj;
 
 		}
-
-
-
-
     }
 }
