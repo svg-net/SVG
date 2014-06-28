@@ -22,6 +22,7 @@ namespace Svg
 		{
 			this.Align = align;
 			this.Slice = slice;
+			this.Defer = false;
 		}
 		
 		public SvgPreserveAspectRatio Align
@@ -35,7 +36,13 @@ namespace Svg
 			get;
 			set;
 		}
-		
+
+		public bool Defer
+		{
+			get;
+			set;
+		}
+
 		public override string ToString()
 		{
 			return TypeDescriptor.GetConverter(typeof(SvgPreserveAspectRatio)).ConvertToString(this.Align) + (Slice ? " slice" : "");
@@ -45,15 +52,15 @@ namespace Svg
 	
 	public enum SvgPreserveAspectRatio
 	{
-		XMidYMid, //default
+		xMidYMid, //default
 		none,
-		XMinYMin,
-		XMidYMin,
-		XMaxYMin,
-		XMinYMid,
-		XMaxYMid,
-		XMinYMax,
-		XMidYMax,
-		XMaxYMax
+		xMinYMin,
+		xMidYMin,
+		xMaxYMin,
+		xMinYMid,
+		xMaxYMid,
+		xMinYMax,
+		xMidYMax,
+		xMaxYMax
 	}
 }

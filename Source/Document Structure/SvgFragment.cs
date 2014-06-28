@@ -133,33 +133,33 @@ namespace Svg
 
 					switch (AspectRatio.Align)
 					{
-						case SvgPreserveAspectRatio.XMinYMin:
+						case SvgPreserveAspectRatio.xMinYMin:
 							break;
-						case SvgPreserveAspectRatio.XMidYMin:
+						case SvgPreserveAspectRatio.xMidYMin:
 							fMinX += (fMidX - fViewMidX) / fScaleX;
 							break;
-						case SvgPreserveAspectRatio.XMaxYMin:
+						case SvgPreserveAspectRatio.xMaxYMin:
 							fMinX += this.ViewBox.Width - this.Width.ToDeviceValue();
 							break;
-						case SvgPreserveAspectRatio.XMinYMid:
+						case SvgPreserveAspectRatio.xMinYMid:
 							fMinY += (fMidY - fViewMidY) / fScaleY;
 							break;
-						case SvgPreserveAspectRatio.XMidYMid:
+						case SvgPreserveAspectRatio.xMidYMid:
 							fMinX += (fMidX - fViewMidX) / fScaleX;
 							fMinY += (fMidY - fViewMidY) / fScaleY;
 							break;
-						case SvgPreserveAspectRatio.XMaxYMid:
+						case SvgPreserveAspectRatio.xMaxYMid:
 							fMinX += this.ViewBox.Width - this.Width.ToDeviceValue();
 							fMinY += (fMidY - fViewMidY) / fScaleY;
 							break;
-						case SvgPreserveAspectRatio.XMinYMax:
+						case SvgPreserveAspectRatio.xMinYMax:
 							fMinY += this.ViewBox.Height - this.Height.ToDeviceValue();
 							break;
-						case SvgPreserveAspectRatio.XMidYMax:
+						case SvgPreserveAspectRatio.xMidYMax:
 							fMinX += (fMidX - fViewMidX) / fScaleX;
 							fMinY += this.ViewBox.Height - this.Height.ToDeviceValue();
 							break;
-						case SvgPreserveAspectRatio.XMaxYMax:
+						case SvgPreserveAspectRatio.xMaxYMax:
 							fMinX += this.ViewBox.Width - this.Width.ToDeviceValue();
 							fMinY += this.ViewBox.Height - this.Height.ToDeviceValue();
 							break;
@@ -212,7 +212,7 @@ namespace Svg
             this.Height = new SvgUnit(SvgUnitType.Percentage, 100.0f);
             this.Width = new SvgUnit(SvgUnitType.Percentage, 100.0f);
             this.ViewBox = SvgViewBox.Empty;
-            this.AspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.XMidYMid);
+            this.AspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid);
         }
 
 
