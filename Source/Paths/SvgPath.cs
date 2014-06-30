@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Xml.Serialization;
@@ -145,30 +146,14 @@ namespace Svg
 
 					if (this.MarkerStart != null)
 					{
-                        var marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerStart.ToString()); 
-                        var markerPath = marker.Path.Clone() as GraphicsPath;
-
-                        var transMatrix = new Matrix();
-                        transMatrix.Scale(.5f, .5f);
-                        transMatrix.RotateAt(90f, new PointF(marker.RefX.ToDeviceValue(), marker.RefY.ToDeviceValue()));
-                        transMatrix.Translate(-1 * marker.RefX.ToDeviceValue(), -1 * marker.RefY.ToDeviceValue());
-
-						markerPath.Transform(transMatrix);
-                        pen.CustomStartCap = new CustomLineCap(markerPath, null);
+                        var marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerStart.ToString());
+                        pen.CustomStartCap = CapFromMarker(marker, strokeWidth);
 					}
 
 					if (this.MarkerEnd != null)
 					{
                         var marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerEnd.ToString()); 
-						var markerPath = marker.Path.Clone() as GraphicsPath;
-
-                        var transMatrix = new Matrix();
-                        transMatrix.Scale(.5f, .5f);
-                        transMatrix.Rotate(90f);
-                        transMatrix.Translate(-1 * marker.RefX.ToDeviceValue(), -1 * marker.RefY.ToDeviceValue());
-
-						markerPath.Transform(transMatrix);
-                        pen.CustomEndCap = new CustomLineCap(markerPath, null);
+						pen.CustomEndCap = CapFromMarker(marker, strokeWidth);
 					}
 
 					renderer.DrawPath(pen, this.Path);
@@ -176,6 +161,26 @@ namespace Svg
 			}
 		}
 
+        private CustomLineCap CapFromMarker(SvgMarker marker, float strokeWidth)
+        {
+            var markerPath = marker.Path.Clone() as GraphicsPath;
+
+            var transMatrix = new Matrix();
+            transMatrix.Translate(-1 * marker.RefX.ToDeviceValue(), -1 * marker.RefY.ToDeviceValue(), MatrixOrder.Append);
+            transMatrix.Rotate(90f, MatrixOrder.Append);
+            // With the current aliasing structure, 1px lines still render as 2px lines
+            if (strokeWidth < 2)
+            {
+                transMatrix.Scale(.5f, .5f, MatrixOrder.Append);
+            }
+            else if (marker.MarkerUnits == SvgMarkerUnits.userSpaceOnUse)
+            {
+                transMatrix.Scale(1f / strokeWidth, 1f / strokeWidth, MatrixOrder.Append);
+            }
+
+            markerPath.Transform(transMatrix);
+            return new CustomLineCap(markerPath, null);
+        }
 
 		public override SvgElement DeepCopy()
 		{

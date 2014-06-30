@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Svg.DataTypes
+namespace Svg
 {
-    public enum SvgFontWeight
+    public enum SvgMarkerUnits
     {
-        inherit,
-        normal,
-        bold
+        strokeWidth,
+        userSpaceOnUse
     }
-
-    
 }

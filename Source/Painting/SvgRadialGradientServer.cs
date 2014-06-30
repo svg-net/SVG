@@ -76,6 +76,7 @@ namespace Svg
 
         public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
         {
+            LoadStops();
             float radius = this.Radius.ToDeviceValue(renderingElement);
 
             if (radius <= 0)

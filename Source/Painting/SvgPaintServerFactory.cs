@@ -38,7 +38,18 @@ namespace Svg
             {
                 return (SvgPaintServer)document.IdManager.GetElementById(value);
             }
-            else // Otherwise try and parse as colour
+            else if (value.StartsWith("#")) // Otherwise try and parse as colour
+            {
+                try
+                {
+                    return new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Trim()));
+                }
+                catch
+                {
+                    return new SvgDeferredPaintServer(document, value);
+                }
+            }
+            else
             {
                 return new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Trim()));
             }

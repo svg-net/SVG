@@ -99,6 +99,7 @@
     <Compile Include="Clipping and Masking\SvgClipRule.cs" />
     <Compile Include="Clipping and Masking\SvgClipPath.cs" />
     <Compile Include="Clipping and Masking\SvgMask.cs" />
+    <Compile Include="DataTypes\SvgMarkerUnits.cs" />
     <Compile Include="DataTypes\SvgOrient.cs" />
     <Compile Include="DataTypes\ISvgViewPort.cs" />
     <Compile Include="DataTypes\SvgAspectRatio.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="DataTypes\SvgViewBox.cs" />
     <Compile Include="Document Structure\SvgTitle.cs" />
     <Compile Include="Document Structure\SvgDocumentMetadata.cs" />
+    <Compile Include="Painting\SvgDeferredPaintServer.cs" />
     <Compile Include="Painting\SvgMarker.cs" />
     <Compile Include="Document Structure\SvgDefinitionList.cs" />
     <Compile Include="Document Structure\SvgDescription.cs" />
@@ -173,6 +175,7 @@
     <Compile Include="DataTypes\SvgUnit.cs" />
     <Compile Include="DataTypes\SvgUnitConverter.cs" />
     <Compile Include="SvgTextReader.cs" />
+    <Compile Include="Text\FontData.cs" />
     <Compile Include="Text\SvgText.cs" />
     <Compile Include="Text\SvgTextAnchor.cs" />
     <Compile Include="Text\SvgTextSpan.cs" />

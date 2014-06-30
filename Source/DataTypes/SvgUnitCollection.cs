@@ -45,6 +45,7 @@ namespace Svg
         {
             if (value is string)
             {
+                if (string.Compare(((string)value).Trim(), "none", StringComparison.InvariantCultureIgnoreCase) == 0) return null;
                 string[] points = ((string)value).Trim().Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 SvgUnitCollection units = new SvgUnitCollection();
 
