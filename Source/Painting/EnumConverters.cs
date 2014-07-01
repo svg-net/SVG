@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Svg.DataTypes;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 
@@ -108,11 +109,6 @@ namespace Svg
     {
     }
     
-    //implementaton for preserve aspect ratio
-    public sealed class SvgPreserverAspectRatioConverter : EnumBaseConverter<SvgPreserveAspectRatio>
-    {
-    }
-
     public sealed class SvgStrokeLineCapConverter : EnumBaseConverter<SvgStrokeLineCap>
     {
     }
@@ -120,5 +116,8 @@ namespace Svg
     public sealed class SvgStrokeLineJoinConverter : EnumBaseConverter<SvgStrokeLineJoin>
     {
     }
-    
+
+	public sealed class SvgMarkerUnitsConverter : EnumBaseConverter<SvgMarkerUnits>
+	{
+	}
 }
