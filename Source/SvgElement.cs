@@ -117,6 +117,15 @@ namespace Svg
             get { return this._children; }
         }
 
+        public IEnumerable<SvgElement> Descendants()
+        {
+            return this.AsEnumerable().Descendants();
+        }
+        private IEnumerable<SvgElement> AsEnumerable()
+        {
+            yield return this;
+        }
+
         /// <summary>
         /// Gets a value to determine whether the element has children.
         /// </summary>

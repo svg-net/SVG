@@ -275,8 +275,10 @@ namespace Svg
                 throw new ArgumentNullException("document");
             }
 
-            Stream stream = new MemoryStream(UTF8Encoding.Default.GetBytes(document.InnerXml));
-            return Open<SvgDocument>(stream, null);
+            using (var stream = new MemoryStream(UTF8Encoding.Default.GetBytes(document.InnerXml)))
+            {            
+                return Open<SvgDocument>(stream, null);
+            }
         }
 
         public static Bitmap OpenAsBitmap(string path)
