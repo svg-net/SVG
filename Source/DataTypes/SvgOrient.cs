@@ -7,8 +7,8 @@ namespace Svg
     /// <summary>
     /// Represents an orientation in an Scalable Vector Graphics document.
     /// </summary>
-    [TypeConverter(typeof(SvgOrientConverter))]
-    public class SvgOrient
+	[TypeConverter(typeof(SvgOrientConverter))]
+	public class SvgOrient
     {
         private bool _isAuto = true;
         private float _angle;
@@ -99,22 +99,6 @@ namespace Svg
         public static implicit operator SvgOrient(float value)
         {
             return new SvgOrient(value);
-        }
-        public static implicit operator SvgOrient(string value)
-        {
-            float angle;
-            if (value == "auto")
-            {
-                return new SvgOrient();
-            }
-            else if (float.TryParse(value, out angle))
-            {
-                return new SvgOrient(angle);
-            }
-            else
-            {
-                throw new ArgumentException("The value '" + value + "' cannot be converted to an SVG value.");
-            }
         }
 
     }

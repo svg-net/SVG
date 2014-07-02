@@ -38,18 +38,7 @@ namespace Svg
             {
                 return (SvgPaintServer)document.IdManager.GetElementById(value);
             }
-            else if (value.StartsWith("#")) // Otherwise try and parse as colour
-            {
-                try
-                {
-                    return new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Trim()));
-                }
-                catch
-                {
-                    return new SvgDeferredPaintServer(document, value);
-                }
-            }
-            else
+            else // Otherwise try and parse as colour
             {
                 return new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Trim()));
             }
@@ -60,7 +49,7 @@ namespace Svg
             if (value is string)
             {
             	var s = (string) value;
-            	if(String.Equals( s.Trim(), "none", StringComparison.OrdinalIgnoreCase) || string.IsNullOrEmpty(s) || s.Trim().Length < 1)
+            	if(String.Equals( s.Trim(), "none", StringComparison.OrdinalIgnoreCase) || string.IsNullOrWhiteSpace(s))
             		return SvgPaintServer.None;
             	else
                 	return SvgPaintServerFactory.Create(s, (SvgDocument)context);
