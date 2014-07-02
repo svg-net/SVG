@@ -14,7 +14,7 @@ namespace Svg.FilterEffects
     [SvgElement("feGaussianBlur")]
     public class SvgGaussianBlur : SvgFilterPrimitive
     {
-		private float _stdDeviation;
+		private int _stdDeviation;
 		private BlurType _blurType;
 		
 		private int[] _kernel;
@@ -26,13 +26,12 @@ namespace Svg.FilterEffects
         {
         }
 
-        public SvgGaussianBlur(float stdDeviation)
+        public SvgGaussianBlur(int stdDeviation)
             : this(stdDeviation, BlurType.Both)
         {
         }
 
-        public SvgGaussianBlur(float stdDeviation, BlurType blurType)
-            : base()
+        public SvgGaussianBlur(int stdDeviation, BlurType blurType) : base()
         {
             _stdDeviation = stdDeviation;
             _blurType = blurType;
@@ -43,13 +42,13 @@ namespace Svg.FilterEffects
 
         private void PreCalculate()
         {
-            int sz = (int)(_stdDeviation * 2 + 1);
+            int sz = _stdDeviation * 2 + 1;
             _kernel = new int[sz];
             _multable = new int[sz, 256];
             for (int i = 1; i <= _stdDeviation; i++)
             {
-                int szi = (int)(_stdDeviation - i);
-                int szj = (int)(_stdDeviation + i);
+                int szi = _stdDeviation - i;
+                int szj = _stdDeviation + i;
                 _kernel[szj] = _kernel[szi] = (szi + 1) * (szi + 1);
                 _kernelSum += (_kernel[szj] + _kernel[szi]);
                 for (int j = 0; j < 256; j++)
@@ -57,11 +56,11 @@ namespace Svg.FilterEffects
                     _multable[szj, j] = _multable[szi, j] = _kernel[szj] * j;
                 }
             }
-            _kernel[(int)_stdDeviation] = (int)((_stdDeviation + 1) * (_stdDeviation + 1));
-            _kernelSum += _kernel[(int)_stdDeviation];
+            _kernel[_stdDeviation] = (_stdDeviation + 1) * (_stdDeviation + 1);
+            _kernelSum += _kernel[_stdDeviation];
             for (int j = 0; j < 256; j++)
             {
-                _multable[(int)_stdDeviation, j] = _kernel[(int)_stdDeviation] * j;
+                _multable[_stdDeviation, j] = _kernel[_stdDeviation] * j;
             }
         }
 
@@ -105,7 +104,7 @@ namespace Svg.FilterEffects
                         for (int i = 0; i < pixelCount; i++)
                         {
                             bsum = gsum = rsum = asum = 0;
-                            read = (int)(i - _stdDeviation);
+                            read = i - _stdDeviation;
                             for (int z = 0; z < _kernel.Length; z++)
                             {
                                 if (read < start)
@@ -157,7 +156,7 @@ namespace Svg.FilterEffects
                     index = 0;
                     for (int i = 0; i < src.Height; i++)
                     {
-                        int y = (int)(i - _stdDeviation);
+                        int y = i - _stdDeviation;
                         start = y * src.Width;
                         for (int j = 0; j < src.Width; j++)
                         {
@@ -224,12 +223,12 @@ namespace Svg.FilterEffects
 		/// Gets or sets the radius of the blur (only allows for one value - not the two specified in the SVG Spec)
 		/// </summary>
 		[SvgAttribute("stdDeviation")]
-        public float StdDeviation
+        public int StdDeviation
         {
             get { return _stdDeviation; }
             set
             {
-                if (value <= 0)
+                if (value < 1)
                 {
                     throw new InvalidOperationException("Radius must be greater then 0");
                 }

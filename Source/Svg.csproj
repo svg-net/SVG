@@ -16,7 +16,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <SccProjectName>
     </SccProjectName>
@@ -114,8 +114,6 @@
     <Compile Include="DataTypes\SvgViewBox.cs" />
     <Compile Include="Document Structure\SvgTitle.cs" />
     <Compile Include="Document Structure\SvgDocumentMetadata.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Painting\SvgDeferredPaintServer.cs" />
     <Compile Include="Painting\SvgMarker.cs" />
     <Compile Include="Document Structure\SvgDefinitionList.cs" />
     <Compile Include="Document Structure\SvgDescription.cs" />
@@ -177,7 +175,6 @@
     <Compile Include="DataTypes\SvgUnit.cs" />
     <Compile Include="DataTypes\SvgUnitConverter.cs" />
     <Compile Include="SvgTextReader.cs" />
-    <Compile Include="Text\FontData.cs" />
     <Compile Include="Text\SvgText.cs" />
     <Compile Include="Text\SvgTextAnchor.cs" />
     <Compile Include="Text\SvgTextSpan.cs" />

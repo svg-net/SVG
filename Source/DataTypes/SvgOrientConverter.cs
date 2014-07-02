@@ -1,59 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Globalization;
 
-namespace Svg
+namespace Svg.DataTypes
 {
-    public sealed class SvgOrientConverter : TypeConverter
-    {
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
-        {
-            if (value == null || value.ToString() == string.Empty || value.ToString() == "auto")
-            {
-                return new SvgOrient();
-            }
-            else if (value is float)
-            {
-                return new SvgOrient((float)value);
-            }
-            else if (value is int)
-            {
-                return new SvgOrient((float)value);
-            }
+	public sealed class SvgOrientConverter : TypeConverter
+	{
+		public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+		{
+			if (value == null)
+			{
+				return new SvgUnit(SvgUnitType.User, 0.0f);
+			}
 
-            throw new ArgumentException("The value '" + value.ToString() + "' cannot be converted to an SVG value.");
-        }
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            if (sourceType == typeof(string) || sourceType == typeof(float) || sourceType == typeof(int))
-            {
-                return true;
-            }
-            
-            return base.CanConvertFrom(context, sourceType);
-        }
+			if (!(value is string))
+			{
+				throw new ArgumentOutOfRangeException("value must be a string.");
+			}
 
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-        {
-            if (destinationType == typeof(string))
-            {
-                return true;
-            }
+			switch (value.ToString())
+			{
+				case "auto":
+					return (new SvgOrient());
+				default:
+					float fTmp = float.MinValue;
+					if(!float.TryParse(value.ToString(), out fTmp))
+						throw new ArgumentOutOfRangeException("value must be a valid float.");
+					return (new SvgOrient(fTmp));
+			}
+		}
 
-            return base.CanConvertTo(context, destinationType);
-        }
+		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+		{
+			if (sourceType == typeof(string))
+			{
+				return true;
+			}
 
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(string))
-            {
-                return ((SvgOrient)value).ToString();
-            }
+			return base.CanConvertFrom(context, sourceType);
+		}
 
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
-    }
+		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+		{
+			if (destinationType == typeof(string))
+			{
+				return true;
+			}
+
+			return base.CanConvertTo(context, destinationType);
+		}
+
+		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+		{
+			return base.ConvertTo(context, culture, value, destinationType);
+		}
+	}
 }
