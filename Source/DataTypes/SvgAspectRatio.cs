@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Svg.DataTypes;
 using System.ComponentModel;
 
 namespace Svg
@@ -6,9 +6,10 @@ namespace Svg
 	/// <summary>
 	/// Description of SvgAspectRatio.
 	/// </summary>
+	[TypeConverter(typeof(SvgPreserveAspectRatioConverter))]
 	public class SvgAspectRatio
 	{
-		public SvgAspectRatio()
+		public SvgAspectRatio() : this(SvgPreserveAspectRatio.none)
 		{
 		}
 		
@@ -21,6 +22,7 @@ namespace Svg
 		{
 			this.Align = align;
 			this.Slice = slice;
+			this.Defer = false;
 		}
 		
 		public SvgPreserveAspectRatio Align
@@ -34,7 +36,13 @@ namespace Svg
 			get;
 			set;
 		}
-		
+
+		public bool Defer
+		{
+			get;
+			set;
+		}
+
 		public override string ToString()
 		{
 			return TypeDescriptor.GetConverter(typeof(SvgPreserveAspectRatio)).ConvertToString(this.Align) + (Slice ? " slice" : "");
@@ -42,18 +50,17 @@ namespace Svg
 
 	}
 	
-	[TypeConverter(typeof(SvgPreserverAspectRatioConverter))]
 	public enum SvgPreserveAspectRatio
 	{
-		XMidYMid, //default
-		None,
-		XMinYMin,
-		XMidYMin,
-		XMaxYMin,
-		XMinYMid,
-		XMaxYMid,
-		XMinYMax,
-		XMidYMax,
-		XMaxYMax
+		xMidYMid, //default
+		none,
+		xMinYMin,
+		xMidYMin,
+		xMaxYMin,
+		xMinYMid,
+		xMaxYMid,
+		xMinYMax,
+		xMidYMax,
+		xMaxYMax
 	}
 }

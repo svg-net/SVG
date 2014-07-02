@@ -26,7 +26,7 @@ namespace Svg
         /// </summary>
         public SvgDocument()
         {
-            Ppi = 96;
+			Ppi = PointsPerInch;
         }
 
         /// <summary>
@@ -248,6 +248,10 @@ namespace Svg
                                 break;
                             case XmlNodeType.CDATA:
                             case XmlNodeType.Text:
+                                value.Append(reader.Value);
+                                break;
+                            case XmlNodeType.EntityReference:
+                                reader.ResolveEntity();
                                 value.Append(reader.Value);
                                 break;
                         }

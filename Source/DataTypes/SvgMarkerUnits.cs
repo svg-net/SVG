@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 
-namespace Svg
+namespace Svg.DataTypes
 {
-    public enum SvgMarkerUnits
-    {
-        strokeWidth,
-        userSpaceOnUse
-    }
+	[TypeConverter(typeof(SvgMarkerUnitsConverter))]
+	public enum SvgMarkerUnits
+	{
+		strokeWidth,
+		userSpaceOnUse
+	}
 }

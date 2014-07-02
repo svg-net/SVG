@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Svg</id>
+        <version>$version$</version>
+        <title>SVG Rendering Library</title>
+        <authors>davescriven,jvenema,owaits,ddpruitt,Ralf1108,Tebjan Halm,and others</authors>
+        <owners>vvvv.org</owners>
+        <licenseUrl>http://opensource.org/licenses/MS-PL.html</licenseUrl>
+        <projectUrl>https://github.com/vvvv/SVG</projectUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>Public fork of the C# SVG rendering library on codeplex: https://svg.codeplex.com/
+
+This started out as a minor modification to enable the writing of proper SVG strings. But now after almost two years we have so many fixes and improvements that we decided to share our current codebase to the public in order to improve it even further.
+
+So please feel free to fork it and open pull requests for any fix, improvement or feature you add.
+
+License: Microsoft Public License: https://svg.codeplex.com/license</description>
+        <summary>Open source library to load/save and render SVG vector graphics.</summary>
+        <releaseNotes>merged github pull requests</releaseNotes>
+        <tags>svg, vector graphics, rendering</tags>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Web" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Xml" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Drawing" targetFramework="" />
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+        <file src="..\Source\bin\Release\Svg.dll" target="lib\Svg.dll" />
+        <file src="..\Source\bin\Release\Svg.pdb" target="lib\Svg.pdb" />
+        <file src="..\Source\bin\Release\Svg.XML" target="lib\Svg.XML" />
+    </files>
+</package>

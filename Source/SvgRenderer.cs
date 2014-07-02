@@ -72,6 +72,16 @@ namespace Svg
             this._innerGraphics.DrawPath(pen, path);
         }
 
+		public void RotateTransform(float fAngle, MatrixOrder order)
+		{
+			this._innerGraphics.RotateTransform(fAngle, order);
+		}
+
+		public void RotateTransform(float fAngle)
+		{
+			this.RotateTransform(fAngle, MatrixOrder.Append);
+		}
+
         public void TranslateTransform(float dx, float dy, MatrixOrder order)
         {
             this._innerGraphics.TranslateTransform(dx, dy, order);
