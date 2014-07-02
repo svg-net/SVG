@@ -1,9 +1,0 @@
-C:\Users\edomke\Documents\GitHub\SVG\Source\Svg.UnitTests\obj\Debug\Svg.UnitTests.csprojResolveAssemblyReference.cache
-C:\Users\edomke\Documents\GitHub\SVG\Source\Svg.UnitTests\obj\Debug\Svg.UnitTests.Properties.Resources.resources
-C:\Users\edomke\Documents\GitHub\SVG\Source\Svg.UnitTests\obj\Debug\Svg.UnitTests.csproj.GenerateResource.Cache
-C:\Users\edomke\Documents\GitHub\SVG\Source\Svg.UnitTests\bin\Debug\Svg.UnitTests.dll
-C:\Users\edomke\Documents\GitHub\SVG\Source\Svg.UnitTests\bin\Debug\Svg.UnitTests.pdb
-C:\Users\edomke\Documents\GitHub\SVG\Source\Svg.UnitTests\bin\Debug\Svg.dll
-C:\Users\edomke\Documents\GitHub\SVG\Source\Svg.UnitTests\bin\Debug\Svg.pdb
-C:\Users\edomke\Documents\GitHub\SVG\Source\Svg.UnitTests\obj\Debug\Svg.UnitTests.dll
-C:\Users\edomke\Documents\GitHub\SVG\Source\Svg.UnitTests\obj\Debug\Svg.UnitTests.pdb

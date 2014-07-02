@@ -243,7 +243,7 @@ namespace Svg
                                     element.Content = value.ToString();
                                     
                                     // Reset content value for new element
-                                    value.Length = 0;
+                                    value.Clear();
                                 }
                                 break;
                             case XmlNodeType.CDATA:
@@ -279,10 +279,8 @@ namespace Svg
                 throw new ArgumentNullException("document");
             }
 
-            using (var stream = new MemoryStream(UTF8Encoding.Default.GetBytes(document.InnerXml)))
-            {            
-                return Open<SvgDocument>(stream, null);
-            }
+            Stream stream = new MemoryStream(UTF8Encoding.Default.GetBytes(document.InnerXml));
+            return Open<SvgDocument>(stream, null);
         }
 
         public static Bitmap OpenAsBitmap(string path)
