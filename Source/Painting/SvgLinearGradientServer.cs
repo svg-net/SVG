@@ -75,6 +75,7 @@ namespace Svg
 
         public override Brush GetBrush(SvgVisualElement owner, float opacity)
         {
+            LoadStops();
             // Need at least 2 colours to do the gradient fill
             if (this.Stops.Count < 2)
             {

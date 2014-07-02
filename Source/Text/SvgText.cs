@@ -23,10 +23,7 @@ namespace Svg
         private SvgUnit _dx;
         private SvgUnit _letterSpacing;
         private SvgUnit _wordSpacing;
-        private SvgUnit _fontSize;
-		private SvgFontWeight _fontWeight;
-        private string _font;
-        private string _fontFamily;
+        private FontData _fontData;
         private GraphicsPath _path;
         private SvgTextAnchor _textAnchor = SvgTextAnchor.Start;
         private static readonly SvgRenderer _stringMeasure;
@@ -47,8 +44,7 @@ namespace Svg
         /// </summary>
         public SvgText()
         {
-            this._fontFamily = DefaultFontFamily;
-            this._fontSize = new SvgUnit(0.0f);
+            this._fontData = new FontData();
             this._dy = new SvgUnit(0.0f);
             this._dx = new SvgUnit(0.0f);
         }
@@ -184,12 +180,8 @@ namespace Svg
         [SvgAttribute("font-family")]
         public virtual string FontFamily
         {
-            get { return this._fontFamily; }
-            set
-            {
-                this._fontFamily = ValidateFontFamily(value);
-                this.IsPathDirty = true;
-            }
+            get { return this._fontData.FontFamily; }
+            set { this._fontData.FontFamily = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -198,8 +190,8 @@ namespace Svg
         [SvgAttribute("font-size")]
         public virtual SvgUnit FontSize
         {
-            get { return this._fontSize; }
-            set { this._fontSize = value; this.IsPathDirty = true; }
+            get { return this._fontData.FontSize; }
+            set { this._fontData.FontSize = value; this.IsPathDirty = true; }
         }
 
 
@@ -209,8 +201,8 @@ namespace Svg
 		[SvgAttribute("font-weight")]
 		public virtual SvgFontWeight FontWeight
 		{
-			get { return this._fontWeight; }
-			set { this._fontWeight = value; this.IsPathDirty = true; }
+            get { return this._fontData.FontWeight; }
+            set { this._fontData.FontWeight = value; this.IsPathDirty = true; }
 		}
 
 
@@ -220,36 +212,8 @@ namespace Svg
         [SvgAttribute("font")]
         public virtual string Font
         {
-            get { return this._font; }
-            set
-            {
-                var parts = value.Split(',');
-                foreach (var part in parts)
-                {
-                    //This deals with setting font size. Looks for either <number>px or <number>pt style="font: bold 16px/normal 'trebuchet ms', verdana, sans-serif;"
-                    Regex rx = new Regex(@"(\d+)+(?=pt|px)");
-                    var res = rx.Match(part);
-                    if (res.Success)
-                    {
-                        int fontSize = 10;
-                        int.TryParse(res.Value, out fontSize);
-                        this.FontSize = new SvgUnit((float)fontSize);
-                    }
-
-                    //this assumes "bold" has spaces around it. e.g.: style="font: bold 16px/normal 
-                    rx = new Regex(@"\sbold\s");
-                    res = rx.Match(part);
-                    if (res.Success)
-                    {
-                        this.FontWeight = SvgFontWeight.bold;
-                    }
-                }
-                var font = ValidateFontFamily(value);
-                this._fontFamily = font;
-                this._font = font; //not sure this is used?
-
-                this.IsPathDirty = true;
-            }
+            get { return this._fontData.Font; }
+            set { _fontData.Font = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -261,7 +225,17 @@ namespace Svg
         /// <value>The fill.</value>
         public override SvgPaintServer Fill
         {
-            get { return (this.Attributes["fill"] == null) ? new SvgColourServer(Color.Black) : (SvgPaintServer)this.Attributes["fill"]; }
+            get {
+                var spans = this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan).ToList();
+                if (spans.Count == 1 && spans[0].Fill != SvgColourServer.NotSet)
+                {
+                    return spans[0].Fill;
+                }
+                else
+                {
+                    return (this.Attributes["fill"] == null) ? new SvgColourServer(Color.Black) : (SvgPaintServer)this.Attributes["fill"]; 
+                }
+            }
             set { this.Attributes["fill"] = value; }
         }
 
@@ -313,40 +287,48 @@ namespace Svg
             {
                 // Make sure the path is always null if there is no text
 				//if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
-				if (string.IsNullOrWhiteSpace(this.Text) && this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan).Count() == 0)
+				if ((string.IsNullOrEmpty(this.Text) || this.Text.Trim().Length < 1) && this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan).Count() == 0)
 				    return _path = null;
 				//NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
                 // When an empty string is passed to GraphicsPath, it rises an InvalidArgumentException...
 
 				if (_path == null || this.IsPathDirty)
                 {
-                    float fontSize = this.FontSize.ToDeviceValue(this);
-                    if (fontSize == 0.0f)
-                    {
-                        fontSize = 1.0f;
-                    }
-
-                	FontStyle fontWeight = (this.FontWeight == SvgFontWeight.bold ? FontStyle.Bold : FontStyle.Regular);
-					Font font = new Font(this._fontFamily, fontSize, fontWeight, GraphicsUnit.Pixel);
+                    var font = this._fontData.GetFont(this, null);
 
                     _path = new GraphicsPath();
                     _path.StartFigure();
 
 					if (!string.IsNullOrEmpty(this.Text))
-	                	DrawString(_path, this.X, this.Y, this.Dx, this.Dy, font, fontSize, this.Text);
+	                	DrawString(_path, this.X, this.Y, this.Dx, this.Dy, font, this.Text);
 
 					foreach (var tspan in this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan))
 					{
-						if (!string.IsNullOrEmpty(tspan.Text))
-							DrawString(
-							_path, 
-							tspan.X == SvgUnit.Empty ? this.X: tspan.X,
-							tspan.Y == SvgUnit.Empty ? this.Y : tspan.Y, 
-							tspan.DX,
-							tspan.DY,
-							font, 
-							fontSize,
-							tspan.Text);
+                        if (!string.IsNullOrEmpty(tspan.Text))
+                        {
+                            if (tspan.FontInfo.Equals(this._fontData))
+                            {
+                                DrawString(
+                                    _path,
+                                    tspan.X == SvgUnit.Empty ? this.X : tspan.X,
+                                    tspan.Y == SvgUnit.Empty ? this.Y : tspan.Y,
+                                    tspan.DX,
+                                    tspan.DY,
+                                    font,
+                                    tspan.Text);
+                            }
+                            else
+                            {
+                                DrawString(
+                                    _path,
+                                    tspan.X == SvgUnit.Empty ? this.X : tspan.X,
+                                    tspan.Y == SvgUnit.Empty ? this.Y : tspan.Y,
+                                    tspan.DX,
+                                    tspan.DY,
+                                    tspan.FontInfo.GetFont(this, _fontData),
+                                    tspan.Text);
+                            }
+                        }
 					}
 
                 	_path.CloseFigure();
@@ -377,9 +359,9 @@ namespace Svg
             return DefaultFontFamily;
         }
 
-		private void DrawString(GraphicsPath path, SvgUnit x, SvgUnit y, SvgUnit dx, SvgUnit dy, Font font, float fontSize, string text)
+		private void DrawString(GraphicsPath path, SvgUnit x, SvgUnit y, SvgUnit dx, SvgUnit dy, Font font, string text)
 		{
-			PointF location = PointF.Empty;
+            PointF location = PointF.Empty;
 			SizeF stringBounds;
 
 			lock (_stringMeasure)
@@ -421,13 +403,13 @@ namespace Svg
 						char[] characters = word.ToCharArray();
 						foreach (char currentCharacter in characters)
 						{
-							path.AddString(currentCharacter.ToString(), new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
+                            path.AddString(currentCharacter.ToString(), font.FontFamily, (int)font.Style, font.Size, location, StringFormat.GenericTypographic);
 							location = new PointF(path.GetBounds().Width + start + letterSpacing, location.Y);
 						}
 					}
 					else
 					{
-						path.AddString(word, new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
+                        path.AddString(word, font.FontFamily, (int)font.Style, font.Size, location, StringFormat.GenericTypographic);
 					}
 
 					// Move the location of the word to be written along
@@ -438,7 +420,7 @@ namespace Svg
 			{
 				if (!string.IsNullOrEmpty(text))
 				{
-					path.AddString(text, new FontFamily(this._fontFamily), (int)font.Style, fontSize, location, StringFormat.GenericTypographic);
+                    path.AddString(text, font.FontFamily, (int)font.Style, font.Size, location, StringFormat.GenericTypographic);
 				}
 			}
 
@@ -462,6 +444,7 @@ namespace Svg
             }
         }
 
+#if Net4
 		public override void RegisterEvents(ISvgEventCaller caller)
 		{
 			//register basic events
@@ -480,6 +463,7 @@ namespace Svg
         	caller.UnregisterAction(this.ID + "/onchange");
 			
 		}
+#endif
 
 		public override SvgElement DeepCopy()
 		{

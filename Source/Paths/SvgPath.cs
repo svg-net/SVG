@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Xml.Serialization;
@@ -26,12 +27,12 @@ namespace Svg
         public SvgPathSegmentList PathData
         {
         	get { return this.Attributes.GetAttribute<SvgPathSegmentList>("d"); }
-            set
-            {
-            	this.Attributes["d"] = value;
-            	value._owner = this;
-                this.IsPathDirty = true;
-            }
+          set
+          {
+              this.Attributes["d"] = value;
+              value._owner = this;
+              this.IsPathDirty = true;
+          }
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace Svg
         [SvgAttribute("pathLength")]
         public int PathLength
         {
-        	get { return this.Attributes.GetAttribute<int>("pathLength"); }
+            get { return this.Attributes.GetAttribute<int>("pathLength"); }
             set { this.Attributes["pathLength"] = value; }
         }
 
@@ -48,34 +49,34 @@ namespace Svg
         /// <summary>
         /// Gets or sets the marker (end cap) of the path.
         /// </summary>
-		[SvgAttribute("marker-end")]
-		public Uri MarkerEnd
+        [SvgAttribute("marker-end")]
+        public Uri MarkerEnd
         {
-			get { return this.Attributes.GetAttribute<Uri>("marker-end"); }
-			set { this.Attributes["marker-end"] = value; }
-		}
+            get { return this.Attributes.GetAttribute<Uri>("marker-end"); }
+            set { this.Attributes["marker-end"] = value; }
+        }
 
 
-		/// <summary>
-		/// Gets or sets the marker (start cap) of the path.
-		/// </summary>
-		[SvgAttribute("marker-mid")]
-		public Uri MarkerMid
-		{
-			get { return this.Attributes.GetAttribute<Uri>("marker-mid"); }
-			set { this.Attributes["marker-mid"] = value; }
-		}
+        /// <summary>
+        /// Gets or sets the marker (start cap) of the path.
+        /// </summary>
+        [SvgAttribute("marker-mid")]
+        public Uri MarkerMid
+        {
+            get { return this.Attributes.GetAttribute<Uri>("marker-mid"); }
+            set { this.Attributes["marker-mid"] = value; }
+        }
 
 
-		/// <summary>
-		/// Gets or sets the marker (start cap) of the path.
-		/// </summary>
-		[SvgAttribute("marker-start")]
-		public Uri MarkerStart
-		{
-			get { return this.Attributes.GetAttribute<Uri>("marker-start"); }
-			set { this.Attributes["marker-start"] = value; }
-		}
+        /// <summary>
+        /// Gets or sets the marker (start cap) of the path.
+        /// </summary>
+        [SvgAttribute("marker-start")]
+        public Uri MarkerStart
+        {
+            get { return this.Attributes.GetAttribute<Uri>("marker-start"); }
+            set { this.Attributes["marker-start"] = value; }
+        }
 
 
         /// <summary>
@@ -137,62 +138,61 @@ namespace Svg
             pathData._owner = this;
         }
 
-		/// <summary>
-		/// Renders the stroke of the <see cref="SvgVisualElement"/> to the specified <see cref="SvgRenderer"/>
-		/// </summary>
-		/// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-		protected internal override void  RenderStroke(SvgRenderer renderer)
-		{
- 			if (this.Stroke != null)
-			{
-				float strokeWidth = this.StrokeWidth.ToDeviceValue(this);
-				using (Pen pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
-				{
-					if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
-					{
-						/* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
-						pen.DashPattern = this.StrokeDashArray.ConvertAll(u => u.Value / ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
-					}
+        /// <summary>
+        /// Renders the stroke of the <see cref="SvgVisualElement"/> to the specified <see cref="SvgRenderer"/>
+        /// </summary>
+        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
+        protected internal override void  RenderStroke(SvgRenderer renderer)
+        {
+            if (this.Stroke != null)
+            {
+                float strokeWidth = this.StrokeWidth.ToDeviceValue(this);
+                using (Pen pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
+                {
+                    if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
+                    {
+                        /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
+                        pen.DashPattern = this.StrokeDashArray.ConvertAll(u => u.Value / ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
+                    }
 
-					renderer.DrawPath(pen, this.Path);
+                    renderer.DrawPath(pen, this.Path);
 
-					if (this.MarkerStart != null)
-					{
-						SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerStart.ToString());
-						marker.RenderMarker(renderer, this, Path.PathPoints[0], Path.PathPoints[0], Path.PathPoints[1]);
-					}
+                    if (this.MarkerStart != null)
+                    {
+                        SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerStart.ToString());
+                        marker.RenderMarker(renderer, this, Path.PathPoints[0], Path.PathPoints[0], Path.PathPoints[1]);
+                    }
 
-					if (this.MarkerMid != null)
-					{
-						SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerMid.ToString());
-						for (int i = 1; i <= Path.PathPoints.Length - 2; i++)
-							marker.RenderMarker(renderer, this, Path.PathPoints[i], Path.PathPoints[i - 1], Path.PathPoints[i], Path.PathPoints[i + 1]);
-					}
+                    if (this.MarkerMid != null)
+                    {
+                        SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerMid.ToString());
+                        for (int i = 1; i <= Path.PathPoints.Length - 2; i++)
+                            marker.RenderMarker(renderer, this, Path.PathPoints[i], Path.PathPoints[i - 1], Path.PathPoints[i], Path.PathPoints[i + 1]);
+                    }
 
-					if (this.MarkerEnd != null)
-					{
-						SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerEnd.ToString());
-						marker.RenderMarker(renderer, this, Path.PathPoints[Path.PathPoints.Length - 1], Path.PathPoints[Path.PathPoints.Length - 2], Path.PathPoints[Path.PathPoints.Length - 1]);
-					}
-				}
-			}
-		}
+                    if (this.MarkerEnd != null)
+                    {
+                        SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerEnd.ToString());
+                        marker.RenderMarker(renderer, this, Path.PathPoints[Path.PathPoints.Length - 1], Path.PathPoints[Path.PathPoints.Length - 2], Path.PathPoints[Path.PathPoints.Length - 1]);
+                    }
+                }
+            }
+        }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgPath>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgPath>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgPath;
-			foreach (var pathData in this.PathData)
-				newObj.PathData.Add(pathData.Clone());
-			newObj.PathLength = this.PathLength;
-			newObj.MarkerStart = this.MarkerStart;
-			newObj.MarkerEnd = this.MarkerEnd;
-			return newObj;
-
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgPath;
+            foreach (var pathData in this.PathData)
+                newObj.PathData.Add(pathData.Clone());
+            newObj.PathLength = this.PathLength;
+            newObj.MarkerStart = this.MarkerStart;
+            newObj.MarkerEnd = this.MarkerEnd;
+            return newObj;
+        }
     }
 }

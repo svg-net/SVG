@@ -13,7 +13,7 @@ namespace Svg
     {
         private Uri _referencedElement;
 
-        [SvgAttribute("xlink:href")]
+        [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual Uri ReferencedElement
         {
             get { return this._referencedElement; }

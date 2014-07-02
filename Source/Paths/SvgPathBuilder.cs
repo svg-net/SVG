@@ -222,9 +222,9 @@ namespace Svg
             {
                 var lastSegment = segments.Last;
 
-                // if the last element is a SvgClosePathSegment the position of the previous element should be used because the position of SvgClosePathSegment is 0,0
+                // if the last element is a SvgClosePathSegment the position of the previous move to should be used because the position of SvgClosePathSegment is 0,0
                 if (lastSegment is SvgClosePathSegment)
-                    lastSegment = segments[segments.Count - 2];
+                    lastSegment = segments.OfType<SvgMoveToSegment>().Last();
 
                 if (isRelativeX)
                 {
@@ -290,6 +290,7 @@ namespace Svg
         {
             if (value is string)
             {
+                if (string.IsNullOrEmpty((string)value)) return new SvgPathSegmentList();
                 return Parse((string)value);
             }
 

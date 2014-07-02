@@ -14,7 +14,15 @@ namespace Svg
     [SvgElement("marker")]
     public class SvgMarker : SvgVisualElement, ISvgViewPort
     {
+        private SvgMarkerUnits _svgMarkerUnits = SvgMarkerUnits.strokeWidth;
     	private SvgOrient _svgOrient = new SvgOrient();
+
+        [SvgAttribute("markerUnits")]
+        public virtual SvgMarkerUnits MarkerUnits
+        {
+            get { return _svgMarkerUnits; }
+            set { _svgMarkerUnits = value; }
+        }
 
         [SvgAttribute("refX")]
         public virtual SvgUnit RefX

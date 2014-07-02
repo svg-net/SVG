@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="ef788727-7280-49c2-a4ad-79113d04c855" name="eric.domke@G5130 2014-06-30 16:54:47" runUser="WONDERLAN\eric.domke" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="ad4d99d5-165f-493c-9b8f-937d51b9a02a">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment userDeploymentRoot="C:\Users\edomke\Documents\GitHub\SVG\Source\TestResults" useDefaultDeploymentRoot="false" enabled="false" runDeploymentRoot="eric.domke_G5130 2014-06-30 16_54_47">
+      <DeploymentItem filename="C:\Users\edomke\Documents\GitHub\vvvv\public\common\src\thirdparty\Svg.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2014-06-30T16:54:47.6779374-04:00" queuing="2014-06-30T16:54:49.6521348-04:00" start="2014-06-30T16:54:49.7721468-04:00" finish="2014-06-30T16:56:00.5282217-04:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestDescendants" storage="c:\users\edomke\documents\github\svg\source\svg.unittests\bin\debug\svg.unittests.dll" id="2422b99b-f3cc-d94b-5c30-c25d9ff9e9a3">
+      <Execution id="8761e0ad-4a1e-414c-b162-3c58e417909e" />
+      <TestMethod codeBase="C:/Users/edomke/Documents/GitHub/SVG/Source/Svg.UnitTests/bin/Debug/Svg.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="Svg.UnitTests.ExtensionsTest, Svg.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestDescendants" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="2422b99b-f3cc-d94b-5c30-c25d9ff9e9a3" executionId="8761e0ad-4a1e-414c-b162-3c58e417909e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="8761e0ad-4a1e-414c-b162-3c58e417909e" testId="2422b99b-f3cc-d94b-5c30-c25d9ff9e9a3" testName="TestDescendants" computerName="G5130" duration="00:01:08.8569228" startTime="2014-06-30T16:54:49.8811577-04:00" endTime="2014-06-30T16:56:00.4422131-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8761e0ad-4a1e-414c-b162-3c58e417909e">
+      <Output>
+        <DebugTrace>SvgDefinitionList
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgGradientStop
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgGradientStop
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgGradientStop
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgLinearGradientServer
+SvgLinearGradientServer
+SvgLinearGradientServer
+SvgFilter
+SvgGaussianBlur
+SvgFilter
+SvgGaussianBlur
+SvgFilter
+SvgGaussianBlur
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgPath
+SvgClipPath
+SvgUse
+SvgPath
+SvgClipPath
+SvgUse
+SvgPath
+SvgClipPath
+SvgUse
+SvgPath
+SvgClipPath
+SvgUse
+SvgPath
+SvgClipPath
+SvgUse
+SvgPath
+SvgClipPath
+SvgUse
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgLinearGradientServer
+SvgLinearGradientServer
+SvgGradientStop
+SvgGradientStop
+SvgLinearGradientServer
+SvgDocumentMetadata
+SvgGroup
+SvgGroup
+SvgPath
+SvgPath
+SvgPath
+SvgRectangle
+SvgPath
+SvgPath
+SvgPath
+SvgRectangle
+SvgPath
+SvgRectangle
+SvgRectangle
+SvgRectangle
+SvgRectangle
+SvgRectangle
+SvgPath
+SvgPath
+SvgRectangle
+SvgPath
+SvgRectangle
+SvgPath
+SvgPath
+SvgPath
+SvgPath
+SvgText
+SvgTextSpan
+SvgPath
+SvgPath
+SvgPath
+SvgPath
+SvgGroup
+SvgPath
+SvgPath
+SvgText
+SvgTextSpan
+SvgPath
+SvgPath
+SvgPath
+SvgPath
+SvgPath
+SvgPath
+</DebugTrace>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>
