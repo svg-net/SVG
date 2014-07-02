@@ -85,13 +85,6 @@ namespace Svg
 			set { this.Attributes["markerHeight"] = value; }
 		}
 
-		[SvgAttribute("markerUnits")]
-		public virtual SvgMarkerUnits MarkerUnits
-		{
-			get { return this.Attributes.GetAttribute<SvgMarkerUnits>("markerUnits"); }
-			set { this.Attributes["markerUnits"] = value; }
-		}
-
 		public SvgMarker()
 		{
 			MarkerUnits = SvgMarkerUnits.strokeWidth;
