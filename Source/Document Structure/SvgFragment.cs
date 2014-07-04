@@ -124,8 +124,16 @@ namespace Svg
 
 				if (AspectRatio.Align != SvgPreserveAspectRatio.none)
 				{
-					fScaleX = Math.Min(fScaleX, fScaleY);
-					fScaleY = Math.Min(fScaleX, fScaleY);
+					if (AspectRatio.Slice)
+					{
+						fScaleX = Math.Max(fScaleX, fScaleY);
+						fScaleY = Math.Max(fScaleX, fScaleY);
+					}
+					else
+					{
+						fScaleX = Math.Min(fScaleX, fScaleY);
+						fScaleY = Math.Min(fScaleX, fScaleY);
+					}
 					float fViewMidX = (this.ViewBox.Width / 2) * fScaleX;
 					float fViewMidY = (this.ViewBox.Height / 2) * fScaleY;
 					float fMidX = this.Width.ToDeviceValue() / 2;
@@ -139,7 +147,7 @@ namespace Svg
 							fMinX += (fMidX - fViewMidX) / fScaleX;
 							break;
 						case SvgPreserveAspectRatio.xMaxYMin:
-							fMinX += this.ViewBox.Width - this.Width.ToDeviceValue();
+							fMinX += (this.Width.ToDeviceValue() / fScaleX) - this.ViewBox.Width;
 							break;
 						case SvgPreserveAspectRatio.xMinYMid:
 							fMinY += (fMidY - fViewMidY) / fScaleY;
@@ -149,28 +157,28 @@ namespace Svg
 							fMinY += (fMidY - fViewMidY) / fScaleY;
 							break;
 						case SvgPreserveAspectRatio.xMaxYMid:
-							fMinX += this.ViewBox.Width - this.Width.ToDeviceValue();
+							fMinX += (this.Width.ToDeviceValue() / fScaleX) - this.ViewBox.Width;
 							fMinY += (fMidY - fViewMidY) / fScaleY;
 							break;
 						case SvgPreserveAspectRatio.xMinYMax:
-							fMinY += this.ViewBox.Height - this.Height.ToDeviceValue();
+							fMinY += (this.Height.ToDeviceValue() / fScaleY) - this.ViewBox.Height;
 							break;
 						case SvgPreserveAspectRatio.xMidYMax:
 							fMinX += (fMidX - fViewMidX) / fScaleX;
-							fMinY += this.ViewBox.Height - this.Height.ToDeviceValue();
+							fMinY += (this.Height.ToDeviceValue() / fScaleY) - this.ViewBox.Height;
 							break;
 						case SvgPreserveAspectRatio.xMaxYMax:
-							fMinX += this.ViewBox.Width - this.Width.ToDeviceValue();
-							fMinY += this.ViewBox.Height - this.Height.ToDeviceValue();
+							fMinX += (this.Width.ToDeviceValue() / fScaleX) - this.ViewBox.Width;
+							fMinY += (this.Height.ToDeviceValue() / fScaleY) - this.ViewBox.Height;
 							break;
 						default:
 							break;
 					}
 				}
 
-            	renderer.TranslateTransform(_x, _y, MatrixOrder.Append);
-				renderer.TranslateTransform(fMinX, fMinY, MatrixOrder.Append);
-				renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Append);
+            	renderer.TranslateTransform(_x, _y);
+				renderer.TranslateTransform(fMinX, fMinY);
+				renderer.ScaleTransform(fScaleX, fScaleY);
             }
         }
         
