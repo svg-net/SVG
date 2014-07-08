@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace Svg
@@ -24,6 +20,5 @@ namespace Svg
         SvgUnitCollection StrokeDashArray { get; set; }
         SvgUnit StrokeDashOffset { get; set; }
         GraphicsPath Path { get; }
-        RectangleF Bounds { get; }
     }
 }
