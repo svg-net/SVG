@@ -52,7 +52,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>Full</DebugType>
     <Optimize>false</Optimize>
-     <OutputPath>..\..\vvvv\public\common\src\thirdparty\</OutputPath>
+    <OutputPath>..\..\vvvv\public\common\src\thirdparty\</OutputPath>
     <DefineConstants>TRACE;DEBUG;REFLECTION</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -114,6 +114,7 @@
     <Compile Include="DataTypes\SvgViewBox.cs" />
     <Compile Include="Document Structure\SvgTitle.cs" />
     <Compile Include="Document Structure\SvgDocumentMetadata.cs" />
+    <Compile Include="Painting\ISvgBoundable.cs" />
     <Compile Include="Painting\SvgMarker.cs" />
     <Compile Include="Document Structure\SvgDefinitionList.cs" />
     <Compile Include="Document Structure\SvgDescription.cs" />

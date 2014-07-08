@@ -1,138 +1,334 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Drawing.Drawing2D;
+using System.Diagnostics;
 using System.Drawing;
-using System.ComponentModel;
+using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace Svg
 {
     [SvgElement("linearGradient")]
     public sealed class SvgLinearGradientServer : SvgGradientServer
     {
-        private SvgUnit _x1;
-        private SvgUnit _y1;
-        private SvgUnit _x2;
-        private SvgUnit _y2;
-
-        [DefaultValue(typeof(SvgUnit), "0"), SvgAttribute("x1")]
+        [SvgAttribute("x1")]
         public SvgUnit X1
         {
-            get { return this._x1; }
+            get
+            {
+                return this.Attributes.GetAttribute<SvgUnit>("x1");
+            }
             set
             {
-                this._x1 = value;
+                Attributes["x1"] = value;
             }
         }
 
-        [DefaultValue(typeof(SvgUnit), "0"), SvgAttribute("y1")]
+        [SvgAttribute("y1")]
         public SvgUnit Y1
         {
-            get { return this._y1; }
+            get
+            {
+                return this.Attributes.GetAttribute<SvgUnit>("y1");
+            }
             set
             {
-                this._y1 = value;
+                this.Attributes["y1"] = value;
             }
         }
 
-        [DefaultValue(typeof(SvgUnit), "0"), SvgAttribute("x2")]
+        [SvgAttribute("x2")]
         public SvgUnit X2
         {
-            get { return this._x2; }
+            get
+            {
+                return this.Attributes.GetAttribute<SvgUnit>("x2");
+            }
             set
             {
-                this._x2 = value;
+                Attributes["x2"] = value;
             }
         }
 
-        [DefaultValue(typeof(SvgUnit), "0"), SvgAttribute("y2")]
+        [SvgAttribute("y2")]
         public SvgUnit Y2
         {
-            get { return this._y2; }
+            get
+            {
+                return this.Attributes.GetAttribute<SvgUnit>("y2");
+            }
             set
             {
-                this._y2 = value;
+                this.Attributes["y2"] = value;
+            }
+        }
+
+        private bool IsInvalid
+        {
+            get
+            {
+                // Need at least 2 colours to do the gradient fill
+                return this.Stops.Count < 2;
             }
         }
 
         public SvgLinearGradientServer()
         {
-            this._x1 = new SvgUnit(0.0f);
-            this._y1 = new SvgUnit(0.0f);
-            this._x2 = new SvgUnit(0.0f);
-            this._y2 = new SvgUnit(0.0f);
+            X1 = new SvgUnit(SvgUnitType.Percentage, 0F);
+            Y1 = new SvgUnit(SvgUnitType.Percentage, 0F);
+            X2 = new SvgUnit(SvgUnitType.Percentage, 100F);
+            Y2 = new SvgUnit(SvgUnitType.Percentage, 0F);
         }
 
-        public SvgPoint Start
+        public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
         {
-            get { return new SvgPoint(this.X1, this.Y1); }
-        }
-
-        public SvgPoint End
-        {
-            get { return new SvgPoint(this.X2, this.Y2); }
-        }
-
-        public override Brush GetBrush(SvgVisualElement owner, float opacity)
-        {
-            // Need at least 2 colours to do the gradient fill
-            if (this.Stops.Count < 2)
+            if (IsInvalid)
             {
                 return null;
             }
 
-            PointF start;
-            PointF end;
-            RectangleF bounds = (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) ? owner.Bounds : owner.OwnerDocument.GetDimensions();
+            var boundable = CalculateBoundable(renderingElement);
 
-            // Have start/end points been set? If not the gradient is horizontal
-            if (!this.End.IsEmpty())
-            {
-                // Get the points to work out an angle
-                if (this.Start.IsEmpty())
-                {
-                    start = bounds.Location;
-                }
-                else
-                {
-                    start = new PointF(this.Start.X.ToDeviceValue(owner), this.Start.Y.ToDeviceValue(owner, true));
-                }
+            var specifiedStart = CalculateStart(boundable);
+            var specifiedEnd = CalculateEnd(boundable);
 
-                float x = (this.End.X.IsEmpty) ? start.X : this.End.X.ToDeviceValue(owner);
-                end = new PointF(x, this.End.Y.ToDeviceValue(owner, true));
-            }
-            else
+            var effectiveStart = specifiedStart;
+            var effectiveEnd = specifiedEnd;
+
+            if (NeedToExpandGradient(renderingElement, specifiedStart, specifiedEnd))
             {
-                // Default: horizontal
-                start = bounds.Location;
-                end = new PointF(bounds.Right, bounds.Top);
+                var expansion = ExpandGradient(renderingElement, specifiedStart, specifiedEnd);
+                effectiveStart = expansion.Item1;
+                effectiveEnd = expansion.Item2;
             }
 
-            LinearGradientBrush gradient = new LinearGradientBrush(start, end, Color.Transparent, Color.Transparent);
-            gradient.InterpolationColors = base.GetColourBlend(owner, opacity, false);
-
-            // Needed to fix an issue where the gradient was being wrapped when though it had the correct bounds
-            gradient.WrapMode = WrapMode.TileFlipX;
-            return gradient;
+            return new LinearGradientBrush(effectiveStart, effectiveEnd, Color.Transparent, Color.Transparent)
+            {
+                InterpolationColors = CalculateColorBlend(renderingElement, opacity, specifiedStart, effectiveStart, specifiedEnd, effectiveEnd),
+                WrapMode = WrapMode.TileFlipX
+            };
         }
 
+        private PointF CalculateStart(ISvgBoundable boundable)
+        {
+            return TransformPoint(new PointF(this.X1.ToDeviceValue(boundable), this.Y1.ToDeviceValue(boundable, true)));
+        }
 
+        private PointF CalculateEnd(ISvgBoundable boundable)
+        {
+            return TransformPoint(new PointF(this.X2.ToDeviceValue(boundable), this.Y2.ToDeviceValue(boundable, true)));
+        }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgLinearGradientServer>();
-		}
+        private bool NeedToExpandGradient(ISvgBoundable boundable, PointF specifiedStart, PointF specifiedEnd)
+        {
+            return SpreadMethod == SvgGradientSpreadMethod.Pad && (boundable.Bounds.Contains(specifiedStart) || boundable.Bounds.Contains(specifiedEnd));
+        }
 
+        private Tuple<PointF, PointF> ExpandGradient(ISvgBoundable boundable, PointF specifiedStart, PointF specifiedEnd)
+        {
+            if (!NeedToExpandGradient(boundable, specifiedStart, specifiedEnd))
+            {
+                Debug.Fail("Unexpectedly expanding gradient when not needed!");
+                return new Tuple<PointF, PointF>(specifiedStart, specifiedEnd);
+            }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgLinearGradientServer;
-			newObj.X1 = this.X1;
-			newObj.Y1 = this.Y1;
-			newObj.X2 = this.X2;
-			newObj.Y2 = this.Y2;
-			return newObj;
+            var specifiedLength = CalculateDistance(specifiedStart, specifiedEnd);
+            var specifiedUnitVector = new PointF((specifiedEnd.X - specifiedStart.X) / (float)specifiedLength, (specifiedEnd.Y - specifiedStart.Y) / (float)specifiedLength);
 
-		}
+            var effectiveStart = specifiedStart;
+            var effectiveEnd = specifiedEnd;
+
+            var elementDiagonal = (float)CalculateDistance(new PointF(boundable.Bounds.Left, boundable.Bounds.Top), new PointF(boundable.Bounds.Right, boundable.Bounds.Bottom));
+
+            var expandedStart = MovePointAlongVector(effectiveStart, specifiedUnitVector, -elementDiagonal);
+            var expandedEnd = MovePointAlongVector(effectiveEnd, specifiedUnitVector, elementDiagonal);
+
+            var intersectionPoints = new LineF(expandedStart.X, expandedStart.Y, expandedEnd.X, expandedEnd.Y).Intersection(boundable.Bounds);
+
+            if (boundable.Bounds.Contains(specifiedStart))
+            {
+                effectiveStart = CalculateClosestIntersectionPoint(expandedStart, intersectionPoints);
+
+                effectiveStart = MovePointAlongVector(effectiveStart, specifiedUnitVector, -1);
+            }
+
+            if (boundable.Bounds.Contains(specifiedEnd))
+            {
+                effectiveEnd = CalculateClosestIntersectionPoint(effectiveEnd, intersectionPoints);
+
+                effectiveEnd = MovePointAlongVector(effectiveEnd, specifiedUnitVector, 1);
+            }
+
+            return new Tuple<PointF, PointF>(effectiveStart, effectiveEnd);
+        }
+
+        private ColorBlend CalculateColorBlend(SvgVisualElement owner, float opacity, PointF specifiedStart, PointF effectiveStart, PointF specifiedEnd, PointF effectiveEnd)
+        {
+            var colorBlend = GetColorBlend(owner, opacity, false);
+
+            var startDelta = CalculateDistance(specifiedStart, effectiveStart);
+            var endDelta = CalculateDistance(specifiedEnd, effectiveEnd);
+
+            if (!(startDelta > 0) && !(endDelta > 0))
+            {
+                return colorBlend;
+            }
+
+            var specifiedLength = CalculateDistance(specifiedStart, specifiedEnd);
+            var specifiedUnitVector = new PointF((specifiedEnd.X - specifiedStart.X) / (float)specifiedLength, (specifiedEnd.Y - specifiedStart.Y) / (float)specifiedLength);
+
+            var effectiveLength = CalculateDistance(effectiveStart, effectiveEnd);
+
+            for (var i = 0; i < colorBlend.Positions.Length; i++)
+            {
+                var originalPoint = MovePointAlongVector(specifiedStart, specifiedUnitVector, (float) specifiedLength * colorBlend.Positions[i]);
+
+                var distanceFromEffectiveStart = CalculateDistance(effectiveStart, originalPoint);
+
+                colorBlend.Positions[i] = (float) Math.Max(0F, Math.Min((distanceFromEffectiveStart / effectiveLength), 1.0F));
+            }
+
+            if (startDelta > 0)
+            {
+                colorBlend.Positions = new[] { 0F }.Concat(colorBlend.Positions).ToArray();
+                colorBlend.Colors = new[] { colorBlend.Colors.First() }.Concat(colorBlend.Colors).ToArray();
+            }
+
+            if (endDelta > 0)
+            {
+                colorBlend.Positions = colorBlend.Positions.Concat(new[] { 1F }).ToArray();
+                colorBlend.Colors = colorBlend.Colors.Concat(new[] { colorBlend.Colors.Last() }).ToArray();
+            }
+
+            return colorBlend;
+        }
+
+        private static PointF CalculateClosestIntersectionPoint(PointF sourcePoint, IList<PointF> targetPoints)
+        {
+            Debug.Assert(targetPoints.Count == 2, "Unexpected number of intersection points!");
+
+            return CalculateDistance(sourcePoint, targetPoints[0]) < CalculateDistance(sourcePoint, targetPoints[1]) ? targetPoints[0] : targetPoints[1];
+        }
+
+        private static PointF MovePointAlongVector(PointF start, PointF unitVector, float distance)
+        {
+            return start + new SizeF(unitVector.X * distance, unitVector.Y * distance);
+        }
+
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgLinearGradientServer>();
+        }
+
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgLinearGradientServer;
+            newObj.X1 = this.X1;
+            newObj.Y1 = this.Y1;
+            newObj.X2 = this.X2;
+            newObj.Y2 = this.Y2;
+            return newObj;
+
+        }
+
+        private sealed class LineF
+        {
+            private float X1
+            {
+                get;
+                set;
+            }
+
+            private float Y1
+            {
+                get; 
+                set;
+            }
+
+            private float X2
+            {
+                get;
+                set;
+            }
+
+            private float Y2
+            {
+                get;
+                set;
+            }
+
+            public LineF(float x1, float y1, float x2, float y2)
+            {
+                X1 = x1;
+                Y1 = y1;
+                X2 = x2;
+                Y2 = y2;
+            }
+
+            public List<PointF> Intersection(RectangleF rectangle)
+            {
+                var result = new List<PointF>();
+
+                AddIfIntersect(this, new LineF(rectangle.X, rectangle.Y, rectangle.Right, rectangle.Y), result);
+                AddIfIntersect(this, new LineF(rectangle.Right, rectangle.Y, rectangle.Right, rectangle.Bottom), result);
+                AddIfIntersect(this, new LineF(rectangle.Right, rectangle.Bottom, rectangle.X, rectangle.Bottom), result);
+                AddIfIntersect(this, new LineF(rectangle.X, rectangle.Bottom, rectangle.X, rectangle.Y), result);
+
+                return result;
+            }
+
+            private PointF? Intersection(LineF other)
+            {
+                var a1 = Y2 - Y1;
+                var b1 = X1 - X2;
+                var c1 = X2 * Y1 - X1 * Y2;
+
+                var r3 = a1 * other.X1 + b1 * other.Y1 + c1;
+                var r4 = a1 * other.X2 + b1 * other.Y2 + c1;
+
+                if (r3 != 0 && r4 != 0 && Math.Sign(r3) == Math.Sign(r4))
+                {
+                    return null;
+                }
+
+                var a2 = other.Y2 - other.Y1;
+                var b2 = other.X1 - other.X2;
+                var c2 = other.X2 * other.Y1 - other.X1 * other.Y2;
+
+                var r1 = a2 * X1 + b2 * Y1 + c2;
+                var r2 = a2 * X2 + b2 * Y2 + c2;
+
+                if (r1 != 0 && r2 != 0 && Math.Sign(r1) == Math.Sign(r2))
+                {
+                    return (null);
+                }
+
+                var denom = a1 * b2 - a2 * b1;
+
+                if (denom == 0)
+                {
+                    return null;
+                }
+
+                var offset = denom < 0 ? -denom / 2 : denom / 2;
+
+                var num = b1 * c2 - b2 * c1;
+                var x = (num < 0 ? num - offset : num + offset) / denom;
+
+                num = a2 * c1 - a1 * c2;
+                var y = (num < 0 ? num - offset : num + offset) / denom;
+
+                return new PointF(x, y);
+            }
+
+            private static void AddIfIntersect(LineF first, LineF second, ICollection<PointF> result)
+            {
+                var intersection = first.Intersection(second);
+
+                if (intersection != null)
+                {
+                    result.Add(intersection.Value);
+                }
+            }
+        }
     }
 }

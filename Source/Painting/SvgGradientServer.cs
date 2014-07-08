@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using Svg.Transforms;
 
 namespace Svg
 {
@@ -10,7 +12,7 @@ namespace Svg
     public abstract class SvgGradientServer : SvgPaintServer
     {
         private SvgCoordinateUnits _gradientUnits;
-        private SvgGradientSpreadMethod _spreadMethod = SvgGradientSpreadMethod.Pad;
+        private SvgGradientSpreadMethod _spreadMethod;
         private SvgGradientServer _inheritGradient;
         private List<SvgGradientStop> _stops;
 
@@ -20,6 +22,7 @@ namespace Svg
         internal SvgGradientServer()
         {
             this.GradientUnits = SvgCoordinateUnits.ObjectBoundingBox;
+            this.SpreadMethod = SvgGradientSpreadMethod.Pad;
             this._stops = new List<SvgGradientStop>();
         }
 
@@ -96,12 +99,39 @@ namespace Svg
             }
         }
 
+        [SvgAttribute("gradientTransform")]
+        public SvgTransformCollection GradientTransform
+        {
+            get
+            {
+                return (this.Attributes.GetAttribute<SvgTransformCollection>("gradientTransform"));
+            }
+            set
+            {
+                this.Attributes["gradientTransform"] = value;
+            }
+        }
+
+        private Matrix EffectiveGradientTransform
+        {
+            get
+            {
+                var transform = new Matrix();
+
+                if (GradientTransform != null)
+                {
+                    transform.Multiply(GradientTransform.GetMatrix());
+                }
+                return transform;
+            }
+        }
+
         /// <summary>
         /// Gets a <see cref="ColorBlend"/> representing the <see cref="SvgGradientServer"/>'s gradient stops.
         /// </summary>
         /// <param name="owner">The parent <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the colour blend.</param>
-        protected ColorBlend GetColourBlend(SvgVisualElement owner, float opacity, bool radial)
+        protected ColorBlend GetColorBlend(SvgVisualElement owner, float opacity, bool radial)
         {
             int colourBlends = this.Stops.Count;
             bool insertStart = false;
@@ -201,16 +231,49 @@ namespace Svg
             }
         }
 
+        protected ISvgBoundable CalculateBoundable(SvgVisualElement renderingElement)
+        {
+            return (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) ? (ISvgBoundable)renderingElement : renderingElement.OwnerDocument;
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgGradientServer;
-			
+        protected PointF TransformPoint(PointF originalPoint)
+        {
+            var newPoint = new[] { originalPoint };
+
+            EffectiveGradientTransform.TransformPoints(newPoint);
+
+            return newPoint[0];
+        }
+
+        protected PointF TransformVector(PointF originalVector)
+        {
+            var newVector = new[] { originalVector };
+
+            EffectiveGradientTransform.TransformVectors(newVector);
+
+            return newVector[0];
+        }
+
+        protected static double CalculateDistance(PointF first, PointF second)
+        {
+            return Math.Sqrt(Math.Pow(first.X - second.X, 2) + Math.Pow(first.Y - second.Y, 2));
+        }
+
+        protected static float CalculateLength(PointF vector)
+        {
+            return (float)Math.Sqrt(Math.Pow(vector.X, 2) + Math.Pow(vector.Y, 2));
+        }
+
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgGradientServer;
+            
             newObj.SpreadMethod = this.SpreadMethod;
-			newObj.GradientUnits = this.GradientUnits;
-			newObj.InheritGradient = this.InheritGradient;
+            newObj.GradientUnits = this.GradientUnits;
+            newObj.InheritGradient = this.InheritGradient;
+            newObj.GradientTransform = this.GradientTransform;
 
-			return newObj;
-		}
+            return newObj;
+        }
     }
 }
