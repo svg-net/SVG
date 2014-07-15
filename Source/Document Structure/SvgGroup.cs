@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Xml;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using Svg.Transforms;
 
 namespace Svg
 {
@@ -27,10 +21,10 @@ namespace Svg
         {
             get 
             { 
-            	//var path = new GraphicsPath();
-            	//AddPaths(this, path);
+                //var path = new GraphicsPath();
+                //AddPaths(this, path);
   
-            	return GetPaths(this);
+                return GetPaths(this);
             }
             protected set
             { }
@@ -44,21 +38,29 @@ namespace Svg
         {
             get 
             { 
-            	var r = new RectangleF();
-            	foreach(var c in this.Children)
-            	{
+                var r = new RectangleF();
+                foreach(var c in this.Children)
+                {
                     if (c is SvgVisualElement)
                     {
-                    	// First it should check if rectangle is empty or it will return the wrong Bounds.
-                    	// This is because when the Rectangle is Empty, the Union method adds as if the first values where X=0, Y=0
+                        // First it should check if rectangle is empty or it will return the wrong Bounds.
+                        // This is because when the Rectangle is Empty, the Union method adds as if the first values where X=0, Y=0
                         if (r.IsEmpty)
+                        {
                             r = ((SvgVisualElement)c).Bounds;
+                        }
                         else
-                            r = RectangleF.Union(r, ((SvgVisualElement)c).Bounds);
+                        {
+                            var childBounds = ((SvgVisualElement)c).Bounds;
+                            if (!childBounds.IsEmpty)
+                            {
+                                r = RectangleF.Union(r, childBounds);
+                            }
+                        }
                     }
-            	}
-            	
-            	return r;
+                }
+                
+                return r;
             }
         }
 
@@ -78,18 +80,18 @@ namespace Svg
             this.PopTransforms(renderer);
         }
 
-		
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgGroup>();
-		}
+        
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgGroup>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgGroup;
-			if (this.Fill != null)
-				newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgGroup;
+            if (this.Fill != null)
+                newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
+            return newObj;
+        }
     }
 }

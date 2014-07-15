@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
-using System.Web.UI.WebControls;
 using System.Globalization;
 
 namespace Svg
@@ -73,16 +70,16 @@ namespace Svg
         /// Converts the current unit to one that can be used at render time.
         /// </summary>
         /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
-        public float ToDeviceValue(ISvgStylable styleOwner)
+        public float ToDeviceValue(ISvgBoundable boundable)
         {
-            return this.ToDeviceValue(styleOwner, false);
+            return this.ToDeviceValue(boundable, false);
         }
 
         /// <summary>
         /// Converts the current unit to one that can be used at render time.
         /// </summary>
         /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
-        public float ToDeviceValue(ISvgStylable styleOwner, bool vertical)
+        public float ToDeviceValue(ISvgBoundable boundable, bool vertical)
         {
             // If it's already been calculated
             if (this._deviceValue.HasValue)
@@ -131,14 +128,14 @@ namespace Svg
                     break;
                 case SvgUnitType.Percentage:
                     // Can't calculate if there is no style owner
-                    if (styleOwner == null)
+                    if (boundable == null)
                     {
                         _deviceValue = this.Value;
                         break;
                     }
 
                     // TODO : Support height percentages
-                    System.Drawing.RectangleF size = styleOwner.Bounds;
+                    System.Drawing.SizeF size = boundable.Bounds.Size;
                     _deviceValue = (((vertical) ? size.Height : size.Width) / 100) * this.Value;
                     break;
                 default:
@@ -165,43 +162,43 @@ namespace Svg
             }
         }
 
-		#region Equals and GetHashCode implementation
-		public override bool Equals(object obj)
-		{
-			if (obj == null) return false;
+        #region Equals and GetHashCode implementation
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
             if (!(obj.GetType() == typeof (SvgUnit))) return false;
 
             var unit = (SvgUnit)obj;
             return (unit.Value == this.Value && unit.Type == this.Type);
-		}
-		
-		public bool Equals(SvgUnit other)
-		{
-			return this._type == other._type && (this._value == other._value);
-		}
-		
-		public override int GetHashCode()
-		{
-			int hashCode = 0;
-			unchecked {
-				hashCode += 1000000007 * _type.GetHashCode();
-				hashCode += 1000000009 * _value.GetHashCode();
-				hashCode += 1000000021 * _isEmpty.GetHashCode();
-				hashCode += 1000000033 * _deviceValue.GetHashCode();
-			}
-			return hashCode;
-		}
-		
-		public static bool operator ==(SvgUnit lhs, SvgUnit rhs)
-		{
-			return lhs.Equals(rhs);
-		}
-		
-		public static bool operator !=(SvgUnit lhs, SvgUnit rhs)
-		{
-			return !(lhs == rhs);
-		}
-		#endregion
+        }
+        
+        public bool Equals(SvgUnit other)
+        {
+            return this._type == other._type && (this._value == other._value);
+        }
+        
+        public override int GetHashCode()
+        {
+            int hashCode = 0;
+            unchecked {
+                hashCode += 1000000007 * _type.GetHashCode();
+                hashCode += 1000000009 * _value.GetHashCode();
+                hashCode += 1000000021 * _isEmpty.GetHashCode();
+                hashCode += 1000000033 * _deviceValue.GetHashCode();
+            }
+            return hashCode;
+        }
+        
+        public static bool operator ==(SvgUnit lhs, SvgUnit rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+        
+        public static bool operator !=(SvgUnit lhs, SvgUnit rhs)
+        {
+            return !(lhs == rhs);
+        }
+        #endregion
 
         public override string ToString()
         {
