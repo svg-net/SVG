@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading;
 
 namespace Svg
 {
@@ -31,6 +32,9 @@ namespace Svg
 
             if (colour != null)
             {
+            	var oldCulture = Thread.CurrentThread.CurrentCulture;
+            	Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+            	
                 colour = colour.Trim();
 
                 if (colour.StartsWith("rgb"))
@@ -79,6 +83,8 @@ namespace Svg
                     colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
                     return base.ConvertFrom(context, culture, colour);
                 }
+                
+            	Thread.CurrentThread.CurrentCulture = oldCulture;
             }
 
             return base.ConvertFrom(context, culture, value);
