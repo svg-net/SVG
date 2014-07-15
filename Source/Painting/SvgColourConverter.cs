@@ -48,7 +48,22 @@ namespace Svg
 						{
 							//the alpha portion of the rgba is not an int 0-255 it is a decimal between 0 and 1
 							//so we have to determine the corosponding byte value
-							alphaValue = (int)(decimal.Parse(values[3]) * 255);
+							var alphastring = values[3];
+							if(alphastring.StartsWith("."))
+							{
+								alphastring = "0" + alphastring;
+							}
+							
+							var alphaDecimal = decimal.Parse(alphastring);
+							
+							if(alphaDecimal <= 1)
+							{
+								alphaValue = (int)(alphaDecimal * 255);
+							}
+							else
+							{
+								alphaValue = (int)alphaDecimal;
+							}
 						}
 						Color colorpart = System.Drawing.Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
 
