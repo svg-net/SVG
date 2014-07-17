@@ -115,7 +115,7 @@ namespace Svg
             if (destinationType == typeof(string))
             {
                 var colour = (Color)value;
-                return ColorTranslator.ToHtml(colour);
+                return "#" + colour.R.ToString("X2", null) + colour.G.ToString("X2", null) + colour.B.ToString("X2", null);
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
