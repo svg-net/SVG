@@ -157,30 +157,34 @@ namespace Svg
         }
 
         private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
+        private static object syncLock = new object();
 
         private static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
         {
             var elementType = element.GetType();
 
             PropertyDescriptorCollection properties;
-            if (_propertyDescriptors.Keys.Contains(elementType))
+            lock (syncLock)
             {
-                if (_propertyDescriptors[elementType].Keys.Contains(attributeName))
+                if (_propertyDescriptors.Keys.Contains(elementType))
                 {
-                    properties = _propertyDescriptors[elementType][attributeName];
+                    if (_propertyDescriptors[elementType].Keys.Contains(attributeName))
+                    {
+                        properties = _propertyDescriptors[elementType][attributeName];
+                    }
+                    else
+                    {
+                        properties = TypeDescriptor.GetProperties(elementType, new[] { new SvgAttributeAttribute(attributeName) });
+                        _propertyDescriptors[elementType].Add(attributeName, properties);
+                    }
                 }
                 else
                 {
                     properties = TypeDescriptor.GetProperties(elementType, new[] { new SvgAttributeAttribute(attributeName) });
-                    _propertyDescriptors[elementType].Add(attributeName, properties);
-                }
-            }
-            else
-            {
-                properties = TypeDescriptor.GetProperties(elementType, new[] { new SvgAttributeAttribute(attributeName) });
-                _propertyDescriptors.Add(elementType, new Dictionary<string, PropertyDescriptorCollection>());
+                    _propertyDescriptors.Add(elementType, new Dictionary<string, PropertyDescriptorCollection>());
 
-                _propertyDescriptors[elementType].Add(attributeName, properties);
+                    _propertyDescriptors[elementType].Add(attributeName, properties);
+                } 
             }
 
             if (properties.Count > 0)
