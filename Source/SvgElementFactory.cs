@@ -93,7 +93,11 @@ namespace Svg
                     ElementInfo validType = AvailableElements.SingleOrDefault(e => e.ElementName == elementName);
                     if (validType != null)
                     {
-                        createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
+                        createdElement = (SvgElement) Activator.CreateInstance(validType.ElementType);
+                    }
+                    else
+                    {
+                        createdElement = new SvgUnknownElement(elementName);
                     }
                 }
 
@@ -101,6 +105,12 @@ namespace Svg
                 {
                     SetAttributes(createdElement, reader, document);
                 }
+            }
+            else
+            {
+                // All non svg element (html, ...)
+                createdElement = new NonSvgElement(elementName);
+                SetAttributes(createdElement, reader, document);
             }
 
             //Trace.TraceInformation("End CreateElement");
@@ -119,7 +129,7 @@ namespace Svg
             while (reader.MoveToNextAttribute())
             {
                 // Special treatment for "style"
-                if (reader.LocalName.Equals("style"))
+                if (reader.LocalName.Equals("style") && !(element is NonSvgElement))
                 {
                     styles = reader.Value.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -139,9 +149,9 @@ namespace Svg
 					{
 						if (!styles.Contains("font-size") && document.CustomAttributes.ContainsKey("font-size") && document.CustomAttributes["font-size"] != null)
 						{
-							SetPropertyValue(element, "font-size" , document.CustomAttributes["font-size"], document);
+							SetPropertyValue(element, "font-size", document.CustomAttributes["font-size"], document);
 						}
-						if (!styles.Contains("font-family") &&  document.CustomAttributes.ContainsKey("font-family") && document.CustomAttributes["font-family"] != null)
+						if (!styles.Contains("font-family") && document.CustomAttributes.ContainsKey("font-family") && document.CustomAttributes["font-family"] != null)
 						{
 							SetPropertyValue(element, "font-family", document.CustomAttributes["font-family"], document);
 						}
