@@ -112,8 +112,10 @@
     <Compile Include="DataTypes\SvgOverflow.cs" />
     <Compile Include="DataTypes\SvgUnitCollection.cs" />
     <Compile Include="DataTypes\SvgViewBox.cs" />
+    <Compile Include="Document Structure\SvgSwitch.cs" />
     <Compile Include="Document Structure\SvgTitle.cs" />
     <Compile Include="Document Structure\SvgDocumentMetadata.cs" />
+    <Compile Include="Extensibility\SvgForeignObject.cs" />
     <Compile Include="Painting\ISvgBoundable.cs" />
     <Compile Include="Painting\SvgMarker.cs" />
     <Compile Include="Document Structure\SvgDefinitionList.cs" />
@@ -133,6 +135,8 @@
     <Compile Include="Filter Effects\feMerge\SvgMerge.cs" />
     <Compile Include="Painting\EnumConverters.cs" />
     <Compile Include="SvgDefinitionDefaults.cs" />
+    <Compile Include="NonSvgElement.cs" />
+    <Compile Include="SvgUnknownElement.cs" />
     <Compile Include="SvgElementAttribute.cs" />
     <Compile Include="SvgExtentions.cs" />
     <Compile Include="SvgRenderer.cs" />
