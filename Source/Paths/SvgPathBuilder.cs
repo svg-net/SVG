@@ -276,7 +276,7 @@ namespace Svg
 
         private static IEnumerable<float> ParseCoordinates(string coords)
         {
-            var parts = Regex.Split(coords.Remove(0, 1), @"[\s,]|(?=(?<!e)-)");
+            var parts = Regex.Split(coords.Remove(0, 1), @"[\s,]|(?=(?<!e)-)", RegexOptions.Compiled);
 
             for (int i = 0; i < parts.Length; i++)
             {
