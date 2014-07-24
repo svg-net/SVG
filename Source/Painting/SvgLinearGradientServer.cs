@@ -81,6 +81,7 @@ namespace Svg
 
         public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
         {
+            LoadStops();
             if (IsInvalid)
             {
                 return null;

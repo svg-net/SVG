@@ -313,7 +313,7 @@ namespace Svg
             {
                 // Make sure the path is always null if there is no text
 				//if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
-				if (string.IsNullOrWhiteSpace(this.Text) && this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan).Count() == 0)
+                if ((string.IsNullOrEmpty(this.Text) || this.Text.Trim().Length < 1) && this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan).Count() == 0)
 				    return _path = null;
 				//NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
                 // When an empty string is passed to GraphicsPath, it rises an InvalidArgumentException...
@@ -462,6 +462,7 @@ namespace Svg
             }
         }
 
+#if Net4
 		public override void RegisterEvents(ISvgEventCaller caller)
 		{
 			//register basic events
@@ -480,6 +481,7 @@ namespace Svg
         	caller.UnregisterAction(this.ID + "/onchange");
 			
 		}
+#endif
 
 		public override SvgElement DeepCopy()
 		{

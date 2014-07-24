@@ -116,7 +116,9 @@
     <Compile Include="Document Structure\SvgTitle.cs" />
     <Compile Include="Document Structure\SvgDocumentMetadata.cs" />
     <Compile Include="Extensibility\SvgForeignObject.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Painting\ISvgBoundable.cs" />
+    <Compile Include="Painting\SvgDeferredPaintServer.cs" />
     <Compile Include="Painting\SvgMarker.cs" />
     <Compile Include="Document Structure\SvgDefinitionList.cs" />
     <Compile Include="Document Structure\SvgDescription.cs" />
