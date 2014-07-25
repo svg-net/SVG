@@ -8,6 +8,7 @@ using System.Drawing.Text;
 using System.IO;
 using System.Text;
 using System.Xml;
+using System.Linq;
 
 namespace Svg
 {
@@ -184,7 +185,6 @@ namespace Svg
             using (var reader = new SvgTextReader(stream, entities))
             {
                 var elementStack = new Stack<SvgElement>();
-                var value = new StringBuilder();
                 bool elementEmpty;
                 SvgElement element = null;
                 SvgElement parent;
@@ -218,7 +218,10 @@ namespace Svg
                                 {
                                     parent = elementStack.Peek();
                                     if (parent != null && element != null)
+                                    {
                                         parent.Children.Add(element);
+                                        parent.Nodes.Add(element);
+                                    }
                                 }
 
                                 // Push element into stack
@@ -236,21 +239,24 @@ namespace Svg
                                 // Pop the element out of the stack
                                 element = elementStack.Pop();
 
-                                if (value.Length > 0 && element != null)
+                                if (element.Nodes.OfType<SvgContentNode>().Any())
                                 {
-                                    element.Content = value.ToString();
-                                    
-                                    // Reset content value for new element
-                                    value.Length = 0;
+                                    element.Content = (from e in element.Nodes select e.Content).Aggregate((p, c) => p + c);
+                                }
+                                else
+                                {
+                                    element.Nodes.Clear(); // No sense wasting the space where it isn't needed
                                 }
                                 break;
                             case XmlNodeType.CDATA:
                             case XmlNodeType.Text:
-                                value.Append(reader.Value);
+                                element = elementStack.Peek();
+                                element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
                                 break;
                             case XmlNodeType.EntityReference:
                                 reader.ResolveEntity();
-                                value.Append(reader.Value);
+                                element = elementStack.Peek();
+                                element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
                                 break;
                         }
                     }

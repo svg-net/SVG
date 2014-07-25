@@ -15,7 +15,7 @@ namespace Svg
     /// <summary>
     /// The base class of which all SVG elements are derived from.
     /// </summary>
-    public abstract class SvgElement : ISvgElement, ISvgTransformable, ICloneable
+    public abstract class SvgElement : ISvgElement, ISvgTransformable, ICloneable, ISvgNode
     {
         //optimization
         protected class PropertyAttributeTuple
@@ -42,6 +42,7 @@ namespace Svg
         private static readonly object _loadEventKey = new object();
         private Matrix _graphicsMatrix;
         private SvgCustomAttributeCollection _customAttributes;
+        private List<ISvgNode> _nodes = new List<ISvgNode>();
 
         /// <summary>
         /// Gets the name of the element.
@@ -115,6 +116,11 @@ namespace Svg
         public virtual SvgElementCollection Children
         {
             get { return this._children; }
+        }
+
+        public IList<ISvgNode> Nodes
+        {
+            get { return this._nodes; }
         }
 
         public IEnumerable<SvgElement> Descendants()
@@ -611,8 +617,8 @@ namespace Svg
         					childPath = (GraphicsPath)childPath.Clone();
         					if(child.Transforms != null)
         						childPath.Transform(child.Transforms.GetMatrix());
-        					
-        					path.AddPath(childPath, false);
+
+                            if (childPath.PointCount > 0) path.AddPath(childPath, false);
         				}
         			}
         		}
@@ -921,7 +927,6 @@ namespace Svg
         }
         
         #endregion graphical EVENTS
-
     }
     
     public class SVGArg : EventArgs
@@ -1035,10 +1040,16 @@ namespace Svg
         public bool CtrlKey;
     }
 
+    public interface ISvgNode
+    {
+        string Content { get; }
+    }
+
     internal interface ISvgElement
     {
 		SvgElement Parent {get;}
 		SvgElementCollection Children { get; }
+        IList<ISvgNode> Nodes { get; }
 
         void Render(SvgRenderer renderer);
     }
