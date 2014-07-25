@@ -25,10 +25,6 @@ namespace Svg
         private SvgUnit _dx;
         private SvgUnit _letterSpacing;
         private SvgUnit _wordSpacing;
-        private SvgUnit _fontSize;
-		private SvgFontWeight _fontWeight;
-        private string _font;
-        protected string _fontFamily;
         private SvgTextAnchor _textAnchor = SvgTextAnchor.Start;
         private static readonly SvgRenderer _stringMeasure;
         private const string DefaultFontFamily = "Times New Roman";
@@ -50,7 +46,6 @@ namespace Svg
         /// </summary>
         public SvgTextBase()
         {
-            this._fontSize = new SvgUnit(0.0f);
             this._dy = new SvgUnit(0.0f);
             this._dx = new SvgUnit(0.0f);
         }
@@ -172,80 +167,6 @@ namespace Svg
         }
 
         /// <summary>
-        /// Indicates which font family is to be used to render the text.
-        /// </summary>
-        [SvgAttribute("font-family")]
-        public virtual string FontFamily
-        {
-            get { return this._fontFamily ?? DefaultFontFamily; }
-            set
-            {
-                this._fontFamily = ValidateFontFamily(value);
-                this.IsPathDirty = true;
-            }
-        }
-
-        /// <summary>
-        /// Refers to the size of the font from baseline to baseline when multiple lines of text are set solid in a multiline layout environment.
-        /// </summary>
-        [SvgAttribute("font-size")]
-        public virtual SvgUnit FontSize
-        {
-            get { return this._fontSize; }
-            set { this._fontSize = value; this.IsPathDirty = true; }
-        }
-
-
-		/// <summary>
-		/// Refers to the boldness of the font.
-		/// </summary>
-		[SvgAttribute("font-weight")]
-		public virtual SvgFontWeight FontWeight
-		{
-			get { return this._fontWeight; }
-			set { this._fontWeight = value; this.IsPathDirty = true; }
-		}
-
-
-        /// <summary>
-        /// Set all font information.
-        /// </summary>
-        [SvgAttribute("font")]
-        public virtual string Font
-        {
-            get { return this._font; }
-            set
-            {
-                var parts = value.Split(',');
-                foreach (var part in parts)
-                {
-                    //This deals with setting font size. Looks for either <number>px or <number>pt style="font: bold 16px/normal 'trebuchet ms', verdana, sans-serif;"
-                    Regex rx = new Regex(@"(\d+)+(?=pt|px)");
-                    var res = rx.Match(part);
-                    if (res.Success)
-                    {
-                        int fontSize = 10;
-                        int.TryParse(res.Value, out fontSize);
-                        this.FontSize = new SvgUnit((float)fontSize);
-                    }
-
-                    //this assumes "bold" has spaces around it. e.g.: style="font: bold 16px/normal 
-                    rx = new Regex(@"\sbold\s");
-                    res = rx.Match(part);
-                    if (res.Success)
-                    {
-                        this.FontWeight = SvgFontWeight.bold;
-                    }
-                }
-                var font = ValidateFontFamily(value);
-                this._fontFamily = font;
-                this._font = font; //not sure this is used?
-
-                this.IsPathDirty = true;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the fill.
         /// </summary>
         /// <remarks>
@@ -285,15 +206,6 @@ namespace Svg
         public override System.Drawing.RectangleF Bounds
         {
             get { return this.Path.GetBounds(); }
-        }
-
-        static private RectangleF MeasureString(SvgRenderer renderer, string text, Font font)
-        {
-            GraphicsPath p = new GraphicsPath();
-            p.AddString(text, font.FontFamily, 0, font.Size, new PointF(0.0f, 0.0f), StringFormat.GenericTypographic);
-            
-            p.Transform(renderer.Transform);
-            return p.GetBounds();
         }
 
         private static string ValidateFontFamily(string fontFamilyList)
@@ -388,12 +300,14 @@ namespace Svg
                         stringBounds = _stringMeasure.MeasureString(PrepareText(node.Content,
                                                                                 i > 0 && nodes[i - 1] is SvgTextBase,
                                                                                 i < nodes.Count - 1 && nodes[i + 1] is SvgTextBase), font);
+                        result.Nodes.Add(new NodeBounds() { Bounds = stringBounds, Node = node, xOffset = totalWidth });
                     }
                     else
                     {
                         stringBounds = innerText.GetTextBounds().Bounds;
+                        result.Nodes.Add(new NodeBounds() { Bounds = stringBounds, Node = node, xOffset = totalWidth });
+                        totalWidth += innerText.Dx.ToDeviceValue(this);
                     }
-                    result.Nodes.Add(new NodeBounds() { Bounds = stringBounds, Node = node, xOffset = totalWidth });
                     totalHeight = Math.Max(totalHeight, stringBounds.Height);
                     totalWidth += stringBounds.Width;
                 }
@@ -446,6 +360,7 @@ namespace Svg
                     }
 
                     NodeBounds data;
+                    var yCummOffset = 0.0f;
                     for (var i = 0; i < boundsData.Nodes.Count; i++)
                     {
                         data = boundsData.Nodes[i];
@@ -460,7 +375,8 @@ namespace Svg
                         else
                         {
                             innerText._calcX = x + data.xOffset;
-                            innerText._calcY = y;
+                            innerText._calcY = y + yCummOffset;
+                            yCummOffset += innerText.Dy.ToDeviceValue(this);
                         }
                     }
 
@@ -497,20 +413,63 @@ namespace Svg
         /// <returns></returns>
         internal Font GetFont()
         {
-            var parent = this.Parent as SvgTextBase;
-            Font parentFont = null;
-            if (parent != null) parentFont = parent.GetFont();
+            var parentList = this.ParentsAndSelf.OfType<SvgVisualElement>().ToList();
 
-            float fontSize = this.FontSize.ToDeviceValue(this);
-            if (fontSize == 0.0f)
+            // Get the font-size
+            float fontSize;
+            var fontSizeUnit = GetInheritedFontSize();
+            if (fontSizeUnit == SvgUnit.None)
             {
-                fontSize = (parentFont == null ? 1.0f : parentFont.Size);
-                fontSize = (fontSize == 0.0f ? 1.0f : fontSize);
+                fontSize = 1.0f;
             }
-            var fontWeight = ((_fontWeight == SvgFontWeight.inherit && parentFont != null && parentFont.Bold) || _fontWeight == SvgFontWeight.bold ?
-                                FontStyle.Bold : FontStyle.Regular);
-            var family = _fontFamily ?? (parentFont == null ? DefaultFontFamily : parentFont.FontFamily.Name);
-            return new Font(family, fontSize, fontWeight, GraphicsUnit.Pixel);
+            else
+            {
+                fontSize = fontSizeUnit.ToDeviceValue(this);
+            }
+            
+            var fontStyle = System.Drawing.FontStyle.Regular;
+
+            // Get the font-weight
+            var weightElement = (from e in parentList where e.FontWeight != SvgFontWeight.inherit select e).FirstOrDefault();
+            if (weightElement != null)
+            {
+                switch (weightElement.FontWeight)
+                {
+                    case SvgFontWeight.bold:
+                    case SvgFontWeight.bolder:
+                    case SvgFontWeight.w700:
+                    case SvgFontWeight.w800:
+                    case SvgFontWeight.w900:
+                        fontStyle |= System.Drawing.FontStyle.Bold;
+                        break;
+                }
+            }
+
+            // Get the font-style
+            var styleElement = (from e in parentList where e.FontStyle != SvgFontStyle.inherit select e).FirstOrDefault();
+            if (styleElement != null)
+            {
+                switch (styleElement.FontStyle)
+                {
+                    case SvgFontStyle.italic:
+                    case SvgFontStyle.oblique:
+                        fontStyle |= System.Drawing.FontStyle.Italic;
+                        break;
+                }
+            }
+
+            // Get the font-family
+            var fontFamilyElement = (from e in parentList where e.FontFamily != null && e.FontFamily != "inherit" select e).FirstOrDefault();
+            string family;
+            if (fontFamilyElement == null)
+            {
+                family = DefaultFontFamily;
+            }
+            else
+            {
+                family = ValidateFontFamily(fontFamilyElement.FontFamily) ?? DefaultFontFamily;
+            }
+            return new Font(family, fontSize, fontStyle, GraphicsUnit.Pixel);
         }
 
         /// <summary>

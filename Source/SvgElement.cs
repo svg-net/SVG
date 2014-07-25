@@ -149,6 +149,32 @@ namespace Svg
             get { return this._parent; }
         }
 
+        public IEnumerable<SvgElement> Parents
+        {
+            get
+            {
+                var curr = this;
+                while (curr.Parent != null)
+                {
+                    curr = curr.Parent;
+                    yield return curr;
+                }
+            }
+        }
+        public IEnumerable<SvgElement> ParentsAndSelf
+        {
+            get
+            {
+                var curr = this;
+                yield return curr;
+                while (curr.Parent != null)
+                {
+                    curr = curr.Parent;
+                    yield return curr;
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the owner <see cref="SvgDocument"/>.
         /// </summary>

@@ -98,8 +98,8 @@ namespace Svg
             if (NeedToExpandGradient(renderingElement, specifiedStart, specifiedEnd))
             {
                 var expansion = ExpandGradient(renderingElement, specifiedStart, specifiedEnd);
-                effectiveStart = expansion.Item1;
-                effectiveEnd = expansion.Item2;
+                effectiveStart = expansion.StartPoint;
+                effectiveEnd = expansion.EndPoint;
             }
 
             return new LinearGradientBrush(effectiveStart, effectiveEnd, Color.Transparent, Color.Transparent)
@@ -124,12 +124,24 @@ namespace Svg
             return SpreadMethod == SvgGradientSpreadMethod.Pad && (boundable.Bounds.Contains(specifiedStart) || boundable.Bounds.Contains(specifiedEnd));
         }
 
-        private Tuple<PointF, PointF> ExpandGradient(ISvgBoundable boundable, PointF specifiedStart, PointF specifiedEnd)
+        public struct GradientPoints
+        {
+            public PointF StartPoint;
+            public PointF EndPoint;
+
+            public GradientPoints(PointF startPoint, PointF endPoint)
+            { 
+                this.StartPoint = startPoint;
+                this.EndPoint = endPoint;
+            }
+        }
+
+        private GradientPoints ExpandGradient(ISvgBoundable boundable, PointF specifiedStart, PointF specifiedEnd)
         {
             if (!NeedToExpandGradient(boundable, specifiedStart, specifiedEnd))
             {
                 Debug.Fail("Unexpectedly expanding gradient when not needed!");
-                return new Tuple<PointF, PointF>(specifiedStart, specifiedEnd);
+                return new GradientPoints(specifiedStart, specifiedEnd);
             }
 
             var specifiedLength = CalculateDistance(specifiedStart, specifiedEnd);
@@ -159,7 +171,7 @@ namespace Svg
                 effectiveEnd = MovePointAlongVector(effectiveEnd, specifiedUnitVector, 1);
             }
 
-            return new Tuple<PointF, PointF>(effectiveStart, effectiveEnd);
+            return new GradientPoints(effectiveStart, effectiveEnd);
         }
 
         private ColorBlend CalculateColorBlend(SvgVisualElement owner, float opacity, PointF specifiedStart, PointF effectiveStart, PointF specifiedEnd, PointF effectiveEnd)

@@ -102,8 +102,16 @@ namespace Svg
             switch (this.Type)
             {
                 case SvgUnitType.Em:
-                    float points = (float)(this.Value * 9);
-                    _deviceValue = (points / 72) * ppi;
+                    var visualElem = boundable as SvgVisualElement;
+                    if (visualElem == null)
+                    {
+                        float points = (float)(this.Value * 9);
+                        _deviceValue = (points / 72) * ppi;
+                    }
+                    else
+                    {
+                        _deviceValue = this.Value * visualElem.GetInheritedFontSize().ToDeviceValue(boundable);
+                    }
                     break;
                 case SvgUnitType.Centimeter:
                     _deviceValue = (float)((this.Value / cmInInch) * ppi);
