@@ -197,7 +197,7 @@ namespace Svg
 
                 var distanceFromEffectiveStart = CalculateDistance(effectiveStart, originalPoint);
 
-                colorBlend.Positions[i] = (float) Math.Max(0F, Math.Min((distanceFromEffectiveStart / effectiveLength), 1.0F));
+                colorBlend.Positions[i] = (float)Math.Round(Math.Max(0F, Math.Min((distanceFromEffectiveStart / effectiveLength), 1.0F)), 5);
             }
 
             if (startDelta > 0)

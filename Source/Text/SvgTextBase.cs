@@ -19,10 +19,10 @@ namespace Svg
     
     public abstract class SvgTextBase : SvgVisualElement
     {
-        private SvgUnit _x;
-        private SvgUnit _y;
-        private SvgUnit _dy;
-        private SvgUnit _dx;
+        private SvgUnitCollection _x = new SvgUnitCollection();
+        private SvgUnitCollection _y = new SvgUnitCollection();
+        private SvgUnitCollection _dy = new SvgUnitCollection();
+        private SvgUnitCollection _dx = new SvgUnitCollection();
         private SvgUnit _letterSpacing;
         private SvgUnit _wordSpacing;
         private SvgTextAnchor _textAnchor = SvgTextAnchor.Start;
@@ -39,15 +39,6 @@ namespace Svg
             Bitmap bitmap = new Bitmap(1, 1);
             _stringMeasure = SvgRenderer.FromImage(bitmap);
             _stringMeasure.TextRenderingHint = TextRenderingHint.AntiAlias;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgTextBase"/> class.
-        /// </summary>
-        public SvgTextBase()
-        {
-            this._dy = new SvgUnit(0.0f);
-            this._dx = new SvgUnit(0.0f);
         }
         
         /// <summary>
@@ -75,7 +66,7 @@ namespace Svg
         /// </summary>
         /// <value>The X.</value>
         [SvgAttribute("x")]
-        public virtual SvgUnit X
+        public virtual SvgUnitCollection X
         {
         	get { return this._x; }
         	set
@@ -94,7 +85,7 @@ namespace Svg
         /// </summary>
         /// <value>The dX.</value>
         [SvgAttribute("dx")]
-        public virtual SvgUnit Dx
+        public virtual SvgUnitCollection Dx
         {
             get { return this._dx; }
             set
@@ -113,7 +104,7 @@ namespace Svg
         /// </summary>
         /// <value>The Y.</value>
         [SvgAttribute("y")]
-        public virtual SvgUnit Y
+        public virtual SvgUnitCollection Y
         {
         	get { return this._y; }
         	set
@@ -132,7 +123,7 @@ namespace Svg
         /// </summary>
         /// <value>The dY.</value>
         [SvgAttribute("dy")]
-        public virtual SvgUnit Dy
+        public virtual SvgUnitCollection Dy
         {
             get { return this._dy; }
             set
@@ -288,6 +279,26 @@ namespace Svg
             var nodes = (from n in this.Nodes 
                          where (n is SvgContentNode || n is SvgTextBase) && !string.IsNullOrEmpty(n.Content)
                          select n).ToList();
+            
+            if (nodes.FirstOrDefault() is SvgContentNode && _x.Count > 1)
+            {
+                string ch;
+                var content = nodes.First() as SvgContentNode;
+                nodes.RemoveAt(0);
+                int posCount = Math.Min(content.Content.Length, _x.Count);
+                var text = PrepareText(content.Content, false, (nodes.Count > 1 && nodes[1] is SvgTextBase));
+                
+                for (var i = 0; i < posCount; i++)
+                {
+                    ch = (i == posCount - 1 ? text.Substring(i) : text.Substring(i, 1));
+                    stringBounds = _stringMeasure.MeasureString(ch, font);
+                    totalHeight = Math.Max(totalHeight, stringBounds.Height);
+                    result.Nodes.Add(new NodeBounds() { Bounds = stringBounds, 
+                                                        Node = new SvgContentNode() { Content = ch}, 
+                                                        xOffset = (i == 0 ? 0 : _x[i].ToDeviceValue(this) - _x[0].ToDeviceValue(this))});
+                }
+            }
+
             ISvgNode node;
             for (var i = 0; i < nodes.Count; i++)
             {
@@ -306,7 +317,7 @@ namespace Svg
                     {
                         stringBounds = innerText.GetTextBounds().Bounds;
                         result.Nodes.Add(new NodeBounds() { Bounds = stringBounds, Node = node, xOffset = totalWidth });
-                        totalWidth += innerText.Dx.ToDeviceValue(this);
+                        if (innerText.Dx.Count == 1) totalWidth += innerText.Dx[0].ToDeviceValue(this);
                     }
                     totalHeight = Math.Max(totalHeight, stringBounds.Height);
                     totalWidth += stringBounds.Width;
@@ -336,17 +347,16 @@ namespace Svg
 
                 if (_path == null || this.IsPathDirty)
                 {
+                    // Measure the overall bounds of all the text
+                    var boundsData = GetTextBounds();
+                    
                     var font = GetFont();
                     SvgTextBase innerText;
-                    //RectangleF bounds;
-                    float x = (_x == SvgUnit.Empty || _x == SvgUnit.None ? _calcX : _x.ToDeviceValue(this)) + _dx.ToDeviceValue(this);
-                    float y = (_y == SvgUnit.Empty || _y == SvgUnit.None ? _calcY : _y.ToDeviceValue(this, true)) + _dy.ToDeviceValue(this, true);
+                    float x = (_x.Count < 1 ? _calcX : _x[0].ToDeviceValue(this)) + (_dx.Count < 1 ? 0 : _dx[0].ToDeviceValue(this));
+                    float y = (_y.Count < 1 ? _calcY : _y[0].ToDeviceValue(this, true)) + (_dy.Count < 1 ? 0 : _dy[0].ToDeviceValue(this, true));
 
                     _path = new GraphicsPath();
                     _path.StartFigure();
-
-                    // Measure the overall bounds of all the text
-                    var boundsData = GetTextBounds();
 
                     // Determine the location of the start point
                     switch (this.TextAnchor)
@@ -376,7 +386,7 @@ namespace Svg
                         {
                             innerText._calcX = x + data.xOffset;
                             innerText._calcY = y + yCummOffset;
-                            yCummOffset += innerText.Dy.ToDeviceValue(this);
+                            if (innerText.Dy.Count == 1) yCummOffset += innerText.Dy[0].ToDeviceValue(this);
                         }
                     }
 
@@ -486,7 +496,7 @@ namespace Svg
 				string[] words = (this.WordSpacing.Value > 0.0f) ? text.Split(' ') : new string[] { text };
 				float wordSpacing = this.WordSpacing.ToDeviceValue(this);
 				float letterSpacing = this.LetterSpacing.ToDeviceValue(this);
-				float start = this.X.ToDeviceValue(this);
+				float start = x;
 
 				foreach (string word in words)
 				{
