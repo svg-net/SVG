@@ -294,11 +294,11 @@ namespace Svg
                     {
                         case FontParseState.fontFamilyNext:
                             this.FontFamily = string.Join(" ", parts, i + 1, parts.Length - (i + 1));
-                            i = int.MaxValue;
+                            i = int.MaxValue - 2;
                             break;
                         case FontParseState.fontFamilyCurr:
                             this.FontFamily = string.Join(" ", parts, i, parts.Length - (i));
-                            i = int.MaxValue;
+                            i = int.MaxValue - 2;
                             break;
                     }
 

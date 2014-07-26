@@ -163,7 +163,7 @@ namespace Svg
                     if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
                     {
                         /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
-                        pen.DashPattern = this.StrokeDashArray.ConvertAll(u => u.Value/((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
+                        pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.Value <= 0) ? 1 : u.Value) / ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
                     }
 
                     renderer.DrawPath(pen, this.Path);
