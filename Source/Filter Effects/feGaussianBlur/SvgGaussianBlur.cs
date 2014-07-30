@@ -14,10 +14,10 @@ namespace Svg.FilterEffects
     [SvgElement("feGaussianBlur")]
     public class SvgGaussianBlur : SvgFilterPrimitive
     {
-		private float _stdDeviation;
-		private BlurType _blurType;
-		
-		private int[] _kernel;
+        private float _stdDeviation;
+        private BlurType _blurType;
+
+        private int[] _kernel;
         private int _kernelSum;
         private int[,] _multable;
 
@@ -220,10 +220,10 @@ namespace Svg.FilterEffects
             }
         }
 
-		/// <summary>
-		/// Gets or sets the radius of the blur (only allows for one value - not the two specified in the SVG Spec)
-		/// </summary>
-		[SvgAttribute("stdDeviation")]
+        /// <summary>
+        /// Gets or sets the radius of the blur (only allows for one value - not the two specified in the SVG Spec)
+        /// </summary>
+        [SvgAttribute("stdDeviation")]
         public float StdDeviation
         {
             get { return _stdDeviation; }
@@ -249,27 +249,27 @@ namespace Svg.FilterEffects
         }
 
 
-		
-		public override Bitmap Process()
-		{
-			//Todo
 
-			return null;
-		}
+        public override Bitmap Process()
+        {
+            //Todo
+
+            return null;
+        }
 
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgGaussianBlur>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgGaussianBlur>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgGaussianBlur;
-			newObj.StdDeviation = this.StdDeviation;
-			newObj.BlurType = this.BlurType;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgGaussianBlur;
+            newObj.StdDeviation = this.StdDeviation;
+            newObj.BlurType = this.BlurType;
+            return newObj;
+        }
     }
 }

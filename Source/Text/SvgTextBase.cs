@@ -16,7 +16,7 @@ namespace Svg
         @default,
         preserve
     }
-    
+
     public abstract class SvgTextBase : SvgVisualElement
     {
         private SvgUnitCollection _x = new SvgUnitCollection();
@@ -28,7 +28,7 @@ namespace Svg
         private SvgTextAnchor _textAnchor = SvgTextAnchor.Start;
         private static readonly SvgRenderer _stringMeasure;
         private const string DefaultFontFamily = "Times New Roman";
-        
+
         private XmlSpaceHandling _space = XmlSpaceHandling.@default;
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Svg
             _stringMeasure = SvgRenderer.FromImage(bitmap);
             _stringMeasure.TextRenderingHint = TextRenderingHint.AntiAlias;
         }
-        
+
         /// <summary>
         /// Gets or sets the text to be rendered.
         /// </summary>
@@ -68,16 +68,16 @@ namespace Svg
         [SvgAttribute("x")]
         public virtual SvgUnitCollection X
         {
-        	get { return this._x; }
-        	set
-        	{
-        		if(_x != value)
-        		{
-        			this._x = value;
-        			this.IsPathDirty = true;
-        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
-        		}
-        	}
+            get { return this._x; }
+            set
+            {
+                if (_x != value)
+                {
+                    this._x = value;
+                    this.IsPathDirty = true;
+                    OnAttributeChanged(new AttributeEventArgs { Attribute = "x", Value = value });
+                }
+            }
         }
 
         /// <summary>
@@ -106,16 +106,16 @@ namespace Svg
         [SvgAttribute("y")]
         public virtual SvgUnitCollection Y
         {
-        	get { return this._y; }
-        	set
-        	{
-        		if(_y != value)
-        		{
-        			this._y = value;
-        			this.IsPathDirty = true;
-        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
-        		}
-        	}
+            get { return this._y; }
+            set
+            {
+                if (_y != value)
+                {
+                    this._y = value;
+                    this.IsPathDirty = true;
+                    OnAttributeChanged(new AttributeEventArgs { Attribute = "y", Value = value });
+                }
+            }
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace Svg
         private static string ValidateFontFamily(string fontFamilyList)
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
-            var fontParts = fontFamilyList.Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ','\''  }));
+            var fontParts = fontFamilyList.Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
 
             var families = System.Drawing.FontFamily.Families;
 
@@ -261,7 +261,7 @@ namespace Svg
         protected class BoundsData
         {
             private List<NodeBounds> _nodes = new List<NodeBounds>();
-            public IList<NodeBounds> Nodes 
+            public IList<NodeBounds> Nodes
             {
                 get { return _nodes; }
             }
@@ -276,10 +276,10 @@ namespace Svg
             float totalWidth = 0;
 
             var result = new BoundsData();
-            var nodes = (from n in this.Nodes 
+            var nodes = (from n in this.Nodes
                          where (n is SvgContentNode || n is SvgTextBase) && !string.IsNullOrEmpty(n.Content)
                          select n).ToList();
-            
+
             if (nodes.FirstOrDefault() is SvgContentNode && _x.Count > 1)
             {
                 string ch;
@@ -287,15 +287,18 @@ namespace Svg
                 nodes.RemoveAt(0);
                 int posCount = Math.Min(content.Content.Length, _x.Count);
                 var text = PrepareText(content.Content, false, (nodes.Count > 1 && nodes[1] is SvgTextBase));
-                
+
                 for (var i = 0; i < posCount; i++)
                 {
                     ch = (i == posCount - 1 ? text.Substring(i) : text.Substring(i, 1));
                     stringBounds = _stringMeasure.MeasureString(ch, font);
                     totalHeight = Math.Max(totalHeight, stringBounds.Height);
-                    result.Nodes.Add(new NodeBounds() { Bounds = stringBounds, 
-                                                        Node = new SvgContentNode() { Content = ch}, 
-                                                        xOffset = (i == 0 ? 0 : _x[i].ToDeviceValue(this) - _x[0].ToDeviceValue(this))});
+                    result.Nodes.Add(new NodeBounds()
+                    {
+                        Bounds = stringBounds,
+                        Node = new SvgContentNode() { Content = ch },
+                        xOffset = (i == 0 ? 0 : _x[i].ToDeviceValue(this) - _x[0].ToDeviceValue(this))
+                    });
                 }
             }
 
@@ -349,7 +352,7 @@ namespace Svg
                 {
                     // Measure the overall bounds of all the text
                     var boundsData = GetTextBounds();
-                    
+
                     var font = GetFont();
                     SvgTextBase innerText;
                     float x = (_x.Count < 1 ? _calcX : _x[0].ToDeviceValue(this)) + (_dx.Count < 1 ? 0 : _dx[0].ToDeviceValue(this));
@@ -379,7 +382,7 @@ namespace Svg
                         {
                             // Minus FontSize because the x/y coords mark the bottom left, not bottom top.
                             DrawString(_path, x + data.xOffset, y - boundsData.Bounds.Height, font,
-                                       PrepareText(data.Node.Content, i > 0 && boundsData.Nodes[i-1].Node is SvgTextBase,
+                                       PrepareText(data.Node.Content, i > 0 && boundsData.Nodes[i - 1].Node is SvgTextBase,
                                                                       i < boundsData.Nodes.Count - 1 && boundsData.Nodes[i + 1].Node is SvgTextBase));
                         }
                         else
@@ -436,7 +439,7 @@ namespace Svg
             {
                 fontSize = fontSizeUnit.ToDeviceValue(this);
             }
-            
+
             var fontStyle = System.Drawing.FontStyle.Regular;
 
             // Get the font-weight
@@ -486,60 +489,60 @@ namespace Svg
         /// Draws a string on a path at a specified location and with a specified font.
         /// </summary>
         internal void DrawString(GraphicsPath path, float x, float y, Font font, string text)
-		{
-			PointF location = new PointF(x, y);
-			
-			// No way to do letter-spacing or word-spacing, so do manually
-			if (this.LetterSpacing.Value > 0.0f || this.WordSpacing.Value > 0.0f)
-			{
-				// Cut up into words, or just leave as required
-				string[] words = (this.WordSpacing.Value > 0.0f) ? text.Split(' ') : new string[] { text };
-				float wordSpacing = this.WordSpacing.ToDeviceValue(this);
-				float letterSpacing = this.LetterSpacing.ToDeviceValue(this);
-				float start = x;
+        {
+            PointF location = new PointF(x, y);
 
-				foreach (string word in words)
-				{
-					// Only do if there is line spacing, just write the word otherwise
-					if (this.LetterSpacing.Value > 0.0f)
-					{
-						char[] characters = word.ToCharArray();
-						foreach (char currentCharacter in characters)
-						{
+            // No way to do letter-spacing or word-spacing, so do manually
+            if (this.LetterSpacing.Value > 0.0f || this.WordSpacing.Value > 0.0f)
+            {
+                // Cut up into words, or just leave as required
+                string[] words = (this.WordSpacing.Value > 0.0f) ? text.Split(' ') : new string[] { text };
+                float wordSpacing = this.WordSpacing.ToDeviceValue(this);
+                float letterSpacing = this.LetterSpacing.ToDeviceValue(this);
+                float start = x;
+
+                foreach (string word in words)
+                {
+                    // Only do if there is line spacing, just write the word otherwise
+                    if (this.LetterSpacing.Value > 0.0f)
+                    {
+                        char[] characters = word.ToCharArray();
+                        foreach (char currentCharacter in characters)
+                        {
                             path.AddString(currentCharacter.ToString(), font.FontFamily, (int)font.Style, font.Size, location, StringFormat.GenericTypographic);
-							location = new PointF(path.GetBounds().Width + start + letterSpacing, location.Y);
-						}
-					}
-					else
-					{
+                            location = new PointF(path.GetBounds().Width + start + letterSpacing, location.Y);
+                        }
+                    }
+                    else
+                    {
                         path.AddString(word, font.FontFamily, (int)font.Style, font.Size, location, StringFormat.GenericTypographic);
-					}
+                    }
 
-					// Move the location of the word to be written along
-					location = new PointF(path.GetBounds().Width + start + wordSpacing, location.Y);
-				}
-			}
-			else
-			{
-				if (!string.IsNullOrEmpty(text))
-				{
-					path.AddString(text, font.FontFamily, (int)font.Style, font.Size, location, StringFormat.GenericTypographic);
-				}
-			}
-		}
-		
-		[SvgAttribute("onchange")]
+                    // Move the location of the word to be written along
+                    location = new PointF(path.GetBounds().Width + start + wordSpacing, location.Y);
+                }
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(text))
+                {
+                    path.AddString(text, font.FontFamily, (int)font.Style, font.Size, location, StringFormat.GenericTypographic);
+                }
+            }
+        }
+
+        [SvgAttribute("onchange")]
         public event EventHandler<StringArg> Change;
-		
-		//change
+
+        //change
         protected void OnChange(string newString, string sessionID)
         {
-        	RaiseChange(this, new StringArg {s = newString, SessionID = sessionID});
+            RaiseChange(this, new StringArg { s = newString, SessionID = sessionID });
         }
-        
+
         protected void RaiseChange(object sender, StringArg s)
         {
-        	var handler = Change;
+            var handler = Change;
             if (handler != null)
             {
                 handler(sender, s);
@@ -547,24 +550,24 @@ namespace Svg
         }
 
 #if Net4
-		public override void RegisterEvents(ISvgEventCaller caller)
-		{
-			//register basic events
-			base.RegisterEvents(caller); 
-			
-			//add change event for text
+        public override void RegisterEvents(ISvgEventCaller caller)
+        {
+            //register basic events
+            base.RegisterEvents(caller); 
+            
+            //add change event for text
             caller.RegisterAction<string, string>(this.ID + "/onchange", OnChange);
-		}
-		
-		public override void UnregisterEvents(ISvgEventCaller caller)
-		{
-			//unregister base events
-			base.UnregisterEvents(caller);
-			
-			//unregister change event
-        	caller.UnregisterAction(this.ID + "/onchange");
-			
-		}
+        }
+        
+        public override void UnregisterEvents(ISvgEventCaller caller)
+        {
+            //unregister base events
+            base.UnregisterEvents(caller);
+            
+            //unregister change event
+            caller.UnregisterAction(this.ID + "/onchange");
+            
+        }
 #endif
     }
 }

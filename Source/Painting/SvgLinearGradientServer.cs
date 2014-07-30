@@ -130,7 +130,7 @@ namespace Svg
             public PointF EndPoint;
 
             public GradientPoints(PointF startPoint, PointF endPoint)
-            { 
+            {
                 this.StartPoint = startPoint;
                 this.EndPoint = endPoint;
             }
@@ -193,7 +193,7 @@ namespace Svg
 
             for (var i = 0; i < colorBlend.Positions.Length; i++)
             {
-                var originalPoint = MovePointAlongVector(specifiedStart, specifiedUnitVector, (float) specifiedLength * colorBlend.Positions[i]);
+                var originalPoint = MovePointAlongVector(specifiedStart, specifiedUnitVector, (float)specifiedLength * colorBlend.Positions[i]);
 
                 var distanceFromEffectiveStart = CalculateDistance(effectiveStart, originalPoint);
 
@@ -253,7 +253,7 @@ namespace Svg
 
             private float Y1
             {
-                get; 
+                get;
                 set;
             }
 

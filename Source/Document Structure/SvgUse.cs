@@ -49,8 +49,8 @@ namespace Svg
         /// </summary>
         public SvgUse()
         {
-        	this.X = 0;
-        	this.Y = 0;
+            this.X = 0;
+            this.Y = 0;
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath Path
@@ -69,16 +69,16 @@ namespace Svg
             get { return new System.Drawing.RectangleF(); }
         }
 
-//        public override SvgElementCollection Children
-//        {
-//            get
-//            {
-//                SvgElement element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
-//                SvgElementCollection elements = new SvgElementCollection(this, true);
-//                elements.Add(element);
-//                return elements;
-//            }
-//        }
+        //        public override SvgElementCollection Children
+        //        {
+        //            get
+        //            {
+        //                SvgElement element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
+        //                SvgElementCollection elements = new SvgElementCollection(this, true);
+        //                elements.Add(element);
+        //                return elements;
+        //            }
+        //        }
 
         protected override void Render(SvgRenderer renderer)
         {
@@ -99,20 +99,20 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgUse>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgUse>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgUse;
-			newObj.ReferencedElement = this.ReferencedElement;
-			newObj.X = this.X;
-			newObj.Y = this.Y;
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgUse;
+            newObj.ReferencedElement = this.ReferencedElement;
+            newObj.X = this.X;
+            newObj.Y = this.Y;
 
-			return newObj;
-		}
+            return newObj;
+        }
 
     }
 }
