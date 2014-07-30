@@ -97,6 +97,7 @@ namespace Svg
 
         public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
         {
+            LoadStops();
             var origin = CalculateOrigin(renderingElement);
 
             var centerPoint = CalculateCenterPoint(renderingElement, origin);

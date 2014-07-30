@@ -23,13 +23,6 @@ namespace Svg
                 throw new ArgumentOutOfRangeException("value must be a string.");
             }
 
-			//support exponents (the SVG that comes back from IE may be an exponent ugh!!!)
-			if ((value as string).Contains("e"))
-			{
-				var d = Decimal.Parse((string)value, System.Globalization.NumberStyles.Float);
-				value = d.ToString();
-			}
-
             // http://www.w3.org/TR/CSS21/syndata.html#values
             // http://www.w3.org/TR/SVG11/coords.html#Units
 
@@ -41,7 +34,8 @@ namespace Svg
 
             for (int i = 0; i < unit.Length; i++)
             {
-                if (char.IsLetter(unit[i]) || unit[i] == '%')
+                // If the character is a percent sign or a letter which is not an exponent 'e'
+                if (unit[i] == '%' || (char.IsLetter(unit[i]) && !(unit[i] == 'e' && i < unit.Length - 1 && !char.IsLetter(unit[i + 1]))))
                 {
                     identifierIndex = i;
                     break;

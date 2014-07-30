@@ -13,7 +13,7 @@ namespace Svg
     {
         private SvgCoordinateUnits _gradientUnits;
         private SvgGradientSpreadMethod _spreadMethod;
-        private SvgGradientServer _inheritGradient;
+        private SvgPaintServer _inheritGradient;
         private List<SvgGradientStop> _stops;
 
         /// <summary>
@@ -89,13 +89,12 @@ namespace Svg
         /// Gets or sets another gradient fill from which to inherit the stops from.
         /// </summary>
         [SvgAttribute("href")]
-        public SvgGradientServer InheritGradient
+        public SvgPaintServer InheritGradient
         {
             get { return this._inheritGradient; }
             set 
             { 
                 this._inheritGradient = value;
-                this.InheritStops();
             }
         }
 
@@ -220,14 +219,12 @@ namespace Svg
             return blend;
         }
 
-        /// <summary>
-        // If this gradient contains no stops then it will search any inherited gradients for stops.
-        /// </summary>
-        protected virtual void InheritStops()
+        protected void LoadStops()
         {
-            if (this.Stops.Count == 0 && this.InheritGradient != null)
+            var core = SvgDeferredPaintServer.TryGet<SvgGradientServer>(_inheritGradient);
+            if (this.Stops.Count == 0 && core != null)
             {
-                _stops.AddRange(this.InheritGradient.Stops);
+                _stops.AddRange(core.Stops);
             }
         }
 

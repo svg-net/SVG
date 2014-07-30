@@ -16,7 +16,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <SccProjectName>
     </SccProjectName>
@@ -100,6 +100,8 @@
     <Compile Include="Clipping and Masking\SvgClipPath.cs" />
     <Compile Include="Clipping and Masking\SvgMask.cs" />
     <Compile Include="DataTypes\SvgAspectRatioConverter.cs" />
+    <Compile Include="DataTypes\SvgFontStyle.cs" />
+    <Compile Include="DataTypes\SvgFontVariant.cs" />
     <Compile Include="DataTypes\SvgMarkerUnits.cs" />
     <Compile Include="DataTypes\SvgOrient.cs" />
     <Compile Include="DataTypes\ISvgViewPort.cs" />
@@ -116,7 +118,9 @@
     <Compile Include="Document Structure\SvgTitle.cs" />
     <Compile Include="Document Structure\SvgDocumentMetadata.cs" />
     <Compile Include="Extensibility\SvgForeignObject.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Painting\ISvgBoundable.cs" />
+    <Compile Include="Painting\SvgDeferredPaintServer.cs" />
     <Compile Include="Painting\SvgMarker.cs" />
     <Compile Include="Document Structure\SvgDefinitionList.cs" />
     <Compile Include="Document Structure\SvgDescription.cs" />
@@ -134,6 +138,7 @@
     <Compile Include="Filter Effects\feGaussianBlur\SvgGaussianBlur.cs" />
     <Compile Include="Filter Effects\feMerge\SvgMerge.cs" />
     <Compile Include="Painting\EnumConverters.cs" />
+    <Compile Include="SvgContentNode.cs" />
     <Compile Include="SvgDefinitionDefaults.cs" />
     <Compile Include="NonSvgElement.cs" />
     <Compile Include="SvgUnknownElement.cs" />
@@ -181,6 +186,7 @@
     <Compile Include="DataTypes\SvgUnitConverter.cs" />
     <Compile Include="SvgTextReader.cs" />
     <Compile Include="Text\SvgText.cs" />
+    <Compile Include="Text\SvgTextBase.cs" />
     <Compile Include="Text\SvgTextAnchor.cs" />
     <Compile Include="Text\SvgTextSpan.cs" />
     <Compile Include="Transforms\ISvgTransformable.cs" />

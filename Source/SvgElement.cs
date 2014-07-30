@@ -15,7 +15,7 @@ namespace Svg
     /// <summary>
     /// The base class of which all SVG elements are derived from.
     /// </summary>
-    public abstract class SvgElement : ISvgElement, ISvgTransformable, ICloneable
+    public abstract class SvgElement : ISvgElement, ISvgTransformable, ICloneable, ISvgNode
     {
         //optimization
         protected class PropertyAttributeTuple
@@ -42,6 +42,7 @@ namespace Svg
         private static readonly object _loadEventKey = new object();
         private Matrix _graphicsMatrix;
         private SvgCustomAttributeCollection _customAttributes;
+        private List<ISvgNode> _nodes = new List<ISvgNode>();
 
         /// <summary>
         /// Gets the name of the element.
@@ -117,6 +118,20 @@ namespace Svg
             get { return this._children; }
         }
 
+        public IList<ISvgNode> Nodes
+        {
+            get { return this._nodes; }
+        }
+
+        public IEnumerable<SvgElement> Descendants()
+        {
+            return this.AsEnumerable().Descendants();
+        }
+        private IEnumerable<SvgElement> AsEnumerable()
+        {
+            yield return this;
+        }
+
         /// <summary>
         /// Gets a value to determine whether the element has children.
         /// </summary>
@@ -132,6 +147,32 @@ namespace Svg
         public virtual SvgElement Parent
         {
             get { return this._parent; }
+        }
+
+        public IEnumerable<SvgElement> Parents
+        {
+            get
+            {
+                var curr = this;
+                while (curr.Parent != null)
+                {
+                    curr = curr.Parent;
+                    yield return curr;
+                }
+            }
+        }
+        public IEnumerable<SvgElement> ParentsAndSelf
+        {
+            get
+            {
+                var curr = this;
+                yield return curr;
+                while (curr.Parent != null)
+                {
+                    curr = curr.Parent;
+                    yield return curr;
+                }
+            }
         }
 
         /// <summary>
@@ -486,7 +527,7 @@ namespace Svg
 	            foreach (var attr in _svgEventAttributes)
 	            {
 	                var evt = attr.Event.GetValue(this);
-	                
+
 	                //if someone has registered publish the attribute
 	                if (evt != null && !string.IsNullOrEmpty(this.ID))
 	                {
@@ -602,8 +643,8 @@ namespace Svg
         					childPath = (GraphicsPath)childPath.Clone();
         					if(child.Transforms != null)
         						childPath.Transform(child.Transforms.GetMatrix());
-        					
-        					path.AddPath(childPath, false);
+
+                            if (childPath.PointCount > 0) path.AddPath(childPath, false);
         				}
         			}
         		}
@@ -670,7 +711,7 @@ namespace Svg
 			newObj.ID = this.ID;
 			newObj.Content = this.Content;
 			newObj.ElementName = this.ElementName;
-			
+
 //			if (this.Parent != null)
 	//			this.Parent.Children.Add(newObj);
 
@@ -683,11 +724,11 @@ namespace Svg
 			{
 				newObj.Children.Add(child.DeepCopy());
 			}
-			
+
 			foreach (var attr in this._svgEventAttributes)
 			{
 				var evt = attr.Event.GetValue(this);
-				
+
 				//if someone has registered also register here
 				if (evt != null)
 				{
@@ -709,7 +750,7 @@ namespace Svg
 						(newObj as SvgText).Change += delegate {  };
 				}
 			}
-			
+
 			if(this._customAttributes.Count > 0)
 			{
 				foreach (var element in _customAttributes) 
@@ -717,15 +758,15 @@ namespace Svg
 					newObj.CustomAttributes.Add(element.Key, element.Value);
 				}
 			}
-				
+
 			return newObj;
         }
-		
+
 		/// <summary>
         /// Fired when an Atrribute of this Element has changed
         /// </summary>
 		public event EventHandler<AttributeEventArgs> AttributeChanged;
-		
+
 		protected void OnAttributeChanged(AttributeEventArgs args)
 		{
 			var handler = AttributeChanged;
@@ -734,12 +775,12 @@ namespace Svg
 				handler(this, args);
 			}
 		}
-		
+
 		/// <summary>
         /// Fired when an Atrribute of this Element has changed
         /// </summary>
 		public event EventHandler<ContentEventArgs> ContentChanged;
-		
+
 		protected void OnContentChanged(ContentEventArgs args)
 		{
 			var handler = ContentChanged;
@@ -763,6 +804,7 @@ namespace Svg
             	onmouseout = "<anything>" 
          */
 
+#if Net4
         /// <summary>
         /// Use this method to provide your implementation ISvgEventCaller which can register Actions 
         /// and call them if one of the events occurs. Make sure, that your SvgElement has a unique ID.
@@ -804,6 +846,7 @@ namespace Svg
         		caller.UnregisterAction(rpcID + "onmouseout");
         	}
         }
+#endif
 
         [SvgAttribute("onclick")]
         public event EventHandler<MouseArg> Click;
@@ -826,12 +869,14 @@ namespace Svg
         [SvgAttribute("onmouseout")]
         public event EventHandler<MouseArg> MouseOut;
         
+#if Net4
         protected Action<float, float, int, int, bool, bool, bool, string> CreateMouseEventAction(Action<object, MouseArg> eventRaiser)
         {
         	return (x, y, button, clickCount, altKey, shiftKey, ctrlKey, sessionID) =>
         		eventRaiser(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount, AltKey = altKey, ShiftKey = shiftKey, CtrlKey = ctrlKey, SessionID = sessionID });
         }
-        
+#endif
+
         //click
         protected void RaiseMouseClick(object sender, MouseArg e)
         {
@@ -908,7 +953,6 @@ namespace Svg
         }
         
         #endregion graphical EVENTS
-
     }
     
     public class SVGArg : EventArgs
@@ -943,6 +987,7 @@ namespace Svg
     	public SvgElement BeforeSibling;
     }
 
+#if Net4
     //deriving class registers event actions and calls the actions if the event occurs
     public interface ISvgEventCaller
     {
@@ -957,6 +1002,7 @@ namespace Svg
         void RegisterAction<T1, T2, T3, T4, T5, T6, T7, T8>(string rpcID, Action<T1, T2, T3, T4, T5, T6, T7, T8> action);
         void UnregisterAction(string rpcID);
     }
+#endif
 
     /// <summary>
     /// Represents the state of the mouse at the moment the event occured.
@@ -1020,10 +1066,16 @@ namespace Svg
         public bool CtrlKey;
     }
 
+    public interface ISvgNode
+    {
+        string Content { get; }
+    }
+
     internal interface ISvgElement
     {
 		SvgElement Parent {get;}
 		SvgElementCollection Children { get; }
+        IList<ISvgNode> Nodes { get; }
 
         void Render(SvgRenderer renderer);
     }

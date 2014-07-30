@@ -9,31 +9,20 @@ namespace Svg
     [SvgElement("desc")]
     public class SvgDescription : SvgElement
     {
-        private string _text;
-
-        public string Text
-        {
-            get { return this._text; }
-            set { this._text = value; }
-        }
-
         public override string ToString()
         {
-            return this.Text;
+            return this.Content;
         }
 
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgDescription>();
+        }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgDescription>();
-		}
-
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgDescription;
-			newObj.Text = this.Text;
-			return newObj;
-		}
-
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgDescription;
+            return newObj;
+        }
     }
 }

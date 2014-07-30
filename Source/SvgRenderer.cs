@@ -157,6 +157,7 @@ namespace Svg
         	
         	StringFormat format = StringFormat.GenericTypographic;
         	format.SetMeasurableCharacterRanges(new CharacterRange[]{new CharacterRange(0, text.Length)});
+            format.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
         	Region[] r = this._innerGraphics.MeasureCharacterRanges(text, font, new Rectangle(0, 0, 1000, 1000), format);
         	RectangleF rect = r[0].GetBounds(this._innerGraphics);
         	

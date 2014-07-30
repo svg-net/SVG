@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using System.ComponentModel;
+using Svg.DataTypes;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Svg
 {
@@ -150,6 +153,160 @@ namespace Svg
         {
             get { return (this.Attributes["opacity"] == null) ? 1.0f : (float)this.Attributes["opacity"]; }
             set { this.Attributes["opacity"] = FixOpacityValue(value); }
+        }
+
+        /// <summary>
+        /// Indicates which font family is to be used to render the text.
+        /// </summary>
+        [SvgAttribute("font-family")]
+        public virtual string FontFamily
+        {
+            get { return this.Attributes["font-family"] as string; }
+            set
+            {
+                this.Attributes["font-family"] = value;
+                this.IsPathDirty = true;
+            }
+        }
+
+        /// <summary>
+        /// Refers to the size of the font from baseline to baseline when multiple lines of text are set solid in a multiline layout environment.
+        /// </summary>
+        [SvgAttribute("font-size")]
+        public virtual SvgUnit FontSize
+        {
+            get { return (this.Attributes["font-size"] == null) ? SvgUnit.Empty : (SvgUnit)this.Attributes["font-size"]; }
+            set { this.Attributes["font-size"] = value; this.IsPathDirty = true; }
+        }
+
+        public SvgUnit GetInheritedFontSize()
+        {
+            var fontSizeElement = (from e in this.ParentsAndSelf.OfType<SvgVisualElement>() 
+                                   where e.FontSize != SvgUnit.Empty && e.FontSize != SvgUnit.None 
+                                   select e).FirstOrDefault();
+            return (fontSizeElement == null ? SvgUnit.None : fontSizeElement.FontSize);
+        }
+
+
+        /// <summary>
+        /// Refers to the boldness of the font.
+        /// </summary>
+        [SvgAttribute("font-style")]
+        public virtual SvgFontStyle FontStyle
+        {
+            get { return (this.Attributes["font-style"] == null) ? SvgFontStyle.inherit : (SvgFontStyle)this.Attributes["font-style"]; }
+            set { this.Attributes["font-style"] = value; this.IsPathDirty = true; }
+        }
+
+        /// <summary>
+        /// Refers to the boldness of the font.
+        /// </summary>
+        [SvgAttribute("font-variant")]
+        public virtual SvgFontVariant FontVariant
+        {
+            get { return (this.Attributes["font-variant"] == null) ? SvgFontVariant.inherit : (SvgFontVariant)this.Attributes["font-variant"]; }
+            set { this.Attributes["font-variant"] = value; this.IsPathDirty = true; }
+        }
+
+        /// <summary>
+        /// Refers to the boldness of the font.
+        /// </summary>
+        [SvgAttribute("font-weight")]
+        public virtual SvgFontWeight FontWeight
+        {
+            get { return (this.Attributes["font-weight"] == null) ? SvgFontWeight.inherit : (SvgFontWeight)this.Attributes["font-weight"]; }
+            set { this.Attributes["font-weight"] = value; this.IsPathDirty = true; }
+        }
+
+        private enum FontParseState
+        {
+            fontStyle,
+            fontVariant,
+            fontWeight,
+            fontSize,
+            fontFamilyNext,
+            fontFamilyCurr
+        }
+
+        /// <summary>
+        /// Set all font information.
+        /// </summary>
+        [SvgAttribute("font")]
+        public virtual string Font
+        {
+            get { return (this.Attributes["font"] == null ? "" : this.Attributes["font"] as string); }
+            set
+            {
+                var state = FontParseState.fontStyle;
+                var parts = value.Split(' ');
+                
+                SvgFontStyle fontStyle;
+                SvgFontVariant fontVariant;
+                SvgFontWeight fontWeight;
+                SvgUnit fontSize;
+
+                bool success;
+                string[] sizes;
+                string part;
+
+                for (int i = 0; i < parts.Length; i++)
+                {
+                    part = parts[i];
+                    success = false;
+                    while (!success)
+                    {
+                        switch (state)
+                        {
+                            case FontParseState.fontStyle:
+                                success = Enums.TryParse<SvgFontStyle>(part, out fontStyle);
+                                if (success) this.FontStyle = fontStyle;
+                                state++;
+                                break;
+                            case FontParseState.fontVariant:
+                                success = Enums.TryParse<SvgFontVariant>(part, out fontVariant);
+                                if (success) this.FontVariant = fontVariant;
+                                state++;
+                                break;
+                            case FontParseState.fontWeight:
+                                success = Enums.TryParse<SvgFontWeight>(part, out fontWeight);
+                                if (success) this.FontWeight = fontWeight;
+                                state++;
+                                break;
+                            case FontParseState.fontSize:
+                                sizes = part.Split('/');
+                                try
+                                {
+                                    fontSize = (SvgUnit)(new SvgUnitConverter().ConvertFromInvariantString(sizes[0]));
+                                    success = true;
+                                    this.FontSize = fontSize;
+                                }
+                                catch { }
+                                state++;
+                                break;
+                            case FontParseState.fontFamilyNext:
+                                state++;
+                                success = true;
+                                break;
+                        }
+                    }
+
+                    switch (state)
+                    {
+                        case FontParseState.fontFamilyNext:
+                            this.FontFamily = string.Join(" ", parts, i + 1, parts.Length - (i + 1));
+                            i = int.MaxValue - 2;
+                            break;
+                        case FontParseState.fontFamilyCurr:
+                            this.FontFamily = string.Join(" ", parts, i, parts.Length - (i));
+                            i = int.MaxValue - 2;
+                            break;
+                    }
+
+                }
+
+                this.Attributes["font"] = value;
+                this.IsPathDirty = true;
+            }
         }
     }
 }

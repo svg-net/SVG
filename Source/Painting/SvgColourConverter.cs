@@ -57,9 +57,9 @@ namespace Svg
 							{
 								alphastring = "0" + alphastring;
 							}
-							
+
 							var alphaDecimal = decimal.Parse(alphastring);
-							
+
 							if(alphaDecimal <= 1)
 							{
 								alphaValue = (int)(alphaDecimal * 255);
@@ -69,7 +69,18 @@ namespace Svg
 								alphaValue = (int)alphaDecimal;
 							}
 						}
-						Color colorpart = System.Drawing.Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
+
+                        Color colorpart;
+                        if (values[0].Trim().EndsWith("%"))
+                        {
+                            colorpart = System.Drawing.Color.FromArgb(alphaValue, (int)(255 * float.Parse(values[0].Trim().TrimEnd('%')) / 100f),
+                                                                                  (int)(255 * float.Parse(values[1].Trim().TrimEnd('%')) / 100f),
+                                                                                  (int)(255 * float.Parse(values[2].Trim().TrimEnd('%')) / 100f));
+                        }
+                        else
+                        {
+                            colorpart = System.Drawing.Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
+                        }
 
 						return colorpart;
                     }
