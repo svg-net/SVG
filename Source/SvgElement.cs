@@ -527,7 +527,7 @@ namespace Svg
 	            foreach (var attr in _svgEventAttributes)
 	            {
 	                var evt = attr.Event.GetValue(this);
-	                
+
 	                //if someone has registered publish the attribute
 	                if (evt != null && !string.IsNullOrEmpty(this.ID))
 	                {
@@ -711,7 +711,7 @@ namespace Svg
 			newObj.ID = this.ID;
 			newObj.Content = this.Content;
 			newObj.ElementName = this.ElementName;
-			
+
 //			if (this.Parent != null)
 	//			this.Parent.Children.Add(newObj);
 
@@ -724,11 +724,11 @@ namespace Svg
 			{
 				newObj.Children.Add(child.DeepCopy());
 			}
-			
+
 			foreach (var attr in this._svgEventAttributes)
 			{
 				var evt = attr.Event.GetValue(this);
-				
+
 				//if someone has registered also register here
 				if (evt != null)
 				{
@@ -750,7 +750,7 @@ namespace Svg
 						(newObj as SvgText).Change += delegate {  };
 				}
 			}
-			
+
 			if(this._customAttributes.Count > 0)
 			{
 				foreach (var element in _customAttributes) 
@@ -758,15 +758,15 @@ namespace Svg
 					newObj.CustomAttributes.Add(element.Key, element.Value);
 				}
 			}
-				
+
 			return newObj;
         }
-		
+
 		/// <summary>
         /// Fired when an Atrribute of this Element has changed
         /// </summary>
 		public event EventHandler<AttributeEventArgs> AttributeChanged;
-		
+
 		protected void OnAttributeChanged(AttributeEventArgs args)
 		{
 			var handler = AttributeChanged;
@@ -775,12 +775,12 @@ namespace Svg
 				handler(this, args);
 			}
 		}
-		
+
 		/// <summary>
         /// Fired when an Atrribute of this Element has changed
         /// </summary>
 		public event EventHandler<ContentEventArgs> ContentChanged;
-		
+
 		protected void OnContentChanged(ContentEventArgs args)
 		{
 			var handler = ContentChanged;

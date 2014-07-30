@@ -57,9 +57,9 @@ namespace Svg
 							{
 								alphastring = "0" + alphastring;
 							}
-							
+
 							var alphaDecimal = decimal.Parse(alphastring);
-							
+
 							if(alphaDecimal <= 1)
 							{
 								alphaValue = (int)(alphaDecimal * 255);

@@ -13,16 +13,16 @@ namespace Svg
             return this.Content;
         }
 
-		public override SvgElement DeepCopy()
-		{
+        public override SvgElement DeepCopy()
+        {
             return DeepCopy<SvgTitle>();
-		}
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
+        public override SvgElement DeepCopy<T>()
+        {
             var newObj = base.DeepCopy<T>() as SvgTitle;
-			return newObj;
-		}
+            return newObj;
+        }
 
     }
 }
