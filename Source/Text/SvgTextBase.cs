@@ -25,7 +25,7 @@ namespace Svg
         private SvgUnitCollection _dx = new SvgUnitCollection();
         private SvgUnit _letterSpacing;
         private SvgUnit _wordSpacing;
-        private SvgTextAnchor _textAnchor = SvgTextAnchor.Start;
+        private SvgTextAnchor _textAnchor = SvgTextAnchor.inherit;
         private static readonly SvgRenderer _stringMeasure;
         private const string DefaultFontFamily = "Times New Roman";
 
@@ -196,7 +196,15 @@ namespace Svg
         /// <value>The bounds.</value>
         public override System.Drawing.RectangleF Bounds
         {
-            get { return this.Path.GetBounds(); }
+            get 
+            {
+                var path = this.Path;
+                foreach (var elem in this.Children.OfType<SvgVisualElement>())
+                {
+                    path.AddPath(elem.Path, false);
+                }
+                return path.GetBounds(); 
+            }
         }
 
         private static string ValidateFontFamily(string fontFamilyList)
@@ -361,8 +369,10 @@ namespace Svg
                     _path = new GraphicsPath();
                     _path.StartFigure();
 
+                    var anchorElem = (from e in this.ParentsAndSelf.OfType<SvgTextBase>() where e.TextAnchor != SvgTextAnchor.inherit select e).FirstOrDefault();
+
                     // Determine the location of the start point
-                    switch (this.TextAnchor)
+                    switch (anchorElem == null ? this.TextAnchor : anchorElem.TextAnchor)
                     {
                         case SvgTextAnchor.Middle:
                             x -= (boundsData.Bounds.Width / 2);

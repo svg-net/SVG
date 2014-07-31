@@ -138,7 +138,7 @@ namespace Svg
         {
             if (this.Fill != null)
             {
-                using (Brush brush = this.Fill.GetBrush(this, this.FillOpacity))
+                using (Brush brush = this.Fill.GetBrush(this, Math.Min(Math.Max(this.FillOpacity * this.Opacity, 0), 1)))
                 {
                     if (brush != null)
                     {
@@ -158,7 +158,7 @@ namespace Svg
             if (this.Stroke != null)
             {
                 float strokeWidth = this.StrokeWidth.ToDeviceValue(this);
-                using (var pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
+                using (var pen = new Pen(this.Stroke.GetBrush(this, Math.Min(Math.Max(this.StrokeOpacity * this.Opacity, 0), 1)), strokeWidth))
                 {
                     if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
                     {

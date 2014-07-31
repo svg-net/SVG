@@ -81,6 +81,7 @@ namespace Svg
             }
             else
             {
+                deferred.EnsureServer();
                 return deferred._concreteServer as T;
             }
         }
