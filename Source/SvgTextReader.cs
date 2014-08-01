@@ -22,6 +22,13 @@ namespace Svg
             this._entities = entities;
         }
 
+        public SvgTextReader(TextReader reader, Dictionary<string, string> entities)
+            : base(reader)
+        {
+            this.EntityHandling = EntityHandling.ExpandCharEntities;
+            this._entities = entities;
+        }
+
         /// <summary>
         /// Gets the text value of the current node.
         /// </summary>

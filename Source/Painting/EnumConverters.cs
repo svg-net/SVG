@@ -124,7 +124,7 @@ namespace Svg
     {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value == "small-caps") return SvgFontVariant.smallcaps;
+            if (value.ToString() == "small-caps") return SvgFontVariant.smallcaps;
             return base.ConvertFrom(context, culture, value);
         }
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)

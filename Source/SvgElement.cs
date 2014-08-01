@@ -44,6 +44,29 @@ namespace Svg
         private SvgCustomAttributeCollection _customAttributes;
         private List<ISvgNode> _nodes = new List<ISvgNode>();
 
+
+        private Dictionary<string, SortedDictionary<int, string>> _styles = new Dictionary<string, SortedDictionary<int, string>>();
+        
+        public void AddStyle(string name, string value, int specificity)
+        {
+            SortedDictionary<int, string> rules;
+            if (!_styles.TryGetValue(name, out rules))
+            {
+                rules = new SortedDictionary<int, string>();
+                _styles[name] = rules;
+            }
+            while (rules.ContainsKey(specificity)) specificity++;
+            rules[specificity] = value;
+        }
+        public void FlushStyles()
+        {
+            foreach (var s in _styles)
+            {
+                SvgElementFactory.SetPropertyValue(this, s.Key, s.Value.Last().Value, this.OwnerDocument);
+            }
+            _styles = null;
+        }
+
         /// <summary>
         /// Gets the name of the element.
         /// </summary>

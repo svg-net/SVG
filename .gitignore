@@ -7,3 +7,5 @@ Source/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 Samples/SVGViewer/obj/
 Samples/SVGViewer/bin/
 Samples/SVGViewer/SVGViewer.OpenCover.Settings
+*.dll
+*.pdb
