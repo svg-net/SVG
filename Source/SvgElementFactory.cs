@@ -5,6 +5,7 @@ using System.Xml;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using ExCSS;
 
 namespace Svg
 {
@@ -15,11 +16,12 @@ namespace Svg
     {
         private static List<ElementInfo> availableElements;
         private const string svgNS = "http://www.w3.org/2000/svg";
+        private static Parser cssParser = new Parser();
 
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
         /// </summary>
-        private static List<ElementInfo> AvailableElements
+        public static List<ElementInfo> AvailableElements
         {
             get
             {
@@ -43,7 +45,7 @@ namespace Svg
         /// <param name="reader">The <see cref="XmlTextReader"/> containing the node to parse into an <see cref="SvgDocument"/>.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="reader"/> parameter cannot be <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">The CreateDocument method can only be used to parse root &lt;svg&gt; elements.</exception>
-        public static T CreateDocument<T>(XmlTextReader reader) where T : SvgDocument, new()
+        public static T CreateDocument<T>(XmlReader reader) where T : SvgDocument, new()
         {
             if (reader == null)
             {
@@ -64,7 +66,7 @@ namespace Svg
         /// <param name="reader">The <see cref="XmlTextReader"/> containing the node to parse into a subclass of <see cref="SvgElement"/>.</param>
         /// <param name="document">The <see cref="SvgDocument"/> that the created element belongs to.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="reader"/> and <paramref name="document"/> parameters cannot be <c>null</c>.</exception>
-        public static SvgElement CreateElement(XmlTextReader reader, SvgDocument document)
+        public static SvgElement CreateElement(XmlReader reader, SvgDocument document)
         {
             if (reader == null)
             {
@@ -74,7 +76,7 @@ namespace Svg
             return CreateElement<SvgDocument>(reader, false, document);
         }
 
-        private static SvgElement CreateElement<T>(XmlTextReader reader, bool fragmentIsDocument, SvgDocument document)  where T : SvgDocument, new()
+        private static SvgElement CreateElement<T>(XmlReader reader, bool fragmentIsDocument, SvgDocument document) where T : SvgDocument, new()
         {
             SvgElement createdElement = null;
             string elementName = reader.LocalName;
@@ -118,58 +120,114 @@ namespace Svg
             return createdElement;
         }
 
-        private static void SetAttributes(SvgElement element, XmlTextReader reader, SvgDocument document)
+        private static void SetAttributes(SvgElement element, XmlReader reader, SvgDocument document)
         {
             //Trace.TraceInformation("Begin SetAttributes");
 
-            string[] styles = null;
-            string[] style = null;
-            int i = 0;
+            //string[] styles = null;
+            //string[] style = null;
+            //int i = 0;
 
             while (reader.MoveToNextAttribute())
             {
-                // Special treatment for "style"
-                if (reader.LocalName.Equals("style") && !(element is NonSvgElement))
+                if (reader.LocalName.Equals("style") && !(element is NonSvgElement)) 
                 {
-                    styles = reader.Value.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    for (i = 0; i < styles.Length; i++)
+                    var inlineSheet = cssParser.Parse("#a{" + reader.Value + "}");
+                    foreach (var rule in inlineSheet.StyleRules)
                     {
-                        if (!styles[i].Contains(":"))
+                        foreach (var decl in rule.Declarations)
                         {
-                            continue;
+                            element.AddStyle(decl.Name, decl.Term.ToString(), 1 << 16);
                         }
-
-                        style = styles[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                        SetPropertyValue(element, style[0].Trim(), style[1].Trim(), document);
                     }
-
-					//defaults for text can come from the document
-					if (element.ElementName == "text")
-					{
-						if (!styles.Contains("font-size") && document.CustomAttributes.ContainsKey("font-size") && document.CustomAttributes["font-size"] != null)
-						{
-							SetPropertyValue(element, "font-size", document.CustomAttributes["font-size"], document);
-						}
-						if (!styles.Contains("font-family") && document.CustomAttributes.ContainsKey("font-family") && document.CustomAttributes["font-family"] != null)
-						{
-							SetPropertyValue(element, "font-family", document.CustomAttributes["font-family"], document);
-						}
-						
-					}
-                    continue; 
                 }
-
-                SetPropertyValue(element, reader.LocalName, reader.Value, document);
+                else if (IsStyleAttribute(reader.LocalName))
+                {
+                    element.AddStyle(reader.LocalName, reader.Value, 2 << 16);
+                }
+                else
+                {
+                    SetPropertyValue(element, reader.LocalName, reader.Value, document);
+                }
             }
 
             //Trace.TraceInformation("End SetAttributes");
         }
 
+        private static bool IsStyleAttribute(string name)
+        {
+            switch (name)
+            {
+                case "alignment-baseline":
+                case "baseline-shift":
+                case "clip":
+                case "clip-path":
+                case "clip-rule":
+                case "color":
+                case "color-interpolation":
+                case "color-interpolation-filters":
+                case "color-profile":
+                case "color-rendering":
+                case "cursor":
+                case "direction":
+                case "display":
+                case "dominant-baseline":
+                case "enable-background":
+                case "fill":
+                case "fill-opacity":
+                case "fill-rule":
+                case "filter":
+                case "flood-color":
+                case "flood-opacity":
+                case "font":
+                case "font-family":
+                case "font-size":
+                case "font-size-adjust":
+                case "font-stretch":
+                case "font-style":
+                case "font-variant":
+                case "font-weight":
+                case "glyph-orientation-horizontal":
+                case "glyph-orientation-vertical":
+                case "image-rendering":
+                case "kerning":
+                case "letter-spacing":
+                case "lighting-color":
+                case "marker":
+                case "marker-end":
+                case "marker-mid":
+                case "marker-start":
+                case "mask":
+                case "opacity":
+                case "overflow":
+                case "pointer-events":
+                case "shape-rendering":
+                case "stop-color":
+                case "stop-opacity":
+                case "stroke":
+                case "stroke-dasharray":
+                case "stroke-dashoffset":
+                case "stroke-linecap":
+                case "stroke-linejoin":
+                case "stroke-miterlimit":
+                case "stroke-opacity":
+                case "stroke-width":
+                case "text-anchor":
+                case "text-decoration":
+                case "text-rendering":
+                case "unicode-bidi":
+                case "visibility":
+                case "word-spacing":
+                case "writing-mode":
+                    return true;
+            }
+            return false;
+        }
+
         private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
         private static object syncLock = new object();
 
-        private static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
+        internal static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
         {
             var elementType = element.GetType();
 

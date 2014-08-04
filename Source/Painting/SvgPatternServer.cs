@@ -13,13 +13,15 @@ namespace Svg
     /// A pattern is used to fill or stroke an object using a pre-defined graphic object which can be replicated ("tiled") at fixed intervals in x and y to cover the areas to be painted.
     /// </summary>
     [SvgElement("pattern")]
-    public sealed class SvgPatternServer : SvgPaintServer, ISvgViewPort
+    public sealed class SvgPatternServer : SvgPaintServer, ISvgViewPort, ISvgSupportsCoordinateUnits
     {
         private SvgUnit _width;
         private SvgUnit _height;
         private SvgUnit _x;
         private SvgUnit _y;
         private SvgViewBox _viewBox;
+        private SvgCoordinateUnits _patternUnits;
+        private SvgCoordinateUnits _patternContentUnits;
 
 		[SvgAttribute("overflow")]
 		public SvgOverflow Overflow
@@ -59,6 +61,26 @@ namespace Svg
         {
             get { return this._width; }
             set { this._width = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the width of the pattern.
+        /// </summary>
+        [SvgAttribute("patternUnits")]
+        public SvgCoordinateUnits PatternUnits
+        {
+            get { return this._patternUnits; }
+            set { this._patternUnits = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the width of the pattern.
+        /// </summary>
+        [SvgAttribute("patternUnits")]
+        public SvgCoordinateUnits PatternContentUnits
+        {
+            get { return this._patternContentUnits; }
+            set { this._patternContentUnits = value; }
         }
 
         /// <summary>
@@ -107,7 +129,7 @@ namespace Svg
         /// </summary>
         /// <param name="renderingElement">The owner <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the brush.</param>
-        public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
+        public override Brush GetBrush(SvgVisualElement renderingElement, SvgRenderer renderer, float opacity)
         {
             // If there aren't any children, return null
             if (this.Children.Count == 0)
@@ -117,18 +139,21 @@ namespace Svg
             if (this._width.Value == 0.0f || this._height.Value == 0.0f)
                 return null;
 
-            float width = this._width.ToDeviceValue(renderingElement);
-            float height = this._height.ToDeviceValue(renderingElement, true);
-
-            Bitmap image = new Bitmap((int)width, (int)height);
-            using (SvgRenderer renderer = SvgRenderer.FromImage(image))
+            try
             {
-                Matrix patternMatrix = new Matrix();
+                if (this.PatternUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.Boundable(renderingElement);
 
+                float width = this._width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                float height = this._height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+
+                Matrix patternMatrix = new Matrix();
                 // Apply a translate if needed
                 if (this._x.Value > 0.0f || this._y.Value > 0.0f)
                 {
-                    patternMatrix.Translate(this._x.ToDeviceValue(renderingElement) + -1.0f, this._y.ToDeviceValue(renderingElement, true) + -1.0f);
+                    float x = this._x.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, this);
+                    float y = this._y.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, this);
+
+                    patternMatrix.Translate(x + -1.0f, y + -1.0f);
                 }
                 else
                 {
@@ -137,27 +162,40 @@ namespace Svg
 
                 if (this.ViewBox.Height > 0 || this.ViewBox.Width > 0)
                 {
-                    patternMatrix.Scale(this.Width.ToDeviceValue() / this.ViewBox.Width, this.Height.ToDeviceValue() / this.ViewBox.Height);
+                    patternMatrix.Scale(this.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / this.ViewBox.Width,
+                                        this.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) / this.ViewBox.Height);
                 }
 
-                renderer.Transform = patternMatrix;
-                renderer.CompositingQuality = CompositingQuality.HighQuality;
-                renderer.SmoothingMode = SmoothingMode.AntiAlias;
-                renderer.PixelOffsetMode = PixelOffsetMode.Half;
-
-                foreach (SvgElement child in this.Children)
+                Bitmap image = new Bitmap((int)width, (int)height);
+                using (SvgRenderer iRenderer = SvgRenderer.FromImage(image))
                 {
-                    child.RenderElement(renderer);
+                    iRenderer.Boundable((_patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox) ? new GenericBoundable(0, 0, width, height) : renderer.Boundable());
+                    iRenderer.Transform = patternMatrix;
+                    iRenderer.CompositingQuality = CompositingQuality.HighQuality;
+                    iRenderer.SmoothingMode = SmoothingMode.AntiAlias;
+                    iRenderer.PixelOffsetMode = PixelOffsetMode.Half;
+
+                    foreach (SvgElement child in this.Children)
+                    {
+                        child.RenderElement(iRenderer);
+                    }
+
+                    iRenderer.Save();
                 }
 
-                renderer.Save();
+                image.Save(string.Format(@"C:\test{0:D3}.png", imgNumber++));
+
+                TextureBrush textureBrush = new TextureBrush(image);
+
+                return textureBrush;
             }
-
-            TextureBrush textureBrush = new TextureBrush(image);
-
-            return textureBrush;
+            finally
+            {
+                if (this.PatternUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.PopBoundable();
+            }
         }
 
+        private static int imgNumber = 0;
 
 
 
@@ -180,5 +218,10 @@ namespace Svg
 			return newObj;
 
 		}
+
+        public SvgCoordinateUnits GetUnits()
+        {
+            return _patternUnits;
+        }
     }
 }

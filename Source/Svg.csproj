@@ -60,7 +60,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DocumentationFile>
     </DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>PdbOnly</DebugType>
@@ -76,12 +76,13 @@
     <DocumentationFile>bin\Release\Svg.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>True</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -99,6 +100,11 @@
     <Compile Include="Clipping and Masking\SvgClipRule.cs" />
     <Compile Include="Clipping and Masking\SvgClipPath.cs" />
     <Compile Include="Clipping and Masking\SvgMask.cs" />
+    <Compile Include="DataTypes\ISvgSupportsCoordinateUnits.cs" />
+    <Compile Include="Painting\GenericBoundable.cs" />
+    <Compile Include="SvgNodeReader.cs" />
+    <Compile Include="Css\CssQuery.cs" />
+    <Compile Include="Css\SvgElementOps.cs" />
     <Compile Include="DataTypes\SvgAspectRatioConverter.cs" />
     <Compile Include="DataTypes\SvgFontStyle.cs" />
     <Compile Include="DataTypes\SvgFontVariant.cs" />
@@ -117,8 +123,92 @@
     <Compile Include="Document Structure\SvgSwitch.cs" />
     <Compile Include="Document Structure\SvgTitle.cs" />
     <Compile Include="Document Structure\SvgDocumentMetadata.cs" />
+    <Compile Include="External\ExCSS\IToString.cs" />
+    <Compile Include="External\ExCSS\Lexer.cs" />
+    <Compile Include="External\ExCSS\Model\Enumerations.cs" />
+    <Compile Include="External\ExCSS\Model\Extensions\CharacterExtensions.cs" />
+    <Compile Include="External\ExCSS\Model\Extensions\StringExtensions.cs" />
+    <Compile Include="External\ExCSS\Model\FunctionBuffer.cs" />
+    <Compile Include="External\ExCSS\Model\HtmlEncoding.cs" />
+    <Compile Include="External\ExCSS\Model\ICssRules.cs" />
+    <Compile Include="External\ExCSS\Model\ICssSelector.cs" />
+    <Compile Include="External\ExCSS\Model\IStyleDeclaration.cs" />
+    <Compile Include="External\ExCSS\Model\ISupportsMedia.cs" />
+    <Compile Include="External\ExCSS\Model\MediaTypeList.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\AggregateRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\CharacterSetRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\ConditionalRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\DocumentRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\FontFaceRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\GenericRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\ImportRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\IRuleContainer.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\KeyframeRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\KeyframesRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\MediaRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\NamespaceRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\PageRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\RuleSet.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\StyleDeclaration.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\StyleRule.cs" />
+    <Compile Include="External\ExCSS\Model\Rules\SupportsRule.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\AggregateSelectorList.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\BaseSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\CombinatorSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\ComplexSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\FirstChildSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\LastChildSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\MultipleSelectorList.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\NthChildSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\NthFirstChildSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\NthLastChildSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\NthLastOfTypeSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\NthOfTypeSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\SelectorFactory.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\SelectorList.cs" />
+    <Compile Include="External\ExCSS\Model\Selector\SimpleSelector.cs" />
+    <Compile Include="External\ExCSS\Model\Specification.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\Block.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\BracketBlock.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\CharacterBlock.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\CommentBlock.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\DelimiterBlock.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\MatchBlock.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\NumericBlock.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\PipeBlock.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\RangeBlock.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\SpecialCharacter.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\StringBlock.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\SymbolBlock.cs" />
+    <Compile Include="External\ExCSS\Model\TextBlocks\UnitBlock.cs" />
+    <Compile Include="External\ExCSS\Model\Values\GenericFunction.cs" />
+    <Compile Include="External\ExCSS\Model\Values\HtmlColor.cs" />
+    <Compile Include="External\ExCSS\Model\Values\InheritTerm.cs" />
+    <Compile Include="External\ExCSS\Model\Values\PrimitiveTerm.cs" />
+    <Compile Include="External\ExCSS\Model\Values\Property.cs" />
+    <Compile Include="External\ExCSS\Model\Values\Term.cs" />
+    <Compile Include="External\ExCSS\Model\Values\TermList.cs" />
+    <Compile Include="External\ExCSS\Parser.Blocks.cs" />
+    <Compile Include="External\ExCSS\Parser.cs" />
+    <Compile Include="External\ExCSS\StyleSheet.cs" />
+    <Compile Include="External\ExCSS\StylesheetParseError.cs" />
+    <Compile Include="External\ExCSS\StylesheetReader.cs" />
     <Compile Include="Extensibility\SvgForeignObject.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="External\Fizzler\Either.cs" />
+    <Compile Include="External\Fizzler\HumanReadableSelectorGenerator.cs" />
+    <Compile Include="External\Fizzler\IElementOps.cs" />
+    <Compile Include="External\Fizzler\ISelectorGenerator.cs" />
+    <Compile Include="External\Fizzler\NamespacePrefix.cs" />
+    <Compile Include="External\Fizzler\Parser.cs" />
+    <Compile Include="External\Fizzler\Reader.cs" />
+    <Compile Include="External\Fizzler\Selector.cs" />
+    <Compile Include="External\Fizzler\SelectorGenerator.cs" />
+    <Compile Include="External\Fizzler\SelectorGeneratorTee.cs" />
+    <Compile Include="External\Fizzler\SelectorsCachingCompiler.cs" />
+    <Compile Include="External\Fizzler\Token.cs" />
+    <Compile Include="External\Fizzler\Tokener.cs" />
+    <Compile Include="External\Fizzler\TokenKind.cs" />
     <Compile Include="Painting\ISvgBoundable.cs" />
     <Compile Include="Painting\SvgDeferredPaintServer.cs" />
     <Compile Include="Painting\SvgMarker.cs" />
@@ -141,6 +231,7 @@
     <Compile Include="SvgContentNode.cs" />
     <Compile Include="SvgDefinitionDefaults.cs" />
     <Compile Include="NonSvgElement.cs" />
+    <Compile Include="SvgReader.cs" />
     <Compile Include="SvgUnknownElement.cs" />
     <Compile Include="SvgElementAttribute.cs" />
     <Compile Include="SvgExtentions.cs" />

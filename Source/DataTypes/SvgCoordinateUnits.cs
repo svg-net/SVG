@@ -11,12 +11,12 @@ namespace Svg
     public enum SvgCoordinateUnits
     {
         /// <summary>
-        /// Indicates that the coordinate system of the entire document is to be used.
-        /// </summary>
-        UserSpaceOnUse,
-        /// <summary>
         /// Indicates that the coordinate system of the owner element is to be used.
         /// </summary>
-        ObjectBoundingBox
+        ObjectBoundingBox,
+        /// <summary>
+        /// Indicates that the coordinate system of the entire document is to be used.
+        /// </summary>
+        UserSpaceOnUse
     }
 }

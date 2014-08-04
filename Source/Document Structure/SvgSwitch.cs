@@ -17,17 +17,9 @@ namespace Svg
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path
+        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
         {
-            get
-            {
-                //var path = new GraphicsPath();
-                //AddPaths(this, path);
-
-                return GetPaths(this);
-            }
-            protected set
-            { }
+            return GetPaths(this, renderer);
         }
 
         /// <summary>

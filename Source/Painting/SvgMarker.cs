@@ -87,26 +87,19 @@ namespace Svg
             Overflow = SvgOverflow.hidden;
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path
+        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
         {
-            get
-            {
-                var path = this.Children.FirstOrDefault(x => x is SvgPath);
-                if (path != null)
-                    return (path as SvgPath).Path;
-                return null;
-            }
-            protected set
-            {
-                // No-op
-            }
+            var path = this.Children.FirstOrDefault(x => x is SvgPath);
+            if (path != null)
+                return (path as SvgPath).Path(renderer);
+            return null;
         }
 
         public override System.Drawing.RectangleF Bounds
         {
             get
             {
-                var path = this.Path;
+                var path = this.Path(null);
                 if (path != null)
                     return path.GetBounds();
                 return new System.Drawing.RectangleF();
@@ -177,7 +170,7 @@ namespace Svg
         /// <param name="pMarkerPoint"></param>
         private void RenderPart2(float fAngle, SvgRenderer pRenderer, SvgPath pOwner, PointF pMarkerPoint)
         {
-            Pen pRenderPen = CreatePen(pOwner);
+            Pen pRenderPen = CreatePen(pOwner, pRenderer);
 
             GraphicsPath markerPath = GetClone(pOwner);
 
@@ -190,10 +183,14 @@ namespace Svg
             switch (MarkerUnits)
             {
                 case SvgMarkerUnits.strokeWidth:
-                    transMatrix.Translate(AdjustForViewBoxWidth(-RefX * pOwner.StrokeWidth), AdjustForViewBoxHeight(-RefY * pOwner.StrokeWidth));
+                    transMatrix.Translate(AdjustForViewBoxWidth(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this) * 
+                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)),
+                                          AdjustForViewBoxHeight(-RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this) *
+                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)));
                     break;
                 case SvgMarkerUnits.userSpaceOnUse:
-                    transMatrix.Translate(-RefX, -RefY);
+                    transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
+                                          -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
                     break;
             }
             markerPath.Transform(transMatrix);
@@ -205,7 +202,7 @@ namespace Svg
 
             if (pFill != null)
             {
-                Brush pBrush = pFill.GetBrush(this, fOpacity);
+                Brush pBrush = pFill.GetBrush(this, pRenderer, fOpacity);
                 pRenderer.FillPath(pBrush, markerPath);
                 pBrush.Dispose();
             }
@@ -219,17 +216,18 @@ namespace Svg
         /// </summary>
         /// <param name="pStroke"></param>
         /// <returns></returns>
-        private Pen CreatePen(SvgPath pPath)
+        private Pen CreatePen(SvgPath pPath, SvgRenderer renderer)
         {
-            Brush pBrush = pPath.Stroke.GetBrush(this, Opacity);
+            Brush pBrush = pPath.Stroke.GetBrush(this, renderer, Opacity);
             switch (MarkerUnits)
             {
                 case SvgMarkerUnits.strokeWidth:
-                    return (new Pen(pBrush, StrokeWidth * pPath.StrokeWidth));
+                    return (new Pen(pBrush, StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this) * 
+                                            pPath.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
                 case SvgMarkerUnits.userSpaceOnUse:
-                    return (new Pen(pBrush, StrokeWidth));
+                    return (new Pen(pBrush, StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
             }
-            return (new Pen(pBrush, StrokeWidth));
+            return (new Pen(pBrush, StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
         }
 
         /// <summary>
@@ -238,7 +236,7 @@ namespace Svg
         /// <returns></returns>
         private GraphicsPath GetClone(SvgPath pPath)
         {
-            GraphicsPath pRet = Path.Clone() as GraphicsPath;
+            GraphicsPath pRet = Path(null).Clone() as GraphicsPath;
             switch (MarkerUnits)
             {
                 case SvgMarkerUnits.strokeWidth:

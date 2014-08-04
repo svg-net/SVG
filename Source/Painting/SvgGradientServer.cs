@@ -9,7 +9,7 @@ namespace Svg
     /// <summary>
     /// Provides the base class for all paint servers that wish to render a gradient.
     /// </summary>
-    public abstract class SvgGradientServer : SvgPaintServer
+    public abstract class SvgGradientServer : SvgPaintServer, ISvgSupportsCoordinateUnits
     {
         private SvgCoordinateUnits _gradientUnits;
         private SvgGradientSpreadMethod _spreadMethod;
@@ -130,7 +130,7 @@ namespace Svg
         /// </summary>
         /// <param name="owner">The parent <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the colour blend.</param>
-        protected ColorBlend GetColorBlend(SvgVisualElement owner, float opacity, bool radial)
+        protected ColorBlend GetColorBlend(SvgRenderer renderer, float opacity, bool radial)
         {
             int colourBlends = this.Stops.Count;
             bool insertStart = false;
@@ -179,18 +179,19 @@ namespace Svg
             int actualStops = 0;
             float mergedOpacity = 0.0f;
             float position = 0.0f;
-            Color colour = Color.Black;
+            Color colour = System.Drawing.Color.Black;
 
             for (int i = 0; i < colourBlends; i++)
             {
                 var currentStop = this.Stops[radial ? this.Stops.Count - 1 - actualStops : actualStops];
+                var boundWidth = renderer.Boundable().Bounds.Width;
 
                 mergedOpacity = opacity * currentStop.Opacity;
                 position =
                     radial
-                    ? 1 - (currentStop.Offset.ToDeviceValue(owner) / owner.Bounds.Width)
-                    : (currentStop.Offset.ToDeviceValue(owner) / owner.Bounds.Width);
-                colour = Color.FromArgb((int)(mergedOpacity * 255), currentStop.Colour);
+                    ? 1 - (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth)
+                    : (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth);
+                colour = System.Drawing.Color.FromArgb((int)(mergedOpacity * 255), currentStop.GetColor(this));
 
                 actualStops++;
 
@@ -219,18 +220,13 @@ namespace Svg
             return blend;
         }
 
-        protected void LoadStops()
+        protected void LoadStops(SvgVisualElement parent)
         {
-            var core = SvgDeferredPaintServer.TryGet<SvgGradientServer>(_inheritGradient);
+            var core = SvgDeferredPaintServer.TryGet<SvgGradientServer>(_inheritGradient, parent);
             if (this.Stops.Count == 0 && core != null)
             {
                 _stops.AddRange(core.Stops);
             }
-        }
-
-        protected ISvgBoundable CalculateBoundable(SvgVisualElement renderingElement)
-        {
-            return (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) ? (ISvgBoundable)renderingElement : renderingElement.OwnerDocument;
         }
 
         protected PointF TransformPoint(PointF originalPoint)
@@ -271,6 +267,11 @@ namespace Svg
             newObj.GradientTransform = this.GradientTransform;
 
             return newObj;
+        }
+
+        public SvgCoordinateUnits GetUnits()
+        {
+            return _gradientUnits;
         }
     }
 }

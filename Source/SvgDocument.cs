@@ -9,6 +9,8 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Linq;
+using ExCSS;
+using Svg.Css;
 
 namespace Svg
 {
@@ -28,6 +30,8 @@ namespace Svg
             Ppi = PointsPerInch;
         }
 
+        public Uri BaseUri { get; set; }
+
         /// <summary>
         /// Gets an <see cref="SvgElementIdManager"/> for this document.
         /// </summary>
@@ -43,7 +47,7 @@ namespace Svg
                 return _idManager;
             }
         }
-        
+
         /// <summary>
         /// Overwrites the current IdManager with a custom implementation. 
         /// Be careful with this: If elements have been inserted into the document before,
@@ -113,8 +117,8 @@ namespace Svg
         {
             return (this.GetElementById(id) as TSvgElement);
         }
-        
-                /// <summary>
+
+        /// <summary>
         /// Opens the document at the specified path and loads the SVG contents.
         /// </summary>
         /// <param name="path">A <see cref="string"/> containing the path of the file to open.</param>
@@ -155,7 +159,9 @@ namespace Svg
                 throw new FileNotFoundException("The specified document cannot be found.", path);
             }
 
-            return Open<T>(File.OpenRead(path), entities);
+            var doc = Open<T>(File.OpenRead(path), entities);
+            doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
+            return doc;
         }
 
         /// <summary>
@@ -165,6 +171,27 @@ namespace Svg
         public static T Open<T>(Stream stream) where T : SvgDocument, new()
         {
             return Open<T>(stream, null);
+        }
+
+
+        /// <summary>
+        /// Attempts to create an SVG document from the specified string data.
+        /// </summary>
+        /// <param name="svg">The SVG data.</param>
+        public static T FromSvg<T>(string svg) where T : SvgDocument, new()
+        {
+            if (string.IsNullOrEmpty(svg))
+            {
+                throw new ArgumentNullException("svg");
+            }
+
+            using (var strReader = new System.IO.StringReader(svg))
+            {
+                var reader = new SvgTextReader(strReader, null);
+                reader.XmlResolver = new SvgDtdResolver();
+                reader.WhitespaceHandling = WhitespaceHandling.None;
+                return Open<T>(reader);
+            }
         }
 
         /// <summary>
@@ -180,94 +207,148 @@ namespace Svg
                 throw new ArgumentNullException("stream");
             }
 
-            //Trace.TraceInformation("Begin Read");
+            // Don't close the stream via a dispose: that is the client's job.
+            var reader = new SvgTextReader(stream, entities);
+            reader.XmlResolver = new SvgDtdResolver();
+            reader.WhitespaceHandling = WhitespaceHandling.None;
+            return Open<T>(reader);
+        }
 
-            using (var reader = new SvgTextReader(stream, entities))
+        private static T Open<T>(XmlReader reader) where T : SvgDocument, new()
+        {
+            var elementStack = new Stack<SvgElement>();
+            bool elementEmpty;
+            SvgElement element = null;
+            SvgElement parent;
+            T svgDocument = null;
+            
+            var styles = new List<ISvgNode>();
+
+            while (reader.Read())
             {
-                var elementStack = new Stack<SvgElement>();
-                bool elementEmpty;
-                SvgElement element = null;
-                SvgElement parent;
-                T svgDocument = null;
-                reader.XmlResolver = new SvgDtdResolver();
-                reader.WhitespaceHandling = WhitespaceHandling.None;
-
-                while (reader.Read())
+                try
                 {
-                    try
+                    switch (reader.NodeType)
                     {
-                        switch (reader.NodeType)
-                        {
-                            case XmlNodeType.Element:
-                                // Does this element have a value or children
-                                // (Must do this check here before we progress to another node)
-                                elementEmpty = reader.IsEmptyElement;
-                                // Create element
-                                if (elementStack.Count > 0)
-                                {
-                                    element = SvgElementFactory.CreateElement(reader, svgDocument);
-                                }
-                                else
-                                {
-                                    svgDocument = SvgElementFactory.CreateDocument<T>(reader);
-                                    element = svgDocument;
-                                }
+                        case XmlNodeType.Element:
+                            // Does this element have a value or children
+                            // (Must do this check here before we progress to another node)
+                            elementEmpty = reader.IsEmptyElement;
+                            // Create element
+                            if (elementStack.Count > 0)
+                            {
+                                element = SvgElementFactory.CreateElement(reader, svgDocument);
+                            }
+                            else
+                            {
+                                svgDocument = SvgElementFactory.CreateDocument<T>(reader);
+                                element = svgDocument;
+                            }
 
-                                // Add to the parents children
-                                if (elementStack.Count > 0)
+                            // Add to the parents children
+                            if (elementStack.Count > 0)
+                            {
+                                parent = elementStack.Peek();
+                                if (parent != null && element != null)
                                 {
-                                    parent = elementStack.Peek();
-                                    if (parent != null && element != null)
-                                    {
-                                        parent.Children.Add(element);
-                                        parent.Nodes.Add(element);
-                                    }
+                                    parent.Children.Add(element);
+                                    parent.Nodes.Add(element);
                                 }
+                            }
 
-                                // Push element into stack
-                                elementStack.Push(element);
+                            // Push element into stack
+                            elementStack.Push(element);
 
-                                // Need to process if the element is empty
-                                if (elementEmpty)
-                                {
-                                    goto case XmlNodeType.EndElement;
-                                }
+                            // Need to process if the element is empty
+                            if (elementEmpty)
+                            {
+                                goto case XmlNodeType.EndElement;
+                            }
 
-                                break;
-                            case XmlNodeType.EndElement:
+                            break;
+                        case XmlNodeType.EndElement:
 
-                                // Pop the element out of the stack
-                                element = elementStack.Pop();
+                            // Pop the element out of the stack
+                            element = elementStack.Pop();
 
-                                if (element.Nodes.OfType<SvgContentNode>().Any())
-                                {
-                                    element.Content = (from e in element.Nodes select e.Content).Aggregate((p, c) => p + c);
-                                }
-                                else
-                                {
-                                    element.Nodes.Clear(); // No sense wasting the space where it isn't needed
-                                }
-                                break;
-                            case XmlNodeType.CDATA:
-                            case XmlNodeType.Text:
-                                element = elementStack.Peek();
-                                element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
-                                break;
-                            case XmlNodeType.EntityReference:
-                                reader.ResolveEntity();
-                                element = elementStack.Peek();
-                                element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
-                                break;
-                        }
-                    }
-                    catch (Exception exc)
-                    {
-                        Trace.TraceError(exc.Message);
+                            if (element.Nodes.OfType<SvgContentNode>().Any())
+                            {
+                                element.Content = (from e in element.Nodes select e.Content).Aggregate((p, c) => p + c);
+                            }
+                            else
+                            {
+                                element.Nodes.Clear(); // No sense wasting the space where it isn't needed
+                            }
+
+                            var unknown = element as SvgUnknownElement;
+                            if (unknown != null && unknown.ElementName == "style")
+                            {
+                                styles.Add(unknown);
+                            }
+                            break;
+                        case XmlNodeType.CDATA:
+                        case XmlNodeType.Text:
+                            element = elementStack.Peek();
+                            element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
+                            break;
+                        case XmlNodeType.EntityReference:
+                            reader.ResolveEntity();
+                            element = elementStack.Peek();
+                            element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
+                            break;
                     }
                 }
+                catch (Exception exc)
+                {
+                    Trace.TraceError(exc.Message);
+                }
+            }
 
-                //Trace.TraceInformation("End Read");
-                return svgDocument;
+            if (styles.Any())
+            {
+                var cssTotal = styles.Select((s) => s.Content).Aggregate((p, c) => p + Environment.NewLine + c);
+                var cssParser = new Parser();
+                var sheet = cssParser.Parse(cssTotal);
+                AggregateSelectorList aggList;
+                IEnumerable<BaseSelector> selectors;
+                IEnumerable<SvgElement> elemsToStyle;
+
+                foreach (var rule in sheet.StyleRules)
+                {
+                    aggList = rule.Selector as AggregateSelectorList;
+                    if (aggList != null && aggList.Delimiter == ",")
+                    {
+                        selectors = aggList;
+                    }
+                    else
+                    {
+                        selectors = Enumerable.Repeat(rule.Selector, 1);
+                    }
+
+                    foreach (var selector in selectors)
+                    {
+                        elemsToStyle = svgDocument.QuerySelectorAll(rule.Selector.ToString());
+                        foreach (var elem in elemsToStyle)
+                        {
+                            foreach (var decl in rule.Declarations)
+                            {
+                                elem.AddStyle(decl.Name, decl.Term.ToString(), rule.Selector.GetSpecificity());
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (svgDocument != null) FlushStyles(svgDocument);
+            return svgDocument;
+        }
+
+        private static void FlushStyles(SvgElement elem)
+        {
+            elem.FlushStyles();
+            foreach (var child in elem.Children)
+            {
+                FlushStyles(child);
             }
         }
 
@@ -283,10 +364,8 @@ namespace Svg
                 throw new ArgumentNullException("document");
             }
 
-            using (var stream = new MemoryStream(UTF8Encoding.Default.GetBytes(document.InnerXml)))
-            {
-                return Open<SvgDocument>(stream, null);
-            }
+            var reader = new SvgNodeReader(document.DocumentElement, null);
+            return Open<SvgDocument>(reader);
         }
 
         public static Bitmap OpenAsBitmap(string path)
@@ -311,6 +390,7 @@ namespace Svg
                 throw new ArgumentNullException("renderer");
             }
 
+            renderer.Boundable(this);
             this.Render(renderer);
         }
 
@@ -326,7 +406,9 @@ namespace Svg
                 throw new ArgumentNullException("graphics");
             }
 
-            this.Render(SvgRenderer.FromGraphics(graphics));
+            var renderer = SvgRenderer.FromGraphics(graphics);
+            renderer.Boundable(this);
+            this.Render(renderer);
         }
 
         /// <summary>
@@ -339,7 +421,7 @@ namespace Svg
 
             var size = GetDimensions();
             var bitmap = new Bitmap((int)Math.Ceiling(size.Width), (int)Math.Ceiling(size.Height));
-       // 	bitmap.SetResolution(300, 300);
+            // 	bitmap.SetResolution(300, 300);
             try
             {
                 Draw(bitmap);
@@ -365,6 +447,7 @@ namespace Svg
             {
                 using (var renderer = SvgRenderer.FromImage(bitmap))
                 {
+                    renderer.Boundable(this);
                     renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
                     renderer.TextContrast = 1;
                     renderer.PixelOffsetMode = PixelOffsetMode.Half;
@@ -395,7 +478,7 @@ namespace Svg
 
         public void Write(string path)
         {
-            using(var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+            using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
                 this.Write(fs);
             }

@@ -16,7 +16,7 @@ namespace Svg
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
-        public abstract GraphicsPath Path { get; protected set; }
+        public abstract GraphicsPath Path(SvgRenderer renderer);
 
         PointF ISvgBoundable.Location
         {
@@ -105,7 +105,7 @@ namespace Svg
         /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
         protected override void Render(SvgRenderer renderer)
         {
-            if ((this.Path != null) && this.Visible && this.Displayable)
+            if ((this.Path(renderer) != null) && this.Visible && this.Displayable)
             {
                 this.PushTransforms(renderer);
                 this.SetClip(renderer);
@@ -138,12 +138,12 @@ namespace Svg
         {
             if (this.Fill != null)
             {
-                using (Brush brush = this.Fill.GetBrush(this, this.FillOpacity))
+                using (Brush brush = this.Fill.GetBrush(this, renderer, Math.Min(Math.Max(this.FillOpacity * this.Opacity, 0), 1)))
                 {
                     if (brush != null)
                     {
-                        this.Path.FillMode = this.FillRule == SvgFillRule.NonZero ? FillMode.Winding : FillMode.Alternate;
-                        renderer.FillPath(brush, this.Path);
+                        this.Path(renderer).FillMode = this.FillRule == SvgFillRule.NonZero ? FillMode.Winding : FillMode.Alternate;
+                        renderer.FillPath(brush, this.Path(renderer));
                     }
                 }
             }
@@ -157,8 +157,8 @@ namespace Svg
         {
             if (this.Stroke != null)
             {
-                float strokeWidth = this.StrokeWidth.ToDeviceValue(this);
-                using (var pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
+                float strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
+                using (var pen = new Pen(this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity * this.Opacity, 0), 1)), strokeWidth))
                 {
                     if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
                     {
@@ -166,7 +166,7 @@ namespace Svg
                         pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.Value <= 0) ? 1 : u.Value) / ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
                     }
 
-                    renderer.DrawPath(pen, this.Path);
+                    renderer.DrawPath(pen, this.Path(renderer));
                 }
             }
         }
@@ -184,7 +184,7 @@ namespace Svg
 
                 if (clipPath != null)
                 {
-                    renderer.Clip = clipPath.GetClipRegion(this);
+                    renderer.AddClip(clipPath.GetClipRegion(this));
                 }
             }
         }

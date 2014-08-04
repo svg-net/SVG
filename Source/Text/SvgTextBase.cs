@@ -25,10 +25,8 @@ namespace Svg
         private SvgUnitCollection _dx = new SvgUnitCollection();
         private SvgUnit _letterSpacing;
         private SvgUnit _wordSpacing;
-        private SvgTextAnchor _textAnchor = SvgTextAnchor.Start;
         private static readonly SvgRenderer _stringMeasure;
-        private const string DefaultFontFamily = "Times New Roman";
-
+        
         private XmlSpaceHandling _space = XmlSpaceHandling.@default;
 
         /// <summary>
@@ -57,8 +55,15 @@ namespace Svg
         [SvgAttribute("text-anchor")]
         public virtual SvgTextAnchor TextAnchor
         {
-            get { return this._textAnchor; }
-            set { this._textAnchor = value; this.IsPathDirty = true; }
+            get { return (this.Attributes["text-anchor"] == null) ? SvgTextAnchor.inherit : (SvgTextAnchor)this.Attributes["text-anchor"]; }
+            set { this.Attributes["text-anchor"] = value; this.IsPathDirty = true; }
+        }
+
+        [SvgAttribute("baseline-shift")]
+        public virtual string BaselineShift
+        {
+            get { return this.Attributes["baseline-shift"] as string; }
+            set { this.Attributes["baseline-shift"] = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -166,7 +171,7 @@ namespace Svg
         /// <value>The fill.</value>
         public override SvgPaintServer Fill
         {
-            get { return (this.Attributes["fill"] == null) ? new SvgColourServer(Color.Black) : (SvgPaintServer)this.Attributes["fill"]; }
+            get { return (this.Attributes["fill"] == null) ? new SvgColourServer(System.Drawing.Color.Black) : (SvgPaintServer)this.Attributes["fill"]; }
             set { this.Attributes["fill"] = value; }
         }
 
@@ -196,26 +201,16 @@ namespace Svg
         /// <value>The bounds.</value>
         public override System.Drawing.RectangleF Bounds
         {
-            get { return this.Path.GetBounds(); }
-        }
-
-        private static string ValidateFontFamily(string fontFamilyList)
-        {
-            // Split font family list on "," and then trim start and end spaces and quotes.
-            var fontParts = fontFamilyList.Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
-
-            var families = System.Drawing.FontFamily.Families;
-
-            // Find a the first font that exists in the list of installed font families.
-            //styles from IE get sent through as lowercase.
-            foreach (var f in fontParts.Where(f => families.Any(family => family.Name.ToLower() == f.ToLower())))
+            get 
             {
-                return f;
+                var path = this.Path(null);
+                foreach (var elem in this.Children.OfType<SvgVisualElement>())
+                {
+                    path.AddPath(elem.Path(null), false);
+                }
+                return path.GetBounds(); 
             }
-            // No valid font family found from the list requested.
-            return null;
         }
-
 
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
@@ -224,7 +219,7 @@ namespace Svg
         /// <remarks>Necessary to make sure that any internal tspan elements get rendered as well</remarks>
         protected override void Render(SvgRenderer renderer)
         {
-            if ((this.Path != null) && this.Visible && this.Displayable)
+            if ((this.Path(renderer) != null) && this.Visible && this.Displayable)
             {
                 this.PushTransforms(renderer);
                 this.SetClip(renderer);
@@ -267,9 +262,9 @@ namespace Svg
             }
             public SizeF Bounds { get; set; }
         }
-        protected BoundsData GetTextBounds()
+        protected BoundsData GetTextBounds(SvgRenderer renderer)
         {
-            var font = GetFont();
+            var font = GetFont(renderer);
             SvgTextBase innerText;
             SizeF stringBounds;
             float totalHeight = 0;
@@ -297,7 +292,8 @@ namespace Svg
                     {
                         Bounds = stringBounds,
                         Node = new SvgContentNode() { Content = ch },
-                        xOffset = (i == 0 ? 0 : _x[i].ToDeviceValue(this) - _x[0].ToDeviceValue(this))
+                        xOffset = (i == 0 ? 0 : _x[i].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) -
+                                                _x[0].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this))
                     });
                 }
             }
@@ -318,9 +314,9 @@ namespace Svg
                     }
                     else
                     {
-                        stringBounds = innerText.GetTextBounds().Bounds;
+                        stringBounds = innerText.GetTextBounds(renderer).Bounds;
                         result.Nodes.Add(new NodeBounds() { Bounds = stringBounds, Node = node, xOffset = totalWidth });
-                        if (innerText.Dx.Count == 1) totalWidth += innerText.Dx[0].ToDeviceValue(this);
+                        if (innerText.Dx.Count == 1) totalWidth += innerText.Dx[0].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
                     }
                     totalHeight = Math.Max(totalHeight, stringBounds.Height);
                     totalWidth += stringBounds.Width;
@@ -337,72 +333,99 @@ namespace Svg
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path
+        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
         {
-            get
-            {
-                // Make sure the path is always null if there is no text
-                //if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
-                if ((string.IsNullOrEmpty(this.Text) || this.Text.Trim().Length < 1) && this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan).Count() == 0)
-                    return _path = null;
-                //NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
-                // When an empty string is passed to GraphicsPath, it rises an InvalidArgumentException...
+            // Make sure the path is always null if there is no text
+            //if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
+            if ((string.IsNullOrEmpty(this.Text) || this.Text.Trim().Length < 1) && this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan).Count() == 0)
+                return _path = null;
+            //NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
+            // When an empty string is passed to GraphicsPath, it rises an InvalidArgumentException...
 
-                if (_path == null || this.IsPathDirty)
+            if (_path == null || this.IsPathDirty)
+            {
+                renderer = (renderer ?? SvgRenderer.FromNull());
+                // Measure the overall bounds of all the text
+                var boundsData = GetTextBounds(renderer);
+
+                var font = GetFont(renderer);
+                SvgTextBase innerText;
+                float x = (_x.Count < 1 ? _calcX : _x[0].ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, this)) +
+                                                   (_dx.Count < 1 ? 0 : _dx[0].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this));
+                float y = (_y.Count < 1 ? _calcY : _y[0].ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, this)) +
+                                                   (_dy.Count < 1 ? 0 : _dy[0].ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+
+                _path = new GraphicsPath();
+                _path.StartFigure();
+
+                // Determine the location of the start point
+                switch (this.TextAnchor)
                 {
-                    // Measure the overall bounds of all the text
-                    var boundsData = GetTextBounds();
-
-                    var font = GetFont();
-                    SvgTextBase innerText;
-                    float x = (_x.Count < 1 ? _calcX : _x[0].ToDeviceValue(this)) + (_dx.Count < 1 ? 0 : _dx[0].ToDeviceValue(this));
-                    float y = (_y.Count < 1 ? _calcY : _y[0].ToDeviceValue(this, true)) + (_dy.Count < 1 ? 0 : _dy[0].ToDeviceValue(this, true));
-
-                    _path = new GraphicsPath();
-                    _path.StartFigure();
-
-                    // Determine the location of the start point
-                    switch (this.TextAnchor)
-                    {
-                        case SvgTextAnchor.Middle:
-                            x -= (boundsData.Bounds.Width / 2);
-                            break;
-                        case SvgTextAnchor.End:
-                            x -= boundsData.Bounds.Width;
-                            break;
-                    }
-
-                    NodeBounds data;
-                    var yCummOffset = 0.0f;
-                    for (var i = 0; i < boundsData.Nodes.Count; i++)
-                    {
-                        data = boundsData.Nodes[i];
-                        innerText = data.Node as SvgTextBase;
-                        if (innerText == null)
-                        {
-                            // Minus FontSize because the x/y coords mark the bottom left, not bottom top.
-                            DrawString(_path, x + data.xOffset, y - boundsData.Bounds.Height, font,
-                                       PrepareText(data.Node.Content, i > 0 && boundsData.Nodes[i - 1].Node is SvgTextBase,
-                                                                      i < boundsData.Nodes.Count - 1 && boundsData.Nodes[i + 1].Node is SvgTextBase));
-                        }
-                        else
-                        {
-                            innerText._calcX = x + data.xOffset;
-                            innerText._calcY = y + yCummOffset;
-                            if (innerText.Dy.Count == 1) yCummOffset += innerText.Dy[0].ToDeviceValue(this);
-                        }
-                    }
-
-                    _path.CloseFigure();
-                    this.IsPathDirty = false;
+                    case SvgTextAnchor.Middle:
+                        x -= (boundsData.Bounds.Width / 2);
+                        break;
+                    case SvgTextAnchor.End:
+                        x -= boundsData.Bounds.Width;
+                        break;
                 }
-                return _path;
+
+                try
+                {
+                    renderer.Boundable(new FontBoundable(font));
+                    switch (this.BaselineShift)
+                    {
+                        case null:
+                        case "":
+                        case "baseline":
+                        case "inherit":
+                            // do nothing
+                            break;
+                        case "sub":
+                            y += new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                            break;
+                        case "super":
+                            y -= new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                            break;
+                        default:
+                            var convert = new SvgUnitConverter();
+                            var shift = (SvgUnit)convert.ConvertFromInvariantString(this.BaselineShift);
+                            y -= shift.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                            break;
+                    }
+                }
+                finally
+                {
+                    renderer.PopBoundable();
+                }
+
+                NodeBounds data;
+                var yCummOffset = 0.0f;
+                for (var i = 0; i < boundsData.Nodes.Count; i++)
+                {
+                    data = boundsData.Nodes[i];
+                    innerText = data.Node as SvgTextBase;
+                    if (innerText == null)
+                    {
+                        // Minus FontSize because the x/y coords mark the bottom left, not bottom top.
+                        DrawString(renderer, _path, x + data.xOffset, y - boundsData.Bounds.Height, font,
+                                    PrepareText(data.Node.Content, i > 0 && boundsData.Nodes[i - 1].Node is SvgTextBase,
+                                                                    i < boundsData.Nodes.Count - 1 && boundsData.Nodes[i + 1].Node is SvgTextBase));
+                    }
+                    else
+                    {
+                        innerText._calcX = x + data.xOffset;
+                        innerText._calcY = y + yCummOffset;
+                        if (innerText.Dy.Count == 1) yCummOffset += innerText.Dy[0].ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                    }
+                }
+
+                _path.CloseFigure();
+                this.IsPathDirty = false;
             }
-            protected set
-            {
-                _path = value;
-            }
+            return _path;
         }
+
+        private static readonly Regex MultipleSpaces = new Regex(@" {2,}", RegexOptions.Compiled);
 
         /// <summary>
         /// Prepare the text according to the whitespace handling rules.  <see href="http://www.w3.org/TR/SVG/text.html">SVG Spec</see>.
@@ -413,82 +436,21 @@ namespace Svg
         {
             if (_space == XmlSpaceHandling.preserve)
             {
-                return (leadingSpace ? " " : "") + value.Replace('\t', ' ').Replace("\r\n", " ").Replace('\r', ' ').Replace('\n', ' ') + (trailingSpace ? " " : "");
+                return value.Replace('\t', ' ').Replace("\r\n", " ").Replace('\r', ' ').Replace('\n', ' ');
             }
             else
             {
-                return (leadingSpace ? " " : "") + value.Replace("\r", "").Replace("\n", "").Replace('\t', ' ').Trim().Replace("  ", " ") + (trailingSpace ? " " : "");
+                var convValue = MultipleSpaces.Replace(value.Replace("\r", "").Replace("\n", "").Replace('\t', ' '), " ");
+                if (!leadingSpace) convValue = convValue.TrimStart();
+                if (!trailingSpace) convValue = convValue.TrimEnd();
+                return convValue;
             }
-        }
-        /// <summary>
-        /// Get the font information based on data stored with the text object or inherited from the parent.
-        /// </summary>
-        /// <returns></returns>
-        internal Font GetFont()
-        {
-            var parentList = this.ParentsAndSelf.OfType<SvgVisualElement>().ToList();
-
-            // Get the font-size
-            float fontSize;
-            var fontSizeUnit = GetInheritedFontSize();
-            if (fontSizeUnit == SvgUnit.None)
-            {
-                fontSize = 1.0f;
-            }
-            else
-            {
-                fontSize = fontSizeUnit.ToDeviceValue(this);
-            }
-
-            var fontStyle = System.Drawing.FontStyle.Regular;
-
-            // Get the font-weight
-            var weightElement = (from e in parentList where e.FontWeight != SvgFontWeight.inherit select e).FirstOrDefault();
-            if (weightElement != null)
-            {
-                switch (weightElement.FontWeight)
-                {
-                    case SvgFontWeight.bold:
-                    case SvgFontWeight.bolder:
-                    case SvgFontWeight.w700:
-                    case SvgFontWeight.w800:
-                    case SvgFontWeight.w900:
-                        fontStyle |= System.Drawing.FontStyle.Bold;
-                        break;
-                }
-            }
-
-            // Get the font-style
-            var styleElement = (from e in parentList where e.FontStyle != SvgFontStyle.inherit select e).FirstOrDefault();
-            if (styleElement != null)
-            {
-                switch (styleElement.FontStyle)
-                {
-                    case SvgFontStyle.italic:
-                    case SvgFontStyle.oblique:
-                        fontStyle |= System.Drawing.FontStyle.Italic;
-                        break;
-                }
-            }
-
-            // Get the font-family
-            var fontFamilyElement = (from e in parentList where e.FontFamily != null && e.FontFamily != "inherit" select e).FirstOrDefault();
-            string family;
-            if (fontFamilyElement == null)
-            {
-                family = DefaultFontFamily;
-            }
-            else
-            {
-                family = ValidateFontFamily(fontFamilyElement.FontFamily) ?? DefaultFontFamily;
-            }
-            return new Font(family, fontSize, fontStyle, GraphicsUnit.Pixel);
         }
 
         /// <summary>
         /// Draws a string on a path at a specified location and with a specified font.
         /// </summary>
-        internal void DrawString(GraphicsPath path, float x, float y, Font font, string text)
+        internal void DrawString(SvgRenderer renderer, GraphicsPath path, float x, float y, Font font, string text)
         {
             PointF location = new PointF(x, y);
 
@@ -497,8 +459,8 @@ namespace Svg
             {
                 // Cut up into words, or just leave as required
                 string[] words = (this.WordSpacing.Value > 0.0f) ? text.Split(' ') : new string[] { text };
-                float wordSpacing = this.WordSpacing.ToDeviceValue(this);
-                float letterSpacing = this.LetterSpacing.ToDeviceValue(this);
+                float wordSpacing = this.WordSpacing.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                float letterSpacing = this.LetterSpacing.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
                 float start = x;
 
                 foreach (string word in words)
@@ -569,5 +531,30 @@ namespace Svg
             
         }
 #endif
+
+        private class FontBoundable : ISvgBoundable
+        {
+            private Font _font;
+
+            public FontBoundable(Font font)
+            {
+                _font = font;
+            }
+
+            public PointF Location
+            {
+                get { return PointF.Empty; }
+            }
+
+            public SizeF Size
+            {
+                get { return new SizeF(1, _font.Size); }
+            }
+
+            public RectangleF Bounds
+            {
+                get { return new RectangleF(this.Location, this.Size); }
+            }
+        }
     }
 }

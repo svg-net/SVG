@@ -81,27 +81,20 @@ namespace Svg
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
-        public override GraphicsPath Path
+        public override GraphicsPath Path(SvgRenderer renderer)
         {
-            get
+            if (this._path == null || this.IsPathDirty)
             {
-                if (this._path == null || this.IsPathDirty)
+                _path = new GraphicsPath();
+
+                foreach (SvgPathSegment segment in this.PathData)
                 {
-                    _path = new GraphicsPath();
-
-                    foreach (SvgPathSegment segment in this.PathData)
-                    {
-                        segment.AddToPath(_path);
-                    }
-
-                    this.IsPathDirty = false;
+                    segment.AddToPath(_path);
                 }
-                return _path;
+
+                this.IsPathDirty = false;
             }
-            protected set
-            {
-                _path = value;
-            }
+            return _path;
         }
 
         internal void OnPathUpdated()
@@ -124,7 +117,7 @@ namespace Svg
         /// <value>The bounds.</value>
         public override System.Drawing.RectangleF Bounds
         {
-            get { return this.Path.GetBounds(); }
+            get { return this.Path(null).GetBounds(); }
         }
 
         /// <summary>
@@ -145,8 +138,8 @@ namespace Svg
 		{
  			if (this.Stroke != null)
 			{
-				float strokeWidth = this.StrokeWidth.ToDeviceValue(this);
-				using (Pen pen = new Pen(this.Stroke.GetBrush(this, this.StrokeOpacity), strokeWidth))
+				float strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
+				using (Pen pen = new Pen(this.Stroke.GetBrush(this, renderer, this.StrokeOpacity), strokeWidth))
 				{
 					if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
 					{
@@ -154,25 +147,26 @@ namespace Svg
 						pen.DashPattern = this.StrokeDashArray.ConvertAll(u => u.Value / ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
 					}
 
-					renderer.DrawPath(pen, this.Path);
+                    var path = this.Path(renderer);
+                    renderer.DrawPath(pen, path);
 
 					if (this.MarkerStart != null)
 					{
 						SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerStart.ToString());
-						marker.RenderMarker(renderer, this, Path.PathPoints[0], Path.PathPoints[0], Path.PathPoints[1]);
+                        marker.RenderMarker(renderer, this, path.PathPoints[0], path.PathPoints[0], path.PathPoints[1]);
 					}
 
 					if (this.MarkerMid != null)
 					{
 						SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerMid.ToString());
-						for (int i = 1; i <= Path.PathPoints.Length - 2; i++)
-							marker.RenderMarker(renderer, this, Path.PathPoints[i], Path.PathPoints[i - 1], Path.PathPoints[i], Path.PathPoints[i + 1]);
+                        for (int i = 1; i <= path.PathPoints.Length - 2; i++)
+                            marker.RenderMarker(renderer, this, path.PathPoints[i], path.PathPoints[i - 1], path.PathPoints[i], path.PathPoints[i + 1]);
 					}
 
 					if (this.MarkerEnd != null)
 					{
 						SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerEnd.ToString());
-						marker.RenderMarker(renderer, this, Path.PathPoints[Path.PathPoints.Length - 1], Path.PathPoints[Path.PathPoints.Length - 2], Path.PathPoints[Path.PathPoints.Length - 1]);
+                        marker.RenderMarker(renderer, this, path.PathPoints[path.PathPoints.Length - 1], path.PathPoints[path.PathPoints.Length - 2], path.PathPoints[path.PathPoints.Length - 1]);
 					}
 				}
 			}

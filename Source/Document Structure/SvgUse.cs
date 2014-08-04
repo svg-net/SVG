@@ -38,10 +38,12 @@ namespace Svg
         /// Applies the required transforms to <see cref="SvgRenderer"/>.
         /// </summary>
         /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
-        protected internal override void PushTransforms(SvgRenderer renderer)
+        protected internal override bool PushTransforms(SvgRenderer renderer)
         {
-            base.PushTransforms(renderer);
-            renderer.TranslateTransform(this.X.ToDeviceValue(this), this.Y.ToDeviceValue(this, true));
+            if (!base.PushTransforms(renderer)) return false;
+            renderer.TranslateTransform(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this), 
+                                        this.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+            return true;
         }
 
         /// <summary>
@@ -53,15 +55,10 @@ namespace Svg
             this.Y = 0;
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path
+        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
         {
-            get
-            {
-                SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
-                return (element != null) ? element.Path : null;
-            }
-            protected set
-            { }
+            SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
+            return (element != null) ? element.Path(renderer) : null;
         }
 
         public override System.Drawing.RectangleF Bounds

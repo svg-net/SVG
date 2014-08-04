@@ -24,19 +24,30 @@ namespace Svg
             this.DeferredId = id;
         }
 
-        private void EnsureServer()
+        public void EnsureServer(SvgElement styleOwner)
         {
             if (!_serverLoaded)
             {
-                _concreteServer = this.Document.IdManager.GetElementById(this.DeferredId) as SvgPaintServer;
+                if (this.DeferredId == "currentColor" && styleOwner != null) 
+                {
+                    var colorElement = (from e in styleOwner.ParentsAndSelf.OfType<SvgElement>()
+                                        where e.Color != SvgPaintServer.None && e.Color != SvgColourServer.NotSet && 
+                                              e.Color != SvgColourServer.Inherit && e.Color != SvgColourServer.None
+                                        select e).FirstOrDefault();
+                    _concreteServer = (colorElement == null ? SvgPaintServer.None : colorElement.Color);
+                }
+                else 
+                {
+                    _concreteServer = this.Document.IdManager.GetElementById(this.DeferredId) as SvgPaintServer;
+                }
                 _serverLoaded = true;
             }
         }
 
-        public override System.Drawing.Brush GetBrush(SvgVisualElement styleOwner, float opacity)
+        public override System.Drawing.Brush GetBrush(SvgVisualElement styleOwner, SvgRenderer renderer, float opacity)
         {
-            EnsureServer();
-            return _concreteServer.GetBrush(styleOwner, opacity);
+            EnsureServer(styleOwner);
+            return _concreteServer.GetBrush(styleOwner, renderer, opacity);
         }
 
         public override SvgElement DeepCopy()
@@ -72,7 +83,7 @@ namespace Svg
             return (_serverLoaded ? _serverLoaded.ToString() : string.Format("deferred: {0}", this.DeferredId));
         }
 
-        public static T TryGet<T>(SvgPaintServer server) where T : SvgPaintServer
+        public static T TryGet<T>(SvgPaintServer server, SvgElement parent) where T : SvgPaintServer
         {
             var deferred = server as SvgDeferredPaintServer;
             if (deferred == null)
@@ -81,6 +92,7 @@ namespace Svg
             }
             else
             {
+                deferred.EnsureServer(parent);
                 return deferred._concreteServer as T;
             }
         }

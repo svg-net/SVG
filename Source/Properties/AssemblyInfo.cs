@@ -36,3 +36,5 @@ using System.Runtime.InteropServices;
 //[assembly: AssemblyFileVersion("1.0.1.*")]
 
 [assembly: CLSCompliant(true)]
+
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Svg.UnitTests")]

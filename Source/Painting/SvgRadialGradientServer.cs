@@ -95,53 +95,55 @@ namespace Svg
             Radius = new SvgUnit(SvgUnitType.Percentage, 50F);
         }
 
-        public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
+        public override Brush GetBrush(SvgVisualElement renderingElement, SvgRenderer renderer, float opacity)
         {
-            LoadStops();
-            var origin = CalculateOrigin(renderingElement);
+            LoadStops(renderingElement);
 
-            var centerPoint = CalculateCenterPoint(renderingElement, origin);
-
-            var focalPoint = CalculateFocalPoint(renderingElement, origin);
-
-            var specifiedRadius = CalculateRadius(renderingElement);
-            var effectiveRadius = CalculateEffectiveRadius(renderingElement, centerPoint, specifiedRadius);
-
-            var brush = new PathGradientBrush(CreateGraphicsPath(origin, centerPoint, effectiveRadius))
+            try
             {
-                InterpolationColors = CalculateColorBlend(renderingElement, opacity, specifiedRadius, effectiveRadius),
-                CenterPoint = focalPoint
-            };
+                if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.Boundable(renderingElement);
+                var origin = renderer.Boundable().Location;
+                var centerPoint = CalculateCenterPoint(renderer, origin);
+                var focalPoint = CalculateFocalPoint(renderer, origin);
 
-            Debug.Assert(brush.Rectangle.Contains(renderingElement.Bounds), "Brush rectangle does not contain rendering element bounds!");
+                var specifiedRadius = CalculateRadius(renderer);
+                var effectiveRadius = CalculateEffectiveRadius(renderingElement, centerPoint, specifiedRadius);
 
-            return brush;
+                var brush = new PathGradientBrush(CreateGraphicsPath(origin, centerPoint, effectiveRadius))
+                {
+                    InterpolationColors = CalculateColorBlend(renderer, opacity, specifiedRadius, effectiveRadius),
+                    CenterPoint = focalPoint
+                };
+
+                Debug.Assert(brush.Rectangle.Contains(renderingElement.Bounds), "Brush rectangle does not contain rendering element bounds!");
+
+                return brush;
+            }
+            finally
+            {
+                if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.PopBoundable();
+            }
         }
 
-        private PointF CalculateOrigin(SvgVisualElement renderingElement)
+        private PointF CalculateCenterPoint(SvgRenderer renderer, PointF origin)
         {
-            return CalculateBoundable(renderingElement).Location;
-        }
-
-        private PointF CalculateCenterPoint(ISvgBoundable boundable, PointF origin)
-        {
-            var deviceCenterX = origin.X + CenterX.ToDeviceValue(boundable);
-            var deviceCenterY = origin.Y + CenterY.ToDeviceValue(boundable, true);
+            var deviceCenterX = origin.X + CenterX.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, this);
+            var deviceCenterY = origin.Y + CenterY.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, this);
             var transformedCenterPoint = TransformPoint(new PointF(deviceCenterX, deviceCenterY));
             return transformedCenterPoint;
         }
 
-        private PointF CalculateFocalPoint(ISvgBoundable boundable, PointF origin)
+        private PointF CalculateFocalPoint(SvgRenderer renderer, PointF origin)
         {
-            var deviceFocalX = origin.X + FocalX.ToDeviceValue(boundable);
-            var deviceFocalY = origin.Y + FocalY.ToDeviceValue(boundable, true);
+            var deviceFocalX = origin.X + FocalX.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, this);
+            var deviceFocalY = origin.Y + FocalY.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, this);
             var transformedFocalPoint = TransformPoint(new PointF(deviceFocalX, deviceFocalY));
             return transformedFocalPoint;
         }
 
-        private float CalculateRadius(ISvgBoundable boundable)
+        private float CalculateRadius(SvgRenderer renderer)
         {
-            var radius = Radius.ToDeviceValue(boundable);
+            var radius = Radius.ToDeviceValue(renderer, UnitRenderingType.Other, this);
             var transformRadiusVector = TransformVector(new PointF(radius, 0));
             var transformedRadius = CalculateLength(transformRadiusVector);
             return transformedRadius;
@@ -191,9 +193,9 @@ namespace Svg
             return path;
         }
 
-        private ColorBlend CalculateColorBlend(SvgVisualElement renderingElement, float opacity, float specifiedRadius, float effectiveRadius)
+        private ColorBlend CalculateColorBlend(SvgRenderer renderer, float opacity, float specifiedRadius, float effectiveRadius)
         {
-            var colorBlend = GetColorBlend(renderingElement, opacity, true);
+            var colorBlend = GetColorBlend(renderer, opacity, true);
 
             if (specifiedRadius >= effectiveRadius)
             {

@@ -32,51 +32,44 @@ namespace Svg
             get { return true; }
         }
 
-        public override GraphicsPath Path
+        public override GraphicsPath Path(SvgRenderer renderer)
         {
-            get
+            if (this._path == null || this.IsPathDirty)
             {
-                if (this._path == null || this.IsPathDirty)
+                this._path = new GraphicsPath();
+                this._path.StartFigure();
+
+                try
                 {
-                    this._path = new GraphicsPath();
-                    this._path.StartFigure();
-
-                    try
+                    for (int i = 2; i < this._points.Count; i+=2)
                     {
-                        for (int i = 2; i < this._points.Count; i+=2)
-                        {
-                            PointF endPoint = new PointF(this._points[i].ToDeviceValue(this), this._points[i+1].ToDeviceValue(this));
+                        var endPoint = SvgUnit.GetDevicePoint(this._points[i], this._points[i+1], renderer, this);
 
-                            //first line
-                            if (_path.PointCount == 0)
-                            {
-                                _path.AddLine(new PointF(this._points[i-2].ToDeviceValue(this), this._points[i-1].ToDeviceValue(this)), endPoint);
-                            }
-                            else
-                            {
-                                _path.AddLine(_path.GetLastPoint(), endPoint);
-                            }
+                        //first line
+                        if (_path.PointCount == 0)
+                        {
+                            _path.AddLine(SvgUnit.GetDevicePoint(this._points[i - 2], this._points[i - 1], renderer, this), endPoint);
+                        }
+                        else
+                        {
+                            _path.AddLine(_path.GetLastPoint(), endPoint);
                         }
                     }
-                    catch
-                    {
-                        Trace.TraceError("Error parsing points");
-                    }
-
-                    this._path.CloseFigure();
-                    this.IsPathDirty = false;
                 }
-                return this._path;
+                catch
+                {
+                    Trace.TraceError("Error parsing points");
+                }
+
+                this._path.CloseFigure();
+                this.IsPathDirty = false;
             }
-            protected set
-            {
-                _path = value;
-            }
+            return this._path;
         }
 
         public override RectangleF Bounds
         {
-            get { return this.Path.GetBounds(); }
+            get { return this.Path(null).GetBounds(); }
         }
 
 

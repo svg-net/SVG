@@ -13,7 +13,7 @@ namespace Svg
     public class SvgGradientStop : SvgElement
     {
         private SvgUnit _offset;
-        private Color _colour;
+        private SvgPaintServer _colour;
         private float _opacity;
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace Svg
         /// Gets or sets the colour of the gradient stop.
         /// </summary>
         [SvgAttribute("stop-color")]
-        [TypeConverter(typeof(SvgColourConverter))]
-        public Color Colour
+        [TypeConverter(typeof(SvgPaintServerFactory))]
+        public SvgPaintServer Colour
         {
             get { return this._colour; }
             set { this._colour = value; }
@@ -81,7 +81,7 @@ namespace Svg
         public SvgGradientStop()
         {
             this._offset = new SvgUnit(0.0f);
-            this._colour = Color.Transparent;
+            this._colour = SvgColourServer.NotSet;
             this._opacity = 1.0f;
         }
 
@@ -93,10 +93,16 @@ namespace Svg
         public SvgGradientStop(SvgUnit offset, Color colour)
         {
             this._offset = offset;
-            this._colour = colour;
+            this._colour = new SvgColourServer(colour);
             this._opacity = 1.0f;
         }
 
+        public Color GetColor(SvgElement parent)
+        {
+            var core = SvgDeferredPaintServer.TryGet<SvgColourServer>(_colour, parent);
+            if (core == null) throw new InvalidOperationException("Invalid paint server for gradient stop detected.");
+            return core.Colour;
+        }
 
 		public override SvgElement DeepCopy()
 		{

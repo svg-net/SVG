@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
+using System.Drawing;
 
 namespace Svg
 {
@@ -60,26 +62,9 @@ namespace Svg
         /// <summary>
         /// Converts the current unit to one that can be used at render time.
         /// </summary>
+        /// <param name="boundable">The container element used as the basis for calculations</param>
         /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
-        public float ToDeviceValue()
-        {
-            return this.ToDeviceValue(null);
-        }
-
-        /// <summary>
-        /// Converts the current unit to one that can be used at render time.
-        /// </summary>
-        /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
-        public float ToDeviceValue(ISvgBoundable boundable)
-        {
-            return this.ToDeviceValue(boundable, false);
-        }
-
-        /// <summary>
-        /// Converts the current unit to one that can be used at render time.
-        /// </summary>
-        /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
-        public float ToDeviceValue(ISvgBoundable boundable, bool vertical)
+        public float ToDeviceValue(SvgRenderer renderer, UnitRenderingType renderType, SvgElement owner)
         {
             // If it's already been calculated
             if (this._deviceValue.HasValue)
@@ -99,58 +84,133 @@ namespace Svg
             const float cmInInch = 2.54f;
             int ppi = SvgDocument.PointsPerInch;
 
-            switch (this.Type)
+            var type = this.Type;
+            var value = this.Value;
+
+            // Deal with fractional pattern units
+            var coordElem = owner as ISvgSupportsCoordinateUnits;
+            if (coordElem != null && coordElem.GetUnits() == SvgCoordinateUnits.ObjectBoundingBox && type != SvgUnitType.Percentage)
+            {
+                type = SvgUnitType.Percentage;
+                value *= 100;
+            }
+
+            var element = owner as SvgElement;
+            if (element != null)
+            {
+                var pattern = element.Parents.OfType<SvgPatternServer>().FirstOrDefault();
+                if (pattern != null && pattern.PatternContentUnits == SvgCoordinateUnits.ObjectBoundingBox && type != SvgUnitType.Percentage)
+                {
+                    type = SvgUnitType.Percentage;
+                    value *= 100;
+                }
+            }
+
+            float points;
+            Font currFont;
+
+            switch (type)
             {
                 case SvgUnitType.Em:
-                    var visualElem = boundable as SvgVisualElement;
-                    if (visualElem == null)
+                    currFont = GetFont(renderer, owner);
+                    if (currFont == null)
                     {
-                        float points = (float)(this.Value * 9);
+                        points = (float)(value * 9);
                         _deviceValue = (points / 72) * ppi;
                     }
                     else
                     {
-                        _deviceValue = this.Value * visualElem.GetInheritedFontSize().ToDeviceValue(boundable);
+                        _deviceValue = value * (currFont.SizeInPoints / 72) * ppi;
+                    }
+                    break;
+                case SvgUnitType.Ex:
+                    currFont = GetFont(renderer, owner);
+                    if (currFont == null)
+                    {
+                        points = (float)(value * 9);
+                        _deviceValue = (points / 72) * ppi / 2;
+                    }
+                    else
+                    {
+                        _deviceValue = value * (currFont.SizeInPoints / 72) * ppi * RelativeXHeight(currFont);
                     }
                     break;
                 case SvgUnitType.Centimeter:
-                    _deviceValue = (float)((this.Value / cmInInch) * ppi);
+                    _deviceValue = (float)((value / cmInInch) * ppi);
                     break;
                 case SvgUnitType.Inch:
-                    _deviceValue = this.Value * ppi;
+                    _deviceValue = value * ppi;
                     break;
                 case SvgUnitType.Millimeter:
-                    _deviceValue = (float)((this.Value / 10) / cmInInch) * ppi;
+                    _deviceValue = (float)((value / 10) / cmInInch) * ppi;
                     break;
                 case SvgUnitType.Pica:
-                    _deviceValue = ((this.Value * 12) / 72) * ppi;
+                    _deviceValue = ((value * 12) / 72) * ppi;
                     break;
                 case SvgUnitType.Point:
-                    _deviceValue = (this.Value / 72) * ppi;
+                    _deviceValue = (value / 72) * ppi;
                     break;
                 case SvgUnitType.Pixel:
-                    _deviceValue = this.Value;
+                    _deviceValue = value;
                     break;
                 case SvgUnitType.User:
-                    _deviceValue = this.Value;
+                    _deviceValue = value;
                     break;
                 case SvgUnitType.Percentage:
                     // Can't calculate if there is no style owner
+                    var boundable = (renderer == null ? (owner == null ? null : owner.OwnerDocument) : renderer.Boundable());
                     if (boundable == null)
                     {
-                        _deviceValue = this.Value;
+                        _deviceValue = value;
                         break;
                     }
 
-                    // TODO : Support height percentages
                     System.Drawing.SizeF size = boundable.Bounds.Size;
-                    _deviceValue = (((vertical) ? size.Height : size.Width) / 100) * this.Value;
+
+                    switch (renderType)
+                    {
+                        case UnitRenderingType.Horizontal:
+                            _deviceValue = (size.Width / 100) * value;
+                            break;
+                        case UnitRenderingType.HorizontalOffset:
+                            _deviceValue = (size.Width / 100) * value + boundable.Location.X;
+                            break;
+                        case UnitRenderingType.Vertical:
+                            _deviceValue = (size.Height / 100) * value;
+                            break;
+                        case UnitRenderingType.VerticalOffset:
+                            _deviceValue = (size.Height / 100) * value + boundable.Location.Y;
+                            break;
+                        default:
+                            _deviceValue = (float)(Math.Sqrt(Math.Pow(size.Width, 2) + Math.Pow(size.Height, 2)) / Math.Sqrt(2) * value / 100.0);
+                            break;
+                    }
                     break;
                 default:
-                    _deviceValue = this.Value;
+                    _deviceValue = value;
                     break;
             }
             return this._deviceValue.Value;
+        }
+
+        private Font GetFont(SvgRenderer renderer, SvgElement owner)
+        {
+            if (owner == null) return null;
+
+            var visual = owner.ParentsAndSelf.OfType<SvgVisualElement>().FirstOrDefault();
+            return visual.GetFont(renderer);
+        }
+        private float RelativeXHeight(Font font)
+        {
+            var mediaFont = new System.Windows.Media.FontFamily(font.Name);
+            var sum = 0.0;
+            var cnt = 0;
+            foreach (var tf in mediaFont.FamilyTypefaces)
+            {
+                sum += tf.XHeight;
+                cnt += 1;
+            }
+            return (float)(sum / cnt);
         }
 
         /// <summary>
@@ -249,7 +309,7 @@ namespace Svg
         /// <returns>The result of the conversion.</returns>
         public static implicit operator float(SvgUnit value)
         {
-            return value.ToDeviceValue();
+            return value.ToDeviceValue(null, UnitRenderingType.Other, null);
         }
 
         /// <summary>
@@ -286,6 +346,32 @@ namespace Svg
             this._isEmpty = (this._value == 0.0f);
             this._deviceValue = null;
         }
+
+        public static System.Drawing.PointF GetDevicePoint(SvgUnit x, SvgUnit y, SvgRenderer renderer, SvgElement owner)
+        {
+            return new System.Drawing.PointF(x.ToDeviceValue(renderer, UnitRenderingType.Horizontal, owner),
+                                             y.ToDeviceValue(renderer, UnitRenderingType.Vertical, owner));
+        }
+        public static System.Drawing.PointF GetDevicePointOffset(SvgUnit x, SvgUnit y, SvgRenderer renderer, SvgElement owner)
+        {
+            return new System.Drawing.PointF(x.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, owner),
+                                             y.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, owner));
+        }
+
+        public static System.Drawing.SizeF GetDeviceSize(SvgUnit width, SvgUnit height, SvgRenderer renderer, SvgElement owner)
+        {
+            return new System.Drawing.SizeF(width.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, owner),
+                                            height.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, owner));
+        }
+    }
+
+    public enum UnitRenderingType
+    {
+        Other,
+        Horizontal,
+        HorizontalOffset,
+        Vertical,
+        VerticalOffset
     }
 
     /// <summary>
@@ -305,6 +391,10 @@ namespace Svg
         /// Indicates that the unit is equal to the pt size of the current font.
         /// </summary>
         Em,
+        /// <summary>
+        /// Indicates that the unit is equal to the x-height of the current font.
+        /// </summary>
+        Ex,
         /// <summary>
         /// Indicates that the unit is a percentage.
         /// </summary>

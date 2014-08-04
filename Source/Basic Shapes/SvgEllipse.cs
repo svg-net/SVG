@@ -95,34 +95,27 @@ namespace Svg
         /// <value>The bounds.</value>
         public override RectangleF Bounds
         {
-            get { return this.Path.GetBounds(); }
+            get { return this.Path(null).GetBounds(); }
         }
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override GraphicsPath Path
+        public override GraphicsPath Path(SvgRenderer renderer)
         {
-            get
+            if (this._path == null || this.IsPathDirty)
             {
-                if (this._path == null || this.IsPathDirty)
-                {
-                    PointF center = new PointF(this._centerX.ToDeviceValue(this), this._centerY.ToDeviceValue(this, true));
-                    PointF radius = new PointF(this._radiusX.ToDeviceValue(this), this._radiusY.ToDeviceValue(this, true));
+                var center = SvgUnit.GetDevicePoint(this._centerX, this._centerY, renderer, this);
+                var radius = SvgUnit.GetDevicePoint(this._radiusX, this._radiusY, renderer, this);
 
-                    this._path = new GraphicsPath();
-                    _path.StartFigure();
-                    _path.AddEllipse(center.X - radius.X, center.Y - radius.Y, 2 * radius.X, 2 * radius.Y);
-                    _path.CloseFigure();
-                    this.IsPathDirty = false;
-                }
-                return _path;
+                this._path = new GraphicsPath();
+                _path.StartFigure();
+                _path.AddEllipse(center.X - radius.X, center.Y - radius.Y, 2 * radius.X, 2 * radius.Y);
+                _path.CloseFigure();
+                this.IsPathDirty = false;
             }
-            protected set
-            {
-                _path = value;
-            }
+            return _path;
         }
 
         /// <summary>
