@@ -30,6 +30,8 @@ namespace Svg
             Ppi = PointsPerInch;
         }
 
+        public Uri BaseUri { get; set; }
+
         /// <summary>
         /// Gets an <see cref="SvgElementIdManager"/> for this document.
         /// </summary>
@@ -157,7 +159,9 @@ namespace Svg
                 throw new FileNotFoundException("The specified document cannot be found.", path);
             }
 
-            return Open<T>(File.OpenRead(path), entities);
+            var doc = Open<T>(File.OpenRead(path), entities);
+            doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
+            return doc;
         }
 
         /// <summary>
@@ -305,22 +309,37 @@ namespace Svg
                 var cssTotal = styles.Select((s) => s.Content).Aggregate((p, c) => p + Environment.NewLine + c);
                 var cssParser = new Parser();
                 var sheet = cssParser.Parse(cssTotal);
+                AggregateSelectorList aggList;
+                IEnumerable<BaseSelector> selectors;
                 IEnumerable<SvgElement> elemsToStyle;
 
                 foreach (var rule in sheet.StyleRules)
                 {
-                    elemsToStyle = svgDocument.QuerySelectorAll(rule.Selector.ToString());
-                    foreach (var elem in elemsToStyle)
+                    aggList = rule.Selector as AggregateSelectorList;
+                    if (aggList != null && aggList.Delimiter == ",")
                     {
-                        foreach (var decl in rule.Declarations)
+                        selectors = aggList;
+                    }
+                    else
+                    {
+                        selectors = Enumerable.Repeat(rule.Selector, 1);
+                    }
+
+                    foreach (var selector in selectors)
+                    {
+                        elemsToStyle = svgDocument.QuerySelectorAll(rule.Selector.ToString());
+                        foreach (var elem in elemsToStyle)
                         {
-                            elem.AddStyle(decl.Name, decl.Term.ToString(), rule.Selector.GetSpecificity());
+                            foreach (var decl in rule.Declarations)
+                            {
+                                elem.AddStyle(decl.Name, decl.Term.ToString(), rule.Selector.GetSpecificity());
+                            }
                         }
                     }
                 }
             }
 
-            FlushStyles(svgDocument);
+            if (svgDocument != null) FlushStyles(svgDocument);
             return svgDocument;
         }
 
@@ -345,10 +364,8 @@ namespace Svg
                 throw new ArgumentNullException("document");
             }
 
-            using (var stream = new MemoryStream(UTF8Encoding.Default.GetBytes(document.InnerXml)))
-            {
-                return Open<SvgDocument>(stream, null);
-            }
+            var reader = new SvgNodeReader(document.DocumentElement, null);
+            return Open<SvgDocument>(reader);
         }
 
         public static Bitmap OpenAsBitmap(string path)
@@ -373,6 +390,7 @@ namespace Svg
                 throw new ArgumentNullException("renderer");
             }
 
+            renderer.Boundable(this);
             this.Render(renderer);
         }
 
@@ -388,7 +406,9 @@ namespace Svg
                 throw new ArgumentNullException("graphics");
             }
 
-            this.Render(SvgRenderer.FromGraphics(graphics));
+            var renderer = SvgRenderer.FromGraphics(graphics);
+            renderer.Boundable(this);
+            this.Render(renderer);
         }
 
         /// <summary>
@@ -427,6 +447,7 @@ namespace Svg
             {
                 using (var renderer = SvgRenderer.FromImage(bitmap))
                 {
+                    renderer.Boundable(this);
                     renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
                     renderer.TextContrast = 1;
                     renderer.PixelOffsetMode = PixelOffsetMode.Half;

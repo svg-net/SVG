@@ -92,30 +92,25 @@ namespace Svg
         {
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path
+        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
         {
-            get
+            if (this._path == null || this.IsPathDirty)
             {
-                if (this._path == null || this.IsPathDirty)
-                {
-                    PointF start = new PointF(this.StartX.ToDeviceValue(this), this.StartY.ToDeviceValue(this, true));
-                    PointF end = new PointF(this.EndX.ToDeviceValue(this), this.EndY.ToDeviceValue(this, true));
+                PointF start = new PointF(this.StartX.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this), 
+                                          this.StartY.ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+                PointF end = new PointF(this.EndX.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this), 
+                                        this.EndY.ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
 
-                    this._path = new GraphicsPath();
-                    this._path.AddLine(start, end);
-                    this.IsPathDirty = false;
-                }
-                return this._path;
+                this._path = new GraphicsPath();
+                this._path.AddLine(start, end);
+                this.IsPathDirty = false;
             }
-            protected set
-            {
-                _path = value;
-            }
+            return this._path;
         }
 
         public override System.Drawing.RectangleF Bounds
         {
-            get { return this.Path.GetBounds(); }
+            get { return this.Path(null).GetBounds(); }
         }
 
 		public override SvgElement DeepCopy()

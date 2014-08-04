@@ -27,6 +27,14 @@ namespace Svg
             {
                 return SvgColourServer.NotSet;
             }
+            else if (value == "inherit")
+            {
+                return SvgColourServer.Inherit;
+            }
+            else if (value == "currentColor")
+            {
+                return new SvgDeferredPaintServer(document, value);
+            }
             else if (value.IndexOf("url(#") > -1)
             {
                 Match match = _urlRefPattern.Match(value);

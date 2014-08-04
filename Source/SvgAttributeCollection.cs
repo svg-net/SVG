@@ -63,9 +63,12 @@ namespace Svg
         /// <returns>The attribute value if available; otherwise the ancestors value for the same attribute; otherwise the default value of <typeparamref name="TAttributeType"/>.</returns>
         public TAttributeType GetInheritedAttribute<TAttributeType>(string attributeName)
         {
-            if (this.ContainsKey(attributeName) /*&& base[attributeName] != null*/)
+            if (this.ContainsKey(attributeName) && !IsInheritValue(base[attributeName]))
             {
-                return (TAttributeType)base[attributeName];
+                var result = (TAttributeType)base[attributeName];
+                var deferred = result as SvgDeferredPaintServer;
+                if (deferred != null) deferred.EnsureServer(_owner);
+                return result;
             }
 
             if (this._owner.Parent != null)
@@ -77,6 +80,16 @@ namespace Svg
             }
 
             return default(TAttributeType);
+        }
+
+        private bool IsInheritValue(object value)
+        {
+            return (value == null ||
+                    (value is SvgFontStyle && (SvgFontStyle)value == SvgFontStyle.inherit) ||
+                    (value is SvgFontWeight && (SvgFontWeight)value == SvgFontWeight.inherit) ||
+                    (value is SvgTextAnchor && (SvgTextAnchor)value == SvgTextAnchor.inherit) || 
+                    (value == "inherit")
+                   );
         }
 
         /// <summary>

@@ -1,0 +1,11 @@
+﻿<svg 
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <font id="PlaneOne" horiz-adv-x="1000" >
+    <font-face font-family="Blocky" units-per-em="1000" panose-1="2 0 0 6 3 0 0 2 0 4" ascent="700" descent="-127" alphabetic="0" />
+        <missing-glyph horiz-adv-x="233" />
+        <glyph unicode=" " glyph-name="space" horiz-adv-x="233" />
+        <glyph unicode='a' horiz-adv-x='100' d='M0,0 h80 v1000 h-80 z'/>
+        <glyph unicode='&#x10000;' horiz-adv-x='200' d='M0,0 h180 v1000 h-180 z'/>
+        <glyph unicode='b' horiz-adv-x='400' d='M0,0 h380 v1000 h-380 z'/>
+    </font>
+</svg>

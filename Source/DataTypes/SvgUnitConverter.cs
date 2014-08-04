@@ -68,6 +68,8 @@ namespace Svg
                     return new SvgUnit(SvgUnitType.Percentage, val);
                 case "em":
                     return new SvgUnit(SvgUnitType.Em, val);
+                case "ex":
+                    return new SvgUnit(SvgUnitType.Ex, val);
                 default:
                     throw new FormatException("Unit is in an invalid format '" + unit + "'.");
             }

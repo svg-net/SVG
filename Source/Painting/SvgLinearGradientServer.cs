@@ -79,44 +79,51 @@ namespace Svg
             Y2 = new SvgUnit(SvgUnitType.Percentage, 0F);
         }
 
-        public override Brush GetBrush(SvgVisualElement renderingElement, float opacity)
+        public override Brush GetBrush(SvgVisualElement renderingElement, SvgRenderer renderer, float opacity)
         {
-            LoadStops();
+            LoadStops(renderingElement);
             if (IsInvalid)
             {
                 return null;
             }
 
-            var boundable = CalculateBoundable(renderingElement);
-
-            var specifiedStart = CalculateStart(boundable);
-            var specifiedEnd = CalculateEnd(boundable);
-
-            var effectiveStart = specifiedStart;
-            var effectiveEnd = specifiedEnd;
-
-            if (NeedToExpandGradient(renderingElement, specifiedStart, specifiedEnd))
+            try
             {
-                var expansion = ExpandGradient(renderingElement, specifiedStart, specifiedEnd);
-                effectiveStart = expansion.StartPoint;
-                effectiveEnd = expansion.EndPoint;
+                if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.Boundable(renderingElement);
+
+                var specifiedStart = CalculateStart(renderer);
+                var specifiedEnd = CalculateEnd(renderer);
+
+                var effectiveStart = specifiedStart;
+                var effectiveEnd = specifiedEnd;
+
+                if (NeedToExpandGradient(renderingElement, specifiedStart, specifiedEnd))
+                {
+                    var expansion = ExpandGradient(renderingElement, specifiedStart, specifiedEnd);
+                    effectiveStart = expansion.StartPoint;
+                    effectiveEnd = expansion.EndPoint;
+                }
+
+                return new LinearGradientBrush(effectiveStart, effectiveEnd, System.Drawing.Color.Transparent, System.Drawing.Color.Transparent)
+                {
+                    InterpolationColors = CalculateColorBlend(renderer, opacity, specifiedStart, effectiveStart, specifiedEnd, effectiveEnd),
+                    WrapMode = WrapMode.TileFlipX
+                };
             }
-
-            return new LinearGradientBrush(effectiveStart, effectiveEnd, Color.Transparent, Color.Transparent)
+            finally
             {
-                InterpolationColors = CalculateColorBlend(renderingElement, opacity, specifiedStart, effectiveStart, specifiedEnd, effectiveEnd),
-                WrapMode = WrapMode.TileFlipX
-            };
+                if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.PopBoundable();
+            }
         }
 
-        private PointF CalculateStart(ISvgBoundable boundable)
+        private PointF CalculateStart(SvgRenderer renderer)
         {
-            return TransformPoint(new PointF(this.X1.ToDeviceValue(boundable), this.Y1.ToDeviceValue(boundable, true)));
+            return TransformPoint(SvgUnit.GetDevicePointOffset(this.X1, this.Y1, renderer, this));
         }
 
-        private PointF CalculateEnd(ISvgBoundable boundable)
+        private PointF CalculateEnd(SvgRenderer renderer)
         {
-            return TransformPoint(new PointF(this.X2.ToDeviceValue(boundable), this.Y2.ToDeviceValue(boundable, true)));
+            return TransformPoint(SvgUnit.GetDevicePointOffset(this.X2, this.Y2, renderer, this));
         }
 
         private bool NeedToExpandGradient(ISvgBoundable boundable, PointF specifiedStart, PointF specifiedEnd)
@@ -174,9 +181,9 @@ namespace Svg
             return new GradientPoints(effectiveStart, effectiveEnd);
         }
 
-        private ColorBlend CalculateColorBlend(SvgVisualElement owner, float opacity, PointF specifiedStart, PointF effectiveStart, PointF specifiedEnd, PointF effectiveEnd)
+        private ColorBlend CalculateColorBlend(SvgRenderer renderer, float opacity, PointF specifiedStart, PointF effectiveStart, PointF specifiedEnd, PointF effectiveEnd)
         {
-            var colorBlend = GetColorBlend(owner, opacity, false);
+            var colorBlend = GetColorBlend(renderer, opacity, false);
 
             var startDelta = CalculateDistance(specifiedStart, effectiveStart);
             var endDelta = CalculateDistance(specifiedEnd, effectiveEnd);

@@ -19,6 +19,6 @@ namespace Svg
         float StrokeMiterLimit { get; set; }
         SvgUnitCollection StrokeDashArray { get; set; }
         SvgUnit StrokeDashOffset { get; set; }
-        GraphicsPath Path { get; }
+        GraphicsPath Path(SvgRenderer renderer);
     }
 }

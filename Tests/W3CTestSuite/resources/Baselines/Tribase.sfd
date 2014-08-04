@@ -1,0 +1,119 @@
+SplineFontDB: 3.0
+FontName: Tribase
+FullName: Tribase
+FamilyName: Tribase
+Weight: Regular
+Copyright: 
+Version: 
+ItalicAngle: 0
+UnderlinePosition: 0
+UnderlineWidth: 0
+Ascent: 800
+Descent: 200
+woffMetadata: "<?xml version+AD0AIgAA-1.0+ACIA encoding+AD0AIgAA-UTF-8+ACIA?>+AAoA<metadata version+AD0AIgAA-1.0+ACIA>+AAoA   <credits>+AAoA       <credit name+AD0AIgAA-W3C SVG Working Group+ACIA +AAoA          role+AD0AIgAA-editors+ACIA url+AD0AIgAA-http://www.w3.org/Graphics/SVG/WG/wiki/+ACIA-/>+AAoA   </credits>+AAoA   <description>+AAoA       <text lang+AD0AIgAA-en+ACIA +AAoA       url+AD0AIgAA-http://www.w3.org/Graphics/SVG/WG/wiki/Test_Suite_Overview+ACIA>This +AAoA       font was created for use in the SVG Test Suite. It is probably +AAoA       not suitable for general use, and may have unusual features +AAoA       specific to the particular subject being tested.</text>+AAoA   </description>+AAoA   <license url+AD0AIgAA-http://www.w3.org/Consortium/Legal/2008/04-testsuite-license.html+ACIA +AAoA       id+AD0AIgAA-W3C-TSL-2008-08-20+ACIA>+AAoA       <text lang+AD0AIgAA-en+ACIA>W3C Test Suite License</text>+AAoA   </license>+AAoA   <copyright url+AD0AIgAA-http://www.w3.org/Consortium/Legal/2008/04-testsuite-copyright.html+ACIA>+AAoA       <text lang+AD0AIgAA-en+ACIA>Copyright +AKkA 2011 World Wide Web Consortium, +AAoA       (Massachusetts Institute of Technology, +AAoA       European Research Consortium for Informatics and Mathematics, +AAoA       Keio University) and others. +AAoA       All Rights Reserved. +AAoA       </text>+AAoA   </copyright>+AAoA</metadata>+AAoA" 
+LayerCount: 2
+Layer: 0 0 "Back"  1
+Layer: 1 0 "Fore"  0
+NeedsXUIDChange: 1
+XUID: [1021 814 1794362713 5831921]
+FSType: 8
+OS2Version: 0
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 0
+CreationTime: 1298599594
+ModificationTime: 1298608777
+PfmFamily: 17
+TTFWeight: 400
+TTFWidth: 5
+LineGap: 90
+VLineGap: 90
+OS2TypoAscent: 0
+OS2TypoAOffset: 1
+OS2TypoDescent: 0
+OS2TypoDOffset: 1
+OS2TypoLinegap: 90
+OS2WinAscent: 0
+OS2WinAOffset: 1
+OS2WinDescent: 0
+OS2WinDOffset: 1
+HheadAscent: 0
+HheadAOffset: 1
+HheadDescent: 0
+HheadDOffset: 1
+OS2Vendor: 'PfEd'
+MarkAttachClasses: 1
+DEI: 91125
+LangName: 1033 
+Encoding: Original
+UnicodeInterp: none
+NameList: Adobe Glyph List
+DisplaySize: -36
+AntiAlias: 1
+FitToEm: 1
+WinInfo: 0 25 8
+BeginChars: 5 4
+
+StartChar: .notdef
+Encoding: 0 0 0
+Width: 500
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+0 0 m 0
+ 0 1000 l 0
+ 500 1000 l 0
+ 500 0 l 0
+ 0 0 l 0
+50 50 m 0
+ 450 50 l 0
+ 450 950 l 0
+ 50 950 l 0
+ 50 50 l 0
+EndSplineSet
+EndChar
+
+StartChar: rectangle
+Encoding: 2 97 1
+Width: 500
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+0 200 m 0
+ 0 900 l 0
+ 500 900 l 0
+ 500 200 l 0
+ 0 200 l 0
+EndSplineSet
+EndChar
+
+StartChar: upward-triangle
+Encoding: 3 29340 2
+Width: 500
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+0 0 m 0
+ 250 900 l 0
+ 500 0 l 0
+ 0 0 l 0
+EndSplineSet
+EndChar
+
+StartChar: downward-triangle
+Encoding: 4 2339 3
+Width: 500
+LayerCount: 2
+Fore
+SplineSet
+0 900 m 0
+ 500 900 l 0
+ 250 0 l 0
+ 0 900 l 0
+EndSplineSet
+Validated: 513
+EndChar
+EndChars
+EndSplineFont

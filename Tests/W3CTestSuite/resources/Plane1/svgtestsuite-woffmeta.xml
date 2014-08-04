@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata version="1.0">
+   <credits>
+       <credit name="W3C SVG Working Group" 
+          role="editors" url="http://www.w3.org/Graphics/SVG/WG/wiki/"/>
+   </credits>
+   <description>
+       <text lang="en" 
+       url="http://www.w3.org/Graphics/SVG/WG/wiki/Test_Suite_Overview">This 
+       font was created for use in the SVG Test Suite. It is probably 
+       not suitable for general use, and may have unusual features 
+       specific to the particular subject being tested.</text>
+   </description>
+   <license url="http://www.w3.org/Consortium/Legal/2008/04-testsuite-license.html" 
+       id="W3C-TSL-2008-08-20">
+       <text lang="en">W3C Test Suite License</text>
+   </license>
+   <copyright url="http://www.w3.org/Consortium/Legal/2008/04-testsuite-copyright.html">
+       <text lang="en">Copyright © 2011 World Wide Web Consortium, 
+       (Massachusetts Institute of Technology, 
+       European Research Consortium for Informatics and Mathematics, 
+       Keio University) and others. 
+       All Rights Reserved. 
+       </text>
+   </copyright>
+</metadata>

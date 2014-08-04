@@ -81,7 +81,7 @@ namespace Svg
         /// <value>The rectangular bounds of the circle.</value>
         public override RectangleF Bounds
         {
-            get { return this.Path.GetBounds(); }
+            get { return this.Path(null).GetBounds(); }
         }
 
         /// <summary>
@@ -98,24 +98,19 @@ namespace Svg
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> representing this element.
         /// </summary>
-        public override GraphicsPath Path
+        public override GraphicsPath Path(SvgRenderer renderer)
         {
-            get
+            if (this._path == null || this.IsPathDirty)
             {
-                if (this._path == null || this.IsPathDirty)
-                {
-                    _path = new GraphicsPath();
-                    _path.StartFigure();
-                    _path.AddEllipse(this.Center.ToDeviceValue().X - this.Radius.ToDeviceValue(), this.Center.ToDeviceValue().Y - this.Radius.ToDeviceValue(), 2 * this.Radius.ToDeviceValue(), 2 * this.Radius.ToDeviceValue());
-                    _path.CloseFigure();
-                    this.IsPathDirty = false;
-                }
-                return _path;
+                _path = new GraphicsPath();
+                _path.StartFigure();
+                var center = this.Center.ToDeviceValue(renderer, this);
+                var radius = this.Radius.ToDeviceValue(renderer, UnitRenderingType.Other, this);
+                _path.AddEllipse(center.X - radius, center.Y - radius, 2 * radius, 2 * radius);
+                _path.CloseFigure();
+                this.IsPathDirty = false;
             }
-            protected set
-            {
-                _path = value;
-            }
+            return _path;
         }
 
         /// <summary>

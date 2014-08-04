@@ -21,7 +21,8 @@ namespace Svg.Transforms
                 if (transforms[i] == ')')
                 {
                     yield return transforms.Substring(transformEnd, i - transformEnd + 1).Trim();
-                    transformEnd = i + 1;
+                    while (i < transforms.Length && !char.IsLetter(transforms[i])) i++;
+                    transformEnd = i;
                 }
             }
         }

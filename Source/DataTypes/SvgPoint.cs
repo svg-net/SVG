@@ -23,9 +23,9 @@ namespace Svg
             set { this.y = value; }
         }
 
-        public PointF ToDeviceValue()
+        public PointF ToDeviceValue(SvgRenderer renderer, SvgElement owner)
         {
-            return new PointF(this.X.ToDeviceValue(), this.Y.ToDeviceValue());
+            return SvgUnit.GetDevicePoint(this.X, this.Y, renderer, owner);
         }
 
         public bool IsEmpty()

@@ -128,19 +128,42 @@ namespace Svg
         }
 
         /// <summary>
+        /// Refers to the size of the font from baseline to baseline when multiple lines of text are set solid in a multiline layout environment.
+        /// </summary>
+        [SvgAttribute("font-size")]
+        public virtual SvgUnit FontSize
+        {
+            get { return (this.Attributes["font-size"] == null) ? SvgUnit.Empty : (SvgUnit)this.Attributes["font-size"]; }
+            set { this.Attributes["font-size"] = value; }
+        }
+
+        /// <summary>
+        /// Indicates which font family is to be used to render the text.
+        /// </summary>
+        [SvgAttribute("font-family")]
+        public virtual string FontFamily
+        {
+            get { return this.Attributes["font-family"] as string; }
+            set { this.Attributes["font-family"] = value; }
+        }
+
+        /// <summary>
         /// Applies the required transforms to <see cref="SvgRenderer"/>.
         /// </summary>
         /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
-        protected internal override void PushTransforms(SvgRenderer renderer)
+        protected internal override bool PushTransforms(SvgRenderer renderer)
         {
-            base.PushTransforms(renderer);
+            if (!base.PushTransforms(renderer)) return false;
 
             if (!this.ViewBox.Equals(SvgViewBox.Empty))
             {
-                float fScaleX = this.Width.ToDeviceValue(this, false) / this.ViewBox.Width;
-                float fScaleY = this.Height.ToDeviceValue(this, true) / this.ViewBox.Height;
-                float fMinX = -this.ViewBox.MinX;
-                float fMinY = -this.ViewBox.MinY;
+                var width = this.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                var height = this.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+
+                var fScaleX = width / this.ViewBox.Width;
+                var fScaleY = height / this.ViewBox.Height;
+                var fMinX = -this.ViewBox.MinX;
+                var fMinY = -this.ViewBox.MinY;
 
                 if (AspectRatio.Align != SvgPreserveAspectRatio.none)
                 {
@@ -156,50 +179,56 @@ namespace Svg
                     }
                     float fViewMidX = (this.ViewBox.Width / 2) * fScaleX;
                     float fViewMidY = (this.ViewBox.Height / 2) * fScaleY;
-                    float fMidX = this.Width.ToDeviceValue(this, false) / 2;
-                    float fMidY = this.Height.ToDeviceValue(this, true) / 2;
+                    float fMidX = width / 2;
+                    float fMidY = height / 2;
 
                     switch (AspectRatio.Align)
                     {
                         case SvgPreserveAspectRatio.xMinYMin:
                             break;
                         case SvgPreserveAspectRatio.xMidYMin:
-                            fMinX += (fMidX - fViewMidX) / fScaleX;
+                            fMinX += fMidX - fViewMidX;
                             break;
                         case SvgPreserveAspectRatio.xMaxYMin:
-                            fMinX += (this.Width.ToDeviceValue(this, false) / fScaleX) - this.ViewBox.Width;
+                            fMinX += width - this.ViewBox.Width * fScaleX;
                             break;
                         case SvgPreserveAspectRatio.xMinYMid:
-                            fMinY += (fMidY - fViewMidY) / fScaleY;
+                            fMinY += fMidY - fViewMidY;
                             break;
                         case SvgPreserveAspectRatio.xMidYMid:
-                            fMinX += (fMidX - fViewMidX) / fScaleX;
-                            fMinY += (fMidY - fViewMidY) / fScaleY;
+                            fMinX += fMidX - fViewMidX;
+                            fMinY += fMidY - fViewMidY;
                             break;
                         case SvgPreserveAspectRatio.xMaxYMid:
-                            fMinX += (this.Width.ToDeviceValue(this, false) / fScaleX) - this.ViewBox.Width;
-                            fMinY += (fMidY - fViewMidY) / fScaleY;
+                            fMinX += width - this.ViewBox.Width * fScaleX;
+                            fMinY += fMidY - fViewMidY;
                             break;
                         case SvgPreserveAspectRatio.xMinYMax:
-                            fMinY += (this.Height.ToDeviceValue(this, true) / fScaleY) - this.ViewBox.Height;
+                            fMinY += height - this.ViewBox.Height * fScaleY;
                             break;
                         case SvgPreserveAspectRatio.xMidYMax:
-                            fMinX += (fMidX - fViewMidX) / fScaleX;
-                            fMinY += (this.Height.ToDeviceValue(this, true) / fScaleY) - this.ViewBox.Height;
+                            fMinX += fMidX - fViewMidX;
+                            fMinY += height - this.ViewBox.Height * fScaleY;
                             break;
                         case SvgPreserveAspectRatio.xMaxYMax:
-                            fMinX += (this.Width.ToDeviceValue(this, false) / fScaleX) - this.ViewBox.Width;
-                            fMinY += (this.Height.ToDeviceValue(this, true) / fScaleY) - this.ViewBox.Height;
+                            fMinX += width - this.ViewBox.Width * fScaleX;
+                            fMinY += height - this.ViewBox.Height * fScaleY;
                             break;
                         default:
                             break;
                     }
                 }
 
-                renderer.TranslateTransform(_x, _y);
+                var x = _x.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                var y = _y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+
+                renderer.AddClip(new Region(new RectangleF(x, y, width, height)));
+                renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Prepend);
+                renderer.TranslateTransform(x,y);
                 renderer.TranslateTransform(fMinX, fMinY);
-                renderer.ScaleTransform(fScaleX, fScaleY);
             }
+
+            return true;
         }
         
         /// <summary>
@@ -245,18 +274,38 @@ namespace Svg
 
         public SizeF GetDimensions()
         {
-            var w = Width.ToDeviceValue();
-            var h = Height.ToDeviceValue();
-
-            RectangleF bounds = new RectangleF();
+            float w, h;
             var isWidthperc = Width.Type == SvgUnitType.Percentage;
             var isHeightperc = Height.Type == SvgUnitType.Percentage;
 
+            RectangleF bounds = new RectangleF();
             if (isWidthperc || isHeightperc)
             {
-                bounds = this.Bounds; //do just one call to the recursive bounds property
-                if (isWidthperc) w = (bounds.Width + bounds.X) * (w * 0.01f);
-                if (isHeightperc) h = (bounds.Height + bounds.Y) * (h * 0.01f);
+                if (ViewBox.Width > 0 && ViewBox.Height > 0)
+                {
+                    bounds = new RectangleF(ViewBox.MinX, ViewBox.MinY, ViewBox.Width, ViewBox.Height);
+                }
+                else
+                {
+                    bounds = this.Bounds; //do just one call to the recursive bounds property
+                }
+            }
+
+            if (isWidthperc) 
+            {
+                w = (bounds.Width + bounds.X) * (Width.Value * 0.01f);
+            }
+            else
+            {
+                w = Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this);
+            }
+            if (isHeightperc) 
+            {
+                h = (bounds.Height + bounds.Y) * (Height.Value * 0.01f);
+            }
+            else 
+            {
+                h = Height.ToDeviceValue(null, UnitRenderingType.Vertical, this);
             }
 
             return new SizeF(w, h);

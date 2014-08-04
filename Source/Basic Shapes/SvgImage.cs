@@ -31,6 +31,17 @@ namespace Svg
             get { return new SvgPoint(X, Y); }
         }
 
+        /// <summary>
+        /// Gets or sets the aspect of the viewport.
+        /// </summary>
+        /// <value></value>
+        [SvgAttribute("preserveAspectRatio")]
+        public SvgAspectRatio AspectRatio
+        {
+            get { return this.Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio"); }
+            set { this.Attributes["preserveAspectRatio"] = value; }
+        }
+
 		[SvgAttribute("x")]
 		public virtual SvgUnit X
 		{
@@ -75,21 +86,17 @@ namespace Svg
         /// <value>The bounds.</value>
         public override RectangleF Bounds
         {
-			get { return new RectangleF(this.Location.ToDeviceValue(), new SizeF(this.Width, this.Height)); }
+			get { return new RectangleF(this.Location.ToDeviceValue(null, this), 
+                                        new SizeF(this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this), 
+                                                  this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))); }
         }
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
-        public override GraphicsPath Path
+        public override GraphicsPath Path(SvgRenderer renderer)
         {
-            get
-            {
-				return null;
-            }
-            protected set
-            {
-            }
+		    return null;
         }
 
         /// <summary>
@@ -106,13 +113,72 @@ namespace Svg
                 {
                     if (b != null)
                     {
+                        var srcRect = new RectangleF(0, 0, b.Width, b.Height);
+                        var destClip = new RectangleF(this.Location.ToDeviceValue(renderer, this),
+                                        new SizeF(Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this), 
+                                                  Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this)));
+                        RectangleF destRect = destClip;
+                        
                         this.PushTransforms(renderer);
+                        renderer.AddClip(new Region(destClip));
                         this.SetClip(renderer);
 
-                        RectangleF srcRect = new RectangleF(0, 0, b.Width, b.Height);
-                        var destRect = new RectangleF(this.Location.ToDeviceValue(),
-                                        new SizeF(Width.ToDeviceValue(), Height.ToDeviceValue()));
+                        if (AspectRatio != null && AspectRatio.Align != SvgPreserveAspectRatio.none)
+                        {
+                            var fScaleX = destClip.Width / srcRect.Width;
+                            var fScaleY = destClip.Height / srcRect.Height;
+                            var xOffset = 0.0f;
+                            var yOffset = 0.0f;
 
+                            if (AspectRatio.Slice)
+                            {
+                                fScaleX = Math.Max(fScaleX, fScaleY);
+                                fScaleY = Math.Max(fScaleX, fScaleY);
+                            }
+                            else
+                            {
+                                fScaleX = Math.Min(fScaleX, fScaleY);
+                                fScaleY = Math.Min(fScaleX, fScaleY);
+                            }
+
+                            switch (AspectRatio.Align)
+                            {
+                                case SvgPreserveAspectRatio.xMinYMin:
+                                    break;
+                                case SvgPreserveAspectRatio.xMidYMin:
+                                    xOffset = (destClip.Width - srcRect.Width * fScaleX) / 2;
+                                    break;
+                                case SvgPreserveAspectRatio.xMaxYMin:
+                                    xOffset = (destClip.Width - srcRect.Width * fScaleX);
+                                    break;
+                                case SvgPreserveAspectRatio.xMinYMid:
+                                    yOffset = (destClip.Height - srcRect.Height * fScaleY) / 2;
+                                    break;
+                                case SvgPreserveAspectRatio.xMidYMid:
+                                    xOffset = (destClip.Width - srcRect.Width * fScaleX) / 2;
+                                    yOffset = (destClip.Height - srcRect.Height * fScaleY) / 2;
+                                    break;
+                                case SvgPreserveAspectRatio.xMaxYMid:
+                                    xOffset = (destClip.Width - srcRect.Width * fScaleX);
+                                    yOffset = (destClip.Height - srcRect.Height * fScaleY) / 2;
+                                    break;
+                                case SvgPreserveAspectRatio.xMinYMax:
+                                    yOffset = (destClip.Height - srcRect.Height * fScaleY);
+                                    break;
+                                case SvgPreserveAspectRatio.xMidYMax:
+                                    xOffset = (destClip.Width - srcRect.Width * fScaleX) / 2;
+                                    yOffset = (destClip.Height - srcRect.Height * fScaleY);
+                                    break;
+                                case SvgPreserveAspectRatio.xMaxYMax:
+                                    xOffset = (destClip.Width - srcRect.Width * fScaleX);
+                                    yOffset = (destClip.Height - srcRect.Height * fScaleY);
+                                    break;
+                            }
+
+                            destRect = new RectangleF(destClip.X + xOffset, destClip.Y + yOffset, 
+                                                      srcRect.Width * fScaleX, srcRect.Height * fScaleY);
+                        }
+                        
                         renderer.DrawImage(b, destRect, srcRect, GraphicsUnit.Pixel);
 
                         this.ResetClip(renderer);
@@ -129,7 +195,7 @@ namespace Svg
             try
             {
                 // handle data/uri embedded images (http://en.wikipedia.org/wiki/Data_URI_scheme)
-                if (uri.Scheme == "data")
+                if (uri.IsAbsoluteUri && uri.Scheme == "data")
                 {
                     string uriString = uri.OriginalString;
                     int dataIdx = uriString.IndexOf(",") + 1;
@@ -143,14 +209,26 @@ namespace Svg
                     return image;
                 }
 
+                if (!uri.IsAbsoluteUri)
+                {
+                    uri = new Uri(OwnerDocument.BaseUri, uri);
+                }
+
                 // should work with http: and file: protocol urls
                 var httpRequest = WebRequest.Create(uri);
 
                 using (WebResponse webResponse = httpRequest.GetResponse())
                 {
                     MemoryStream ms = BufferToMemoryStream(webResponse.GetResponseStream());
-                    Image image = Bitmap.FromStream(ms);
-                    return image;
+                    if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        var doc = SvgDocument.Open<SvgDocument>(ms);
+                        return doc.Draw();
+                    }
+                    else
+                    {
+                        return Bitmap.FromStream(ms);
+                    }
                 }
             }
             catch (Exception ex)

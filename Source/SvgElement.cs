@@ -40,6 +40,7 @@ namespace Svg
         private EventHandlerList _eventHandlers;
         private SvgElementCollection _children;
         private static readonly object _loadEventKey = new object();
+        private Region _graphicsClip;
         private Matrix _graphicsMatrix;
         private SvgCustomAttributeCollection _customAttributes;
         private List<ISvgNode> _nodes = new List<ISvgNode>();
@@ -87,6 +88,16 @@ namespace Svg
                 return this._elementName;
             }
             internal set { this._elementName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the color <see cref="SvgPaintServer"/> of this element which drives the currentColor property.
+        /// </summary>
+        [SvgAttribute("color")]
+        public virtual SvgPaintServer Color
+        {
+            get { return (this.Attributes["color"] == null) ? SvgColourServer.NotSet : (SvgPaintServer)this.Attributes["color"]; }
+            set { this.Attributes["color"] = value; }
         }
 
         /// <summary>
@@ -247,15 +258,17 @@ namespace Svg
         /// Applies the required transforms to <see cref="SvgRenderer"/>.
         /// </summary>
         /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
-        protected internal virtual void PushTransforms(SvgRenderer renderer)
+        protected internal virtual bool PushTransforms(SvgRenderer renderer)
         {
             _graphicsMatrix = renderer.Transform;
+            _graphicsClip = renderer.Clip;
 
             // Return if there are no transforms
             if (this.Transforms == null || this.Transforms.Count == 0)
             {
-                return;
+                return true;
             }
+            if (this.Transforms.Count == 1 && this.Transforms[0].Matrix.Equals(new Matrix(0, 0, 0, 0, 0, 0))) return false;
 
             Matrix transformMatrix = renderer.Transform;
 
@@ -265,6 +278,8 @@ namespace Svg
             }
 
             renderer.Transform = transformMatrix;
+
+            return true;
         }
 
         /// <summary>
@@ -275,6 +290,8 @@ namespace Svg
         {
             renderer.Transform = _graphicsMatrix;
             _graphicsMatrix = null;
+            renderer.SetClip(_graphicsClip);
+            _graphicsClip = null;
         }
 
         /// <summary>
@@ -659,7 +676,7 @@ namespace Svg
         		{
         			if(!(child is SvgGroup))
         			{
-        				var childPath = ((SvgVisualElement)child).Path;
+        				var childPath = ((SvgVisualElement)child).Path(null);
         				
         				if (childPath != null)
         				{
@@ -671,8 +688,8 @@ namespace Svg
         				}
         			}
         		}
-        			
-        		AddPaths(child, path);
+
+                if (!(child is SvgPaintServer)) AddPaths(child, path);
         	}
         }
         
@@ -681,7 +698,7 @@ namespace Svg
         /// </summary>
         /// <param name="elem"></param>
         /// <param name="path"></param>
-        protected GraphicsPath GetPaths(SvgElement elem)
+        protected GraphicsPath GetPaths(SvgElement elem, SvgRenderer renderer)
         {
         	var ret = new GraphicsPath();
         	
@@ -691,7 +708,7 @@ namespace Svg
         		{
         			if(!(child is SvgGroup))
         			{
-        				var childPath = ((SvgVisualElement)child).Path;
+                        var childPath = ((SvgVisualElement)child).Path(renderer);
         				
         				if (childPath != null)
         				{
@@ -704,7 +721,7 @@ namespace Svg
         			}
         			else
         			{
-        				var childPath = GetPaths(child);
+                        var childPath = GetPaths(child, renderer);
         				if(child.Transforms != null)
         					childPath.Transform(child.Transforms.GetMatrix());
         			}

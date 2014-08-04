@@ -61,11 +61,11 @@ namespace Svg
         {
             var graphicsElement = element as SvgVisualElement;
 
-            if (graphicsElement != null && graphicsElement.Path != null)
+            if (graphicsElement != null && graphicsElement.Path(null) != null)
             {
                 path.FillMode = (graphicsElement.ClipRule == SvgClipRule.NonZero) ? FillMode.Winding : FillMode.Alternate;
 
-                GraphicsPath childPath = graphicsElement.Path;
+                GraphicsPath childPath = graphicsElement.Path(null);
 
                 if (graphicsElement.Transforms != null)
                 {

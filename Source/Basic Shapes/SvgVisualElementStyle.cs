@@ -162,11 +162,7 @@ namespace Svg
         public virtual string FontFamily
         {
             get { return this.Attributes["font-family"] as string; }
-            set
-            {
-                this.Attributes["font-family"] = value;
-                this.IsPathDirty = true;
-            }
+            set { this.Attributes["font-family"] = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -178,15 +174,6 @@ namespace Svg
             get { return (this.Attributes["font-size"] == null) ? SvgUnit.Empty : (SvgUnit)this.Attributes["font-size"]; }
             set { this.Attributes["font-size"] = value; this.IsPathDirty = true; }
         }
-
-        public SvgUnit GetInheritedFontSize()
-        {
-            var fontSizeElement = (from e in this.ParentsAndSelf.OfType<SvgVisualElement>() 
-                                   where e.FontSize != SvgUnit.Empty && e.FontSize != SvgUnit.None 
-                                   select e).FirstOrDefault();
-            return (fontSizeElement == null ? SvgUnit.None : fontSizeElement.FontSize);
-        }
-
 
         /// <summary>
         /// Refers to the boldness of the font.
@@ -308,5 +295,71 @@ namespace Svg
                 this.IsPathDirty = true;
             }
         }
+
+        private const string DefaultFontFamily = "Times New Roman";
+
+        /// <summary>
+        /// Get the font information based on data stored with the text object or inherited from the parent.
+        /// </summary>
+        /// <returns></returns>
+        internal System.Drawing.Font GetFont(SvgRenderer renderer)
+        {
+            // Get the font-size
+            float fontSize;
+            var fontSizeUnit = this.FontSize;
+            if (fontSizeUnit == SvgUnit.None)
+            {
+                fontSize = 1.0f;
+            }
+            else
+            {
+                fontSize = fontSizeUnit.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+            }
+
+            var fontStyle = System.Drawing.FontStyle.Regular;
+
+            // Get the font-weight
+            switch (this.FontWeight)
+            {
+                case SvgFontWeight.bold:
+                case SvgFontWeight.bolder:
+                case SvgFontWeight.w700:
+                case SvgFontWeight.w800:
+                case SvgFontWeight.w900:
+                    fontStyle |= System.Drawing.FontStyle.Bold;
+                    break;
+            }
+
+            // Get the font-style
+            switch (this.FontStyle)
+            {
+                case SvgFontStyle.italic:
+                case SvgFontStyle.oblique:
+                    fontStyle |= System.Drawing.FontStyle.Italic;
+                    break;
+            }
+
+            // Get the font-family
+            string family = ValidateFontFamily(this.FontFamily) ?? DefaultFontFamily;
+            return new System.Drawing.Font(family, fontSize, fontStyle, System.Drawing.GraphicsUnit.Pixel);
+        }
+
+        private static string ValidateFontFamily(string fontFamilyList)
+        {
+            // Split font family list on "," and then trim start and end spaces and quotes.
+            var fontParts = (fontFamilyList ?? "").Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
+
+            var families = System.Drawing.FontFamily.Families;
+
+            // Find a the first font that exists in the list of installed font families.
+            //styles from IE get sent through as lowercase.
+            foreach (var f in fontParts.Where(f => families.Any(family => family.Name.ToLower() == f.ToLower())))
+            {
+                return f;
+            }
+            // No valid font family found from the list requested.
+            return null;
+        }
+
     }
 }

@@ -1,11 +1,17 @@
 
-Source/bin/
-Source/obj/
-Source/Svg.csproj.user
-Source/Svg.suo
+Source/**/bin/
+Source/**/obj/
+Source/**/*.csproj.user
+Source/**/*.suo
 Source/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 Samples/SVGViewer/obj/
 Samples/SVGViewer/bin/
 Samples/SVGViewer/SVGViewer.OpenCover.Settings
-*.dll
-*.pdb
+Source/**/*.dll
+Source/**/*.pdb
+Tests/**/bin/
+Tests/**/obj/
+Tests/**/*.csproj.user
+Tests/**/*.suo
+*.trx
+Source/TestResults/

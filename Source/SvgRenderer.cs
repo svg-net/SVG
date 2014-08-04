@@ -8,9 +8,26 @@ using System.Drawing.Text;
 
 namespace Svg
 {
+    /// <summary>
+    /// Convenience wrapper around a graphics object
+    /// </summary>
     public sealed class SvgRenderer : IDisposable
     {
         private Graphics _innerGraphics;
+        private Stack<ISvgBoundable> _boundables = new Stack<ISvgBoundable>();
+
+        public void Boundable(ISvgBoundable boundable)
+        {
+            _boundables.Push(boundable);
+        }
+        public ISvgBoundable Boundable()
+        {
+            return _boundables.Peek();
+        }
+        public ISvgBoundable PopBoundable()
+        {
+            return _boundables.Pop();
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgRenderer"/> class.
@@ -47,6 +64,14 @@ namespace Svg
             return renderer;
         }
 
+        public static SvgRenderer FromNull()
+        {
+            SvgRenderer renderer = new SvgRenderer();
+            var img = new Bitmap(1, 1);
+            renderer._innerGraphics = Graphics.FromImage(img);
+            return renderer;
+        }
+
         public void DrawImageUnscaled(Image image, Point location)
         {
             this._innerGraphics.DrawImageUnscaled(image, location);
@@ -57,9 +82,13 @@ namespace Svg
             _innerGraphics.DrawImage(image, destRect, srcRect, graphicsUnit);
         }
 
+        public void AddClip(Region region)
+        {
+            this._innerGraphics.SetClip(region, CombineMode.Intersect);
+        }
         public void SetClip(Region region)
         {
-            this._innerGraphics.SetClip(region, CombineMode.Complement);
+            this._innerGraphics.SetClip(region, CombineMode.Replace);
         }
 
         public void FillPath(Brush brush, GraphicsPath path)
@@ -151,17 +180,18 @@ namespace Svg
         public SizeF MeasureString(string text, Font font)
         {
         	var ff = font.FontFamily;
-        	float lineSpace = ff.GetLineSpacing(font.Style);
+            //Baseline calculation to match http://bobpowell.net/formattingtext.aspx
         	float ascent = ff.GetCellAscent(font.Style);
-        	float baseline =  font.GetHeight(this._innerGraphics) * ascent / lineSpace;
+            float baselineOffset = font.SizeInPoints / ff.GetEmHeight(font.Style) * ascent;
+            float baselineOffsetPixels = this._innerGraphics.DpiY / 72f * baselineOffset;
         	
         	StringFormat format = StringFormat.GenericTypographic;
         	format.SetMeasurableCharacterRanges(new CharacterRange[]{new CharacterRange(0, text.Length)});
             format.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
         	Region[] r = this._innerGraphics.MeasureCharacterRanges(text, font, new Rectangle(0, 0, 1000, 1000), format);
         	RectangleF rect = r[0].GetBounds(this._innerGraphics);
-        	
-        	return new SizeF(rect.Width, baseline);
+
+            return new SizeF(rect.Width, baselineOffsetPixels);
         }
     }
 }

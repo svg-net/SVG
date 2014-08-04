@@ -130,40 +130,6 @@ namespace Svg
 
             while (reader.MoveToNextAttribute())
             {
-                //// Special treatment for "style"
-                //if (reader.LocalName.Equals("style") && !(element is NonSvgElement))
-                //{
-                //    styles = reader.Value.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-                //    for (i = 0; i < styles.Length; i++)
-                //    {
-                //        if (!styles[i].Contains(":"))
-                //        {
-                //            continue;
-                //        }
-
-                //        style = styles[i].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                //        SetPropertyValue(element, style[0].Trim(), style[1].Trim(), document);
-                //    }
-
-                //    //defaults for text can come from the document
-                //    if (element.ElementName == "text")
-                //    {
-                //        if (!styles.Contains("font-size") && document.CustomAttributes.ContainsKey("font-size") && document.CustomAttributes["font-size"] != null)
-                //        {
-                //            SetPropertyValue(element, "font-size", document.CustomAttributes["font-size"], document);
-                //        }
-                //        if (!styles.Contains("font-family") && document.CustomAttributes.ContainsKey("font-family") && document.CustomAttributes["font-family"] != null)
-                //        {
-                //            SetPropertyValue(element, "font-family", document.CustomAttributes["font-family"], document);
-                //        }
-						
-                //    }
-                //    continue; 
-                //}
-
-                //SetPropertyValue(element, reader.LocalName, reader.Value, document);
-
                 if (reader.LocalName.Equals("style") && !(element is NonSvgElement)) 
                 {
                     var inlineSheet = cssParser.Parse("#a{" + reader.Value + "}");
@@ -175,13 +141,87 @@ namespace Svg
                         }
                     }
                 }
-                else 
+                else if (IsStyleAttribute(reader.LocalName))
                 {
                     element.AddStyle(reader.LocalName, reader.Value, 2 << 16);
+                }
+                else
+                {
+                    SetPropertyValue(element, reader.LocalName, reader.Value, document);
                 }
             }
 
             //Trace.TraceInformation("End SetAttributes");
+        }
+
+        private static bool IsStyleAttribute(string name)
+        {
+            switch (name)
+            {
+                case "alignment-baseline":
+                case "baseline-shift":
+                case "clip":
+                case "clip-path":
+                case "clip-rule":
+                case "color":
+                case "color-interpolation":
+                case "color-interpolation-filters":
+                case "color-profile":
+                case "color-rendering":
+                case "cursor":
+                case "direction":
+                case "display":
+                case "dominant-baseline":
+                case "enable-background":
+                case "fill":
+                case "fill-opacity":
+                case "fill-rule":
+                case "filter":
+                case "flood-color":
+                case "flood-opacity":
+                case "font":
+                case "font-family":
+                case "font-size":
+                case "font-size-adjust":
+                case "font-stretch":
+                case "font-style":
+                case "font-variant":
+                case "font-weight":
+                case "glyph-orientation-horizontal":
+                case "glyph-orientation-vertical":
+                case "image-rendering":
+                case "kerning":
+                case "letter-spacing":
+                case "lighting-color":
+                case "marker":
+                case "marker-end":
+                case "marker-mid":
+                case "marker-start":
+                case "mask":
+                case "opacity":
+                case "overflow":
+                case "pointer-events":
+                case "shape-rendering":
+                case "stop-color":
+                case "stop-opacity":
+                case "stroke":
+                case "stroke-dasharray":
+                case "stroke-dashoffset":
+                case "stroke-linecap":
+                case "stroke-linejoin":
+                case "stroke-miterlimit":
+                case "stroke-opacity":
+                case "stroke-width":
+                case "text-anchor":
+                case "text-decoration":
+                case "text-rendering":
+                case "unicode-bidi":
+                case "visibility":
+                case "word-spacing":
+                case "writing-mode":
+                    return true;
+            }
+            return false;
         }
 
         private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();

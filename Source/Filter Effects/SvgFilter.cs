@@ -151,7 +151,7 @@ namespace Svg.FilterEffects
         {
             if (this.sourceGraphic == null)
             {
-                RectangleF bounds = element.Path.GetBounds();
+                RectangleF bounds = element.Path(renderer).GetBounds();
                 this.sourceGraphic = new Bitmap((int)bounds.Width, (int)bounds.Height);
 
                 using (var graphics = Graphics.FromImage(this.sourceGraphic))
