@@ -116,11 +116,11 @@ namespace Svg
                     if (currFont == null)
                     {
                         points = (float)(value * 9);
-                        _deviceValue = (points / 72) * ppi;
+                        _deviceValue = (points / 72.0f) * ppi;
                     }
                     else
                     {
-                        _deviceValue = value * (currFont.SizeInPoints / 72) * ppi;
+                        _deviceValue = value * (currFont.SizeInPoints / 72.0f) * ppi;
                     }
                     break;
                 case SvgUnitType.Ex:
@@ -128,11 +128,11 @@ namespace Svg
                     if (currFont == null)
                     {
                         points = (float)(value * 9);
-                        _deviceValue = (points / 72) * ppi / 2;
+                        _deviceValue = (points * 0.5f / 72.0f) * ppi;
                     }
                     else
                     {
-                        _deviceValue = value * (currFont.SizeInPoints / 72) * ppi * RelativeXHeight(currFont);
+                        _deviceValue = value * 0.5f * (currFont.SizeInPoints / 72.0f) * ppi;
                     }
                     break;
                 case SvgUnitType.Centimeter:
@@ -199,18 +199,6 @@ namespace Svg
 
             var visual = owner.ParentsAndSelf.OfType<SvgVisualElement>().FirstOrDefault();
             return visual.GetFont(renderer);
-        }
-        private float RelativeXHeight(Font font)
-        {
-            var mediaFont = new System.Windows.Media.FontFamily(font.Name);
-            var sum = 0.0;
-            var cnt = 0;
-            foreach (var tf in mediaFont.FamilyTypefaces)
-            {
-                sum += tf.XHeight;
-                cnt += 1;
-            }
-            return (float)(sum / cnt);
         }
 
         /// <summary>

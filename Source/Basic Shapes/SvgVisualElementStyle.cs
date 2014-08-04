@@ -198,6 +198,16 @@ namespace Svg
         /// <summary>
         /// Refers to the boldness of the font.
         /// </summary>
+        [SvgAttribute("text-decoration")]
+        public virtual SvgTextDecoration TextDecoration
+        {
+            get { return (this.Attributes["text-decoration"] == null) ? SvgTextDecoration.inherit : (SvgTextDecoration)this.Attributes["text-decoration"]; }
+            set { this.Attributes["text-decoration"] = value; this.IsPathDirty = true; }
+        }
+
+        /// <summary>
+        /// Refers to the boldness of the font.
+        /// </summary>
         [SvgAttribute("font-weight")]
         public virtual SvgFontWeight FontWeight
         {
@@ -323,6 +333,7 @@ namespace Svg
             {
                 case SvgFontWeight.bold:
                 case SvgFontWeight.bolder:
+                case SvgFontWeight.w600:
                 case SvgFontWeight.w700:
                 case SvgFontWeight.w800:
                 case SvgFontWeight.w900:
@@ -336,6 +347,17 @@ namespace Svg
                 case SvgFontStyle.italic:
                 case SvgFontStyle.oblique:
                     fontStyle |= System.Drawing.FontStyle.Italic;
+                    break;
+            }
+
+            // Get the text-decoration
+            switch (this.TextDecoration)
+            {
+                case SvgTextDecoration.lineThrough:
+                    fontStyle |= System.Drawing.FontStyle.Strikeout;
+                    break;
+                case SvgTextDecoration.underline:
+                    fontStyle |= System.Drawing.FontStyle.Underline;
                     break;
             }
 

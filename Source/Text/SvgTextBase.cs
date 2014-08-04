@@ -441,8 +441,8 @@ namespace Svg
             else
             {
                 var convValue = MultipleSpaces.Replace(value.Replace("\r", "").Replace("\n", "").Replace('\t', ' '), " ");
-                if (!leadingSpace) convValue = convValue.TrimStart();
-                if (!trailingSpace) convValue = convValue.TrimEnd();
+                //if (!leadingSpace) convValue = convValue.TrimStart();
+                //if (!trailingSpace) convValue = convValue.TrimEnd();
                 return convValue;
             }
         }

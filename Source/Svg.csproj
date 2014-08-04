@@ -82,7 +82,6 @@
     <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -101,6 +100,7 @@
     <Compile Include="Clipping and Masking\SvgClipPath.cs" />
     <Compile Include="Clipping and Masking\SvgMask.cs" />
     <Compile Include="DataTypes\ISvgSupportsCoordinateUnits.cs" />
+    <Compile Include="DataTypes\SvgTextDecoration.cs" />
     <Compile Include="Painting\GenericBoundable.cs" />
     <Compile Include="SvgNodeReader.cs" />
     <Compile Include="Css\CssQuery.cs" />
@@ -231,7 +231,6 @@
     <Compile Include="SvgContentNode.cs" />
     <Compile Include="SvgDefinitionDefaults.cs" />
     <Compile Include="NonSvgElement.cs" />
-    <Compile Include="SvgReader.cs" />
     <Compile Include="SvgUnknownElement.cs" />
     <Compile Include="SvgElementAttribute.cs" />
     <Compile Include="SvgExtentions.cs" />

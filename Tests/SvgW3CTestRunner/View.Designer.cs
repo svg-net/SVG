@@ -32,18 +32,18 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.picSvg = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.picPng = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picSvg)).BeginInit();
+            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPng)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,14 +53,14 @@
             this.lstFiles.FormattingEnabled = true;
             this.lstFiles.Location = new System.Drawing.Point(3, 3);
             this.lstFiles.Name = "lstFiles";
-            this.lstFiles.Size = new System.Drawing.Size(144, 376);
+            this.lstFiles.Size = new System.Drawing.Size(174, 670);
             this.lstFiles.TabIndex = 0;
             this.lstFiles.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lstFiles, 0, 0);
@@ -69,13 +69,13 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(977, 382);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1235, 676);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(153, 3);
+            this.splitContainer1.Location = new System.Drawing.Point(183, 3);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -85,8 +85,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel3);
-            this.splitContainer1.Size = new System.Drawing.Size(821, 376);
-            this.splitContainer1.SplitterDistance = 424;
+            this.splitContainer1.Size = new System.Drawing.Size(1049, 670);
+            this.splitContainer1.SplitterDistance = 541;
             this.splitContainer1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -101,8 +101,28 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(424, 376);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(541, 670);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "SVG Render";
+            // 
+            // picSvg
+            // 
+            this.picSvg.BackColor = System.Drawing.Color.White;
+            this.picSvg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picSvg.Location = new System.Drawing.Point(0, 13);
+            this.picSvg.Margin = new System.Windows.Forms.Padding(0);
+            this.picSvg.Name = "picSvg";
+            this.picSvg.Size = new System.Drawing.Size(541, 657);
+            this.picSvg.TabIndex = 1;
+            this.picSvg.TabStop = false;
             // 
             // tableLayoutPanel3
             // 
@@ -116,17 +136,19 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(393, 376);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(504, 670);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // label1
+            // picPng
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "SVG Render";
+            this.picPng.BackColor = System.Drawing.Color.White;
+            this.picPng.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picPng.Location = new System.Drawing.Point(0, 13);
+            this.picPng.Margin = new System.Windows.Forms.Padding(0);
+            this.picPng.Name = "picPng";
+            this.picPng.Size = new System.Drawing.Size(504, 657);
+            this.picPng.TabIndex = 2;
+            this.picPng.TabStop = false;
             // 
             // label2
             // 
@@ -137,35 +159,13 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "PNG Render";
             // 
-            // picSvg
-            // 
-            this.picSvg.BackColor = System.Drawing.Color.White;
-            this.picSvg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picSvg.Location = new System.Drawing.Point(0, 13);
-            this.picSvg.Margin = new System.Windows.Forms.Padding(0);
-            this.picSvg.Name = "picSvg";
-            this.picSvg.Size = new System.Drawing.Size(424, 363);
-            this.picSvg.TabIndex = 1;
-            this.picSvg.TabStop = false;
-            // 
-            // picPng
-            // 
-            this.picPng.BackColor = System.Drawing.Color.White;
-            this.picPng.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picPng.Location = new System.Drawing.Point(0, 13);
-            this.picPng.Margin = new System.Windows.Forms.Padding(0);
-            this.picPng.Name = "picPng";
-            this.picPng.Size = new System.Drawing.Size(393, 363);
-            this.picPng.TabIndex = 2;
-            this.picPng.TabStop = false;
-            // 
-            // frmView
+            // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(977, 382);
+            this.ClientSize = new System.Drawing.Size(1235, 676);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "frmView";
+            this.Name = "View";
             this.Text = "Form1";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -173,9 +173,9 @@
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSvg)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picSvg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPng)).EndInit();
             this.ResumeLayout(false);
 
