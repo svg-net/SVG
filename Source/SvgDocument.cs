@@ -447,7 +447,7 @@ namespace Svg
             {
                 using (var renderer = SvgRenderer.FromImage(bitmap))
                 {
-                    renderer.Boundable(this);
+                    renderer.Boundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
                     renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
                     renderer.TextContrast = 1;
                     renderer.PixelOffsetMode = PixelOffsetMode.Half;

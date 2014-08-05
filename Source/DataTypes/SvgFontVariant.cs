@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 
-namespace Svg.DataTypes
+namespace Svg
 {
     [TypeConverter(typeof(SvgFontVariantConverter))]
     public enum SvgFontVariant

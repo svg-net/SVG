@@ -137,6 +137,23 @@ namespace Svg
         }
     }
 
+    public sealed class SvgTextDecorationConverter : EnumBaseConverter<SvgTextDecoration>
+    {
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value.ToString() == "line-through") return SvgTextDecoration.lineThrough;
+            return base.ConvertFrom(context, culture, value);
+        }
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string) && value is SvgTextDecoration && (SvgTextDecoration)value == SvgTextDecoration.lineThrough)
+            {
+                return "line-through";
+            }
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+    }
+
     public sealed class SvgFontWeightConverter : EnumBaseConverter<SvgFontWeight>
     {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)

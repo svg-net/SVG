@@ -29,8 +29,19 @@ namespace SvgW3CTestRunner
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             var fileName = lstFiles.SelectedItem.ToString();
-            var doc = SvgDocument.Open(_svgBasePath + fileName);
-            picSvg.Image = doc.Draw();
+            try
+            {
+                var doc = SvgDocument.Open(_svgBasePath + fileName);
+                var img = new Bitmap(480, 360);
+                doc.Draw(img);
+                picSvg.Image = img; 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                picSvg.Image = null;
+            }
+            
             var png = Image.FromFile(_pngBasePath + Path.GetFileNameWithoutExtension(fileName) + ".png");
             picPng.Image = png;
         }
