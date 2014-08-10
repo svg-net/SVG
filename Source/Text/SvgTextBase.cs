@@ -275,6 +275,7 @@ namespace Svg
                          where (n is SvgContentNode || n is SvgTextBase) && !string.IsNullOrEmpty(n.Content)
                          select n).ToList();
 
+            // Individual character spacing
             if (nodes.FirstOrDefault() is SvgContentNode && _x.Count > 1)
             {
                 string ch;
@@ -298,7 +299,9 @@ namespace Svg
                 }
             }
 
+            // Calculate the bounds of the text
             ISvgNode node;
+            var accumulateDims = true;
             for (var i = 0; i < nodes.Count; i++)
             {
                 node = nodes[i];
@@ -316,10 +319,15 @@ namespace Svg
                     {
                         stringBounds = innerText.GetTextBounds(renderer).Bounds;
                         result.Nodes.Add(new NodeBounds() { Bounds = stringBounds, Node = node, xOffset = totalWidth });
-                        if (innerText.Dx.Count == 1) totalWidth += innerText.Dx[0].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                        accumulateDims = accumulateDims && SvgUnitCollection.IsNullOrEmpty(innerText.X) && SvgUnitCollection.IsNullOrEmpty(innerText.Y);
+                        if (accumulateDims && innerText.Dx.Count == 1) totalWidth += innerText.Dx[0].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
                     }
-                    totalHeight = Math.Max(totalHeight, stringBounds.Height);
-                    totalWidth += stringBounds.Width;
+
+                    if (accumulateDims)
+                    {
+                        totalHeight = Math.Max(totalHeight, stringBounds.Height);
+                        totalWidth += stringBounds.Width;
+                    }
                 }
             }
             result.Bounds = new SizeF(totalWidth, totalHeight);

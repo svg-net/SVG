@@ -32,9 +32,16 @@ namespace SvgW3CTestRunner
             try
             {
                 var doc = SvgDocument.Open(_svgBasePath + fileName);
-                var img = new Bitmap(480, 360);
-                doc.Draw(img);
-                picSvg.Image = img; 
+                if (fileName.StartsWith("__"))
+                {
+                    picSvg.Image = doc.Draw(); 
+                }
+                else
+                {
+                    var img = new Bitmap(480, 360);
+                    doc.Draw(img);
+                    picSvg.Image = img; 
+                }
             }
             catch (Exception ex)
             {

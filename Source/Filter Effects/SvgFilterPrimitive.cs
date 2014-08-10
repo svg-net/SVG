@@ -8,12 +8,12 @@ namespace Svg.FilterEffects
 {
     public abstract class SvgFilterPrimitive : SvgElement
     {
-        public static readonly string SourceGraphic = "SourceGraphic";
-        public static readonly string SourceAlpha = "SourceAlpha";
-        public static readonly string BackgroundImage = "BackgroundImage";
-        public static readonly string BackgroundAlpha = "BackgroundAlpha";
-        public static readonly string FillPaint = "FillPaint";
-        public static readonly string StrokePaint = "StrokePaint";
+        public const string SourceGraphic = "SourceGraphic";
+        public const string SourceAlpha = "SourceAlpha";
+        public const string BackgroundImage = "BackgroundImage";
+        public const string BackgroundAlpha = "BackgroundAlpha";
+        public const string FillPaint = "FillPaint";
+        public const string StrokePaint = "StrokePaint";
 
         [SvgAttribute("in")]
         public string Input
@@ -34,6 +34,6 @@ namespace Svg.FilterEffects
             get { return (SvgFilter)this.Parent; }
         }
 
-        public abstract Bitmap Process();
+        public abstract void Process(ImageBuffer buffer);
     }
 }

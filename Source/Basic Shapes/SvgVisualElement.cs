@@ -99,34 +99,66 @@ namespace Svg
             this._requiresSmoothRendering = false;
         }
 
+        protected virtual bool Renderable { get { return true; } }
+
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
         /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
         protected override void Render(SvgRenderer renderer)
         {
-            if ((this.Path(renderer) != null) && this.Visible && this.Displayable)
+            this.Render(renderer, true);
+        }
+
+        private void Render(SvgRenderer renderer, bool renderFilter)
+        {
+            if (this.Visible && this.Displayable && this.PushTransforms(renderer) &&
+                (!Renderable || this.Path(renderer) != null))
             {
-                this.PushTransforms(renderer);
-                this.SetClip(renderer);
+                bool renderNormal = true;
 
-                // If this element needs smoothing enabled turn anti-aliasing on
-                if (this.RequiresSmoothRendering)
+                if (renderFilter && this.Filter != null)
                 {
-                    renderer.SmoothingMode = SmoothingMode.AntiAlias;
+                    var filter = this.OwnerDocument.IdManager.GetElementById(this.Filter) as FilterEffects.SvgFilter;
+                    if (filter != null)
+                    {
+                        this.PopTransforms(renderer);
+                        filter.ApplyFilter(this, renderer, (r) => this.Render(r, false));
+                        renderNormal = false;
+                    }
                 }
 
-                this.RenderFill(renderer);
-                this.RenderStroke(renderer);
 
-                // Reset the smoothing mode
-                if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
+                if (renderNormal)
                 {
-                    renderer.SmoothingMode = SmoothingMode.Default;
+                    this.SetClip(renderer);
+
+                    if (Renderable)
+                    {
+                        // If this element needs smoothing enabled turn anti-aliasing on
+                        if (this.RequiresSmoothRendering)
+                        {
+                            renderer.SmoothingMode = SmoothingMode.AntiAlias;
+                        }
+
+                        this.RenderFill(renderer);
+                        this.RenderStroke(renderer);
+
+                        // Reset the smoothing mode
+                        if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
+                        {
+                            renderer.SmoothingMode = SmoothingMode.Default;
+                        }
+                    }
+                    else
+                    {
+                        base.RenderChildren(renderer);
+                    }
+
+                    this.ResetClip(renderer);
+                    this.PopTransforms(renderer);
                 }
 
-                this.ResetClip(renderer);
-                this.PopTransforms(renderer);
             }
         }
 

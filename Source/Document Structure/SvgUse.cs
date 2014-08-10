@@ -77,6 +77,8 @@ namespace Svg
         //            }
         //        }
 
+        protected override bool Renderable { get { return false; } }
+
         protected override void Render(SvgRenderer renderer)
         {
             if (!Visible || !Displayable)

@@ -56,23 +56,25 @@ namespace Svg
             }
         }
 
-        /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
-        /// </summary>
-        /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
-        protected override void Render(SvgRenderer renderer)
-        {
-            if (!Visible || !Displayable)
-                return;
+        protected override bool Renderable { get { return false; } }
 
-            if (this.PushTransforms(renderer))
-            {
-                this.SetClip(renderer);
-                base.RenderChildren(renderer);
-                this.ResetClip(renderer);
-                this.PopTransforms(renderer);
-            }
-        }
+        ///// <summary>
+        ///// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
+        ///// </summary>
+        ///// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
+        //protected override void Render(SvgRenderer renderer)
+        //{
+        //    if (!Visible || !Displayable)
+        //        return;
+
+        //    if (this.PushTransforms(renderer))
+        //    {
+        //        this.SetClip(renderer);
+        //        base.RenderChildren(renderer);
+        //        this.ResetClip(renderer);
+        //        this.PopTransforms(renderer);
+        //    }
+        //}
 
         
         public override SvgElement DeepCopy()

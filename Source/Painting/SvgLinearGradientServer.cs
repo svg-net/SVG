@@ -173,7 +173,7 @@ namespace Svg
 
             if (boundable.Bounds.Contains(specifiedEnd))
             {
-                effectiveEnd = CalculateClosestIntersectionPoint(effectiveEnd, intersectionPoints);
+                effectiveEnd = CalculateClosestIntersectionPoint(expandedEnd, intersectionPoints);
 
                 effectiveEnd = MovePointAlongVector(effectiveEnd, specifiedUnitVector, 1);
             }
@@ -296,48 +296,87 @@ namespace Svg
                 return result;
             }
 
+            /// <remarks>http://community.topcoder.com/tc?module=Static&d1=tutorials&d2=geometry2</remarks>
             private PointF? Intersection(LineF other)
             {
-                var a1 = Y2 - Y1;
-                var b1 = X1 - X2;
-                var c1 = X2 * Y1 - X1 * Y2;
+                const int precision = 8;
 
-                var r3 = a1 * other.X1 + b1 * other.Y1 + c1;
-                var r4 = a1 * other.X2 + b1 * other.Y2 + c1;
+                var a1 = (double)Y2 - Y1;
+                var b1 = (double)X1 - X2;
+                var c1 = a1 * X1 + b1 * Y1;
 
-                if (r3 != 0 && r4 != 0 && Math.Sign(r3) == Math.Sign(r4))
+                var a2 = (double)other.Y2 - other.Y1;
+                var b2 = (double)other.X1 - other.X2;
+                var c2 = a2 * other.X1 + b2 * other.Y1;
+
+                var det = a1 * b2 - a2 * b1;
+                if (det == 0)
                 {
                     return null;
                 }
-
-                var a2 = other.Y2 - other.Y1;
-                var b2 = other.X1 - other.X2;
-                var c2 = other.X2 * other.Y1 - other.X1 * other.Y2;
-
-                var r1 = a2 * X1 + b2 * Y1 + c2;
-                var r2 = a2 * X2 + b2 * Y2 + c2;
-
-                if (r1 != 0 && r2 != 0 && Math.Sign(r1) == Math.Sign(r2))
+                else
                 {
-                    return (null);
+                    var xi = (b2 * c1 - b1 * c2) / det;
+                    var yi = (a1 * c2 - a2 * c1) / det;
+
+                    if (Math.Round(Math.Min(X1, X2), precision) <= Math.Round(xi, precision) &&
+                        Math.Round(xi, precision) <= Math.Round(Math.Max(X1, X2), precision) &&
+                        Math.Round(Math.Min(Y1, Y2), precision) <= Math.Round(yi, precision) &&
+                        Math.Round(yi, precision) <= Math.Round(Math.Max(Y1, Y2), precision) &&
+                        Math.Round(Math.Min(other.X1, other.X2), precision) <= Math.Round(xi, precision) &&
+                        Math.Round(xi, precision) <= Math.Round(Math.Max(other.X1, other.X2), precision) &&
+                        Math.Round(Math.Min(other.Y1, other.Y2), precision) <= Math.Round(yi, precision) &&
+                        Math.Round(yi, precision) <= Math.Round(Math.Max(other.Y1, other.Y2), precision))
+                    {
+                        return new PointF((float)xi, (float)yi);
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
 
-                var denom = a1 * b2 - a2 * b1;
 
-                if (denom == 0)
-                {
-                    return null;
-                }
+                //var a1 = Y2 - Y1;
+                //var b1 = X1 - X2;
+                //var c1 = X2 * Y1 - X1 * Y2;
 
-                var offset = denom < 0 ? -denom / 2 : denom / 2;
+                //var r3 = a1 * other.X1 + b1 * other.Y1 + c1;
+                //var r4 = a1 * other.X2 + b1 * other.Y2 + c1;
 
-                var num = b1 * c2 - b2 * c1;
-                var x = (num < 0 ? num - offset : num + offset) / denom;
+                //if (r3 != 0 && r4 != 0 && Math.Sign(r3) == Math.Sign(r4))
+                //{
+                //    return null;
+                //}
 
-                num = a2 * c1 - a1 * c2;
-                var y = (num < 0 ? num - offset : num + offset) / denom;
+                //var a2 = other.Y2 - other.Y1;
+                //var b2 = other.X1 - other.X2;
+                //var c2 = other.X2 * other.Y1 - other.X1 * other.Y2;
 
-                return new PointF(x, y);
+                //var r1 = a2 * X1 + b2 * Y1 + c2;
+                //var r2 = a2 * X2 + b2 * Y2 + c2;
+
+                //if (r1 != 0 && r2 != 0 && Math.Sign(r1) == Math.Sign(r2))
+                //{
+                //    return (null);
+                //}
+
+                //var denom = a1 * b2 - a2 * b1;
+
+                //if (denom == 0)
+                //{
+                //    return null;
+                //}
+
+                //var offset = denom < 0 ? -denom / 2 : denom / 2;
+
+                //var num = b1 * c2 - b2 * c1;
+                //var x = (num < 0 ? num - offset : num + offset) / denom;
+
+                //num = a2 * c1 - a1 * c2;
+                //var y = (num < 0 ? num - offset : num + offset) / denom;
+
+                //return new PointF(x, y);
             }
 
             private static void AddIfIntersect(LineF first, LineF second, ICollection<PointF> result)

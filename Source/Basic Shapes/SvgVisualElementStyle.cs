@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Reflection;
 using System.ComponentModel;
@@ -51,6 +52,16 @@ namespace Svg
                 else
                     return true;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the fill <see cref="SvgPaintServer"/> of this element.
+        /// </summary>
+        [SvgAttribute("enable-background")]
+        public virtual string EnableBackground
+        {
+            get { return this.Attributes["enable-background"] as string; }
+            set { this.Attributes["enable-background"] = value; }
         }
 
         /// <summary>
@@ -361,26 +372,43 @@ namespace Svg
                     break;
             }
 
+            var family = ValidateFontFamily(this.FontFamily);
+            if (!family.IsStyleAvailable(fontStyle))
+            {
+                // Do Something
+            }
+
             // Get the font-family
-            string family = ValidateFontFamily(this.FontFamily) ?? DefaultFontFamily;
             return new System.Drawing.Font(family, fontSize, fontStyle, System.Drawing.GraphicsUnit.Pixel);
         }
 
-        private static string ValidateFontFamily(string fontFamilyList)
+        private static FontFamily ValidateFontFamily(string fontFamilyList)
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
             var fontParts = (fontFamilyList ?? "").Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
-
             var families = System.Drawing.FontFamily.Families;
+            FontFamily family;
 
             // Find a the first font that exists in the list of installed font families.
             //styles from IE get sent through as lowercase.
-            foreach (var f in fontParts.Where(f => families.Any(family => family.Name.ToLower() == f.ToLower())))
+            foreach (var f in fontParts)
             {
-                return f;
+                family = families.FirstOrDefault(ff => ff.Name.ToLower() == f.ToLower());
+                if (family != null) return family;
+
+                switch (f)
+                {
+                    case "serif":
+                        return System.Drawing.FontFamily.GenericSerif;
+                    case "sans-serif":
+                        return System.Drawing.FontFamily.GenericSansSerif;
+                    case "monospace":
+                        return System.Drawing.FontFamily.GenericMonospace;
+                }
             }
+
             // No valid font family found from the list requested.
-            return null;
+            return System.Drawing.FontFamily.GenericSansSerif;
         }
 
     }

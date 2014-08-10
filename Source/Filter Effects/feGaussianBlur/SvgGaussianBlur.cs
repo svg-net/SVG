@@ -67,7 +67,10 @@ namespace Svg.FilterEffects
 
         public Bitmap Apply(Image inputImage)
         {
-            using (RawBitmap src = new RawBitmap(new Bitmap(inputImage)))
+            var bitmapSrc = inputImage as Bitmap;
+            if (bitmapSrc == null) bitmapSrc = new Bitmap(inputImage);
+
+            using (RawBitmap src = new RawBitmap(bitmapSrc))
             {
                 using (RawBitmap dest = new RawBitmap(new Bitmap(inputImage.Width, inputImage.Height)))
                 {
@@ -250,11 +253,11 @@ namespace Svg.FilterEffects
 
 
 
-        public override Bitmap Process()
+        public override void Process(ImageBuffer buffer)
         {
-            //Todo
-
-            return null;
+            var inputImage = buffer[this.Input];
+            var result = Apply(inputImage);
+            buffer[this.Result] = result;
         }
 
 

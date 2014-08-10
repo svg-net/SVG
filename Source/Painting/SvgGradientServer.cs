@@ -111,7 +111,7 @@ namespace Svg
             }
         }
 
-        private Matrix EffectiveGradientTransform
+        protected Matrix EffectiveGradientTransform
         {
             get
             {
@@ -245,6 +245,15 @@ namespace Svg
             EffectiveGradientTransform.TransformVectors(newVector);
 
             return newVector[0];
+        }
+
+        protected float TransformDistance(float dist)
+        {
+            var newVector = new[] { new PointF(dist, 0) };
+
+            EffectiveGradientTransform.TransformVectors(newVector);
+
+            return (float)Math.Sqrt(Math.Pow(newVector[0].X, 2) + Math.Pow(newVector[0].Y, 2));
         }
 
         protected static double CalculateDistance(PointF first, PointF second)

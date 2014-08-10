@@ -23,6 +23,12 @@ namespace Svg
 
             return ret;
         }
+
+        public static bool IsNullOrEmpty(SvgUnitCollection collection)
+        {
+            return collection == null || collection.Count < 1 ||
+                (collection.Count == 1 && (collection[0] == SvgUnit.Empty || collection[0] == SvgUnit.None));
+        }
     }
 
     /// <summary>

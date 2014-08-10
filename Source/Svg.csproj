@@ -101,6 +101,7 @@
     <Compile Include="Clipping and Masking\SvgMask.cs" />
     <Compile Include="DataTypes\ISvgSupportsCoordinateUnits.cs" />
     <Compile Include="DataTypes\SvgTextDecoration.cs" />
+    <Compile Include="Filter Effects\ImageBuffer.cs" />
     <Compile Include="Painting\GenericBoundable.cs" />
     <Compile Include="SvgNodeReader.cs" />
     <Compile Include="Css\CssQuery.cs" />
