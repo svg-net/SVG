@@ -14,8 +14,8 @@ namespace Svg.FilterEffects
 
         private Dictionary<string, Bitmap> _images;
         private RectangleF _bounds;
-        private SvgRenderer _renderer;
-        private Action<SvgRenderer> _renderMethod;
+        private ISvgRenderer _renderer;
+        private Action<ISvgRenderer> _renderMethod;
         private float _inflate;
 
         public Matrix Transform { get; set; }
@@ -41,7 +41,7 @@ namespace Svg.FilterEffects
             }
         }
 
-        public ImageBuffer(RectangleF bounds, float inflate, SvgRenderer renderer, Action<SvgRenderer> renderMethod)
+        public ImageBuffer(RectangleF bounds, float inflate, ISvgRenderer renderer, Action<ISvgRenderer> renderMethod)
         {
             _bounds = bounds;
             _inflate = inflate;
@@ -124,7 +124,7 @@ namespace Svg.FilterEffects
         }
         private string ProcessKey(string key)
         {
-            if (string.IsNullOrEmpty(key)) return BufferKey;
+            if (string.IsNullOrEmpty(key)) return _images.ContainsKey(BufferKey) ? BufferKey : SvgFilterPrimitive.SourceGraphic;
             return key;
         }
 
@@ -136,7 +136,7 @@ namespace Svg.FilterEffects
                                      (int)(_bounds.Height + 2 * _inflate * _bounds.Height + _bounds.Y));
             using (var renderer = SvgRenderer.FromImage(graphic))
             {
-                renderer.Boundable(_renderer.Boundable());
+                renderer.SetBoundable(_renderer.GetBoundable());
                 var transform = new Matrix();
                 transform.Translate(_bounds.Width * _inflate, _bounds.Height * _inflate);
                 renderer.Transform = transform;

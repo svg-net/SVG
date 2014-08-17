@@ -14,7 +14,7 @@ namespace Svg
     public class SvgPolyline : SvgPolygon
     {
         private GraphicsPath _Path;
-        public override GraphicsPath Path(SvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             if (_Path == null || this.IsPathDirty)
             {

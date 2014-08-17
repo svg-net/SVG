@@ -80,10 +80,10 @@ namespace Svg.FilterEffects
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="SvgRenderer"/> object.
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-        protected override void Render(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
+        protected override void Render(ISvgRenderer renderer)
         {
 			base.RenderChildren(renderer);
         }
@@ -109,7 +109,7 @@ namespace Svg.FilterEffects
             return transformMatrix;
         }
 
-        private RectangleF GetPathBounds(SvgVisualElement element, SvgRenderer renderer, Matrix transform)
+        private RectangleF GetPathBounds(SvgVisualElement element, ISvgRenderer renderer, Matrix transform)
         {
             var bounds = element.Path(renderer).GetBounds();
             var pts = new PointF[] { bounds.Location, new PointF(bounds.Right, bounds.Bottom) };
@@ -119,7 +119,7 @@ namespace Svg.FilterEffects
                                   Math.Abs(pts[0].X - pts[1].X), Math.Abs(pts[0].Y - pts[1].Y));
         }
 
-        public void ApplyFilter(SvgVisualElement element, SvgRenderer renderer, Action<SvgRenderer> renderMethod)
+        public void ApplyFilter(SvgVisualElement element, ISvgRenderer renderer, Action<ISvgRenderer> renderMethod)
         {
             var inflate = 0.5f;
             var transform = GetTransform(element);
@@ -139,11 +139,10 @@ namespace Svg.FilterEffects
                 var bufferImg = buffer.Buffer;
                 bufferImg.Save(@"C:\test.png");
                 var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
-                var prevClip = renderer.Clip;
-                renderer.Clip = new Region(imgDraw);
+                var prevClip = renderer.GetClip();
+                renderer.SetClip(new Region(imgDraw));
                 renderer.DrawImage(bufferImg, imgDraw, new RectangleF(bounds.X, bounds.Y, imgDraw.Width, imgDraw.Height), GraphicsUnit.Pixel);
-                renderer.Clip = prevClip;
-                //renderer.DrawImage(bufferImg, bounds, bounds, GraphicsUnit.Pixel);
+                renderer.SetClip(prevClip);
             }
         }
                 

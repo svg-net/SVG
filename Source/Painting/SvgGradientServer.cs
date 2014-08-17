@@ -130,7 +130,7 @@ namespace Svg
         /// </summary>
         /// <param name="owner">The parent <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the colour blend.</param>
-        protected ColorBlend GetColorBlend(SvgRenderer renderer, float opacity, bool radial)
+        protected ColorBlend GetColorBlend(ISvgRenderer renderer, float opacity, bool radial)
         {
             int colourBlends = this.Stops.Count;
             bool insertStart = false;
@@ -184,7 +184,7 @@ namespace Svg
             for (int i = 0; i < colourBlends; i++)
             {
                 var currentStop = this.Stops[radial ? this.Stops.Count - 1 - actualStops : actualStops];
-                var boundWidth = renderer.Boundable().Bounds.Width;
+                var boundWidth = renderer.GetBoundable().Bounds.Width;
 
                 mergedOpacity = opacity * currentStop.Opacity;
                 position =

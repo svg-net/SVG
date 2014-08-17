@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Diagnostics;
 
 namespace Svg
 {
@@ -16,7 +17,7 @@ namespace Svg
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
-        public abstract GraphicsPath Path(SvgRenderer renderer);
+        public abstract GraphicsPath Path(ISvgRenderer renderer);
 
         PointF ISvgBoundable.Location
         {
@@ -104,13 +105,13 @@ namespace Svg
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-        protected override void Render(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
+        protected override void Render(ISvgRenderer renderer)
         {
             this.Render(renderer, true);
         }
 
-        private void Render(SvgRenderer renderer, bool renderFilter)
+        private void Render(ISvgRenderer renderer, bool renderFilter)
         {
             if (this.Visible && this.Displayable && this.PushTransforms(renderer) &&
                 (!Renderable || this.Path(renderer) != null))
@@ -119,11 +120,20 @@ namespace Svg
 
                 if (renderFilter && this.Filter != null)
                 {
-                    var filter = this.OwnerDocument.IdManager.GetElementById(this.Filter) as FilterEffects.SvgFilter;
+                    var filterPath = this.Filter;
+                    if (filterPath.ToString().StartsWith("url("))
+                    {
+                        filterPath = new Uri(filterPath.ToString().Substring(4, filterPath.ToString().Length - 5), UriKind.RelativeOrAbsolute);
+                    }
+                    var filter = this.OwnerDocument.IdManager.GetElementById(filterPath) as FilterEffects.SvgFilter;
                     if (filter != null)
                     {
                         this.PopTransforms(renderer);
-                        filter.ApplyFilter(this, renderer, (r) => this.Render(r, false));
+                        try
+                        {
+                            filter.ApplyFilter(this, renderer, (r) => this.Render(r, false));
+                        }
+                        catch (Exception ex) { Debug.Print(ex.ToString()); }
                         renderNormal = false;
                     }
                 }
@@ -163,10 +173,10 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the fill of the <see cref="SvgVisualElement"/> to the specified <see cref="SvgRenderer"/>
+        /// Renders the fill of the <see cref="SvgVisualElement"/> to the specified <see cref="ISvgRenderer"/>
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-        protected internal virtual void RenderFill(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
+        protected internal virtual void RenderFill(ISvgRenderer renderer)
         {
             if (this.Fill != null)
             {
@@ -182,12 +192,12 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the stroke of the <see cref="SvgVisualElement"/> to the specified <see cref="SvgRenderer"/>
+        /// Renders the stroke of the <see cref="SvgVisualElement"/> to the specified <see cref="ISvgRenderer"/>
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-        protected internal virtual void RenderStroke(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
+        protected internal virtual void RenderStroke(ISvgRenderer renderer)
         {
-            if (this.Stroke != null)
+            if (this.Stroke != null && this.Stroke != SvgColourServer.None)
             {
                 float strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
                 using (var pen = new Pen(this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity * this.Opacity, 0), 1)), strokeWidth))
@@ -204,50 +214,50 @@ namespace Svg
         }
 
         /// <summary>
-        /// Sets the clipping region of the specified <see cref="SvgRenderer"/>.
+        /// Sets the clipping region of the specified <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region set.</param>
-        protected internal virtual void SetClip(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region set.</param>
+        protected internal virtual void SetClip(ISvgRenderer renderer)
         {
             if (this.ClipPath != null)
             {
                 SvgClipPath clipPath = this.OwnerDocument.GetElementById<SvgClipPath>(this.ClipPath.ToString());
-                this._previousClip = renderer.Clip;
+                this._previousClip = renderer.GetClip();
 
                 if (clipPath != null)
                 {
-                    renderer.AddClip(clipPath.GetClipRegion(this));
+                    renderer.SetClip(clipPath.GetClipRegion(this), CombineMode.Intersect);
                 }
             }
         }
 
         /// <summary>
-        /// Resets the clipping region of the specified <see cref="SvgRenderer"/> back to where it was before the <see cref="SetClip"/> method was called.
+        /// Resets the clipping region of the specified <see cref="ISvgRenderer"/> back to where it was before the <see cref="SetClip"/> method was called.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region reset.</param>
-        protected internal virtual void ResetClip(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region reset.</param>
+        protected internal virtual void ResetClip(ISvgRenderer renderer)
         {
             if (this._previousClip != null)
             {
-                renderer.Clip = this._previousClip;
+                renderer.SetClip(this._previousClip);
                 this._previousClip = null;
             }
         }
 
         /// <summary>
-        /// Sets the clipping region of the specified <see cref="SvgRenderer"/>.
+        /// Sets the clipping region of the specified <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region set.</param>
-        void ISvgClipable.SetClip(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region set.</param>
+        void ISvgClipable.SetClip(ISvgRenderer renderer)
         {
             this.SetClip(renderer);
         }
 
         /// <summary>
-        /// Resets the clipping region of the specified <see cref="SvgRenderer"/> back to where it was before the <see cref="SetClip"/> method was called.
+        /// Resets the clipping region of the specified <see cref="ISvgRenderer"/> back to where it was before the <see cref="SetClip"/> method was called.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region reset.</param>
-        void ISvgClipable.ResetClip(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region reset.</param>
+        void ISvgClipable.ResetClip(ISvgRenderer renderer)
         {
             this.ResetClip(renderer);
         }

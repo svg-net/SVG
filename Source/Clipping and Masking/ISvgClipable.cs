@@ -20,14 +20,14 @@ namespace Svg
         /// </summary>
         SvgClipRule ClipRule { get; set; }
         /// <summary>
-        /// Sets the clipping region of the specified <see cref="SvgRenderer"/>.
+        /// Sets the clipping region of the specified <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region set.</param>
-        void SetClip(SvgRenderer renderer);
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region set.</param>
+        void SetClip(ISvgRenderer renderer);
         /// <summary>
-        /// Resets the clipping region of the specified <see cref="SvgRenderer"/> back to where it was before the <see cref="SetClip"/> method was called.
+        /// Resets the clipping region of the specified <see cref="ISvgRenderer"/> back to where it was before the <see cref="SetClip"/> method was called.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to have its clipping region reset.</param>
-        void ResetClip(SvgRenderer renderer);
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region reset.</param>
+        void ResetClip(ISvgRenderer renderer);
     }
 }

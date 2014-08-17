@@ -20,8 +20,8 @@ namespace Svg
         private SvgUnit _x;
         private SvgUnit _y;
         private SvgViewBox _viewBox;
-        private SvgCoordinateUnits _patternUnits;
-        private SvgCoordinateUnits _patternContentUnits;
+        private SvgCoordinateUnits _patternUnits = SvgCoordinateUnits.ObjectBoundingBox;
+        private SvgCoordinateUnits _patternContentUnits = SvgCoordinateUnits.UserSpaceOnUse;
 
 		[SvgAttribute("overflow")]
 		public SvgOverflow Overflow
@@ -129,7 +129,7 @@ namespace Svg
         /// </summary>
         /// <param name="renderingElement">The owner <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the brush.</param>
-        public override Brush GetBrush(SvgVisualElement renderingElement, SvgRenderer renderer, float opacity)
+        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity)
         {
             // If there aren't any children, return null
             if (this.Children.Count == 0)
@@ -141,7 +141,7 @@ namespace Svg
 
             try
             {
-                if (this.PatternUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.Boundable(renderingElement);
+                if (this.PatternUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.SetBoundable(renderingElement);
 
                 float width = this._width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
                 float height = this._height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
@@ -153,11 +153,7 @@ namespace Svg
                     float x = this._x.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, this);
                     float y = this._y.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, this);
 
-                    patternMatrix.Translate(x + -1.0f, y + -1.0f);
-                }
-                else
-                {
-                    patternMatrix.Translate(-1, -1);
+                    patternMatrix.Translate(x, y);
                 }
 
                 if (this.ViewBox.Height > 0 || this.ViewBox.Width > 0)
@@ -167,20 +163,16 @@ namespace Svg
                 }
 
                 Bitmap image = new Bitmap((int)width, (int)height);
-                using (SvgRenderer iRenderer = SvgRenderer.FromImage(image))
+                using (var iRenderer = SvgRenderer.FromImage(image))
                 {
-                    iRenderer.Boundable((_patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox) ? new GenericBoundable(0, 0, width, height) : renderer.Boundable());
+                    iRenderer.SetBoundable((_patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox) ? new GenericBoundable(0, 0, width, height) : renderer.GetBoundable());
                     iRenderer.Transform = patternMatrix;
-                    iRenderer.CompositingQuality = CompositingQuality.HighQuality;
                     iRenderer.SmoothingMode = SmoothingMode.AntiAlias;
-                    iRenderer.PixelOffsetMode = PixelOffsetMode.Half;
-
+                    
                     foreach (SvgElement child in this.Children)
                     {
                         child.RenderElement(iRenderer);
                     }
-
-                    iRenderer.Save();
                 }
 
                 image.Save(string.Format(@"C:\test{0:D3}.png", imgNumber++));

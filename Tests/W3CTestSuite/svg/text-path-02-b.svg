@@ -63,26 +63,26 @@
     <g id="text-on-path-01">
       <use xlink:href="#Path1" fill="none" stroke="blue" />
       <text font-size="36" fill="black" >
-        <textPath xlink:href="#Path1"><tspan dx="-240">Positive offset Negative offset</tspan></textPath>
+        <textPath xlink:href="#Path1"><tspan dx="-240">Negative offset</tspan></textPath>
       </text>
     </g>
     <g id="text-on-path-02">
       <use xlink:href="#Path2" fill="none" stroke="blue" />
       <text font-size="36" fill="black" >
-        <textPath xlink:href="#Path2" startOffset="-240">Positive offset Negative offset</textPath>
+        <textPath xlink:href="#Path2" startOffset="-240">Negative offset</textPath>
       </text>
     </g>
     <g transform="translate(0 150)">
     <g id="text-on-path-03">
       <use xlink:href="#Path1" fill="none" stroke="blue" />
       <text font-size="36" fill="black" >
-        <textPath xlink:href="#Path1"><tspan dx="60">Positive offset Negative offset</tspan></textPath>
+        <textPath xlink:href="#Path1"><tspan dx="60">Positive offset</tspan></textPath>
       </text>
     </g>
     <g id="text-on-path-04">
       <use xlink:href="#Path2" fill="none" stroke="blue" />
       <text font-size="36" fill="black" >
-        <textPath xlink:href="#Path2" startOffset="60">Positive offset Negative offset</textPath>
+        <textPath xlink:href="#Path2" startOffset="60">Positive offset</textPath>
       </text>
     </g>
     </g>

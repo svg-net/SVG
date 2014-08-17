@@ -187,7 +187,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Refers to the boldness of the font.
+        /// Refers to the style of the font.
         /// </summary>
         [SvgAttribute("font-style")]
         public virtual SvgFontStyle FontStyle
@@ -197,7 +197,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Refers to the boldness of the font.
+        /// Refers to the varient of the font.
         /// </summary>
         [SvgAttribute("font-variant")]
         public virtual SvgFontVariant FontVariant
@@ -323,7 +323,7 @@ namespace Svg
         /// Get the font information based on data stored with the text object or inherited from the parent.
         /// </summary>
         /// <returns></returns>
-        internal System.Drawing.Font GetFont(SvgRenderer renderer)
+        internal IFontDefn GetFont(ISvgRenderer renderer)
         {
             // Get the font-size
             float fontSize;
@@ -337,62 +337,81 @@ namespace Svg
                 fontSize = fontSizeUnit.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
             }
 
-            var fontStyle = System.Drawing.FontStyle.Regular;
+            var family = ValidateFontFamily(this.FontFamily, this.OwnerDocument);
+            var sFaces = family as IEnumerable<SvgFontFace>;
 
-            // Get the font-weight
-            switch (this.FontWeight)
+            if (sFaces == null)
             {
-                case SvgFontWeight.bold:
-                case SvgFontWeight.bolder:
-                case SvgFontWeight.w600:
-                case SvgFontWeight.w700:
-                case SvgFontWeight.w800:
-                case SvgFontWeight.w900:
-                    fontStyle |= System.Drawing.FontStyle.Bold;
-                    break;
-            }
+                var fontStyle = System.Drawing.FontStyle.Regular;
 
-            // Get the font-style
-            switch (this.FontStyle)
+                // Get the font-weight
+                switch (this.FontWeight)
+                {
+                    case SvgFontWeight.bold:
+                    case SvgFontWeight.bolder:
+                    case SvgFontWeight.w600:
+                    case SvgFontWeight.w700:
+                    case SvgFontWeight.w800:
+                    case SvgFontWeight.w900:
+                        fontStyle |= System.Drawing.FontStyle.Bold;
+                        break;
+                }
+
+                // Get the font-style
+                switch (this.FontStyle)
+                {
+                    case SvgFontStyle.italic:
+                    case SvgFontStyle.oblique:
+                        fontStyle |= System.Drawing.FontStyle.Italic;
+                        break;
+                }
+
+                // Get the text-decoration
+                switch (this.TextDecoration)
+                {
+                    case SvgTextDecoration.lineThrough:
+                        fontStyle |= System.Drawing.FontStyle.Strikeout;
+                        break;
+                    case SvgTextDecoration.underline:
+                        fontStyle |= System.Drawing.FontStyle.Underline;
+                        break;
+                }
+
+                var ff = family as FontFamily;
+                if (!ff.IsStyleAvailable(fontStyle))
+                {
+                    // Do Something
+                }
+
+                // Get the font-family
+                return new GdiFontDefn(new System.Drawing.Font(ff, fontSize, fontStyle, System.Drawing.GraphicsUnit.Pixel));
+            }
+            else
             {
-                case SvgFontStyle.italic:
-                case SvgFontStyle.oblique:
-                    fontStyle |= System.Drawing.FontStyle.Italic;
-                    break;
+                var font = sFaces.First().Parent as SvgFont;
+                if (font == null)
+                {
+                    var uri = sFaces.First().Descendants().OfType<SvgFontFaceUri>().First().ReferencedElement;
+                    font = OwnerDocument.IdManager.GetElementById(uri) as SvgFont;
+                }
+                return new SvgFontDefn(font, fontSize, OwnerDocument.Ppi);
             }
-
-            // Get the text-decoration
-            switch (this.TextDecoration)
-            {
-                case SvgTextDecoration.lineThrough:
-                    fontStyle |= System.Drawing.FontStyle.Strikeout;
-                    break;
-                case SvgTextDecoration.underline:
-                    fontStyle |= System.Drawing.FontStyle.Underline;
-                    break;
-            }
-
-            var family = ValidateFontFamily(this.FontFamily);
-            if (!family.IsStyleAvailable(fontStyle))
-            {
-                // Do Something
-            }
-
-            // Get the font-family
-            return new System.Drawing.Font(family, fontSize, fontStyle, System.Drawing.GraphicsUnit.Pixel);
         }
 
-        private static FontFamily ValidateFontFamily(string fontFamilyList)
+        public static object ValidateFontFamily(string fontFamilyList, SvgDocument doc)
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
             var fontParts = (fontFamilyList ?? "").Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
             var families = System.Drawing.FontFamily.Families;
             FontFamily family;
+            IEnumerable<SvgFontFace> sFaces;
 
             // Find a the first font that exists in the list of installed font families.
             //styles from IE get sent through as lowercase.
             foreach (var f in fontParts)
             {
+                if (doc.FontDefns().TryGetValue(f, out sFaces)) return sFaces;
+
                 family = families.FirstOrDefault(ff => ff.Name.ToLower() == f.ToLower());
                 if (family != null) return family;
 

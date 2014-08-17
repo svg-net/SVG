@@ -35,7 +35,7 @@ namespace Svg
             set { this._colour = value; }
         }
 
-        public override Brush GetBrush(SvgVisualElement styleOwner, SvgRenderer renderer, float opacity)
+        public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity)
         {
             //is none?
             if (this == SvgPaintServer.None) return new SolidBrush(System.Drawing.Color.Transparent);

@@ -98,16 +98,16 @@ namespace Svg
 
         private object _lockObj = new Object();
 
-        public override Brush GetBrush(SvgVisualElement renderingElement, SvgRenderer renderer, float opacity)
+        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity)
         {
             LoadStops(renderingElement);
 
             try
             {
-                if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.Boundable(renderingElement);
+                if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.SetBoundable(renderingElement);
                 
                 // Calculate the path and transform it appropriately
-                var origin = renderer.Boundable().Location;
+                var origin = renderer.GetBoundable().Location;
                 var center = new PointF(origin.X + CenterX.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, this),
                                          origin.Y + CenterY.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, this));
                 var specifiedRadius = Radius.ToDeviceValue(renderer, UnitRenderingType.Other, this);
@@ -181,7 +181,7 @@ namespace Svg
             return bounds.Height / (points[2].Y - points[1].Y);
         }
 
-        private PointF CalculateFocalPoint(SvgRenderer renderer, PointF origin)
+        private PointF CalculateFocalPoint(ISvgRenderer renderer, PointF origin)
         {
             var deviceFocalX = origin.X + FocalX.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, this);
             var deviceFocalY = origin.Y + FocalY.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, this);
@@ -203,7 +203,7 @@ namespace Svg
             return path;
         }
 
-        private ColorBlend CalculateColorBlend(SvgRenderer renderer, float opacity, float scale, out float outScale)
+        private ColorBlend CalculateColorBlend(ISvgRenderer renderer, float opacity, float scale, out float outScale)
         {
             var colorBlend = GetColorBlend(renderer, opacity, true);
             float newScale;

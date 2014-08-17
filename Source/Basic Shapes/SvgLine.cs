@@ -92,7 +92,7 @@ namespace Svg
         {
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
+        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
             if (this._path == null || this.IsPathDirty)
             {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Net;
+using System.IO;
 
 namespace Svg
 {
@@ -39,6 +41,29 @@ namespace Svg
 
         public virtual SvgElement GetElementById(Uri uri)
         {
+            if (!uri.IsAbsoluteUri && this._document.BaseUri != null && !uri.ToString().StartsWith("#"))
+            {
+                var fullUri = new Uri(this._document.BaseUri, uri);
+                var hash = fullUri.OriginalString.Substring(fullUri.OriginalString.LastIndexOf('#'));
+                SvgDocument doc;
+                switch (fullUri.Scheme.ToLowerInvariant())
+                {
+                    case "file":
+                        doc = SvgDocument.Open<SvgDocument>(fullUri.LocalPath.Substring(0, fullUri.LocalPath.Length - hash.Length));
+                        return doc.IdManager.GetElementById(hash);
+                    case "http":
+                    case "https":
+                        var httpRequest = WebRequest.Create(uri);
+                        using (WebResponse webResponse = httpRequest.GetResponse())
+                        {
+                            doc = SvgDocument.Open<SvgDocument>(webResponse.GetResponseStream());
+                            return doc.IdManager.GetElementById(hash);
+                        }
+                    default:
+                        throw new NotSupportedException();
+                }
+
+            }
             return this.GetElementById(uri.ToString());
         }
 

@@ -11,34 +11,15 @@ using System.Linq;
 
 namespace Svg
 {
-    public enum XmlSpaceHandling
-    {
-        @default,
-        preserve
-    }
-
     public abstract class SvgTextBase : SvgVisualElement
     {
-        private SvgUnitCollection _x = new SvgUnitCollection();
-        private SvgUnitCollection _y = new SvgUnitCollection();
-        private SvgUnitCollection _dy = new SvgUnitCollection();
-        private SvgUnitCollection _dx = new SvgUnitCollection();
-        private SvgUnit _letterSpacing;
-        private SvgUnit _wordSpacing;
-        private static readonly SvgRenderer _stringMeasure;
+        protected SvgUnitCollection _x = new SvgUnitCollection();
+        protected SvgUnitCollection _y = new SvgUnitCollection();
+        protected SvgUnitCollection _dy = new SvgUnitCollection();
+        protected SvgUnitCollection _dx = new SvgUnitCollection();
+        private string _rotate;
+        private List<float> _rotations = new List<float>();
         
-        private XmlSpaceHandling _space = XmlSpaceHandling.@default;
-
-        /// <summary>
-        /// Initializes the <see cref="SvgTextBase"/> class.
-        /// </summary>
-        static SvgTextBase()
-        {
-            Bitmap bitmap = new Bitmap(1, 1);
-            _stringMeasure = SvgRenderer.FromImage(bitmap);
-            _stringMeasure.TextRenderingHint = TextRenderingHint.AntiAlias;
-        }
-
         /// <summary>
         /// Gets or sets the text to be rendered.
         /// </summary>
@@ -64,6 +45,12 @@ namespace Svg
         {
             get { return this.Attributes["baseline-shift"] as string; }
             set { this.Attributes["baseline-shift"] = value; this.IsPathDirty = true; }
+        }
+
+        public override XmlSpaceHandling SpaceHandling
+        {
+            get { return base.SpaceHandling; }
+            set { base.SpaceHandling = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -143,13 +130,55 @@ namespace Svg
         }
 
         /// <summary>
+        /// Gets or sets the rotate.
+        /// </summary>
+        /// <value>The rotate.</value>
+        [SvgAttribute("rotate")]
+        public virtual string Rotate
+        {
+            get { return this._rotate; }
+            set
+            {
+                if (_rotate != value)
+                {
+                    this._rotate = value;
+                    this._rotations.Clear();
+                    this._rotations.AddRange(from r in _rotate.Split(new char[] {',', ' ', '\r', '\n', '\t'}, StringSplitOptions.RemoveEmptyEntries) select float.Parse(r));
+                    this.IsPathDirty = true;
+                    OnAttributeChanged(new AttributeEventArgs { Attribute = "rotate", Value = value });
+                }
+            }
+        }
+
+        /// <summary>
+        /// The pre-calculated length of the text
+        /// </summary>
+        [SvgAttribute("textLength")]
+        public virtual SvgUnit TextLength
+        {
+            get { return (this.Attributes["textLength"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["textLength"]); }
+            set { this.Attributes["textLength"] = value; this.IsPathDirty = true; }
+        }
+
+        /// <summary>
+        /// Gets or sets the text anchor.
+        /// </summary>
+        /// <value>The text anchor.</value>
+        [SvgAttribute("lengthAdjust")]
+        public virtual SvgTextLengthAdjust LengthAdjust
+        {
+            get { return (this.Attributes["lengthAdjust"] == null) ? SvgTextLengthAdjust.spacing : (SvgTextLengthAdjust)this.Attributes["lengthAdjust"]; }
+            set { this.Attributes["lengthAdjust"] = value; this.IsPathDirty = true; }
+        }
+
+        /// <summary>
         /// Specifies spacing behavior between text characters.
         /// </summary>
         [SvgAttribute("letter-spacing")]
         public virtual SvgUnit LetterSpacing
         {
-            get { return this._letterSpacing; }
-            set { this._letterSpacing = value; this.IsPathDirty = true; }
+            get { return (this.Attributes["letter-spacing"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["letter-spacing"]); }
+            set { this.Attributes["letter-spacing"] = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -158,8 +187,8 @@ namespace Svg
         [SvgAttribute("word-spacing")]
         public virtual SvgUnit WordSpacing
         {
-            get { return this._wordSpacing; }
-            set { this._wordSpacing = value; this.IsPathDirty = true; }
+            get { return (this.Attributes["word-spacing"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["word-spacing"]); }
+            set { this.Attributes["word-spacing"] = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -215,9 +244,9 @@ namespace Svg
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         /// <remarks>Necessary to make sure that any internal tspan elements get rendered as well</remarks>
-        protected override void Render(SvgRenderer renderer)
+        protected override void Render(ISvgRenderer renderer)
         {
             if ((this.Path(renderer) != null) && this.Visible && this.Displayable)
             {
@@ -245,192 +274,135 @@ namespace Svg
             }
         }
 
+        internal virtual IEnumerable<ISvgNode> GetContentNodes()
+        {
+            return (this.Nodes == null || this.Nodes.Count < 1 ? this.Children.OfType<ISvgNode>() : this.Nodes);
+        }
+        protected virtual GraphicsPath GetBaselinePath(ISvgRenderer renderer)
+        {
+            return null;
+        }
+        protected virtual float GetAuthorPathLength()
+        {
+            return 0;
+        }
+
         private GraphicsPath _path;
-
-        protected class NodeBounds
-        {
-            public float xOffset { get; set; }
-            public SizeF Bounds { get; set; }
-            public ISvgNode Node { get; set; }
-        }
-        protected class BoundsData
-        {
-            private List<NodeBounds> _nodes = new List<NodeBounds>();
-            public IList<NodeBounds> Nodes
-            {
-                get { return _nodes; }
-            }
-            public SizeF Bounds { get; set; }
-        }
-        protected BoundsData GetTextBounds(SvgRenderer renderer)
-        {
-            var font = GetFont(renderer);
-            SvgTextBase innerText;
-            SizeF stringBounds;
-            float totalHeight = 0;
-            float totalWidth = 0;
-
-            var result = new BoundsData();
-            var nodes = (from n in this.Nodes
-                         where (n is SvgContentNode || n is SvgTextBase) && !string.IsNullOrEmpty(n.Content)
-                         select n).ToList();
-
-            // Individual character spacing
-            if (nodes.FirstOrDefault() is SvgContentNode && _x.Count > 1)
-            {
-                string ch;
-                var content = nodes.First() as SvgContentNode;
-                nodes.RemoveAt(0);
-                int posCount = Math.Min(content.Content.Length, _x.Count);
-                var text = PrepareText(content.Content, false, (nodes.Count > 1 && nodes[1] is SvgTextBase));
-
-                for (var i = 0; i < posCount; i++)
-                {
-                    ch = (i == posCount - 1 ? text.Substring(i) : text.Substring(i, 1));
-                    stringBounds = _stringMeasure.MeasureString(ch, font);
-                    totalHeight = Math.Max(totalHeight, stringBounds.Height);
-                    result.Nodes.Add(new NodeBounds()
-                    {
-                        Bounds = stringBounds,
-                        Node = new SvgContentNode() { Content = ch },
-                        xOffset = (i == 0 ? 0 : _x[i].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) -
-                                                _x[0].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this))
-                    });
-                }
-            }
-
-            // Calculate the bounds of the text
-            ISvgNode node;
-            var accumulateDims = true;
-            for (var i = 0; i < nodes.Count; i++)
-            {
-                node = nodes[i];
-                lock (_stringMeasure)
-                {
-                    innerText = node as SvgTextBase;
-                    if (innerText == null)
-                    {
-                        stringBounds = _stringMeasure.MeasureString(PrepareText(node.Content,
-                                                                                i > 0 && nodes[i - 1] is SvgTextBase,
-                                                                                i < nodes.Count - 1 && nodes[i + 1] is SvgTextBase), font);
-                        result.Nodes.Add(new NodeBounds() { Bounds = stringBounds, Node = node, xOffset = totalWidth });
-                    }
-                    else
-                    {
-                        stringBounds = innerText.GetTextBounds(renderer).Bounds;
-                        result.Nodes.Add(new NodeBounds() { Bounds = stringBounds, Node = node, xOffset = totalWidth });
-                        accumulateDims = accumulateDims && SvgUnitCollection.IsNullOrEmpty(innerText.X) && SvgUnitCollection.IsNullOrEmpty(innerText.Y);
-                        if (accumulateDims && innerText.Dx.Count == 1) totalWidth += innerText.Dx[0].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
-                    }
-
-                    if (accumulateDims)
-                    {
-                        totalHeight = Math.Max(totalHeight, stringBounds.Height);
-                        totalWidth += stringBounds.Width;
-                    }
-                }
-            }
-            result.Bounds = new SizeF(totalWidth, totalHeight);
-            return result;
-        }
-
-        protected float _calcX = 0;
-        protected float _calcY = 0;
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
+        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
             // Make sure the path is always null if there is no text
             //if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
-            if ((string.IsNullOrEmpty(this.Text) || this.Text.Trim().Length < 1) && this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan).Count() == 0)
-                return _path = null;
-            //NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
-            // When an empty string is passed to GraphicsPath, it rises an InvalidArgumentException...
-
+            var nodes = this.GetContentNodes().ToList();
+            if (nodes.Count < 1) return _path = null;
+            if (nodes.Count == 1 && nodes[0] is SvgContentNode && 
+                (string.IsNullOrEmpty(nodes[0].Content) || nodes[0].Content.Trim().Length < 1))  return _path = null;
+            
             if (_path == null || this.IsPathDirty)
             {
                 renderer = (renderer ?? SvgRenderer.FromNull());
-                // Measure the overall bounds of all the text
-                var boundsData = GetTextBounds(renderer);
+                this.SetPath(new TextDrawingState(renderer, this));
+            }
+            return _path;
+        }
 
-                var font = GetFont(renderer);
-                SvgTextBase innerText;
-                float x = (_x.Count < 1 ? _calcX : _x[0].ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, this)) +
-                                                   (_dx.Count < 1 ? 0 : _dx[0].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this));
-                float y = (_y.Count < 1 ? _calcY : _y[0].ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, this)) +
-                                                   (_dy.Count < 1 ? 0 : _dy[0].ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+        private void SetPath(TextDrawingState state)
+        {
+            SetPath(state, true);
+        }
 
-                _path = new GraphicsPath();
-                _path.StartFigure();
-
-                // Determine the location of the start point
-                switch (this.TextAnchor)
+        /// <summary>
+        /// Sets the path on this element and all child elements.  Uses the state
+        /// object to track the state of the drawing
+        /// </summary>
+        /// <param name="state">State of the drawing operation</param>
+        private void SetPath(TextDrawingState state, bool doMeasurements)
+        {
+            SvgTextBase inner;
+            TextDrawingState newState;
+            TextDrawingState origState = null;
+            bool alignOnBaseline = state.BaselinePath != null && (this.TextAnchor == SvgTextAnchor.Middle || this.TextAnchor == SvgTextAnchor.End);
+            if (doMeasurements)
+            {
+                if (this.TextLength != SvgUnit.None)
                 {
-                    case SvgTextAnchor.Middle:
-                        x -= (boundsData.Bounds.Width / 2);
-                        break;
-                    case SvgTextAnchor.End:
-                        x -= boundsData.Bounds.Width;
-                        break;
+                    origState = state.Clone();
                 }
-
-                try
+                else if (alignOnBaseline)
                 {
-                    renderer.Boundable(new FontBoundable(font));
-                    switch (this.BaselineShift)
+                    origState = state.Clone();
+                    state.BaselinePath = null;
+                }
+            }
+
+            foreach (var node in GetContentNodes())
+            {
+                inner = node as SvgTextBase;
+                if (inner == null)
+                {
+                    if (!string.IsNullOrEmpty(node.Content)) state.DrawString(PrepareText(node.Content));
+                }
+                else
+                {
+                    newState = new TextDrawingState(state, inner);
+                    inner.SetPath(newState);
+                    state.NumChars += newState.NumChars;
+                    state.Current = newState.Current;
+                }
+            }
+
+            var path = state.GetPath() ?? new GraphicsPath();
+
+            // Apply any text length adjustments
+            if (doMeasurements)
+            {
+                if (this.TextLength != SvgUnit.None)
+                {
+                    var bounds = path.GetBounds();
+                    var specLength = this.TextLength.ToDeviceValue(state.Renderer, UnitRenderingType.Horizontal, this);
+                    var actLength = bounds.Width;
+                    var diff = (actLength - specLength);
+                    if (Math.Abs(diff) > 1.5)
                     {
-                        case null:
-                        case "":
-                        case "baseline":
-                        case "inherit":
-                            // do nothing
-                            break;
-                        case "sub":
-                            y += new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
-                            break;
-                        case "super":
-                            y -= new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
-                            break;
-                        default:
-                            var convert = new SvgUnitConverter();
-                            var shift = (SvgUnit)convert.ConvertFromInvariantString(this.BaselineShift);
-                            y -= shift.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
-                            break;
+                        if (this.LengthAdjust == SvgTextLengthAdjust.spacing)
+                        {
+                            origState.LetterSpacingAdjust = -1 * diff / (state.NumChars - origState.NumChars - 1);
+                            SetPath(origState, false);
+                            return;
+                        }
+                        else
+                        {
+                            var matrix = new Matrix();
+                            matrix.Translate(-1 * bounds.X, 0, MatrixOrder.Append);
+                            matrix.Scale(specLength / actLength, 1, MatrixOrder.Append);
+                            matrix.Translate(bounds.X, 0, MatrixOrder.Append);
+                            path.Transform(matrix);
+                        }
                     }
                 }
-                finally
+                else if (alignOnBaseline)
                 {
-                    renderer.PopBoundable();
-                }
-
-                NodeBounds data;
-                var yCummOffset = 0.0f;
-                for (var i = 0; i < boundsData.Nodes.Count; i++)
-                {
-                    data = boundsData.Nodes[i];
-                    innerText = data.Node as SvgTextBase;
-                    if (innerText == null)
+                    var bounds = path.GetBounds();
+                    if (this.TextAnchor == SvgTextAnchor.Middle)
                     {
-                        // Minus FontSize because the x/y coords mark the bottom left, not bottom top.
-                        DrawString(renderer, _path, x + data.xOffset, y - boundsData.Bounds.Height, font,
-                                    PrepareText(data.Node.Content, i > 0 && boundsData.Nodes[i - 1].Node is SvgTextBase,
-                                                                    i < boundsData.Nodes.Count - 1 && boundsData.Nodes[i + 1].Node is SvgTextBase));
+                        origState.StartOffsetAdjust = -1 * bounds.Width / 2;
                     }
                     else
                     {
-                        innerText._calcX = x + data.xOffset;
-                        innerText._calcY = y + yCummOffset;
-                        if (innerText.Dy.Count == 1) yCummOffset += innerText.Dy[0].ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                        origState.StartOffsetAdjust = -1 * bounds.Width;
                     }
+                    SetPath(origState, false);
+                    return;
                 }
-
-                _path.CloseFigure();
-                this.IsPathDirty = false;
             }
-            return _path;
+
+
+            _path = path;
+            this.IsPathDirty = false;
         }
 
         private static readonly Regex MultipleSpaces = new Regex(@" {2,}", RegexOptions.Compiled);
@@ -440,64 +412,16 @@ namespace Svg
         /// </summary>
         /// <param name="value">Text to be prepared</param>
         /// <returns>Prepared text</returns>
-        protected string PrepareText(string value, bool leadingSpace, bool trailingSpace)
+        protected string PrepareText(string value)
         {
-            if (_space == XmlSpaceHandling.preserve)
+            if (this.SpaceHandling == XmlSpaceHandling.preserve)
             {
                 return value.Replace('\t', ' ').Replace("\r\n", " ").Replace('\r', ' ').Replace('\n', ' ');
             }
             else
             {
                 var convValue = MultipleSpaces.Replace(value.Replace("\r", "").Replace("\n", "").Replace('\t', ' '), " ");
-                //if (!leadingSpace) convValue = convValue.TrimStart();
-                //if (!trailingSpace) convValue = convValue.TrimEnd();
                 return convValue;
-            }
-        }
-
-        /// <summary>
-        /// Draws a string on a path at a specified location and with a specified font.
-        /// </summary>
-        internal void DrawString(SvgRenderer renderer, GraphicsPath path, float x, float y, Font font, string text)
-        {
-            PointF location = new PointF(x, y);
-
-            // No way to do letter-spacing or word-spacing, so do manually
-            if (this.LetterSpacing.Value > 0.0f || this.WordSpacing.Value > 0.0f)
-            {
-                // Cut up into words, or just leave as required
-                string[] words = (this.WordSpacing.Value > 0.0f) ? text.Split(' ') : new string[] { text };
-                float wordSpacing = this.WordSpacing.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
-                float letterSpacing = this.LetterSpacing.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
-                float start = x;
-
-                foreach (string word in words)
-                {
-                    // Only do if there is line spacing, just write the word otherwise
-                    if (this.LetterSpacing.Value > 0.0f)
-                    {
-                        char[] characters = word.ToCharArray();
-                        foreach (char currentCharacter in characters)
-                        {
-                            path.AddString(currentCharacter.ToString(), font.FontFamily, (int)font.Style, font.Size, location, StringFormat.GenericTypographic);
-                            location = new PointF(path.GetBounds().Width + start + letterSpacing, location.Y);
-                        }
-                    }
-                    else
-                    {
-                        path.AddString(word, font.FontFamily, (int)font.Style, font.Size, location, StringFormat.GenericTypographic);
-                    }
-
-                    // Move the location of the word to be written along
-                    location = new PointF(path.GetBounds().Width + start + wordSpacing, location.Y);
-                }
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(text))
-                {
-                    path.AddString(text, font.FontFamily, (int)font.Style, font.Size, location, StringFormat.GenericTypographic);
-                }
             }
         }
 
@@ -518,6 +442,23 @@ namespace Svg
                 handler(sender, s);
             }
         }
+
+
+
+        //private static GraphicsPath GetPath(string text, Font font)
+        //{
+        //    var fontMetrics = (from c in text.Distinct()
+        //                       select new { Char = c, Metrics = Metrics(c, font) }).
+        //                       ToDictionary(c => c.Char, c=> c.Metrics);
+        //    // Measure each character and check the metrics against the overall metrics of rendering
+        //    // an entire word with kerning.
+        //}
+        //private static RectangleF Metrics(char c, Font font)
+        //{
+        //    var path = new GraphicsPath();
+        //    path.AddString(c.ToString(), font.FontFamily, (int)font.Style, font.Size, new Point(0, 0), StringFormat.GenericTypographic);
+        //    return path.GetBounds();
+        //}
 
 #if Net4
         public override void RegisterEvents(ISvgEventCaller caller)
@@ -542,11 +483,17 @@ namespace Svg
 
         private class FontBoundable : ISvgBoundable
         {
-            private Font _font;
+            private IFontDefn _font;
+            private float _width = 1;
 
-            public FontBoundable(Font font)
+            public FontBoundable(IFontDefn font)
             {
                 _font = font;
+            }
+            public FontBoundable(IFontDefn font, float width)
+            {
+                _font = font;
+                _width = width;
             }
 
             public PointF Location
@@ -556,7 +503,7 @@ namespace Svg
 
             public SizeF Size
             {
-                get { return new SizeF(1, _font.Size); }
+                get { return new SizeF(_width, _font.Size); }
             }
 
             public RectangleF Bounds
@@ -564,5 +511,402 @@ namespace Svg
                 get { return new RectangleF(this.Location, this.Size); }
             }
         }
+
+        private class TextDrawingState
+        {
+            private float _xAnchor = float.MinValue;
+            private IList<GraphicsPath> _anchoredPaths = new List<GraphicsPath>();
+            private GraphicsPath _currPath = null;
+            private GraphicsPath _finalPath = null;
+            private float _authorPathLength = 0;
+
+            public GraphicsPath BaselinePath { get; set; }
+            public PointF Current { get; set; }
+            public SvgTextBase Element { get; set; }
+            public float LetterSpacingAdjust { get; set; }
+            public int NumChars { get; set; }
+            public TextDrawingState Parent { get; set; }
+            public ISvgRenderer Renderer { get; set; }
+            public float StartOffsetAdjust { get; set; }
+
+            private TextDrawingState() { }
+            public TextDrawingState(ISvgRenderer renderer, SvgTextBase element)
+            {
+                this.Element = element;
+                this.Renderer = renderer;
+                this.Current = PointF.Empty;
+                _xAnchor = 0;
+                this.BaselinePath = element.GetBaselinePath(renderer);
+                _authorPathLength = element.GetAuthorPathLength();
+            }
+            public TextDrawingState(TextDrawingState parent, SvgTextBase element)
+            {
+                this.Element = element;
+                this.Renderer = parent.Renderer;
+                this.Parent = parent;
+                this.Current = parent.Current;
+                this.BaselinePath = element.GetBaselinePath(parent.Renderer) ?? parent.BaselinePath;
+                var currPathLength = element.GetAuthorPathLength();
+                _authorPathLength = currPathLength == 0 ? parent._authorPathLength : currPathLength;
+            }
+
+            public GraphicsPath GetPath()
+            {
+                FlushPath();
+                return _finalPath;
+            }
+
+            public TextDrawingState Clone()
+            {
+                var result = new TextDrawingState();
+                result._anchoredPaths = this._anchoredPaths.ToList();
+                result.BaselinePath = this.BaselinePath;
+                result._xAnchor = this._xAnchor;
+                result.Current = this.Current;
+                result.Element = this.Element;
+                result.NumChars = this.NumChars;
+                result.Parent = this.Parent;
+                result.Renderer = this.Renderer;
+                return result;
+            }
+
+            public void DrawString(string value)
+            {
+                // Get any defined anchors
+                var xAnchors = GetValues(value.Length, e => e._x, UnitRenderingType.HorizontalOffset);
+                var yAnchors = GetValues(value.Length, e => e._y, UnitRenderingType.VerticalOffset);
+                var font = this.Element.GetFont(this.Renderer);
+                var fontBaselineHeight = this.Renderer.FontBaselineOffset(font);
+                PathStatistics pathStats = null;
+                var pathScale = 1.0;
+                if (BaselinePath != null)
+                {
+                    pathStats = new PathStatistics(BaselinePath.PathData);
+                    if (_authorPathLength > 0) pathScale = _authorPathLength / pathStats.TotalLength;
+                }
+
+                // Get all of the offsets (explicit and defined by spacing)
+                IList<float> xOffsets;
+                IList<float> yOffsets;
+                IList<float> rotations;
+                float baselineShift = 0.0f;
+
+                try
+                {
+                    this.Renderer.SetBoundable(new FontBoundable(font, (float)(pathStats == null ? 1 : pathStats.TotalLength)));
+                    xOffsets = GetValues(value.Length, e => e._dx, UnitRenderingType.Horizontal);
+                    yOffsets = GetValues(value.Length, e => e._dy, UnitRenderingType.Vertical);
+                    if (StartOffsetAdjust != 0.0f)
+                    {
+                        if (xOffsets.Count < 1)
+                        {
+                            xOffsets.Add(StartOffsetAdjust);
+                        }
+                        else
+                        {
+                            xOffsets[0] += StartOffsetAdjust;
+                        }
+                    }
+
+                    if (this.Element.LetterSpacing.Value != 0.0f || this.Element.WordSpacing.Value != 0.0f || this.LetterSpacingAdjust != 0.0f)
+                    {
+                        var spacing = this.Element.LetterSpacing.ToDeviceValue(this.Renderer, UnitRenderingType.Horizontal, this.Element) + this.LetterSpacingAdjust;
+                        var wordSpacing = this.Element.WordSpacing.ToDeviceValue(this.Renderer, UnitRenderingType.Horizontal, this.Element);
+                        if (this.Parent == null && this.NumChars == 0 && xOffsets.Count < 1) xOffsets.Add(0);
+                        for (int i = (this.Parent == null && this.NumChars == 0 ? 1 : 0); i < value.Length; i++)
+                        {
+                            if (i >= xOffsets.Count)
+                            {
+                                xOffsets.Add(spacing + (char.IsWhiteSpace(value[i]) ? wordSpacing : 0));
+                            }
+                            else
+                            {
+                                xOffsets[i] += spacing + (char.IsWhiteSpace(value[i]) ? wordSpacing : 0);
+                            }
+                        }
+                    }
+
+                    rotations = GetValues(value.Length, e => e._rotations);
+
+                    // Calculate Y-offset due to baseline shift.  Don't inherit the value so that it is not accumulated multiple times.               
+                    var baselineShiftText = this.Element.Attributes.GetAttribute<string>("baseline-shift");
+
+                    switch (baselineShiftText)
+                    {
+                        case null:
+                        case "":
+                        case "baseline":
+                        case "inherit":
+                            // do nothing
+                            break;
+                        case "sub":
+                            baselineShift = new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
+                            break;
+                        case "super":
+                            baselineShift = -1 * new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
+                            break;
+                        default:
+                            var convert = new SvgUnitConverter();
+                            var shiftUnit = (SvgUnit)convert.ConvertFromInvariantString(baselineShiftText);
+                            baselineShift = -1 * shiftUnit.ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
+                            break;
+                    }
+
+                    if (baselineShift != 0.0f)
+                    {
+                        if (yOffsets.Any())
+                        {
+                            yOffsets[0] += baselineShift;
+                        }
+                        else
+                        {
+                            yOffsets.Add(baselineShift);
+                        }
+                    }
+                }
+                finally
+                {
+                    this.Renderer.PopBoundable();
+                }
+
+                // NOTE: Assuming a horizontal left-to-right font
+                // Render absolutely positioned items in the horizontal direction
+                var yPos = Current.Y;
+                for (int i = 0; i < xAnchors.Count - 1; i++)
+                {
+                    FlushPath();
+                    _xAnchor = xAnchors[i] + (xOffsets.Count > i ? xOffsets[i] : 0);
+                    EnsurePath();
+                    yPos = (yAnchors.Count > i ? yAnchors[i] : yPos) + (yOffsets.Count > i ? yOffsets[i] : 0);
+
+                    DrawStringOnCurrPath(value[i].ToString(), font, new PointF(_xAnchor, yPos),
+                                         fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
+                }
+
+                // Render any remaining characters
+                var renderChar = 0;
+                var xPos = this.Current.X;
+                if (xAnchors.Any())
+                {
+                    FlushPath();
+                    renderChar = xAnchors.Count - 1;
+                    xPos = xAnchors.Last();
+                    _xAnchor = xPos;
+                }
+                EnsurePath();
+
+
+                // Render individual characters as necessary
+                var lastIndividualChar = renderChar + Math.Max(Math.Max(Math.Max(Math.Max(xOffsets.Count, yOffsets.Count), yAnchors.Count), rotations.Count) - renderChar - 1, 0);
+                if (rotations.LastOrDefault() != 0.0f || pathStats != null) lastIndividualChar = value.Length;
+                if (lastIndividualChar > renderChar)
+                {
+                    var charBounds = this.Renderer.MeasureCharacters(value.Substring(renderChar, Math.Min(lastIndividualChar + 1, value.Length) - renderChar), font);
+                    PointF pathPoint;
+                    float rotation;
+                    float halfWidth;
+                    for (int i = renderChar; i < lastIndividualChar; i++)
+                    {
+                        xPos += (float)pathScale * (xOffsets.Count > i ? xOffsets[i] : 0) + (charBounds[i - renderChar].X - (i == renderChar ? 0 : charBounds[i - renderChar - 1].X));
+                        yPos = (yAnchors.Count > i ? yAnchors[i] : yPos) + (yOffsets.Count > i ? yOffsets[i] : 0);
+                        if (pathStats == null)
+                        {
+                            DrawStringOnCurrPath(value[i].ToString(), font, new PointF(xPos, yPos),
+                                                 fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
+                        }
+                        else
+                        {
+                            xPos = Math.Max(xPos, 0);
+                            halfWidth = charBounds[i-renderChar].Width / 2;
+                            if (pathStats.OffsetOnPath(xPos + halfWidth))
+                            {
+                                pathStats.LocationAngleAtOffset(xPos + halfWidth, out pathPoint, out rotation);
+                                pathPoint = new PointF((float)(pathPoint.X - halfWidth * Math.Cos(rotation * Math.PI / 180) - (float)pathScale * yPos * Math.Sin(rotation * Math.PI / 180)),
+                                                       (float)(pathPoint.Y - halfWidth * Math.Sin(rotation * Math.PI / 180) + (float)pathScale * yPos * Math.Cos(rotation * Math.PI / 180)));
+                                DrawStringOnCurrPath(value[i].ToString(), font, pathPoint, fontBaselineHeight, rotation);
+                            }
+                        }
+                    }
+
+                    // Add the kerning to the next character
+                    if (lastIndividualChar < value.Length) 
+                    {
+                        xPos += charBounds[charBounds.Count - 1].X - charBounds[charBounds.Count - 2].X;
+                    }
+                    else 
+                    {
+                        xPos += charBounds.Last().Width;
+                    }
+                }
+
+                // Render the string normally
+                if (lastIndividualChar < value.Length)
+                {
+                    xPos += (xOffsets.Count > lastIndividualChar ? xOffsets[lastIndividualChar] : 0);
+                    yPos = (yAnchors.Count > lastIndividualChar ? yAnchors[lastIndividualChar] : yPos) +
+                            (yOffsets.Count > lastIndividualChar ? yOffsets[lastIndividualChar] : 0);
+                    DrawStringOnCurrPath(value.Substring(lastIndividualChar), font, new PointF(xPos, yPos),
+                                         fontBaselineHeight, rotations.LastOrDefault());
+                    var bounds = this.Renderer.MeasureString(value.Substring(lastIndividualChar), font);
+                    xPos += bounds.Width;
+                }
+
+
+                NumChars += value.Length;
+                // Undo any baseline shift.  This is not persisted, unlike normal vertical offsets.
+                this.Current = new PointF(xPos, yPos - baselineShift);
+            }
+
+            private void DrawStringOnCurrPath(string value, IFontDefn font, PointF location, float fontBaselineHeight, float rotation)
+            {
+                var drawPath = _currPath;
+                if (rotation != 0.0f) drawPath = new GraphicsPath();
+                font.AddStringToPath(this.Renderer, drawPath, value, new PointF(location.X, location.Y - fontBaselineHeight));
+                if (rotation != 0.0f && drawPath.PointCount > 0)
+                {
+                    var matrix = new Matrix();
+                    matrix.Translate(-1 * location.X, -1 * location.Y, MatrixOrder.Append);
+                    matrix.Rotate(rotation, MatrixOrder.Append);
+                    matrix.Translate(location.X, location.Y, MatrixOrder.Append);
+                    drawPath.Transform(matrix);
+                    _currPath.AddPath(drawPath, false);
+                }
+
+            }
+
+            private void EnsurePath()
+            {
+                if (_currPath == null)
+                {
+                    _currPath = new GraphicsPath();
+                    _currPath.StartFigure();
+
+                    var currState = this;
+                    while (currState != null && currState._xAnchor <= float.MinValue)
+                    {
+                        currState = currState.Parent;
+                    }
+                    currState._anchoredPaths.Add(_currPath);
+                }
+            }
+
+            private void FlushPath()
+            {
+                if (_currPath != null)
+                {
+                    _currPath.CloseFigure();
+
+                    // Abort on empty paths (e.g. rendering a space)
+                    if (_currPath.PointCount < 1)
+                    {
+                        _anchoredPaths.Clear();
+                        _xAnchor = float.MinValue;
+                        _currPath = null;
+                        return;
+                    }
+
+                    if (_xAnchor > float.MinValue)
+                    {
+                        float minX = float.MaxValue;
+                        float maxX = float.MinValue;
+                        RectangleF bounds;
+                        foreach (var path in _anchoredPaths)
+                        {
+                            bounds = path.GetBounds();
+                            if (bounds.Left < minX) minX = bounds.Left;
+                            if (bounds.Right > maxX) maxX = bounds.Right;
+                        }
+
+                        var xOffset = _xAnchor - minX;
+                        switch (Element.TextAnchor)
+                        {
+                            case SvgTextAnchor.Middle:
+                                xOffset -= (maxX - minX) / 2;
+                                break;
+                            case SvgTextAnchor.End:
+                                xOffset -= (maxX - minX);
+                                break;
+                        }
+
+                        if (xOffset != 0)
+                        {
+                            var matrix = new Matrix();
+                            matrix.Translate(xOffset, 0);
+                            foreach (var path in _anchoredPaths)
+                            {
+                                path.Transform(matrix);
+                            }
+                        }
+
+                        _anchoredPaths.Clear();
+                        _xAnchor = float.MinValue;
+
+                    }
+
+                    if (_finalPath == null)
+                    {
+                        _finalPath = _currPath;
+                    }
+                    else
+                    {
+                        _finalPath.AddPath(_currPath, false);
+                    }
+
+                    _currPath = null;
+                }
+            }
+
+            private IList<float> GetValues(int maxCount, Func<SvgTextBase, IEnumerable<float>> listGetter)
+            {
+                var currState = this;
+                int charCount = 0;
+                var results = new List<float>();
+                int resultCount = 0;
+
+                while (currState != null)
+                {
+                    charCount += currState.NumChars;
+                    results.AddRange(listGetter.Invoke(currState.Element).Skip(charCount).Take(maxCount));
+                    if (results.Count > resultCount)
+                    {
+                        maxCount -= results.Count - resultCount;
+                        charCount += results.Count - resultCount;
+                        resultCount = results.Count;
+                    }
+
+                    if (maxCount < 1) return results;
+
+                    currState = currState.Parent;
+                }
+
+                return results;
+            }
+            private IList<float> GetValues(int maxCount, Func<SvgTextBase, IEnumerable<SvgUnit>> listGetter, UnitRenderingType renderingType)
+            {
+                var currState = this;
+                int charCount = 0;
+                var results = new List<float>();
+                int resultCount = 0;
+
+                while (currState != null)
+                {
+                    charCount += currState.NumChars;
+                    results.AddRange(listGetter.Invoke(currState.Element).Skip(charCount).Take(maxCount).Select(p => p.ToDeviceValue(currState.Renderer, renderingType, currState.Element)));
+                    if (results.Count > resultCount)
+                    {
+                        maxCount -= results.Count - resultCount;
+                        charCount += results.Count - resultCount;
+                        resultCount = results.Count;
+                    }
+
+                    if (maxCount < 1) return results;
+
+                    currState = currState.Parent;
+                }
+
+                return results;
+            }
+        }
+
     }
 }

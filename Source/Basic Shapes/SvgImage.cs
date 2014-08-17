@@ -94,7 +94,7 @@ namespace Svg
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
-        public override GraphicsPath Path(SvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
 		    return null;
         }
@@ -102,7 +102,7 @@ namespace Svg
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
-        protected override void Render(SvgRenderer renderer)
+        protected override void Render(ISvgRenderer renderer)
         {
             if (!Visible || !Displayable)
                 return;
@@ -120,7 +120,7 @@ namespace Svg
                         RectangleF destRect = destClip;
                         
                         this.PushTransforms(renderer);
-                        renderer.AddClip(new Region(destClip));
+                        renderer.SetClip(new Region(destClip), CombineMode.Intersect);
                         this.SetClip(renderer);
 
                         if (AspectRatio != null && AspectRatio.Align != SvgPreserveAspectRatio.none)
@@ -223,6 +223,7 @@ namespace Svg
                     if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
                     {
                         var doc = SvgDocument.Open<SvgDocument>(ms);
+                        doc.BaseUri = uri;
                         return doc.Draw();
                     }
                     else

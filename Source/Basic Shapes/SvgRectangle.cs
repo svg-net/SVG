@@ -174,7 +174,7 @@ namespace Svg
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
-        public override GraphicsPath Path(SvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             if (_path == null || IsPathDirty)
             {
@@ -261,7 +261,7 @@ namespace Svg
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
-        protected override void Render(SvgRenderer renderer)
+        protected override void Render(ISvgRenderer renderer)
         {
             if (Width.Value > 0.0f && Height.Value > 0.0f)
             {

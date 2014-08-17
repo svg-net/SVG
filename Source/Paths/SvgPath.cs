@@ -38,9 +38,9 @@ namespace Svg
         /// Gets or sets the length of the path.
         /// </summary>
         [SvgAttribute("pathLength")]
-        public int PathLength
+        public float PathLength
         {
-        	get { return this.Attributes.GetAttribute<int>("pathLength"); }
+            get { return this.Attributes.GetAttribute<float>("pathLength"); }
             set { this.Attributes["pathLength"] = value; }
         }
 
@@ -81,7 +81,7 @@ namespace Svg
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
-        public override GraphicsPath Path(SvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             if (this._path == null || this.IsPathDirty)
             {
@@ -131,15 +131,15 @@ namespace Svg
         }
 
 		/// <summary>
-		/// Renders the stroke of the <see cref="SvgVisualElement"/> to the specified <see cref="SvgRenderer"/>
+		/// Renders the stroke of the <see cref="SvgVisualElement"/> to the specified <see cref="ISvgRenderer"/>
 		/// </summary>
-		/// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-		protected internal override void  RenderStroke(SvgRenderer renderer)
+		/// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
+		protected internal override void  RenderStroke(ISvgRenderer renderer)
 		{
- 			if (this.Stroke != null)
+            if (this.Stroke != null && this.Stroke != SvgColourServer.None)
 			{
 				float strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
-				using (Pen pen = new Pen(this.Stroke.GetBrush(this, renderer, this.StrokeOpacity), strokeWidth))
+                using (Pen pen = new Pen(this.Stroke.GetBrush(this, renderer, this.StrokeOpacity * this.Opacity), strokeWidth))
 				{
 					if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
 					{

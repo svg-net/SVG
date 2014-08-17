@@ -22,6 +22,18 @@ namespace Svg
         public static readonly int PointsPerInch = 96;
         private SvgElementIdManager _idManager;
 
+        private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;
+        internal Dictionary<string, IEnumerable<SvgFontFace>> FontDefns()
+        {
+            if (_fontDefns == null)
+            {
+                _fontDefns = (from f in Descendants().OfType<SvgFontFace>()
+                              group f by f.FontFamily into family
+                              select family).ToDictionary(f => f.Key, f => (IEnumerable<SvgFontFace>)f);
+            }
+            return _fontDefns;
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgDocument"/> class.
         /// </summary>
@@ -379,18 +391,18 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgDocument"/> to the specified <see cref="SvgRenderer"/>.
+        /// Renders the <see cref="SvgDocument"/> to the specified <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to render the document with.</param>
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to render the document with.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="renderer"/> parameter cannot be <c>null</c>.</exception>
-        public void Draw(SvgRenderer renderer)
+        public void Draw(ISvgRenderer renderer)
         {
             if (renderer == null)
             {
                 throw new ArgumentNullException("renderer");
             }
 
-            renderer.Boundable(this);
+            renderer.SetBoundable(this);
             this.Render(renderer);
         }
 
@@ -407,7 +419,7 @@ namespace Svg
             }
 
             var renderer = SvgRenderer.FromGraphics(graphics);
-            renderer.Boundable(this);
+            renderer.SetBoundable(this);
             this.Render(renderer);
         }
 
@@ -447,12 +459,8 @@ namespace Svg
             {
                 using (var renderer = SvgRenderer.FromImage(bitmap))
                 {
-                    renderer.Boundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
-                    renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
-                    renderer.TextContrast = 1;
-                    renderer.PixelOffsetMode = PixelOffsetMode.Half;
+                    renderer.SetBoundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
                     this.Render(renderer);
-                    renderer.Save();
                 }
             }
             catch

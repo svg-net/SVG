@@ -15,7 +15,6 @@ namespace Svg
     internal class SvgElementFactory
     {
         private static List<ElementInfo> availableElements;
-        private const string svgNS = "http://www.w3.org/2000/svg";
         private static Parser cssParser = new Parser();
 
         /// <summary>
@@ -84,7 +83,7 @@ namespace Svg
 
             //Trace.TraceInformation("Begin CreateElement: {0}", elementName);
 
-            if (elementNS == svgNS)
+            if (elementNS == SvgAttributeAttribute.SvgNamespace || string.IsNullOrEmpty(elementNS))
             {
                 if (elementName == "svg")
                 {

@@ -35,10 +35,10 @@ namespace Svg
         }
 
         /// <summary>
-        /// Applies the required transforms to <see cref="SvgRenderer"/>.
+        /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
-        protected internal override bool PushTransforms(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
+        protected internal override bool PushTransforms(ISvgRenderer renderer)
         {
             if (!base.PushTransforms(renderer)) return false;
             renderer.TranslateTransform(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this), 
@@ -55,7 +55,7 @@ namespace Svg
             this.Y = 0;
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
+        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
             SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
             return (element != null) ? element.Path(renderer) : null;
@@ -66,20 +66,9 @@ namespace Svg
             get { return new System.Drawing.RectangleF(); }
         }
 
-        //        public override SvgElementCollection Children
-        //        {
-        //            get
-        //            {
-        //                SvgElement element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
-        //                SvgElementCollection elements = new SvgElementCollection(this, true);
-        //                elements.Add(element);
-        //                return elements;
-        //            }
-        //        }
-
         protected override bool Renderable { get { return false; } }
 
-        protected override void Render(SvgRenderer renderer)
+        protected override void Render(ISvgRenderer renderer)
         {
             if (!Visible || !Displayable)
                 return;

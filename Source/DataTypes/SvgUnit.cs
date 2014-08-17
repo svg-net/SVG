@@ -64,7 +64,7 @@ namespace Svg
         /// </summary>
         /// <param name="boundable">The container element used as the basis for calculations</param>
         /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
-        public float ToDeviceValue(SvgRenderer renderer, UnitRenderingType renderType, SvgElement owner)
+        public float ToDeviceValue(ISvgRenderer renderer, UnitRenderingType renderType, SvgElement owner)
         {
             // If it's already been calculated
             if (this._deviceValue.HasValue)
@@ -107,7 +107,7 @@ namespace Svg
             }
 
             float points;
-            Font currFont;
+            IFontDefn currFont;
 
             switch (type)
             {
@@ -158,7 +158,7 @@ namespace Svg
                     break;
                 case SvgUnitType.Percentage:
                     // Can't calculate if there is no style owner
-                    var boundable = (renderer == null ? (owner == null ? null : owner.OwnerDocument) : renderer.Boundable());
+                    var boundable = (renderer == null ? (owner == null ? null : owner.OwnerDocument) : renderer.GetBoundable());
                     if (boundable == null)
                     {
                         _deviceValue = value;
@@ -193,7 +193,7 @@ namespace Svg
             return this._deviceValue.Value;
         }
 
-        private Font GetFont(SvgRenderer renderer, SvgElement owner)
+        private IFontDefn GetFont(ISvgRenderer renderer, SvgElement owner)
         {
             if (owner == null) return null;
 
@@ -335,18 +335,18 @@ namespace Svg
             this._deviceValue = null;
         }
 
-        public static System.Drawing.PointF GetDevicePoint(SvgUnit x, SvgUnit y, SvgRenderer renderer, SvgElement owner)
+        public static System.Drawing.PointF GetDevicePoint(SvgUnit x, SvgUnit y, ISvgRenderer renderer, SvgElement owner)
         {
             return new System.Drawing.PointF(x.ToDeviceValue(renderer, UnitRenderingType.Horizontal, owner),
                                              y.ToDeviceValue(renderer, UnitRenderingType.Vertical, owner));
         }
-        public static System.Drawing.PointF GetDevicePointOffset(SvgUnit x, SvgUnit y, SvgRenderer renderer, SvgElement owner)
+        public static System.Drawing.PointF GetDevicePointOffset(SvgUnit x, SvgUnit y, ISvgRenderer renderer, SvgElement owner)
         {
             return new System.Drawing.PointF(x.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, owner),
                                              y.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, owner));
         }
 
-        public static System.Drawing.SizeF GetDeviceSize(SvgUnit width, SvgUnit height, SvgRenderer renderer, SvgElement owner)
+        public static System.Drawing.SizeF GetDeviceSize(SvgUnit width, SvgUnit height, ISvgRenderer renderer, SvgElement owner)
         {
             return new System.Drawing.SizeF(width.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, owner),
                                             height.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, owner));

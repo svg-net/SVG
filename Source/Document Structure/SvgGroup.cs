@@ -9,15 +9,11 @@ namespace Svg
     [SvgElement("g")]
     public class SvgGroup : SvgVisualElement
     {
-        public SvgGroup()
-        {
-        }
-
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
+        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
             return GetPaths(this, renderer);
         }
@@ -57,26 +53,7 @@ namespace Svg
         }
 
         protected override bool Renderable { get { return false; } }
-
-        ///// <summary>
-        ///// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
-        ///// </summary>
-        ///// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
-        //protected override void Render(SvgRenderer renderer)
-        //{
-        //    if (!Visible || !Displayable)
-        //        return;
-
-        //    if (this.PushTransforms(renderer))
-        //    {
-        //        this.SetClip(renderer);
-        //        base.RenderChildren(renderer);
-        //        this.ResetClip(renderer);
-        //        this.PopTransforms(renderer);
-        //    }
-        //}
-
-        
+                
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgGroup>();

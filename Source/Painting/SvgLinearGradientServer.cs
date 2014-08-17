@@ -79,7 +79,7 @@ namespace Svg
             Y2 = new SvgUnit(SvgUnitType.Percentage, 0F);
         }
 
-        public override Brush GetBrush(SvgVisualElement renderingElement, SvgRenderer renderer, float opacity)
+        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity)
         {
             LoadStops(renderingElement);
             if (IsInvalid)
@@ -89,7 +89,7 @@ namespace Svg
 
             try
             {
-                if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.Boundable(renderingElement);
+                if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.SetBoundable(renderingElement);
 
                 var specifiedStart = CalculateStart(renderer);
                 var specifiedEnd = CalculateEnd(renderer);
@@ -116,12 +116,12 @@ namespace Svg
             }
         }
 
-        private PointF CalculateStart(SvgRenderer renderer)
+        private PointF CalculateStart(ISvgRenderer renderer)
         {
             return TransformPoint(SvgUnit.GetDevicePointOffset(this.X1, this.Y1, renderer, this));
         }
 
-        private PointF CalculateEnd(SvgRenderer renderer)
+        private PointF CalculateEnd(ISvgRenderer renderer)
         {
             return TransformPoint(SvgUnit.GetDevicePointOffset(this.X2, this.Y2, renderer, this));
         }
@@ -181,7 +181,7 @@ namespace Svg
             return new GradientPoints(effectiveStart, effectiveEnd);
         }
 
-        private ColorBlend CalculateColorBlend(SvgRenderer renderer, float opacity, PointF specifiedStart, PointF effectiveStart, PointF specifiedEnd, PointF effectiveEnd)
+        private ColorBlend CalculateColorBlend(ISvgRenderer renderer, float opacity, PointF specifiedStart, PointF effectiveStart, PointF specifiedEnd, PointF effectiveEnd)
         {
             var colorBlend = GetColorBlend(renderer, opacity, false);
 

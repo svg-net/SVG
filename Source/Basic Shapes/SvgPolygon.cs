@@ -32,7 +32,7 @@ namespace Svg
             get { return true; }
         }
 
-        public override GraphicsPath Path(SvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             if (this._path == null || this.IsPathDirty)
             {

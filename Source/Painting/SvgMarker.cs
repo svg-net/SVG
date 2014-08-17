@@ -87,7 +87,7 @@ namespace Svg
             Overflow = SvgOverflow.hidden;
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
+        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
             var path = this.Children.FirstOrDefault(x => x is SvgPath);
             if (path != null)
@@ -131,7 +131,7 @@ namespace Svg
         /// <param name="pOwner"></param>
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
-        public void RenderMarker(SvgRenderer pRenderer, SvgPath pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
+        public void RenderMarker(ISvgRenderer pRenderer, SvgPath pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
         {
             float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
             float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
@@ -148,7 +148,7 @@ namespace Svg
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
         /// <param name="pMarkerPoint3"></param>
-        public void RenderMarker(SvgRenderer pRenderer, SvgPath pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2, PointF pMarkerPoint3)
+        public void RenderMarker(ISvgRenderer pRenderer, SvgPath pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2, PointF pMarkerPoint3)
         {
             float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
             float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
@@ -168,7 +168,7 @@ namespace Svg
         /// <param name="pRenderer"></param>
         /// <param name="pOwner"></param>
         /// <param name="pMarkerPoint"></param>
-        private void RenderPart2(float fAngle, SvgRenderer pRenderer, SvgPath pOwner, PointF pMarkerPoint)
+        private void RenderPart2(float fAngle, ISvgRenderer pRenderer, SvgPath pOwner, PointF pMarkerPoint)
         {
             Pen pRenderPen = CreatePen(pOwner, pRenderer);
 
@@ -216,7 +216,7 @@ namespace Svg
         /// </summary>
         /// <param name="pStroke"></param>
         /// <returns></returns>
-        private Pen CreatePen(SvgPath pPath, SvgRenderer renderer)
+        private Pen CreatePen(SvgPath pPath, ISvgRenderer renderer)
         {
             Brush pBrush = pPath.Stroke.GetBrush(this, renderer, Opacity);
             switch (MarkerUnits)

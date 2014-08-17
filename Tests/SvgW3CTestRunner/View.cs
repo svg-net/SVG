@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 using Svg;
+using System.Diagnostics;
 
 namespace SvgW3CTestRunner
 {
