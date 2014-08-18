@@ -376,11 +376,13 @@ namespace Svg
                         }
                         else
                         {
-                            var matrix = new Matrix();
-                            matrix.Translate(-1 * bounds.X, 0, MatrixOrder.Append);
-                            matrix.Scale(specLength / actLength, 1, MatrixOrder.Append);
-                            matrix.Translate(bounds.X, 0, MatrixOrder.Append);
-                            path.Transform(matrix);
+                            using (var matrix = new Matrix())
+                            {
+                                matrix.Translate(-1 * bounds.X, 0, MatrixOrder.Append);
+                                matrix.Scale(specLength / actLength, 1, MatrixOrder.Append);
+                                matrix.Translate(bounds.X, 0, MatrixOrder.Append);
+                                path.Transform(matrix);
+                            }
                         }
                     }
                 }
@@ -575,186 +577,188 @@ namespace Svg
                 // Get any defined anchors
                 var xAnchors = GetValues(value.Length, e => e._x, UnitRenderingType.HorizontalOffset);
                 var yAnchors = GetValues(value.Length, e => e._y, UnitRenderingType.VerticalOffset);
-                var font = this.Element.GetFont(this.Renderer);
-                var fontBaselineHeight = this.Renderer.FontBaselineOffset(font);
-                PathStatistics pathStats = null;
-                var pathScale = 1.0;
-                if (BaselinePath != null)
+                using (var font = this.Element.GetFont(this.Renderer))
                 {
-                    pathStats = new PathStatistics(BaselinePath.PathData);
-                    if (_authorPathLength > 0) pathScale = _authorPathLength / pathStats.TotalLength;
-                }
-
-                // Get all of the offsets (explicit and defined by spacing)
-                IList<float> xOffsets;
-                IList<float> yOffsets;
-                IList<float> rotations;
-                float baselineShift = 0.0f;
-
-                try
-                {
-                    this.Renderer.SetBoundable(new FontBoundable(font, (float)(pathStats == null ? 1 : pathStats.TotalLength)));
-                    xOffsets = GetValues(value.Length, e => e._dx, UnitRenderingType.Horizontal);
-                    yOffsets = GetValues(value.Length, e => e._dy, UnitRenderingType.Vertical);
-                    if (StartOffsetAdjust != 0.0f)
+                    var fontBaselineHeight = font.Ascent(this.Renderer);
+                    PathStatistics pathStats = null;
+                    var pathScale = 1.0;
+                    if (BaselinePath != null)
                     {
-                        if (xOffsets.Count < 1)
-                        {
-                            xOffsets.Add(StartOffsetAdjust);
-                        }
-                        else
-                        {
-                            xOffsets[0] += StartOffsetAdjust;
-                        }
+                        pathStats = new PathStatistics(BaselinePath.PathData);
+                        if (_authorPathLength > 0) pathScale = _authorPathLength / pathStats.TotalLength;
                     }
 
-                    if (this.Element.LetterSpacing.Value != 0.0f || this.Element.WordSpacing.Value != 0.0f || this.LetterSpacingAdjust != 0.0f)
+                    // Get all of the offsets (explicit and defined by spacing)
+                    IList<float> xOffsets;
+                    IList<float> yOffsets;
+                    IList<float> rotations;
+                    float baselineShift = 0.0f;
+
+                    try
                     {
-                        var spacing = this.Element.LetterSpacing.ToDeviceValue(this.Renderer, UnitRenderingType.Horizontal, this.Element) + this.LetterSpacingAdjust;
-                        var wordSpacing = this.Element.WordSpacing.ToDeviceValue(this.Renderer, UnitRenderingType.Horizontal, this.Element);
-                        if (this.Parent == null && this.NumChars == 0 && xOffsets.Count < 1) xOffsets.Add(0);
-                        for (int i = (this.Parent == null && this.NumChars == 0 ? 1 : 0); i < value.Length; i++)
+                        this.Renderer.SetBoundable(new FontBoundable(font, (float)(pathStats == null ? 1 : pathStats.TotalLength)));
+                        xOffsets = GetValues(value.Length, e => e._dx, UnitRenderingType.Horizontal);
+                        yOffsets = GetValues(value.Length, e => e._dy, UnitRenderingType.Vertical);
+                        if (StartOffsetAdjust != 0.0f)
                         {
-                            if (i >= xOffsets.Count)
+                            if (xOffsets.Count < 1)
                             {
-                                xOffsets.Add(spacing + (char.IsWhiteSpace(value[i]) ? wordSpacing : 0));
+                                xOffsets.Add(StartOffsetAdjust);
                             }
                             else
                             {
-                                xOffsets[i] += spacing + (char.IsWhiteSpace(value[i]) ? wordSpacing : 0);
+                                xOffsets[0] += StartOffsetAdjust;
                             }
                         }
-                    }
 
-                    rotations = GetValues(value.Length, e => e._rotations);
-
-                    // Calculate Y-offset due to baseline shift.  Don't inherit the value so that it is not accumulated multiple times.               
-                    var baselineShiftText = this.Element.Attributes.GetAttribute<string>("baseline-shift");
-
-                    switch (baselineShiftText)
-                    {
-                        case null:
-                        case "":
-                        case "baseline":
-                        case "inherit":
-                            // do nothing
-                            break;
-                        case "sub":
-                            baselineShift = new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
-                            break;
-                        case "super":
-                            baselineShift = -1 * new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
-                            break;
-                        default:
-                            var convert = new SvgUnitConverter();
-                            var shiftUnit = (SvgUnit)convert.ConvertFromInvariantString(baselineShiftText);
-                            baselineShift = -1 * shiftUnit.ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
-                            break;
-                    }
-
-                    if (baselineShift != 0.0f)
-                    {
-                        if (yOffsets.Any())
+                        if (this.Element.LetterSpacing.Value != 0.0f || this.Element.WordSpacing.Value != 0.0f || this.LetterSpacingAdjust != 0.0f)
                         {
-                            yOffsets[0] += baselineShift;
-                        }
-                        else
-                        {
-                            yOffsets.Add(baselineShift);
-                        }
-                    }
-                }
-                finally
-                {
-                    this.Renderer.PopBoundable();
-                }
-
-                // NOTE: Assuming a horizontal left-to-right font
-                // Render absolutely positioned items in the horizontal direction
-                var yPos = Current.Y;
-                for (int i = 0; i < xAnchors.Count - 1; i++)
-                {
-                    FlushPath();
-                    _xAnchor = xAnchors[i] + (xOffsets.Count > i ? xOffsets[i] : 0);
-                    EnsurePath();
-                    yPos = (yAnchors.Count > i ? yAnchors[i] : yPos) + (yOffsets.Count > i ? yOffsets[i] : 0);
-
-                    DrawStringOnCurrPath(value[i].ToString(), font, new PointF(_xAnchor, yPos),
-                                         fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
-                }
-
-                // Render any remaining characters
-                var renderChar = 0;
-                var xPos = this.Current.X;
-                if (xAnchors.Any())
-                {
-                    FlushPath();
-                    renderChar = xAnchors.Count - 1;
-                    xPos = xAnchors.Last();
-                    _xAnchor = xPos;
-                }
-                EnsurePath();
-
-
-                // Render individual characters as necessary
-                var lastIndividualChar = renderChar + Math.Max(Math.Max(Math.Max(Math.Max(xOffsets.Count, yOffsets.Count), yAnchors.Count), rotations.Count) - renderChar - 1, 0);
-                if (rotations.LastOrDefault() != 0.0f || pathStats != null) lastIndividualChar = value.Length;
-                if (lastIndividualChar > renderChar)
-                {
-                    var charBounds = this.Renderer.MeasureCharacters(value.Substring(renderChar, Math.Min(lastIndividualChar + 1, value.Length) - renderChar), font);
-                    PointF pathPoint;
-                    float rotation;
-                    float halfWidth;
-                    for (int i = renderChar; i < lastIndividualChar; i++)
-                    {
-                        xPos += (float)pathScale * (xOffsets.Count > i ? xOffsets[i] : 0) + (charBounds[i - renderChar].X - (i == renderChar ? 0 : charBounds[i - renderChar - 1].X));
-                        yPos = (yAnchors.Count > i ? yAnchors[i] : yPos) + (yOffsets.Count > i ? yOffsets[i] : 0);
-                        if (pathStats == null)
-                        {
-                            DrawStringOnCurrPath(value[i].ToString(), font, new PointF(xPos, yPos),
-                                                 fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
-                        }
-                        else
-                        {
-                            xPos = Math.Max(xPos, 0);
-                            halfWidth = charBounds[i-renderChar].Width / 2;
-                            if (pathStats.OffsetOnPath(xPos + halfWidth))
+                            var spacing = this.Element.LetterSpacing.ToDeviceValue(this.Renderer, UnitRenderingType.Horizontal, this.Element) + this.LetterSpacingAdjust;
+                            var wordSpacing = this.Element.WordSpacing.ToDeviceValue(this.Renderer, UnitRenderingType.Horizontal, this.Element);
+                            if (this.Parent == null && this.NumChars == 0 && xOffsets.Count < 1) xOffsets.Add(0);
+                            for (int i = (this.Parent == null && this.NumChars == 0 ? 1 : 0); i < value.Length; i++)
                             {
-                                pathStats.LocationAngleAtOffset(xPos + halfWidth, out pathPoint, out rotation);
-                                pathPoint = new PointF((float)(pathPoint.X - halfWidth * Math.Cos(rotation * Math.PI / 180) - (float)pathScale * yPos * Math.Sin(rotation * Math.PI / 180)),
-                                                       (float)(pathPoint.Y - halfWidth * Math.Sin(rotation * Math.PI / 180) + (float)pathScale * yPos * Math.Cos(rotation * Math.PI / 180)));
-                                DrawStringOnCurrPath(value[i].ToString(), font, pathPoint, fontBaselineHeight, rotation);
+                                if (i >= xOffsets.Count)
+                                {
+                                    xOffsets.Add(spacing + (char.IsWhiteSpace(value[i]) ? wordSpacing : 0));
+                                }
+                                else
+                                {
+                                    xOffsets[i] += spacing + (char.IsWhiteSpace(value[i]) ? wordSpacing : 0);
+                                }
+                            }
+                        }
+
+                        rotations = GetValues(value.Length, e => e._rotations);
+
+                        // Calculate Y-offset due to baseline shift.  Don't inherit the value so that it is not accumulated multiple times.               
+                        var baselineShiftText = this.Element.Attributes.GetAttribute<string>("baseline-shift");
+
+                        switch (baselineShiftText)
+                        {
+                            case null:
+                            case "":
+                            case "baseline":
+                            case "inherit":
+                                // do nothing
+                                break;
+                            case "sub":
+                                baselineShift = new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
+                                break;
+                            case "super":
+                                baselineShift = -1 * new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
+                                break;
+                            default:
+                                var convert = new SvgUnitConverter();
+                                var shiftUnit = (SvgUnit)convert.ConvertFromInvariantString(baselineShiftText);
+                                baselineShift = -1 * shiftUnit.ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
+                                break;
+                        }
+
+                        if (baselineShift != 0.0f)
+                        {
+                            if (yOffsets.Any())
+                            {
+                                yOffsets[0] += baselineShift;
+                            }
+                            else
+                            {
+                                yOffsets.Add(baselineShift);
                             }
                         }
                     }
-
-                    // Add the kerning to the next character
-                    if (lastIndividualChar < value.Length) 
+                    finally
                     {
-                        xPos += charBounds[charBounds.Count - 1].X - charBounds[charBounds.Count - 2].X;
+                        this.Renderer.PopBoundable();
                     }
-                    else 
+
+                    // NOTE: Assuming a horizontal left-to-right font
+                    // Render absolutely positioned items in the horizontal direction
+                    var yPos = Current.Y;
+                    for (int i = 0; i < xAnchors.Count - 1; i++)
                     {
-                        xPos += charBounds.Last().Width;
+                        FlushPath();
+                        _xAnchor = xAnchors[i] + (xOffsets.Count > i ? xOffsets[i] : 0);
+                        EnsurePath();
+                        yPos = (yAnchors.Count > i ? yAnchors[i] : yPos) + (yOffsets.Count > i ? yOffsets[i] : 0);
+
+                        DrawStringOnCurrPath(value[i].ToString(), font, new PointF(_xAnchor, yPos),
+                                             fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
                     }
+
+                    // Render any remaining characters
+                    var renderChar = 0;
+                    var xPos = this.Current.X;
+                    if (xAnchors.Any())
+                    {
+                        FlushPath();
+                        renderChar = xAnchors.Count - 1;
+                        xPos = xAnchors.Last();
+                        _xAnchor = xPos;
+                    }
+                    EnsurePath();
+
+
+                    // Render individual characters as necessary
+                    var lastIndividualChar = renderChar + Math.Max(Math.Max(Math.Max(Math.Max(xOffsets.Count, yOffsets.Count), yAnchors.Count), rotations.Count) - renderChar - 1, 0);
+                    if (rotations.LastOrDefault() != 0.0f || pathStats != null) lastIndividualChar = value.Length;
+                    if (lastIndividualChar > renderChar)
+                    {
+                        var charBounds = font.MeasureCharacters(this.Renderer, value.Substring(renderChar, Math.Min(lastIndividualChar + 1, value.Length) - renderChar));
+                        PointF pathPoint;
+                        float rotation;
+                        float halfWidth;
+                        for (int i = renderChar; i < lastIndividualChar; i++)
+                        {
+                            xPos += (float)pathScale * (xOffsets.Count > i ? xOffsets[i] : 0) + (charBounds[i - renderChar].X - (i == renderChar ? 0 : charBounds[i - renderChar - 1].X));
+                            yPos = (yAnchors.Count > i ? yAnchors[i] : yPos) + (yOffsets.Count > i ? yOffsets[i] : 0);
+                            if (pathStats == null)
+                            {
+                                DrawStringOnCurrPath(value[i].ToString(), font, new PointF(xPos, yPos),
+                                                     fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
+                            }
+                            else
+                            {
+                                xPos = Math.Max(xPos, 0);
+                                halfWidth = charBounds[i - renderChar].Width / 2;
+                                if (pathStats.OffsetOnPath(xPos + halfWidth))
+                                {
+                                    pathStats.LocationAngleAtOffset(xPos + halfWidth, out pathPoint, out rotation);
+                                    pathPoint = new PointF((float)(pathPoint.X - halfWidth * Math.Cos(rotation * Math.PI / 180) - (float)pathScale * yPos * Math.Sin(rotation * Math.PI / 180)),
+                                                           (float)(pathPoint.Y - halfWidth * Math.Sin(rotation * Math.PI / 180) + (float)pathScale * yPos * Math.Cos(rotation * Math.PI / 180)));
+                                    DrawStringOnCurrPath(value[i].ToString(), font, pathPoint, fontBaselineHeight, rotation);
+                                }
+                            }
+                        }
+
+                        // Add the kerning to the next character
+                        if (lastIndividualChar < value.Length)
+                        {
+                            xPos += charBounds[charBounds.Count - 1].X - charBounds[charBounds.Count - 2].X;
+                        }
+                        else
+                        {
+                            xPos += charBounds.Last().Width;
+                        }
+                    }
+
+                    // Render the string normally
+                    if (lastIndividualChar < value.Length)
+                    {
+                        xPos += (xOffsets.Count > lastIndividualChar ? xOffsets[lastIndividualChar] : 0);
+                        yPos = (yAnchors.Count > lastIndividualChar ? yAnchors[lastIndividualChar] : yPos) +
+                                (yOffsets.Count > lastIndividualChar ? yOffsets[lastIndividualChar] : 0);
+                        DrawStringOnCurrPath(value.Substring(lastIndividualChar), font, new PointF(xPos, yPos),
+                                             fontBaselineHeight, rotations.LastOrDefault());
+                        var bounds = font.MeasureString(this.Renderer, value.Substring(lastIndividualChar));
+                        xPos += bounds.Width;
+                    }
+
+
+                    NumChars += value.Length;
+                    // Undo any baseline shift.  This is not persisted, unlike normal vertical offsets.
+                    this.Current = new PointF(xPos, yPos - baselineShift);
                 }
-
-                // Render the string normally
-                if (lastIndividualChar < value.Length)
-                {
-                    xPos += (xOffsets.Count > lastIndividualChar ? xOffsets[lastIndividualChar] : 0);
-                    yPos = (yAnchors.Count > lastIndividualChar ? yAnchors[lastIndividualChar] : yPos) +
-                            (yOffsets.Count > lastIndividualChar ? yOffsets[lastIndividualChar] : 0);
-                    DrawStringOnCurrPath(value.Substring(lastIndividualChar), font, new PointF(xPos, yPos),
-                                         fontBaselineHeight, rotations.LastOrDefault());
-                    var bounds = this.Renderer.MeasureString(value.Substring(lastIndividualChar), font);
-                    xPos += bounds.Width;
-                }
-
-
-                NumChars += value.Length;
-                // Undo any baseline shift.  This is not persisted, unlike normal vertical offsets.
-                this.Current = new PointF(xPos, yPos - baselineShift);
             }
 
             private void DrawStringOnCurrPath(string value, IFontDefn font, PointF location, float fontBaselineHeight, float rotation)
@@ -764,12 +768,14 @@ namespace Svg
                 font.AddStringToPath(this.Renderer, drawPath, value, new PointF(location.X, location.Y - fontBaselineHeight));
                 if (rotation != 0.0f && drawPath.PointCount > 0)
                 {
-                    var matrix = new Matrix();
-                    matrix.Translate(-1 * location.X, -1 * location.Y, MatrixOrder.Append);
-                    matrix.Rotate(rotation, MatrixOrder.Append);
-                    matrix.Translate(location.X, location.Y, MatrixOrder.Append);
-                    drawPath.Transform(matrix);
-                    _currPath.AddPath(drawPath, false);
+                    using (var matrix = new Matrix())
+                    {
+                        matrix.Translate(-1 * location.X, -1 * location.Y, MatrixOrder.Append);
+                        matrix.Rotate(rotation, MatrixOrder.Append);
+                        matrix.Translate(location.X, location.Y, MatrixOrder.Append);
+                        drawPath.Transform(matrix);
+                        _currPath.AddPath(drawPath, false);
+                    }
                 }
 
             }
@@ -830,11 +836,13 @@ namespace Svg
 
                         if (xOffset != 0)
                         {
-                            var matrix = new Matrix();
-                            matrix.Translate(xOffset, 0);
-                            foreach (var path in _anchoredPaths)
+                            using (var matrix = new Matrix())
                             {
-                                path.Transform(matrix);
+                                matrix.Translate(xOffset, 0);
+                                foreach (var path in _anchoredPaths)
+                                {
+                                    path.Transform(matrix);
+                                }
                             }
                         }
 

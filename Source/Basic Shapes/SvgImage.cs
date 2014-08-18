@@ -205,8 +205,10 @@ namespace Svg
                     // we're assuming base64, as ascii encoding would be *highly* unsusual for images
                     // also assuming it's png or jpeg mimetype
                     byte[] imageBytes = Convert.FromBase64String(uriString.Substring(dataIdx));
-                    Image image = Image.FromStream(new MemoryStream(imageBytes));
-                    return image;
+                    using (var stream = new MemoryStream(imageBytes))
+                    {
+                        return Image.FromStream(stream);
+                    }
                 }
 
                 if (!uri.IsAbsoluteUri)
@@ -219,16 +221,19 @@ namespace Svg
 
                 using (WebResponse webResponse = httpRequest.GetResponse())
                 {
-                    MemoryStream ms = BufferToMemoryStream(webResponse.GetResponseStream());
-                    if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
+                    using (var stream = webResponse.GetResponseStream())
                     {
-                        var doc = SvgDocument.Open<SvgDocument>(ms);
-                        doc.BaseUri = uri;
-                        return doc.Draw();
-                    }
-                    else
-                    {
-                        return Bitmap.FromStream(ms);
+                        stream.Position = 0;
+                        if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            var doc = SvgDocument.Open<SvgDocument>(stream);
+                            doc.BaseUri = uri;
+                            return doc.Draw();
+                        }
+                        else
+                        {
+                            return Bitmap.FromStream(stream);
+                        }
                     }
                 }
             }

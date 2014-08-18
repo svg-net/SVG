@@ -107,34 +107,37 @@ namespace Svg
             }
 
             float points;
-            IFontDefn currFont;
 
             switch (type)
             {
                 case SvgUnitType.Em:
-                    currFont = GetFont(renderer, owner);
-                    if (currFont == null)
+                    using (var currFont = GetFont(renderer, owner))
                     {
-                        points = (float)(value * 9);
-                        _deviceValue = (points / 72.0f) * ppi;
-                    }
-                    else
-                    {
-                        _deviceValue = value * (currFont.SizeInPoints / 72.0f) * ppi;
+                        if (currFont == null)
+                        {
+                            points = (float)(value * 9);
+                            _deviceValue = (points / 72.0f) * ppi;
+                        }
+                        else
+                        {
+                            _deviceValue = value * (currFont.SizeInPoints / 72.0f) * ppi;
+                        }
                     }
                     break;
                 case SvgUnitType.Ex:
-                    currFont = GetFont(renderer, owner);
-                    if (currFont == null)
+                    using (var currFont = GetFont(renderer, owner))
                     {
-                        points = (float)(value * 9);
-                        _deviceValue = (points * 0.5f / 72.0f) * ppi;
+                        if (currFont == null)
+                        {
+                            points = (float)(value * 9);
+                            _deviceValue = (points * 0.5f / 72.0f) * ppi;
+                        }
+                        else
+                        {
+                            _deviceValue = value * 0.5f * (currFont.SizeInPoints / 72.0f) * ppi;
+                        }
+                        break;
                     }
-                    else
-                    {
-                        _deviceValue = value * 0.5f * (currFont.SizeInPoints / 72.0f) * ppi;
-                    }
-                    break;
                 case SvgUnitType.Centimeter:
                     _deviceValue = (float)((value / cmInInch) * ppi);
                     break;

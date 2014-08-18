@@ -12,11 +12,8 @@ namespace Svg
         void DrawImageUnscaled(Image image, Point location);
         void DrawPath(Pen pen, GraphicsPath path);
         void FillPath(Brush brush, GraphicsPath path);
-        float FontBaselineOffset(IFontDefn font);
         ISvgBoundable GetBoundable();
         Region GetClip();
-        IList<RectangleF> MeasureCharacters(string text, IFontDefn font);
-        SizeF MeasureString(string text, IFontDefn font);
         ISvgBoundable PopBoundable();
         void RotateTransform(float fAngle, MatrixOrder order = MatrixOrder.Append);
         void ScaleTransform(float sx, float sy, MatrixOrder order = MatrixOrder.Append);

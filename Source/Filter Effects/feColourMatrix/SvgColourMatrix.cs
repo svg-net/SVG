@@ -86,17 +86,19 @@ namespace Svg.FilterEffects
             }
 
             var colorMatrix = new ColorMatrix(colorMatrixElements);
-            var imageAttrs = new ImageAttributes();
-            imageAttrs.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
-
-            var result = new Bitmap(inputImage.Width, inputImage.Height);
-            using (var g = Graphics.FromImage(result))
+            using (var imageAttrs = new ImageAttributes())
             {
-                g.DrawImage(inputImage, new Rectangle(0, 0, inputImage.Width, inputImage.Height),
-                            0, 0, inputImage.Width, inputImage.Height, GraphicsUnit.Pixel, imageAttrs);
-                g.Flush();
+                imageAttrs.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+                var result = new Bitmap(inputImage.Width, inputImage.Height);
+                using (var g = Graphics.FromImage(result))
+                {
+                    g.DrawImage(inputImage, new Rectangle(0, 0, inputImage.Width, inputImage.Height),
+                                0, 0, inputImage.Width, inputImage.Height, GraphicsUnit.Pixel, imageAttrs);
+                    g.Flush();
+                }
+                buffer[this.Result] = result;
             }
-            buffer[this.Result] = result;
 		}
 
 

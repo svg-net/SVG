@@ -171,9 +171,12 @@ namespace Svg
                 throw new FileNotFoundException("The specified document cannot be found.", path);
             }
 
-            var doc = Open<T>(File.OpenRead(path), entities);
-            doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
-            return doc;
+            using (var stream = File.OpenRead(path))
+            {
+                var doc = Open<T>(stream, entities);
+                doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
+                return doc;
+            }
         }
 
         /// <summary>

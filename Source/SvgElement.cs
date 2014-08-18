@@ -254,6 +254,8 @@ namespace Svg
             get { return this._customAttributes; }
         }
 
+        private static readonly Matrix _zeroMatrix = new Matrix(0, 0, 0, 0, 0, 0);
+
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
@@ -268,9 +270,9 @@ namespace Svg
             {
                 return true;
             }
-            if (this.Transforms.Count == 1 && this.Transforms[0].Matrix.Equals(new Matrix(0, 0, 0, 0, 0, 0))) return false;
+            if (this.Transforms.Count == 1 && this.Transforms[0].Matrix.Equals(_zeroMatrix)) return false;
 
-            Matrix transformMatrix = renderer.Transform;
+            Matrix transformMatrix = renderer.Transform.Clone();
 
             foreach (SvgTransform transformation in this.Transforms)
             {

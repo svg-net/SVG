@@ -10,8 +10,12 @@ namespace Svg.Css
     {
         public Selector<SvgElement> Type(NamespacePrefix prefix, string name)
         {
-            var type = SvgElementFactory.AvailableElements.SingleOrDefault(e => e.ElementName == name);
-            return nodes => nodes.Where(n => n.GetType() == type.ElementType);
+            SvgElementFactory.ElementInfo type = null;
+            if (SvgElementFactory.AvailableElements.TryGetValue(name, out type)) 
+            {
+                return nodes => nodes.Where(n => n.GetType() == type.ElementType);
+            }
+            return nodes => Enumerable.Empty<SvgElement>();
         }
 
         public Selector<SvgElement> Universal(NamespacePrefix prefix)

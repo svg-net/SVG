@@ -27,7 +27,7 @@ namespace Svg.Transforms
         {
             get
             {
-                System.Drawing.Drawing2D.Matrix matrix = new System.Drawing.Drawing2D.Matrix();
+                var matrix = new System.Drawing.Drawing2D.Matrix();
                 matrix.Scale(this.X, this.Y);
                 return matrix;
             }

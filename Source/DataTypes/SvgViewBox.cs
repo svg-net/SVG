@@ -133,8 +133,8 @@ namespace Svg
 
             var fScaleX = width / this.Width;
             var fScaleY = height / this.Height; //(this.MinY < 0 ? -1 : 1) * 
-            var fMinX = this.MinX;
-            var fMinY = this.MinY;
+            var fMinX = -this.MinX;
+            var fMinY = -this.MinY;
 
             if (aspectRatio == null) aspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid, false);
             if (aspectRatio.Align != SvgPreserveAspectRatio.none)
@@ -197,7 +197,7 @@ namespace Svg
             renderer.SetClip(new Region(new RectangleF(x, y, width, height)), CombineMode.Intersect);
             renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Prepend);
             renderer.TranslateTransform(x, y);
-            renderer.TranslateTransform(-fMinX, -fMinY);
+            renderer.TranslateTransform(fMinX, fMinY);
         }
     }
 

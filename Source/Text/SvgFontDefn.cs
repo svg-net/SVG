@@ -45,14 +45,14 @@ namespace Svg
         public IList<System.Drawing.RectangleF> MeasureCharacters(ISvgRenderer renderer, string text)
         {
             var result = new List<RectangleF>();
-            GetPath(renderer, text, result, false);
+            using (var path = GetPath(renderer, text, result, false)) { }
             return result;
         }
 
         public System.Drawing.SizeF MeasureString(ISvgRenderer renderer, string text)
         {
             var result = new List<RectangleF>();
-            GetPath(renderer, text, result, true);
+            using (var path = GetPath(renderer, text, result, true)) { }
             var nonEmpty = result.Where(r => r != RectangleF.Empty);
             if (!nonEmpty.Any()) return SizeF.Empty;
             return new SizeF(nonEmpty.Last().Right - nonEmpty.First().Left, Ascent(renderer));
@@ -63,10 +63,12 @@ namespace Svg
             var textPath = GetPath(renderer, text, null, false);
             if (textPath.PointCount > 0)
             {
-                var translate = new Matrix();
-                translate.Translate(location.X, location.Y);
-                textPath.Transform(translate);
-                path.AddPath(textPath, false);
+                using (var translate = new Matrix())
+                {
+                    translate.Translate(location.X, location.Y);
+                    textPath.Transform(translate);
+                    path.AddPath(textPath, false);
+                }
             }
         }
 
@@ -99,6 +101,7 @@ namespace Svg
                 scaleMatrix.Scale(_emScale, -1 * _emScale, MatrixOrder.Append);
                 scaleMatrix.Translate(xPos, ascent, MatrixOrder.Append);
                 path.Transform(scaleMatrix);
+                scaleMatrix.Dispose();
 
                 bounds = path.GetBounds();
                 if (ranges != null)
@@ -125,6 +128,12 @@ namespace Svg
         {
             if (_glyphs == null) _glyphs = _font.Descendants().OfType<SvgGlyph>().ToDictionary(g => g.Unicode ?? g.GlyphName ?? g.ID);
             if (_kerning == null) _kerning = _font.Descendants().OfType<SvgKern>().ToDictionary(k => k.Glyph1 + "|" + k.Glyph2);
+        }
+
+        public void Dispose()
+        {
+            _glyphs = null;
+            _kerning = null;
         }
     }
 }

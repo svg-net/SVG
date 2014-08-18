@@ -41,7 +41,7 @@ namespace Svg
         protected internal override bool PushTransforms(ISvgRenderer renderer)
         {
             if (!base.PushTransforms(renderer)) return false;
-            renderer.TranslateTransform(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this), 
+            renderer.TranslateTransform(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
                                         this.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
             return true;
         }
@@ -70,20 +70,22 @@ namespace Svg
 
         protected override void Render(ISvgRenderer renderer)
         {
-            if (!Visible || !Displayable)
-                return;
+            if (this.Visible && this.Displayable && this.PushTransforms(renderer))
+            {
+                this.SetClip(renderer);
 
-            this.PushTransforms(renderer);
+                var element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
+                if (element != null)
+                {
+                    var origParent = element.Parent;
+                    element._parent = this;
+                    element.RenderElement(renderer);
+                    element._parent = origParent;
+                }
 
-            SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
-            // For the time of rendering we want the referenced element to inherit
-            // this elements transforms
-            SvgElement parent = element._parent;
-            element._parent = this;
-            element.RenderElement(renderer);
-            element._parent = parent;
-
-            this.PopTransforms(renderer);
+                this.ResetClip(renderer);
+                this.PopTransforms(renderer);
+            }
         }
 
 

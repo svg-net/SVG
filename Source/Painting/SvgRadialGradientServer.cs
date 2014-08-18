@@ -128,11 +128,13 @@ namespace Svg
                 // Transform the path based on the scaling
                 var gradBounds = path.GetBounds();
                 var transCenter = new PointF(gradBounds.Left + gradBounds.Width / 2, gradBounds.Top + gradBounds.Height / 2);
-                var scaleMat = new Matrix();
-                scaleMat.Translate(-1 * transCenter.X, -1 * transCenter.Y, MatrixOrder.Append);
-                scaleMat.Scale(scale, scale, MatrixOrder.Append);
-                scaleMat.Translate(transCenter.X, transCenter.Y, MatrixOrder.Append);
-                path.Transform(scaleMat);
+                using (var scaleMat = new Matrix())
+                {
+                    scaleMat.Translate(-1 * transCenter.X, -1 * transCenter.Y, MatrixOrder.Append);
+                    scaleMat.Scale(scale, scale, MatrixOrder.Append);
+                    scaleMat.Translate(transCenter.X, transCenter.Y, MatrixOrder.Append);
+                    path.Transform(scaleMat);
+                }
 
                 // calculate the brush
                 var brush = new PathGradientBrush(path);
@@ -167,16 +169,18 @@ namespace Svg
             };
             var pathBounds = path.GetBounds();
             var pathCenter = new PointF(pathBounds.X + pathBounds.Width / 2, pathBounds.Y + pathBounds.Height / 2);
-            var transform = new Matrix();
-            transform.Translate(-1 * pathCenter.X, -1 * pathCenter.Y, MatrixOrder.Append);
-            transform.Scale(.95f, .95f, MatrixOrder.Append);
-            transform.Translate(pathCenter.X, pathCenter.Y, MatrixOrder.Append);
-
-            var boundsTest = RectangleF.Inflate(bounds, 0, 0);
-            while (!(path.IsVisible(points[0]) && path.IsVisible(points[1]) &&
-                     path.IsVisible(points[2]) && path.IsVisible(points[3])))
+            using (var transform = new Matrix())
             {
-                transform.TransformPoints(points);
+                transform.Translate(-1 * pathCenter.X, -1 * pathCenter.Y, MatrixOrder.Append);
+                transform.Scale(.95f, .95f, MatrixOrder.Append);
+                transform.Translate(pathCenter.X, pathCenter.Y, MatrixOrder.Append);
+
+                var boundsTest = RectangleF.Inflate(bounds, 0, 0);
+                while (!(path.IsVisible(points[0]) && path.IsVisible(points[1]) &&
+                         path.IsVisible(points[2]) && path.IsVisible(points[3])))
+                {
+                    transform.TransformPoints(points);
+                }
             }
             return bounds.Height / (points[2].Y - points[1].Y);
         }

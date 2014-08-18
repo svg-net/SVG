@@ -32,6 +32,7 @@ namespace SvgW3CTestRunner
             var fileName = lstFiles.SelectedItem.ToString();
             try
             {
+                Debug.Print(fileName);
                 var doc = SvgDocument.Open(_svgBasePath + fileName);
                 if (fileName.StartsWith("__"))
                 {

@@ -86,5 +86,10 @@ namespace Svg
                 return provider.GetGraphics();
             }
         }
+
+        public void Dispose()
+        {
+            _font.Dispose();
+        }
     }
 }

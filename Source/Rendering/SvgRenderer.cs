@@ -98,21 +98,6 @@ namespace Svg
             this._innerGraphics.Dispose();
         }
 
-        public float FontBaselineOffset(IFontDefn font)
-        {
-            return font.Ascent(this);
-        }
-
-        public IList<RectangleF> MeasureCharacters(string text, IFontDefn font)
-        {
-            return font.MeasureCharacters(this, text);
-        }
-
-        public SizeF MeasureString(string text, IFontDefn font)
-        {
-            return font.MeasureString(this, text);
-        }
-
         Graphics IGraphicsProvider.GetGraphics()
         {
             return _innerGraphics;

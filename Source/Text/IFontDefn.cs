@@ -7,7 +7,7 @@ using System.Drawing.Drawing2D;
 
 namespace Svg
 {
-    public interface IFontDefn
+    public interface IFontDefn : IDisposable
     {
         float Size { get; }
         float SizeInPoints { get; }

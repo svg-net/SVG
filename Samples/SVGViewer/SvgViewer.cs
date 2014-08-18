@@ -43,6 +43,8 @@ namespace SVGViewer
         
         private void RenderSvg(SvgDocument svgDoc)
         {
+            var render = new DebugRenderer();
+            svgDoc.Draw(render);
             svgImage.Image = svgDoc.Draw();
         }
     }
