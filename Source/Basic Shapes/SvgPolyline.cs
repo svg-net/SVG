@@ -22,7 +22,7 @@ namespace Svg
 
                 try
                 {
-                    for (int i = 0; i < Points.Count; i += 2)
+                    for (int i = 0; (i + 1) < Points.Count; i += 2)
                     {
                         PointF endPoint = new PointF(Points[i].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this), 
                                                      Points[i + 1].ToDeviceValue(renderer, UnitRenderingType.Vertical, this));

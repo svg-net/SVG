@@ -126,7 +126,14 @@ namespace Svg
 
         public void AddViewBoxTransform(SvgAspectRatio aspectRatio, ISvgRenderer renderer, SvgFragment frag)
         {
-            if (this.Equals(SvgViewBox.Empty)) return;
+            var x = (frag == null ? 0 : frag.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, frag));
+            var y = (frag == null ? 0 : frag.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, frag));
+
+            if (this.Equals(SvgViewBox.Empty))
+            {
+                renderer.TranslateTransform(x, y);
+                return;
+            }
 
             var width = (frag == null ? this.Width : frag.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, frag));
             var height = (frag == null ? this.Height : frag.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, frag));
@@ -190,9 +197,6 @@ namespace Svg
                         break;
                 }
             }
-
-            var x = (frag == null ? 0 : frag.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, frag));
-            var y = (frag == null ? 0 : frag.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, frag));
 
             renderer.SetClip(new Region(new RectangleF(x, y, width, height)), CombineMode.Intersect);
             renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Prepend);

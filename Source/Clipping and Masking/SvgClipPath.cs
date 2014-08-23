@@ -26,7 +26,7 @@ namespace Svg
         /// </summary>
         public SvgClipPath()
         {
-            this.ClipPathUnits = SvgCoordinateUnits.ObjectBoundingBox;
+            this.ClipPathUnits = SvgCoordinateUnits.Inherit;
         }
 
         private GraphicsPath cachedClipPath = null;
@@ -49,7 +49,20 @@ namespace Svg
                 this._pathDirty = false;
             }
 
-            return new Region(cachedClipPath);
+            var result = cachedClipPath;
+            if (ClipPathUnits == SvgCoordinateUnits.ObjectBoundingBox)
+            {
+                result = (GraphicsPath)cachedClipPath.Clone();
+                using (var transform = new Matrix())
+                {
+                    var bounds = owner.Bounds;
+                    transform.Scale(bounds.Width, bounds.Height, MatrixOrder.Append);
+                    transform.Translate(bounds.Left, bounds.Top, MatrixOrder.Append);
+                    result.Transform(transform);
+                }
+            }
+
+            return new Region(result);
         }
 
         /// <summary>

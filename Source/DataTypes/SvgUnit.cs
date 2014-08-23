@@ -20,7 +20,7 @@ namespace Svg
         /// <summary>
         /// Gets and empty <see cref="SvgUnit"/>.
         /// </summary>
-        public static readonly SvgUnit Empty = new SvgUnit(SvgUnitType.User, 0);
+        public static readonly SvgUnit Empty = new SvgUnit(SvgUnitType.User, 0) { _isEmpty = true };
 
         /// <summary>
         /// Gets an <see cref="SvgUnit"/> with a value of none.
@@ -86,26 +86,7 @@ namespace Svg
 
             var type = this.Type;
             var value = this.Value;
-
-            // Deal with fractional pattern units
-            var coordElem = owner as ISvgSupportsCoordinateUnits;
-            if (coordElem != null && coordElem.GetUnits() == SvgCoordinateUnits.ObjectBoundingBox && type != SvgUnitType.Percentage)
-            {
-                type = SvgUnitType.Percentage;
-                value *= 100;
-            }
-
-            var element = owner as SvgElement;
-            if (element != null)
-            {
-                var pattern = element.Parents.OfType<SvgPatternServer>().FirstOrDefault();
-                if (pattern != null && pattern.PatternContentUnits == SvgCoordinateUnits.ObjectBoundingBox && type != SvgUnitType.Percentage)
-                {
-                    type = SvgUnitType.Percentage;
-                    value *= 100;
-                }
-            }
-
+            
             float points;
 
             switch (type)
@@ -320,9 +301,9 @@ namespace Svg
         /// <param name="value">The value.</param>
         public SvgUnit(SvgUnitType type, float value)
         {
+            this._isEmpty = false;
             this._type = type;
             this._value = value;
-            this._isEmpty = (this._value == 0.0f);
             this._deviceValue = null;
         }
 
@@ -332,9 +313,9 @@ namespace Svg
         /// <param name="value">The value.</param>
         public SvgUnit(float value)
         {
+            this._isEmpty = false;
             this._value = value;
             this._type = SvgUnitType.User;
-            this._isEmpty = (this._value == 0.0f);
             this._deviceValue = null;
         }
 

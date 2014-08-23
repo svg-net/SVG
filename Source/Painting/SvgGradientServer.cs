@@ -88,7 +88,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets another gradient fill from which to inherit the stops from.
         /// </summary>
-        [SvgAttribute("href")]
+        [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public SvgPaintServer InheritGradient
         {
             get { return this._inheritGradient; }
@@ -101,14 +101,8 @@ namespace Svg
         [SvgAttribute("gradientTransform")]
         public SvgTransformCollection GradientTransform
         {
-            get
-            {
-                return (this.Attributes.GetAttribute<SvgTransformCollection>("gradientTransform"));
-            }
-            set
-            {
-                this.Attributes["gradientTransform"] = value;
-            }
+            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("gradientTransform")); }
+            set { this.Attributes["gradientTransform"] = value; }
         }
 
         protected Matrix EffectiveGradientTransform
@@ -186,7 +180,7 @@ namespace Svg
                 var currentStop = this.Stops[radial ? this.Stops.Count - 1 - actualStops : actualStops];
                 var boundWidth = renderer.GetBoundable().Bounds.Width;
 
-                mergedOpacity = opacity * currentStop.Opacity;
+                mergedOpacity = opacity * currentStop.GetOpacity();
                 position =
                     radial
                     ? 1 - (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth)
@@ -227,33 +221,6 @@ namespace Svg
             {
                 _stops.AddRange(core.Stops);
             }
-        }
-
-        protected PointF TransformPoint(PointF originalPoint)
-        {
-            var newPoint = new[] { originalPoint };
-
-            EffectiveGradientTransform.TransformPoints(newPoint);
-
-            return newPoint[0];
-        }
-
-        protected PointF TransformVector(PointF originalVector)
-        {
-            var newVector = new[] { originalVector };
-
-            EffectiveGradientTransform.TransformVectors(newVector);
-
-            return newVector[0];
-        }
-
-        protected float TransformDistance(float dist)
-        {
-            var newVector = new[] { new PointF(dist, 0) };
-
-            EffectiveGradientTransform.TransformVectors(newVector);
-
-            return (float)Math.Sqrt(Math.Pow(newVector[0].X, 2) + Math.Pow(newVector[0].Y, 2));
         }
 
         protected static double CalculateDistance(PointF first, PointF second)

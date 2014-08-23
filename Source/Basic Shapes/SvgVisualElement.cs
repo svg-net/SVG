@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Svg
 {
@@ -56,10 +57,20 @@ namespace Svg
         /// <summary>
         /// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
         /// </summary>
+        [SvgAttribute("clip")]
+        public virtual string Clip
+        {
+            get { return this.Attributes.GetInheritedAttribute<string>("clip"); }
+            set { this.Attributes["clip"] = value; }
+        }
+
+        /// <summary>
+        /// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
+        /// </summary>
         [SvgAttribute("clip-path")]
         public virtual Uri ClipPath
         {
-            get { return this.Attributes.GetAttribute<Uri>("clip-path"); }
+            get { return this.Attributes.GetInheritedAttribute<Uri>("clip-path"); }
             set { this.Attributes["clip-path"] = value; }
         }
 
@@ -79,7 +90,7 @@ namespace Svg
         [SvgAttribute("filter")]
         public virtual Uri Filter
         {
-            get { return this.Attributes.GetAttribute<Uri>("filter"); }
+            get { return this.Attributes.GetInheritedAttribute<Uri>("filter"); }
             set { this.Attributes["filter"] = value; }
         }
 
@@ -180,7 +191,7 @@ namespace Svg
         {
             if (this.Fill != null)
             {
-                using (Brush brush = this.Fill.GetBrush(this, renderer, Math.Min(Math.Max(this.FillOpacity * this.Opacity, 0), 1)))
+                using (var brush = this.Fill.GetBrush(this, renderer, Math.Min(Math.Max(this.FillOpacity * this.Opacity, 0), 1)))
                 {
                     if (brush != null)
                     {
@@ -200,15 +211,22 @@ namespace Svg
             if (this.Stroke != null && this.Stroke != SvgColourServer.None)
             {
                 float strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
-                using (var pen = new Pen(this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity * this.Opacity, 0), 1)), strokeWidth))
+                using (var brush = this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity * this.Opacity, 0), 1), true))
                 {
-                    if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
+                    if (brush != null)
                     {
-                        /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
-                        pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.Value <= 0) ? 1 : u.Value) / ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
-                    }
+                        using (var pen = new Pen(brush, strokeWidth))
+                        {
+                            if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
+                            {
+                                /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
+                                pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / 
+                                    ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
+                            }
 
-                    renderer.DrawPath(pen, this.Path(renderer));
+                            renderer.DrawPath(pen, this.Path(renderer));
+                        }
+                    }
                 }
             }
         }
@@ -219,14 +237,27 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region set.</param>
         protected internal virtual void SetClip(ISvgRenderer renderer)
         {
-            if (this.ClipPath != null)
+            if (this.ClipPath != null || !string.IsNullOrEmpty(this.Clip))
             {
-                SvgClipPath clipPath = this.OwnerDocument.GetElementById<SvgClipPath>(this.ClipPath.ToString());
                 this._previousClip = renderer.GetClip();
 
-                if (clipPath != null)
+                if (this.ClipPath != null)
                 {
-                    renderer.SetClip(clipPath.GetClipRegion(this), CombineMode.Intersect);
+                    SvgClipPath clipPath = this.OwnerDocument.GetElementById<SvgClipPath>(this.ClipPath.ToString());
+                    if (clipPath != null) renderer.SetClip(clipPath.GetClipRegion(this), CombineMode.Intersect);
+                }
+
+                var clip = this.Clip;
+                if (!string.IsNullOrEmpty(clip) && clip.StartsWith("rect("))
+                {
+                    clip = clip.Trim();
+                    var offsets = (from o in clip.Substring(5, clip.Length - 6).Split(',')
+                                   select float.Parse(o.Trim())).ToList();
+                    var bounds = this.Bounds;
+                    var clipRect = new RectangleF(bounds.Left + offsets[3], bounds.Top + offsets[0],
+                                                  bounds.Width - (offsets[3] + offsets[1]),
+                                                  bounds.Height - (offsets[2] + offsets[0]));
+                    renderer.SetClip(new Region(clipRect), CombineMode.Intersect);
                 }
             }
         }

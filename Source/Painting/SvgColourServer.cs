@@ -35,11 +35,11 @@ namespace Svg
             set { this._colour = value; }
         }
 
-        public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity)
+        public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
             //is none?
             if (this == SvgPaintServer.None) return new SolidBrush(System.Drawing.Color.Transparent);
-
+                
             int alpha = (int)((opacity * (this.Colour.A/255.0f) ) * 255);
             Color colour = System.Drawing.Color.FromArgb(alpha, this.Colour);
 

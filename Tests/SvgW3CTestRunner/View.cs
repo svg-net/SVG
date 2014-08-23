@@ -18,18 +18,24 @@ namespace SvgW3CTestRunner
         {
             InitializeComponent();
             // ignore tests pertaining to javascript or xml reading
-            var files = (from f in (from g in Directory.GetFiles(_svgBasePath)
+            var passes = File.ReadAllLines(_svgBasePath + @"..\PassingTests.txt").ToDictionary((f) => f, (f) => true);
+            var files = (from f in
+                             (from g in Directory.GetFiles(_svgBasePath)
                                     select Path.GetFileName(g))
                          where !f.StartsWith("animate-") && !f.StartsWith("conform-viewer") &&
-                            !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-")
+                            !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-") &&
+                            !f.StartsWith("script-")
                          orderby f
                          select (object)f);
+            files = files.Where((f) => !passes.ContainsKey((string)f)).Union(Enumerable.Repeat((object)"## PASSING ##", 1)).Union(files.Where((f) => passes.ContainsKey((string)f)));
+
             lstFiles.Items.AddRange(files.ToArray());
         }
 
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             var fileName = lstFiles.SelectedItem.ToString();
+            if (fileName.StartsWith("#")) return;
             try
             {
                 Debug.Print(fileName);

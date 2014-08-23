@@ -197,8 +197,8 @@ namespace Svg
                     var lineEnd = new PointF();
                     var width = Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
                     var height = Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
-                    var rx = CornerRadiusX.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) * 2;
-                    var ry = CornerRadiusY.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) * 2;
+                    var rx = Math.Min(CornerRadiusX.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) * 2, width);
+                    var ry = Math.Min(CornerRadiusY.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) * 2, height);
                     var location = Location.ToDeviceValue(renderer, this);
 
                     // Start

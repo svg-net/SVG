@@ -15,13 +15,13 @@ namespace Svg
     public class SvgPolygon : SvgVisualElement
     {
         private GraphicsPath _path;
-        private SvgUnitCollection _points;
+        private SvgPointCollection _points;
 
         /// <summary>
         /// The points that make up the SvgPolygon
         /// </summary>
         [SvgAttribute("points")]
-        public SvgUnitCollection Points
+        public SvgPointCollection Points
         {
             get { return this._points; }
             set { this._points = value; this.IsPathDirty = true; }
@@ -41,7 +41,7 @@ namespace Svg
 
                 try
                 {
-                    for (int i = 2; i < this._points.Count; i+=2)
+                    for (int i = 2; (i + 1) < this._points.Count; i += 2)
                     {
                         var endPoint = SvgUnit.GetDevicePoint(this._points[i], this._points[i+1], renderer, this);
 
@@ -81,7 +81,7 @@ namespace Svg
 		public override SvgElement DeepCopy<T>()
 		{
 			var newObj = base.DeepCopy<T>() as SvgPolygon;
-			newObj.Points = new SvgUnitCollection();
+			newObj.Points = new SvgPointCollection();
 			foreach (var pt in this.Points)
 				newObj.Points.Add(pt);
 			return newObj;

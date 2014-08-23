@@ -41,6 +41,7 @@ namespace Svg
 
         public virtual SvgElement GetElementById(Uri uri)
         {
+            if (uri.ToString().StartsWith("url(")) uri = new Uri(uri.ToString().Substring(4).TrimEnd(')'), UriKind.Relative);
             if (!uri.IsAbsoluteUri && this._document.BaseUri != null && !uri.ToString().StartsWith("#"))
             {
                 var fullUri = new Uri(this._document.BaseUri, uri);

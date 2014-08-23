@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace Svg
 {
@@ -44,10 +45,10 @@ namespace Svg
             }
         }
 
-        public override System.Drawing.Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity)
+        public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
             EnsureServer(styleOwner);
-            return _concreteServer.GetBrush(styleOwner, renderer, opacity);
+            return _concreteServer.GetBrush(styleOwner, renderer, opacity, forStroke);
         }
 
         public override SvgElement DeepCopy()

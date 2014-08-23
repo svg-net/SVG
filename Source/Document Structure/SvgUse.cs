@@ -74,7 +74,7 @@ namespace Svg
             {
                 this.SetClip(renderer);
 
-                var element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
+                var element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement) as SvgVisualElement;
                 if (element != null)
                 {
                     var origParent = element.Parent;

@@ -157,6 +157,34 @@ namespace Svg
             this.ViewBox.AddViewBoxTransform(this.AspectRatio, renderer, this);
             return true;
         }
+
+        protected override void Render(ISvgRenderer renderer)
+        {
+            switch (this.Overflow)
+            {
+                case SvgOverflow.auto:
+                case SvgOverflow.visible:
+                case SvgOverflow.scroll:
+                    base.Render(renderer);
+                    break;
+                default:
+                    var prevClip = renderer.GetClip();
+                    try
+                    {
+                        var size = (this.Parent == null ? renderer.GetBoundable().Bounds.Size : GetDimensions());
+                        var clip = new RectangleF(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                                                  this.Y.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                                                  size.Width, size.Height);
+                        renderer.SetClip(new Region(clip), CombineMode.Intersect);
+                        base.Render(renderer);
+                    }
+                    finally
+                    {
+                        renderer.SetClip(prevClip, CombineMode.Replace);
+                    }
+                    break;
+            }
+        }
         
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
