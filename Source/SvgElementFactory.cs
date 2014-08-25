@@ -139,13 +139,13 @@ namespace Svg
                     {
                         foreach (var decl in rule.Declarations)
                         {
-                            element.AddStyle(decl.Name, decl.Term.ToString(), 1 << 16);
+                            element.AddStyle(decl.Name, decl.Term.ToString(), SvgElement.StyleSpecificity_InlineStyle);
                         }
                     }
                 }
                 else if (IsStyleAttribute(reader.LocalName))
                 {
-                    element.AddStyle(reader.LocalName, reader.Value, 2 << 16);
+                    element.AddStyle(reader.LocalName, reader.Value, SvgElement.StyleSpecificity_PresAttribute);
                 }
                 else
                 {

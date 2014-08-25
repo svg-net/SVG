@@ -35,6 +35,7 @@ namespace Svg.Transforms
 
         public override string WriteToString()
         {
+            if (this.X == this.Y) return string.Format(CultureInfo.InvariantCulture, "scale({0})", this.X);
             return string.Format(CultureInfo.InvariantCulture, "scale({0}, {1})", this.X, this.Y);
         }
 

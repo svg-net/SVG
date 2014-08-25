@@ -89,9 +89,9 @@ namespace Svg
 
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
-            var path = this.Children.FirstOrDefault(x => x is SvgPath);
+            var path = this.Children.FirstOrDefault(x => x is SvgVisualElement);
             if (path != null)
-                return (path as SvgPath).Path(renderer);
+                return (path as SvgVisualElement).Path(renderer);
             return null;
         }
 
@@ -131,7 +131,7 @@ namespace Svg
         /// <param name="pOwner"></param>
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
-        public void RenderMarker(ISvgRenderer pRenderer, SvgPath pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
+        public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
         {
             float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
             float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
@@ -148,7 +148,7 @@ namespace Svg
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
         /// <param name="pMarkerPoint3"></param>
-        public void RenderMarker(ISvgRenderer pRenderer, SvgPath pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2, PointF pMarkerPoint3)
+        public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2, PointF pMarkerPoint3)
         {
             float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
             float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
@@ -168,7 +168,7 @@ namespace Svg
         /// <param name="pRenderer"></param>
         /// <param name="pOwner"></param>
         /// <param name="pMarkerPoint"></param>
-        private void RenderPart2(float fAngle, ISvgRenderer pRenderer, SvgPath pOwner, PointF pMarkerPoint)
+        private void RenderPart2(float fAngle, ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pMarkerPoint)
         {
             using (var pRenderPen = CreatePen(pOwner, pRenderer))
             {
@@ -195,9 +195,9 @@ namespace Svg
                                 break;
                         }
                         markerPath.Transform(transMatrix);
-                        pRenderer.DrawPath(pRenderPen, markerPath);
+                        if (pRenderPen != null) pRenderer.DrawPath(pRenderPen, markerPath);
 
-                        SvgPaintServer pFill = Fill;
+                        SvgPaintServer pFill = this.Children.First().Fill;
                         SvgFillRule pFillRule = FillRule;								// TODO: What do we use the fill rule for?
                         float fOpacity = FillOpacity;
 
@@ -218,8 +218,9 @@ namespace Svg
         /// </summary>
         /// <param name="pStroke"></param>
         /// <returns></returns>
-        private Pen CreatePen(SvgPath pPath, ISvgRenderer renderer)
+        private Pen CreatePen(SvgVisualElement pPath, ISvgRenderer renderer)
         {
+            if (pPath.Stroke == null) return null;
             Brush pBrush = pPath.Stroke.GetBrush(this, renderer, Opacity);
             switch (MarkerUnits)
             {
@@ -233,10 +234,10 @@ namespace Svg
         }
 
         /// <summary>
-        /// Get a clone of the current path, scaled for the stroke with
+        /// Get a clone of the current path, scaled for the stroke width
         /// </summary>
         /// <returns></returns>
-        private GraphicsPath GetClone(SvgPath pPath)
+        private GraphicsPath GetClone(SvgVisualElement pPath)
         {
             GraphicsPath pRet = Path(null).Clone() as GraphicsPath;
             switch (MarkerUnits)
@@ -262,7 +263,7 @@ namespace Svg
         private float AdjustForViewBoxWidth(float fWidth)
         {
             //	TODO: We know this isn't correct
-            return (fWidth / ViewBox.Width);
+            return (ViewBox.Width <= 0 ? 1 : fWidth / ViewBox.Width);
         }
 
         /// <summary>
@@ -273,7 +274,7 @@ namespace Svg
         private float AdjustForViewBoxHeight(float fHeight)
         {
             //	TODO: We know this isn't correct
-            return (fHeight / ViewBox.Height);
+            return (ViewBox.Height <= 0 ? 1 : fHeight / ViewBox.Height);
         }
     }
 }

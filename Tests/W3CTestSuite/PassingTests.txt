@@ -157,3 +157,13 @@ text-tspan-01-b.svg
 text-ws-01-t.svg
 text-ws-02-t.svg
 text-ws-03-t.svg
+painting-stroke-02-t.svg
+coords-viewattr-04-f.svg
+fonts-desc-01-t.svg
+fonts-elem-05-t.svg
+fonts-elem-06-t.svg
+paths-data-10-t.svg
+paths-data-16-t.svg
+shapes-rect-05-f.svg
+styling-css-02-b.svg
+styling-css-04-f.svg

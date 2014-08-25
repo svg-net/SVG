@@ -11,7 +11,6 @@ namespace Svg
     /// </summary>
     public abstract partial class SvgVisualElement : SvgElement, ISvgBoundable, ISvgStylable, ISvgClipable
     {
-        private bool _dirty;
         private bool _requiresSmoothRendering;
         private Region _previousClip;
 
@@ -41,18 +40,6 @@ namespace Svg
         /// </summary>
         /// <value>The bounds.</value>
         public abstract RectangleF Bounds { get; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this element's <see cref="Path"/> is dirty.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if the path is dirty; otherwise, <c>false</c>.
-        /// </value>
-        protected virtual bool IsPathDirty
-        {
-            get { return this._dirty; }
-            set { this._dirty = value; }
-        }
 
         /// <summary>
         /// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
@@ -107,7 +94,7 @@ namespace Svg
         /// </summary>
         public SvgVisualElement()
         {
-            this._dirty = true;
+            this.IsPathDirty = true;
             this._requiresSmoothRendering = false;
         }
 
@@ -206,7 +193,7 @@ namespace Svg
         /// Renders the stroke of the <see cref="SvgVisualElement"/> to the specified <see cref="ISvgRenderer"/>
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
-        protected internal virtual void RenderStroke(ISvgRenderer renderer)
+        protected internal virtual bool RenderStroke(ISvgRenderer renderer)
         {
             if (this.Stroke != null && this.Stroke != SvgColourServer.None)
             {
@@ -215,20 +202,74 @@ namespace Svg
                 {
                     if (brush != null)
                     {
-                        using (var pen = new Pen(brush, strokeWidth))
+                        var path = this.Path(renderer);
+                        var bounds = path.GetBounds();
+                        if (path.PointCount < 1) return false;
+                        if (bounds.Width <= 0 && bounds.Height <= 0)
                         {
-                            if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
+                            switch (this.StrokeLineCap)
                             {
-                                /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
-                                pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / 
-                                    ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
+                                case SvgStrokeLineCap.Round:
+                                    using (var capPath = new GraphicsPath())
+                                    {
+                                        capPath.AddEllipse(path.PathPoints[0].X - strokeWidth / 2, path.PathPoints[0].Y - strokeWidth / 2, strokeWidth, strokeWidth);
+                                        renderer.FillPath(brush, capPath);
+                                    }
+                                    break;
+                                case SvgStrokeLineCap.Square:
+                                    using (var capPath = new GraphicsPath())
+                                    {
+                                        capPath.AddRectangle(new RectangleF(path.PathPoints[0].X - strokeWidth / 2, path.PathPoints[0].Y - strokeWidth / 2, strokeWidth, strokeWidth));
+                                        renderer.FillPath(brush, capPath);
+                                    }
+                                    break;
                             }
+                        }
+                        else
+                        {
+                            using (var pen = new Pen(brush, strokeWidth))
+                            {
+                                if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
+                                {
+                                    /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
+                                    pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) /
+                                        ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
+                                }
+                                switch (this.StrokeLineJoin)
+                                {
+                                    case SvgStrokeLineJoin.Bevel:
+                                        pen.LineJoin = LineJoin.Bevel;
+                                        break;
+                                    case SvgStrokeLineJoin.Round:
+                                        pen.LineJoin = LineJoin.Round;
+                                        break;
+                                    default:
+                                        pen.LineJoin = LineJoin.Miter;
+                                        break;
+                                }
+                                pen.MiterLimit = this.StrokeMiterLimit;
+                                switch (this.StrokeLineCap)
+                                {
+                                    case SvgStrokeLineCap.Round:
+                                        pen.StartCap = LineCap.Round;
+                                        pen.EndCap = LineCap.Round;
+                                        break;
+                                    case SvgStrokeLineCap.Square:
+                                        pen.StartCap = LineCap.Square;
+                                        pen.EndCap = LineCap.Square;
+                                        break;
+                                }
 
-                            renderer.DrawPath(pen, this.Path(renderer));
+                                renderer.DrawPath(pen, path);
+
+                                return true;
+                            }
                         }
                     }
                 }
             }
+
+            return false;
         }
 
         /// <summary>

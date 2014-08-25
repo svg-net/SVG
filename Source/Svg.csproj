@@ -113,6 +113,7 @@
     <Compile Include="Paths\CoordinateParser.cs" />
     <Compile Include="Rendering\IGraphicsProvider.cs" />
     <Compile Include="Rendering\ISvgRenderer.cs" />
+    <Compile Include="SvgElementStyle.cs" />
     <Compile Include="SvgNodeReader.cs" />
     <Compile Include="Css\CssQuery.cs" />
     <Compile Include="Css\SvgElementOps.cs" />

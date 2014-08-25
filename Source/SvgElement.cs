@@ -15,8 +15,11 @@ namespace Svg
     /// <summary>
     /// The base class of which all SVG elements are derived from.
     /// </summary>
-    public abstract class SvgElement : ISvgElement, ISvgTransformable, ICloneable, ISvgNode
+    public abstract partial class SvgElement : ISvgElement, ISvgTransformable, ICloneable, ISvgNode
     {
+        internal const int StyleSpecificity_PresAttribute = 0;
+        internal const int StyleSpecificity_InlineStyle = 1 << 16;
+
         //optimization
         protected class PropertyAttributeTuple
         {
@@ -48,6 +51,7 @@ namespace Svg
 
         private Dictionary<string, SortedDictionary<int, string>> _styles = new Dictionary<string, SortedDictionary<int, string>>();
         
+
         public void AddStyle(string name, string value, int specificity)
         {
             SortedDictionary<int, string> rules;
@@ -66,6 +70,32 @@ namespace Svg
                 SvgElementFactory.SetPropertyValue(this, s.Key, s.Value.Last().Value, this.OwnerDocument);
             }
             _styles = null;
+        }
+
+
+        public bool ContainsAttribute(string name)
+        {
+            SortedDictionary<int, string> rules;
+            return (this.Attributes.ContainsKey(name) || this.CustomAttributes.ContainsKey(name) ||
+                (_styles.TryGetValue(name, out rules) && (rules.ContainsKey(StyleSpecificity_InlineStyle) || rules.ContainsKey(StyleSpecificity_PresAttribute))));
+        }
+        public bool TryGetAttribute(string name, out string value)
+        {
+            object objValue;
+            if (this.Attributes.TryGetValue(name, out objValue))
+            {
+                value = objValue.ToString();
+                return true;
+            }
+            if (this.CustomAttributes.TryGetValue(name, out value)) return true;
+            SortedDictionary<int, string> rules;
+            if (_styles.TryGetValue(name, out rules))
+            {
+                // Get staged styles that are 
+                if (rules.TryGetValue(StyleSpecificity_InlineStyle, out value)) return true;
+                if (rules.TryGetValue(StyleSpecificity_PresAttribute, out value)) return true;
+            }
+            return false;
         }
 
         /// <summary>

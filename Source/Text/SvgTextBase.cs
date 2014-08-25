@@ -823,7 +823,7 @@ namespace Svg
                             if (bounds.Right > maxX) maxX = bounds.Right;
                         }
 
-                        var xOffset = _xAnchor - minX;
+                        var xOffset = 0f; //_xAnchor - minX;
                         switch (Element.TextAnchor)
                         {
                             case SvgTextAnchor.Middle:
