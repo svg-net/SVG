@@ -19,27 +19,11 @@ namespace Svg
         /// </summary>
         public abstract GraphicsPath Path(ISvgRenderer renderer);
 
-        PointF ISvgBoundable.Location
-        {
-            get
-            {
-                return Bounds.Location;
-            }
-        }
-
-        SizeF ISvgBoundable.Size
-        {
-            get
-            {
-                return Bounds.Size;
-            }
-        }
-
         /// <summary>
         /// Gets the bounds of the element.
         /// </summary>
-        /// <value>The bounds.</value>
-        public abstract RectangleF Bounds { get; }
+        /// <returns>The bounds.</returns>
+        public abstract RectangleF CalculateBounds();
 
         /// <summary>
         /// Gets the associated <see cref="SvgClipPath"/> if one has been specified.

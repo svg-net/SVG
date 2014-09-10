@@ -83,12 +83,12 @@ namespace Svg
         /// <summary>
         /// Gets the bounds of the element.
         /// </summary>
-        /// <value>The bounds.</value>
-        public override RectangleF Bounds
+        /// <returns>The bounds.</returns>
+        public override RectangleF CalculateBounds()
         {
-			get { return new RectangleF(this.Location.ToDeviceValue(null, this), 
-                                        new SizeF(this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this), 
-                                                  this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))); }
+            return new RectangleF(this.Location.ToDeviceValue(null, this),
+                new SizeF(this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this),
+                    this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this)));
         }
 
         /// <summary>

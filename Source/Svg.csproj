@@ -109,6 +109,7 @@
     <Compile Include="Document Structure\SvgSymbol.cs" />
     <Compile Include="Filter Effects\ImageBuffer.cs" />
     <Compile Include="Painting\GenericBoundable.cs" />
+    <Compile Include="Painting\ImmutableBoundable.cs" />
     <Compile Include="Painting\SvgFallbackPaintServer .cs" />
     <Compile Include="Paths\CoordinateParser.cs" />
     <Compile Include="Rendering\IGraphicsProvider.cs" />

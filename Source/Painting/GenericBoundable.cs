@@ -19,19 +19,9 @@ namespace Svg
             _rect = new RectangleF(x, y, width, height);
         }
 
-        public System.Drawing.PointF Location
+        public RectangleF CalculateBounds()
         {
-            get { return _rect.Location; }
-        }
-
-        public System.Drawing.SizeF Size
-        {
-            get { return _rect.Size; }
-        }
-
-        public System.Drawing.RectangleF Bounds
-        {
-            get { return _rect; }
+            return _rect;
         }
     }
 }

@@ -95,15 +95,12 @@ namespace Svg
             return null;
         }
 
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF CalculateBounds()
         {
-            get
-            {
-                var path = this.Path(null);
-                if (path != null)
-                    return path.GetBounds();
-                return new System.Drawing.RectangleF();
-            }
+            var path = this.Path(null);
+            if (path != null)
+                return path.GetBounds();
+            return new System.Drawing.RectangleF();
         }
 
         public override SvgElement DeepCopy()
