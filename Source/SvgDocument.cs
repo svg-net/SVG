@@ -63,6 +63,11 @@ namespace Svg
         /// Gets or sets the Pixels Per Inch of the rendered image.
         /// </summary>
         public int Ppi { get; set; }
+        
+        /// <summary>
+        /// Gets or sets an external Cascading Style Sheet (CSS)
+        /// </summary>
+        public string ExternalCSSHref { get; set; }        
 
         #region ITypeDescriptorContext Members
 
@@ -470,6 +475,9 @@ namespace Svg
             xmlWriter.Formatting = Formatting.Indented;
 
             xmlWriter.WriteDocType("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", null);
+            
+            if (!String.IsNullOrEmpty(this.ExternalCSSHref))
+                xmlWriter.WriteProcessingInstruction("xml-stylesheet", String.Format("type=\"text/css\" href=\"{0}\"", this.ExternalCSSHref));
 
             this.WriteElement(xmlWriter);
 
