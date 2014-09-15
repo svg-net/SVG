@@ -337,7 +337,7 @@ namespace Svg
         {
             // Make sure the path is always null if there is no text
             //if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
-            if ((string.IsNullOrEmpty(Text.Trim())) && !Children.Any(x => x is SvgTextSpan))
+            if ((string.IsNullOrEmpty(Text) || Text.Trim().Length < 1) && !Children.Any(x => x is SvgTextSpan))
                 return _path = null;
             //NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
             // When an empty string is passed to GraphicsPath, it rises an InvalidArgumentException...
