@@ -333,11 +333,11 @@ namespace Svg
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
+        public override GraphicsPath Path(SvgRenderer renderer)
         {
             // Make sure the path is always null if there is no text
             //if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
-            if ((string.IsNullOrEmpty(this.Text) || this.Text.Trim().Length < 1) && this.Children.Where(x => x is SvgTextSpan).Select(x => x as SvgTextSpan).Count() == 0)
+            if ((string.IsNullOrEmpty(Text.Trim())) && !Children.Any(x => x is SvgTextSpan))
                 return _path = null;
             //NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
             // When an empty string is passed to GraphicsPath, it rises an InvalidArgumentException...
