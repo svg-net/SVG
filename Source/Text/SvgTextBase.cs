@@ -335,14 +335,10 @@ namespace Svg
         /// <value></value>
         public override GraphicsPath Path(SvgRenderer renderer)
         {
-            // Make sure the path is always null if there is no text
+            //When an empty string is passed to GraphicsPath, it raises an InvalidArgumentException.
             //if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
-            if ((string.IsNullOrEmpty(Text) || Text.Trim().Length < 1) && !Children.Any(x => x is SvgTextSpan))
-                return _path = null;
-            //NOT SURE WHAT THIS IS ABOUT - Path gets created again anyway - WTF?
-            // When an empty string is passed to GraphicsPath, it rises an InvalidArgumentException...
-
-            if (_path == null || this.IsPathDirty)
+            var isInvalidText = string.IsNullOrEmpty(Text) && !Children.Any(x => x is SvgTextSpan);
+            if (_path == null || IsPathDirty || isInvalidText)
             {
                 renderer = (renderer ?? SvgRenderer.FromNull());
                 // Measure the overall bounds of all the text
