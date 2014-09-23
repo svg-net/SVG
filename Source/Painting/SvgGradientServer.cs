@@ -88,7 +88,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets another gradient fill from which to inherit the stops from.
         /// </summary>
-        [SvgAttribute("href")]
+        [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public SvgPaintServer InheritGradient
         {
             get { return this._inheritGradient; }
@@ -101,17 +101,11 @@ namespace Svg
         [SvgAttribute("gradientTransform")]
         public SvgTransformCollection GradientTransform
         {
-            get
-            {
-                return (this.Attributes.GetAttribute<SvgTransformCollection>("gradientTransform"));
-            }
-            set
-            {
-                this.Attributes["gradientTransform"] = value;
-            }
+            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("gradientTransform")); }
+            set { this.Attributes["gradientTransform"] = value; }
         }
 
-        private Matrix EffectiveGradientTransform
+        protected Matrix EffectiveGradientTransform
         {
             get
             {
@@ -130,7 +124,7 @@ namespace Svg
         /// </summary>
         /// <param name="owner">The parent <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the colour blend.</param>
-        protected ColorBlend GetColorBlend(SvgRenderer renderer, float opacity, bool radial)
+        protected ColorBlend GetColorBlend(ISvgRenderer renderer, float opacity, bool radial)
         {
             int colourBlends = this.Stops.Count;
             bool insertStart = false;
@@ -184,9 +178,9 @@ namespace Svg
             for (int i = 0; i < colourBlends; i++)
             {
                 var currentStop = this.Stops[radial ? this.Stops.Count - 1 - actualStops : actualStops];
-                var boundWidth = renderer.Boundable().Bounds.Width;
+                var boundWidth = renderer.GetBoundable().Bounds.Width;
 
-                mergedOpacity = opacity * currentStop.Opacity;
+                mergedOpacity = opacity * currentStop.GetOpacity();
                 position =
                     radial
                     ? 1 - (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth)
@@ -227,24 +221,6 @@ namespace Svg
             {
                 _stops.AddRange(core.Stops);
             }
-        }
-
-        protected PointF TransformPoint(PointF originalPoint)
-        {
-            var newPoint = new[] { originalPoint };
-
-            EffectiveGradientTransform.TransformPoints(newPoint);
-
-            return newPoint[0];
-        }
-
-        protected PointF TransformVector(PointF originalVector)
-        {
-            var newVector = new[] { originalVector };
-
-            EffectiveGradientTransform.TransformVectors(newVector);
-
-            return newVector[0];
         }
 
         protected static double CalculateDistance(PointF first, PointF second)

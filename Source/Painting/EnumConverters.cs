@@ -137,6 +137,23 @@ namespace Svg
         }
     }
 
+    public sealed class SvgCoordinateUnitsConverter : EnumBaseConverter<SvgCoordinateUnits>
+    {
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value == null || value.ToString() == "") return SvgCoordinateUnits.Inherit;
+            return base.ConvertFrom(context, culture, value);
+        }
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string) && value is SvgCoordinateUnits && (SvgCoordinateUnits)value == SvgCoordinateUnits.Inherit)
+            {
+                return null;
+            }
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+    }
+
     public sealed class SvgTextDecorationConverter : EnumBaseConverter<SvgTextDecoration>
     {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)

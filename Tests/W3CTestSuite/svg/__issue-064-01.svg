@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+<symbol  id="Square_64_x2A_64" viewBox="-32 -32 64 64">
+        <g id="Document_3_">
+                <polygon opacity="0" fill="#ED1C24" points="32,-32 -32,-32 -32,32 32,32                 "/>
+        </g>
+</symbol>
+<symbol  id="Truck" viewBox="0 -64 64 64">
+       
+                <use xlink:href="#Square_64_x2A_64"  width="64" height="64" x="-32" y="-32" transform="matrix(1 0 0 1 32 -32)" overflow="visible"/>
+        <polygon opacity="0.2" points="59.3,-53.9 6,-53.9 7.2,-48.9 57.1,-48.9  "/>
+        <polygon fill="#474747" points="54.2,-46.9 8.2,-46.9 8.2,-43.9 54.2,-43.9       "/>
+        <path fill="#A3A3A3" d="M17.5-30.9v-13h-8v-2H5.2l0,2.6c0,2.1,4.9,11.4,6.6,12.4H17.5z"/>
+        <path fill="#6D6D6D" d="M17.5-34.9v-13h-8v-2h-4v6.6c0,2.1,2.7,7.4,4.5,8.4H17.5z"/>
+        <polygon fill="#6D6D6D" points="53.2,-48.9 8.2,-48.9 8.2,-46.9 53.2,-46.9       "/>
+        <polygon fill="#474747" points="53.2,-48.9 22.3,-48.9 20.3,-46.8 53.2,-46.8     "/>
+        <path fill="#474747" d="M14.8-48.9c0,1.9-1.6,3.5-3.5,3.5S7.8-47,7.8-48.9H14.8z"/>
+        <path fill="none" stroke="#6D6D6D" stroke-miterlimit="10" d="M43.9-48.9c0,1.9-1.6,3.5-3.5,3.5s-3.5-1.6-3.5-3.5H43.9z"/>
+        <path fill="none" stroke="#6D6D6D" stroke-miterlimit="10" d="M50.5-48.9c0,1.9-1.6,3.5-3.5,3.5s-3.5-1.6-3.5-3.5H50.5z"/>
+        <path fill="#E8E8E8" stroke="#000000" stroke-width="1.2142" stroke-miterlimit="10" d="M13.8-48.9c0,1.4-1.1,2.5-2.5,2.5
+                s-2.5-1.1-2.5-2.5c0-1.4,1.1-2.5,2.5-2.5S13.8-50.3,13.8-48.9z"/>
+        <path fill="#E8E8E8" stroke="#000000" stroke-width="1.2142" stroke-miterlimit="10" d="M42.9-48.9c0,1.4-1.1,2.5-2.5,2.5
+                c-1.4,0-2.5-1.1-2.5-2.5c0-1.4,1.1-2.5,2.5-2.5C41.8-51.4,42.9-50.3,42.9-48.9z"/>
+        <path fill="#E8E8E8" stroke="#000000" stroke-width="1.2142" stroke-miterlimit="10" d="M49.5-48.9c0,1.4-1.1,2.5-2.5,2.5
+                c-1.4,0-2.5-1.1-2.5-2.5c0-1.4,1.1-2.5,2.5-2.5C48.4-51.4,49.5-50.3,49.5-48.9z"/>
+        <polygon fill="#ACD860" points="18.2,-23.9 54,-23.9 56.2,-26.9 18.2,-26.9       "/>
+        <polygon fill="#789B42" points="18.2,-26.9 18.2,-44.9 56.2,-44.9 56.2,-26.9     "/>
+        <polygon fill="#C9F772" points="56.2,-27.4 18.2,-27.4 18.2,-26.4 55.8,-26.4 56.2,-26.9  "/>
+        <path fill="#939393" d="M10.5-48.9c0,0.4,0.4,0.8,0.8,0.8s0.8-0.4,0.8-0.8s-0.4-0.8-0.8-0.8S10.5-49.4,10.5-48.9z"/>
+        <path fill="#939393" d="M39.6-48.9c0,0.4,0.4,0.8,0.8,0.8c0.4,0,0.8-0.4,0.8-0.8s-0.4-0.8-0.8-0.8C40-49.7,39.6-49.4,39.6-48.9z"/>
+        <path fill="#939393" d="M46.2-48.9c0,0.4,0.4,0.8,0.8,0.8c0.4,0,0.8-0.4,0.8-0.8s-0.4-0.8-0.8-0.8C46.6-49.7,46.2-49.4,46.2-48.9z"
+                />
+        <path fill="#E8E8E8" d="M10.2-35.9c-0.7,0-2.9-3-3.2-5c2.9,0,4.5,0,4.5,0v5H10.2z"/>
+        <polygon fill="#E8E8E8" points="15.5,-40.9 12.5,-40.9 12.5,-35.9 15.5,-35.9     "/>
+        <line fill="none" stroke="#474747" stroke-width="2" stroke-miterlimit="10" x1="4.5" y1="-48.9" x2="8.5" y2="-48.9"/>
+        <polygon fill="#474747" points="4.2,-47.9 5.5,-44.8 5.5,-47.9   "/>
+</symbol>
+<use xlink:href="#Truck"  width="64" height="64" id="XMLID_30_" y="-64" transform="matrix(1 0 0 -1 0 6.510417e-04)" overflow="visible"/>
+</svg>

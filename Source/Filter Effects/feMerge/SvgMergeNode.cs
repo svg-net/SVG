@@ -10,13 +10,13 @@ namespace Svg.FilterEffects
 {
 
 	[SvgElement("feMergeNode")]
-    public class SvgMergeNode : SvgFilterPrimitive
+    public class SvgMergeNode : SvgElement
     {
-        public override Bitmap Process()
+        [SvgAttribute("in")]
+        public string Input
         {
-            //Todo
-
-            return null;
+            get { return this.Attributes.GetAttribute<string>("in"); }
+            set { this.Attributes["in"] = value; }
         }
 
 		public override SvgElement DeepCopy()

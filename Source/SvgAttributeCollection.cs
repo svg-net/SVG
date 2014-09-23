@@ -89,8 +89,11 @@ namespace Svg
                     (value is SvgFontWeight && (SvgFontWeight)value == SvgFontWeight.inherit) ||
                     (value is SvgTextAnchor && (SvgTextAnchor)value == SvgTextAnchor.inherit) ||
                     (value is SvgFontVariant && (SvgFontVariant)value == SvgFontVariant.inherit) || 
-                    (value is SvgTextDecoration && (SvgTextDecoration)value == SvgTextDecoration.inherit) || 
-                    (value == "inherit")
+                    (value is SvgTextDecoration && (SvgTextDecoration)value == SvgTextDecoration.inherit) ||
+                    (value is XmlSpaceHandling && (XmlSpaceHandling)value == XmlSpaceHandling.inherit) ||
+                    (value is SvgOverflow && (SvgOverflow)value == SvgOverflow.inherit) ||
+                    (value == SvgColourServer.Inherit) || 
+                    (value is string && (string)value == "inherit")
                    );
         }
 

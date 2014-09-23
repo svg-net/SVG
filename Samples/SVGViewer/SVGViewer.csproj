@@ -93,6 +93,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DebugRenderer.cs" />
     <Compile Include="SvgViewer.cs">
       <SubType>Form</SubType>
     </Compile>

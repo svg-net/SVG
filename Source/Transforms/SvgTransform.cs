@@ -54,5 +54,9 @@ namespace Svg.Transforms
 		}
     	#endregion
 
+        public override string ToString()
+        {
+            return WriteToString();
+        }
     }
 }

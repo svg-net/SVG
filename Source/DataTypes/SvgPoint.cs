@@ -23,7 +23,7 @@ namespace Svg
             set { this.y = value; }
         }
 
-        public PointF ToDeviceValue(SvgRenderer renderer, SvgElement owner)
+        public PointF ToDeviceValue(ISvgRenderer renderer, SvgElement owner)
         {
             return SvgUnit.GetDevicePoint(this.X, this.Y, renderer, owner);
         }

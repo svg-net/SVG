@@ -5,44 +5,34 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 
 namespace Svg.FilterEffects
 {
-
 	[SvgElement("feMerge")]
     public class SvgMerge : SvgFilterPrimitive
     {
-        public StringCollection MergeResults { get; private set; }
-
-        public SvgMerge()
+        public override void Process(ImageBuffer buffer)
         {
-            MergeResults = new StringCollection();
+            var children = this.Children.OfType<SvgMergeNode>().ToList();
+            var inputImage = buffer[children.First().Input];
+            var result = new Bitmap(inputImage.Width, inputImage.Height);
+            using (var g = Graphics.FromImage(result))
+            {
+                foreach (var child in children)
+                {
+                    g.DrawImage(buffer[child.Input], new Rectangle(0, 0, inputImage.Width, inputImage.Height),
+                                0, 0, inputImage.Width, inputImage.Height, GraphicsUnit.Pixel);
+                }
+                g.Flush();
+            }
+            result.Save(@"C:\test.png");
+            buffer[this.Result] = result;
         }
-
-        public override Bitmap Process()
-        {
-			//Todo
-
-            //Bitmap merged = new Bitmap((int)this.Owner.Width.Value, (int)this.Owner.Height.Value); 
-            //Graphics mergedGraphics = Graphics.FromImage(merged);
-
-            //foreach (string resultId in this.MergeResults)
-            //{
-            //    mergedGraphics.DrawImageUnscaled(this.Owner.Results[resultId](), new Point(0, 0));
-            //}
-
-            //mergedGraphics.Save();
-            //mergedGraphics.Dispose();
-
-            //results.Add(this.Result, () => merged);
-
-            return null;
-        }
-
 
 		public override SvgElement DeepCopy()
 		{
-			throw new NotImplementedException();
+            return DeepCopy<SvgMerge>();
 		}
 
     }

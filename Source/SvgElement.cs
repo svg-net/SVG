@@ -15,8 +15,11 @@ namespace Svg
     /// <summary>
     /// The base class of which all SVG elements are derived from.
     /// </summary>
-    public abstract class SvgElement : ISvgElement, ISvgTransformable, ICloneable, ISvgNode
+    public abstract partial class SvgElement : ISvgElement, ISvgTransformable, ICloneable, ISvgNode
     {
+        internal const int StyleSpecificity_PresAttribute = 0;
+        internal const int StyleSpecificity_InlineStyle = 1 << 16;
+
         //optimization
         protected class PropertyAttributeTuple
         {
@@ -48,6 +51,7 @@ namespace Svg
 
         private Dictionary<string, SortedDictionary<int, string>> _styles = new Dictionary<string, SortedDictionary<int, string>>();
         
+
         public void AddStyle(string name, string value, int specificity)
         {
             SortedDictionary<int, string> rules;
@@ -66,6 +70,32 @@ namespace Svg
                 SvgElementFactory.SetPropertyValue(this, s.Key, s.Value.Last().Value, this.OwnerDocument);
             }
             _styles = null;
+        }
+
+
+        public bool ContainsAttribute(string name)
+        {
+            SortedDictionary<int, string> rules;
+            return (this.Attributes.ContainsKey(name) || this.CustomAttributes.ContainsKey(name) ||
+                (_styles.TryGetValue(name, out rules) && (rules.ContainsKey(StyleSpecificity_InlineStyle) || rules.ContainsKey(StyleSpecificity_PresAttribute))));
+        }
+        public bool TryGetAttribute(string name, out string value)
+        {
+            object objValue;
+            if (this.Attributes.TryGetValue(name, out objValue))
+            {
+                value = objValue.ToString();
+                return true;
+            }
+            if (this.CustomAttributes.TryGetValue(name, out value)) return true;
+            SortedDictionary<int, string> rules;
+            if (_styles.TryGetValue(name, out rules))
+            {
+                // Get staged styles that are 
+                if (rules.TryGetValue(StyleSpecificity_InlineStyle, out value)) return true;
+                if (rules.TryGetValue(StyleSpecificity_PresAttribute, out value)) return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -254,23 +284,25 @@ namespace Svg
             get { return this._customAttributes; }
         }
 
+        private static readonly Matrix _zeroMatrix = new Matrix(0, 0, 0, 0, 0, 0);
+
         /// <summary>
-        /// Applies the required transforms to <see cref="SvgRenderer"/>.
+        /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
-        protected internal virtual bool PushTransforms(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
+        protected internal virtual bool PushTransforms(ISvgRenderer renderer)
         {
             _graphicsMatrix = renderer.Transform;
-            _graphicsClip = renderer.Clip;
+            _graphicsClip = renderer.GetClip();
 
             // Return if there are no transforms
             if (this.Transforms == null || this.Transforms.Count == 0)
             {
                 return true;
             }
-            if (this.Transforms.Count == 1 && this.Transforms[0].Matrix.Equals(new Matrix(0, 0, 0, 0, 0, 0))) return false;
+            if (this.Transforms.Count == 1 && this.Transforms[0].Matrix.Equals(_zeroMatrix)) return false;
 
-            Matrix transformMatrix = renderer.Transform;
+            Matrix transformMatrix = renderer.Transform.Clone();
 
             foreach (SvgTransform transformation in this.Transforms)
             {
@@ -283,10 +315,10 @@ namespace Svg
         }
 
         /// <summary>
-        /// Removes any previously applied transforms from the specified <see cref="SvgRenderer"/>.
+        /// Removes any previously applied transforms from the specified <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> that should have transforms removed.</param>
-        protected internal virtual void PopTransforms(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> that should have transforms removed.</param>
+        protected internal virtual void PopTransforms(ISvgRenderer renderer)
         {
             renderer.Transform = _graphicsMatrix;
             _graphicsMatrix = null;
@@ -295,19 +327,19 @@ namespace Svg
         }
 
         /// <summary>
-        /// Applies the required transforms to <see cref="SvgRenderer"/>.
+        /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
-        void ISvgTransformable.PushTransforms(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
+        void ISvgTransformable.PushTransforms(ISvgRenderer renderer)
         {
             this.PushTransforms(renderer);
         }
 
         /// <summary>
-        /// Removes any previously applied transforms from the specified <see cref="SvgRenderer"/>.
+        /// Removes any previously applied transforms from the specified <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> that should have transforms removed.</param>
-        void ISvgTransformable.PopTransforms(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> that should have transforms removed.</param>
+        void ISvgTransformable.PopTransforms(ISvgRenderer renderer)
         {
             this.PopTransforms(renderer);
         }
@@ -342,6 +374,17 @@ namespace Svg
             {
                 SetAndForceUniqueID(value, false);
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the text anchor.
+        /// </summary>
+        /// <value>The text anchor.</value>
+        [SvgAttribute("space", SvgAttributeAttribute.XmlNamespace)]
+        public virtual XmlSpaceHandling SpaceHandling
+        {
+            get { return (this.Attributes["space"] == null) ? XmlSpaceHandling.inherit : (XmlSpaceHandling)this.Attributes["space"]; }
+            set { this.Attributes["space"] = value; }
         }
 
         public void SetAndForceUniqueID(string value, bool autoForceUniqueID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
@@ -469,10 +512,10 @@ namespace Svg
 
 
         /// <summary>
-        /// Renders this element to the <see cref="SvgRenderer"/>.
+        /// Renders this element to the <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> that the element should use to render itself.</param>
-        public void RenderElement(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> that the element should use to render itself.</param>
+        public void RenderElement(ISvgRenderer renderer)
         {
             this.Render(renderer);
         }
@@ -632,10 +675,10 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="SvgRenderer"/> object.
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-        protected virtual void Render(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
+        protected virtual void Render(ISvgRenderer renderer)
         {
             this.PushTransforms(renderer);
             this.RenderChildren(renderer);
@@ -645,8 +688,8 @@ namespace Svg
         /// <summary>
         /// Renders the children of this <see cref="SvgElement"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to render the child <see cref="SvgElement"/>s to.</param>
-        protected virtual void RenderChildren(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to render the child <see cref="SvgElement"/>s to.</param>
+        protected virtual void RenderChildren(ISvgRenderer renderer)
         {
             foreach (SvgElement element in this.Children)
             {
@@ -655,10 +698,10 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="SvgRenderer"/> object.
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-        void ISvgElement.Render(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
+        void ISvgElement.Render(ISvgRenderer renderer)
         {
             this.Render(renderer);
         }
@@ -698,7 +741,7 @@ namespace Svg
         /// </summary>
         /// <param name="elem"></param>
         /// <param name="path"></param>
-        protected GraphicsPath GetPaths(SvgElement elem, SvgRenderer renderer)
+        protected GraphicsPath GetPaths(SvgElement elem, ISvgRenderer renderer)
         {
         	var ret = new GraphicsPath();
         	
@@ -1117,6 +1160,6 @@ namespace Svg
 		SvgElementCollection Children { get; }
         IList<ISvgNode> Nodes { get; }
 
-        void Render(SvgRenderer renderer);
+        void Render(ISvgRenderer renderer);
     }
 }

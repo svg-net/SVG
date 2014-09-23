@@ -87,11 +87,11 @@ namespace Svg
             Overflow = SvgOverflow.hidden;
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path(SvgRenderer renderer)
+        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
-            var path = this.Children.FirstOrDefault(x => x is SvgPath);
+            var path = this.Children.FirstOrDefault(x => x is SvgVisualElement);
             if (path != null)
-                return (path as SvgPath).Path(renderer);
+                return (path as SvgVisualElement).Path(renderer);
             return null;
         }
 
@@ -131,7 +131,7 @@ namespace Svg
         /// <param name="pOwner"></param>
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
-        public void RenderMarker(SvgRenderer pRenderer, SvgPath pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
+        public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
         {
             float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
             float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
@@ -148,7 +148,7 @@ namespace Svg
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
         /// <param name="pMarkerPoint3"></param>
-        public void RenderMarker(SvgRenderer pRenderer, SvgPath pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2, PointF pMarkerPoint3)
+        public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2, PointF pMarkerPoint3)
         {
             float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
             float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
@@ -168,47 +168,49 @@ namespace Svg
         /// <param name="pRenderer"></param>
         /// <param name="pOwner"></param>
         /// <param name="pMarkerPoint"></param>
-        private void RenderPart2(float fAngle, SvgRenderer pRenderer, SvgPath pOwner, PointF pMarkerPoint)
+        private void RenderPart2(float fAngle, ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pMarkerPoint)
         {
-            Pen pRenderPen = CreatePen(pOwner, pRenderer);
-
-            GraphicsPath markerPath = GetClone(pOwner);
-
-            Matrix transMatrix = new Matrix();
-            transMatrix.Translate(pMarkerPoint.X, pMarkerPoint.Y);
-            if (Orient.IsAuto)
-                transMatrix.Rotate(fAngle);
-            else
-                transMatrix.Rotate(Orient.Angle);
-            switch (MarkerUnits)
+            using (var pRenderPen = CreatePen(pOwner, pRenderer))
             {
-                case SvgMarkerUnits.strokeWidth:
-                    transMatrix.Translate(AdjustForViewBoxWidth(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this) * 
-                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)),
-                                          AdjustForViewBoxHeight(-RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this) *
-                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)));
-                    break;
-                case SvgMarkerUnits.userSpaceOnUse:
-                    transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
-                                          -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
-                    break;
-            }
-            markerPath.Transform(transMatrix);
-            pRenderer.DrawPath(pRenderPen, markerPath);
+                using (var markerPath = GetClone(pOwner))
+                {
+                    using (var transMatrix = new Matrix())
+                    {
+                        transMatrix.Translate(pMarkerPoint.X, pMarkerPoint.Y);
+                        if (Orient.IsAuto)
+                            transMatrix.Rotate(fAngle);
+                        else
+                            transMatrix.Rotate(Orient.Angle);
+                        switch (MarkerUnits)
+                        {
+                            case SvgMarkerUnits.strokeWidth:
+                                transMatrix.Translate(AdjustForViewBoxWidth(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this) *
+                                                        pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)),
+                                                      AdjustForViewBoxHeight(-RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this) *
+                                                        pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)));
+                                break;
+                            case SvgMarkerUnits.userSpaceOnUse:
+                                transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
+                                                      -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
+                                break;
+                        }
+                        markerPath.Transform(transMatrix);
+                        if (pRenderPen != null) pRenderer.DrawPath(pRenderPen, markerPath);
 
-            SvgPaintServer pFill = Fill;
-            SvgFillRule pFillRule = FillRule;								// TODO: What do we use the fill rule for?
-            float fOpacity = FillOpacity;
+                        SvgPaintServer pFill = this.Children.First().Fill;
+                        SvgFillRule pFillRule = FillRule;								// TODO: What do we use the fill rule for?
+                        float fOpacity = FillOpacity;
 
-            if (pFill != null)
-            {
-                Brush pBrush = pFill.GetBrush(this, pRenderer, fOpacity);
-                pRenderer.FillPath(pBrush, markerPath);
-                pBrush.Dispose();
+                        if (pFill != null)
+                        {
+                            using (var pBrush = pFill.GetBrush(this, pRenderer, fOpacity))
+                            {
+                                pRenderer.FillPath(pBrush, markerPath);
+                            }
+                        }
+                    }
+                }
             }
-            pRenderPen.Dispose();
-            markerPath.Dispose();
-            transMatrix.Dispose();
         }
 
         /// <summary>
@@ -216,8 +218,9 @@ namespace Svg
         /// </summary>
         /// <param name="pStroke"></param>
         /// <returns></returns>
-        private Pen CreatePen(SvgPath pPath, SvgRenderer renderer)
+        private Pen CreatePen(SvgVisualElement pPath, ISvgRenderer renderer)
         {
+            if (pPath.Stroke == null) return null;
             Brush pBrush = pPath.Stroke.GetBrush(this, renderer, Opacity);
             switch (MarkerUnits)
             {
@@ -231,18 +234,20 @@ namespace Svg
         }
 
         /// <summary>
-        /// Get a clone of the current path, scaled for the stroke with
+        /// Get a clone of the current path, scaled for the stroke width
         /// </summary>
         /// <returns></returns>
-        private GraphicsPath GetClone(SvgPath pPath)
+        private GraphicsPath GetClone(SvgVisualElement pPath)
         {
             GraphicsPath pRet = Path(null).Clone() as GraphicsPath;
             switch (MarkerUnits)
             {
                 case SvgMarkerUnits.strokeWidth:
-                    Matrix transMatrix = new Matrix();
-                    transMatrix.Scale(AdjustForViewBoxWidth(pPath.StrokeWidth), AdjustForViewBoxHeight(pPath.StrokeWidth));
-                    pRet.Transform(transMatrix);
+                    using (var transMatrix = new Matrix())
+                    {
+                        transMatrix.Scale(AdjustForViewBoxWidth(pPath.StrokeWidth), AdjustForViewBoxHeight(pPath.StrokeWidth));
+                        pRet.Transform(transMatrix);
+                    }
                     break;
                 case SvgMarkerUnits.userSpaceOnUse:
                     break;
@@ -258,7 +263,7 @@ namespace Svg
         private float AdjustForViewBoxWidth(float fWidth)
         {
             //	TODO: We know this isn't correct
-            return (fWidth / ViewBox.Width);
+            return (ViewBox.Width <= 0 ? 1 : fWidth / ViewBox.Width);
         }
 
         /// <summary>
@@ -269,7 +274,7 @@ namespace Svg
         private float AdjustForViewBoxHeight(float fHeight)
         {
             //	TODO: We know this isn't correct
-            return (fHeight / ViewBox.Height);
+            return (ViewBox.Height <= 0 ? 1 : fHeight / ViewBox.Height);
         }
     }
 }

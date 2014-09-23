@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Svg.Filter_Effects.feColourMatrix
+namespace Svg.FilterEffects
 {
 	public enum SvgColourMatrixType
 	{

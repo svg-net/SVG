@@ -22,6 +22,18 @@ namespace Svg
         public static readonly int PointsPerInch = 96;
         private SvgElementIdManager _idManager;
 
+        private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;
+        internal Dictionary<string, IEnumerable<SvgFontFace>> FontDefns()
+        {
+            if (_fontDefns == null)
+            {
+                _fontDefns = (from f in Descendants().OfType<SvgFontFace>()
+                              group f by f.FontFamily into family
+                              select family).ToDictionary(f => f.Key, f => (IEnumerable<SvgFontFace>)f);
+            }
+            return _fontDefns;
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgDocument"/> class.
         /// </summary>
@@ -63,6 +75,11 @@ namespace Svg
         /// Gets or sets the Pixels Per Inch of the rendered image.
         /// </summary>
         public int Ppi { get; set; }
+        
+        /// <summary>
+        /// Gets or sets an external Cascading Style Sheet (CSS)
+        /// </summary>
+        public string ExternalCSSHref { get; set; }        
 
         #region ITypeDescriptorContext Members
 
@@ -159,9 +176,12 @@ namespace Svg
                 throw new FileNotFoundException("The specified document cannot be found.", path);
             }
 
-            var doc = Open<T>(File.OpenRead(path), entities);
-            doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
-            return doc;
+            using (var stream = File.OpenRead(path))
+            {
+                var doc = Open<T>(stream, entities);
+                doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
+                return doc;
+            }
         }
 
         /// <summary>
@@ -379,18 +399,18 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgDocument"/> to the specified <see cref="SvgRenderer"/>.
+        /// Renders the <see cref="SvgDocument"/> to the specified <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to render the document with.</param>
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to render the document with.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="renderer"/> parameter cannot be <c>null</c>.</exception>
-        public void Draw(SvgRenderer renderer)
+        public void Draw(ISvgRenderer renderer)
         {
             if (renderer == null)
             {
                 throw new ArgumentNullException("renderer");
             }
 
-            renderer.Boundable(this);
+            renderer.SetBoundable(this);
             this.Render(renderer);
         }
 
@@ -407,7 +427,7 @@ namespace Svg
             }
 
             var renderer = SvgRenderer.FromGraphics(graphics);
-            renderer.Boundable(this);
+            renderer.SetBoundable(this);
             this.Render(renderer);
         }
 
@@ -420,7 +440,7 @@ namespace Svg
             //Trace.TraceInformation("Begin Render");
 
             var size = GetDimensions();
-            var bitmap = new Bitmap((int)Math.Ceiling(size.Width), (int)Math.Ceiling(size.Height));
+            var bitmap = new Bitmap((int)Math.Round(size.Width), (int)Math.Round(size.Height));
             // 	bitmap.SetResolution(300, 300);
             try
             {
@@ -447,12 +467,8 @@ namespace Svg
             {
                 using (var renderer = SvgRenderer.FromImage(bitmap))
                 {
-                    renderer.Boundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
-                    renderer.TextRenderingHint = TextRenderingHint.AntiAlias;
-                    renderer.TextContrast = 1;
-                    renderer.PixelOffsetMode = PixelOffsetMode.Half;
+                    renderer.SetBoundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
                     this.Render(renderer);
-                    renderer.Save();
                 }
             }
             catch
@@ -470,6 +486,9 @@ namespace Svg
             xmlWriter.Formatting = Formatting.Indented;
 
             xmlWriter.WriteDocType("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", null);
+            
+            if (!String.IsNullOrEmpty(this.ExternalCSSHref))
+                xmlWriter.WriteProcessingInstruction("xml-stylesheet", String.Format("type=\"text/css\" href=\"{0}\"", this.ExternalCSSHref));
 
             this.WriteElement(xmlWriter);
 

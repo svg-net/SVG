@@ -26,7 +26,7 @@ namespace Svg
         /// </summary>
         public SvgClipPath()
         {
-            this.ClipPathUnits = SvgCoordinateUnits.ObjectBoundingBox;
+            this.ClipPathUnits = SvgCoordinateUnits.Inherit;
         }
 
         private GraphicsPath cachedClipPath = null;
@@ -49,7 +49,20 @@ namespace Svg
                 this._pathDirty = false;
             }
 
-            return new Region(cachedClipPath);
+            var result = cachedClipPath;
+            if (ClipPathUnits == SvgCoordinateUnits.ObjectBoundingBox)
+            {
+                result = (GraphicsPath)cachedClipPath.Clone();
+                using (var transform = new Matrix())
+                {
+                    var bounds = owner.Bounds;
+                    transform.Scale(bounds.Width, bounds.Height, MatrixOrder.Append);
+                    transform.Translate(bounds.Left, bounds.Top, MatrixOrder.Append);
+                    result.Transform(transform);
+                }
+            }
+
+            return new Region(result);
         }
 
         /// <summary>
@@ -75,7 +88,7 @@ namespace Svg
                     }
                 }
 
-                path.AddPath(childPath, false);
+                if (childPath.PointCount > 0) path.AddPath(childPath, false);
             }
 
             foreach (SvgElement child in element.Children)
@@ -108,10 +121,10 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="SvgRenderer"/> object.
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-        protected override void Render(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
+        protected override void Render(ISvgRenderer renderer)
         {
             // Do nothing
         }

@@ -174,7 +174,7 @@ namespace Svg
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
-        public override GraphicsPath Path(SvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             if (_path == null || IsPathDirty)
             {
@@ -197,8 +197,8 @@ namespace Svg
                     var lineEnd = new PointF();
                     var width = Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
                     var height = Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
-                    var rx = CornerRadiusX.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) * 2;
-                    var ry = CornerRadiusY.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) * 2;
+                    var rx = Math.Min(CornerRadiusX.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) * 2, width);
+                    var ry = Math.Min(CornerRadiusY.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) * 2, height);
                     var location = Location.ToDeviceValue(renderer, this);
 
                     // Start
@@ -261,7 +261,7 @@ namespace Svg
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>
-        protected override void Render(SvgRenderer renderer)
+        protected override void Render(ISvgRenderer renderer)
         {
             if (Width.Value > 0.0f && Height.Value > 0.0f)
             {

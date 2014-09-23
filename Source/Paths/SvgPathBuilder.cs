@@ -12,14 +12,14 @@ using Svg.Pathing;
 
 namespace Svg
 {
-	public static class PointFExtensions
-	{
-		public static string ToSvgString(this PointF p)
-		{
-			return p.X.ToString() + " " + p.Y.ToString();
-		}
-	}
-	
+    public static class PointFExtensions
+    {
+        public static string ToSvgString(this PointF p)
+        {
+            return p.X.ToString() + " " + p.Y.ToString();
+        }
+    }
+
     public class SvgPathBuilder : TypeConverter
     {
         /// <summary>
@@ -37,18 +37,16 @@ namespace Svg
 
             try
             {
-                List<float> coords;
                 char command;
                 bool isRelative;
 
                 foreach (var commandSet in SplitCommands(path.TrimEnd(null)))
                 {
-                    coords = new List<float>(ParseCoordinates(commandSet.Trim()));
                     command = commandSet[0];
                     isRelative = char.IsLower(command);
                     // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
 
-                    CreatePathSegment(command, segments, coords, isRelative);
+                    CreatePathSegment(command, segments, new CoordinateParser(commandSet.Trim()), isRelative);
                 }
             }
             catch (Exception exc)
@@ -59,111 +57,124 @@ namespace Svg
             return segments;
         }
 
-        public static void CreatePathSegment(char command, SvgPathSegmentList segments, List<float> coords, bool isRelative)
+        private static void CreatePathSegment(char command, SvgPathSegmentList segments, CoordinateParser parser, bool isRelative)
         {
-         
-                    switch (command)
+
+            var coords = new float[6];
+
+            switch (command)
+            {
+                case 'm': // relative moveto
+                case 'M': // moveto
+                    if (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                     {
-                        case 'm': // relative moveto
-                        case 'M': // moveto
-                            segments.Add(
-                                new SvgMoveToSegment(ToAbsolute(coords[0], coords[1], segments, isRelative)));
-
-                            for (var i = 2; i < coords.Count; i += 2)
-                            {
-                                segments.Add(new SvgLineSegment(segments.Last.End,
-                                    ToAbsolute(coords[i], coords[i + 1], segments, isRelative)));
-                            }
-                            break;
-                        case 'a':
-                        case 'A':
-                            SvgArcSize size;
-                            SvgArcSweep sweep;
-
-                            for (var i = 0; i < coords.Count; i += 7)
-                            {
-                                size = (coords[i + 3] != 0.0f) ? SvgArcSize.Large : SvgArcSize.Small;
-                                sweep = (coords[i + 4] != 0.0f) ? SvgArcSweep.Positive : SvgArcSweep.Negative;
-
-                                // A|a rx ry x-axis-rotation large-arc-flag sweep-flag x y
-                                segments.Add(new SvgArcSegment(segments.Last.End, coords[i], coords[i + 1], coords[i + 2],
-                                    size, sweep, ToAbsolute(coords[i + 5], coords[i + 6], segments, isRelative)));
-                            }
-                            break;
-                        case 'l': // relative lineto
-                        case 'L': // lineto
-                            for (var i = 0; i < coords.Count; i += 2)
-                            {
-                                segments.Add(new SvgLineSegment(segments.Last.End,
-                                    ToAbsolute(coords[i], coords[i + 1], segments, isRelative)));
-                            }
-                            break;
-                        case 'H': // horizontal lineto
-                        case 'h': // relative horizontal lineto
-                            foreach (var value in coords)
-                                segments.Add(new SvgLineSegment(segments.Last.End,
-                                    ToAbsolute(value, segments.Last.End.Y, segments, isRelative, false)));
-                            break;
-                        case 'V': // vertical lineto
-                        case 'v': // relative vertical lineto
-                            foreach (var value in coords)
-                                segments.Add(new SvgLineSegment(segments.Last.End,
-                                    ToAbsolute(segments.Last.End.X, value, segments, false, isRelative)));
-                            break;
-                        case 'Q': // curveto
-                        case 'q': // relative curveto
-                            for (var i = 0; i < coords.Count; i += 4)
-                            {
-                                segments.Add(new SvgQuadraticCurveSegment(segments.Last.End,
-                                    ToAbsolute(coords[i], coords[i + 1], segments, isRelative),
-                                    ToAbsolute(coords[i + 2], coords[i + 3], segments, isRelative)));
-                            }
-                            break;
-                        case 'T': // shorthand/smooth curveto
-                        case 't': // relative shorthand/smooth curveto
-                            for (var i = 0; i < coords.Count; i += 2)
-                            {
-                                var lastQuadCurve = segments.Last as SvgQuadraticCurveSegment;
-
-                                var controlPoint = lastQuadCurve != null
-                                    ? Reflect(lastQuadCurve.ControlPoint, segments.Last.End)
-                                    : segments.Last.End;
-
-                                segments.Add(new SvgQuadraticCurveSegment(segments.Last.End, controlPoint,
-                                    ToAbsolute(coords[i], coords[i + 1], segments, isRelative)));
-                            }
-                            break;
-                        case 'C': // curveto
-                        case 'c': // relative curveto
-                            for (var i = 0; i < coords.Count; i += 6)
-                            {
-                                segments.Add(new SvgCubicCurveSegment(segments.Last.End,
-                                    ToAbsolute(coords[i], coords[i + 1], segments, isRelative),
-                                    ToAbsolute(coords[i + 2], coords[i + 3], segments, isRelative),
-                                    ToAbsolute(coords[i + 4], coords[i + 5], segments, isRelative)));
-                            }
-                            break;
-                        case 'S': // shorthand/smooth curveto
-                        case 's': // relative shorthand/smooth curveto
-
-                            for (var i = 0; i < coords.Count; i += 4)
-                            {
-                                var lastCubicCurve = segments.Last as SvgCubicCurveSegment;
-
-                                var controlPoint = lastCubicCurve != null
-                                    ? Reflect(lastCubicCurve.SecondControlPoint, segments.Last.End)
-                                    : segments.Last.End;
-
-                                segments.Add(new SvgCubicCurveSegment(segments.Last.End, controlPoint,
-                                    ToAbsolute(coords[i], coords[i + 1], segments, isRelative),
-                                    ToAbsolute(coords[i + 2], coords[i + 3], segments, isRelative)));
-                            }
-                            break;
-                        case 'Z': // closepath
-                        case 'z': // relative closepath
-                            segments.Add(new SvgClosePathSegment());
-                            break;
+                        segments.Add(new SvgMoveToSegment(ToAbsolute(coords[0], coords[1], segments, isRelative)));
                     }
+
+                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
+                    {
+                        segments.Add(new SvgLineSegment(segments.Last.End,
+                            ToAbsolute(coords[0], coords[1], segments, isRelative)));
+                    }
+                    break;
+                case 'a':
+                case 'A':
+                    bool size;
+                    bool sweep;
+
+                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
+                           parser.TryGetFloat(out coords[2]) && parser.TryGetBool(out size) &&
+                           parser.TryGetBool(out sweep) && parser.TryGetFloat(out coords[3]) &&
+                           parser.TryGetFloat(out coords[4]))
+                    {
+                        // A|a rx ry x-axis-rotation large-arc-flag sweep-flag x y
+                        segments.Add(new SvgArcSegment(segments.Last.End, coords[0], coords[1], coords[2],
+                            (size ? SvgArcSize.Large : SvgArcSize.Small), 
+                            (sweep ? SvgArcSweep.Positive : SvgArcSweep.Negative), 
+                            ToAbsolute(coords[3], coords[4], segments, isRelative)));
+                    }
+                    break;
+                case 'l': // relative lineto
+                case 'L': // lineto
+                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
+                    {
+                        segments.Add(new SvgLineSegment(segments.Last.End,
+                            ToAbsolute(coords[0], coords[1], segments, isRelative)));
+                    }
+                    break;
+                case 'H': // horizontal lineto
+                case 'h': // relative horizontal lineto
+                    while (parser.TryGetFloat(out coords[0]))
+                    {
+                        segments.Add(new SvgLineSegment(segments.Last.End,
+                            ToAbsolute(coords[0], segments.Last.End.Y, segments, isRelative, false)));
+                    }
+                    break;
+                case 'V': // vertical lineto
+                case 'v': // relative vertical lineto
+                    while (parser.TryGetFloat(out coords[0]))
+                    {
+                        segments.Add(new SvgLineSegment(segments.Last.End,
+                            ToAbsolute(segments.Last.End.X, coords[0], segments, false, isRelative)));
+                    }
+                    break;
+                case 'Q': // curveto
+                case 'q': // relative curveto
+                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
+                           parser.TryGetFloat(out coords[2]) && parser.TryGetFloat(out coords[3]))
+                    {
+                        segments.Add(new SvgQuadraticCurveSegment(segments.Last.End,
+                            ToAbsolute(coords[0], coords[1], segments, isRelative),
+                            ToAbsolute(coords[2], coords[3], segments, isRelative)));
+                    }
+                    break;
+                case 'T': // shorthand/smooth curveto
+                case 't': // relative shorthand/smooth curveto
+                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
+                    {
+                        var lastQuadCurve = segments.Last as SvgQuadraticCurveSegment;
+
+                        var controlPoint = lastQuadCurve != null
+                            ? Reflect(lastQuadCurve.ControlPoint, segments.Last.End)
+                            : segments.Last.End;
+
+                        segments.Add(new SvgQuadraticCurveSegment(segments.Last.End, controlPoint,
+                            ToAbsolute(coords[0], coords[1], segments, isRelative)));
+                    }
+                    break;
+                case 'C': // curveto
+                case 'c': // relative curveto
+                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
+                           parser.TryGetFloat(out coords[2]) && parser.TryGetFloat(out coords[3]) &&
+                           parser.TryGetFloat(out coords[4]) && parser.TryGetFloat(out coords[5]))
+                    {
+                        segments.Add(new SvgCubicCurveSegment(segments.Last.End,
+                            ToAbsolute(coords[0], coords[1], segments, isRelative),
+                            ToAbsolute(coords[2], coords[3], segments, isRelative),
+                            ToAbsolute(coords[4], coords[5], segments, isRelative)));
+                    }
+                    break;
+                case 'S': // shorthand/smooth curveto
+                case 's': // relative shorthand/smooth curveto
+                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
+                           parser.TryGetFloat(out coords[2]) && parser.TryGetFloat(out coords[3]))
+                    {
+                        var lastCubicCurve = segments.Last as SvgCubicCurveSegment;
+
+                        var controlPoint = lastCubicCurve != null
+                            ? Reflect(lastCubicCurve.SecondControlPoint, segments.Last.End)
+                            : segments.Last.End;
+
+                        segments.Add(new SvgCubicCurveSegment(segments.Last.End, controlPoint,
+                            ToAbsolute(coords[0], coords[1], segments, isRelative),
+                            ToAbsolute(coords[2], coords[3], segments, isRelative)));
+                    }
+                    break;
+                case 'Z': // closepath
+                case 'z': // relative closepath
+                    segments.Add(new SvgClosePathSegment());
+                    break;
+            }
         }
 
         private static PointF Reflect(PointF point, PointF mirror)
@@ -246,7 +257,7 @@ namespace Svg
             for (var i = 0; i < path.Length; i++)
             {
                 string command;
-				if (char.IsLetter(path[i]) && path[i] != 'e') //e is used in scientific notiation. but not svg path
+                if (char.IsLetter(path[i]) && path[i] != 'e') //e is used in scientific notiation. but not svg path
                 {
                     command = path.Substring(commandStart, i - commandStart).Trim();
                     commandStart = i;
@@ -273,17 +284,224 @@ namespace Svg
             }
         }
 
-        private static IEnumerable<float> ParseCoordinates(string coords)
-        {
-            var parts = Regex.Split(coords.Remove(0, 1), @"[\s,]|(?=(?<!e)-)", RegexOptions.Compiled);
+        
 
-            for (int i = 0; i < parts.Length; i++)
-            {
-                if (!String.IsNullOrEmpty(parts[i]))
-                    yield return float.Parse(parts[i].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture);
+        //private static IEnumerable<float> ParseCoordinates(string coords)
+        //{
+        //    if (string.IsNullOrEmpty(coords) || coords.Length < 2) yield break;
 
-            }
-        }
+        //    var pos = 0;
+        //    var currState = NumState.separator;
+        //    var newState = NumState.separator;
+
+        //    for (int i = 1; i < coords.Length; i++)
+        //    {
+        //        switch (currState)
+        //        {
+        //            case NumState.separator:
+        //                if (char.IsNumber(coords[i]))
+        //                {
+        //                    newState = NumState.integer;
+        //                }
+        //                else if (IsCoordSeparator(coords[i]))
+        //                {
+        //                    newState = NumState.separator;
+        //                }
+        //                else
+        //                {
+        //                    switch (coords[i])
+        //                    {
+        //                        case '.':
+        //                            newState = NumState.decPlace;
+        //                            break;
+        //                        case '+':
+        //                        case '-':
+        //                            newState = NumState.prefix;
+        //                            break;
+        //                        default:
+        //                            newState = NumState.invalid;
+        //                            break;
+        //                    }
+        //                }
+        //                break;
+        //            case NumState.prefix:
+        //                if (char.IsNumber(coords[i]))
+        //                {
+        //                    newState = NumState.integer;
+        //                }
+        //                else if (coords[i] == '.')
+        //                {
+        //                    newState = NumState.decPlace;
+        //                }
+        //                else
+        //                {
+        //                    newState = NumState.invalid;
+        //                }
+        //                break;
+        //            case NumState.integer:
+        //                if (char.IsNumber(coords[i]))
+        //                {
+        //                    newState = NumState.integer;
+        //                }
+        //                else if (IsCoordSeparator(coords[i]))
+        //                {
+        //                    newState = NumState.separator;
+        //                }
+        //                else
+        //                {
+        //                    switch (coords[i])
+        //                    {
+        //                        case '.':
+        //                            newState = NumState.decPlace;
+        //                            break;
+        //                        case 'e':
+        //                            newState = NumState.exponent;
+        //                            break;
+        //                        case '+':
+        //                        case '-':
+        //                            newState = NumState.prefix;
+        //                            break;
+        //                        default:
+        //                            newState = NumState.invalid;
+        //                            break;
+        //                    }
+        //                }
+        //                break;
+        //            case NumState.decPlace:
+        //                if (char.IsNumber(coords[i]))
+        //                {
+        //                    newState = NumState.fraction;
+        //                }
+        //                else if (IsCoordSeparator(coords[i]))
+        //                {
+        //                    newState = NumState.separator;
+        //                }
+        //                else
+        //                {
+        //                    switch (coords[i])
+        //                    {
+        //                        case 'e':
+        //                            newState = NumState.exponent;
+        //                            break;
+        //                        case '+':
+        //                        case '-':
+        //                            newState = NumState.prefix;
+        //                            break;
+        //                        default:
+        //                            newState = NumState.invalid;
+        //                            break;
+        //                    }
+        //                }
+        //                break;
+        //            case NumState.fraction:
+        //                if (char.IsNumber(coords[i]))
+        //                {
+        //                    newState = NumState.fraction;
+        //                }
+        //                else if (IsCoordSeparator(coords[i]))
+        //                {
+        //                    newState = NumState.separator;
+        //                }
+        //                else
+        //                {
+        //                    switch (coords[i])
+        //                    {
+        //                        case '.':
+        //                            newState = NumState.decPlace;
+        //                            break;
+        //                        case 'e':
+        //                            newState = NumState.exponent;
+        //                            break;
+        //                        case '+':
+        //                        case '-':
+        //                            newState = NumState.prefix;
+        //                            break;
+        //                        default:
+        //                            newState = NumState.invalid;
+        //                            break;
+        //                    }
+        //                }
+        //                break;
+        //            case NumState.exponent:
+        //                if (char.IsNumber(coords[i]))
+        //                {
+        //                    newState = NumState.expValue;
+        //                }
+        //                else if (IsCoordSeparator(coords[i]))
+        //                {
+        //                    newState = NumState.invalid;
+        //                }
+        //                else
+        //                {
+        //                    switch (coords[i])
+        //                    {
+        //                        case '+':
+        //                        case '-':
+        //                            newState = NumState.expPrefix;
+        //                            break;
+        //                        default:
+        //                            newState = NumState.invalid;
+        //                            break;
+        //                    }
+        //                }
+        //                break;
+        //            case NumState.expPrefix:
+        //                if (char.IsNumber(coords[i]))
+        //                {
+        //                    newState = NumState.expValue;
+        //                }
+        //                else
+        //                {
+        //                    newState = NumState.invalid;
+        //                }
+        //                break;
+        //            case NumState.expValue:
+        //                if (char.IsNumber(coords[i]))
+        //                {
+        //                    newState = NumState.expValue;
+        //                }
+        //                else if (IsCoordSeparator(coords[i]))
+        //                {
+        //                    newState = NumState.separator;
+        //                }
+        //                else
+        //                {
+        //                    switch (coords[i])
+        //                    {
+        //                        case '.':
+        //                            newState = NumState.decPlace;
+        //                            break;
+        //                        case '+':
+        //                        case '-':
+        //                            newState = NumState.prefix;
+        //                            break;
+        //                        default:
+        //                            newState = NumState.invalid;
+        //                            break;
+        //                    }
+        //                }
+        //                break;
+        //        }
+
+        //        if (newState < currState)
+        //        {
+        //            yield return float.Parse(coords.Substring(pos, i - pos), NumberStyles.Float, CultureInfo.InvariantCulture);
+        //            pos = i;
+        //        }
+        //        else if (newState != currState && currState == NumState.separator)
+        //        {
+        //            pos = i;
+        //        }
+
+        //        if (newState == NumState.invalid) yield break;
+        //        currState = newState;
+        //    }
+
+        //    if (currState != NumState.separator)
+        //    {
+        //        yield return float.Parse(coords.Substring(pos, coords.Length - pos), NumberStyles.Float, CultureInfo.InvariantCulture);
+        //    }
+        //}
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
@@ -294,27 +512,27 @@ namespace Svg
 
             return base.ConvertFrom(context, culture, value);
         }
-        
-		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-		{
-			if (destinationType == typeof(string))
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (destinationType == typeof(string))
             {
                 var paths = value as SvgPathSegmentList;
 
                 if (paths != null)
                 {
-                	var curretCulture = CultureInfo.CurrentCulture;
-                	Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-                	var s = string.Join(" ", paths.Select(p => p.ToString()).ToArray());
-                	Thread.CurrentThread.CurrentCulture = curretCulture;
+                    var curretCulture = CultureInfo.CurrentCulture;
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                    var s = string.Join(" ", paths.Select(p => p.ToString()).ToArray());
+                    Thread.CurrentThread.CurrentCulture = curretCulture;
                     return s;
                 }
             }
 
-			return base.ConvertTo(context, culture, value, destinationType);
-		}
-        
-		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
