@@ -297,7 +297,7 @@ namespace Svg
         {
             //if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
             var nodes = GetContentNodes().Where(x => x is SvgContentNode)
-                                         .Select(n => string.IsNullOrEmpty(n.Content.Trim(new[] {'\r', '\n', '\t'})));
+                                         .Select(n => !string.IsNullOrEmpty(n.Content.Trim(new[] {'\r', '\n', '\t'})));
             
             if (_path == null || IsPathDirty || nodes.Any())
             {
