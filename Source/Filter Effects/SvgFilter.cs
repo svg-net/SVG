@@ -72,22 +72,18 @@ namespace Svg.FilterEffects
             set { this.Attributes["color-interpolation-filters"] = value; }
         }
 
-
-        internal Dictionary<string, Func<SvgVisualElement, SvgRenderer, Bitmap>> Buffer { get; private set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgFilter"/> class.
         /// </summary>
         public SvgFilter()
         {
-            this.Buffer = new Dictionary<string, Func<SvgVisualElement, SvgRenderer, Bitmap>>();
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="SvgRenderer"/> object.
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-        protected override void Render(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
+        protected override void Render(ISvgRenderer renderer)
         {
 			base.RenderChildren(renderer);
         }
@@ -103,10 +99,32 @@ namespace Svg.FilterEffects
             return (SvgFilter)this.MemberwiseClone();
         }
 
-        public void ApplyFilter(SvgVisualElement element, SvgRenderer renderer)
+        private Matrix GetTransform(SvgVisualElement element)
         {
-            this.Buffer.Clear();
-            this.PopulateDefaults(element, renderer);
+            var transformMatrix = new Matrix();
+            foreach (var transformation in element.Transforms)
+            {
+                transformMatrix.Multiply(transformation.Matrix);
+            }
+            return transformMatrix;
+        }
+
+        private RectangleF GetPathBounds(SvgVisualElement element, ISvgRenderer renderer, Matrix transform)
+        {
+            var bounds = element.Path(renderer).GetBounds();
+            var pts = new PointF[] { bounds.Location, new PointF(bounds.Right, bounds.Bottom) };
+            transform.TransformPoints(pts);
+
+            return new RectangleF(Math.Min(pts[0].X, pts[1].X), Math.Min(pts[0].Y, pts[1].Y),
+                                  Math.Abs(pts[0].X - pts[1].X), Math.Abs(pts[0].Y - pts[1].Y));
+        }
+
+        public void ApplyFilter(SvgVisualElement element, ISvgRenderer renderer, Action<ISvgRenderer> renderMethod)
+        {
+            var inflate = 0.5f;
+            var transform = GetTransform(element);
+            var bounds = GetPathBounds(element, renderer, transform);
+            var buffer = new ImageBuffer(bounds, inflate, renderer, renderMethod) { Transform = transform };
 
             IEnumerable<SvgFilterPrimitive> primitives = this.Children.OfType<SvgFilterPrimitive>();
 
@@ -114,21 +132,20 @@ namespace Svg.FilterEffects
             {
                 foreach (var primitive in primitives)
                 {
-                    this.Buffer.Add(primitive.Result, (e, r) => primitive.Process());
+                    primitive.Process(buffer);
                 }
 
                 // Render the final filtered image
-                renderer.DrawImageUnscaled(this.Buffer.Last().Value(element, renderer), new Point(0, 0));
+                var bufferImg = buffer.Buffer;
+                bufferImg.Save(@"C:\test.png");
+                var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
+                var prevClip = renderer.GetClip();
+                renderer.SetClip(new Region(imgDraw));
+                renderer.DrawImage(bufferImg, imgDraw, new RectangleF(bounds.X, bounds.Y, imgDraw.Width, imgDraw.Height), GraphicsUnit.Pixel);
+                renderer.SetClip(prevClip);
             }
         }
-
-        private void PopulateDefaults(SvgVisualElement element, SvgRenderer renderer)
-        {
-            this.ResetDefaults();
-
-            this.Buffer.Add(SvgFilterPrimitive.SourceGraphic, this.CreateSourceGraphic);
-            this.Buffer.Add(SvgFilterPrimitive.SourceAlpha, this.CreateSourceAlpha);
-        }
+                
 
         #region Defaults
 
@@ -147,58 +164,7 @@ namespace Svg.FilterEffects
             }
         }
 
-        private Bitmap CreateSourceGraphic(SvgVisualElement element, SvgRenderer renderer)
-        {
-            if (this.sourceGraphic == null)
-            {
-                RectangleF bounds = element.Path(renderer).GetBounds();
-                this.sourceGraphic = new Bitmap((int)bounds.Width, (int)bounds.Height);
-
-                using (var graphics = Graphics.FromImage(this.sourceGraphic))
-                {
-                    graphics.Clip = renderer.Clip;
-                    graphics.Transform = renderer.Transform;
-
-                    element.RenderElement(SvgRenderer.FromGraphics(graphics));
-
-                    graphics.Save();
-                }
-            }
-
-            return this.sourceGraphic;
-        }
-
-        private Bitmap CreateSourceAlpha(SvgVisualElement element, SvgRenderer renderer)
-        {
-            if (this.sourceAlpha == null)
-            {
-                Bitmap source = this.Buffer[SvgFilterPrimitive.SourceGraphic](element, renderer);
-
-                float[][] colorMatrixElements = {
-                   new float[] {0, 0, 0, 0, 0},        // red
-                   new float[] {0, 0, 0, 0, 0},        // green
-                   new float[] {0, 0, 0, 0, 0},        // blue
-                   new float[] {0, 0, 0, 1, 1},        // alpha
-                   new float[] {0, 0, 0, 0, 0} };    // translations
-
-                var matrix = new ColorMatrix(colorMatrixElements);
-
-                ImageAttributes attributes = new ImageAttributes();
-                attributes.SetColorMatrix(matrix);
-
-                this.sourceAlpha = new Bitmap(source.Width, source.Height);
-
-                using (var graphics = Graphics.FromImage(this.sourceAlpha))
-                {
-
-                    graphics.DrawImage(source, new Rectangle(0, 0, source.Width, source.Height), 0, 0,
-                          source.Width, source.Height, GraphicsUnit.Pixel, attributes);
-                    graphics.Save();
-                }
-            }
-
-            return this.sourceAlpha;
-        }
+        
         #endregion
 
 

@@ -109,5 +109,11 @@ namespace Svg.Transforms
 			}
 			return result;
 		}
+
+        public override string ToString()
+        {
+            if (this.Count < 1) return string.Empty;
+            return (from t in this select t.ToString()).Aggregate((p,c) => p + " " + c);
+        }
     }
 }

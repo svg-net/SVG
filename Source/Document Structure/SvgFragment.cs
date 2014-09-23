@@ -148,87 +148,42 @@ namespace Svg
         }
 
         /// <summary>
-        /// Applies the required transforms to <see cref="SvgRenderer"/>.
+        /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> to be transformed.</param>
-        protected internal override bool PushTransforms(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
+        protected internal override bool PushTransforms(ISvgRenderer renderer)
         {
             if (!base.PushTransforms(renderer)) return false;
-
-            if (!this.ViewBox.Equals(SvgViewBox.Empty))
-            {
-                var width = this.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
-                var height = this.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
-
-                var fScaleX = width / this.ViewBox.Width;
-                var fScaleY = height / this.ViewBox.Height;
-                var fMinX = -this.ViewBox.MinX;
-                var fMinY = -this.ViewBox.MinY;
-
-                if (AspectRatio.Align != SvgPreserveAspectRatio.none)
-                {
-                    if (AspectRatio.Slice)
-                    {
-                        fScaleX = Math.Max(fScaleX, fScaleY);
-                        fScaleY = Math.Max(fScaleX, fScaleY);
-                    }
-                    else
-                    {
-                        fScaleX = Math.Min(fScaleX, fScaleY);
-                        fScaleY = Math.Min(fScaleX, fScaleY);
-                    }
-                    float fViewMidX = (this.ViewBox.Width / 2) * fScaleX;
-                    float fViewMidY = (this.ViewBox.Height / 2) * fScaleY;
-                    float fMidX = width / 2;
-                    float fMidY = height / 2;
-
-                    switch (AspectRatio.Align)
-                    {
-                        case SvgPreserveAspectRatio.xMinYMin:
-                            break;
-                        case SvgPreserveAspectRatio.xMidYMin:
-                            fMinX += fMidX - fViewMidX;
-                            break;
-                        case SvgPreserveAspectRatio.xMaxYMin:
-                            fMinX += width - this.ViewBox.Width * fScaleX;
-                            break;
-                        case SvgPreserveAspectRatio.xMinYMid:
-                            fMinY += fMidY - fViewMidY;
-                            break;
-                        case SvgPreserveAspectRatio.xMidYMid:
-                            fMinX += fMidX - fViewMidX;
-                            fMinY += fMidY - fViewMidY;
-                            break;
-                        case SvgPreserveAspectRatio.xMaxYMid:
-                            fMinX += width - this.ViewBox.Width * fScaleX;
-                            fMinY += fMidY - fViewMidY;
-                            break;
-                        case SvgPreserveAspectRatio.xMinYMax:
-                            fMinY += height - this.ViewBox.Height * fScaleY;
-                            break;
-                        case SvgPreserveAspectRatio.xMidYMax:
-                            fMinX += fMidX - fViewMidX;
-                            fMinY += height - this.ViewBox.Height * fScaleY;
-                            break;
-                        case SvgPreserveAspectRatio.xMaxYMax:
-                            fMinX += width - this.ViewBox.Width * fScaleX;
-                            fMinY += height - this.ViewBox.Height * fScaleY;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-
-                var x = _x.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
-                var y = _y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
-
-                renderer.AddClip(new Region(new RectangleF(x, y, width, height)));
-                renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Prepend);
-                renderer.TranslateTransform(x,y);
-                renderer.TranslateTransform(fMinX, fMinY);
-            }
-
+            this.ViewBox.AddViewBoxTransform(this.AspectRatio, renderer, this);
             return true;
+        }
+
+        protected override void Render(ISvgRenderer renderer)
+        {
+            switch (this.Overflow)
+            {
+                case SvgOverflow.auto:
+                case SvgOverflow.visible:
+                case SvgOverflow.scroll:
+                    base.Render(renderer);
+                    break;
+                default:
+                    var prevClip = renderer.GetClip();
+                    try
+                    {
+                        var size = (this.Parent == null ? renderer.GetBoundable().Bounds.Size : GetDimensions());
+                        var clip = new RectangleF(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                                                  this.Y.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                                                  size.Width, size.Height);
+                        renderer.SetClip(new Region(clip), CombineMode.Intersect);
+                        base.Render(renderer);
+                    }
+                    finally
+                    {
+                        renderer.SetClip(prevClip, CombineMode.Replace);
+                    }
+                    break;
+            }
         }
         
         /// <summary>

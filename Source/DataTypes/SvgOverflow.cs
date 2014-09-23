@@ -7,10 +7,10 @@ namespace Svg
 {
 	public enum SvgOverflow
 	{
+		inherit,
 		auto,
 		visible,
 		hidden,
-		scroll,
-		inherit
+		scroll
 	}
 }

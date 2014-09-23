@@ -6,6 +6,7 @@ using System.Drawing;
 using System.ComponentModel;
 
 using Svg.Transforms;
+using System.Linq;
 
 namespace Svg
 {
@@ -19,9 +20,10 @@ namespace Svg
         private SvgUnit _height;
         private SvgUnit _x;
         private SvgUnit _y;
+        private SvgPaintServer _inheritGradient;
         private SvgViewBox _viewBox;
-        private SvgCoordinateUnits _patternUnits;
-        private SvgCoordinateUnits _patternContentUnits;
+        private SvgCoordinateUnits _patternUnits = SvgCoordinateUnits.Inherit;
+        private SvgCoordinateUnits _patternContentUnits = SvgCoordinateUnits.Inherit;
 
 		[SvgAttribute("overflow")]
 		public SvgOverflow Overflow
@@ -76,7 +78,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the width of the pattern.
         /// </summary>
-        [SvgAttribute("patternUnits")]
+        [SvgAttribute("patternContentUnits")]
         public SvgCoordinateUnits PatternContentUnits
         {
             get { return this._patternContentUnits; }
@@ -114,14 +116,55 @@ namespace Svg
         }
 
         /// <summary>
+        /// Gets or sets another gradient fill from which to inherit the stops from.
+        /// </summary>
+        [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
+        public SvgPaintServer InheritGradient
+        {
+            get { return this._inheritGradient; }
+            set
+            {
+                this._inheritGradient = value;
+            }
+        }
+
+        [SvgAttribute("patternTransform")]
+        public SvgTransformCollection PatternTransform
+        {
+            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("gradientTransform")); }
+            set { this.Attributes["gradientTransform"] = value; }
+        }
+
+        protected Matrix EffectivePatternTransform
+        {
+            get
+            {
+                var transform = new Matrix();
+
+                if (PatternTransform != null)
+                {
+                    transform.Multiply(PatternTransform.GetMatrix());
+                }
+                return transform;
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SvgPatternServer"/> class.
         /// </summary>
         public SvgPatternServer()
         {
-            this._x = new SvgUnit(0.0f);
-            this._y = new SvgUnit(0.0f);
-            this._width = new SvgUnit(0.0f);
-            this._height = new SvgUnit(0.0f);
+            this._x = SvgUnit.None;
+            this._y = SvgUnit.None;
+            this._width = SvgUnit.None;
+            this._height = SvgUnit.None;
+        }
+
+        private SvgUnit NormalizeUnit(SvgUnit orig)
+        {
+            return (orig.Type == SvgUnitType.Percentage && this.PatternUnits == SvgCoordinateUnits.ObjectBoundingBox ?
+                    new SvgUnit(SvgUnitType.User, orig.Value / 100) :
+                    orig);
         }
 
         /// <summary>
@@ -129,75 +172,84 @@ namespace Svg
         /// </summary>
         /// <param name="renderingElement">The owner <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the brush.</param>
-        public override Brush GetBrush(SvgVisualElement renderingElement, SvgRenderer renderer, float opacity)
+        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
-            // If there aren't any children, return null
-            if (this.Children.Count == 0)
-                return null;
+            var chain = new List<SvgPatternServer>();
+            var curr = this;
+            while (curr != null)
+            {
+                chain.Add(curr);
+                curr = SvgDeferredPaintServer.TryGet<SvgPatternServer>(curr._inheritGradient, renderingElement);
+            }
 
-            // Can't render if there are no dimensions
-            if (this._width.Value == 0.0f || this._height.Value == 0.0f)
-                return null;
+            var childElem = chain.Where((p) => p.Children != null && p.Children.Count > 0).FirstOrDefault();
+            if (childElem == null) return null;
+            var widthElem = chain.Where((p) => p.Width != null && p.Width != SvgUnit.None).FirstOrDefault();
+            var heightElem = chain.Where((p) => p.Height != null && p.Height != SvgUnit.None).FirstOrDefault();
+            if (widthElem == null && heightElem == null) return null;
+
+            var viewBoxElem = chain.Where((p) => p.ViewBox != null && p.ViewBox != SvgViewBox.Empty).FirstOrDefault();
+            var viewBox = viewBoxElem == null ? SvgViewBox.Empty : viewBoxElem.ViewBox;
+            var xElem = chain.Where((p) => p.X != null && p.X != SvgUnit.None).FirstOrDefault();
+            var yElem = chain.Where((p) => p.Y != null && p.Y != SvgUnit.None).FirstOrDefault();
+            var xUnit = xElem == null ? SvgUnit.Empty : xElem.X;
+            var yUnit = yElem == null ? SvgUnit.Empty : yElem.Y;
+
+            var patternUnitElem = chain.Where((p) => p.PatternUnits != SvgCoordinateUnits.Inherit).FirstOrDefault();
+            var patternUnits = (patternUnitElem == null ? SvgCoordinateUnits.ObjectBoundingBox : patternUnitElem.PatternUnits);
+            var patternContentUnitElem = chain.Where((p) => p.PatternContentUnits != SvgCoordinateUnits.Inherit).FirstOrDefault();
+            var patternContentUnits = (patternContentUnitElem == null ? SvgCoordinateUnits.UserSpaceOnUse : patternContentUnitElem.PatternContentUnits);
 
             try
             {
-                if (this.PatternUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.Boundable(renderingElement);
+                if (patternUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.SetBoundable(renderingElement);
 
-                float width = this._width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
-                float height = this._height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
-
-                Matrix patternMatrix = new Matrix();
-                // Apply a translate if needed
-                if (this._x.Value > 0.0f || this._y.Value > 0.0f)
+                using (var patternMatrix = new Matrix())
                 {
-                    float x = this._x.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, this);
-                    float y = this._y.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, this);
+                    var bounds = renderer.GetBoundable().Bounds;
+                    var xScale = (patternUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Width : 1);
+                    var yScale = (patternUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Height : 1);
 
-                    patternMatrix.Translate(x + -1.0f, y + -1.0f);
-                }
-                else
-                {
-                    patternMatrix.Translate(-1, -1);
-                }
+                    float x = xScale * NormalizeUnit(xUnit).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                    float y = yScale * NormalizeUnit(yUnit).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
 
-                if (this.ViewBox.Height > 0 || this.ViewBox.Width > 0)
-                {
-                    patternMatrix.Scale(this.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / this.ViewBox.Width,
-                                        this.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) / this.ViewBox.Height);
-                }
+                    float width = xScale * NormalizeUnit(widthElem.Width).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                    float height = yScale * NormalizeUnit(heightElem.Height).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
 
-                Bitmap image = new Bitmap((int)width, (int)height);
-                using (SvgRenderer iRenderer = SvgRenderer.FromImage(image))
-                {
-                    iRenderer.Boundable((_patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox) ? new GenericBoundable(0, 0, width, height) : renderer.Boundable());
-                    iRenderer.Transform = patternMatrix;
-                    iRenderer.CompositingQuality = CompositingQuality.HighQuality;
-                    iRenderer.SmoothingMode = SmoothingMode.AntiAlias;
-                    iRenderer.PixelOffsetMode = PixelOffsetMode.Half;
-
-                    foreach (SvgElement child in this.Children)
+                    // Apply a scale if needed
+                    patternMatrix.Scale((patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Width : 1) * 
+                                        (viewBox.Width > 0 ? width / viewBox.Width : 1),
+                                        (patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Height : 1) * 
+                                        (viewBox.Height > 0 ? height / viewBox.Height : 1), MatrixOrder.Prepend);
+                    
+                    Bitmap image = new Bitmap((int)width, (int)height);
+                    using (var iRenderer = SvgRenderer.FromImage(image))
                     {
-                        child.RenderElement(iRenderer);
+                        iRenderer.SetBoundable((_patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox) ? new GenericBoundable(0, 0, width, height) : renderer.GetBoundable());
+                        iRenderer.Transform = patternMatrix;
+                        iRenderer.SmoothingMode = SmoothingMode.AntiAlias;
+                        iRenderer.SetClip(new Region(new RectangleF(0, 0,
+                            viewBox.Width > 0 ? viewBox.Width : width,
+                            viewBox.Height > 0 ? viewBox.Height : height)));
+
+                        foreach (SvgElement child in childElem.Children)
+                        {
+                            child.RenderElement(iRenderer);
+                        }
                     }
 
-                    iRenderer.Save();
+                    TextureBrush textureBrush = new TextureBrush(image);
+                    var brushTransform = EffectivePatternTransform.Clone();
+                    brushTransform.Translate(x, y, MatrixOrder.Append);
+                    textureBrush.Transform = brushTransform;
+                    return textureBrush;
                 }
-
-                image.Save(string.Format(@"C:\test{0:D3}.png", imgNumber++));
-
-                TextureBrush textureBrush = new TextureBrush(image);
-
-                return textureBrush;
             }
             finally
             {
                 if (this.PatternUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.PopBoundable();
             }
         }
-
-        private static int imgNumber = 0;
-
-
 
 		public override SvgElement DeepCopy()
 		{

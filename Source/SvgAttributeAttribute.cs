@@ -15,13 +15,14 @@ namespace Svg
 		/// <summary>
 		/// Gets a <see cref="string"/> containing the XLink namespace (http://www.w3.org/1999/xlink).
 		/// </summary>
-		public const string SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+		public const string SvgNamespace = "http://www.w3.org/2000/svg";
 		public const string XLinkPrefix = "xlink";
 		public const string XLinkNamespace = "http://www.w3.org/1999/xlink";
+        public const string XmlNamespace = "http://www.w3.org/XML/1998/namespace";
 
 		public static readonly List<KeyValuePair<string, string>> Namespaces = new List<KeyValuePair<string, string>>()
     	                                                                	{
-																				new KeyValuePair<string, string>("", SVG_NAMESPACE),
+																				new KeyValuePair<string, string>("", SvgNamespace),
 																				new KeyValuePair<string, string>(XLinkPrefix, XLinkNamespace)
 																			};
         private string _name;
@@ -55,7 +56,7 @@ namespace Svg
 		{
 			get
 			{
-				if (_namespace == SVG_NAMESPACE)
+				if (_namespace == SvgNamespace)
 					return _name;
 				return Namespaces.First(x => x.Value == _namespace).Key + ":" + _name;
 			}
@@ -93,7 +94,7 @@ namespace Svg
         internal SvgAttributeAttribute(string name)
         {
             this._name = name;
-            this._namespace = SVG_NAMESPACE;
+            this._namespace = SvgNamespace;
         }
 
         /// <summary>

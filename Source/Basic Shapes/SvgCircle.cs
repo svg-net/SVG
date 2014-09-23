@@ -98,7 +98,7 @@ namespace Svg
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> representing this element.
         /// </summary>
-        public override GraphicsPath Path(SvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             if (this._path == null || this.IsPathDirty)
             {
@@ -117,7 +117,7 @@ namespace Svg
         /// Renders the circle to the specified <see cref="Graphics"/> object.
         /// </summary>
         /// <param name="graphics">The graphics object.</param>
-        protected override void Render(SvgRenderer renderer)
+        protected override void Render(ISvgRenderer renderer)
         {
             // Don't draw if there is no radius set
             if (this.Radius.Value > 0.0f)

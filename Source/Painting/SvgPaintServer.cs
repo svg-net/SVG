@@ -13,6 +13,8 @@ namespace Svg
     [TypeConverter(typeof(SvgPaintServerFactory))]
     public abstract class SvgPaintServer : SvgElement
     {
+        public Func<SvgPaintServer> GetCallback { get; set; }
+
         /// <summary>
         /// An unspecified <see cref="SvgPaintServer"/>.
         /// </summary>
@@ -26,10 +28,10 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="SvgRenderer"/> object.
+        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
-        /// <param name="renderer">The <see cref="SvgRenderer"/> object to render to.</param>
-        protected override void Render(SvgRenderer renderer)
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
+        protected override void Render(ISvgRenderer renderer)
         {
             // Never render paint servers or their children
         }
@@ -39,7 +41,7 @@ namespace Svg
         /// </summary>
         /// <param name="styleOwner">The owner <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the brush.</param>
-        public abstract Brush GetBrush(SvgVisualElement styleOwner, SvgRenderer renderer, float opacity);
+        public abstract Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false);
 
         /// <summary>
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.

@@ -35,7 +35,7 @@ namespace Svg
             for (int i = 0; i < unit.Length; i++)
             {
                 // If the character is a percent sign or a letter which is not an exponent 'e'
-                if (unit[i] == '%' || (char.IsLetter(unit[i]) && !(unit[i] == 'e' && i < unit.Length - 1 && !char.IsLetter(unit[i + 1]))))
+                if (unit[i] == '%' || (char.IsLetter(unit[i]) && !((unit[i] == 'e' || unit[i] == 'E') && i < unit.Length - 1 && !char.IsLetter(unit[i + 1]))))
                 {
                     identifierIndex = i;
                     break;
