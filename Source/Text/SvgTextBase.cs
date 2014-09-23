@@ -293,19 +293,16 @@ namespace Svg
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            // Make sure the path is always null if there is no text
             //if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
-            var nodes = this.GetContentNodes().ToList();
-            if (nodes.Count < 1) return _path = null;
-            if (nodes.Count == 1 && nodes[0] is SvgContentNode && 
-                (string.IsNullOrEmpty(nodes[0].Content) || nodes[0].Content.Trim().Length < 1))  return _path = null;
+            var nodes = GetContentNodes().Where(x => x is SvgContentNode && 
+                                                     string.IsNullOrEmpty(x.Content.Trim(new[] {'\r', '\n', '\t'})));
             
-            if (_path == null || this.IsPathDirty)
+            if (_path == null || IsPathDirty || nodes.Count() == 1)
             {
                 renderer = (renderer ?? SvgRenderer.FromNull());
-                this.SetPath(new TextDrawingState(renderer, this));
+                SetPath(new TextDrawingState(renderer, this));
             }
             return _path;
         }
