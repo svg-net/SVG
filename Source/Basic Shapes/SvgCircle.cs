@@ -78,10 +78,10 @@ namespace Svg
         /// <summary>
         /// Gets the bounds of the circle.
         /// </summary>
-        /// <returns>The rectangular bounds of the circle.</returns>
-        public override RectangleF CalculateBounds()
+        /// <value>The rectangular bounds of the circle.</value>
+        public override RectangleF Bounds
         {
-            return this.Path(null).GetBounds();
+            get { return this.Path(null).GetBounds(); }
         }
 
         /// <summary>

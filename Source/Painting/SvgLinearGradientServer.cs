@@ -191,7 +191,7 @@ namespace Svg
 
         private LinePoints PointsToMove(ISvgBoundable boundable, PointF specifiedStart, PointF specifiedEnd)
         {
-            var bounds = boundable.CalculateBounds();
+            var bounds = boundable.Bounds;
             if (specifiedStart.X == specifiedEnd.X)
             {
                 return (bounds.Top < specifiedStart.Y && specifiedStart.Y < bounds.Bottom ? LinePoints.Start : LinePoints.None) |
@@ -227,7 +227,7 @@ namespace Svg
                 return new GradientPoints(specifiedStart, specifiedEnd);
             }
 
-            var bounds = boundable.CalculateBounds();
+            var bounds = boundable.Bounds;
             var effectiveStart = specifiedStart;
             var effectiveEnd = specifiedEnd;
             var intersectionPoints = CandidateIntersections(bounds, specifiedStart, specifiedEnd);

@@ -227,15 +227,18 @@ namespace Svg
         /// <summary>
         /// Gets the bounds of the element.
         /// </summary>
-        /// <returns>The bounds.</returns>
-        public override RectangleF CalculateBounds()
+        /// <value>The bounds.</value>
+        public override System.Drawing.RectangleF Bounds
         {
-            var path = this.Path(null);
-            foreach (var elem in this.Children.OfType<SvgVisualElement>())
+            get 
             {
-                path.AddPath(elem.Path(null), false);
+                var path = this.Path(null);
+                foreach (var elem in this.Children.OfType<SvgVisualElement>())
+                {
+                    path.AddPath(elem.Path(null), false);
+                }
+                return path.GetBounds(); 
             }
-            return path.GetBounds();
         }
 
         /// <summary>
@@ -492,9 +495,19 @@ namespace Svg
                 _width = width;
             }
 
-            public RectangleF CalculateBounds()
+            public PointF Location
             {
-                return new RectangleF(PointF.Empty, new SizeF(_width, _font.Size));
+                get { return PointF.Empty; }
+            }
+
+            public SizeF Size
+            {
+                get { return new SizeF(_width, _font.Size); }
+            }
+
+            public RectangleF Bounds
+            {
+                get { return new RectangleF(this.Location, this.Size); }
             }
         }
 

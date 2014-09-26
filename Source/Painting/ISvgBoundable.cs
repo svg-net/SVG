@@ -4,6 +4,19 @@ namespace Svg
 {
     public interface ISvgBoundable
     {
-        RectangleF CalculateBounds();
+        PointF Location
+        {
+            get;
+        }
+
+        SizeF Size
+        {
+            get;
+        }
+
+        RectangleF Bounds
+        {
+            get;
+        } 
     }
 }
