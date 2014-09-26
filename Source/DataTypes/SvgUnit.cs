@@ -149,7 +149,7 @@ namespace Svg
                         break;
                     }
 
-                    System.Drawing.SizeF size = boundable.Bounds.Size;
+                    System.Drawing.SizeF size = boundable.CalculateBounds().Size;
 
                     switch (renderType)
                     {
@@ -157,13 +157,13 @@ namespace Svg
                             _deviceValue = (size.Width / 100) * value;
                             break;
                         case UnitRenderingType.HorizontalOffset:
-                            _deviceValue = (size.Width / 100) * value + boundable.Location.X;
+                            _deviceValue = (size.Width / 100) * value + boundable.CalculateBounds().Location.X;
                             break;
                         case UnitRenderingType.Vertical:
                             _deviceValue = (size.Height / 100) * value;
                             break;
                         case UnitRenderingType.VerticalOffset:
-                            _deviceValue = (size.Height / 100) * value + boundable.Location.Y;
+                            _deviceValue = (size.Height / 100) * value + boundable.CalculateBounds().Location.Y;
                             break;
                         default:
                             _deviceValue = (float)(Math.Sqrt(Math.Pow(size.Width, 2) + Math.Pow(size.Height, 2)) / Math.Sqrt(2) * value / 100.0);

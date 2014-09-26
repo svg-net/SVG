@@ -18,7 +18,7 @@ namespace Svg
 
         public void SetBoundable(ISvgBoundable boundable)
         {
-            _boundables.Push(boundable);
+            _boundables.Push(new ImmutableBoundable(boundable));
         }
         public ISvgBoundable GetBoundable()
         {

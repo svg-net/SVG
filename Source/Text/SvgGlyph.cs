@@ -91,10 +91,10 @@ namespace Svg
         /// <summary>
         /// Gets the bounds of the element.
         /// </summary>
-        /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        /// <returns>The bounds.</returns>
+        public override System.Drawing.RectangleF CalculateBounds()
         {
-            get { return this.Path(null).GetBounds(); }
+            return this.Path(null).GetBounds();
         }
 
         /// <summary>
