@@ -15,9 +15,28 @@ namespace Svg
         /// </summary>
         public static readonly Uri Namespace = new Uri("http://www.w3.org/2000/svg");
 
-        RectangleF ISvgBoundable.CalculateBounds()
+        PointF ISvgBoundable.Location
         {
-            return new RectangleF(PointF.Empty, GetDimensions());
+            get
+            {
+                return PointF.Empty;
+            }
+        }
+
+        SizeF ISvgBoundable.Size
+        {
+            get
+            {
+                return GetDimensions();
+            }
+        }
+
+        RectangleF ISvgBoundable.Bounds
+        {
+            get
+            {
+                return new RectangleF(((ISvgBoundable)this).Location, ((ISvgBoundable)this).Size);
+            }
         }
 
         private SvgUnit _x;
@@ -166,29 +185,32 @@ namespace Svg
                     break;
             }
         }
-
+        
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public GraphicsPath CreatePath()
+        public GraphicsPath Path
         {
-            var path = new GraphicsPath();
+            get 
+            { 
+                var path = new GraphicsPath();
 
-            AddPaths(this, path);
-
-            return path;
+                AddPaths(this, path);
+  
+                return path;
+            }
         }
-
+        
         /// <summary>
         /// Gets the bounds of the svg element.
         /// </summary>
-        /// <returns>The bounds.</returns>
-        public RectangleF CalculateBounds()
-        {
-            using (var path = CreatePath())
+        /// <value>The bounds.</value>
+        public RectangleF Bounds 
+        { 
+            get
             {
-                return path.GetBounds();
+                return this.Path.GetBounds();
             }
         }
 
@@ -220,7 +242,7 @@ namespace Svg
                 }
                 else
                 {
-                    bounds = this.CalculateBounds(); //do just one call to the expensive bounds calculation method
+                    bounds = this.Bounds; //do just one call to the recursive bounds property
                 }
             }
 

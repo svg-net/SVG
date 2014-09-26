@@ -130,9 +130,9 @@ namespace Svg
             return result;
         }
 
-        public override RectangleF CalculateBounds()
+        public override RectangleF Bounds
         {
-            return this.Path(null).GetBounds();
+            get { return this.Path(null).GetBounds(); }
         }
 
 

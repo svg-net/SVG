@@ -127,7 +127,7 @@ namespace Svg
 
                 using (var transform = EffectiveGradientTransform)
                 {
-                    var bounds = renderer.GetBoundable().CalculateBounds();
+                    var bounds = renderer.GetBoundable().Bounds;
                     transform.Translate(bounds.X, bounds.Y, MatrixOrder.Prepend);
                     if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox)
                     {

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
 using System.Web;
 using System.Xml;
@@ -62,9 +61,9 @@ namespace Svg
             return (element != null) ? element.Path(renderer) : null;
         }
 
-        public override RectangleF CalculateBounds()
+        public override System.Drawing.RectangleF Bounds
         {
-            return new System.Drawing.RectangleF();
+            get { return new System.Drawing.RectangleF(); }
         }
 
         protected override bool Renderable { get { return false; } }
