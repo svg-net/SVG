@@ -77,7 +77,7 @@ namespace Svg
         {
             SortedDictionary<int, string> rules;
             return (this.Attributes.ContainsKey(name) || this.CustomAttributes.ContainsKey(name) ||
-                (_styles.TryGetValue(name, out rules) && (rules.ContainsKey(StyleSpecificity_InlineStyle) || rules.ContainsKey(StyleSpecificity_PresAttribute))));
+                (_styles != null && _styles.TryGetValue(name, out rules)) && (rules.ContainsKey(StyleSpecificity_InlineStyle) || rules.ContainsKey(StyleSpecificity_PresAttribute)));
         }
         public bool TryGetAttribute(string name, out string value)
         {
