@@ -89,7 +89,7 @@ namespace Svg
             }
             if (this.CustomAttributes.TryGetValue(name, out value)) return true;
             SortedDictionary<int, string> rules;
-            if (_styles.TryGetValue(name, out rules))
+            if (_styles != null && _styles.TryGetValue(name, out rules))
             {
                 // Get staged styles that are 
                 if (rules.TryGetValue(StyleSpecificity_InlineStyle, out value)) return true;
