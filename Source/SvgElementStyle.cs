@@ -309,7 +309,7 @@ namespace Svg
             // Get the font-size
             float fontSize;
             var fontSizeUnit = this.FontSize;
-            if (fontSizeUnit == SvgUnit.None)
+            if (fontSizeUnit == SvgUnit.None || fontSizeUnit == SvgUnit.Empty)
             {
                 fontSize = 1.0f;
             }
