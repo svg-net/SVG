@@ -62,11 +62,11 @@ namespace Svg
         {
             return this._innerGraphics.Clip;
         }
-        public void RotateTransform(float fAngle, MatrixOrder order)
+        public void RotateTransform(float fAngle, MatrixOrder order = MatrixOrder.Append)
         {
             this._innerGraphics.RotateTransform(fAngle, order);
         }
-        public void ScaleTransform(float sx, float sy, MatrixOrder order)
+        public void ScaleTransform(float sx, float sy, MatrixOrder order = MatrixOrder.Append)
         {
             this._innerGraphics.ScaleTransform(sx, sy, order);
         }
@@ -74,7 +74,7 @@ namespace Svg
         {
             this._innerGraphics.SetClip(region, combineMode);
         }
-        public void TranslateTransform(float dx, float dy, MatrixOrder order)
+        public void TranslateTransform(float dx, float dy, MatrixOrder order = MatrixOrder.Append)
         {
             this._innerGraphics.TranslateTransform(dx, dy, order);
         }

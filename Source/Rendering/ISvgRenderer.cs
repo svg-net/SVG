@@ -15,12 +15,12 @@ namespace Svg
         ISvgBoundable GetBoundable();
         Region GetClip();
         ISvgBoundable PopBoundable();
-        void RotateTransform(float fAngle, MatrixOrder order = MatrixOrder.Prepend);
-        void ScaleTransform(float sx, float sy, MatrixOrder order = MatrixOrder.Prepend);
+        void RotateTransform(float fAngle, MatrixOrder order = MatrixOrder.Append);
+        void ScaleTransform(float sx, float sy, MatrixOrder order = MatrixOrder.Append);
         void SetBoundable(ISvgBoundable boundable);
         void SetClip(Region region, CombineMode combineMode = CombineMode.Replace);
         SmoothingMode SmoothingMode { get; set; }
         Matrix Transform { get; set; }
-        void TranslateTransform(float dx, float dy, MatrixOrder order = MatrixOrder.Prepend);
+        void TranslateTransform(float dx, float dy, MatrixOrder order = MatrixOrder.Append);
     }
 }
