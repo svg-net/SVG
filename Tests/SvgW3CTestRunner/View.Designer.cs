@@ -32,18 +32,24 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.picLoadSave = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.picSvg = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.picSVGPNG = new System.Windows.Forms.PictureBox();
             this.picPng = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLoadSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSvg)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSVGPNG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPng)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,17 +98,32 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.picLoadSave, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.picSvg, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(541, 670);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // picLoadSave
+            // 
+            this.picLoadSave.BackColor = System.Drawing.Color.White;
+            this.picLoadSave.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picLoadSave.Location = new System.Drawing.Point(0, 348);
+            this.picLoadSave.Margin = new System.Windows.Forms.Padding(0);
+            this.picLoadSave.Name = "picLoadSave";
+            this.picLoadSave.Size = new System.Drawing.Size(541, 322);
+            this.picLoadSave.TabIndex = 2;
+            this.picLoadSave.TabStop = false;
             // 
             // label1
             // 
@@ -120,24 +141,48 @@
             this.picSvg.Location = new System.Drawing.Point(0, 13);
             this.picSvg.Margin = new System.Windows.Forms.Padding(0);
             this.picSvg.Name = "picSvg";
-            this.picSvg.Size = new System.Drawing.Size(541, 657);
+            this.picSvg.Size = new System.Drawing.Size(541, 322);
             this.picSvg.TabIndex = 1;
             this.picSvg.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 335);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(80, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Save and Load";
             // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.picSVGPNG, 0, 3);
             this.tableLayoutPanel3.Controls.Add(this.picPng, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label4, 0, 2);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowCount = 4;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(504, 670);
             this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // picSVGPNG
+            // 
+            this.picSVGPNG.BackColor = System.Drawing.Color.White;
+            this.picSVGPNG.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picSVGPNG.Location = new System.Drawing.Point(0, 348);
+            this.picSVGPNG.Margin = new System.Windows.Forms.Padding(0);
+            this.picSVGPNG.Name = "picSVGPNG";
+            this.picSVGPNG.Size = new System.Drawing.Size(504, 322);
+            this.picSVGPNG.TabIndex = 3;
+            this.picSVGPNG.TabStop = false;
             // 
             // picPng
             // 
@@ -146,7 +191,7 @@
             this.picPng.Location = new System.Drawing.Point(0, 13);
             this.picPng.Margin = new System.Windows.Forms.Padding(0);
             this.picPng.Name = "picPng";
-            this.picPng.Size = new System.Drawing.Size(504, 657);
+            this.picPng.Size = new System.Drawing.Size(504, 322);
             this.picPng.TabIndex = 2;
             this.picPng.TabStop = false;
             // 
@@ -158,6 +203,15 @@
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "PNG Render";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 335);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "SVG vs PNG";
             // 
             // View
             // 
@@ -173,13 +227,16 @@
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLoadSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSvg)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSVGPNG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPng)).EndInit();
             this.ResumeLayout(false);
 
         }
+        
 
         #endregion
 
@@ -192,6 +249,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.PictureBox picPng;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox picLoadSave;
+        private System.Windows.Forms.PictureBox picSVGPNG;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
 

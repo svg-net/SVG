@@ -23,8 +23,9 @@ namespace Svg
 		public static readonly List<KeyValuePair<string, string>> Namespaces = new List<KeyValuePair<string, string>>()
     	                                                                	{
 																				new KeyValuePair<string, string>("", SvgNamespace),
-																				new KeyValuePair<string, string>(XLinkPrefix, XLinkNamespace)
-																			};
+																				new KeyValuePair<string, string>(XLinkPrefix, XLinkNamespace),
+																				new KeyValuePair<string, string>("xml", XmlNamespace)
+		                                                                    };
         private string _name;
         private string _namespace;
 
