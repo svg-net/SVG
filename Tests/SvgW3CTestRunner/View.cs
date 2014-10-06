@@ -35,13 +35,19 @@ namespace SvgW3CTestRunner
 
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //render svg
             var fileName = lstFiles.SelectedItem.ToString();
             if (fileName.StartsWith("#")) return;
             
+            //display png
+            var png = Image.FromFile(_pngBasePath + Path.GetFileNameWithoutExtension(fileName) + ".png");
+            picPng.Image = png;
+            
+            var doc = new SvgDocument();
             try
             {
                 Debug.Print(fileName);
-                var doc = SvgDocument.Open(_svgBasePath + fileName);
+                doc = SvgDocument.Open(_svgBasePath + fileName);
                 if (fileName.StartsWith("__"))
                 {
                     picSvg.Image = doc.Draw();
@@ -53,7 +59,16 @@ namespace SvgW3CTestRunner
                     picSvg.Image = img;
                 }
                 
-                //save load
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "SVG Rendering");
+                picSvg.Image = null;
+            }
+            
+            //save load
+            try 
+            {
                 using(var memStream = new MemoryStream())
                 {
                     doc.Write(memStream);
@@ -62,25 +77,34 @@ namespace SvgW3CTestRunner
                     
                     if (fileName.StartsWith("__"))
                     {
-                        picSvg.Image = doc.Draw();
+                        picSaveLoad.Image = doc.Draw();
                     }
                     else
                     {
                         var img = new Bitmap(480, 360);
                         doc.Draw(img);
-                        picSvg.Image = img;
+                        picSaveLoad.Image = img;
                     }
                 }
-                
+            } 
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "SVG Serialization");
+                picSaveLoad.Image = null;
+            }
+            
+            //compare svg to png
+            try
+            {
+                picSVGPNG.Image = PixelDiff((Bitmap)picSvg.Image, (Bitmap)picPng.Image);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-                picSvg.Image = null;
+                MessageBox.Show(ex.ToString(), "SVG Comparison");
+                picSVGPNG.Image = null;
             }
             
-            var png = Image.FromFile(_pngBasePath + Path.GetFileNameWithoutExtension(fileName) + ".png");
-            picPng.Image = png;
+           
         }
         
         unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)
