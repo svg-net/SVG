@@ -559,13 +559,13 @@ namespace Svg
                 writer.WriteEndElement();
             }
         }
-
         protected virtual void WriteAttributes(XmlTextWriter writer)
         {
             //properties
             foreach (var attr in _svgPropertyAttributes)
             {
-                if (attr.Property.Converter.CanConvertTo(typeof(string)))
+                if (attr.Property.Converter.CanConvertTo(typeof(string)) && 
+                    (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(attr.Attribute.Name)))
                 {
                     object propertyValue = attr.Property.GetValue(this);
 

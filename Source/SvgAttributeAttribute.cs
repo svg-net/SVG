@@ -26,6 +26,7 @@ namespace Svg
 																				new KeyValuePair<string, string>(XLinkPrefix, XLinkNamespace),
 																				new KeyValuePair<string, string>("xml", XmlNamespace)
 		                                                                    };
+        private bool _inAttrDictionary;
         private string _name;
         private string _namespace;
 
@@ -80,6 +81,11 @@ namespace Svg
             get { return this._namespace; }
         }
 
+        public bool InAttributeDictionary
+        {
+            get { return this._inAttrDictionary; }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgAttributeAttribute"/> class.
         /// </summary>
@@ -96,6 +102,13 @@ namespace Svg
         {
             this._name = name;
             this._namespace = SvgNamespace;
+        }
+
+        internal SvgAttributeAttribute(string name, bool inAttrDictionary)
+        {
+            this._name = name;
+            this._namespace = SvgNamespace;
+            this._inAttrDictionary = inAttrDictionary;
         }
 
         /// <summary>

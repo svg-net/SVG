@@ -27,7 +27,14 @@ namespace Svg.Transforms
 
         public override string WriteToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "skew({0}, {1})", this.AngleX, this.AngleY);
+            if (this.AngleY == 0)
+            {
+                return string.Format(CultureInfo.InvariantCulture, "skewX({0})", this.AngleX);
+            }
+            else
+            {
+                return string.Format(CultureInfo.InvariantCulture, "skewY({0})", this.AngleY);
+            }
         }
 
         public SvgSkew(float x, float y)

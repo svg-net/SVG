@@ -81,7 +81,14 @@ namespace Svg
 
         public override string ToString()
         {
-            return (_serverLoaded ? _serverLoaded.ToString() : string.Format("deferred: {0}", this.DeferredId));
+            if (this.DeferredId == "currentColor")
+            {
+                return this.DeferredId;
+            }
+            else
+            {
+                return string.Format("url({0})", this.DeferredId);
+            }
         }
 
         public static T TryGet<T>(SvgPaintServer server, SvgElement parent) where T : SvgPaintServer

@@ -135,13 +135,20 @@ namespace Svg
             if (destinationType == typeof(string))
             {
                 //check for none
-                if (value == SvgPaintServer.None) return "none";
+                if (value == SvgPaintServer.None || value == SvgColourServer.None) return "none";
+                if (value == SvgColourServer.Inherit) return "inherit";
+                if (value == SvgColourServer.NotSet) return "";
 
                 var colourServer = value as SvgColourServer;
-
                 if (colourServer != null)
                 {
                     return new SvgColourConverter().ConvertTo(colourServer.Colour, typeof(string));
+                }
+
+                var deferred = value as SvgDeferredPaintServer;
+                if (deferred != null)
+                {
+                    return deferred.ToString();
                 }
 
                 if (value != null)
