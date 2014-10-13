@@ -1,4 +1,3 @@
-color-prof-01-f.svg
 color-prop-01-b.svg
 color-prop-02-f.svg
 color-prop-03-t.svg
@@ -52,7 +51,6 @@ pservers-grad-14-b.svg
 pservers-grad-15-b.svg
 pservers-grad-16-b.svg
 pservers-grad-17-b.svg
-pservers-grad-18-b.svg
 pservers-grad-20-b.svg
 pservers-grad-22-b.svg
 pservers-grad-23-f.svg

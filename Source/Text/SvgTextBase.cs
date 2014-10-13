@@ -33,14 +33,14 @@ namespace Svg
         /// Gets or sets the text anchor.
         /// </summary>
         /// <value>The text anchor.</value>
-        [SvgAttribute("text-anchor")]
+        [SvgAttribute("text-anchor", true)]
         public virtual SvgTextAnchor TextAnchor
         {
             get { return (this.Attributes["text-anchor"] == null) ? SvgTextAnchor.inherit : (SvgTextAnchor)this.Attributes["text-anchor"]; }
             set { this.Attributes["text-anchor"] = value; this.IsPathDirty = true; }
         }
 
-        [SvgAttribute("baseline-shift")]
+        [SvgAttribute("baseline-shift", true)]
         public virtual string BaselineShift
         {
             get { return this.Attributes["baseline-shift"] as string; }
@@ -153,7 +153,7 @@ namespace Svg
         /// <summary>
         /// The pre-calculated length of the text
         /// </summary>
-        [SvgAttribute("textLength")]
+        [SvgAttribute("textLength", true)]
         public virtual SvgUnit TextLength
         {
             get { return (this.Attributes["textLength"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["textLength"]); }
@@ -164,7 +164,7 @@ namespace Svg
         /// Gets or sets the text anchor.
         /// </summary>
         /// <value>The text anchor.</value>
-        [SvgAttribute("lengthAdjust")]
+        [SvgAttribute("lengthAdjust", true)]
         public virtual SvgTextLengthAdjust LengthAdjust
         {
             get { return (this.Attributes["lengthAdjust"] == null) ? SvgTextLengthAdjust.spacing : (SvgTextLengthAdjust)this.Attributes["lengthAdjust"]; }
@@ -174,7 +174,7 @@ namespace Svg
         /// <summary>
         /// Specifies spacing behavior between text characters.
         /// </summary>
-        [SvgAttribute("letter-spacing")]
+        [SvgAttribute("letter-spacing", true)]
         public virtual SvgUnit LetterSpacing
         {
             get { return (this.Attributes["letter-spacing"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["letter-spacing"]); }
@@ -184,7 +184,7 @@ namespace Svg
         /// <summary>
         /// Specifies spacing behavior between words.
         /// </summary>
-        [SvgAttribute("word-spacing")]
+        [SvgAttribute("word-spacing", true)]
         public virtual SvgUnit WordSpacing
         {
             get { return (this.Attributes["word-spacing"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["word-spacing"]); }
