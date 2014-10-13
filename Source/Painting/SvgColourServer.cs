@@ -86,6 +86,13 @@ namespace Svg
             if (objColor == null)
                 return false;
 
+            if ((this == SvgPaintServer.None && obj != SvgPaintServer.None) ||
+                (this != SvgPaintServer.None && obj == SvgPaintServer.None) ||
+                (this == SvgColourServer.NotSet && obj != SvgColourServer.NotSet) ||
+                (this != SvgColourServer.NotSet && obj == SvgColourServer.NotSet) ||
+                (this == SvgColourServer.Inherit && obj != SvgColourServer.Inherit) ||
+                (this != SvgColourServer.Inherit && obj == SvgColourServer.Inherit)) return false;
+
             return this.GetHashCode() == objColor.GetHashCode();
         }
 

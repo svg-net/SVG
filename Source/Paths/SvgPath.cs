@@ -22,7 +22,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets a <see cref="SvgPathSegmentList"/> of path data.
         /// </summary>
-        [SvgAttribute("d")]
+        [SvgAttribute("d", true)]
         public SvgPathSegmentList PathData
         {
         	get { return this.Attributes.GetAttribute<SvgPathSegmentList>("d"); }
@@ -37,7 +37,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the length of the path.
         /// </summary>
-        [SvgAttribute("pathLength")]
+        [SvgAttribute("pathLength", true)]
         public float PathLength
         {
             get { return this.Attributes.GetAttribute<float>("pathLength"); }
@@ -48,7 +48,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the marker (end cap) of the path.
         /// </summary>
-		[SvgAttribute("marker-end")]
+        [SvgAttribute("marker-end", true)]
 		public Uri MarkerEnd
         {
 			get { return this.Attributes.GetAttribute<Uri>("marker-end"); }
@@ -59,7 +59,7 @@ namespace Svg
 		/// <summary>
 		/// Gets or sets the marker (start cap) of the path.
 		/// </summary>
-		[SvgAttribute("marker-mid")]
+        [SvgAttribute("marker-mid", true)]
 		public Uri MarkerMid
 		{
 			get { return this.Attributes.GetAttribute<Uri>("marker-mid"); }
@@ -70,7 +70,7 @@ namespace Svg
 		/// <summary>
 		/// Gets or sets the marker (start cap) of the path.
 		/// </summary>
-		[SvgAttribute("marker-start")]
+        [SvgAttribute("marker-start", true)]
 		public Uri MarkerStart
 		{
 			get { return this.Attributes.GetAttribute<Uri>("marker-start"); }

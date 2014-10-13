@@ -18,7 +18,18 @@ namespace Svg
         [SvgAttribute("ascent")]
         public float Ascent
         {
-            get { return (this.Attributes["ascent"] == null ? this.UnitsPerEm : (float)this.Attributes["ascent"]); }
+            get 
+            { 
+                if (this.Attributes["ascent"] == null) 
+                {
+                    var font = this.Parent as SvgFont;
+                    return (font == null ? 0 : this.UnitsPerEm - font.VertOriginY);
+                }
+                else
+                {
+                    return (float)this.Attributes["ascent"];
+                }
+            }
             set { this.Attributes["ascent"] = value; }
         }
 
@@ -32,7 +43,18 @@ namespace Svg
         [SvgAttribute("descent")]
         public float Descent
         {
-            get { return (this.Attributes["descent"] == null ? 0 : (float)this.Attributes["descent"]); }
+            get 
+            { 
+                if (this.Attributes["descent"] == null) 
+                {
+                    var font = this.Parent as SvgFont;
+                    return (font == null ? 0 : font.VertOriginY);
+                }
+                else 
+                {
+                    return (float)this.Attributes["descent"];
+                }
+            }
             set { this.Attributes["descent"] = value; }
         }
 

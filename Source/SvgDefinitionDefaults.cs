@@ -15,6 +15,8 @@ namespace Svg
 
         static SvgDefaults()
         {
+            _defaults["d"] = "";
+
             _defaults["viewBox"] = "0, 0, 0, 0";
 
             _defaults["visibility"] = "visible";

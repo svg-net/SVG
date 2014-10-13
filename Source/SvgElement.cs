@@ -123,7 +123,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the color <see cref="SvgPaintServer"/> of this element which drives the currentColor property.
         /// </summary>
-        [SvgAttribute("color")]
+        [SvgAttribute("color", true)]
         public virtual SvgPaintServer Color
         {
             get { return (this.Attributes["color"] == null) ? SvgColourServer.NotSet : (SvgPaintServer)this.Attributes["color"]; }
@@ -559,17 +559,22 @@ namespace Svg
                 writer.WriteEndElement();
             }
         }
-
         protected virtual void WriteAttributes(XmlTextWriter writer)
         {
+            var styles = new Dictionary<string, string>();
+            bool writeStyle;
+            bool forceWrite;
+
             //properties
             foreach (var attr in _svgPropertyAttributes)
             {
-                if (attr.Property.Converter.CanConvertTo(typeof(string)))
+                if (attr.Property.Converter.CanConvertTo(typeof(string)) && 
+                    (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(attr.Attribute.Name)))
                 {
                     object propertyValue = attr.Property.GetValue(this);
 
-                    var forceWrite = false;
+                    forceWrite = false;
+                    writeStyle = (attr.Attribute.Name == "fill");
                     if ((attr.Attribute.Name == "fill") && (Parent != null))
                     {
                     	if(propertyValue == SvgColourServer.NotSet) continue;
@@ -592,18 +597,31 @@ namespace Svg
 
                         if (!SvgDefaults.IsDefault(attr.Attribute.Name, value) || forceWrite)
                         {
-                            writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
+                            if (writeStyle)
+                            {
+                                styles[attr.Attribute.Name] = value;
+                            }
+                            else
+                            {
+                                writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
+                            }
                         }
                     }
                     else if(attr.Attribute.Name == "fill") //if fill equals null, write 'none'
                     {
                         string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
-                        writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
+                        if (writeStyle)
+                        {
+                            styles[attr.Attribute.Name] = value;
+                        }
+                        else
+                        {
+                            writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
+                        }
                     }
                 }
             }
 
-            
             //events
             if(AutoPublishEvents)
             {
@@ -623,6 +641,13 @@ namespace Svg
             foreach (var item in this._customAttributes)
             {
                 writer.WriteAttributeString(item.Key, item.Value);
+            }
+
+            //write the style property
+            if (styles.Any())
+            {
+                writer.WriteAttributeString("style", (from s in styles
+                                                      select s.Key + ":" + s.Value + ";").Aggregate((p,c) => p + c));
             }
         }
         
@@ -663,14 +688,33 @@ namespace Svg
 
         protected virtual void WriteChildren(XmlTextWriter writer)
         {
-            //write the content
-            if(!String.IsNullOrEmpty(this.Content))
-                writer.WriteString(this.Content);
-
-            //write all children
-            foreach (SvgElement child in this.Children)
+            if (this.Nodes.Any())
             {
-                child.Write(writer);
+                SvgContentNode content;
+                foreach (var node in this.Nodes)
+                {
+                    content = node as SvgContentNode;
+                    if (content == null)
+                    {
+                        ((SvgElement)node).Write(writer);
+                    }
+                    else if (!string.IsNullOrEmpty(content.Content))
+                    {
+                        writer.WriteString(content.Content);
+                    }
+                }
+            }
+            else
+            {
+                //write the content
+                if(!String.IsNullOrEmpty(this.Content))
+                    writer.WriteString(this.Content);
+
+                //write all children
+                foreach (SvgElement child in this.Children)
+                {
+                    child.Write(writer);
+                }
             }
         }
 
