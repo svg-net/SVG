@@ -465,11 +465,18 @@ namespace Svg
 
             try
             {
-                using (var renderer = SvgRenderer.FromImage(bitmap))
-                {
-                    renderer.SetBoundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
-                    this.Render(renderer);
-                }
+				using (var renderer = SvgRenderer.FromImage(bitmap))
+				{
+					renderer.SetBoundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
+
+					//EO, 2014-12-05: Requested to ensure proper zooming (draw the svg in the bitmap size, ==> proper scaling)
+					renderer.ScaleTransform(bitmap.Width / this.Width, bitmap.Height / this.Height);
+
+					//EO, 2014-12-05: Requested to ensure proper zooming out, reduce size. Otherwise it clip the image.
+					this.Overflow = SvgOverflow.auto;
+
+					this.Render(renderer);
+				}
             }
             catch
             {
