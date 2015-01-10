@@ -58,7 +58,7 @@ namespace Svg
         
         private void LogIDChange(SvgElement elem, string oldId, string newID)
         {
-        	Console.WriteLine("ID of SVG element " + elem.ToString() + " changed from " + oldId + " to " + newID);
+        	 System.Diagnostics.Debug.WriteLine("ID of SVG element " + elem.ToString() + " changed from " + oldId + " to " + newID);
         }
 
         public void InsertAndForceUniqueID(int index, SvgElement item, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
