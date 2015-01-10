@@ -74,10 +74,11 @@ namespace SvgW3CTestRunner
                     doc.Write(memStream);
                     memStream.Position = 0;  
                     var reader = new StreamReader(memStream);
-                    System.IO.File.WriteAllText(@"C:\test.svg", reader.ReadToEnd());
+                    var tempFilePath = Path.Combine(Path.GetTempPath(), "test.svg");
+                    System.IO.File.WriteAllText(tempFilePath, reader.ReadToEnd());
                     memStream.Position = 0;
                     var baseUri = doc.BaseUri;
-                    doc = SvgDocument.Open<SvgDocument>(memStream);
+                    doc = SvgDocument.Open(tempFilePath);
                     doc.BaseUri = baseUri;
                     
                     if (fileName.StartsWith("__"))
