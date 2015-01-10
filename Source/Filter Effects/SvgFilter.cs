@@ -124,6 +124,10 @@ namespace Svg.FilterEffects
             var inflate = 0.5f;
             var transform = GetTransform(element);
             var bounds = GetPathBounds(element, renderer, transform);
+
+            if (bounds.Width == 0 || bounds.Height == 0)
+                return;
+
             var buffer = new ImageBuffer(bounds, inflate, renderer, renderMethod) { Transform = transform };
 
             IEnumerable<SvgFilterPrimitive> primitives = this.Children.OfType<SvgFilterPrimitive>();
@@ -137,7 +141,7 @@ namespace Svg.FilterEffects
 
                 // Render the final filtered image
                 var bufferImg = buffer.Buffer;
-                bufferImg.Save(@"C:\test.png");
+                //bufferImg.Save(@"C:\test.png");
                 var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
                 var prevClip = renderer.GetClip();
                 renderer.SetClip(new Region(imgDraw));

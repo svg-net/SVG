@@ -35,6 +35,9 @@ namespace Svg.FilterEffects
 		{
             var inputImage = buffer[this.Input];
 
+            if (inputImage == null)
+                return;
+
             float[][] colorMatrixElements;
             float value;
             switch (this.Type)
@@ -75,7 +78,7 @@ namespace Svg.FilterEffects
                     };
                     break;
                 default: // Matrix
-                    var parts = this.Values.Split(new char[] { ' ', '\t', '\n', '\r', ',' });
+                    var parts = this.Values.Replace("  ", " ").Split(new char[] { ' ', '\t', '\n', '\r', ',' });
                     colorMatrixElements = new float[5][];
                     for (int i = 0; i < 4; i++)
                     {
