@@ -85,13 +85,12 @@ namespace Svg
         private bool IsInheritValue(object value)
         {
             return (value == null ||
-                    (value is SvgFontStyle && (SvgFontStyle)value == SvgFontStyle.inherit) ||
-                    (value is SvgFontWeight && (SvgFontWeight)value == SvgFontWeight.inherit) ||
-                    (value is SvgTextAnchor && (SvgTextAnchor)value == SvgTextAnchor.inherit) ||
-                    (value is SvgFontVariant && (SvgFontVariant)value == SvgFontVariant.inherit) || 
-                    (value is SvgTextDecoration && (SvgTextDecoration)value == SvgTextDecoration.inherit) ||
+                    (value is SvgFontWeight && (SvgFontWeight)value == SvgFontWeight.Inherit) ||
+                    (value is SvgTextAnchor && (SvgTextAnchor)value == SvgTextAnchor.Inherit) ||
+                    (value is SvgFontVariant && (SvgFontVariant)value == SvgFontVariant.Inherit) || 
+                    (value is SvgTextDecoration && (SvgTextDecoration)value == SvgTextDecoration.Inherit) ||
                     (value is XmlSpaceHandling && (XmlSpaceHandling)value == XmlSpaceHandling.inherit) ||
-                    (value is SvgOverflow && (SvgOverflow)value == SvgOverflow.inherit) ||
+                    (value is SvgOverflow && (SvgOverflow)value == SvgOverflow.Inherit) ||
                     (value == SvgColourServer.Inherit) || 
                     (value is string && (string)value == "inherit")
                    );
