@@ -54,7 +54,7 @@ namespace Svg
             {
                 using (XmlTextWriter xml = new XmlTextWriter(str))
                 {
-                    elem.WriteElement(xml);
+                    elem.Write(xml);
                     result = str.ToString();
 
                 }
