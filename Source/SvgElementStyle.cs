@@ -173,7 +173,7 @@ namespace Svg
         [SvgAttribute("font-style", true)]
         public virtual SvgFontStyle FontStyle
         {
-            get { return (this.Attributes["font-style"] == null) ? SvgFontStyle.inherit : (SvgFontStyle)this.Attributes["font-style"]; }
+            get { return (this.Attributes["font-style"] == null) ? SvgFontStyle.All : (SvgFontStyle)this.Attributes["font-style"]; }
             set { this.Attributes["font-style"] = value; this.IsPathDirty = true; }
         }
 
@@ -183,7 +183,7 @@ namespace Svg
         [SvgAttribute("font-variant", true)]
         public virtual SvgFontVariant FontVariant
         {
-            get { return (this.Attributes["font-variant"] == null) ? SvgFontVariant.inherit : (SvgFontVariant)this.Attributes["font-variant"]; }
+            get { return (this.Attributes["font-variant"] == null) ? SvgFontVariant.Inherit : (SvgFontVariant)this.Attributes["font-variant"]; }
             set { this.Attributes["font-variant"] = value; this.IsPathDirty = true; }
         }
 
@@ -193,7 +193,7 @@ namespace Svg
         [SvgAttribute("text-decoration", true)]
         public virtual SvgTextDecoration TextDecoration
         {
-            get { return (this.Attributes["text-decoration"] == null) ? SvgTextDecoration.inherit : (SvgTextDecoration)this.Attributes["text-decoration"]; }
+            get { return (this.Attributes["text-decoration"] == null) ? SvgTextDecoration.Inherit : (SvgTextDecoration)this.Attributes["text-decoration"]; }
             set { this.Attributes["text-decoration"] = value; this.IsPathDirty = true; }
         }
 
@@ -203,7 +203,7 @@ namespace Svg
         [SvgAttribute("font-weight", true)]
         public virtual SvgFontWeight FontWeight
         {
-            get { return (this.Attributes["font-weight"] == null) ? SvgFontWeight.inherit : (SvgFontWeight)this.Attributes["font-weight"]; }
+            get { return (this.Attributes["font-weight"] == null) ? SvgFontWeight.Inherit : (SvgFontWeight)this.Attributes["font-weight"]; }
             set { this.Attributes["font-weight"] = value; this.IsPathDirty = true; }
         }
 
@@ -328,12 +328,12 @@ namespace Svg
                 // Get the font-weight
                 switch (this.FontWeight)
                 {
-                    case SvgFontWeight.bold:
-                    case SvgFontWeight.bolder:
-                    case SvgFontWeight.w600:
-                    case SvgFontWeight.w700:
-                    case SvgFontWeight.w800:
-                    case SvgFontWeight.w900:
+                    //Note: Bold is not listed because it is = W700.
+                    case SvgFontWeight.Bolder:
+                    case SvgFontWeight.W600:
+                    case SvgFontWeight.W700:
+                    case SvgFontWeight.W800:
+                    case SvgFontWeight.W900:
                         fontStyle |= System.Drawing.FontStyle.Bold;
                         break;
                 }
@@ -341,8 +341,8 @@ namespace Svg
                 // Get the font-style
                 switch (this.FontStyle)
                 {
-                    case SvgFontStyle.italic:
-                    case SvgFontStyle.oblique:
+                    case SvgFontStyle.Italic:
+                    case SvgFontStyle.Oblique:
                         fontStyle |= System.Drawing.FontStyle.Italic;
                         break;
                 }
@@ -350,10 +350,10 @@ namespace Svg
                 // Get the text-decoration
                 switch (this.TextDecoration)
                 {
-                    case SvgTextDecoration.lineThrough:
+                    case SvgTextDecoration.LineThrough:
                         fontStyle |= System.Drawing.FontStyle.Strikeout;
                         break;
-                    case SvgTextDecoration.underline:
+                    case SvgTextDecoration.Underline:
                         fontStyle |= System.Drawing.FontStyle.Underline;
                         break;
                 }

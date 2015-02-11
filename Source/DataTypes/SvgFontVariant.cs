@@ -9,8 +9,8 @@ namespace Svg
     [TypeConverter(typeof(SvgFontVariantConverter))]
     public enum SvgFontVariant
     {
-        normal,
-        smallcaps,
-        inherit
+        Normal,
+        Smallcaps,
+        Inherit
     }
 }
