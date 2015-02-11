@@ -475,7 +475,7 @@ namespace Svg
 					renderer.ScaleTransform(bitmap.Width / size.Width, bitmap.Height / size.Height);
 
 					//EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
-					this.Overflow = SvgOverflow.auto;
+					this.Overflow = SvgOverflow.Auto;
 
 					this.Render(renderer);
 				}

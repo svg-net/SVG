@@ -50,6 +50,7 @@ namespace Svg
 
 	}
 	
+    [TypeConverter(typeof(SvgPreserveAspectRatioConverter))]
 	public enum SvgPreserveAspectRatio
 	{
 		xMidYMid, //default

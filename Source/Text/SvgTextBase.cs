@@ -36,7 +36,7 @@ namespace Svg
         [SvgAttribute("text-anchor", true)]
         public virtual SvgTextAnchor TextAnchor
         {
-            get { return (this.Attributes["text-anchor"] == null) ? SvgTextAnchor.inherit : (SvgTextAnchor)this.Attributes["text-anchor"]; }
+            get { return (this.Attributes["text-anchor"] == null) ? SvgTextAnchor.Inherit : (SvgTextAnchor)this.Attributes["text-anchor"]; }
             set { this.Attributes["text-anchor"] = value; this.IsPathDirty = true; }
         }
 
@@ -167,7 +167,7 @@ namespace Svg
         [SvgAttribute("lengthAdjust", true)]
         public virtual SvgTextLengthAdjust LengthAdjust
         {
-            get { return (this.Attributes["lengthAdjust"] == null) ? SvgTextLengthAdjust.spacing : (SvgTextLengthAdjust)this.Attributes["lengthAdjust"]; }
+            get { return (this.Attributes["lengthAdjust"] == null) ? SvgTextLengthAdjust.Spacing : (SvgTextLengthAdjust)this.Attributes["lengthAdjust"]; }
             set { this.Attributes["lengthAdjust"] = value; this.IsPathDirty = true; }
         }
 
@@ -365,7 +365,7 @@ namespace Svg
                     var diff = (actLength - specLength);
                     if (Math.Abs(diff) > 1.5)
                     {
-                        if (this.LengthAdjust == SvgTextLengthAdjust.spacing)
+                        if (this.LengthAdjust == SvgTextLengthAdjust.Spacing)
                         {
                             origState.LetterSpacingAdjust = -1 * diff / (state.NumChars - origState.NumChars - 1);
                             SetPath(origState, false);

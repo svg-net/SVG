@@ -42,14 +42,14 @@ namespace Svg
         [SvgAttribute("method")]
         public virtual SvgTextPathMethod Method
         {
-            get { return (this.Attributes["method"] == null ? SvgTextPathMethod.align : (SvgTextPathMethod)this.Attributes["method"]); }
+            get { return (this.Attributes["method"] == null ? SvgTextPathMethod.Align : (SvgTextPathMethod)this.Attributes["method"]); }
             set { this.Attributes["method"] = value; }
         }
 
         [SvgAttribute("spacing")]
         public virtual SvgTextPathSpacing Spacing
         {
-            get { return (this.Attributes["spacing"] == null ? SvgTextPathSpacing.exact : (SvgTextPathSpacing)this.Attributes["spacing"]); }
+            get { return (this.Attributes["spacing"] == null ? SvgTextPathSpacing.Exact : (SvgTextPathSpacing)this.Attributes["spacing"]); }
             set { this.Attributes["spacing"] = value; }
         }
 
