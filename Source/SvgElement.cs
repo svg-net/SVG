@@ -562,7 +562,7 @@ namespace Svg
                     forceWrite = false;
                     writeStyle = (attr.Attribute.Name == "fill");
 
-                    if ((attr.Attribute.Name == "fill") && (Parent != null))
+                    if (writeStyle && (Parent != null))
                     {
                     	if(propertyValue == SvgColourServer.NotSet) continue;
                     	
