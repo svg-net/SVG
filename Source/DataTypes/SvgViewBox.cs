@@ -140,8 +140,8 @@ namespace Svg
 
             var fScaleX = width / this.Width;
             var fScaleY = height / this.Height; //(this.MinY < 0 ? -1 : 1) * 
-            var fMinX = -this.MinX;
-            var fMinY = -this.MinY;
+            var fMinX = -this.MinX * fScaleX;
+            var fMinY = -this.MinY * fScaleY;
 
             if (aspectRatio == null) aspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid, false);
             if (aspectRatio.Align != SvgPreserveAspectRatio.none)
