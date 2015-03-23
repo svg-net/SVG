@@ -11,6 +11,8 @@ using System.Xml;
 using System.Linq;
 using ExCSS;
 using Svg.Css;
+using System.Threading;
+using System.Globalization;
 
 namespace Svg
 {
@@ -475,7 +477,7 @@ namespace Svg
 					renderer.ScaleTransform(bitmap.Width / size.Width, bitmap.Height / size.Height);
 
 					//EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
-					this.Overflow = SvgOverflow.auto;
+					this.Overflow = SvgOverflow.Auto;
 
 					this.Render(renderer);
 				}
@@ -486,6 +488,18 @@ namespace Svg
             }
 
             //Trace.TraceInformation("End Render");
+        }
+
+        public override void Write(XmlTextWriter writer)
+        {
+            //Save previous culture and switch to invariant for writing
+            var previousCulture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+            base.Write(writer);
+
+            //Switch culture back
+            Thread.CurrentThread.CurrentCulture = previousCulture;
         }
 
         public void Write(Stream stream)
@@ -499,7 +513,7 @@ namespace Svg
             if (!String.IsNullOrEmpty(this.ExternalCSSHref))
                 xmlWriter.WriteProcessingInstruction("xml-stylesheet", String.Format("type=\"text/css\" href=\"{0}\"", this.ExternalCSSHref));
 
-            this.WriteElement(xmlWriter);
+            this.Write(xmlWriter);
 
             xmlWriter.Flush();
         }
