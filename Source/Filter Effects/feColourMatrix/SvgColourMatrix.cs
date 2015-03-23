@@ -42,7 +42,7 @@ namespace Svg.FilterEffects
             float value;
             switch (this.Type)
             {
-                case SvgColourMatrixType.HueRotate:
+                case SvgColourMatrixType.hueRotate:
                     value = (string.IsNullOrEmpty(this.Values) ? 0 : float.Parse(this.Values));
                     colorMatrixElements = new float[][] {
                         new float[] {(float)(0.213 + Math.Cos(value) * +0.787 + Math.Sin(value) * -0.213),
@@ -58,7 +58,7 @@ namespace Svg.FilterEffects
                         new float[] {0, 0, 0, 0, 1}
                     };
                     break;
-                case SvgColourMatrixType.LuminanceToAlpha:
+                case SvgColourMatrixType.luminanceToAlpha:
                     colorMatrixElements = new float[][] {
                         new float[] {0, 0, 0, 0, 0},
                         new float[] {0, 0, 0, 0, 0},
@@ -67,7 +67,7 @@ namespace Svg.FilterEffects
                         new float[] {0, 0, 0, 0, 1}
                     };
                     break;
-                case SvgColourMatrixType.Saturate:
+                case SvgColourMatrixType.saturate:
                     value = (string.IsNullOrEmpty(this.Values) ? 1 : float.Parse(this.Values));
                     colorMatrixElements = new float[][] {
                         new float[] {(float)(0.213+0.787*value), (float)(0.715-0.715*value), (float)(0.072-0.072*value), 0, 0},

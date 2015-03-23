@@ -520,11 +520,16 @@ namespace Svg
             this.Render(renderer);
         }
 
-        /// <summary>Derrived classes may decide that the element should not be written. For example, the text element shouldn't be written if it's empty.</summary>
-        public virtual bool ShouldWriteElement()
+        public void WriteElement(XmlTextWriter writer)
         {
-            //Write any element who has a name.
-            return (this.ElementName != String.Empty);
+            //Save previous culture and switch to invariant for writing
+            var previousCulture = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+            this.Write(writer);
+
+            //Switch culture back
+            Thread.CurrentThread.CurrentCulture = previousCulture;
         }
 
         protected virtual void WriteStartElement(XmlTextWriter writer)
@@ -532,8 +537,18 @@ namespace Svg
             if (this.ElementName != String.Empty)
             {
                 writer.WriteStartElement(this.ElementName);
+                if (this.ElementName == "svg")
+                {
+					foreach (var ns in SvgAttributeAttribute.Namespaces)
+					{
+						if (string.IsNullOrEmpty(ns.Key))
+							writer.WriteAttributeString("xmlns", ns.Value);
+						else
+							writer.WriteAttributeString("xmlns:" + ns.Key, ns.Value);
+					}
+					writer.WriteAttributeString("version", "1.1");
+				}
             }
-
             this.WriteAttributes(writer);
         }
 
@@ -557,12 +572,10 @@ namespace Svg
                     (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(attr.Attribute.Name)))
                 {
                     object propertyValue = attr.Property.GetValue(this);
-                    string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
 
                     forceWrite = false;
                     writeStyle = (attr.Attribute.Name == "fill");
-
-                    if (writeStyle && (Parent != null))
+                    if ((attr.Attribute.Name == "fill") && (Parent != null))
                     {
                     	if(propertyValue == SvgColourServer.NotSet) continue;
                     	
@@ -580,9 +593,9 @@ namespace Svg
                     if (propertyValue != null)
                     {
                         var type = propertyValue.GetType();
-                        
-                        //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
-                        if ((!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, value)) || forceWrite)
+                        string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+
+                        if (!SvgDefaults.IsDefault(attr.Attribute.Name, value) || forceWrite)
                         {
                             if (writeStyle)
                             {
@@ -596,6 +609,7 @@ namespace Svg
                     }
                     else if(attr.Attribute.Name == "fill") //if fill equals null, write 'none'
                     {
+                        string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
                         if (writeStyle)
                         {
                             styles[attr.Attribute.Name] = value;
@@ -662,9 +676,9 @@ namespace Svg
             return resolved;
         }
 
-        public virtual void Write(XmlTextWriter writer)
+        protected virtual void Write(XmlTextWriter writer)
         {
-            if (ShouldWriteElement())
+            if (this.ElementName != String.Empty)
             {
                 this.WriteStartElement(writer);
                 this.WriteChildren(writer);
