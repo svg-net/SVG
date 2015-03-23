@@ -84,7 +84,7 @@ namespace Svg
         [SvgAttribute("font-style")]
         public virtual SvgFontStyle FontStyle
         {
-            get { return (this.Attributes["font-style"] == null) ? SvgFontStyle.All : (SvgFontStyle)this.Attributes["font-style"]; }
+            get { return (this.Attributes["font-style"] == null) ? SvgFontStyle.inherit : (SvgFontStyle)this.Attributes["font-style"]; }
             set { this.Attributes["font-style"] = value; }
         }
 
@@ -94,7 +94,7 @@ namespace Svg
         [SvgAttribute("font-variant")]
         public virtual SvgFontVariant FontVariant
         {
-            get { return (this.Attributes["font-variant"] == null) ? SvgFontVariant.Inherit : (SvgFontVariant)this.Attributes["font-variant"]; }
+            get { return (this.Attributes["font-variant"] == null) ? SvgFontVariant.inherit : (SvgFontVariant)this.Attributes["font-variant"]; }
             set { this.Attributes["font-variant"] = value; }
         }
 
@@ -104,7 +104,7 @@ namespace Svg
         [SvgAttribute("font-weight")]
         public virtual SvgFontWeight FontWeight
         {
-            get { return (this.Attributes["font-weight"] == null) ? SvgFontWeight.Inherit : (SvgFontWeight)this.Attributes["font-weight"]; }
+            get { return (this.Attributes["font-weight"] == null) ? SvgFontWeight.inherit : (SvgFontWeight)this.Attributes["font-weight"]; }
             set { this.Attributes["font-weight"] = value; }
         }
 
