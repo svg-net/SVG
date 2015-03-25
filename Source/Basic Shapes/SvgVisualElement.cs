@@ -57,7 +57,7 @@ namespace Svg
         [SvgAttribute("clip-path")]
         public virtual Uri ClipPath
         {
-            get { return this.Attributes.GetInheritedAttribute<Uri>("clip-path"); }
+            get { return this.Attributes.GetAttribute<Uri>("clip-path"); }
             set { this.Attributes["clip-path"] = value; }
         }
 
