@@ -276,7 +276,7 @@ namespace Svg
 
         internal virtual IEnumerable<ISvgNode> GetContentNodes()
         {
-            return (this.Nodes == null || this.Nodes.Count < 1 ? this.Children.OfType<ISvgNode>() : this.Nodes);
+            return (this.Nodes == null || this.Nodes.Count < 1 ? this.Children.OfType<ISvgNode>().Where(o => !(o is ISvgDescriptiveElement)) : this.Nodes);
         }
         protected virtual GraphicsPath GetBaselinePath(ISvgRenderer renderer)
         {
@@ -319,10 +319,9 @@ namespace Svg
         /// <param name="state">State of the drawing operation</param>
         private void SetPath(TextDrawingState state, bool doMeasurements)
         {
-            SvgTextBase inner;
-            TextDrawingState newState;
             TextDrawingState origState = null;
             bool alignOnBaseline = state.BaselinePath != null && (this.TextAnchor == SvgTextAnchor.Middle || this.TextAnchor == SvgTextAnchor.End);
+
             if (doMeasurements)
             {
                 if (this.TextLength != SvgUnit.None)
@@ -338,15 +337,17 @@ namespace Svg
 
             foreach (var node in GetContentNodes())
             {
-                inner = node as SvgTextBase;
-                if (inner == null)
+                SvgTextBase textNode = node as SvgTextBase;
+
+                if (textNode == null)
                 {
                     if (!string.IsNullOrEmpty(node.Content)) state.DrawString(PrepareText(node.Content));
                 }
                 else
                 {
-                    newState = new TextDrawingState(state, inner);
-                    inner.SetPath(newState);
+                    TextDrawingState newState= new TextDrawingState(state, textNode);
+
+                    textNode.SetPath(newState);
                     state.NumChars += newState.NumChars;
                     state.Current = newState.Current;
                 }

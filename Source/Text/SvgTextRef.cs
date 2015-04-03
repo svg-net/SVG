@@ -20,14 +20,20 @@ namespace Svg
         internal override IEnumerable<ISvgNode> GetContentNodes()
         {
             var refText = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement) as SvgTextBase;
+            IEnumerable<ISvgNode> contentNodes = null;
+
             if (refText == null)
             {
-                return base.GetContentNodes();
+                contentNodes = base.GetContentNodes();
             }
             else
             {
-                return refText.GetContentNodes();
+                contentNodes = refText.GetContentNodes();
             }
+
+            contentNodes = contentNodes.Where(o => !(o is ISvgDescriptiveElement));
+
+            return contentNodes;
         }
 
         public override SvgElement DeepCopy()
