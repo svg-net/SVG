@@ -1,0 +1,6 @@
+<svg version="1.1" style="font-family:Arial;font-size:12px;font-weight:normal;" xmlns="http://www.w3.org/2000/svg" width="600" height="200">
+  <text x="200" y="100" text-anchor="end" style="color:red;font-size:12px;fill:red;">
+    <tspan>This is visible text.</tspan>
+    <title>THIS SHOULD NOT BE SEEN! THIS SHOULD NOT BE SEEN!</title>
+  </text>
+</svg>
