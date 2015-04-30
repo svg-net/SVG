@@ -399,9 +399,41 @@ namespace Svg
                 }
             }
 
-
             _path = path;
             this.IsPathDirty = false;
+
+            // If we have child tspans we need to correct the position to account for text-anchor
+            var childTSpans = GetContentNodes().OfType<SvgTextSpan>().ToList();
+            if (childTSpans.Count != 0)
+            {
+                var elementBounds = this.Bounds;
+                float xOffset = 0;
+                switch (TextAnchor)
+                {
+                    case SvgTextAnchor.Middle:
+                        xOffset = -elementBounds.Width/2;
+                        break;
+                    case SvgTextAnchor.End:
+                        xOffset = -elementBounds.Width;
+                        break;
+                }
+
+                if (xOffset != 0)
+                {
+                    using (var matrix = new Matrix())
+                    {
+                        matrix.Translate(xOffset, 0);
+
+                        foreach (var node in childTSpans)
+                        {
+                            node._path.Transform(matrix);
+                        }
+
+                        // The path for the parent text node renders a black copy of the text for some reason
+                        _path.Reset();
+                    }
+                }
+            }
         }
 
         private static readonly Regex MultipleSpaces = new Regex(@" {2,}", RegexOptions.Compiled);
