@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Svg;
+using Svg.Droid;
 using Bitmap = Android.Graphics.Bitmap;
 
 namespace SvgW3CTestRunner.Droid
@@ -61,47 +62,5 @@ namespace SvgW3CTestRunner.Droid
         }
     }
 
-    public class AndroidBitmap : Svg.Bitmap
-    {
-        private readonly int _width;
-        private readonly int _height;
-        private Bitmap _image;
-
-        public AndroidBitmap(int width, int height)
-        {
-            _width = width;
-            _height = height;
-            _image = Bitmap.CreateBitmap(width, height, Bitmap.Config.Argb8888);
-        }
-
-        public Bitmap Image
-        {
-            get { return _image; }
-        }
-
-        public void Dispose()
-        {
-            _image.Dispose();
-        }
-
-
-        public BitmapData LockBits(Rectangle rectangle, ImageLockMode lockmode, PixelFormat pixelFormat)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UnlockBits(BitmapData bitmapData)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save(string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Width { get { return _width; } }
-        public int Height { get { return _height; } }
-    }
 }
 

@@ -16,9 +16,9 @@ namespace Svg
         void RotateAt(float f, PointF midPoint, MatrixOrder prepend);
         void Rotate(float fAngle, MatrixOrder append);
         Matrix Clone();
-        float[] Elements { get; set; }
-        float OffsetX { get; set; }
-        float OffsetY { get; set; }
+        float[] Elements { get; }
+        float OffsetX { get;  }
+        float OffsetY { get;  }
         void Rotate(float fAngle);
         void Shear(float f, float f1);
     }

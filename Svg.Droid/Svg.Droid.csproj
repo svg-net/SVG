@@ -92,6 +92,9 @@
     <Compile Include="Document Structure\SvgSymbol.cs" />
     <Compile Include="Document Structure\SvgTitle.cs" />
     <Compile Include="Document Structure\SvgUse.cs" />
+    <Compile Include="Droid\AndroidBitmap.cs" />
+    <Compile Include="Droid\AndroidGraphicsPath.cs" />
+    <Compile Include="Droid\AndroidMatrix.cs" />
     <Compile Include="Exceptions\SvgException.cs" />
     <Compile Include="Extensibility\SvgForeignObject.cs" />
     <Compile Include="Extensions.cs" />
@@ -199,7 +202,7 @@
     <Compile Include="Interfaces\ColorMatrix.cs" />
     <Compile Include="Interfaces\ColorMatrixFlag.cs" />
     <Compile Include="Interfaces\CombineMode.cs" />
-    <Compile Include="Interfaces\Factory.cs" />
+    <Compile Include="Droid\Factory.cs" />
     <Compile Include="Interfaces\FillMode.cs" />
     <Compile Include="Interfaces\Font.cs" />
     <Compile Include="Interfaces\FontFamily.cs" />
@@ -207,6 +210,7 @@
     <Compile Include="Interfaces\Graphics.cs" />
     <Compile Include="Interfaces\GraphicsPath.cs" />
     <Compile Include="Interfaces\GraphicsUnit.cs" />
+    <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\Image.cs" />
     <Compile Include="Interfaces\ImageAttributes.cs" />
     <Compile Include="Interfaces\ImageLockMode.cs" />

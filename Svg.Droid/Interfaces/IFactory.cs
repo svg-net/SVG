@@ -1,26 +1,20 @@
-
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 
 namespace Svg
 {
-    public class Factory
-    {
-        public static IFactory Instance { get; set; }
-    }
-
     public interface IFactory
     {
         GraphicsPath CreateGraphicsPath();
         GraphicsPath CreateGraphicsPath(FillMode winding);
-        Image CreateImage();
+        //Image CreateImage();
         Region CreateRegion();
         Region CreateRegion(RectangleF rect);
         Pen CreatePen(Brush brush, float strokeWidth);
         Matrix CreateMatrix();
         Bitmap CreateBitmap(Image inputImage);
-        Bitmap CreateBitmap(float inputImage, float height);
+        Bitmap CreateBitmap(int width, int height);
         Graphics CreateGraphicsFromImage(Bitmap input);
         Graphics CreateGraphicsFromImage(Image image);
         ColorMatrix CreateColorMatrix(float[][] colorMatrixElements);

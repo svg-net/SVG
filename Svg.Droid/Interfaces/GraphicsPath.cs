@@ -17,7 +17,7 @@ namespace Svg
         void AddLine(PointF getDevicePoint, PointF endPoint);
         PointF GetLastPoint();
         void AddRectangle(RectangleF rectangle);
-        void AddArc(RectangleF arcBounds, int p1, int p2);
+        void AddArc(RectangleF rect, float startAngle, float sweepAngle);
         GraphicsPath Clone();
         void Transform(Matrix transform);
         void AddPath(GraphicsPath childPath, bool b);
