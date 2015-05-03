@@ -9,8 +9,8 @@ namespace Svg
         void StartFigure();
         void AddEllipse(float f, float f1, float f2, float f3);
         void CloseFigure();
-        decimal PointCount { get; set; }
-        PointF[] PathPoints { get; set; }
+        decimal PointCount { get; }
+        PointF[] PathPoints { get; }
         FillMode FillMode { get; set; }
         float[] PathTypes { get; set; }
         PathData PathData { get; set; }

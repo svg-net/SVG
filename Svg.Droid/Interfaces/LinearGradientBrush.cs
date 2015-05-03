@@ -1,3 +1,5 @@
+using System.Drawing.Drawing2D;
+
 namespace Svg
 {
     public interface LinearGradientBrush : Brush

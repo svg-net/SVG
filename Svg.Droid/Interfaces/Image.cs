@@ -4,7 +4,7 @@ namespace Svg
 {
     public interface Image : IDisposable
     {
-        float Width { get; set; }
-        float Height { get; set; }
+        int Width { get; }
+        int Height { get; }
     }
 }

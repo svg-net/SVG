@@ -22,4 +22,6 @@ namespace Svg
         void Rotate(float fAngle);
         void Shear(float f, float f1);
     }
+
+
 }
