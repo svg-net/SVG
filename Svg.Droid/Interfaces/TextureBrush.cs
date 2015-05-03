@@ -2,7 +2,7 @@
 
 namespace Svg
 {
-    public interface TextureBrush
+    public interface TextureBrush : Brush
     {
         Matrix Transform { get; set; }
     }

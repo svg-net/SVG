@@ -193,8 +193,11 @@
     <Compile Include="Interfaces\Bitmap.cs" />
     <Compile Include="Interfaces\BitmapData.cs" />
     <Compile Include="Interfaces\Brush.cs" />
+    <Compile Include="Interfaces\CharacterRange.cs" />
+    <Compile Include="Interfaces\ColorAdjustType.cs" />
     <Compile Include="Interfaces\ColorBlend.cs" />
     <Compile Include="Interfaces\ColorMatrix.cs" />
+    <Compile Include="Interfaces\ColorMatrixFlag.cs" />
     <Compile Include="Interfaces\CombineMode.cs" />
     <Compile Include="Interfaces\Factory.cs" />
     <Compile Include="Interfaces\FillMode.cs" />
@@ -220,8 +223,10 @@
     <Compile Include="Interfaces\SmoothingMode.cs" />
     <Compile Include="Interfaces\SolidBrush.cs" />
     <Compile Include="Interfaces\StringFormat.cs" />
+    <Compile Include="Interfaces\StringFormatFlags.cs" />
     <Compile Include="Interfaces\TextRenderingHint.cs" />
     <Compile Include="Interfaces\TextureBrush.cs" />
+    <Compile Include="Interfaces\WrapMode.cs" />
     <Compile Include="NonSvgElement.cs" />
     <Compile Include="Painting\EnumConverters.cs" />
     <Compile Include="Painting\GenericBoundable.cs" />

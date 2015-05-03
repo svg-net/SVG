@@ -288,7 +288,7 @@ namespace Svg
             leftPoints.Add(point);
             rightPoints.Add(point);
 
-            var path = new GraphicsPath(FillMode.Winding);
+            var path = Factory.Instance.CreateGraphicsPath(FillMode.Winding);
             path.AddPolygon(leftPoints.ToArray());
             yield return path;
 
@@ -299,7 +299,7 @@ namespace Svg
 
         private static GraphicsPath CreateGraphicsPath(PointF origin, PointF centerPoint, float effectiveRadius)
         {
-            var path = new GraphicsPath();
+            var path = Factory.Instance.CreateGraphicsPath();
 
             path.AddEllipse(
                 origin.X + centerPoint.X - effectiveRadius,

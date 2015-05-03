@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.Linq;
 
 namespace Svg.FilterEffects
@@ -87,13 +88,13 @@ namespace Svg.FilterEffects
                     break;
             }
 
-            var colorMatrix = new ColorMatrix(colorMatrixElements);
-            using (var imageAttrs = new ImageAttributes())
+            var colorMatrix = Factory.Instance.CreateColorMatrix(colorMatrixElements);
+            using (var imageAttrs = Factory.Instance.CreateImageAttributes())
             {
                 imageAttrs.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
-                var result = new Bitmap(inputImage.Width, inputImage.Height);
-                using (var g = Graphics.FromImage(result))
+                var result = Factory.Instance.CreateBitmap(inputImage.Width, inputImage.Height);
+                using (var g = Factory.Instance.CreateGraphicsFromImage(result))
                 {
                     g.DrawImage(inputImage, new Rectangle(0, 0, inputImage.Width, inputImage.Height),
                                 0, 0, inputImage.Width, inputImage.Height, GraphicsUnit.Pixel, imageAttrs);

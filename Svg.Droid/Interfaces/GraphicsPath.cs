@@ -25,5 +25,8 @@ namespace Svg
         void AddBezier(PointF start, PointF firstControlPoint, PointF secondControlPoint, PointF end);
         void AddBezier(float startX, float firstControlPoint, float secondControlPoint, float end, float f, float f1, float endpointX, float endpointY);
         bool IsVisible(PointF pointF);
+        void Flatten();
+        void AddPolygon(PointF[] polygon);
+        void Reset();
     }
 }

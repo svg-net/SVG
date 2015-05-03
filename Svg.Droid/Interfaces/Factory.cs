@@ -1,5 +1,6 @@
 
 using System.Drawing;
+using System.IO;
 
 namespace Svg
 {
@@ -11,6 +12,7 @@ namespace Svg
     public interface IFactory
     {
         GraphicsPath CreateGraphicsPath();
+        GraphicsPath CreateGraphicsPath(FillMode winding);
         Image CreateImage();
         Region CreateRegion();
         Region CreateRegion(RectangleF rect);
@@ -29,5 +31,9 @@ namespace Svg
         PathGradientBrush CreatePathGradientBrush(GraphicsPath path);
         Matrix CreateMatrix(float i, float i1, float i2, float i3, float i4, float i5);
         StringFormat CreateStringFormatGenericTypographic { get; set; }
+        Font CreateFont(FontFamily fontFamily, float fontSize, FontStyle fontStyle, GraphicsUnit graphicsUnit);
+        FontFamilyProvider GetFontFamilyProvider();
+        Image CreateImageFromStream(Stream stream);
+        Bitmap CreateBitmapFromStream(Stream stream);
     }
 }

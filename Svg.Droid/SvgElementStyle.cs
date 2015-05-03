@@ -323,7 +323,7 @@ namespace Svg
 
             if (sFaces == null)
             {
-                var fontStyle = System.Drawing.FontStyle.Regular;
+                var fontStyle = Svg.FontStyle.Regular;
 
                 // Get the font-weight
                 switch (this.FontWeight)
@@ -334,7 +334,7 @@ namespace Svg
                     case SvgFontWeight.W700:
                     case SvgFontWeight.W800:
                     case SvgFontWeight.W900:
-                        fontStyle |= System.Drawing.FontStyle.Bold;
+                        fontStyle |= Svg.FontStyle.Bold;
                         break;
                 }
 
@@ -343,7 +343,7 @@ namespace Svg
                 {
                     case SvgFontStyle.Italic:
                     case SvgFontStyle.Oblique:
-                        fontStyle |= System.Drawing.FontStyle.Italic;
+                        fontStyle |= Svg.FontStyle.Italic;
                         break;
                 }
 
@@ -351,10 +351,10 @@ namespace Svg
                 switch (this.TextDecoration)
                 {
                     case SvgTextDecoration.LineThrough:
-                        fontStyle |= System.Drawing.FontStyle.Strikeout;
+                        fontStyle |= Svg.FontStyle.Strikeout;
                         break;
                     case SvgTextDecoration.Underline:
-                        fontStyle |= System.Drawing.FontStyle.Underline;
+                        fontStyle |= Svg.FontStyle.Underline;
                         break;
                 }
 
@@ -365,7 +365,7 @@ namespace Svg
                 }
 
                 // Get the font-family
-                return new GdiFontDefn(new System.Drawing.Font(ff, fontSize, fontStyle, System.Drawing.GraphicsUnit.Pixel));
+                return new GdiFontDefn(Factory.Instance.CreateFont(ff, fontSize, fontStyle, GraphicsUnit.Pixel));
             }
             else
             {
@@ -383,7 +383,10 @@ namespace Svg
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
             var fontParts = (fontFamilyList ?? "").Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
-            var families = System.Drawing.FontFamily.Families;
+
+            var ffProvider = Factory.Instance.GetFontFamilyProvider();
+
+            var families = ffProvider.Families;
             FontFamily family;
             IEnumerable<SvgFontFace> sFaces;
 
@@ -399,16 +402,16 @@ namespace Svg
                 switch (f)
                 {
                     case "serif":
-                        return System.Drawing.FontFamily.GenericSerif;
+                        return ffProvider.GenericSerif;
                     case "sans-serif":
-                        return System.Drawing.FontFamily.GenericSansSerif;
+                        return ffProvider.GenericSansSerif;
                     case "monospace":
-                        return System.Drawing.FontFamily.GenericMonospace;
+                        return ffProvider.GenericMonospace;
                 }
             }
 
             // No valid font family found from the list requested.
-            return System.Drawing.FontFamily.GenericSansSerif;
+            return ffProvider.GenericSansSerif;
         }
     }
 }

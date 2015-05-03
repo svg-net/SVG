@@ -233,7 +233,7 @@ namespace Svg
                     byte[] imageBytes = Convert.FromBase64String(uriString.Substring(dataIdx));
                     using (var stream = new MemoryStream(imageBytes))
                     {
-                        return Image.FromStream(stream);
+                        return Factory.Instance.CreateImageFromStream(stream);
                     }
                 }
 
@@ -258,7 +258,7 @@ namespace Svg
                         }
                         else
                         {
-                            return Bitmap.FromStream(stream);
+                            return Factory.Instance.CreateBitmapFromStream(stream);
                         }
                     }
                 }

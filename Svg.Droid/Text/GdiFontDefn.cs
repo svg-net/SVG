@@ -57,7 +57,8 @@ namespace Svg
         public SizeF MeasureString(ISvgRenderer renderer, string text)
         {
             var g = GetGraphics(renderer);
-            StringFormat format = StringFormat.GenericTypographic;
+            var provider = Factory.Instance.GetFontFamilyProvider();
+            StringFormat format = provider.GenericTypographic;
             format.SetMeasurableCharacterRanges(new CharacterRange[] { new CharacterRange(0, text.Length) });
             format.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
             Region[] r = g.MeasureCharacterRanges(text, _font, new Rectangle(0, 0, 1000, 1000), format);
