@@ -24,10 +24,10 @@ namespace Svg.Droid
             switch (fillmode)
             {
                 case FillMode.Alternate:
-                    _path.SetFillType(Path.FillType.EvenOdd);
+                    Path.SetFillType(Path.FillType.EvenOdd);
                     break;
                 case FillMode.Winding:
-                    _path.SetFillType(Path.FillType.Winding);
+                    Path.SetFillType(Path.FillType.Winding);
                     break;
             }
         }
@@ -35,30 +35,30 @@ namespace Svg.Droid
 
         public void Dispose()
         {
-            _path.Dispose();
+            Path.Dispose();
         }
 
         public RectangleF GetBounds()
         {
             var r = new RectF();
-            _path.ComputeBounds(r, true);
+            Path.ComputeBounds(r, true);
             return new RectangleF(r.Left, r.Top, r.Width(), r.Height());
         }
 
         public void StartFigure()
         {
-            throw new NotSupportedException();
+            
         }
 
         public void AddEllipse(float x, float y, float width, float height)
         {
             // TODO LX: Which direction is correct?
-            _path.AddOval(x, y, x + width, y + height, Path.Direction.Cw);
+            Path.AddOval(new RectF(x, y, x + width, y + height), Path.Direction.Cw);
         }
 
         public void CloseFigure()
         {
-            _path.Close();
+            Path.Close();
         }
 
         public decimal PointCount { get; private set; }
@@ -66,10 +66,16 @@ namespace Svg.Droid
         public FillMode FillMode { get; set; }
         public float[] PathTypes { get; set; }
         public PathData PathData { get; set; }
+
+        public Path Path
+        {
+            get { return _path; }
+        }
+
         public void AddLine(PointF start, PointF end)
         {
-            _path.MoveTo(start.X, start.Y);
-            _path.LineTo(end.X, end.Y);
+            Path.MoveTo(start.X, start.Y);
+            Path.LineTo(end.X, end.Y);
         }
 
         public PointF GetLastPoint()
@@ -81,18 +87,18 @@ namespace Svg.Droid
         public void AddRectangle(RectangleF rectangle)
         {
             // TODO LX: is this the right direction?
-            _path.AddRect(new RectF(rectangle.X, rectangle.Y, rectangle.X+rectangle.Width, rectangle.Y+rectangle.Height), Path.Direction.Cw);
+            Path.AddRect(rectangle.ToRectF(), Path.Direction.Cw);
         }
 
         public void AddArc(RectangleF rect, float startAngle, float sweepAngle)
         {
-            _path.AddArc(new RectF(rect.X, rect.Y, rect.X+rect.Width, rect.Y+rect.Height), startAngle, sweepAngle);
+            Path.AddArc(rect.ToRectF(), startAngle, sweepAngle);
         }
 
         public GraphicsPath Clone()
         {
             var cl = new AndroidGraphicsPath();
-            cl._path = this._path;
+            cl._path = this.Path;
             return cl;
         }
 
@@ -100,14 +106,14 @@ namespace Svg.Droid
         {
             var m = new Android.Graphics.Matrix();
             m.SetValues(transform.Elements);
-            _path.Transform(m);
+            Path.Transform(m);
         }
 
         public void AddPath(GraphicsPath childPath, bool connect)
         {
             var ap = (AndroidGraphicsPath) childPath;
             // TODO LX: How to connect? And is 0, 0 correct?
-            _path.AddPath(ap._path, 0, 0);
+            Path.AddPath(ap.Path, 0, 0);
         }
 
         public void AddString(string text, FontFamily fontFamily, int style, float size, PointF location,
@@ -118,14 +124,14 @@ namespace Svg.Droid
 
         public void AddBezier(PointF start, PointF point1, PointF point2, PointF point3)
         {
-            _path.MoveTo(start.X, start.Y);
-            _path.CubicTo(point1.X, point1.Y, point2.X, point2.Y, point3.X, point3.Y);
+            Path.MoveTo(start.X, start.Y);
+            Path.CubicTo(point1.X, point1.Y, point2.X, point2.Y, point3.X, point3.Y);
         }
 
         public void AddBezier(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
         {
-            _path.MoveTo(x1, y2);
-            _path.CubicTo(x2, y2, x3, y3, x4, y4);
+            Path.MoveTo(x1, y2);
+            Path.CubicTo(x2, y2, x3, y3, x4, y4);
         }
 
         public bool IsVisible(PointF pointF)
@@ -148,7 +154,7 @@ namespace Svg.Droid
 
         public void Reset()
         {
-            _path.Reset();
+            Path.Reset();
         }
     }
 }

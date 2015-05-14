@@ -25,7 +25,7 @@ namespace Svg
 
         public void AddStringToPath(ISvgRenderer renderer, GraphicsPath path, string text, PointF location)
         {
-            path.AddString(text, _font.FontFamily, (int)_font.Style, _font.Size, location, Factory.Instance.CreateStringFormatGenericTypographic);
+            path.AddString(text, _font.FontFamily, (int)_font.Style, _font.Size, location, Factory.Instance.CreateStringFormatGenericTypographic());
         }
 
         //Baseline calculation to match http://bobpowell.net/formattingtext.aspx
@@ -44,7 +44,7 @@ namespace Svg
             StringFormat format;
             for (int s = 0; s <= (text.Length - 1) / 32; s++)
             {
-                format = Factory.Instance.CreateStringFormatGenericTypographic;
+                format = Factory.Instance.CreateStringFormatGenericTypographic();
                 format.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
                 format.SetMeasurableCharacterRanges((from r in Enumerable.Range(32 * s, Math.Min(32, text.Length - 32 * s))
                                                      select new CharacterRange(r, 1)).ToArray());

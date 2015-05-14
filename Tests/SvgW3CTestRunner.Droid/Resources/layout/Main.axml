@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@color/white">
     <Button
         android:id="@+id/MyButton"
         android:layout_width="fill_parent"
@@ -10,6 +11,7 @@
         android:text="@string/Hello" />
     <ImageView
         android:id="@+id/SvgImage"
+        android:background="@color/white"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

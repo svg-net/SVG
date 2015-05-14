@@ -16,6 +16,7 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -93,8 +94,18 @@
     <Compile Include="Document Structure\SvgTitle.cs" />
     <Compile Include="Document Structure\SvgUse.cs" />
     <Compile Include="Droid\AndroidBitmap.cs" />
+    <Compile Include="Droid\AndroidColorMatrix.cs" />
+    <Compile Include="Droid\AndroidGraphics.cs" />
     <Compile Include="Droid\AndroidGraphicsPath.cs" />
+    <Compile Include="Droid\AndroidLinearGradientBrush.cs" />
     <Compile Include="Droid\AndroidMatrix.cs" />
+    <Compile Include="Droid\AndroidPen.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Droid\AndroidSolidBrush.cs" />
+    <Compile Include="Droid\AndroidTextureBrush.cs" />
+    <Compile Include="Droid\Extensions.cs" />
+    <Compile Include="Droid\IAndroidShader.cs" />
     <Compile Include="Exceptions\SvgException.cs" />
     <Compile Include="Extensibility\SvgForeignObject.cs" />
     <Compile Include="Extensions.cs" />

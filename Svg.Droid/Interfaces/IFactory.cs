@@ -19,13 +19,13 @@ namespace Svg
         Graphics CreateGraphicsFromImage(Image image);
         ColorMatrix CreateColorMatrix(float[][] colorMatrixElements);
         ImageAttributes CreateImageAttributes();
-        SolidBrush CreateSolidBrush(Color transparent);
+        SolidBrush CreateSolidBrush(Color color);
         ColorBlend CreateColorBlend(int colourBlends);
         TextureBrush CreateTextureBrush(Bitmap image);
-        LinearGradientBrush CreateLinearGradientBrush(PointF effectiveStart, PointF effectiveEnd, Color transparent, Color color);
+        LinearGradientBrush CreateLinearGradientBrush(PointF start, PointF end, Color startColor, Color endColor);
         PathGradientBrush CreatePathGradientBrush(GraphicsPath path);
         Matrix CreateMatrix(float i, float i1, float i2, float i3, float i4, float i5);
-        StringFormat CreateStringFormatGenericTypographic { get; set; }
+        StringFormat CreateStringFormatGenericTypographic();
         Font CreateFont(FontFamily fontFamily, float fontSize, FontStyle fontStyle, GraphicsUnit graphicsUnit);
         FontFamilyProvider GetFontFamilyProvider();
         Image CreateImageFromStream(Stream stream);

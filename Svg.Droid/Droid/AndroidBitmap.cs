@@ -22,6 +22,12 @@ namespace Svg.Droid
             _image = Android.Graphics.Bitmap.CreateBitmap(ii._image);
         }
 
+
+        public AndroidBitmap(Android.Graphics.Bitmap bitmap)
+        {
+            _image = bitmap;
+        }
+
         public Android.Graphics.Bitmap Image
         {
             get { return _image; }

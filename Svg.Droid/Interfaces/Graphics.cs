@@ -10,9 +10,9 @@ namespace Svg
         void DrawImage(Bitmap bitmap, Rectangle rectangle, int x, int y, int width, int height, GraphicsUnit pixel, ImageAttributes attributes);
         void Flush();
         void Save();
-        object TextRenderingHint { get; set; }
-        float DpiY { get; set; }
-        Region Clip { get; set; }
+        TextRenderingHint TextRenderingHint { get; set; }
+        float DpiY { get; }
+        Region Clip { get; }
         SmoothingMode SmoothingMode { get; set; }
         Matrix Transform { get; set; }
         void DrawImage(Image bitmap, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit);

@@ -16,9 +16,14 @@ namespace Svg
             _rect = path.GetBounds();
         }
 
+        public RectangleF Rect
+        {
+            get { return _rect; }
+        }
+
         public Region Clone()
         {
-            return new Region(_rect);
+            return new Region(Rect);
         }
 
         public void Exclude(GraphicsPath path)

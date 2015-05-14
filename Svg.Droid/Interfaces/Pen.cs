@@ -3,17 +3,12 @@ using System;
 
 namespace Svg
 {
-    public abstract class Pen : IDisposable
+    public interface Pen : IDisposable
     {
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        public float[] DashPattern { get; set; }
-        public LineJoin LineJoin { get; set; }
-        public float MiterLimit { get; set; }
-        public LineCap StartCap { get; set; }
-        public LineCap EndCap { get; set; }
+        float[] DashPattern { get; set; }
+        LineJoin LineJoin { get; set; }
+        float MiterLimit { get; set; }
+        LineCap StartCap { get; set; }
+        LineCap EndCap { get; set; }
     }
 }

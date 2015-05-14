@@ -2,4 +2,5 @@
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">SvgW3CTestRunner.Droid</string>
+  <color name="white">#FFFFFF</color>
 </resources>
