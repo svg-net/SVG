@@ -8,8 +8,6 @@ namespace Svg
     {
         GraphicsPath CreateGraphicsPath();
         GraphicsPath CreateGraphicsPath(FillMode winding);
-        //Image CreateImage();
-        Region CreateRegion();
         Region CreateRegion(RectangleF rect);
         Pen CreatePen(Brush brush, float strokeWidth);
         Matrix CreateMatrix();

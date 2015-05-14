@@ -49,5 +49,22 @@ namespace Svg.Droid
         {
             return new Android.Graphics.PointF(point.X, point.Y);
         }
+
+        public static Android.Graphics.TypefaceStyle ToTypefaceStyle(this FontStyle value)
+        {
+            var tfs = TypefaceStyle.Normal;
+
+            if ((value & FontStyle.Bold) == FontStyle.Bold &&
+                (value & FontStyle.Italic) == FontStyle.Italic)
+                tfs = TypefaceStyle.BoldItalic;
+            else if ((value & FontStyle.Bold) == FontStyle.Bold)
+                tfs = TypefaceStyle.Bold;
+            else if ((value & FontStyle.Italic) == FontStyle.Italic)
+                tfs = TypefaceStyle.Italic;
+            else if ((value & FontStyle.Regular) == FontStyle.Regular)
+                tfs = TypefaceStyle.Normal;
+
+            return tfs;
+        }
     }
 }

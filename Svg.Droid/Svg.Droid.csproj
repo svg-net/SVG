@@ -95,6 +95,9 @@
     <Compile Include="Document Structure\SvgUse.cs" />
     <Compile Include="Droid\AndroidBitmap.cs" />
     <Compile Include="Droid\AndroidColorMatrix.cs" />
+    <Compile Include="Droid\AndroidFont.cs" />
+    <Compile Include="Droid\AndroidFontFamily.cs" />
+    <Compile Include="Droid\AndroidFontFamilyProvider.cs" />
     <Compile Include="Droid\AndroidGraphics.cs" />
     <Compile Include="Droid\AndroidGraphicsPath.cs" />
     <Compile Include="Droid\AndroidLinearGradientBrush.cs" />

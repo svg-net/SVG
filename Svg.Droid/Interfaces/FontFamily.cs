@@ -9,16 +9,16 @@ namespace Svg
         float GetCellAscent(FontStyle style);
         float GetEmHeight(FontStyle style);
         bool IsStyleAvailable(FontStyle fontStyle);
-        string Name { get; set; }
+        string Name { get;  }
     }
 
     public interface FontFamilyProvider
     {
 
         IEnumerable<FontFamily> Families { get; }
-        FontFamily GenericSerif { get; set; }
-        FontFamily GenericSansSerif { get; set; }
-        FontFamily GenericMonospace { get; set; }
-        StringFormat GenericTypographic { get; set; }
+        FontFamily GenericSerif { get;  }
+        FontFamily GenericSansSerif { get; }
+        FontFamily GenericMonospace { get; }
+        StringFormat GenericTypographic { get; }
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Drawing;
 using Android.Graphics;
-using Color = Android.Graphics.Color;
 using Point = System.Drawing.Point;
 
 namespace Svg.Droid
@@ -19,6 +18,7 @@ namespace Svg.Droid
             _canvas = new Canvas(_image.Image);
             _matrix = new AndroidMatrix(_canvas.Matrix);
         }
+
         // TODO LX use textrenderinghint
         public TextRenderingHint TextRenderingHint { get; set; }
         public float DpiY { get { return (float)_canvas.Density; } }

@@ -52,7 +52,7 @@ namespace SvgW3CTestRunner.Droid
             var pivSvg = FindViewById<ImageView>(Resource.Id.SvgImage);
 
             var img = new AndroidBitmap(480, 360);
-            using (var stream = Assets.Open("svg/shapes-circle-02-t.svg"))
+            using (var stream = Assets.Open("svg/shapes-circle-01-t.svg"))
             {
                 var doc = SvgDocument.Open<SvgDocument>(stream);
                 doc.Draw(img);

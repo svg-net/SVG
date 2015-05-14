@@ -23,14 +23,9 @@ namespace Svg
             return new AndroidGraphicsPath(fillmode);
         }
 
-        public Region CreateRegion()
-        {
-            throw new NotImplementedException();
-        }
-
         public Region CreateRegion(RectangleF rect)
         {
-            throw new System.NotImplementedException();
+            return new Region(rect);
         }
 
         public Pen CreatePen(Brush brush, float strokeWidth)
@@ -112,12 +107,17 @@ namespace Svg
 
         public Font CreateFont(FontFamily fontFamily, float fontSize, FontStyle fontStyle, GraphicsUnit graphicsUnit)
         {
-            throw new System.NotImplementedException();
+            var font = new AndroidFont((AndroidFontFamily) fontFamily);
+            font.Size = fontSize;
+            font.Style = fontStyle;
+            // TODO LX: what to use graphicsUnit for?
+
+            return font;
         }
 
         public FontFamilyProvider GetFontFamilyProvider()
         {
-            throw new System.NotImplementedException();
+            return new AndroidFontFamilyProvider();
         }
 
         public Image CreateImageFromStream(Stream stream)

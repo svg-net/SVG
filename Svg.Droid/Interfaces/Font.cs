@@ -8,6 +8,6 @@ namespace Svg
         float Size{ get; set; }
         float SizeInPoints { get; set; }
         FontStyle Style { get; set; }
-        FontFamily FontFamily { get; set; }
+        FontFamily FontFamily { get; }
     }
 }
