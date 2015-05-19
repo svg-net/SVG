@@ -50,7 +50,10 @@ namespace Svg
                 switch (fullUri.Scheme.ToLowerInvariant())
                 {
                     case "file":
-                        doc = SvgDocument.Open<SvgDocument>(fullUri.LocalPath.Substring(0, fullUri.LocalPath.Length - hash.Length));
+                        var path = fullUri.LocalPath.Contains(hash)
+                            ? fullUri.LocalPath.Substring(0, fullUri.LocalPath.Length - hash.Length)
+                            : fullUri.LocalPath;
+                        doc = SvgDocument.Open<SvgDocument>(path);
                         return doc.IdManager.GetElementById(hash);
                     case "http":
                     case "https":

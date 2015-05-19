@@ -286,6 +286,7 @@
     <Compile Include="SvgContentNode.cs" />
     <Compile Include="SvgDefinitionDefaults.cs" />
     <Compile Include="SvgDocument.cs" />
+    <Compile Include="SvgDocument.partial.cs" />
     <Compile Include="SvgDtdResolver.cs" />
     <Compile Include="SvgElement.cs" />
     <Compile Include="SvgElementAttribute.cs" />

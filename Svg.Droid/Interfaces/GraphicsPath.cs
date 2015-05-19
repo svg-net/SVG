@@ -12,8 +12,8 @@ namespace Svg
         decimal PointCount { get; }
         PointF[] PathPoints { get; }
         FillMode FillMode { get; set; }
-        float[] PathTypes { get; set; }
-        PathData PathData { get; set; }
+        byte[] PathTypes { get; set; }
+        PathData PathData { get; }
         void AddLine(PointF getDevicePoint, PointF endPoint);
         PointF GetLastPoint();
         void AddRectangle(RectangleF rectangle);

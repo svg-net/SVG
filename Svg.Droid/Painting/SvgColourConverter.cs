@@ -32,101 +32,111 @@ namespace Svg
 
             if (colour != null)
             {
-            	var oldCulture = Thread.CurrentThread.CurrentCulture;
-            	Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+                var oldCulture = Thread.CurrentThread.CurrentCulture;
+                try 
+                { 
+            	    Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             	
-                colour = colour.Trim();
+                    colour = colour.Trim();
 
-                if (colour.StartsWith("rgb"))
-                {
-                    try
+                    if (colour.StartsWith("rgb"))
                     {
-                        int start = colour.IndexOf("(") + 1;
+                        try
+                        {
+                            int start = colour.IndexOf("(") + 1;
                         
-						//get the values from the RGB string
-						string[] values = colour.Substring(start, colour.IndexOf(")") - start).Split(new char[]{',', ' '}, StringSplitOptions.RemoveEmptyEntries);
+						    //get the values from the RGB string
+						    string[] values = colour.Substring(start, colour.IndexOf(")") - start).Split(new char[]{',', ' '}, StringSplitOptions.RemoveEmptyEntries);
 
-						//determine the alpha value if this is an RGBA (it will be the 4th value if there is one)
-						int alphaValue = 255;
-						if (values.Length > 3)
-						{
-							//the alpha portion of the rgba is not an int 0-255 it is a decimal between 0 and 1
-							//so we have to determine the corosponding byte value
-							var alphastring = values[3];
-							if(alphastring.StartsWith("."))
-							{
-								alphastring = "0" + alphastring;
-							}
+						    //determine the alpha value if this is an RGBA (it will be the 4th value if there is one)
+						    int alphaValue = 255;
+						    if (values.Length > 3)
+						    {
+							    //the alpha portion of the rgba is not an int 0-255 it is a decimal between 0 and 1
+							    //so we have to determine the corosponding byte value
+							    var alphastring = values[3];
+							    if(alphastring.StartsWith("."))
+							    {
+								    alphastring = "0" + alphastring;
+							    }
 
-							var alphaDecimal = decimal.Parse(alphastring);
+							    var alphaDecimal = decimal.Parse(alphastring);
 
-							if(alphaDecimal <= 1)
-							{
-								alphaValue = (int)(alphaDecimal * 255);
-							}
-							else
-							{
-								alphaValue = (int)alphaDecimal;
-							}
-						}
+							    if(alphaDecimal <= 1)
+							    {
+								    alphaValue = (int)(alphaDecimal * 255);
+							    }
+							    else
+							    {
+								    alphaValue = (int)alphaDecimal;
+							    }
+						    }
 
-                        Color colorpart;
-                        if (values[0].Trim().EndsWith("%"))
-                        {
-                            colorpart = System.Drawing.Color.FromArgb(alphaValue, (int)(255 * float.Parse(values[0].Trim().TrimEnd('%')) / 100f),
-                                                                                  (int)(255 * float.Parse(values[1].Trim().TrimEnd('%')) / 100f),
-                                                                                  (int)(255 * float.Parse(values[2].Trim().TrimEnd('%')) / 100f));
+                            Color colorpart;
+                            if (values[0].Trim().EndsWith("%"))
+                            {
+                                colorpart = System.Drawing.Color.FromArgb(alphaValue, (int)(255 * float.Parse(values[0].Trim().TrimEnd('%')) / 100f),
+                                                                                      (int)(255 * float.Parse(values[1].Trim().TrimEnd('%')) / 100f),
+                                                                                      (int)(255 * float.Parse(values[2].Trim().TrimEnd('%')) / 100f));
+                            }
+                            else
+                            {
+                                colorpart = System.Drawing.Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
+                            }
+
+						    return colorpart;
                         }
-                        else
+                        catch
                         {
-                            colorpart = System.Drawing.Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
+                            throw new SvgException("Colour is in an invalid format: '" + colour + "'");
                         }
-
-						return colorpart;
                     }
-                    catch
+                    else if (colour.StartsWith("#") && colour.Length == 4)
                     {
-                        throw new SvgException("Colour is in an invalid format: '" + colour + "'");
+                        colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
+                        return base.ConvertFrom(context, culture, colour);
+                    }
+                
+                    switch (colour.ToLowerInvariant())
+                    {
+                        case "activeborder": return SystemColors.ActiveBorder;
+                        case "activecaption": return SystemColors.ActiveCaption;
+                        case "appworkspace": return SystemColors.AppWorkspace;
+                        case "background": return SystemColors.Desktop;
+                        case "buttonface": return SystemColors.Control;
+                        case "buttonhighlight": return SystemColors.ControlLightLight;
+                        case "buttonshadow": return SystemColors.ControlDark;
+                        case "buttontext": return SystemColors.ControlText;
+                        case "captiontext": return SystemColors.ActiveCaptionText;
+                        case "graytext": return SystemColors.GrayText;
+                        case "highlight": return SystemColors.Highlight;
+                        case "highlighttext": return SystemColors.HighlightText;
+                        case "inactiveborder": return SystemColors.InactiveBorder;
+                        case "inactivecaption": return SystemColors.InactiveCaption;
+                        case "inactivecaptiontext": return SystemColors.InactiveCaptionText;
+                        case "infobackground": return SystemColors.Info;
+                        case "infotext": return SystemColors.InfoText;
+                        case "menu": return SystemColors.Menu;
+                        case "menutext": return SystemColors.MenuText;
+                        case "scrollbar": return SystemColors.ScrollBar;
+                        case "threeddarkshadow": return SystemColors.ControlDarkDark;
+                        case "threedface": return SystemColors.Control;
+                        case "threedhighlight": return SystemColors.ControlLight;
+                        case "threedlightshadow": return SystemColors.ControlLightLight;
+                        case "window": return SystemColors.Window;
+                        case "windowframe": return SystemColors.WindowFrame;
+                        case "windowtext": return SystemColors.WindowText;
+                    }
+
+                    if (!colour.StartsWith("#"))
+                    {
+                        return System.Drawing.Color.FromName(colour.ToLowerInvariant());
                     }
                 }
-                else if (colour.StartsWith("#") && colour.Length == 4)
-                {
-                    colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
-                    return base.ConvertFrom(context, culture, colour);
+                finally 
+                { 
+                    Thread.CurrentThread.CurrentCulture = oldCulture;
                 }
-                
-                switch (colour.ToLowerInvariant())
-                {
-                    case "activeborder": return SystemColors.ActiveBorder;
-                    case "activecaption": return SystemColors.ActiveCaption;
-                    case "appworkspace": return SystemColors.AppWorkspace;
-                    case "background": return SystemColors.Desktop;
-                    case "buttonface": return SystemColors.Control;
-                    case "buttonhighlight": return SystemColors.ControlLightLight;
-                    case "buttonshadow": return SystemColors.ControlDark;
-                    case "buttontext": return SystemColors.ControlText;
-                    case "captiontext": return SystemColors.ActiveCaptionText;
-                    case "graytext": return SystemColors.GrayText;
-                    case "highlight": return SystemColors.Highlight;
-                    case "highlighttext": return SystemColors.HighlightText;
-                    case "inactiveborder": return SystemColors.InactiveBorder;
-                    case "inactivecaption": return SystemColors.InactiveCaption;
-                    case "inactivecaptiontext": return SystemColors.InactiveCaptionText;
-                    case "infobackground": return SystemColors.Info;
-                    case "infotext": return SystemColors.InfoText;
-                    case "menu": return SystemColors.Menu;
-                    case "menutext": return SystemColors.MenuText;
-                    case "scrollbar": return SystemColors.ScrollBar;
-                    case "threeddarkshadow": return SystemColors.ControlDarkDark;
-                    case "threedface": return SystemColors.Control;
-                    case "threedhighlight": return SystemColors.ControlLight;
-                    case "threedlightshadow": return SystemColors.ControlLightLight;
-                    case "window": return SystemColors.Window;
-                    case "windowframe": return SystemColors.WindowFrame;
-                    case "windowtext": return SystemColors.WindowText;
-                }
-
-            	Thread.CurrentThread.CurrentCulture = oldCulture;
             }
 
             return base.ConvertFrom(context, culture, value);

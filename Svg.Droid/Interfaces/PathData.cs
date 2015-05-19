@@ -1,20 +1,20 @@
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace Svg
 {
-    public interface PathData
+    public class PathData
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="types"></param>
+        public PathData(PointF[] points, byte[] types)
+        {
+            Points = points;
+            Types = types;
+        }
+
         // Summary:
         //     Gets or sets an array of System.Drawing.PointF structures that represents
         //     the points through which the path is constructed.
@@ -22,7 +22,7 @@ namespace Svg
         // Returns:
         //     An array of System.Drawing.PointF objects that represents the points through
         //     which the path is constructed.
-        PointF[] Points { get; set; }
+        public PointF[] Points { get; private set; }
         //
         // Summary:
         //     Gets or sets the types of the corresponding points in the path.
@@ -30,6 +30,6 @@ namespace Svg
         // Returns:
         //     An array of bytes that specify the types of the corresponding points in the
         //     path.
-        byte[] Types { get; set; }
+        public byte[] Types { get; private set; }
     }
 }

@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Linq;
+using Android.Content.Res;
 using ExCSS;
 using Svg.Css;
 using System.Threading;
@@ -17,7 +18,7 @@ namespace Svg
     /// <summary>
     /// The class used to create and load SVG documents.
     /// </summary>
-    public class SvgDocument : SvgFragment, ITypeDescriptorContext
+    public partial class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
         public static readonly int PointsPerInch = 96;
         private SvgElementIdManager _idManager;
@@ -171,6 +172,11 @@ namespace Svg
                 throw new ArgumentNullException("path");
             }
 
+            var temp = new OpenResult<T>();
+            OpenPartial(path, entities, temp);
+            if (temp.Result != null)
+                return temp.Result;
+
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException("The specified document cannot be found.", path);
@@ -183,6 +189,8 @@ namespace Svg
                 return doc;
             }
         }
+
+        static partial void OpenPartial<T>(string path, Dictionary<string, string> entities, OpenResult<T> result) where T : SvgDocument, new();
 
         /// <summary>
         /// Attempts to open an SVG document from the specified <see cref="Stream"/>.
@@ -522,6 +530,12 @@ namespace Svg
             {
                 this.Write(fs);
             }
+        }
+
+        private class OpenResult<T>
+            where T : SvgDocument, new()
+        {
+            public T Result { get; set; }
         }
     }
 }

@@ -17,7 +17,10 @@ namespace Svg
         /// <summary>
         /// Initializes the <see cref="SvgText"/> class.
         /// </summary>
-        public SvgText() : base() { }
+        public SvgText() : base()
+        {
+            
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgText"/> class.
