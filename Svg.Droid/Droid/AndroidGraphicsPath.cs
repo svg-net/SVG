@@ -15,7 +15,6 @@ namespace Svg.Droid
         private readonly List<byte> _pathTypes = new List<byte>();
         private Android.Graphics.Path _path = new Android.Graphics.Path();
         private Paint _paint = new Paint() {Color = Android.Graphics.Color.Black};
-        private PathData _pathData;
 
         public AndroidGraphicsPath()
         {
@@ -157,7 +156,9 @@ namespace Svg.Droid
         public GraphicsPath Clone()
         {
             var cl = new AndroidGraphicsPath();
-            cl._path = this.Path;
+            cl._path = new Path(this.Path);
+            cl._points.AddRange(this._points);
+            cl._pathTypes.AddRange(this._pathTypes);
             return cl;
         }
 

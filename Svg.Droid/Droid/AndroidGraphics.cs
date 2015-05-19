@@ -87,7 +87,8 @@ namespace Svg.Droid
             var p = (AndroidGraphicsPath) path;
             var paint = (AndroidPen)pen;
             paint.Paint.SetStyle(Paint.Style.Stroke);
-
+            SetSmoothingMode(paint.Paint);
+            
             _canvas.DrawPath(p.Path, paint.Paint);
 
         }
@@ -102,8 +103,26 @@ namespace Svg.Droid
             paint.StrokeWidth = 5;
             paint.SetStyle(Paint.Style.FillAndStroke);
             shader.ApplyTo(paint);
+            SetSmoothingMode(paint);
 
             _canvas.DrawPath(p.Path, paint);
+        }
+
+        private void SetSmoothingMode(Paint paint)
+        {
+            switch (SmoothingMode)
+            {
+                case SmoothingMode.Default:
+                case SmoothingMode.None:
+                    paint.Flags = 0;
+                    break;
+                case SmoothingMode.AntiAlias:
+                    paint.Flags |= PaintFlags.AntiAlias;
+                    break;
+                //case SmoothingMode.HighQuality:
+                //case SmoothingMode.HighSpeed:
+                //case SmoothingMode.Invalid:
+            }
         }
 
         public void RotateTransform(float fAngle, MatrixOrder order)
