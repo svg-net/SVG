@@ -6,7 +6,7 @@ using System.ComponentModel;
 namespace Svg
 {
     [SvgElement("title")]
-    public class SvgTitle : SvgElement
+    public class SvgTitle : SvgElement, ISvgDescriptiveElement
     {
         public override string ToString()
         {

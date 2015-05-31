@@ -1198,6 +1198,10 @@ namespace Svg
         string Content { get; }
     }
 
+    /// <summary>This interface mostly indicates that a node is not to be drawn when rendering the SVG.</summary>
+    public interface ISvgDescriptiveElement {
+    }
+
     internal interface ISvgElement
     {
 		SvgElement Parent {get;}
