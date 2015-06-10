@@ -6,7 +6,7 @@ using Svg.Transforms;
 namespace Svg
 {
     /// <summary>
-    /// Represents and SVG rectangle that could also have reounded edges.
+    /// Represents an SVG rectangle that could also have rounded edges.
     /// </summary>
     [SvgElement("rect")]
     public class SvgRectangle : SvgVisualElement
