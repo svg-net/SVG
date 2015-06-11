@@ -251,7 +251,10 @@ namespace Svg
                 {
                     using (var stream = webResponse.GetResponseStream())
                     {
-                        stream.Position = 0;
+                        if (stream.CanSeek)
+                        {
+                            stream.Position = 0;    
+                        }
                         if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
                         {
                             var doc = SvgDocument.Open<SvgDocument>(stream);
