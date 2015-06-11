@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Xml;
 
 namespace Svg
 {
@@ -41,7 +42,7 @@ namespace Svg
 
         private SvgUnit _x;
         private SvgUnit _y;
-        
+
         /// <summary>
         /// Gets or sets the position where the left point of the svg should start.
         /// </summary>
@@ -51,10 +52,10 @@ namespace Svg
             get { return _x; }
             set
             {
-                if(_x != value)
+                if (_x != value)
                 {
                     _x = value;
-                    OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
+                    OnAttributeChanged(new AttributeEventArgs { Attribute = "x", Value = value });
                 }
             }
         }
@@ -68,10 +69,10 @@ namespace Svg
             get { return _y; }
             set
             {
-                if(_y != value)
+                if (_y != value)
                 {
                     _y = value;
-                    OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
+                    OnAttributeChanged(new AttributeEventArgs { Attribute = "y", Value = value });
                 }
             }
         }
@@ -115,7 +116,7 @@ namespace Svg
             get { return this.Attributes.GetAttribute<SvgViewBox>("viewBox"); }
             set { this.Attributes["viewBox"] = value; }
         }
-        
+
         /// <summary>
         /// Gets or sets the aspect of the viewport.
         /// </summary>
@@ -185,29 +186,29 @@ namespace Svg
                     break;
             }
         }
-        
+
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
         public GraphicsPath Path
         {
-            get 
-            { 
+            get
+            {
                 var path = new GraphicsPath();
 
                 AddPaths(this, path);
-  
+
                 return path;
             }
         }
-        
+
         /// <summary>
         /// Gets the bounds of the svg element.
         /// </summary>
         /// <value>The bounds.</value>
-        public RectangleF Bounds 
-        { 
+        public RectangleF Bounds
+        {
             get
             {
                 return this.Path.GetBounds();
@@ -246,7 +247,7 @@ namespace Svg
                 }
             }
 
-            if (isWidthperc) 
+            if (isWidthperc)
             {
                 w = (bounds.Width + bounds.X) * (Width.Value * 0.01f);
             }
@@ -254,11 +255,11 @@ namespace Svg
             {
                 w = Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this);
             }
-            if (isHeightperc) 
+            if (isHeightperc)
             {
                 h = (bounds.Height + bounds.Y) * (Height.Value * 0.01f);
             }
-            else 
+            else
             {
                 h = Height.ToDeviceValue(null, UnitRenderingType.Vertical, this);
             }
@@ -282,6 +283,20 @@ namespace Svg
             return newObj;
         }
 
+        //Override the default behavior, writing out the namespaces.
+        protected override void WriteStartElement(XmlTextWriter writer)
+        {
+            base.WriteStartElement(writer);
 
+            foreach (var ns in SvgAttributeAttribute.Namespaces)
+            {
+                if (string.IsNullOrEmpty(ns.Key))
+                    writer.WriteAttributeString("xmlns", ns.Value);
+                else
+                    writer.WriteAttributeString("xmlns:" + ns.Key, ns.Value);
+            }
+
+            writer.WriteAttributeString("version", "1.1");
+        }
     }
 }

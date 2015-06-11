@@ -19,7 +19,7 @@ namespace Svg
         protected SvgUnitCollection _dx = new SvgUnitCollection();
         private string _rotate;
         private List<float> _rotations = new List<float>();
-        
+
         /// <summary>
         /// Gets or sets the text to be rendered.
         /// </summary>
@@ -143,7 +143,7 @@ namespace Svg
                 {
                     this._rotate = value;
                     this._rotations.Clear();
-                    this._rotations.AddRange(from r in _rotate.Split(new char[] {',', ' ', '\r', '\n', '\t'}, StringSplitOptions.RemoveEmptyEntries) select float.Parse(r));
+                    this._rotations.AddRange(from r in _rotate.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries) select float.Parse(r));
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "rotate", Value = value });
                 }
@@ -230,14 +230,14 @@ namespace Svg
         /// <value>The bounds.</value>
         public override System.Drawing.RectangleF Bounds
         {
-            get 
+            get
             {
                 var path = this.Path(null);
                 foreach (var elem in this.Children.OfType<SvgVisualElement>())
                 {
                     path.AddPath(elem.Path(null), false);
                 }
-                return path.GetBounds(); 
+                return path.GetBounds();
             }
         }
 
@@ -296,9 +296,9 @@ namespace Svg
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
             //if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
-            var nodes = GetContentNodes().Where(x => x is SvgContentNode && 
-                                                     string.IsNullOrEmpty(x.Content.Trim(new[] {'\r', '\n', '\t'})));
-            
+            var nodes = GetContentNodes().Where(x => x is SvgContentNode &&
+                                                     string.IsNullOrEmpty(x.Content.Trim(new[] { '\r', '\n', '\t' })));
+
             if (_path == null || IsPathDirty || nodes.Count() == 1)
             {
                 renderer = (renderer ?? SvgRenderer.FromNull());
@@ -914,5 +914,10 @@ namespace Svg
             }
         }
 
+        /// <summary>Empty text elements are not legal - only write this element if it has children.</summary>
+        public override bool ShouldWriteElement()
+        {
+            return (this.HasChildren() || this.Nodes.Count > 0);
+        }
     }
 }
