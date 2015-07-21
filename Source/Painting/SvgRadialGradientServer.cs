@@ -140,7 +140,7 @@ namespace Svg
 
                 // Calculate any required scaling
                 var scaleBounds = RectangleF.Inflate(renderingElement.Bounds, renderingElement.StrokeWidth, renderingElement.StrokeWidth);
-                var scale = CalcScale(scaleBounds, path);
+								var scale = CalcScale(scaleBounds, path);
 
                 // Not ideal, but this makes sure that the rest of the shape gets properly filled or drawn
                 if (scale > 1.0f && SpreadMethod == SvgGradientSpreadMethod.Pad)
@@ -215,7 +215,7 @@ namespace Svg
         /// This method continually transforms the rectangle (fewer points) until it is contained by the path
         /// and returns the result of the search.  The scale factor is set to a constant 95%
         /// </remarks>
-        private float CalcScale(RectangleF bounds, GraphicsPath path)
+        private float CalcScale(RectangleF bounds, GraphicsPath path, Graphics graphics = null)
         {
             var points = new PointF[] {
                 new PointF(bounds.Left, bounds.Top), 
@@ -231,11 +231,23 @@ namespace Svg
                 transform.Scale(.95f, .95f, MatrixOrder.Append);
                 transform.Translate(pathCenter.X, pathCenter.Y, MatrixOrder.Append);
 
-                var boundsTest = RectangleF.Inflate(bounds, 0, 0);
                 while (!(path.IsVisible(points[0]) && path.IsVisible(points[1]) &&
                          path.IsVisible(points[2]) && path.IsVisible(points[3])))
                 {
+										var previousPoints = new PointF[] 
+										{
+												new PointF(points[0].X, points[0].Y), 
+												new PointF(points[1].X, points[1].Y), 
+												new PointF(points[2].X, points[2].Y), 
+												new PointF(points[3].X, points[3].Y) 
+										};
+
                     transform.TransformPoints(points);
+
+										if (Enumerable.SequenceEqual(previousPoints, points))
+										{
+											break;
+										}
                 }
             }
             return bounds.Height / (points[2].Y - points[1].Y);
