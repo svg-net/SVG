@@ -572,9 +572,11 @@ namespace Svg
                     (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(attr.Attribute.Name)))
                 {
                     object propertyValue = attr.Property.GetValue(this);
+                    string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
 
                     forceWrite = false;
                     writeStyle = (attr.Attribute.Name == "fill");
+
                     if ((attr.Attribute.Name == "fill") && (Parent != null))
                     {
                     	if(propertyValue == SvgColourServer.NotSet) continue;
@@ -593,9 +595,9 @@ namespace Svg
                     if (propertyValue != null)
                     {
                         var type = propertyValue.GetType();
-                        string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
-
-                        if (!SvgDefaults.IsDefault(attr.Attribute.Name, value) || forceWrite)
+                        
+                        //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
+                        if ((!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, value)) || forceWrite)
                         {
                             if (writeStyle)
                             {
@@ -609,7 +611,6 @@ namespace Svg
                     }
                     else if(attr.Attribute.Name == "fill") //if fill equals null, write 'none'
                     {
-                        string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
                         if (writeStyle)
                         {
                             styles[attr.Attribute.Name] = value;
