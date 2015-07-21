@@ -160,6 +160,8 @@ namespace Svg
                 float fViewMidY = (this.Height / 2) * fScaleY;
                 float fMidX = width / 2;
                 float fMidY = height / 2;
+                fMinX = -this.MinX * fScaleX;
+                fMinY = -this.MinY * fScaleY;
 
                 switch (aspectRatio.Align)
                 {
