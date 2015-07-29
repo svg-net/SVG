@@ -65,7 +65,7 @@ namespace Svg
 
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if (this._path == null || this.IsPathDirty)
+            if ((this._path == null || this.IsPathDirty)	&& base.StrokeWidth > 0)
             {
                 this._path = new GraphicsPath();
                 this._path.StartFigure();
@@ -76,6 +76,15 @@ namespace Svg
                     for (int i = 2; (i + 1) < points.Count; i += 2)
                     {
                         var endPoint = SvgUnit.GetDevicePoint(points[i], points[i + 1], renderer, this);
+
+                      // If it is to render, don't need to consider stroke width.
+                        // i.e stroke width only to be considered when calculating boundary
+                        if (renderer == null)
+                        {
+                          var radius = base.StrokeWidth / 2;
+                          _path.AddEllipse(endPoint.X - radius, endPoint.Y - radius, 2 * radius, 2 * radius);
+                          continue;
+                        }
 
                         //first line
                         if (_path.PointCount == 0)
@@ -94,7 +103,8 @@ namespace Svg
                 }
 
                 this._path.CloseFigure();
-                this.IsPathDirty = false;
+                if (renderer != null)
+                  this.IsPathDirty = false;
             }
             return this._path;
         }

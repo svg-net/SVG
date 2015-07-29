@@ -100,15 +100,24 @@ namespace Svg
         /// </summary>
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if (this._path == null || this.IsPathDirty)
+            if ((this._path == null || this.IsPathDirty)	&& base.StrokeWidth > 0)
             {
+							float halfStrokeWidth = base.StrokeWidth / 2;
+
+							// If it is to render, don't need to consider stroke width.
+							// i.e stroke width only to be considered when calculating boundary
+							if (renderer != null)
+							{
+								halfStrokeWidth = 0;
+								this.IsPathDirty = false;
+							}
+
                 _path = new GraphicsPath();
                 _path.StartFigure();
-                var center = this.Center.ToDeviceValue(renderer, this);
-                var radius = this.Radius.ToDeviceValue(renderer, UnitRenderingType.Other, this);
-                _path.AddEllipse(center.X - radius, center.Y - radius, 2 * radius, 2 * radius);
+								var center = this.Center.ToDeviceValue(renderer, this);
+								var radius = this.Radius.ToDeviceValue(renderer, UnitRenderingType.Other, this) + halfStrokeWidth;
+								_path.AddEllipse(center.X - radius, center.Y - radius, 2 * radius, 2 * radius);
                 _path.CloseFigure();
-                this.IsPathDirty = false;
             }
             return _path;
         }

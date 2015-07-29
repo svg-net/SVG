@@ -48,7 +48,7 @@ namespace Svg
         private GraphicsPath _Path;
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if (_Path == null || this.IsPathDirty)
+            if ((_Path == null || this.IsPathDirty) && base.StrokeWidth > 0)
             {
                 _Path = new GraphicsPath();
 
@@ -58,6 +58,13 @@ namespace Svg
                     {
                         PointF endPoint = new PointF(Points[i].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this), 
                                                      Points[i + 1].ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+
+                        if (renderer == null)
+                        {
+                          var radius = base.StrokeWidth / 2;
+                          _Path.AddEllipse(endPoint.X - radius, endPoint.Y - radius, 2 * radius, 2 * radius);
+                          continue;
+                        }
 
                         // TODO: Remove unrequired first line
                         if (_Path.PointCount == 0)
@@ -74,7 +81,8 @@ namespace Svg
                 {
                     Trace.TraceError("Error rendering points: " + exc.Message);
                 }
-                this.IsPathDirty = false;
+                if (renderer != null)
+                  this.IsPathDirty = false;
             }
             return _Path;
         }
