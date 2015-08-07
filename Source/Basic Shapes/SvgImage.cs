@@ -23,6 +23,8 @@ namespace Svg
             Height = new SvgUnit(0.0f);
         }
 
+        private GraphicsPath _path;
+
         /// <summary>
         /// Gets an <see cref="SvgPoint"/> representing the top left point of the rectangle.
         /// </summary>
@@ -96,7 +98,19 @@ namespace Svg
         /// </summary>
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-		    return null;
+          if (_path == null)
+          {
+            // Same size of rectangle can suffice to provide bounds of the image
+            var rectangle = new RectangleF(Location.ToDeviceValue(renderer, this),
+                SvgUnit.GetDeviceSize(Width, Height, renderer, this));
+
+            _path = new GraphicsPath();
+            _path.StartFigure();
+            _path.AddRectangle(rectangle);
+            _path.CloseFigure();
+          }
+
+          return _path;
         }
 
         /// <summary>

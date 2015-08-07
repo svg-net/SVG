@@ -473,8 +473,10 @@ namespace Svg
 
 					//EO, 2014-12-05: Requested to ensure proper zooming (draw the svg in the bitmap size, ==> proper scaling)
 					//EO, 2015-01-09, Added GetDimensions to use its returned size instead of this.Width and this.Height (request of Icarrere).
-					SizeF size = this.GetDimensions();
-					renderer.ScaleTransform(bitmap.Width / size.Width, bitmap.Height / size.Height);
+
+          //BBN, 2015-07-29, it is unnecassary to call again GetDimensions and transform to 1x1
+          //SizeF size = this.GetDimensions();
+					//renderer.ScaleTransform(bitmap.Width / size.Width, bitmap.Height / size.Height);
 
 					//EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
 					this.Overflow = SvgOverflow.Auto;
@@ -488,6 +490,61 @@ namespace Svg
             }
 
             //Trace.TraceInformation("End Render");
+        }
+
+        /// <summary>
+        /// Renders the <see cref="SvgDocument"/> in given size and returns the image as a <see cref="Bitmap"/>.
+        /// </summary>
+        /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
+        public virtual Bitmap Draw(int rasterWidth, int rasterHeight)
+        {
+          var size = GetDimensions();
+          RasterizeDimensions(ref size, rasterWidth, rasterHeight);
+
+          if (size.Width == 0 || size.Height == 0)
+            return null;
+
+          var bitmap = new Bitmap((int)Math.Round(size.Width), (int)Math.Round(size.Height));
+          try
+          {
+            Draw(bitmap);
+          }
+          catch
+          {
+            bitmap.Dispose();
+            throw;
+          }
+
+          //Trace.TraceInformation("End Render");
+          return bitmap;
+        }
+
+        /// <summary>
+        /// If both or one of raster height and width is not given (0), calculate that missing value from original SVG size
+        /// while keeping original SVG size ratio
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="rasterWidth"></param>
+        /// <param name="rasterHeight"></param>
+        public virtual void RasterizeDimensions(ref SizeF size, int rasterWidth, int rasterHeight)
+        {
+          if (size == null || size.Width == 0)
+            return;
+
+          // Ratio of height/width of the original SVG size, to be used for scaling transformation
+          float ratio = size.Height / size.Width;
+
+          size.Width = rasterWidth > 0 ? (float)rasterWidth : size.Width;
+          size.Height = rasterHeight > 0 ? (float)rasterHeight : size.Height;
+
+          if (rasterHeight == 0 && rasterWidth > 0)
+          {
+            size.Height = (int)(rasterWidth * ratio);
+          }
+          else if (rasterHeight > 0 && rasterWidth == 0)
+          {
+            size.Width = (int)(rasterHeight / ratio);
+          }
         }
 
         public override void Write(XmlTextWriter writer)

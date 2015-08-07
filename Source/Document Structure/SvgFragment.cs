@@ -244,12 +244,13 @@ namespace Svg
                 else
                 {
                     bounds = this.Bounds; //do just one call to the recursive bounds property
+                    this.ViewBox = new SvgViewBox(bounds.X, bounds.Y, bounds.Width, bounds.Height);
                 }
             }
 
             if (isWidthperc)
             {
-                w = (bounds.Width + bounds.X) * (Width.Value * 0.01f);
+                w = (bounds.Width) * (Width.Value * 0.01f);
             }
             else
             {
@@ -257,7 +258,7 @@ namespace Svg
             }
             if (isHeightperc)
             {
-                h = (bounds.Height + bounds.Y) * (Height.Value * 0.01f);
+                h = (bounds.Height) * (Height.Value * 0.01f);
             }
             else
             {

@@ -176,13 +176,25 @@ namespace Svg
         /// </summary>
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if (_path == null || IsPathDirty)
+            if ((_path == null || IsPathDirty) && base.StrokeWidth > 0)
             {
+                float halfStrokeWidth = base.StrokeWidth / 2;
+
+                // If it is to render, don't need to consider stroke
+                if (renderer != null)
+                {
+                  halfStrokeWidth = 0;
+                  this.IsPathDirty = false;
+                }
+
                 // If the corners aren't to be rounded just create a rectangle
                 if (CornerRadiusX.Value == 0.0f && CornerRadiusY.Value == 0.0f)
                 {
-                    var rectangle = new RectangleF(Location.ToDeviceValue(renderer, this),
-                        SvgUnit.GetDeviceSize(this.Width, this.Height, renderer, this));
+                  // Starting location which take consideration of stroke width
+                  SvgPoint strokedLocation = new SvgPoint(Location.X - halfStrokeWidth, Location.Y - halfStrokeWidth);
+
+                  var rectangle = new RectangleF(strokedLocation.ToDeviceValue(renderer, this),
+                        SvgUnit.GetDeviceSize(this.Width + halfStrokeWidth * 2, this.Height + halfStrokeWidth * 2, renderer, this));
 
                     _path = new GraphicsPath();
                     _path.StartFigure();
@@ -253,7 +265,6 @@ namespace Svg
                     // Close
                     _path.CloseFigure();
                 }
-                IsPathDirty = false;
             }
             return _path;
         }
