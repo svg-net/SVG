@@ -800,9 +800,14 @@ namespace Svg
         			}
         			else
         			{
-                        var childPath = GetPaths(child, renderer);
-        				if(child.Transforms != null)
-        					childPath.Transform(child.Transforms.GetMatrix());
+				        var childPath = GetPaths(child, renderer);
+        				if (childPath != null && childPath.PointCount > 0)
+        				{
+        					if (child.Transforms != null)
+						        childPath.Transform(child.Transforms.GetMatrix());
+                  
+					        ret.AddPath(childPath, false);
+				        }
         			}
         		}
         			
