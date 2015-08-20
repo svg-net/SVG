@@ -5,13 +5,11 @@ using ExCSS;
 
 namespace Svg.UnitTests
 {
-    
-    
-    /// <summary>
-    ///This is a test class for CssQueryTest and is intended
-    ///to contain all CssQueryTest Unit Tests
-    ///</summary>
-    [TestClass()]
+	/// <summary>
+	///This is a test class for CssQueryTest and is intended
+	///to contain all CssQueryTest Unit Tests
+	///</summary>
+	[TestClass()]
     public class CssQueryTest
     {
 
