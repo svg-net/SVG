@@ -68,8 +68,8 @@ namespace Svg
             return new SizeF(rect.Width, Ascent(renderer));
         }
 
-        private static Graphics _graphics;
-        private static Graphics GetGraphics(object renderer)
+        private Graphics _graphics;
+        private Graphics GetGraphics(object renderer)
         {
             var provider = renderer as IGraphicsProvider;
             if (provider == null)

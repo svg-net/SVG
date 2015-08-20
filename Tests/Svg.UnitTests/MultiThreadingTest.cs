@@ -34,17 +34,9 @@ namespace Svg.UnitTests
 		public void TestMultiThread()
 		{
 			bool valid = true;
-			Parallel.For(0, 10, (x) =>
+			Parallel.For(0, 3, (x) =>
 			{
-				try
-				{
-					LoadFile();
-				}
-				catch (Exception e)
-				{
-					Trace.WriteLine("Run error in parallel: " + e.Message);
-					valid = false;
-				}
+				LoadFile();
 			});
 			Assert.IsTrue(valid, "One or more of the runs was invalid");
 			Trace.WriteLine("Done");
