@@ -243,7 +243,8 @@ namespace Svg
             SvgElement element = null;
             SvgElement parent;
             T svgDocument = null;
-            
+			var elementFactory = new SvgElementFactory();
+
             var styles = new List<ISvgNode>();
 
             while (reader.Read())
@@ -259,11 +260,11 @@ namespace Svg
                             // Create element
                             if (elementStack.Count > 0)
                             {
-                                element = SvgElementFactory.CreateElement(reader, svgDocument);
+                                element = elementFactory.CreateElement(reader, svgDocument);
                             }
                             else
                             {
-                                svgDocument = SvgElementFactory.CreateDocument<T>(reader);
+                                svgDocument = elementFactory.CreateDocument<T>(reader);
                                 element = svgDocument;
                             }
 
@@ -349,7 +350,7 @@ namespace Svg
 
                     foreach (var selector in selectors)
                     {
-                        elemsToStyle = svgDocument.QuerySelectorAll(rule.Selector.ToString());
+                        elemsToStyle = svgDocument.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
                         foreach (var elem in elemsToStyle)
                         {
                             foreach (var decl in rule.Declarations)

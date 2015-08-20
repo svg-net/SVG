@@ -4,6 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
+using Svg.ExtensionMethods;
 using Svg.Pathing;
 
 namespace Svg
@@ -32,7 +33,7 @@ namespace Svg
         [SvgAttribute("marker-end")]
         public Uri MarkerEnd
         {
-            get { return this.Attributes.GetAttribute<Uri>("marker-end"); }
+            get { return this.Attributes.GetAttribute<Uri>("marker-end").ReplaceWithNullIfNone(); }
             set { this.Attributes["marker-end"] = value; }
         }
 
@@ -43,7 +44,7 @@ namespace Svg
         [SvgAttribute("marker-mid")]
         public Uri MarkerMid
         {
-            get { return this.Attributes.GetAttribute<Uri>("marker-mid"); }
+            get { return this.Attributes.GetAttribute<Uri>("marker-mid").ReplaceWithNullIfNone(); }
             set { this.Attributes["marker-mid"] = value; }
         }
 
@@ -54,7 +55,7 @@ namespace Svg
         [SvgAttribute("marker-start")]
         public Uri MarkerStart
         {
-            get { return this.Attributes.GetAttribute<Uri>("marker-start"); }
+            get { return this.Attributes.GetAttribute<Uri>("marker-start").ReplaceWithNullIfNone(); }
             set { this.Attributes["marker-start"] = value; }
         }
 

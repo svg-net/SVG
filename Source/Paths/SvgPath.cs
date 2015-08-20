@@ -6,6 +6,7 @@ using System.Drawing.Drawing2D;
 using System.Xml.Serialization;
 using System.Xml;
 using System.Diagnostics;
+using Svg.ExtensionMethods;
 using Svg.Pathing;
 using Svg.Transforms;
 
@@ -51,7 +52,7 @@ namespace Svg
         [SvgAttribute("marker-end", true)]
 		public Uri MarkerEnd
         {
-			get { return this.Attributes.GetAttribute<Uri>("marker-end"); }
+			get { return this.Attributes.GetAttribute<Uri>("marker-end").ReplaceWithNullIfNone(); }
 			set { this.Attributes["marker-end"] = value; }
 		}
 
@@ -62,7 +63,7 @@ namespace Svg
         [SvgAttribute("marker-mid", true)]
 		public Uri MarkerMid
 		{
-			get { return this.Attributes.GetAttribute<Uri>("marker-mid"); }
+			get { return this.Attributes.GetAttribute<Uri>("marker-mid").ReplaceWithNullIfNone(); }
 			set { this.Attributes["marker-mid"] = value; }
 		}
 
@@ -73,7 +74,7 @@ namespace Svg
         [SvgAttribute("marker-start", true)]
 		public Uri MarkerStart
 		{
-			get { return this.Attributes.GetAttribute<Uri>("marker-start"); }
+			get { return this.Attributes.GetAttribute<Uri>("marker-start").ReplaceWithNullIfNone(); }
 			set { this.Attributes["marker-start"] = value; }
 		}
 
