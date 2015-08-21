@@ -178,7 +178,7 @@ namespace Svg
         {
             if ((_path == null || IsPathDirty) && base.StrokeWidth > 0)
             {
-                float halfStrokeWidth = base.StrokeWidth / 2;
+                var halfStrokeWidth = new SvgUnit(base.StrokeWidth / 2);
 
                 // If it is to render, don't need to consider stroke
                 if (renderer != null)
@@ -193,8 +193,10 @@ namespace Svg
                   // Starting location which take consideration of stroke width
                   SvgPoint strokedLocation = new SvgPoint(Location.X - halfStrokeWidth, Location.Y - halfStrokeWidth);
 
-                  var rectangle = new RectangleF(strokedLocation.ToDeviceValue(renderer, this),
-                        SvgUnit.GetDeviceSize(this.Width + halfStrokeWidth * 2, this.Height + halfStrokeWidth * 2, renderer, this));
+                  var width = this.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) + base.StrokeWidth;
+                  var height = this.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) + base.StrokeWidth;
+                  
+                  var rectangle = new RectangleF(strokedLocation.ToDeviceValue(renderer, this), new SizeF(width, height));
 
                     _path = new GraphicsPath();
                     _path.StartFigure();

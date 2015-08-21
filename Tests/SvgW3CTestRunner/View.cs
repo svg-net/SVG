@@ -102,7 +102,7 @@ namespace SvgW3CTestRunner
             //compare svg to png
             try
             {
-                picSVGPNG.Image = PixelDiff((Bitmap)picSvg.Image, (Bitmap)picPng.Image);
+                picSVGPNG.Image = PixelDiff((Bitmap)picPng.Image, (Bitmap)picSvg.Image);
             }
             catch (Exception ex)
             {
@@ -139,6 +139,17 @@ namespace SvgW3CTestRunner
                 }
             }
             return output;
+        }
+        
+        
+        void RunAllToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            foreach(string fileName in lstFiles.Items)
+            {
+                if (fileName.StartsWith("#")) continue;
+                
+                
+            }    
         }
 
 
