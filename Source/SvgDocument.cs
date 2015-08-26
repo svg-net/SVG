@@ -13,6 +13,7 @@ using ExCSS;
 using Svg.Css;
 using System.Threading;
 using System.Globalization;
+using Svg.Exceptions;
 
 namespace Svg
 {
@@ -434,17 +435,27 @@ namespace Svg
             this.Render(renderer);
         }
 
-        /// <summary>
-        /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
-        /// </summary>
-        /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
-        public virtual Bitmap Draw()
-        {
-            //Trace.TraceInformation("Begin Render");
+	    /// <summary>
+	    /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
+	    /// </summary>
+	    /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
+	    public virtual Bitmap Draw()
+	    {
+		    //Trace.TraceInformation("Begin Render");
 
-            var size = GetDimensions();
-            var bitmap = new Bitmap((int)Math.Round(size.Width), (int)Math.Round(size.Height));
-            // 	bitmap.SetResolution(300, 300);
+		    var size = GetDimensions();
+		    Bitmap bitmap = null;
+		    try
+		    {
+			    bitmap = new Bitmap((int) Math.Round(size.Width), (int) Math.Round(size.Height));
+		    }
+		    catch (ArgumentException e)
+		    {
+				//When processing too many files at one the system can run out of memory
+			    throw new SvgMemoryException("Cannot process SVG file, cannot allocate the required memory", e);
+		    }
+
+	    // 	bitmap.SetResolution(300, 300);
             try
             {
                 Draw(bitmap);

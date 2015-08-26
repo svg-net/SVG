@@ -107,6 +107,7 @@
     <Compile Include="DataTypes\SvgTextPathSpacing.cs" />
     <Compile Include="DataTypes\XmlSpaceHandling.cs" />
     <Compile Include="Document Structure\SvgSymbol.cs" />
+    <Compile Include="Exceptions\SvgMemoryException.cs" />
     <Compile Include="ExtensionMethods\UriExtensions.cs" />
     <Compile Include="Filter Effects\ImageBuffer.cs" />
     <Compile Include="Painting\GenericBoundable.cs" />

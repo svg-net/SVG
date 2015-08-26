@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Svg.Exceptions;
 
 namespace Svg.UnitTests
 {
@@ -34,12 +35,28 @@ namespace Svg.UnitTests
 		public void TestMultiThread()
 		{
 			bool valid = true;
-			Parallel.For(0, 3, (x) =>
+			Parallel.For(0, 10, (x) =>
 			{
 				LoadFile();
-			});
-			Assert.IsTrue(valid, "One or more of the runs was invalid");
+			});			
 			Trace.WriteLine("Done");
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(SvgMemoryException))]
+		public void SVGGivesMemoryExceptionOnTooManyParallelTest()
+		{
+			try
+			{
+				Parallel.For(0, 50, (x) =>
+				{
+					LoadFile();
+				});
+			}
+			catch (AggregateException ex)
+			{
+				throw ex.InnerException;
+			}
 		}
 		private void LoadFile()
 		{

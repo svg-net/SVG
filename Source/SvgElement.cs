@@ -284,7 +284,7 @@ namespace Svg
             get { return this._customAttributes; }
         }
 
-        private static readonly Matrix _zeroMatrix = new Matrix(0, 0, 0, 0, 0, 0);
+        private readonly Matrix _zeroMatrix = new Matrix(0, 0, 0, 0, 0, 0);
 
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
