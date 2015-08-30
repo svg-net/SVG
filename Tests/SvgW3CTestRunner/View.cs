@@ -12,14 +12,18 @@ namespace SvgW3CTestRunner
 {
     public partial class View : Form
     {
-        private const string _svgBasePath = @"..\..\..\W3CTestSuite\svg\";
-        private const string _pngBasePath = @"..\..\..\W3CTestSuite\png\";
+		//DIRECTORY SEPARATOR: The value of this field is a slash ("/") on UNIX and on Mac OSX, and a backslash ("\") on the Windows operating systems.
+		static private string sprt = Path.DirectorySeparatorChar.ToString (); 
+
+		//Data folders
+		private string _svgBasePath = @".."+sprt+".."+sprt+".."+sprt+"W3CTestSuite"+sprt+"svg"+sprt;
+		private string _pngBasePath = @".."+sprt+".."+sprt+".."+sprt+"W3CTestSuite"+sprt+"png"+sprt;
 
         public View()
         {
             InitializeComponent();
             // ignore tests pertaining to javascript or xml reading
-            var passes = File.ReadAllLines(_svgBasePath + @"..\PassingTests.txt").ToDictionary((f) => f, (f) => true);
+			var passes = File.ReadAllLines(_svgBasePath + @".."+sprt+"PassingTests.txt").ToDictionary((f) => f, (f) => true);
             var files = (from f in
                          (from g in Directory.GetFiles(_svgBasePath)
                           select Path.GetFileName(g))
