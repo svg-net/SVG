@@ -789,6 +789,10 @@ namespace Svg
         			{
                         var childPath = ((SvgVisualElement)child).Path(renderer);
         				
+      					// Non-group element can have child element which we have to consider. i.e tspan in text element
+      					if (child.Children.Count > 0)
+    				  		childPath.AddPath(GetPaths(child, renderer), false);
+
         				if (childPath != null && childPath.PointCount > 0)
         				{
         					childPath = (GraphicsPath)childPath.Clone();
