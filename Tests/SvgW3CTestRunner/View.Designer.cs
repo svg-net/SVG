@@ -1,4 +1,6 @@
-﻿namespace SvgW3CTestRunner
+﻿using System.Drawing;
+
+namespace SvgW3CTestRunner
 {
     partial class View
     {
@@ -28,8 +30,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+			
             this.lstFiles = new System.Windows.Forms.ListBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.boxConsoleLog = new System.Windows.Forms.RichTextBox();
+			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.picSaveLoad = new System.Windows.Forms.PictureBox();
@@ -66,6 +70,20 @@
             this.lstFiles.Size = new System.Drawing.Size(174, 744);
             this.lstFiles.TabIndex = 0;
             this.lstFiles.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
+			// 
+			// boxConsoleLog
+			// 
+			this.boxConsoleLog.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.boxConsoleLog.Multiline = true;
+			this.boxConsoleLog.Location = new System.Drawing.Point(183, 744);
+			this.boxConsoleLog.Name = "ConsoleLog";
+			this.boxConsoleLog.Size = new System.Drawing.Size(1240, 144);
+			this.boxConsoleLog.TabIndex = 0;
+			this.boxConsoleLog.MouseDown += new System.Windows.Forms.MouseEventHandler (this.boxConsoleLog_MouseDown);
+			this.boxConsoleLog.ReadOnly = true;
+			this.boxConsoleLog.BackColor = Color.White;
+
+
             // 
             // tableLayoutPanel1
             // 
@@ -74,12 +92,13 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lstFiles, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel1.Controls.Add(this.boxConsoleLog, 1, 1);
+			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1249, 750);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1249, 750+144);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // splitContainer1
@@ -98,7 +117,8 @@
             this.splitContainer1.Size = new System.Drawing.Size(1063, 744);
             this.splitContainer1.SplitterDistance = 548;
             this.splitContainer1.TabIndex = 0;
-            // 
+
+			// 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
@@ -246,7 +266,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1249, 774);
+            this.ClientSize = new System.Drawing.Size(1249, 774+200);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -274,6 +294,7 @@
 
         #endregion
 
+		private System.Windows.Forms.RichTextBox boxConsoleLog;
         private System.Windows.Forms.ListBox lstFiles;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
