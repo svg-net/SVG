@@ -8,7 +8,6 @@ using System.IO;
 using Svg;
 using System.Diagnostics;
 
-
 namespace SvgW3CTestRunner
 {
     public partial class View : Form
@@ -38,34 +37,6 @@ namespace SvgW3CTestRunner
             lstFiles.Items.AddRange(files.ToArray());
         }
 
-
-
-		private void boxConsoleLog_MouseDown(object sender, MouseEventArgs e)
-		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
-			{   //click event
-				
-				ContextMenu contextMenu = new System.Windows.Forms.ContextMenu();
-				MenuItem menuItem = new MenuItem("Copy");
-				menuItem.Click += new EventHandler(CopyAction);
-				contextMenu.MenuItems.Add(menuItem);
-
-				boxConsoleLog.ContextMenu = contextMenu;
-			}
-		}
-
-
-		void CopyAction(object sender, EventArgs e)
-		{
-			if (boxConsoleLog.SelectedText != null && boxConsoleLog.SelectedText != "")
-			{
-				//Clipboard.SetText(boxConsoleLog.SelectedText.Replace("\n", "\r\n"));
-
-				boxConsoleLog.Copy ();
-			}
-		}
-
-
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             //render svg
@@ -90,18 +61,12 @@ namespace SvgW3CTestRunner
                     var img = new Bitmap(480, 360);
                     doc.Draw(img);
                     picSvg.Image = img;
-
                 }
-
-				this.boxConsoleLog.AppendText ("\n\nWC3 TEST " + fileName + "\n");
-
+                
             }
             catch (Exception ex)
             {
-				this.boxConsoleLog.AppendText ("Result: TEST FAILED\n");
-				this.boxConsoleLog.AppendText ("SVG RENDERING ERROR for " + fileName + "\n");
-				this.boxConsoleLog.AppendText (ex.ToString());
-                //MessageBox.Show(ex.ToString(), "SVG Rendering");
+                MessageBox.Show(ex.ToString(), "SVG Rendering");
                 picSvg.Image = null;
             }
             
@@ -134,10 +99,7 @@ namespace SvgW3CTestRunner
             } 
             catch (Exception ex)
             {
-				this.boxConsoleLog.AppendText ("Result: TEST FAILED\n");
-				this.boxConsoleLog.AppendText ("SVG SERIALIZATION ERROR for " + fileName + "\n");
-				this.boxConsoleLog.AppendText (ex.ToString());
-                //MessageBox.Show(ex.ToString(), "SVG Serialization");
+                MessageBox.Show(ex.ToString(), "SVG Serialization");
                 picSaveLoad.Image = null;
             }
             
@@ -148,15 +110,9 @@ namespace SvgW3CTestRunner
             }
             catch (Exception ex)
             {
-				this.boxConsoleLog.AppendText ("Result: TEST FAILED\n");
-				this.boxConsoleLog.AppendText ("SVG TO PNG COMPARISON ERROR for " + fileName + "\n");
-				this.boxConsoleLog.AppendText (ex.ToString());
-                //MessageBox.Show(ex.ToString(), "SVG Comparison");
+                MessageBox.Show(ex.ToString(), "SVG Comparison");
                 picSVGPNG.Image = null;
             }
-
-
-
             
            
         }
