@@ -76,7 +76,7 @@
     <DocumentationFile>bin\Release\Svg.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
