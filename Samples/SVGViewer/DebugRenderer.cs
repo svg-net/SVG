@@ -93,7 +93,11 @@ namespace SVGViewer
             _transform.Translate(dx, dy, order);
         }
 
-
+        public CompositingMode CompositingMode
+        {
+          get { return System.Drawing.Drawing2D.CompositingMode.SourceOver; /* default value */ }
+          set { /* Do Nothing */ }
+        }
 
         public SmoothingMode SmoothingMode
         {

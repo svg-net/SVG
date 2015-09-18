@@ -19,6 +19,7 @@ namespace Svg
         void ScaleTransform(float sx, float sy, MatrixOrder order = MatrixOrder.Append);
         void SetBoundable(ISvgBoundable boundable);
         void SetClip(Region region, CombineMode combineMode = CombineMode.Replace);
+        CompositingMode CompositingMode { get; set; }
         SmoothingMode SmoothingMode { get; set; }
         Matrix Transform { get; set; }
         void TranslateTransform(float dx, float dy, MatrixOrder order = MatrixOrder.Append);
