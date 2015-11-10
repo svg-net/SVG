@@ -79,7 +79,11 @@ namespace Svg
             this._innerGraphics.TranslateTransform(dx, dy, order);
         }
         
-
+        public CompositingMode CompositingMode
+        {
+          get { return this._innerGraphics.CompositingMode; }
+          set { this._innerGraphics.CompositingMode = value; }
+        }
 
         public SmoothingMode SmoothingMode
         {
