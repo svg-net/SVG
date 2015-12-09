@@ -15,13 +15,7 @@ namespace Svg
     {
         public override string ToString()
         {
-            string ret = "";
-            foreach (var unit in this)
-            {
-                ret += unit.ToString() + " ";
-            }
-
-            return ret;
+            return String.Join(",", this.Select(u => u.ToString()).ToArray());
         }
 
         public static bool IsNullOrEmpty(SvgUnitCollection collection)
