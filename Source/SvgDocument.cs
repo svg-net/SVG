@@ -563,12 +563,16 @@ namespace Svg
         {
             //Save previous culture and switch to invariant for writing
             var previousCulture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-
-            base.Write(writer);
-
-            //Switch culture back
-            Thread.CurrentThread.CurrentCulture = previousCulture;
+            try {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                base.Write(writer);
+            }
+            finally
+            {
+                // Make sure to set back the old culture even an error occurred.
+                //Switch culture back
+                Thread.CurrentThread.CurrentCulture = previousCulture;
+            }
         }
 
         public void Write(Stream stream)

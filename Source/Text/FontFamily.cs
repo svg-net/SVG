@@ -133,6 +133,7 @@ namespace Svg.Text
             }
         }
 
+        [CLSCompliant(false)]
         public struct TT_OFFSET_TABLE
         {
             public ushort uMajorVersion;
@@ -143,6 +144,7 @@ namespace Svg.Text
             public ushort uRangeShift;
         }
 
+        [CLSCompliant(false)]
         public struct TT_TABLE_DIRECTORY
         {
             public byte[] szTag;
@@ -155,6 +157,7 @@ namespace Svg.Text
             }
         }
 
+        [CLSCompliant(false)]
         public struct TT_NAME_TABLE_HEADER
         {
             public ushort uFSelector;
@@ -162,6 +165,7 @@ namespace Svg.Text
             public ushort uStorageOffset;
         }
 
+        [CLSCompliant(false)]
         public struct TT_NAME_RECORD
         {
             public ushort uPlatformID;

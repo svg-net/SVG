@@ -57,7 +57,7 @@ namespace Svg
         /// </summary>
         [SvgAttribute("stop-color")]
         [TypeConverter(typeof(SvgPaintServerFactory))]
-        public SvgPaintServer StopColor
+        public override SvgPaintServer StopColor
         {
             get 
             {
@@ -72,16 +72,10 @@ namespace Svg
         /// Gets or sets the opacity of the gradient stop (0-1).
         /// </summary>
         [SvgAttribute("stop-opacity")]
-        public string Opacity
+        public override float Opacity
         {
-            get { return this.Attributes["stop-opacity"] as string; }
-            set { this.Attributes["stop-opacity"] = value; }
-        }
-
-        public float GetOpacity()
-        {
-            var opacity = this.Opacity;
-            return string.IsNullOrEmpty(opacity) ? 1.0f : float.Parse(opacity);
+            get { return (this.Attributes["stop-opacity"] == null) ? 1.0f : (float)this.Attributes["stop-opacity"]; }
+            set { this.Attributes["stop-opacity"] = FixOpacityValue(value); }
         }
 
         /// <summary>

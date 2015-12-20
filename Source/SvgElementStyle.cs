@@ -26,7 +26,7 @@ namespace Svg
             set { this._dirty = value; }
         }
 
-        private static float FixOpacityValue(float value)
+        protected static float FixOpacityValue(float value)
         {
             const float max = 1.0f;
             const float min = 0.0f;
@@ -131,7 +131,7 @@ namespace Svg
         /// <remarks>Apparently this can be set on non-sensical elements.  Don't ask; just check the tests.</remarks>
         [SvgAttribute("stop-color", true)]
         [TypeConverter(typeof(SvgPaintServerFactory))]
-        public SvgPaintServer StopColor
+        public virtual SvgPaintServer StopColor
         {
             get { return this.Attributes["stop-color"] as SvgPaintServer; }
             set { this.Attributes["stop-color"] = value; }
@@ -145,6 +145,16 @@ namespace Svg
         {
             get { return (this.Attributes["opacity"] == null) ? 1.0f : (float)this.Attributes["opacity"]; }
             set { this.Attributes["opacity"] = FixOpacityValue(value); }
+        }
+
+        /// <summary>
+        /// Refers to the AnitAlias rendering of shapes.
+        /// </summary>
+        [SvgAttribute("shape-rendering")]
+        public virtual SvgShapeRendering ShapeRendering
+        {
+            get { return this.Attributes.GetInheritedAttribute<SvgShapeRendering>("shape-rendering"); }
+            set { this.Attributes["shape-rendering"] = value; }
         }
 
         /// <summary>

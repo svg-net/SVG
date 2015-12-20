@@ -30,8 +30,6 @@ namespace SVGViewer
             }
         }
 
-        private string FXML = "";
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
         	using(var s = new MemoryStream(UTF8Encoding.Default.GetBytes(textBox1.Text)))

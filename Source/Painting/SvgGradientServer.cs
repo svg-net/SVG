@@ -180,7 +180,7 @@ namespace Svg
                 var currentStop = this.Stops[radial ? this.Stops.Count - 1 - actualStops : actualStops];
                 var boundWidth = renderer.GetBoundable().Bounds.Width;
 
-                mergedOpacity = opacity * currentStop.GetOpacity();
+                mergedOpacity = opacity * currentStop.Opacity;
                 position =
                     radial
                     ? 1 - (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth)

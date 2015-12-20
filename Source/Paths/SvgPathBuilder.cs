@@ -522,10 +522,16 @@ namespace Svg
                 if (paths != null)
                 {
                     var curretCulture = CultureInfo.CurrentCulture;
-                    Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-                    var s = string.Join(" ", paths.Select(p => p.ToString()).ToArray());
-                    Thread.CurrentThread.CurrentCulture = curretCulture;
-                    return s;
+                    try {
+                        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                        var s = string.Join(" ", paths.Select(p => p.ToString()).ToArray());
+                        return s;
+                    }
+                    finally
+                    {
+                        // Make sure to set back the old culture even an error occurred.
+                        Thread.CurrentThread.CurrentCulture = curretCulture;
+                    }
                 }
             }
 

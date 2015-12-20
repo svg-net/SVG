@@ -34,7 +34,6 @@ namespace Svg.UnitTests
 		[TestMethod]
 		public void TestMultiThread()
 		{
-			bool valid = true;
 			Parallel.For(0, 10, (x) =>
 			{
 				LoadFile();
