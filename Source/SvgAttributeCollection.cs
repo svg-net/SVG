@@ -73,9 +73,10 @@ namespace Svg
 
             if (this._owner.Parent != null)
             {
-                if (this._owner.Parent.Attributes[attributeName] != null)
+                var parentAttribute = this._owner.Parent.Attributes[attributeName];
+                if (parentAttribute != null)
                 {
-                    return (TAttributeType)this._owner.Parent.Attributes[attributeName];
+                    return (TAttributeType)parentAttribute;
                 }
             }
 
