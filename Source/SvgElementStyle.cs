@@ -387,11 +387,13 @@ namespace Svg
             }
         }
 
+        public static System.Drawing.Text.PrivateFontCollection PrivateFonts = new System.Drawing.Text.PrivateFontCollection();
         public static object ValidateFontFamily(string fontFamilyList, SvgDocument doc)
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
-            var fontParts = (fontFamilyList ?? "").Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
+            var fontParts = (fontFamilyList ?? string.Empty).Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
             var families = System.Drawing.FontFamily.Families;
+            Func<FontFamily, bool> getFamily;
             FontFamily family;
             IEnumerable<SvgFontFace> sFaces;
 
@@ -401,10 +403,13 @@ namespace Svg
             {
                 if (doc.FontDefns().TryGetValue(f, out sFaces)) return sFaces;
 
-                family = families.FirstOrDefault(ff => ff.Name.ToLower() == f.ToLower());
+                getFamily = new Func<FontFamily, bool>(ff => string.Equals(ff.Name, f, StringComparison.OrdinalIgnoreCase));
+                family = families.FirstOrDefault(getFamily);
+                if (family != null) return family;
+                family = PrivateFonts.Families.FirstOrDefault(getFamily);
                 if (family != null) return family;
 
-                switch (f)
+                switch (f.ToLower())
                 {
                     case "serif":
                         return System.Drawing.FontFamily.GenericSerif;
