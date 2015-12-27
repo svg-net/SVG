@@ -25,7 +25,6 @@ namespace SVGViewer
             if (openSvgFile.ShowDialog() == DialogResult.OK)
             {
             	SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
-            	
             	RenderSvg(svgDoc);
             }
         }
@@ -44,7 +43,13 @@ namespace SVGViewer
             //var render = new DebugRenderer();
             //svgDoc.Draw(render);
             svgImage.Image = svgDoc.Draw();
-            svgImage.Image.Save(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(svgDoc.BaseUri.LocalPath), "output.png"));
+            
+            string outputDir;
+            if (svgDoc.BaseUri == null)
+                outputDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath); 
+            else
+                outputDir = System.IO.Path.GetDirectoryName(svgDoc.BaseUri.LocalPath);
+            svgImage.Image.Save(System.IO.Path.Combine(outputDir, "output.png"));
         }
     }
 }
