@@ -184,14 +184,36 @@ namespace Svg.UnitTests
         protected virtual void LoadSvg(XmlDocument xml)
         {
             Trace.WriteLine("SvgDocument open xml.");
-            var svgDoc = SvgDocument.Open(xml);
+            var svgDoc = OpenSvg(xml);
             Trace.WriteLine("Done SvgDocument open xml.");
 
             Trace.WriteLine("Draw svg.");
-            var img = svgDoc.Draw();
+            var img = DrawSvg(svgDoc);
             Trace.WriteLine("Done drawing.");
 
             CheckSvg(svgDoc, img);
+        }
+
+
+        /// <summary>
+        /// Open SVG document from XML document.
+        /// </summary>
+        /// <param name="xml">XML document.</param>
+        /// <returns>Open SVG document.</returns>
+        protected virtual SvgDocument OpenSvg(XmlDocument xml)
+        {
+            return SvgDocument.Open(xml);
+        }
+
+
+        /// <summary>
+        /// Draw SVG.
+        /// </summary>
+        /// <param name="svgDoc">SVG document to draw.</param>
+        /// <returns>SVG as image.</returns>
+        protected virtual Image DrawSvg(SvgDocument svgDoc)
+        {
+            return svgDoc.Draw();
         }
 
 
@@ -200,7 +222,7 @@ namespace Svg.UnitTests
         /// </summary>
         /// <param name="svgDoc">Svg document.</param>
         /// <param name="img">Image of svg file from <paramref name="svgDoc"/>.</param>
-        protected virtual void CheckSvg(SvgDocument svgDoc, Bitmap img)
+        protected virtual void CheckSvg(SvgDocument svgDoc, Image img)
         {
             using (var ms = new MemoryStream())
             {
