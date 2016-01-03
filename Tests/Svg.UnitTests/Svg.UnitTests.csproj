@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CssQueryTest.cs" />
+    <Compile Include="MarkerEndTest.cs" />
     <Compile Include="MetafileRenderingTest.cs" />
     <Compile Include="MultiThreadingTest.cs" />
     <Compile Include="PrivateFontsTests.cs" />
@@ -76,6 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Issue210_Metafile\3DSceneSnapshotBIG.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Issue212_MakerEnd\OperatingPlan.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
