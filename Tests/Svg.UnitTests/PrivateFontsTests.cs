@@ -21,8 +21,8 @@ namespace Svg.UnitTests
         private const string PrivateFont = "Issue204_PrivateFont.BrushScriptMT2.ttf";
         //private const string PrivateFontName = "Brush Script MT2";
 
-        protected override int ExpectedSize { get { return 3512; } }
-        
+        protected override int ExpectedSize { get { return 3200; } } //3512
+
 
         [TestMethod]
         public void TestPrivateFont()

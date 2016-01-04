@@ -23,7 +23,7 @@ namespace Svg.UnitTests
                 throw new NotImplementedException(msg);
             }
         }
-        
+
 
         /// <summary>
         /// Full Unit Test resource string for test file. 
@@ -72,7 +72,7 @@ namespace Svg.UnitTests
         protected virtual string GetFullResourceString(string resourcePath)
         {
             const string DefaultResourcesDir = "Resources";
-            return string.Format("{0}.{1}.{2}", 
+            return string.Format("{0}.{1}.{2}",
                 this.GetType().Assembly.GetName().Name,
                 DefaultResourcesDir,
                 resourcePath);
@@ -230,6 +230,89 @@ namespace Svg.UnitTests
                 ms.Flush();
                 Assert.IsTrue(ms.Length >= ExpectedSize, "Svg file does not match expected minimum size.");
             }
+        }
+
+
+        /// <summary>
+        /// Compare Images.
+        /// </summary>
+        /// <param name="img1">Image 1.</param>
+        /// <param name="img2">Image 2.</param>
+        /// <returns>If images are completely equal: true; otherwise: false</returns>
+        protected virtual bool ImagesAreEqual(Bitmap img1, Bitmap img2)
+        {
+            float imgEqualPercentage; // To ignore.
+            return ImagesAreEqual(img1, img2, out imgEqualPercentage);
+        }
+
+
+        /// <summary>
+        /// Compare Images.
+        /// </summary>
+        /// <param name="img1">Image 1.</param>
+        /// <param name="img2">Image 2.</param>
+        /// <param name="imgEqualPercentage">Image equal value in percentage. 0.0% == completely unequal. 100.0% == completely equal.</param>
+        /// <returns>If images are completely equal: true; otherwise: false</returns>
+        protected virtual bool ImagesAreEqual(Bitmap img1, Bitmap img2, out float imgEqualPercentage)
+        {
+            Bitmap imgDiff; // To ignore.
+            return ImagesAreEqual(img1, img2, out imgEqualPercentage, out imgDiff);
+        }
+
+
+        /// <summary>
+        /// Compare Images.
+        /// </summary>
+        /// <param name="img1">Image 1.</param>
+        /// <param name="img2">Image 2.</param>
+        /// <param name="imgEqualPercentage">Image equal value in percentage. 0.0% == completely unequal. 100.0% == completely equal.</param>
+        /// <param name="imgDiff">Image with red pixel where <paramref name="img1"/> and <paramref name="img2"/> are unequal.</param>
+        /// <returns>If images are completely equal: true; otherwise: false</returns>
+        protected virtual bool ImagesAreEqual(Bitmap img1, Bitmap img2, out float imgEqualPercentage, out Bitmap imgDiff)
+        {
+            // Defaults.
+            var diffColor = Color.Red;
+
+            // Reset.
+            imgEqualPercentage = 0;
+            imgDiff = null;
+
+            // Requirements.
+            if (img1 == null)
+                return false;
+            if (img2 == null)
+                return false;
+            if (img1.Size.Width < 1 && img1.Height < 1)
+                return false;
+            if (!img1.Size.Equals(img2.Size))
+                return false;
+
+            // Compare bitmaps.
+            imgDiff = new Bitmap(img1.Size.Width, img1.Size.Height);
+            int diffPixelCount = 0;
+            for (int i = 0; i < img1.Width; ++i)
+            {
+                for (int j = 0; j < img1.Height; ++j)
+                {
+                    Color color;
+                    if ((color = img1.GetPixel(i, j)) == img2.GetPixel(i, j))
+                    {
+                        imgDiff.SetPixel(i, j, color);
+                    }
+                    else
+                    {
+                        ++diffPixelCount;
+                        imgDiff.SetPixel(i, j, diffColor);
+                    }
+                }
+            }
+
+            // Calculate percentage.
+            int totalPixelCount = img1.Width * img1.Height;
+            var imgDiffFactor = ((float)diffPixelCount / totalPixelCount);
+            imgEqualPercentage = imgDiffFactor * 100;
+            
+            return (imgDiffFactor == 1f);
         }
     }
 }
