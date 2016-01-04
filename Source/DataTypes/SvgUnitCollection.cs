@@ -16,6 +16,7 @@ namespace Svg
         {
             // The correct separator should be a single white space.
             // More see:
+            // http://www.w3.org/TR/SVG/coords.html
             // "Superfluous white space and separators such as commas can be eliminated
             // (e.g., 'M 100 100 L 200 200' contains unnecessary spaces and could be expressed more compactly as 'M100 100L200 200')."
             // http://www.w3.org/TR/SVGTiny12/paths.html#PathDataGeneralInformation
