@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 
 namespace Svg
 {
@@ -15,13 +14,18 @@ namespace Svg
     {
         public override string ToString()
         {
-            string ret = "";
-            foreach (var unit in this)
-            {
-                ret += unit.ToString() + " ";
-            }
-
-            return ret;
+            // The correct separator should be a single white space.
+            // More see:
+            // http://www.w3.org/TR/SVG/coords.html
+            // "Superfluous white space and separators such as commas can be eliminated
+            // (e.g., 'M 100 100 L 200 200' contains unnecessary spaces and could be expressed more compactly as 'M100 100L200 200')."
+            // http://www.w3.org/TR/SVGTiny12/paths.html#PathDataGeneralInformation
+            // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d#Notes
+#if Net4
+            return String.Join(" ", this.Select(u => u.ToString()));
+#else
+            return String.Join(" ", this.Select(u => u.ToString()).ToArray());
+#endif
         }
 
         public static bool IsNullOrEmpty(SvgUnitCollection collection)

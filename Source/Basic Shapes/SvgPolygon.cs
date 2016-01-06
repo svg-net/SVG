@@ -31,7 +31,7 @@ namespace Svg
         /// Gets or sets the marker (end cap) of the path.
         /// </summary>
         [SvgAttribute("marker-end")]
-        public Uri MarkerEnd
+        public virtual Uri MarkerEnd
         {
             get { return this.Attributes.GetAttribute<Uri>("marker-end").ReplaceWithNullIfNone(); }
             set { this.Attributes["marker-end"] = value; }
@@ -42,7 +42,7 @@ namespace Svg
         /// Gets or sets the marker (start cap) of the path.
         /// </summary>
         [SvgAttribute("marker-mid")]
-        public Uri MarkerMid
+        public virtual Uri MarkerMid
         {
             get { return this.Attributes.GetAttribute<Uri>("marker-mid").ReplaceWithNullIfNone(); }
             set { this.Attributes["marker-mid"] = value; }
@@ -53,15 +53,10 @@ namespace Svg
         /// Gets or sets the marker (start cap) of the path.
         /// </summary>
         [SvgAttribute("marker-start")]
-        public Uri MarkerStart
+        public virtual Uri MarkerStart
         {
             get { return this.Attributes.GetAttribute<Uri>("marker-start").ReplaceWithNullIfNone(); }
             set { this.Attributes["marker-start"] = value; }
-        }
-
-        protected override bool RequiresSmoothRendering
-        {
-            get { return true; }
         }
 
         public override GraphicsPath Path(ISvgRenderer renderer)

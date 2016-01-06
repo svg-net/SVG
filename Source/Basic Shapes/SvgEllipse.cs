@@ -81,15 +81,6 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets or sets a value to determine if anti-aliasing should occur when the element is being rendered.
-        /// </summary>
-        /// <value></value>
-        protected override bool RequiresSmoothRendering
-        {
-            get { return true; }
-        }
-
-        /// <summary>
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>

@@ -85,17 +85,6 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets a value indicating whether the circle requires anti-aliasing when being rendered.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if the circle requires anti-aliasing; otherwise, <c>false</c>.
-        /// </value>
-        protected override bool RequiresSmoothRendering
-        {
-            get { return true; }
-        }
-
-        /// <summary>
         /// Gets the <see cref="GraphicsPath"/> representing this element.
         /// </summary>
         public override GraphicsPath Path(ISvgRenderer renderer)

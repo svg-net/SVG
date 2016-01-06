@@ -485,7 +485,6 @@ namespace Svg
 
 					//EO, 2014-12-05: Requested to ensure proper zooming (draw the svg in the bitmap size, ==> proper scaling)
 					//EO, 2015-01-09, Added GetDimensions to use its returned size instead of this.Width and this.Height (request of Icarrere).
-
                     //BBN, 2015-07-29, it is unnecassary to call again GetDimensions and transform to 1x1
                     //JA, 2015-12-18, this is actually necessary to correctly render the Draw(rasterHeight, rasterWidth) overload, otherwise the rendered graphic doesn't scale correctly
                     SizeF size = this.GetDimensions();
@@ -564,12 +563,16 @@ namespace Svg
         {
             //Save previous culture and switch to invariant for writing
             var previousCulture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-
-            base.Write(writer);
-
-            //Switch culture back
-            Thread.CurrentThread.CurrentCulture = previousCulture;
+            try {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                base.Write(writer);
+            }
+            finally
+            {
+                // Make sure to set back the old culture even an error occurred.
+                //Switch culture back
+                Thread.CurrentThread.CurrentCulture = previousCulture;
+            }
         }
 
         public void Write(Stream stream)

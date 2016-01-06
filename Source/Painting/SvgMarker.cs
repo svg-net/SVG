@@ -133,9 +133,14 @@ namespace Svg
         /// <param name="pMarkerPoint2"></param>
         public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
         {
-            float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
-            float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
-            float fAngle1 = (float)(Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI);
+            float fAngle1 = 0f;
+            if (Orient.IsAuto)
+            {
+                // Only calculate this if needed.
+                float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
+                float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
+                fAngle1 = (float)(Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI);
+            }
 
             RenderPart2(fAngle1, pRenderer, pOwner, pRefPoint);
         }
@@ -184,10 +189,22 @@ namespace Svg
                         switch (MarkerUnits)
                         {
                             case SvgMarkerUnits.StrokeWidth:
-                                transMatrix.Translate(AdjustForViewBoxWidth(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this) *
-                                                        pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)),
-                                                      AdjustForViewBoxHeight(-RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this) *
-                                                        pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)));
+                                if (ViewBox.Width > 0 && ViewBox.Height > 0)
+                                {
+                                    transMatrix.Translate(AdjustForViewBoxWidth(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this) *
+                                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)),
+                                                          AdjustForViewBoxHeight(-RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this) *
+                                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)));
+                                }
+                                else
+                                {
+                                    // SvgMarkerUnits.UserSpaceOnUse
+                                    //	TODO: We know this isn't correct.
+                                    //        But use this until the TODOs from AdjustForViewBoxWidth and AdjustForViewBoxHeight are done.
+                                    //  MORE see Unit Test "MakerEndTest.TestArrowCodeCreation()"
+                                    transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
+                                                         -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
+                                }
                                 break;
                             case SvgMarkerUnits.UserSpaceOnUse:
                                 transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),

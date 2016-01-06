@@ -73,9 +73,10 @@ namespace Svg
 
             if (this._owner.Parent != null)
             {
-                if (this._owner.Parent.Attributes[attributeName] != null)
+                var parentAttribute = this._owner.Parent.Attributes[attributeName];
+                if (parentAttribute != null)
                 {
-                    return (TAttributeType)this._owner.Parent.Attributes[attributeName];
+                    return (TAttributeType)parentAttribute;
                 }
             }
 
@@ -91,8 +92,11 @@ namespace Svg
                     (value is SvgTextDecoration && (SvgTextDecoration)value == SvgTextDecoration.Inherit) ||
                     (value is XmlSpaceHandling && (XmlSpaceHandling)value == XmlSpaceHandling.inherit) ||
                     (value is SvgOverflow && (SvgOverflow)value == SvgOverflow.Inherit) ||
-                    (value == SvgColourServer.Inherit) || 
-                    (value is string && (string)value == "inherit")
+                    (value is SvgColourServer && (SvgColourServer)value == SvgColourServer.Inherit) ||
+                    (value is SvgShapeRendering && (SvgShapeRendering)value == SvgShapeRendering.Inherit) ||
+                    (value is SvgTextRendering && (SvgTextRendering)value == SvgTextRendering.Inherit) ||
+                    (value is SvgImageRendering && (SvgImageRendering)value == SvgImageRendering.Inherit) ||
+                    (value is string && ((string)value).ToLower() == "inherit")
                    );
         }
 

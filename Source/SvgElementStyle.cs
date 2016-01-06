@@ -26,7 +26,7 @@ namespace Svg
             set { this._dirty = value; }
         }
 
-        private static float FixOpacityValue(float value)
+        protected static float FixOpacityValue(float value)
         {
             const float max = 1.0f;
             const float min = 0.0f;
@@ -39,7 +39,7 @@ namespace Svg
         [SvgAttribute("fill", true)]
         public virtual SvgPaintServer Fill
         {
-            get { return (this.Attributes["fill"] == null) ? SvgColourServer.NotSet : (SvgPaintServer)this.Attributes["fill"]; }
+            get { return ((SvgPaintServer)this.Attributes["fill"] ?? SvgColourServer.NotSet); }
             set { this.Attributes["fill"] = value; }
         }
 
@@ -49,14 +49,14 @@ namespace Svg
         [SvgAttribute("stroke", true)]
         public virtual SvgPaintServer Stroke
         {
-            get { return (this.Attributes["stroke"] == null) ? null : (SvgPaintServer)this.Attributes["stroke"]; }
+            get { return (SvgPaintServer)this.Attributes["stroke"]; }
             set { this.Attributes["stroke"] = value; }
         }
 
         [SvgAttribute("fill-rule", true)]
         public virtual SvgFillRule FillRule
         {
-            get { return (this.Attributes["fill-rule"] == null) ? SvgFillRule.NonZero : (SvgFillRule)this.Attributes["fill-rule"]; }
+            get { return (SvgFillRule)(this.Attributes["fill-rule"] ?? SvgFillRule.NonZero); }
             set { this.Attributes["fill-rule"] = value; }
         }
 
@@ -66,7 +66,7 @@ namespace Svg
         [SvgAttribute("fill-opacity", true)]
         public virtual float FillOpacity
         {
-            get { return (this.Attributes["fill-opacity"] == null) ? this.Opacity : (float)this.Attributes["fill-opacity"]; }
+            get { return (float)(this.Attributes["fill-opacity"] ?? this.Opacity); }
             set { this.Attributes["fill-opacity"] = FixOpacityValue(value); }
         }
 
@@ -76,28 +76,28 @@ namespace Svg
         [SvgAttribute("stroke-width", true)]
         public virtual SvgUnit StrokeWidth
         {
-            get { return (this.Attributes["stroke-width"] == null) ? new SvgUnit(1.0f) : (SvgUnit)this.Attributes["stroke-width"]; }
+            get { return (SvgUnit)(this.Attributes["stroke-width"] ?? new SvgUnit(1.0f)); }
             set { this.Attributes["stroke-width"] = value; }
         }
 
         [SvgAttribute("stroke-linecap", true)]
         public virtual SvgStrokeLineCap StrokeLineCap
         {
-            get { return (this.Attributes["stroke-linecap"] == null) ? SvgStrokeLineCap.Butt : (SvgStrokeLineCap)this.Attributes["stroke-linecap"]; }
+            get { return (SvgStrokeLineCap)(this.Attributes["stroke-linecap"] ?? SvgStrokeLineCap.Butt); }
             set { this.Attributes["stroke-linecap"] = value; }
         }
 
         [SvgAttribute("stroke-linejoin", true)]
         public virtual SvgStrokeLineJoin StrokeLineJoin
         {
-            get { return (this.Attributes["stroke-linejoin"] == null) ? SvgStrokeLineJoin.Miter : (SvgStrokeLineJoin)this.Attributes["stroke-linejoin"]; }
+            get { return (SvgStrokeLineJoin)(this.Attributes["stroke-linejoin"] ?? SvgStrokeLineJoin.Miter); }
             set { this.Attributes["stroke-linejoin"] = value; }
         }
 
         [SvgAttribute("stroke-miterlimit", true)]
         public virtual float StrokeMiterLimit
         {
-            get { return (this.Attributes["stroke-miterlimit"] == null) ? 4f : (float)this.Attributes["stroke-miterlimit"]; }
+            get { return (float)(this.Attributes["stroke-miterlimit"] ?? 4f); }
             set { this.Attributes["stroke-miterlimit"] = value; }
         }
 
@@ -111,7 +111,7 @@ namespace Svg
         [SvgAttribute("stroke-dashoffset", true)]
         public virtual SvgUnit StrokeDashOffset
         {
-            get { return (this.Attributes["stroke-dashoffset"] == null) ? SvgUnit.Empty : (SvgUnit)this.Attributes["stroke-dashoffset"]; }
+            get { return (SvgUnit)(this.Attributes["stroke-dashoffset"] ?? SvgUnit.Empty); }
             set { this.Attributes["stroke-dashoffset"] = value; }
         }
 
@@ -121,7 +121,7 @@ namespace Svg
         [SvgAttribute("stroke-opacity", true)]
         public virtual float StrokeOpacity
         {
-            get { return (this.Attributes["stroke-opacity"] == null) ? this.Opacity : (float)this.Attributes["stroke-opacity"]; }
+            get { return (float)(this.Attributes["stroke-opacity"] ?? this.Opacity); }
             set { this.Attributes["stroke-opacity"] = FixOpacityValue(value); }
         }
 
@@ -131,7 +131,7 @@ namespace Svg
         /// <remarks>Apparently this can be set on non-sensical elements.  Don't ask; just check the tests.</remarks>
         [SvgAttribute("stop-color", true)]
         [TypeConverter(typeof(SvgPaintServerFactory))]
-        public SvgPaintServer StopColor
+        public virtual SvgPaintServer StopColor
         {
             get { return this.Attributes["stop-color"] as SvgPaintServer; }
             set { this.Attributes["stop-color"] = value; }
@@ -143,8 +143,18 @@ namespace Svg
         [SvgAttribute("opacity", true)]
         public virtual float Opacity
         {
-            get { return (this.Attributes["opacity"] == null) ? 1.0f : (float)this.Attributes["opacity"]; }
+            get { return (float)(this.Attributes["opacity"] ?? 1.0f); }
             set { this.Attributes["opacity"] = FixOpacityValue(value); }
+        }
+
+        /// <summary>
+        /// Refers to the AnitAlias rendering of shapes.
+        /// </summary>
+        [SvgAttribute("shape-rendering")]
+        public virtual SvgShapeRendering ShapeRendering
+        {
+            get { return this.Attributes.GetInheritedAttribute<SvgShapeRendering>("shape-rendering"); }
+            set { this.Attributes["shape-rendering"] = value; }
         }
 
         /// <summary>
@@ -163,7 +173,7 @@ namespace Svg
         [SvgAttribute("font-size", true)]
         public virtual SvgUnit FontSize
         {
-            get { return (this.Attributes["font-size"] == null) ? SvgUnit.Empty : (SvgUnit)this.Attributes["font-size"]; }
+            get { return (SvgUnit)(this.Attributes["font-size"] ?? SvgUnit.Empty); }
             set { this.Attributes["font-size"] = value; this.IsPathDirty = true; }
         }
 
@@ -173,7 +183,7 @@ namespace Svg
         [SvgAttribute("font-style", true)]
         public virtual SvgFontStyle FontStyle
         {
-            get { return (this.Attributes["font-style"] == null) ? SvgFontStyle.All : (SvgFontStyle)this.Attributes["font-style"]; }
+            get { return (SvgFontStyle)(this.Attributes["font-style"] ?? SvgFontStyle.All); }
             set { this.Attributes["font-style"] = value; this.IsPathDirty = true; }
         }
 
@@ -183,7 +193,7 @@ namespace Svg
         [SvgAttribute("font-variant", true)]
         public virtual SvgFontVariant FontVariant
         {
-            get { return (this.Attributes["font-variant"] == null) ? SvgFontVariant.Inherit : (SvgFontVariant)this.Attributes["font-variant"]; }
+            get { return (SvgFontVariant)(this.Attributes["font-variant"] ?? SvgFontVariant.Inherit); }
             set { this.Attributes["font-variant"] = value; this.IsPathDirty = true; }
         }
 
@@ -193,7 +203,7 @@ namespace Svg
         [SvgAttribute("text-decoration", true)]
         public virtual SvgTextDecoration TextDecoration
         {
-            get { return (this.Attributes["text-decoration"] == null) ? SvgTextDecoration.Inherit : (SvgTextDecoration)this.Attributes["text-decoration"]; }
+            get { return (SvgTextDecoration)(this.Attributes["text-decoration"] ?? SvgTextDecoration.Inherit); }
             set { this.Attributes["text-decoration"] = value; this.IsPathDirty = true; }
         }
 
@@ -203,7 +213,7 @@ namespace Svg
         [SvgAttribute("font-weight", true)]
         public virtual SvgFontWeight FontWeight
         {
-            get { return (this.Attributes["font-weight"] == null) ? SvgFontWeight.Inherit : (SvgFontWeight)this.Attributes["font-weight"]; }
+            get { return (SvgFontWeight)(this.Attributes["font-weight"] ?? SvgFontWeight.Inherit); }
             set { this.Attributes["font-weight"] = value; this.IsPathDirty = true; }
         }
 
@@ -223,7 +233,7 @@ namespace Svg
         [SvgAttribute("font", true)]
         public virtual string Font
         {
-            get { return (this.Attributes["font"] == null ? "" : this.Attributes["font"] as string); }
+            get { return ((this.Attributes["font"] ?? string.Empty) as string); }
             set
             {
                 var state = FontParseState.fontStyle;
@@ -297,9 +307,7 @@ namespace Svg
                 this.IsPathDirty = true;
             }
         }
-
-        private const string DefaultFontFamily = "Times New Roman";
-
+        
         /// <summary>
         /// Get the font information based on data stored with the text object or inherited from the parent.
         /// </summary>
@@ -379,11 +387,13 @@ namespace Svg
             }
         }
 
+        public static System.Drawing.Text.PrivateFontCollection PrivateFonts = new System.Drawing.Text.PrivateFontCollection();
         public static object ValidateFontFamily(string fontFamilyList, SvgDocument doc)
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
-            var fontParts = (fontFamilyList ?? "").Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
+            var fontParts = (fontFamilyList ?? string.Empty).Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
             var families = System.Drawing.FontFamily.Families;
+            Func<FontFamily, bool> getFamily;
             FontFamily family;
             IEnumerable<SvgFontFace> sFaces;
 
@@ -393,10 +403,13 @@ namespace Svg
             {
                 if (doc.FontDefns().TryGetValue(f, out sFaces)) return sFaces;
 
-                family = families.FirstOrDefault(ff => ff.Name.ToLower() == f.ToLower());
+                getFamily = new Func<FontFamily, bool>(ff => string.Equals(ff.Name, f, StringComparison.OrdinalIgnoreCase));
+                family = families.FirstOrDefault(getFamily);
+                if (family != null) return family;
+                family = PrivateFonts.Families.FirstOrDefault(getFamily);
                 if (family != null) return family;
 
-                switch (f)
+                switch (f.ToLower())
                 {
                     case "serif":
                         return System.Drawing.FontFamily.GenericSerif;

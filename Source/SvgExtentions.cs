@@ -22,7 +22,7 @@ namespace Svg
             r.Width = bounds.Width;
             r.Height = bounds.Height;
         }
-        
+
         public static RectangleF GetRectangle(this SvgRectangle r)
         {
             return new RectangleF(r.X, r.Y, r.Width, r.Height);
@@ -49,50 +49,57 @@ namespace Svg
             var result = "";
 
             var currentCulture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-            using (StringWriter str = new StringWriter())
+            try
             {
-                using (XmlTextWriter xml = new XmlTextWriter(str))
+                Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                using (StringWriter str = new StringWriter())
                 {
-                    elem.Write(xml);
-                    result = str.ToString();
+                    using (XmlTextWriter xml = new XmlTextWriter(str))
+                    {
+                        elem.Write(xml);
+                        result = str.ToString();
 
+                    }
                 }
             }
-            Thread.CurrentThread.CurrentCulture = currentCulture;
-
+            finally
+            {
+                // Make sure to set back the old culture even an error occurred.
+                Thread.CurrentThread.CurrentCulture = currentCulture;
+            }
+            
             return result;
         }
-        
+
         public static bool HasNonEmptyCustomAttribute(this SvgElement element, string name)
         {
-        	return element.CustomAttributes.ContainsKey(name) && !string.IsNullOrEmpty(element.CustomAttributes[name]);
+            return element.CustomAttributes.ContainsKey(name) && !string.IsNullOrEmpty(element.CustomAttributes[name]);
         }
-        
+
         public static void ApplyRecursive(this SvgElement elem, Action<SvgElement> action)
         {
-        	action(elem);
-        	
-        	if(!(elem is SvgDocument)) //don't apply action to subtree of documents
-        	{
-        		foreach (var element in elem.Children)
-        		{
-        			element.ApplyRecursive(action);
-        		}
-        	}
+            action(elem);
+
+            if (!(elem is SvgDocument)) //don't apply action to subtree of documents
+            {
+                foreach (var element in elem.Children)
+                {
+                    element.ApplyRecursive(action);
+                }
+            }
         }
-        
+
         public static void ApplyRecursiveDepthFirst(this SvgElement elem, Action<SvgElement> action)
         {
-        	if(!(elem is SvgDocument)) //don't apply action to subtree of documents
-        	{
-        		foreach (var element in elem.Children)
-        		{
-        			element.ApplyRecursiveDepthFirst(action);
-        		}
-        	}
-        	
-        	action(elem);
+            if (!(elem is SvgDocument)) //don't apply action to subtree of documents
+            {
+                foreach (var element in elem.Children)
+                {
+                    element.ApplyRecursiveDepthFirst(action);
+                }
+            }
+
+            action(elem);
         }
     }
 }

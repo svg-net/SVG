@@ -159,7 +159,13 @@ namespace Svg
         /// </summary>
         protected override bool RequiresSmoothRendering
         {
-            get { return (CornerRadiusX.Value > 0 || CornerRadiusY.Value > 0); }
+            get
+            {
+                if (base.RequiresSmoothRendering)
+                    return (CornerRadiusX.Value > 0 || CornerRadiusY.Value > 0);
+                else
+                    return false;
+            }
         }
 
         /// <summary>

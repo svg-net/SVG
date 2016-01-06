@@ -11,7 +11,7 @@ namespace Svg
     /// </summary>
     public abstract partial class SvgVisualElement : SvgElement, ISvgBoundable, ISvgStylable, ISvgClipable
     {
-        private bool _requiresSmoothRendering;
+        private bool? _requiresSmoothRendering;
         private Region _previousClip;
 
         /// <summary>
@@ -86,7 +86,28 @@ namespace Svg
         /// </summary>
         protected virtual bool RequiresSmoothRendering
         {
-            get { return this._requiresSmoothRendering; }
+            get
+            {
+                if (_requiresSmoothRendering == null)
+                    _requiresSmoothRendering = ConvertShapeRendering2AntiAlias(ShapeRendering);
+
+                return _requiresSmoothRendering.Value;
+            }
+        }
+
+        private bool ConvertShapeRendering2AntiAlias(SvgShapeRendering shapeRendering)
+        {
+            switch (shapeRendering)
+            {
+                case SvgShapeRendering.OptimizeSpeed:
+                case SvgShapeRendering.CrispEdges:
+                case SvgShapeRendering.GeometricPrecision:
+                    return false;
+                default:
+                    // SvgShapeRendering.Auto
+                    // SvgShapeRendering.Inherit
+                    return true;
+            }
         }
 
         /// <summary>
@@ -95,7 +116,6 @@ namespace Svg
         public SvgVisualElement()
         {
             this.IsPathDirty = true;
-            this._requiresSmoothRendering = false;
         }
 
         protected virtual bool Renderable { get { return true; } }
