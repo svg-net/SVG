@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Android.App;
-using Android.Content;
-using Android.Content.Res;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Widget;
 using Android.OS;
 using Android.Util;
 using Android.Views;
-using Java.IO;
 using Svg;
 using Svg.Droid;
-using Bitmap = Svg.Bitmap;
 using Exception = Java.Lang.Exception;
 using Orientation = Android.Widget.Orientation;
 
 namespace SvgW3CTestRunner.Droid
 {
-    [Activity(Label = "SvgW3CTestRunner.Droid", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "SvgW3CTestRunner.Droid", MainLauncher = true, Icon = "@drawable/icon", ScreenOrientation = ScreenOrientation.Landscape)]
     public class MainActivity : Activity
     {
         // --------------------------------------------------------

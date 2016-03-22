@@ -100,8 +100,8 @@ namespace Svg.Droid
             var shader = (IAndroidShader) brush;
 
             var paint = new Paint();
-            paint.StrokeWidth = 5;
-            paint.SetStyle(Paint.Style.FillAndStroke);
+            paint.StrokeWidth = 1;
+            paint.SetStyle(Paint.Style.Fill);
             shader.ApplyTo(paint);
             SetSmoothingMode(paint);
 

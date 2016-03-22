@@ -16,12 +16,12 @@ namespace Svg.Droid
             _height = height;
             _image = Android.Graphics.Bitmap.CreateBitmap(width, height, Android.Graphics.Bitmap.Config.Argb8888);
         }
+
         public AndroidBitmap(Image inputImage)
         {
             var ii = (AndroidBitmap) inputImage;
             _image = Android.Graphics.Bitmap.CreateBitmap(ii._image);
         }
-
 
         public AndroidBitmap(Android.Graphics.Bitmap bitmap)
         {
