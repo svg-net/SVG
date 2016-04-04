@@ -57,6 +57,7 @@
     <Compile Include="Clipping and Masking\SvgClipPath.cs" />
     <Compile Include="Clipping and Masking\SvgClipRule.cs" />
     <Compile Include="Clipping and Masking\SvgMask.cs" />
+    <Compile Include="Controls\DrawingBoard.cs" />
     <Compile Include="Css\CssQuery.cs" />
     <Compile Include="Css\SvgElementOps.cs" />
     <Compile Include="DataTypes\ISvgSupportsCoordinateUnits.cs" />
