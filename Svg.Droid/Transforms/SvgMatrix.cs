@@ -23,9 +23,9 @@ namespace Svg.Transforms
             	Matrix matrix = Factory.Instance.CreateMatrix(
             		this.points[0],
             		this.points[1],
-            		this.points[2],
             		this.points[3],
             		this.points[4],
+            		this.points[2],
             		this.points[5]
             	);
                 return matrix;

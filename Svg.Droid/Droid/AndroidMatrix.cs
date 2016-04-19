@@ -40,7 +40,7 @@ namespace Svg.Droid
         public AndroidMatrix(float i, float i1, float i2, float i3, float i4, float i5)
         {
             _m = new Android.Graphics.Matrix();
-            _m.SetValues(new float[] { i, i1, 0f, i2, i3, 0f, i4, i5, 0f });
+            _m.SetValues(new float[] { i, i1, i3, i4, i2, i5, 0, 0, 1 });
         }
 
         public void Dispose()
