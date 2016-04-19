@@ -74,9 +74,9 @@ namespace Svg
 		}
 
 		[SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
-		public virtual Uri Href
+		public virtual string Href
 		{
-			get { return this.Attributes.GetAttribute<Uri>("href"); }
+			get { return this.Attributes.GetAttribute<string>("href"); }
 			set { this.Attributes["href"] = value; }
 		}
 
@@ -232,14 +232,15 @@ namespace Svg
             }
         }
 
-        protected object GetImage(Uri uri)
+        protected object GetImage(string uriString)
         {
             try
             {
+                var uri = new Uri(uriString.Substring(0, 65519)); //Uri MaxLength is 65519 (https://msdn.microsoft.com/en-us/library/z6c2z492.aspx)
+
                 // handle data/uri embedded images (http://en.wikipedia.org/wiki/Data_URI_scheme)
                 if (uri.IsAbsoluteUri && uri.Scheme == "data")
                 {
-                    string uriString = uri.OriginalString;
                     int dataIdx = uriString.IndexOf(",") + 1;
                     if (dataIdx <= 0 || dataIdx + 1 > uriString.Length)
                         throw new Exception("Invalid data URI");
@@ -284,7 +285,7 @@ namespace Svg
             }
             catch (Exception ex)
             {
-                Trace.TraceError("Error loading image: '{0}', error: {1} ", uri, ex.Message);
+                Trace.TraceError("Error loading image: '{0}', error: {1} ", uriString, ex.Message);
                 return null;
             }
         }
