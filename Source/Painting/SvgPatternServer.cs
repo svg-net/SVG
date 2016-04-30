@@ -131,8 +131,8 @@ namespace Svg
         [SvgAttribute("patternTransform")]
         public SvgTransformCollection PatternTransform
         {
-            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("gradientTransform")); }
-            set { this.Attributes["gradientTransform"] = value; }
+            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("patternTransform")); }
+            set { this.Attributes["patternTransform"] = value; }
         }
 
         private Matrix EffectivePatternTransform
