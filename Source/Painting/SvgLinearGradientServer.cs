@@ -87,7 +87,7 @@ namespace Svg
             if (this.Stops.Count == 1) 
             {
                 var stopColor = this.Stops[0].GetColor(renderingElement); 
-                int alpha = (int)((opacity * (stopColor.A/255.0f) ) * 255);
+                int alpha = (int)Math.Round((opacity * (stopColor.A/255.0f) ) * 255);
                 Color colour = System.Drawing.Color.FromArgb(alpha, stopColor);
                 return new SolidBrush(colour);
             }
