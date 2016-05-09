@@ -63,20 +63,20 @@ namespace Svg
 
                                 if (alphaDecimal <= 1)
                                 {
-                                    alphaValue = (int)(alphaDecimal * 255);
+                                    alphaValue = (int)Math.Round(alphaDecimal * 255);
                                 }
                                 else
                                 {
-                                    alphaValue = (int)alphaDecimal;
+                                    alphaValue = (int)Math.Round(alphaDecimal);
                                 }
                             }
 
                             Color colorpart;
                             if (values[0].Trim().EndsWith("%"))
                             {
-                                colorpart = System.Drawing.Color.FromArgb(alphaValue, (int)(255 * float.Parse(values[0].Trim().TrimEnd('%')) / 100f),
-                                                                                      (int)(255 * float.Parse(values[1].Trim().TrimEnd('%')) / 100f),
-                                                                                      (int)(255 * float.Parse(values[2].Trim().TrimEnd('%')) / 100f));
+                                colorpart = System.Drawing.Color.FromArgb(alphaValue, (int)Math.Round(255 * float.Parse(values[0].Trim().TrimEnd('%')) / 100f),
+                                                                                      (int)Math.Round(255 * float.Parse(values[1].Trim().TrimEnd('%')) / 100f),
+                                                                                      (int)Math.Round(255 * float.Parse(values[2].Trim().TrimEnd('%')) / 100f));
                             }
                             else
                             {
@@ -260,7 +260,7 @@ namespace Svg
                               break;
                   }
             }
-            Color rgb = Color.FromArgb( (int)( r * 255.0 ), (int)( g * 255.0 ), (int)( b * 255.0f ) );
+            Color rgb = Color.FromArgb( (int)Math.Round( r * 255.0 ), (int)Math.Round( g * 255.0 ), (int)Math.Round( b * 255.0 ) );
             return rgb;        
         }
 

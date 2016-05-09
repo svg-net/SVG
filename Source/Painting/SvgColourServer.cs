@@ -40,7 +40,7 @@ namespace Svg
             //is none?
             if (this == SvgPaintServer.None) return new SolidBrush(System.Drawing.Color.Transparent);
                 
-            int alpha = (int)((opacity * (this.Colour.A/255.0f) ) * 255);
+            int alpha = (int)Math.Round((opacity * (this.Colour.A/255.0) ) * 255);
             Color colour = System.Drawing.Color.FromArgb(alpha, this.Colour);
 
             return new SolidBrush(colour);
