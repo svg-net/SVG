@@ -66,7 +66,7 @@ namespace SvgW3CTestRunner
             this.lstFiles.FormattingEnabled = true;
             this.lstFiles.Location = new System.Drawing.Point(3, 3);
             this.lstFiles.Name = "lstFiles";
-            this.lstFiles.Size = new System.Drawing.Size(174, 724);
+            this.lstFiles.Size = new System.Drawing.Size(174, 777);
             this.lstFiles.TabIndex = 0;
             this.lstFiles.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
             // 
@@ -74,10 +74,10 @@ namespace SvgW3CTestRunner
             // 
             this.boxConsoleLog.BackColor = System.Drawing.Color.White;
             this.boxConsoleLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.boxConsoleLog.Location = new System.Drawing.Point(183, 733);
+            this.boxConsoleLog.Location = new System.Drawing.Point(183, 786);
             this.boxConsoleLog.Name = "boxConsoleLog";
             this.boxConsoleLog.ReadOnly = true;
-            this.boxConsoleLog.Size = new System.Drawing.Size(1063, 14);
+            this.boxConsoleLog.Size = new System.Drawing.Size(1093, 64);
             this.boxConsoleLog.TabIndex = 0;
             this.boxConsoleLog.Text = "";
             this.boxConsoleLog.MouseDown += new System.Windows.Forms.MouseEventHandler(this.boxConsoleLog_MouseDown);
@@ -95,8 +95,8 @@ namespace SvgW3CTestRunner
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1249, 750);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1279, 853);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // splitContainer1
@@ -112,8 +112,8 @@ namespace SvgW3CTestRunner
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel3);
-            this.splitContainer1.Size = new System.Drawing.Size(1063, 724);
-            this.splitContainer1.SplitterDistance = 548;
+            this.splitContainer1.Size = new System.Drawing.Size(1093, 777);
+            this.splitContainer1.SplitterDistance = 563;
             this.splitContainer1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -132,17 +132,17 @@ namespace SvgW3CTestRunner
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(548, 724);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(563, 777);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // picSaveLoad
             // 
             this.picSaveLoad.BackColor = System.Drawing.Color.White;
             this.picSaveLoad.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picSaveLoad.Location = new System.Drawing.Point(0, 375);
+            this.picSaveLoad.Location = new System.Drawing.Point(0, 401);
             this.picSaveLoad.Margin = new System.Windows.Forms.Padding(0);
             this.picSaveLoad.Name = "picSaveLoad";
-            this.picSaveLoad.Size = new System.Drawing.Size(548, 349);
+            this.picSaveLoad.Size = new System.Drawing.Size(563, 376);
             this.picSaveLoad.TabIndex = 2;
             this.picSaveLoad.TabStop = false;
             // 
@@ -162,14 +162,14 @@ namespace SvgW3CTestRunner
             this.picSvg.Location = new System.Drawing.Point(0, 13);
             this.picSvg.Margin = new System.Windows.Forms.Padding(0);
             this.picSvg.Name = "picSvg";
-            this.picSvg.Size = new System.Drawing.Size(548, 349);
+            this.picSvg.Size = new System.Drawing.Size(563, 375);
             this.picSvg.TabIndex = 1;
             this.picSvg.TabStop = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 362);
+            this.label3.Location = new System.Drawing.Point(3, 388);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 13);
             this.label3.TabIndex = 3;
@@ -191,17 +191,17 @@ namespace SvgW3CTestRunner
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(511, 724);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(526, 777);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // picSVGPNG
             // 
             this.picSVGPNG.BackColor = System.Drawing.Color.White;
             this.picSVGPNG.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picSVGPNG.Location = new System.Drawing.Point(0, 375);
+            this.picSVGPNG.Location = new System.Drawing.Point(0, 401);
             this.picSVGPNG.Margin = new System.Windows.Forms.Padding(0);
             this.picSVGPNG.Name = "picSVGPNG";
-            this.picSVGPNG.Size = new System.Drawing.Size(511, 349);
+            this.picSVGPNG.Size = new System.Drawing.Size(526, 376);
             this.picSVGPNG.TabIndex = 3;
             this.picSVGPNG.TabStop = false;
             // 
@@ -212,7 +212,7 @@ namespace SvgW3CTestRunner
             this.picPng.Location = new System.Drawing.Point(0, 13);
             this.picPng.Margin = new System.Windows.Forms.Padding(0);
             this.picPng.Name = "picPng";
-            this.picPng.Size = new System.Drawing.Size(511, 349);
+            this.picPng.Size = new System.Drawing.Size(526, 375);
             this.picPng.TabIndex = 2;
             this.picPng.TabStop = false;
             // 
@@ -228,7 +228,7 @@ namespace SvgW3CTestRunner
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 362);
+            this.label4.Location = new System.Drawing.Point(3, 388);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 4;
@@ -240,7 +240,7 @@ namespace SvgW3CTestRunner
             this.fIleToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1249, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1279, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -263,7 +263,7 @@ namespace SvgW3CTestRunner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1249, 774);
+            this.ClientSize = new System.Drawing.Size(1279, 877);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
