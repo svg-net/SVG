@@ -7,7 +7,7 @@ using ExCSS;
 
 namespace Svg.Css
 {
-    public static class CssQuery
+    internal static class CssQuery
     {
         public static IEnumerable<SvgElement> QuerySelectorAll(this SvgElement elem, string selector, SvgElementFactory elementFactory)
         {
