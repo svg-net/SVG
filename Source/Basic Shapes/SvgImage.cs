@@ -88,8 +88,8 @@ namespace Svg
         /// <value>The bounds.</value>
         public override RectangleF Bounds
         {
-			get { return new RectangleF(this.Location.ToDeviceValue(null, this), 
-                                        new SizeF(this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this), 
+			get { return new RectangleF(this.Location.ToDeviceValue(null, this),
+                                        new SizeF(this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this),
                                                   this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))); }
         }
 
@@ -143,10 +143,10 @@ namespace Svg
                     }
 
                     var destClip = new RectangleF(this.Location.ToDeviceValue(renderer, this),
-                                                  new SizeF(Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this), 
+                                                  new SizeF(Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
                                                             Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this)));
                     RectangleF destRect = destClip;
-                        
+
                     this.PushTransforms(renderer);
                     renderer.SetClip(new Region(destClip), CombineMode.Intersect);
                     this.SetClip(renderer);
@@ -203,7 +203,7 @@ namespace Svg
                                 break;
                         }
 
-                        destRect = new RectangleF(destClip.X + xOffset, destClip.Y + yOffset, 
+                        destRect = new RectangleF(destClip.X + xOffset, destClip.Y + yOffset,
                                                     srcRect.Width * fScaleX, srcRect.Height * fScaleY);
                     }
 
@@ -223,7 +223,7 @@ namespace Svg
                         renderer.PopBoundable();
                     }
 
-                    
+
                     this.ResetClip(renderer);
                     this.PopTransforms(renderer);
                 }
@@ -234,9 +234,22 @@ namespace Svg
 
         protected object GetImage(string uriString)
         {
+            var uriString = this.Href;
+
+            string safeUriString;
+            if (uriString.Length > 65519)
+            {
+                safeUriString = uriString.Substring(0,
+                                                    65519);
+            }
+            else
+            {
+                safeUriString = uriString;
+            }
+
             try
             {
-                var uri = new Uri(uriString.Substring(0, 65519)); //Uri MaxLength is 65519 (https://msdn.microsoft.com/en-us/library/z6c2z492.aspx)
+                var uri = new Uri(safeUriString); //Uri MaxLength is 65519 (https://msdn.microsoft.com/en-us/library/z6c2z492.aspx)
 
                 // handle data/uri embedded images (http://en.wikipedia.org/wiki/Data_URI_scheme)
                 if (uri.IsAbsoluteUri && uri.Scheme == "data")
@@ -268,7 +281,7 @@ namespace Svg
                     {
                         if (stream.CanSeek)
                         {
-                            stream.Position = 0;    
+                            stream.Position = 0;
                         }
                         if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
                         {
