@@ -7,5 +7,11 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <description>TaxModel/PAW altered implementation of the Svg library</description>
+    <dependencies>
+      <group targetFramework=".NETFramework4.0">
+        <dependency id="ExCSS" version="[2.0.5]" />
+        <dependency id="Fizzler" version="[1.0.0, 2.0)" />
+      </group>
+    </dependencies>
   </metadata>
 </package>
