@@ -232,7 +232,7 @@ namespace Svg
             }
         }
 
-        protected object GetImage(string uriString)
+        public object GetImage(string uriString)
         {
             try
             {
