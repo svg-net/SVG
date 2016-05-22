@@ -123,7 +123,7 @@ namespace Svg
 
             if (Width.Value > 0.0f && Height.Value > 0.0f && this.Href != null)
             {
-                var img = GetImage(this.Href);
+                var img = GetImage();
                 if (img != null)
                 {
                     RectangleF srcRect;
