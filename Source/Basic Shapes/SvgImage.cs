@@ -234,8 +234,6 @@ namespace Svg
 
         protected object GetImage(string uriString)
         {
-            var uriString = this.Href;
-
             string safeUriString;
             if (uriString.Length > 65519)
             {
