@@ -232,6 +232,11 @@ namespace Svg
             }
         }
 
+        public object GetImage()
+        {
+            return this.GetImage(this.Href);
+        }
+
         public object GetImage(string uriString)
         {
             try
