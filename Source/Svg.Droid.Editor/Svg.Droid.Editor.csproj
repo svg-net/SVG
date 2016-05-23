@@ -14,8 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +34,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublishFiller|AnyCPU'">
+    <OutputPath>bin\PublishFiller\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
@@ -43,18 +53,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawingBoard.cs" />
+    <Compile Include="SelectableAndroidBitmap.cs" />
+    <Compile Include="Services\SelectionService.cs" />
+    <Compile Include="Tools\SnappingTool.cs" />
+    <Compile Include="Tools\MoveSvgTool.cs" />
+    <Compile Include="Tools\GridTool.cs" />
+    <Compile Include="Tools\SelectionTool.cs" />
+    <Compile Include="Tools\SharedMasterTool.cs" />
+    <Compile Include="SvgWorkspace.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SvgWorkspaceModel.cs" />
+    <Compile Include="Tools\ITool.cs" />
+    <Compile Include="Tools\PanTool.cs" />
+    <Compile Include="Services\ToolService.cs" />
+    <Compile Include="Tools\ZoomTool.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Svg.Core\Svg.Core.csproj">
+      <Project>{4cf34d1c-662c-400d-beaf-e87ce1d08fab}</Project>
+      <Name>Svg.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Svg.Droid\Svg.Droid.csproj">
       <Project>{03f31ec9-4f97-46da-b8f1-dce99c6954de}</Project>
       <Name>Svg.Droid</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Svg.csproj">
-      <Project>{886a98c5-37c0-4e8b-885e-30c1d2f98b47}</Project>
-      <Name>Svg</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
