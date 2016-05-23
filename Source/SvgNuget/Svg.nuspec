@@ -25,6 +25,10 @@ License: Microsoft Public License: https://svg.codeplex.com/license</description
             <frameworkAssembly assemblyName="System.Xml" targetFramework="" />
             <frameworkAssembly assemblyName="System.Drawing" targetFramework="" />
         </frameworkAssemblies>
+        <group targetFramework=".NETFramework4.0">
+            <dependency id="ExCSS" version="[2.0.5]" />
+            <dependency id="Fizzler" version="[1.0.0, 2.0)" />
+         </group>
     </metadata>
     <files>
         <file src="..\Source\bin\Release\Svg.dll" target="lib\Svg.dll" />
