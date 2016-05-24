@@ -123,7 +123,7 @@ namespace Svg
 
             if (Width.Value > 0.0f && Height.Value > 0.0f && this.Href != null)
             {
-                var img = GetImage(this.Href);
+                var img = GetImage();
                 if (img != null)
                 {
                     RectangleF srcRect;
@@ -232,7 +232,12 @@ namespace Svg
             }
         }
 
-        protected object GetImage(string uriString)
+        public object GetImage()
+        {
+            return this.GetImage(this.Href);
+        }
+
+        public object GetImage(string uriString)
         {
             string safeUriString;
             if (uriString.Length > 65519)
