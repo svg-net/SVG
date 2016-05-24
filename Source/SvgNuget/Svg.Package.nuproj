@@ -36,7 +36,7 @@ License: Microsoft Public License: https://svg.codeplex.com/license</Description
     <Copyright>Copyright © vvvv.org</Copyright>
     <Tags>svg, vector graphics, rendering</Tags>
     <GenerateSymbolPackage>false</GenerateSymbolPackage>
-    <Version>2.2.0</Version>
+    <Version>2.2.1</Version>
     <RequireLicenseAcceptance>true</RequireLicenseAcceptance>
   </PropertyGroup>
   <ItemGroup>
