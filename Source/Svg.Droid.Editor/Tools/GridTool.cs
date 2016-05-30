@@ -9,8 +9,11 @@ namespace Svg.Droid.Editor.Tools
     {
         public static bool IsVisible = true;
 
-        public Paint Paint { get; } = new Paint() { Color = Color.Rgb(238, 238, 238), StrokeWidth = 2 };
-        private const int StepSize = 75;
+        public Paint Paint { get; } = new Paint() { Color = Color.Rgb(210, 210, 210), StrokeWidth = 1 };
+        private const int StepSize = 80;
+        private double _length = 0;
+        private const float MaxZoom = ZoomTool.MaxScale;
+        private const float Degrees = 27.3f;
 
         public GridTool()
         {
@@ -19,52 +22,76 @@ namespace Svg.Droid.Editor.Tools
 
         public void OnDraw(Canvas canvas, IPosition anyItemSelected)
         {
+            //--------------------------------------------------
+            // TODO DO THIS ONLY ONCE; NOT FOR EVERY ON DRAW
+            //--------------------------------------------------
+
             if (!IsVisible)
                 return;
 
-            var length = Math.Sqrt((canvas.Width * canvas.Width) + (canvas.Height * canvas.Height));
+            if(_length <= 0) // compute this only once
+                _length = Math.Sqrt((canvas.Width * canvas.Width) + (canvas.Height * canvas.Height)) * MaxZoom * 2;
 
-            for (var i = -canvas.Height; i <= canvas.Height; i += (int) (StepSize/* * ZoomTool.ScaleFactor*/))
+            for (var i = -canvas.Width * MaxZoom; i <= canvas.Width * MaxZoom; i += StepSize - 2.5f)
+                DrawTopDownIsoLine(canvas, i);      /* | */
+
+            for (var i = -canvas.Height * MaxZoom * 2; i <= canvas.Height * 2 * MaxZoom; i += (int) (StepSize))
             {
-                DrawLeftIsoLine(canvas, i, length, 27.3);
-                DrawRightIsoLine(canvas, i, length, -41.5);
+                DrawLineLeftToTop(canvas, i);       /* / */
+                DrawLineLeftToBottom(canvas, i);    /* \ */
             }
         }
 
-        private void DrawLeftIsoLine(Canvas canvas, float y, double length, double degrees)
+        // line looks like this -> /
+        private void DrawLineLeftToTop(Canvas canvas, float y)
         {
-            var endX = ((float) (length * Math.Cos(degrees * (Math.PI / 180))));
-            var endY = (y + (float)(length * Math.Sin(degrees * (Math.PI / 180))));
+            var endX = -(canvas.Width * MaxZoom) + ((float)(_length * Math.Cos(Degrees * (Math.PI / 180))));
+            var endY = (y - (float)(_length * Math.Sin(Degrees * (Math.PI / 180))));
 
             canvas.DrawLine(
-                (0),
+                (-(canvas.Width * MaxZoom)),
                 (y),
                 (endX),
                 (endY),
                 Paint);
         }
 
-        private void DrawRightIsoLine(Canvas canvas, float y, double length, double degrees)
+        // line looks like this -> \
+        private void DrawLineLeftToBottom(Canvas canvas, float y)
         {
-            var endX = ((float)(length * Math.Sin(degrees * (Math.PI / 180))));
-            var endY = (y + (float)(length * Math.Cos(degrees * (Math.PI / 180))));
+            var endX = -(canvas.Width * MaxZoom) + ((float)(_length * Math.Cos(Degrees * (Math.PI / 180))));
+            var endY = (y + (float)(_length * Math.Sin(Degrees * (Math.PI / 180))));
 
             canvas.DrawLine(
-                (canvas.Width),
+                (-(canvas.Width * MaxZoom)),
                 (y),
                 (endX),
                 (endY),
+                Paint);
+        }
+
+        // line looks like this -> |
+        private void DrawTopDownIsoLine(Canvas canvas, float y)
+        {
+            if(ZoomTool.ScaleFactor < 0.85f)
+                return;
+
+            canvas.DrawLine(
+                (y),
+                (-(canvas.Height * MaxZoom)),
+                (y),
+                (canvas.Height * MaxZoom),
                 Paint);
         }
 
         public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace)
         {
-            
+            // You know nothing Jon Snow
         }
 
         public void Reset()
         {
-
+            // You know nothing Jon Snow
         }
 
         public Action Command()

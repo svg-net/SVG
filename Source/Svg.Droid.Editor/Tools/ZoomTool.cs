@@ -8,6 +8,8 @@ namespace Svg.Droid.Editor.Tools
     {
         public static float ScaleFactor = 1.0f;
         public static bool IsActive = false;
+        public const float MinScale = 0.5f;
+        public const float MaxScale = 3.0f;
 
         public ZoomTool()
         {
@@ -16,8 +18,7 @@ namespace Svg.Droid.Editor.Tools
 
         public class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener
         {
-            private const float MinScale = 0.5f;
-            private const float MaxScale = 3.0f;
+            
 
             private readonly View _view;
 

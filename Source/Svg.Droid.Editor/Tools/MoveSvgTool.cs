@@ -22,7 +22,6 @@ namespace Svg.Droid.Editor.Tools
             switch (action & (int) MotionEventActions.Mask)
             {
                 case (int) MotionEventActions.Move:
-                    // Only move if the ScaleGestureDetector isn't processing a gesture.
                     if (!SharedMasterTool.Instance.IsScaleDetectorInProgress())
                     {
                         var pointerIndex = ev.FindPointerIndex(SharedMasterTool.Instance.ActivePointerId);
