@@ -4,6 +4,7 @@ using Android.Graphics;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
+using Svg.Droid.Editor.Interfaces;
 
 namespace Svg.Droid.Editor.Tools
 {
@@ -42,10 +43,10 @@ namespace Svg.Droid.Editor.Tools
             }
         }
 
-        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace)
+        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace, ISelectionService selectionService)
         {
             // if moving and something is selected ignore
-            if (SvgWorkspaceModel.SelectedItem != null && ev.Action == MotionEventActions.Move)
+            if (selectionService.SelectedItem != null && ev.Action == MotionEventActions.Move)
                 return;
 
             int action = (int) ev.Action;

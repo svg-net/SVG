@@ -2,6 +2,7 @@ using System;
 using Android.Graphics;
 using Android.Text;
 using Android.Views;
+using Svg.Droid.Editor.Interfaces;
 
 namespace Svg.Droid.Editor.Tools
 {
@@ -84,7 +85,7 @@ namespace Svg.Droid.Editor.Tools
                 Paint);
         }
 
-        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace)
+        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace, ISelectionService selectionService)
         {
             // You know nothing Jon Snow
         }

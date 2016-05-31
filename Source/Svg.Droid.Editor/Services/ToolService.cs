@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using Svg.Droid.Editor.Interfaces;
 using Svg.Droid.Editor.Tools;
 
 namespace Svg.Droid.Editor.Services
 {
-    public class ToolService
+    public class ToolService : IToolService
     {
         public IEnumerable<ITool> Tools { get; } = new List<ITool>()
         {

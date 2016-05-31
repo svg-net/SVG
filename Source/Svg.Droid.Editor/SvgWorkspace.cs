@@ -22,15 +22,15 @@ namespace Svg.Droid.Editor
         public SvgWorkspace(Context context, IAttributeSet attr) : base(context, attr)
         {
             if(ZoomTool.IsActive)
-                SharedMasterTool.Instance.ScaleDetector = new ScaleGestureDetector(context, new ZoomTool.ScaleListener(this));
+                SharedMasterTool.Instance.ScaleDetector = new ScaleGestureDetector(context, new ZoomTool.ScaleListener(this, ViewModel.SelectionService));
         }
 
         public void AddSvg(SvgDocument svgDocument)
         {
             ViewModel.AddSvg(svgDocument);
             var bitmap = (AndroidBitmap) svgDocument.Draw();
-            var x = (this.Width / 2) - (bitmap.Width / 2) - (int) SharedMasterTool.Instance.CanvasTranslatedPosX;
-            var y = (this.Height / 2) - (bitmap.Height / 2) - (int) SharedMasterTool.Instance.CanvasTranslatedPosY;
+            var x = (Width / 2) - (bitmap.Width / 2) - (int) SharedMasterTool.Instance.CanvasTranslatedPosX;
+            var y = (Height / 2) - (bitmap.Height / 2) - (int) SharedMasterTool.Instance.CanvasTranslatedPosY;
             var selBitmap = new SelectableAndroidBitmap(bitmap, x, y);
 
             ViewModel.Elements.Add(selBitmap);
@@ -47,7 +47,7 @@ namespace Svg.Droid.Editor
                 SharedMasterTool.Instance.ScaleDetector.OnTouchEvent(ev); 
 
             foreach (var tool in ViewModel.Tools)
-                tool.OnTouch(ev, this);
+                tool.OnTouch(ev, this, ViewModel.SelectionService);
 
             return true;
         }
@@ -59,7 +59,7 @@ namespace Svg.Droid.Editor
             canvas.DrawColor(Color.White);
 
             foreach (var tool in ViewModel.Tools)
-                tool.OnDraw(canvas, SvgWorkspaceModel.SelectedItem);
+                tool.OnDraw(canvas, ViewModel.SelectionService.SelectedItem);
 
             foreach (var bitmap in ViewModel.Elements)
                 canvas.DrawBitmap(bitmap.Image, bitmap.X, bitmap.Y, null);
@@ -81,8 +81,8 @@ namespace Svg.Droid.Editor
 
         public void RemoveSelectedItem()
         {
-            ViewModel.Elements.Remove(SvgWorkspaceModel.SelectedItem);
-            SvgWorkspaceModel.SelectedItem = null;
+            ViewModel.Elements.Remove(ViewModel.SelectionService.SelectedItem);
+            ViewModel.SelectionService.SelectedItem = null;
             ViewModel.SelectedItemChanged?.Invoke(false);
             Invalidate();
         }

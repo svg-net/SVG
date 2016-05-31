@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Android.Graphics;
 using Android.Views;
+using Svg.Droid.Editor.Interfaces;
 
 namespace Svg.Droid.Editor.Tools
 {
@@ -12,9 +13,9 @@ namespace Svg.Droid.Editor.Tools
             //canvas.Translate(_translatedPosX, _translatedPosY);
         }
 
-        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace)
+        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace, ISelectionService selectionService)
         {
-            var selectedItem = SvgWorkspaceModel.SelectedItem;
+            var selectedItem = selectionService.SelectedItem;
             if (selectedItem == null)
                 return;
 

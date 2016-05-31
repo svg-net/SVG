@@ -11,14 +11,17 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Svg.Droid.Editor.Interfaces;
 using Svg.Droid.Editor.Tools;
 
 namespace Svg.Droid.Editor.Services
 {
-    public class SelectionService
+    public class SelectionService : ISelectionService
     {
         // Size of the invisible box where the user may click inside an object to select it
         private const float SelectionSize = 1f;
+
+        public SelectableAndroidBitmap SelectedItem { get; set; }
 
         //-----------------------------------------
         // POSITION

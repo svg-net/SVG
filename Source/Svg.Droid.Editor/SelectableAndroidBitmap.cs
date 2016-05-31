@@ -35,15 +35,4 @@ namespace Svg.Droid.Editor
         public int X { get; set; }
         public int Y { get; set; }
     }
-
-    public interface IPosition
-    {
-        Rectangle Rect { get; }
-
-        int X { get; set; }
-        int Y { get; set; }
-
-        int Width { get; }
-        int Height { get; }
-    }
 }

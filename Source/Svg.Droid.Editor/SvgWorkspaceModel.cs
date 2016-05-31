@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using Svg.Core.Commands;
+using Svg.Droid.Editor.Interfaces;
 using Svg.Droid.Editor.Services;
 using Svg.Droid.Editor.Tools;
 
@@ -12,12 +13,11 @@ namespace Svg.Droid.Editor
     {
         public List<SelectableAndroidBitmap> Elements { get; } = new List<SelectableAndroidBitmap>();
         private CommandService CommandService { get; } = new CommandService();
-        private SelectionService SelectionService { get; } = new SelectionService();
-        private ToolService ToolService { get; } = new ToolService();
 
-        public static SelectableAndroidBitmap SelectedItem { get; set; }
+        public ISelectionService SelectionService { get; } = new SelectionService();
         public Action<bool> SelectedItemChanged;
 
+        private IToolService ToolService { get; } = new ToolService();
         public IEnumerable<ITool> Tools => ToolService.Tools;
 
         public SvgWorkspaceModel()
@@ -38,30 +38,30 @@ namespace Svg.Droid.Editor
 
         public void Select(SelectableAndroidBitmap relevantSvg)
         {
-            SelectedItem = relevantSvg;
-            SelectedItemChanged?.Invoke(SelectedItem != null);
+            SelectionService.SelectedItem = relevantSvg;
+            SelectedItemChanged?.Invoke(SelectionService.SelectedItem != null);
         }
 
         public SelectableAndroidBitmap UpdateSelectedItem(float x, float y)
         {
-            SelectedItem = SelectionService.SelectNewItem(Elements, (int) x, (int) y);
-            SelectedItemChanged?.Invoke(SelectedItem != null);
+            SelectionService.SelectedItem = SelectionService.SelectNewItem(Elements, (int) x, (int) y);
+            SelectedItemChanged?.Invoke(SelectionService.SelectedItem != null);
 
-            return SelectedItem;
+            return SelectionService.SelectedItem;
         }
 
         public void UnselectAll()
         {
-            SelectedItem = null;
+            SelectionService.SelectedItem = null;
             SelectedItemChanged?.Invoke(false);
         }
 
         public bool IsInRangeOfSelected(float x, float y)
         {
-            if (SelectedItem == null)
+            if (SelectionService.SelectedItem == null)
                 return false;
 
-            return SelectionService.IsInRangeOfSelected(SelectedItem, (int) x, (int) y);
+            return SelectionService.IsInRangeOfSelected(SelectionService.SelectedItem, (int) x, (int) y);
         }
     }
 }

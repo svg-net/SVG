@@ -2,6 +2,7 @@ using System;
 using Android.Graphics;
 using Android.Text;
 using Android.Views;
+using Svg.Droid.Editor.Interfaces;
 
 namespace Svg.Droid.Editor.Tools
 {
@@ -20,21 +21,21 @@ namespace Svg.Droid.Editor.Tools
             
         }
 
-        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace)
+        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace, ISelectionService selectionService)
         {
-            if (SvgWorkspaceModel.SelectedItem == null)
+            if (selectionService.SelectedItem == null)
                 return;
 
-            int action = (int)ev.Action;
+            int action = (int) ev.Action;
             switch (action & (int) MotionEventActions.Mask)
             {
                 case (int) MotionEventActions.Up:
 
-                    var x = SvgWorkspaceModel.SelectedItem.X;
-                    var y = SvgWorkspaceModel.SelectedItem.Y;
+                    var x = selectionService.SelectedItem.X;
+                    var y = selectionService.SelectedItem.Y;
 
-                    SvgWorkspaceModel.SelectedItem.X = (x - ((x % 100) % StepSize));
-                    SvgWorkspaceModel.SelectedItem.Y = (y - ((y % 100) % StepSize));
+                    selectionService.SelectedItem.X = (x - ((x % 100) % StepSize));
+                    selectionService.SelectedItem.Y = (y - ((y % 100) % StepSize));
 
                     break;
             }

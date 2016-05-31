@@ -1,6 +1,7 @@
 ﻿using System;
 using Android.Graphics;
 using Android.Views;
+using Svg.Droid.Editor.Interfaces;
 
 namespace Svg.Droid.Editor.Tools
 {
@@ -18,18 +19,18 @@ namespace Svg.Droid.Editor.Tools
 
         public class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener
         {
-            
-
             private readonly View _view;
+            private readonly ISelectionService _selectionService;
 
-            public ScaleListener(View view)
+            public ScaleListener(View view, ISelectionService selectionService)
             {
                 _view = view;
+                _selectionService = selectionService;
             }
 
             public override bool OnScale(ScaleGestureDetector detector)
             {
-                if (SvgWorkspaceModel.SelectedItem != null)
+                if (_selectionService.SelectedItem != null)
                     return false;
 
                 ScaleFactor *= detector.ScaleFactor;
@@ -50,9 +51,9 @@ namespace Svg.Droid.Editor.Tools
                 canvas.Scale(ScaleFactor, ScaleFactor, SharedMasterTool.Instance.LastGestureX, SharedMasterTool.Instance.LastGestureY);
         }
 
-        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace)
+        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace, ISelectionService selectionService)
         {
-            if(SvgWorkspaceModel.SelectedItem != null)
+            if(selectionService.SelectedItem != null)
                 return;
 
             var action = (int) ev.Action;

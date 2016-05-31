@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Android.Graphics;
 using Android.Views;
+using Svg.Droid.Editor.Interfaces;
 using Svg.Droid.Editor.Services;
 
 namespace Svg.Droid.Editor.Tools
@@ -44,7 +45,7 @@ namespace Svg.Droid.Editor.Tools
             
         }
 
-        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace)
+        public void OnTouch(MotionEvent ev, SvgWorkspace svgWorkspace, ISelectionService selectionService)
         {
             int action = (int)ev.Action;
             switch (action & (int)MotionEventActions.Mask)
