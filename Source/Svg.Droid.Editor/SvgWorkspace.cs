@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -27,10 +28,19 @@ namespace Svg.Droid.Editor
 
         public void AddSvg(SvgDocument svgDocument)
         {
+            // TODO PUT ME IN THE VIEWMODEL
+
             ViewModel.AddSvg(svgDocument);
             var bitmap = (AndroidBitmap) svgDocument.Draw();
             var x = (Width / 2) - (bitmap.Width / 2) - (int) SharedMasterTool.Instance.CanvasTranslatedPosX;
             var y = (Height / 2) - (bitmap.Height / 2) - (int) SharedMasterTool.Instance.CanvasTranslatedPosY;
+
+            if (SnappingTool.IsActive)
+            {
+                x = (int) (Math.Round((x) / SnappingTool.StepSize) * SnappingTool.StepSize);
+                y = (int) (Math.Round((y) / SnappingTool.StepSize) * SnappingTool.StepSize);
+            }
+
             var selBitmap = new SelectableAndroidBitmap(bitmap, x, y);
 
             ViewModel.Elements.Add(selBitmap);

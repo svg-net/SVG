@@ -6,14 +6,13 @@ namespace Svg.Droid
 
     public class AndroidBitmap : Svg.Bitmap
     {
-        private readonly int _width;
-        private readonly int _height;
-        private Android.Graphics.Bitmap _image;
+        protected Android.Graphics.Bitmap _image;
 
         public AndroidBitmap(int width, int height)
         {
-            _width = width;
-            _height = height;
+            Width = width;
+            Height = height;
+            
             _image = Android.Graphics.Bitmap.CreateBitmap(width, height, Android.Graphics.Bitmap.Config.Argb8888);
         }
 
@@ -26,6 +25,11 @@ namespace Svg.Droid
         public AndroidBitmap(Android.Graphics.Bitmap bitmap)
         {
             _image = bitmap;
+        }
+
+        protected AndroidBitmap()
+        {
+
         }
 
         public Android.Graphics.Bitmap Image
@@ -58,7 +62,7 @@ namespace Svg.Droid
             // PNG is a lossless format, the compression factor (100) is ignored
         }
 
-        public int Width { get { return _width; } }
-        public int Height { get { return _height; } }
+        public int Width { get; set; }
+        public int Height { get; set; }
     }
 }

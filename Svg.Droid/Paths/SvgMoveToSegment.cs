@@ -15,7 +15,8 @@ namespace Svg.Pathing
 
         public override void AddToPath(GraphicsPath graphicsPath)
         {
-            graphicsPath.StartFigure();
+            //graphicsPath.StartFigure();
+            graphicsPath.MoveTo(this.Start);
         }
         
         public override string ToString()

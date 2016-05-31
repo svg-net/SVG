@@ -19,7 +19,7 @@ namespace Svg
         {
             get
             {
-                return PointF.Empty;
+                return new PointF(X, Y);
             }
         }
 

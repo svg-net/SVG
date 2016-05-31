@@ -12,6 +12,7 @@ using ExCSS;
 using Svg.Css;
 using System.Threading;
 using System.Globalization;
+using Svg.Droid;
 using Svg.Tools;
 using Svg.Transforms;
 
@@ -547,8 +548,8 @@ namespace Svg
 
             this.Transforms.Add(new SvgScale(scale, scale));
 
-            this.Width = new SvgUnit(this.Width.Type, this.Width * scale);
-            this.Height = new SvgUnit(this.Height.Type, this.Height * scale);
+            this.Width = new SvgUnit(SvgUnitType.Pixel, this.Width * scale);
+            this.Height = new SvgUnit(SvgUnitType.Pixel, this.Height * scale);
         }
 
         public void Transpose(float x, float y)
@@ -558,8 +559,8 @@ namespace Svg
 
             this.Transforms.Add(new SvgTranslate(x, y));
 
-            this.X += x;
-            this.Y += y;
+            this.X += new SvgUnit(SvgUnitType.Pixel, x);
+            this.Y += new SvgUnit(SvgUnitType.Pixel, y);
         }
     }
 }

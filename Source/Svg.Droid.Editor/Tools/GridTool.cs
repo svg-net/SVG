@@ -11,7 +11,7 @@ namespace Svg.Droid.Editor.Tools
         public static bool IsVisible = true;
 
         public Paint Paint { get; } = new Paint() { Color = Color.Rgb(210, 210, 210), StrokeWidth = 1 };
-        public const int StepSize = 80;
+        public const float StepSize = 40;
         private double _length = 0;
         private const float MaxZoom = ZoomTool.MaxScale;
         private const float Degrees = 27.3f;

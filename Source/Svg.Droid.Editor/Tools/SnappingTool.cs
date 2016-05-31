@@ -8,10 +8,12 @@ namespace Svg.Droid.Editor.Tools
 {
     public class SnappingTool : ITool
     {
-        private const float StepSize = GridTool.StepSize;
+        public const float StepSize = GridTool.StepSize;
+        public const float StepSizeW = 38.749f;
         public static bool IsActive = false;
-        private float _initX;
-        private float _initY;
+        private float _downX, _downY;
+        private int _downSelectedItemX;
+        private int _downSelectedItemY;
 
         public SnappingTool()
         {
@@ -31,25 +33,22 @@ namespace Svg.Droid.Editor.Tools
             int action = (int) ev.Action;
             switch (action & (int) MotionEventActions.Mask)
             {
+                case (int)MotionEventActions.Down:
+                    _downX = ev.GetX();
+                    _downY = ev.GetY();
+                    _downSelectedItemX = selectionService.SelectedItem.X;
+                    _downSelectedItemY = selectionService.SelectedItem.Y;
+
+                    break;
+
                 case (int) MotionEventActions.Move:
+                    var currentX = ev.GetX();
+                    var currentY = ev.GetY();
 
-                    var pointerIndex = ev.FindPointerIndex(SharedMasterTool.Instance.ActivePointerId);
-                    var x = ev.GetX(pointerIndex);
-                    var y = ev.GetY(pointerIndex);
-
-                    var dx = x - SharedMasterTool.Instance.LastTouchX;
-                    var dy = y - SharedMasterTool.Instance.LastTouchY;
-
-                    selectionService.SelectedItem.X += (int) (dx / ZoomTool.ScaleFactor);
-                    selectionService.SelectedItem.Y += (int) (dy / ZoomTool.ScaleFactor);
+                    selectionService.SelectedItem.X = (int) (Math.Round((currentX - _downX) / StepSizeW) * StepSizeW) + _downSelectedItemX;
+                    selectionService.SelectedItem.Y = (int) (Math.Round((currentY - _downY) / StepSize) * StepSize) + _downSelectedItemY;
 
                     svgWorkspace.Invalidate();
-
-                    SharedMasterTool.Instance.LastTouchX = x;
-                    SharedMasterTool.Instance.LastTouchY = y;
-
-                    //selectionService.SelectedItem.X = (int) (Math.Round((selectionService.SelectedItem.X) / StepSize) * StepSize);
-                    //selectionService.SelectedItem.Y = (int) (Math.Round((selectionService.SelectedItem.Y) / StepSize) * StepSize);
 
                     break;
             }
