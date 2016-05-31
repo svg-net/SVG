@@ -17,12 +17,12 @@ namespace Svg.Droid.Editor.Services
 
             SharedMasterTool.Instance, // Used for general tool infos and inter tool communication
 
-            //new SnappingTool(),
             new ZoomTool(),
             new GridTool(),
             new SelectionTool(),
             new MoveSvgTool(),
             new PanTool(),
+            new SnappingTool(),
             //-------------------------------------------
         };
     }

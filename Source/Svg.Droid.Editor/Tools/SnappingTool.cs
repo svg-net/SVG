@@ -8,8 +8,10 @@ namespace Svg.Droid.Editor.Tools
 {
     public class SnappingTool : ITool
     {
-        public const int StepSize = 60;
+        private const float StepSize = GridTool.StepSize;
         public static bool IsActive = false;
+        private float _initX;
+        private float _initY;
 
         public SnappingTool()
         {
@@ -29,13 +31,25 @@ namespace Svg.Droid.Editor.Tools
             int action = (int) ev.Action;
             switch (action & (int) MotionEventActions.Mask)
             {
-                case (int) MotionEventActions.Up:
+                case (int) MotionEventActions.Move:
 
-                    var x = selectionService.SelectedItem.X;
-                    var y = selectionService.SelectedItem.Y;
+                    var pointerIndex = ev.FindPointerIndex(SharedMasterTool.Instance.ActivePointerId);
+                    var x = ev.GetX(pointerIndex);
+                    var y = ev.GetY(pointerIndex);
 
-                    selectionService.SelectedItem.X = (x - ((x % 100) % StepSize));
-                    selectionService.SelectedItem.Y = (y - ((y % 100) % StepSize));
+                    var dx = x - SharedMasterTool.Instance.LastTouchX;
+                    var dy = y - SharedMasterTool.Instance.LastTouchY;
+
+                    selectionService.SelectedItem.X += (int) (dx / ZoomTool.ScaleFactor);
+                    selectionService.SelectedItem.Y += (int) (dy / ZoomTool.ScaleFactor);
+
+                    svgWorkspace.Invalidate();
+
+                    SharedMasterTool.Instance.LastTouchX = x;
+                    SharedMasterTool.Instance.LastTouchY = y;
+
+                    //selectionService.SelectedItem.X = (int) (Math.Round((selectionService.SelectedItem.X) / StepSize) * StepSize);
+                    //selectionService.SelectedItem.Y = (int) (Math.Round((selectionService.SelectedItem.Y) / StepSize) * StepSize);
 
                     break;
             }

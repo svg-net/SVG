@@ -55,7 +55,6 @@
   <ItemGroup>
     <Compile Include="Interfaces\ISelectionService.cs" />
     <Compile Include="Interfaces\IToolService.cs" />
-    <Compile Include="SelectableAndroidBitmap.cs" />
     <Compile Include="Services\SelectionService.cs" />
     <Compile Include="Tools\SnappingTool.cs" />
     <Compile Include="Tools\MoveSvgTool.cs" />

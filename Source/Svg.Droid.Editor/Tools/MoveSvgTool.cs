@@ -23,7 +23,7 @@ namespace Svg.Droid.Editor.Tools
             switch (action & (int) MotionEventActions.Mask)
             {
                 case (int) MotionEventActions.Move:
-                    if (!SharedMasterTool.Instance.IsScaleDetectorInProgress())
+                    if (!SharedMasterTool.Instance.IsScaleDetectorInProgress() && !SnappingTool.IsActive)
                     {
                         var pointerIndex = ev.FindPointerIndex(SharedMasterTool.Instance.ActivePointerId);
                         var x = ev.GetX(pointerIndex);
