@@ -15,6 +15,7 @@ namespace Svg
         byte[] PathTypes { get; set; }
         PathData PathData { get; }
         void AddLine(PointF getDevicePoint, PointF endPoint);
+        void MoveTo(PointF start);
         PointF GetLastPoint();
         void AddRectangle(RectangleF rectangle);
         void AddArc(RectangleF rectangle, float startAngle, float sweepAngle);

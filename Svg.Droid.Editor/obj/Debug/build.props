@@ -1,0 +1,14 @@
+BundleAssemblies=False
+AotAssemblies=False
+AndroidAotMode=
+ExplicitCrunch=False
+EnableProguard=
+UseSharedRuntime=True
+EmbedAssembliesIntoApk=False
+AndroidLinkMode=None
+AndroidLinkSkip=
+AndroidSdkBuildToolsVersion=21.1.1
+AndroidSdkPath=
+AndroidNdkPath=
+JavaSdkPath=
+AndroidSequencePointsMode=None

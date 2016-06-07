@@ -13,7 +13,7 @@ namespace SvgW3CTestRunner
     public partial class View : Form
     {
         private const string _svgBasePath = @"..\..\..\W3CTestSuite\svg\";
-        private const string _pngBasePath = @"..\..\..\W3CTestSuite\png\";
+        private const string _pngBasePath = @"..\..\..\W3CTestSuite\png\Image-";
 
         public View()
         {
@@ -37,7 +37,7 @@ namespace SvgW3CTestRunner
         {
             //render svg
             var fileName = lstFiles.SelectedItem.ToString();
-            if (fileName.StartsWith("#")) return;
+            //if (fileName.StartsWith("#")) return;
             
             //display png
             var png = Image.FromFile(_pngBasePath + Path.GetFileNameWithoutExtension(fileName) + ".png");
@@ -54,7 +54,7 @@ namespace SvgW3CTestRunner
                 }
                 else
                 {
-                    var img = new Bitmap(480, 360);
+                    var img = new Bitmap(600, 600);
                     doc.Draw(img);
                     picSvg.Image = img;
                 }
@@ -87,7 +87,7 @@ namespace SvgW3CTestRunner
                     }
                     else
                     {
-                        var img = new Bitmap(480, 360);
+                        var img = new Bitmap(600, 600);
                         doc.Draw(img);
                         picSaveLoad.Image = img;
                     }

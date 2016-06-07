@@ -12,13 +12,16 @@ using ExCSS;
 using Svg.Css;
 using System.Threading;
 using System.Globalization;
+using Svg.Droid;
+using Svg.Tools;
+using Svg.Transforms;
 
 namespace Svg
 {
     /// <summary>
     /// The class used to create and load SVG documents.
     /// </summary>
-    public partial class SvgDocument : SvgFragment, ITypeDescriptorContext
+    public partial class SvgDocument : SvgFragment, ITypeDescriptorContext, IResizeable, ITransposable
     {
         public static readonly int PointsPerInch = 96;
         private SvgElementIdManager _idManager;
@@ -536,6 +539,28 @@ namespace Svg
             where T : SvgDocument, new()
         {
             public T Result { get; set; }
+        }
+
+        public void Resize(float scale)
+        {
+            if (this.Transforms == null)
+                this.Transforms = new SvgTransformCollection();
+
+            this.Transforms.Add(new SvgScale(scale, scale));
+
+            this.Width = new SvgUnit(SvgUnitType.Pixel, this.Width * scale);
+            this.Height = new SvgUnit(SvgUnitType.Pixel, this.Height * scale);
+        }
+
+        public void Transpose(float x, float y)
+        {
+            if (this.Transforms == null)
+                this.Transforms = new SvgTransformCollection();
+
+            this.Transforms.Add(new SvgTranslate(x, y));
+
+            this.X += new SvgUnit(SvgUnitType.Pixel, x);
+            this.Y += new SvgUnit(SvgUnitType.Pixel, y);
         }
     }
 }

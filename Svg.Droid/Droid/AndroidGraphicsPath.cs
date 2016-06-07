@@ -110,6 +110,13 @@ namespace Svg.Droid
             _pathTypes.Add(0x80); // last point in closed sublath
         }
 
+        public void MoveTo(PointF start)
+        {
+            Path.MoveTo(start.X, start.Y);
+            _points.Add(start);
+            _pathTypes.Add(1); // end point of line
+        }
+
 
         public void AddLine(PointF start, PointF end)
         {

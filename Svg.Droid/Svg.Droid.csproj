@@ -35,8 +35,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublishFiller|AnyCPU'">
+    <OutputPath>bin\PublishFiller\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Export" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -109,6 +120,7 @@
     <Compile Include="Droid\AndroidTextureBrush.cs" />
     <Compile Include="Droid\Extensions.cs" />
     <Compile Include="Droid\IAndroidShader.cs" />
+    <Compile Include="Droid\SelectableAndroidBitmap.cs" />
     <Compile Include="Exceptions\SvgException.cs" />
     <Compile Include="Extensibility\SvgForeignObject.cs" />
     <Compile Include="Extensions.cs" />
@@ -228,6 +240,7 @@
     <Compile Include="Interfaces\Image.cs" />
     <Compile Include="Interfaces\ImageAttributes.cs" />
     <Compile Include="Interfaces\ImageLockMode.cs" />
+    <Compile Include="Interfaces\IPosition.cs" />
     <Compile Include="Interfaces\LinearGradientBrush.cs" />
     <Compile Include="Interfaces\LineCap.cs" />
     <Compile Include="Interfaces\LineJoin.cs" />
@@ -287,6 +300,7 @@
     <Compile Include="SvgDefinitionDefaults.cs" />
     <Compile Include="SvgDocument.cs" />
     <Compile Include="SvgDocument.partial.cs" />
+    <Compile Include="SvgDocumentCollection.cs" />
     <Compile Include="SvgDtdResolver.cs" />
     <Compile Include="SvgElement.cs" />
     <Compile Include="SvgElementAttribute.cs" />
@@ -316,6 +330,8 @@
     <Compile Include="Text\SvgTextPath.cs" />
     <Compile Include="Text\SvgTextRef.cs" />
     <Compile Include="Text\SvgTextSpan.cs" />
+    <Compile Include="Tools\IResizeable.cs" />
+    <Compile Include="Tools\ITransposable.cs" />
     <Compile Include="Transforms\ISvgTransformable.cs" />
     <Compile Include="Transforms\SvgMatrix.cs" />
     <Compile Include="Transforms\SvgRotate.cs" />
@@ -332,7 +348,6 @@
     <EmbeddedResource Include="Resources\svg11.dtd" />
     <None Include="svgkey.snk" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
