@@ -16,3 +16,7 @@ Tests/**/*.suo
 *.trx
 Source/TestResults/
 /Tests/IsoTestRunnder.Droid/Assets
+bin/
+obj/
+*.dll
+*.pdb
