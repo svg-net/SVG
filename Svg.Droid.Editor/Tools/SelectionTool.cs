@@ -11,7 +11,7 @@ namespace Svg.Droid.Editor.Tools
     public class SelectionTool : ITool
     {
         private const int MaxClickDuration = 200;
-        public const int SelectionBoxPadding = 40;
+        public const int SelectionBoxPadding = 0;
 
         private long _startClickTime;
         public Paint Paint { get; } = new Paint() { Color = Color.Rgb(33, 150, 243), StrokeWidth = 5 };
@@ -93,5 +93,8 @@ namespace Svg.Droid.Editor.Tools
         {
             return () => { };
         }
+
+        public int DrawOrder => 15;
+        public int CommandOrder => 15;
     }
 }

@@ -9,7 +9,7 @@ namespace Svg.Droid.Editor.Tools
     public class SnappingTool : ITool
     {
         public const float StepSize = GridTool.StepSize;
-        public const float StepSizeW = 38.749f;
+        public const float StepSizeW = 18.5f*2;
         public static bool IsActive = false;
         private float _downX, _downY;
         private int _downSelectedItemX;
@@ -44,9 +44,9 @@ namespace Svg.Droid.Editor.Tools
                 case (int) MotionEventActions.Move:
                     var currentX = ev.GetX();
                     var currentY = ev.GetY();
-
-                    selectionService.SelectedItem.X = (int) (Math.Round((currentX - _downX) / StepSizeW) * StepSizeW) + _downSelectedItemX;
-                    selectionService.SelectedItem.Y = (int) (Math.Round((currentY - _downY) / StepSize) * StepSize) + _downSelectedItemY;
+                    
+                    selectionService.SelectedItem.X = (int)Math.Round((Math.Round((currentX - _downX) / StepSizeW) * StepSizeW)) + _downSelectedItemX;
+                    selectionService.SelectedItem.Y = (int)Math.Round((Math.Round((currentY - _downY) / StepSize) * StepSize)) + _downSelectedItemY;
 
                     svgWorkspace.Invalidate();
 
@@ -68,5 +68,8 @@ namespace Svg.Droid.Editor.Tools
         {
             return () => { };
         }
+
+        public int DrawOrder => 30;
+        public int CommandOrder => 30;
     }
 }

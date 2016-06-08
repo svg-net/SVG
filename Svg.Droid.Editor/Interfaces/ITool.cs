@@ -12,5 +12,8 @@ namespace Svg.Droid.Editor.Interfaces
 
         Action Command();
         Action UndoCommand();
+
+        int DrawOrder { get; }
+        int CommandOrder { get; }
     }
 }

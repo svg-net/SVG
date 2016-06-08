@@ -56,7 +56,7 @@ namespace Svg.Droid.Editor
             if(SharedMasterTool.Instance.ScaleDetector != null)
                 SharedMasterTool.Instance.ScaleDetector.OnTouchEvent(ev); 
 
-            foreach (var tool in ViewModel.Tools)
+            foreach (var tool in ViewModel.Tools.OrderBy(t => t.CommandOrder))
                 tool.OnTouch(ev, this, ViewModel.SelectionService);
 
             return true;
@@ -68,7 +68,7 @@ namespace Svg.Droid.Editor
         {
             canvas.DrawColor(Color.White);
 
-            foreach (var tool in ViewModel.Tools)
+            foreach (var tool in ViewModel.Tools.OrderBy(t => t.DrawOrder))
                 tool.OnDraw(canvas, ViewModel.SelectionService.SelectedItem);
 
             foreach (var bitmap in ViewModel.Elements)
@@ -79,7 +79,7 @@ namespace Svg.Droid.Editor
 
         private void ResetTools()
         {
-            foreach (var tool in ViewModel.Tools)
+            foreach (var tool in ViewModel.Tools.OrderBy(t => t.CommandOrder))
                 tool.Reset();
         }
 

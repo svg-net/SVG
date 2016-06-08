@@ -2,6 +2,7 @@ using System;
 using Android.Graphics;
 using Android.Text;
 using Android.Views;
+using MvvmCross.Platform;
 using Svg.Droid.Editor.Interfaces;
 
 namespace Svg.Droid.Editor.Tools
@@ -11,14 +12,42 @@ namespace Svg.Droid.Editor.Tools
         public static bool IsVisible = true;
 
         public Paint Paint { get; } = new Paint() { Color = Color.Rgb(210, 210, 210), StrokeWidth = 1 };
+        public Paint Paint2 { get; } = new Paint() { Color = Color.Rgb(210, 100, 210), StrokeWidth = 1 };
+
         public const float StepSize = 40;
         private double _length = 0;
-        private const float MaxZoom = ZoomTool.MaxScale;
-        private const float Degrees = 27.3f;
+        private const float MaxZoom = 1f;//ZoomTool.MaxScale;
+        private static double A;
+        private static double B;
+        private static double C;
+        private static float StepSizeX;
+        private const double Alpha = 27.3f;
+        private const double Gamma = 90f;
+        private static double Beta;
+        // http://www.arndt-bruenner.de/mathe/scripts/Dreiecksberechnung.htm
 
         public GridTool()
         {
+            A = StepSize;
+            Beta = 180f - (Alpha + Gamma);
+            B = (A * SinDegree(Beta)) / SinDegree(Alpha);
+            C = (A * SinDegree(Gamma)) / SinDegree(Alpha);
+            StepSizeX = (float)B;
+
             Paint.SetStyle(Paint.Style.Stroke);
+        }
+
+        private static double SinDegree(double value)
+        {
+            return RadianToDegree(Math.Sin(DegreeToRadian(value)));
+        }
+        private static double DegreeToRadian(double angle)
+        {
+            return Math.PI * angle / 180.0;
+        }
+        private static double RadianToDegree(double angle)
+        {
+            return angle * (180.0 / Math.PI);
         }
 
         public void OnDraw(Canvas canvas, IPosition anyItemSelected)
@@ -33,41 +62,59 @@ namespace Svg.Droid.Editor.Tools
             if(_length <= 0) // compute this only once
                 _length = Math.Sqrt((canvas.Width * canvas.Width) + (canvas.Height * canvas.Height)) * MaxZoom * 2;
 
-            for (var i = -canvas.Width * MaxZoom; i <= canvas.Width * MaxZoom; i += StepSize - 2.5f)
-                DrawTopDownIsoLine(canvas, i);      /* | */
 
-            for (var i = -canvas.Height * MaxZoom * 2; i <= canvas.Height * 2 * MaxZoom; i += (int) (StepSize))
+            var canvasx = -SharedMasterTool.Instance.CanvasTranslatedPosX;
+            var canvasy = -SharedMasterTool.Instance.CanvasTranslatedPosY;
+
+            //for (var i = -canvas.Width * MaxZoom; i <= canvas.Width * MaxZoom; i += StepSize - 2.5f)
+            //    DrawTopDownIsoLine(canvas, i, canvasx, canvasy);      /* | */
+            var zoomFactor = ZoomTool.ScaleFactor;
+
+            var relativeCanvasTranslationX = (canvasx * zoomFactor) % StepSizeX;
+            var relativeCanvasTranslationY = (canvasy * zoomFactor) % StepSize;
+            
+            for (var i = -Math.Max(canvas.Width, canvas.Height) * zoomFactor * 6; i <= (Math.Max(canvas.Width, canvas.Height) * 6 * zoomFactor); i += (int) (StepSize))
             {
-                DrawLineLeftToTop(canvas, i);       /* / */
-                DrawLineLeftToBottom(canvas, i);    /* \ */
+                DrawLineLeftToTop(canvas, i, canvasx - relativeCanvasTranslationX, canvasy - relativeCanvasTranslationY);       /* / */
+                DrawLineLeftToBottom(canvas, i, canvasx - relativeCanvasTranslationX, canvasy - relativeCanvasTranslationY);    /* \ */
             }
+
+            canvas.DrawCircle(0, 0, 200, Paint2);
+
+            canvas.DrawCircle(canvasx, canvasy, 100, Paint2);
+            
+            canvas.DrawCircle((-canvasx)+canvas.Width, (-canvasy)+canvas.Height, 100, Paint2);
         }
 
         // line looks like this -> /
-        private void DrawLineLeftToTop(Canvas canvas, float y)
+        private void DrawLineLeftToTop(Canvas canvas, float y, float canvasX, float canvasY)
         {
-            var endX = -(canvas.Width * MaxZoom) + ((float)(_length * Math.Cos(Degrees * (Math.PI / 180))));
-            var endY = (y - (float)(_length * Math.Sin(Degrees * (Math.PI / 180))));
+            var startX = -(canvas.Width * MaxZoom) + canvasX;
+            var startY = y + canvasY;
+            var stopX = (-(canvas.Width * MaxZoom) + ((float)(_length * Math.Cos(Alpha * (Math.PI / 180))))) + canvasX;
+            var stopY = (y - (float)(_length * Math.Sin(Alpha * (Math.PI / 180)))) + canvasY;
 
             canvas.DrawLine(
-                (-(canvas.Width * MaxZoom)),
-                (y),
-                (endX),
-                (endY),
+                startX,
+                startY,
+                stopX,
+                stopY,
                 Paint);
         }
 
         // line looks like this -> \
-        private void DrawLineLeftToBottom(Canvas canvas, float y)
+        private void DrawLineLeftToBottom(Canvas canvas, float y, float canvasX, float canvasY)
         {
-            var endX = -(canvas.Width * MaxZoom) + ((float)(_length * Math.Cos(Degrees * (Math.PI / 180))));
-            var endY = (y + (float)(_length * Math.Sin(Degrees * (Math.PI / 180))));
+            var startX = (-(canvas.Width * MaxZoom)) + canvasX;
+            var startY = y + canvasY;
+            var endX = (-(canvas.Width * MaxZoom) + ((float)(_length * Math.Cos(Alpha * (Math.PI / 180))))) + canvasX;
+            var endY = (y + (float)(_length * Math.Sin(Alpha * (Math.PI / 180)))) + canvasY;
 
             canvas.DrawLine(
-                (-(canvas.Width * MaxZoom)),
-                (y),
-                (endX),
-                (endY),
+                startX,
+                startY,
+                endX,
+                endY,
                 Paint);
         }
 
@@ -104,7 +151,10 @@ namespace Svg.Droid.Editor.Tools
 
         public Action UndoCommand()
         {
-            return () => { };
+            return NullCommand;
         }
+
+        public int DrawOrder => 100;
+        public int CommandOrder => 10;
     }
 }

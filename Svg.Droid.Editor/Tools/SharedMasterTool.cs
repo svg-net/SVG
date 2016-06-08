@@ -116,5 +116,8 @@ namespace Svg.Droid.Editor.Tools
         {
             throw new NotSupportedException();
         }
+
+        public int DrawOrder => 0;
+        public int CommandOrder => 0;
     }
 }

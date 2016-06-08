@@ -20,3 +20,6 @@ bin/
 obj/
 *.dll
 *.pdb
+*.mdb
+*.suo
+packages/

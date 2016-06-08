@@ -58,5 +58,8 @@ namespace Svg.Droid.Editor.Tools
         {
             return () => { };
         }
+
+        public int DrawOrder => 20;
+        public int CommandOrder => 20;
     }
 }
