@@ -22,5 +22,6 @@ namespace Svg.DataTypes
 
         /// <summary>The value is inherited from the parent element.</summary>
 		Inherit
+
 	}
 }
