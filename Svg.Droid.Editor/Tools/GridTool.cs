@@ -24,10 +24,11 @@ namespace Svg.Droid.Editor.Tools
         private const double Alpha = 27.3f;
         private const double Gamma = 90f;
         private static double Beta;
-        // http://www.arndt-bruenner.de/mathe/scripts/Dreiecksberechnung.htm
 
         public GridTool()
         {
+            // using triangle calculation to determine the x and y steps based on stepsize (y) and angle (alpha)
+            // http://www.arndt-bruenner.de/mathe/scripts/Dreiecksberechnung.htm
             A = StepSize;
             Beta = 180f - (Alpha + Gamma);
             B = (A * SinDegree(Beta)) / SinDegree(Alpha);
@@ -68,22 +69,22 @@ namespace Svg.Droid.Editor.Tools
 
             //for (var i = -canvas.Width * MaxZoom; i <= canvas.Width * MaxZoom; i += StepSize - 2.5f)
             //    DrawTopDownIsoLine(canvas, i, canvasx, canvasy);      /* | */
-            var zoomFactor = ZoomTool.ScaleFactor;
 
-            var relativeCanvasTranslationX = (canvasx * zoomFactor) % StepSizeX;
-            var relativeCanvasTranslationY = (canvasy * zoomFactor) % StepSize;
-            
-            for (var i = -Math.Max(canvas.Width, canvas.Height) * zoomFactor * 6; i <= (Math.Max(canvas.Width, canvas.Height) * 6 * zoomFactor); i += (int) (StepSize))
+            var relativeCanvasTranslationX = (canvasx) % StepSizeX;
+            var relativeCanvasTranslationY = (canvasy) % StepSize;
+
+            var dist = Math.Max(canvas.Width, canvas.Height)*MaxZoom*2;
+            var stepSize = (int) Math.Round(StepSize, 0);
+
+            for (var i = -dist; i <= dist; i += stepSize)
             {
                 DrawLineLeftToTop(canvas, i, canvasx - relativeCanvasTranslationX, canvasy - relativeCanvasTranslationY);       /* / */
                 DrawLineLeftToBottom(canvas, i, canvasx - relativeCanvasTranslationX, canvasy - relativeCanvasTranslationY);    /* \ */
             }
 
-            canvas.DrawCircle(0, 0, 200, Paint2);
-
-            canvas.DrawCircle(canvasx, canvasy, 100, Paint2);
-            
-            canvas.DrawCircle((-canvasx)+canvas.Width, (-canvasy)+canvas.Height, 100, Paint2);
+            //canvas.DrawCircle(0, 0, 200, Paint2);
+            //canvas.DrawCircle(canvasx, canvasy, 100, Paint2);
+            //canvas.DrawCircle((-canvasx)+canvas.Width, (-canvasy)+canvas.Height, 100, Paint2);
         }
 
         // line looks like this -> /
