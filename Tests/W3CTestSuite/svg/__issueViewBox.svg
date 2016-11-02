@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+  "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg x="0" y="0" width="450" height="551" viewBox="0 0 670 820" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rect x="0" y="0" width="670" height="820" style="fill:black" />
+
+  <rect x="100" y="200" width="50" height="100" style="fill:blue" />
+  <svg x="100" y="200" width="50" height="100" viewBox="0 0 75 150">
+    <line x1="0" y1="0" x2="75" y2="0" style="stroke:white;" />
+    <line x1="75" y1="0" x2="75" y2="150" style="stroke:white;" />
+    <line x1="75" y1="150" x2="0" y2="150" style="stroke:white;" />
+    <line x1="0" y1="150" x2="0" y2="0" style="stroke:white;" />
+  </svg>
+
+  <rect x="200" y="200" width="50" height="25" style="fill:blue" />
+  <svg x="200" y="200" width="50" height="100" viewBox="0 0 100 50" preserveAspectRatio="xMaxYMin meet">
+    <line x1="0" y1="0" x2="100" y2="0" style="stroke:white;" />
+    <line x1="100" y1="0" x2="100" y2="50" style="stroke:white;" />
+    <line x1="100" y1="50" x2="0" y2="50" style="stroke:white;" />
+    <line x1="0" y1="50" x2="0" y2="0" style="stroke:white;" />
+  </svg>
+
+  <rect x="300" y="275" width="50" height="25" style="fill:blue" />
+  <svg x="300" y="200" width="50" height="100" viewBox="0 0 100 50" preserveAspectRatio="xMaxYMax meet">
+    <line x1="0" y1="0" x2="100" y2="0" style="stroke:white;" />
+    <line x1="100" y1="0" x2="100" y2="50" style="stroke:white;" />
+    <line x1="100" y1="50" x2="0" y2="50" style="stroke:white;" />
+    <line x1="0" y1="50" x2="0" y2="0" style="stroke:white;" />
+  </svg>
+  
+</svg>
