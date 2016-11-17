@@ -64,6 +64,7 @@
     <Compile Include="SmallEmbeddingImageTest.cs" />
     <Compile Include="SvgPointCollectionTests.cs" />
     <Compile Include="SvgTestHelper.cs" />
+    <Compile Include="SvgTextElementDeepCopyTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Svg.csproj">
@@ -89,6 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\hotfix-image-data-uri\Speedometer.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Issue_TextElement\Text.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
