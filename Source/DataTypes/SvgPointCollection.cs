@@ -15,13 +15,22 @@ namespace Svg
     {
         public override string ToString()
         {
-            string ret = "";
-            foreach (var unit in this)
+            var builder = new StringBuilder();
+            for (var i = 0; i < Count; i += 2) 
             {
-                ret += unit.ToString() + " ";
+                if (i + 1 < Count) 
+                {
+                    if (i > 1) 
+                    {
+                        builder.Append(" ");
+                    }
+                    // we don't need unit type
+                    builder.Append(this[i].Value.ToString(CultureInfo.InvariantCulture));
+                    builder.Append(",");
+                    builder.Append(this[i + 1].Value.ToString(CultureInfo.InvariantCulture));
+                }    
             }
-
-            return ret;
+            return builder.ToString();
         }
     }
 
