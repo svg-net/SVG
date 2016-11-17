@@ -131,7 +131,7 @@ namespace Svg
 
             if (this.Equals(SvgViewBox.Empty))
             {
-                renderer.TranslateTransform(x, y);
+                renderer.TranslateTransform(x, y, MatrixOrder.Prepend);
                 return;
             }
 
@@ -199,11 +199,11 @@ namespace Svg
                         break;
                 }
             }
-
+            
             renderer.SetClip(new Region(new RectangleF(x, y, width, height)), CombineMode.Intersect);
-            renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Prepend);
-            renderer.TranslateTransform(x, y);
-            renderer.TranslateTransform(fMinX, fMinY);
+            renderer.TranslateTransform(x, y, MatrixOrder.Prepend);
+            renderer.TranslateTransform(fMinX, fMinY, MatrixOrder.Prepend);
+            renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Prepend);       
         }
     }
 
