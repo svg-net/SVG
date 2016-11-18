@@ -89,7 +89,7 @@ namespace Svg
         /// </summary>
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if ((this._path == null || this.IsPathDirty)	&& base.StrokeWidth > 0)
+            if (this._path == null || this.IsPathDirty)
             {
 							float halfStrokeWidth = base.StrokeWidth / 2;
 

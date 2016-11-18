@@ -182,7 +182,7 @@ namespace Svg
         /// </summary>
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if ((_path == null || IsPathDirty) && base.StrokeWidth > 0)
+            if (_path == null || IsPathDirty)
             {
                 var halfStrokeWidth = new SvgUnit(base.StrokeWidth / 2);
 
