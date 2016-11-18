@@ -26,7 +26,16 @@ namespace Svg
         public virtual string Text
         {
             get { return base.Content; }
-            set { base.Content = value; this.IsPathDirty = true; this.Content = value; }
+            set {
+                Nodes.Clear();
+                Children.Clear();
+                if(value != null)
+                {
+                    Nodes.Add(new SvgContentNode { Content = value });
+                }
+                this.IsPathDirty = true;
+                Content = value;
+            }
         }
 
         /// <summary>
