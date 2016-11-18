@@ -61,7 +61,7 @@ namespace Svg
 
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if ((this._path == null || this.IsPathDirty)	&& base.StrokeWidth > 0)
+            if (this._path == null || this.IsPathDirty)
             {
                 this._path = new GraphicsPath();
                 this._path.StartFigure();
