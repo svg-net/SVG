@@ -64,6 +64,7 @@
     <Compile Include="SmallEmbeddingImageTest.cs" />
     <Compile Include="SvgPointCollectionTests.cs" />
     <Compile Include="SvgTestHelper.cs" />
+    <Compile Include="SvgTextTests.cs" />
     <Compile Include="SvgTextElementDeepCopyTest.cs" />
   </ItemGroup>
   <ItemGroup>
