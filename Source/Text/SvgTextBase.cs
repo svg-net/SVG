@@ -259,11 +259,6 @@ namespace Svg
                     renderer.SmoothingMode = SmoothingMode.AntiAlias;
                 }
 
-                // If text color blends with background color, text will be rendered blurry
-                // To avoid it, we set SourceCopy which overwrite background color
-                var compositingMode = renderer.CompositingMode;
-                renderer.CompositingMode = CompositingMode.SourceCopy;
-
                 this.RenderFill(renderer);
                 this.RenderStroke(renderer);
                 this.RenderChildren(renderer);
@@ -273,8 +268,6 @@ namespace Svg
                 {
                     renderer.SmoothingMode = SmoothingMode.Default;
                 }
-
-                renderer.CompositingMode = compositingMode;
 
                 this.ResetClip(renderer);
                 this.PopTransforms(renderer);
