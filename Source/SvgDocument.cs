@@ -575,12 +575,12 @@ namespace Svg
             }
         }
 
-        public void Write(Stream stream)
+        public void Write(Stream stream, bool useBom = true)
         {
 
-            var xmlWriter = new XmlTextWriter(stream, Encoding.UTF8);
+            var xmlWriter = new XmlTextWriter(stream, useBom ? Encoding.UTF8 : new System.Text.UTF8Encoding(false));
             xmlWriter.Formatting = Formatting.Indented;
-
+            xmlWriter.WriteStartDocument();
             xmlWriter.WriteDocType("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", null);
             
             if (!String.IsNullOrEmpty(this.ExternalCSSHref))
@@ -591,11 +591,11 @@ namespace Svg
             xmlWriter.Flush();
         }
 
-        public void Write(string path)
+        public void Write(string path, bool useBom = true)
         {
             using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
-                this.Write(fs);
+                this.Write(fs, useBom);
             }
         }
     }
