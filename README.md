@@ -20,3 +20,5 @@ Projects using the library
 * [vvvv] (http://vvvv.org) a hybrid visual/textual live-programming environment for easy prototyping and development.
 * [Posh] (https://github.com/vvvv/Posh) a windowing/interaction/drawing layer for c#/.net desktop applications with their GUI in a browser. 
 * [Timeliner] (https://github.com/vvvv/Timeliner) A Posh based timeline that can be controlled by and sends out its values via OSC. 
+
+if you want your project in this list, send me a pull request on this filr or link + short description to tebjan (at) vvvv.org
