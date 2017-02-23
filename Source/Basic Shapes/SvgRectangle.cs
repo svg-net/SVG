@@ -1,7 +1,6 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using Svg.Transforms;
 
 namespace Svg
 {
@@ -9,7 +8,7 @@ namespace Svg
     /// Represents an SVG rectangle that could also have rounded edges.
     /// </summary>
     [SvgElement("rect")]
-    public class SvgRectangle : SvgVisualElement
+    public class SvgRectangle : SvgPathBasedElement
     {
         private SvgUnit _cornerRadiusX;
         private SvgUnit _cornerRadiusY;
@@ -166,15 +165,6 @@ namespace Svg
                 else
                     return false;
             }
-        }
-
-        /// <summary>
-        /// Gets the bounds of the element.
-        /// </summary>
-        /// <value>The bounds.</value>
-        public override RectangleF Bounds
-        {
-            get { return Path(null).GetBounds(); }
         }
 
         /// <summary>
