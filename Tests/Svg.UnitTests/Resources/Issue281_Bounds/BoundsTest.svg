@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 34.06945 33.11168" xml:space="preserve" id="svg2">
+  <defs id="defs30"/>
+  <g id="lines">
+    <line id="line" x1="10" x2="30" y1="20" y2="40" />
+    <line id="line-xlate" x1="10" x2="30" y1="20" y2="40" transform="translate(5, 5)" />
+    <line id="line-xform" x1="10" x2="30" y1="20" y2="40" transform="rotate(180), translate(-50, 0)" />
+  </g>
+  <g id="rects">
+    <rect id="rect" x="10" y="30" width="10" height="20" />
+    <rect id="rect-xlate" x="10" y="30" width="10" height="20" transform="translate(10, 10)" />
+    <rect id="rect-rot" x="10" y="30" width="10" height="20" transform="rotate(90)" />
+  </g>
+</svg>

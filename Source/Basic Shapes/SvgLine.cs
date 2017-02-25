@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Svg.ExtensionMethods;
@@ -12,7 +9,7 @@ namespace Svg
     /// Represents and SVG line element.
     /// </summary>
     [SvgElement("line")]
-    public class SvgLine : SvgVisualElement
+    public class SvgLine : SvgPathBasedElement
     {
         private SvgUnit _startX;
         private SvgUnit _startY;
@@ -184,11 +181,6 @@ namespace Svg
             }
 
             return result;
-        }
-
-        public override System.Drawing.RectangleF Bounds
-        {
-            get { return this.Path(null).GetBounds(); }
         }
 
 		public override SvgElement DeepCopy()

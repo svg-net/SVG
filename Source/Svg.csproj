@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Basic Shapes\SvgImage.cs" />
+    <Compile Include="Basic Shapes\SvgPathBasedElement.cs" />
     <Compile Include="Basic Shapes\SvgVisualElement.cs" />
     <Compile Include="Basic Shapes\SvgCircle.cs" />
     <Compile Include="Basic Shapes\SvgEllipse.cs" />

@@ -1,10 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Xml;
-using System.ComponentModel;
 
 namespace Svg
 {
@@ -12,7 +6,7 @@ namespace Svg
     /// Represents and SVG ellipse element.
     /// </summary>
     [SvgElement("ellipse")]
-    public class SvgEllipse : SvgVisualElement
+    public class SvgEllipse : SvgPathBasedElement
     {
         private SvgUnit _radiusX;
         private SvgUnit _radiusY;
@@ -78,15 +72,6 @@ namespace Svg
         			OnAttributeChanged(new AttributeEventArgs{ Attribute = "ry", Value = value });
         		}
         	}
-        }
-
-        /// <summary>
-        /// Gets the bounds of the element.
-        /// </summary>
-        /// <value>The bounds.</value>
-        public override RectangleF Bounds
-        {
-            get { return this.Path(null).GetBounds(); }
         }
 
         /// <summary>

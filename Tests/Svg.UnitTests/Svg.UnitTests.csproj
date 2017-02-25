@@ -54,6 +54,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoundsTests.cs" />
     <Compile Include="CssQueryTest.cs" />
     <Compile Include="LargeEmbeddedImageTest.cs" />
     <Compile Include="MarkerEndTest.cs" />
@@ -94,6 +95,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Issue_TextElement\Text.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Issue281_Bounds\BoundsTest.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
