@@ -12,7 +12,7 @@ namespace Svg
             get
             {
                 var path = this.Path(null);
-                if (Transforms != null)
+                if (Transforms != null && Transforms.Count > 0)
                 {
                     path = (GraphicsPath)path.Clone();
                     path.Transform(Transforms.GetMatrix());
