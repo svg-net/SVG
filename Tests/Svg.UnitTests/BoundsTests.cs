@@ -40,9 +40,9 @@ namespace Svg.UnitTests
         public void TestGroupBounds()
         {
             // all lines from TestLineBounds()
-            AssertEqualBounds("lines", 9.5f, 29.5f, 10.5f, 20.5f);
-            // all reactangles from TestRectangleBounds()
-            AssertEqualBounds("rects", 19.5f, 39.5f, 10.5f, 20.5f);
+            AssertEqualBounds("lines", 9.5f, -40.5f, 31, 86);
+            // all rectangles from TestRectangleBounds()
+            AssertEqualBounds("rects", -50f, 9.5f, 80, 50.5f);
         }
 
         private void AssertEqualBounds(string elementId, float x, float y, float width, float height)
