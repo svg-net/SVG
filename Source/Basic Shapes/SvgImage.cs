@@ -242,8 +242,8 @@ namespace Svg
             string safeUriString;
             if (uriString.Length > 65519)
             {
-                safeUriString = uriString.Substring(0,
-                                                    65519);
+                //Uri MaxLength is 65519 (https://msdn.microsoft.com/en-us/library/z6c2z492.aspx)
+                safeUriString = uriString.Substring(0, 65519);
             }
             else
             {
@@ -252,7 +252,7 @@ namespace Svg
 
             try
             {
-                var uri = new Uri(safeUriString); //Uri MaxLength is 65519 (https://msdn.microsoft.com/en-us/library/z6c2z492.aspx)
+                var uri = new Uri(safeUriString, UriKind.RelativeOrAbsolute);
 
                 // handle data/uri embedded images (http://en.wikipedia.org/wiki/Data_URI_scheme)
                 if (uri.IsAbsoluteUri && uri.Scheme == "data")
