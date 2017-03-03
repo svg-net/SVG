@@ -165,7 +165,7 @@ namespace Svg
             {
                 case SvgOverflow.Auto:
                 case SvgOverflow.Visible:
-                case SvgOverflow.Scroll:
+                case SvgOverflow.Inherit:
                     base.Render(renderer);
                     break;
                 default:
