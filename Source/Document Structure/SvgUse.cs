@@ -42,7 +42,8 @@ namespace Svg
         {
             if (!base.PushTransforms(renderer)) return false;
             renderer.TranslateTransform(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                        this.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+                                        this.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
+                                        MatrixOrder.Prepend);
             return true;
         }
 
