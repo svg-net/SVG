@@ -211,7 +211,34 @@ namespace Svg
         {
             get
             {
-                return this.Path.GetBounds();
+                var bounds = new RectangleF();
+                foreach (var child in this.Children)
+                {
+                    RectangleF childBounds = new RectangleF();
+                    if (child is SvgFragment)
+                    {
+                        childBounds = ((SvgFragment)child).Bounds;
+                        childBounds.Offset(((SvgFragment)child).X, ((SvgFragment)child).Y);
+                    }
+                    else if (child is SvgVisualElement)
+                    {
+                        childBounds = ((SvgVisualElement)child).Bounds;
+                    }
+
+                    if (!childBounds.IsEmpty)
+                    {
+                        if (bounds.IsEmpty)
+                        {
+                            bounds = childBounds;
+                        }
+                        else
+                        {
+                            bounds = RectangleF.Union(bounds, childBounds);
+                        }
+                    }
+                }
+
+                return bounds;
             }
         }
 
@@ -244,13 +271,12 @@ namespace Svg
                 else
                 {
                     bounds = this.Bounds; //do just one call to the recursive bounds property
-                    this.ViewBox = new SvgViewBox(bounds.X, bounds.Y, bounds.Width, bounds.Height);
                 }
             }
 
             if (isWidthperc)
             {
-                w = (bounds.Width) * (Width.Value * 0.01f);
+                w = (bounds.Width + bounds.X) * (Width.Value * 0.01f);
             }
             else
             {
@@ -258,7 +284,7 @@ namespace Svg
             }
             if (isHeightperc)
             {
-                h = (bounds.Height) * (Height.Value * 0.01f);
+                h = (bounds.Height + bounds.Y) * (Height.Value * 0.01f);
             }
             else
             {
