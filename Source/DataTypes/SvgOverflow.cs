@@ -21,6 +21,9 @@ namespace Svg
     [TypeConverter(typeof(SvgOverflowConverter))]
 	public enum SvgOverflow
     {
+        /// <summary>Overflow is not rendered.</summary>
+        Hidden,
+
         /// <summary>The value is inherited from the parent element.</summary>
 		Inherit,
 
@@ -29,9 +32,6 @@ namespace Svg
 
         /// <summary>Overflow is rendered.</summary>
         Visible,
-
-        /// <summary>Overflow is not rendered.</summary>
-        Hidden,
 
         /// <summary>Overflow causes a scrollbar to appear (horizontal, vertical or both).</summary>
 		Scroll
