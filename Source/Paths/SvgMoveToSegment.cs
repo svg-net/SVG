@@ -15,10 +15,7 @@ namespace Svg.Pathing
 
         public override void AddToPath(System.Drawing.Drawing2D.GraphicsPath graphicsPath)
         {
-            if (this.Start != this.End)
-            {
-                graphicsPath.StartFigure();
-            }
+            graphicsPath.StartFigure();
         }
         
         public override string ToString()
