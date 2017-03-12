@@ -9,15 +9,12 @@ namespace Svg.Pathing
         public override void AddToPath(System.Drawing.Drawing2D.GraphicsPath graphicsPath)
         {
             // Important for custom line caps.  Force the path the close with an explicit line, not just an implicit close of the figure.
-            var pathPoints = graphicsPath.PathPoints;
-
-            if (pathPoints.Length > 0 && !pathPoints[0].Equals(pathPoints[pathPoints.Length - 1]))
+            if (graphicsPath.PointCount > 0 && !graphicsPath.PathPoints[0].Equals(graphicsPath.PathPoints[graphicsPath.PathPoints.Length - 1]))
             {
-                var pathTypes = graphicsPath.PathTypes;
-                int i = pathPoints.Length - 1;
-                while (i >= 0 && pathTypes[i] > 0) i--;
+                var i = graphicsPath.PathTypes.Length - 1;
+                while (i >= 0 && graphicsPath.PathTypes[i] > 0) i--;
                 if (i < 0) i = 0;
-                graphicsPath.AddLine(pathPoints[pathPoints.Length - 1], pathPoints[i]);
+                graphicsPath.AddLine(graphicsPath.PathPoints[graphicsPath.PathPoints.Length - 1], graphicsPath.PathPoints[i]);
             }
 
             graphicsPath.CloseFigure();
