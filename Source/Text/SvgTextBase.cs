@@ -38,24 +38,6 @@ namespace Svg
             }
         }
 
-        /// <summary>
-        /// Gets or sets the text anchor.
-        /// </summary>
-        /// <value>The text anchor.</value>
-        [SvgAttribute("text-anchor", true)]
-        public virtual SvgTextAnchor TextAnchor
-        {
-            get { return (this.Attributes["text-anchor"] == null) ? SvgTextAnchor.Inherit : (SvgTextAnchor)this.Attributes["text-anchor"]; }
-            set { this.Attributes["text-anchor"] = value; this.IsPathDirty = true; }
-        }
-
-        [SvgAttribute("baseline-shift", true)]
-        public virtual string BaselineShift
-        {
-            get { return this.Attributes["baseline-shift"] as string; }
-            set { this.Attributes["baseline-shift"] = value; this.IsPathDirty = true; }
-        }
-
         public override XmlSpaceHandling SpaceHandling
         {
             get { return base.SpaceHandling; }

@@ -158,6 +158,26 @@ namespace Svg
         }
 
         /// <summary>
+        /// Gets or sets the text anchor.
+        /// </summary>
+        [SvgAttribute("text-anchor", true)]
+        public virtual SvgTextAnchor TextAnchor
+        {
+            get { return this.Attributes.GetInheritedAttribute<SvgTextAnchor>("text-anchor"); }
+            set { this.Attributes["text-anchor"] = value; this.IsPathDirty = true; }
+        }
+
+        /// <summary>
+        /// Specifies dominant-baseline positioning of text.
+        /// </summary>
+        [SvgAttribute("baseline-shift", true)]
+        public virtual string BaselineShift
+        {
+            get { return this.Attributes.GetInheritedAttribute<string>("baseline-shift"); }
+            set { this.Attributes["baseline-shift"] = value; this.IsPathDirty = true; }
+        }
+
+        /// <summary>
         /// Indicates which font family is to be used to render the text.
         /// </summary>
         [SvgAttribute("font-family", true)]

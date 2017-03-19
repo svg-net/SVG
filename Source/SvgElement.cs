@@ -377,9 +377,9 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets or sets the text anchor.
+        /// Gets or sets the space handling.
         /// </summary>
-        /// <value>The text anchor.</value>
+        /// <value>The space handling.</value>
         [SvgAttribute("space", SvgAttributeAttribute.XmlNamespace)]
         public virtual XmlSpaceHandling SpaceHandling
         {
