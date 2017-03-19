@@ -26,6 +26,18 @@ namespace Svg
             set { this._dirty = value; }
         }
 
+        /// <summary>
+        /// Force recreation of the paths for the element and it's children.
+        /// </summary>
+        public void InvalidateChildPaths()
+        {
+            this.IsPathDirty = true;
+            foreach (SvgElement element in this.Children)
+            {
+                element.InvalidateChildPaths();
+            }
+        }
+
         protected static float FixOpacityValue(float value)
         {
             const float max = 1.0f;

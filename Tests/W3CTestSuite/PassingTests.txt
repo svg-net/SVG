@@ -163,6 +163,7 @@ text-text-08-b.svg
 text-text-09-t.svg
 text-text-10-t.svg
 text-text-11-t.svg
+text-text-12-t.svg
 text-tref-01-b.svg
 text-tspan-01-b.svg
 text-ws-01-t.svg
