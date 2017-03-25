@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
+using System.Text.RegularExpressions;
 using Svg;
 using System.Diagnostics;
 
@@ -90,10 +91,10 @@ namespace SvgW3CTestRunner
                     var img = new Bitmap(480, 360);
                     doc.Draw(img);
                     picSvg.Image = img;
-
                 }
 
-				this.boxConsoleLog.AppendText ("\n\nWC3 TEST " + fileName + "\n");
+                this.boxConsoleLog.AppendText ("\n\nWC3 TEST " + fileName + "\n");
+                this.boxDescription.Text = GetDescription(doc);
 
             }
             catch (Exception ex)
@@ -154,11 +155,33 @@ namespace SvgW3CTestRunner
                 //MessageBox.Show(ex.ToString(), "SVG Comparison");
                 picSVGPNG.Image = null;
             }
+        }
 
+        private SvgElement GetChildWithDescription(SvgElement element, string description)
+        {
+            var docElements = element.Children.Where(child => child is NonSvgElement && (child as NonSvgElement).Name == description);
+            return docElements.Count() > 0 ? docElements.First() : null;
+        }
 
-
-            
-           
+        private string GetDescription(SvgDocument document)
+        {
+            string description = string.Empty;
+            var testCaseElement = GetChildWithDescription(document, "SVGTestCase");
+            if (testCaseElement != null)
+            {
+                var descriptionElement = GetChildWithDescription(testCaseElement, "testDescription");
+                if (descriptionElement != null)
+                {
+                    var regex = new Regex("\r\n *");
+                    var descriptionLines = new List<string>();
+                    foreach (var child in descriptionElement.Children)
+                    {
+                        descriptionLines.Add(regex.Replace(child.Content, " "));
+                    }
+                    return string.Join("\n", descriptionLines.ToArray());
+                }
+            }
+            return description;
         }
         
         unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)

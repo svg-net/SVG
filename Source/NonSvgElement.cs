@@ -22,5 +22,16 @@ namespace Svg
 
             return newObj;
         }
+
+        /// <summary>
+        /// Publish the element name to be able to differentiate non-svg elements.
+        /// </summary>
+        public string Name
+        {
+            get
+            {
+                return ElementName;
+            }
+        }
     }
 }
