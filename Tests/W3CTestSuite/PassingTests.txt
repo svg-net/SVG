@@ -163,11 +163,13 @@ text-text-08-b.svg
 text-text-09-t.svg
 text-text-10-t.svg
 text-text-11-t.svg
+text-text-12-t.svg
 text-tref-01-b.svg
 text-tspan-01-b.svg
 text-ws-01-t.svg
 text-ws-02-t.svg
 text-ws-03-t.svg
+types-basic-01-f.svg
 painting-stroke-02-t.svg
 coords-viewattr-04-f.svg
 fonts-desc-01-t.svg
