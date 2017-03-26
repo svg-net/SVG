@@ -30,7 +30,6 @@ namespace SvgW3CTestRunner
         /// </summary>
         private void InitializeComponent()
         {
-            this.lstFiles = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -48,9 +47,13 @@ namespace SvgW3CTestRunner
             this.boxConsoleLog = new System.Windows.Forms.RichTextBox();
             this.descriptionTab = new System.Windows.Forms.TabPage();
             this.boxDescription = new System.Windows.Forms.RichTextBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fIleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.runAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileTabBox = new System.Windows.Forms.TabControl();
+            this.passTabPage = new System.Windows.Forms.TabPage();
+            this.lstFilesPassing = new System.Windows.Forms.ListBox();
+            this.failTabPage = new System.Windows.Forms.TabPage();
+            this.lstFilesFailing = new System.Windows.Forms.ListBox();
+            this.otherTabPage = new System.Windows.Forms.TabPage();
+            this.lstFilesOther = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -64,18 +67,11 @@ namespace SvgW3CTestRunner
             this.bottomTabBox.SuspendLayout();
             this.outputTab.SuspendLayout();
             this.descriptionTab.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.fileTabBox.SuspendLayout();
+            this.passTabPage.SuspendLayout();
+            this.failTabPage.SuspendLayout();
+            this.otherTabPage.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lstFiles
-            // 
-            this.lstFiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstFiles.FormattingEnabled = true;
-            this.lstFiles.Location = new System.Drawing.Point(3, 3);
-            this.lstFiles.Name = "lstFiles";
-            this.lstFiles.Size = new System.Drawing.Size(174, 765);
-            this.lstFiles.TabIndex = 0;
-            this.lstFiles.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -83,15 +79,14 @@ namespace SvgW3CTestRunner
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lstFiles, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.bottomTabBox, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1279, 841);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1279, 865);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // splitContainer1
@@ -107,7 +102,7 @@ namespace SvgW3CTestRunner
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel3);
-            this.splitContainer1.Size = new System.Drawing.Size(1093, 765);
+            this.splitContainer1.Size = new System.Drawing.Size(1093, 789);
             this.splitContainer1.SplitterDistance = 563;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -127,17 +122,17 @@ namespace SvgW3CTestRunner
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(563, 765);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(563, 789);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // picSaveLoad
             // 
             this.picSaveLoad.BackColor = System.Drawing.Color.White;
             this.picSaveLoad.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picSaveLoad.Location = new System.Drawing.Point(0, 395);
+            this.picSaveLoad.Location = new System.Drawing.Point(0, 407);
             this.picSaveLoad.Margin = new System.Windows.Forms.Padding(0);
             this.picSaveLoad.Name = "picSaveLoad";
-            this.picSaveLoad.Size = new System.Drawing.Size(563, 370);
+            this.picSaveLoad.Size = new System.Drawing.Size(563, 382);
             this.picSaveLoad.TabIndex = 2;
             this.picSaveLoad.TabStop = false;
             // 
@@ -157,14 +152,14 @@ namespace SvgW3CTestRunner
             this.picSvg.Location = new System.Drawing.Point(0, 13);
             this.picSvg.Margin = new System.Windows.Forms.Padding(0);
             this.picSvg.Name = "picSvg";
-            this.picSvg.Size = new System.Drawing.Size(563, 369);
+            this.picSvg.Size = new System.Drawing.Size(563, 381);
             this.picSvg.TabIndex = 1;
             this.picSvg.TabStop = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 382);
+            this.label3.Location = new System.Drawing.Point(3, 394);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 13);
             this.label3.TabIndex = 3;
@@ -186,14 +181,15 @@ namespace SvgW3CTestRunner
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(526, 765);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(526, 789);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // picSVGPNG
             // 
+            this.picSVGPNG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.picSVGPNG.BackColor = System.Drawing.Color.White;
-            this.picSVGPNG.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picSVGPNG.Location = new System.Drawing.Point(0, 395);
+            this.picSVGPNG.Location = new System.Drawing.Point(0, 407);
             this.picSVGPNG.Margin = new System.Windows.Forms.Padding(0);
             this.picSVGPNG.Name = "picSVGPNG";
             this.picSVGPNG.Size = new System.Drawing.Size(526, 370);
@@ -207,7 +203,7 @@ namespace SvgW3CTestRunner
             this.picPng.Location = new System.Drawing.Point(0, 13);
             this.picPng.Margin = new System.Windows.Forms.Padding(0);
             this.picPng.Name = "picPng";
-            this.picPng.Size = new System.Drawing.Size(526, 369);
+            this.picPng.Size = new System.Drawing.Size(526, 381);
             this.picPng.TabIndex = 2;
             this.picPng.TabStop = false;
             // 
@@ -223,7 +219,7 @@ namespace SvgW3CTestRunner
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 382);
+            this.label4.Location = new System.Drawing.Point(3, 394);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 4;
@@ -232,9 +228,11 @@ namespace SvgW3CTestRunner
             // bottomTabBox
             // 
             this.bottomTabBox.Alignment = System.Windows.Forms.TabAlignment.Left;
+            this.bottomTabBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bottomTabBox.Controls.Add(this.outputTab);
             this.bottomTabBox.Controls.Add(this.descriptionTab);
-            this.bottomTabBox.Location = new System.Drawing.Point(183, 774);
+            this.bottomTabBox.Location = new System.Drawing.Point(183, 798);
             this.bottomTabBox.Multiline = true;
             this.bottomTabBox.Name = "bottomTabBox";
             this.bottomTabBox.SelectedIndex = 0;
@@ -255,6 +253,7 @@ namespace SvgW3CTestRunner
             // boxConsoleLog
             // 
             this.boxConsoleLog.BackColor = System.Drawing.Color.White;
+            this.boxConsoleLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.boxConsoleLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.boxConsoleLog.Location = new System.Drawing.Point(3, 3);
             this.boxConsoleLog.Name = "boxConsoleLog";
@@ -277,6 +276,7 @@ namespace SvgW3CTestRunner
             // 
             // boxDescription
             // 
+            this.boxDescription.BackColor = System.Drawing.Color.White;
             this.boxDescription.Location = new System.Drawing.Point(-2, -2);
             this.boxDescription.Name = "boxDescription";
             this.boxDescription.ReadOnly = true;
@@ -284,41 +284,94 @@ namespace SvgW3CTestRunner
             this.boxDescription.TabIndex = 1;
             this.boxDescription.Text = "";
             // 
-            // menuStrip1
+            // fileTabBox
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fIleToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1279, 24);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
+            this.fileTabBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.fileTabBox.Controls.Add(this.passTabPage);
+            this.fileTabBox.Controls.Add(this.failTabPage);
+            this.fileTabBox.Controls.Add(this.otherTabPage);
+            this.fileTabBox.Location = new System.Drawing.Point(0, 24);
+            this.fileTabBox.Name = "fileTabBox";
+            this.fileTabBox.SelectedIndex = 0;
+            this.fileTabBox.Size = new System.Drawing.Size(180, 841);
+            this.fileTabBox.TabIndex = 3;
+            this.fileTabBox.SelectedIndexChanged += new System.EventHandler(this.fileTabBox_TabIndexChanged);
             // 
-            // fIleToolStripMenuItem
+            // passTabPage
             // 
-            this.fIleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.runAllToolStripMenuItem});
-            this.fIleToolStripMenuItem.Name = "fIleToolStripMenuItem";
-            this.fIleToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fIleToolStripMenuItem.Text = "File";
+            this.passTabPage.Controls.Add(this.lstFilesPassing);
+            this.passTabPage.Location = new System.Drawing.Point(4, 22);
+            this.passTabPage.Name = "passTabPage";
+            this.passTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.passTabPage.Size = new System.Drawing.Size(172, 815);
+            this.passTabPage.TabIndex = 0;
+            this.passTabPage.Text = "Pass";
+            this.passTabPage.UseVisualStyleBackColor = true;
             // 
-            // runAllToolStripMenuItem
+            // lstFilesPassing
             // 
-            this.runAllToolStripMenuItem.Name = "runAllToolStripMenuItem";
-            this.runAllToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.runAllToolStripMenuItem.Text = "Run All";
-            this.runAllToolStripMenuItem.Click += new System.EventHandler(this.RunAllToolStripMenuItemClick);
+            this.lstFilesPassing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lstFilesPassing.FormattingEnabled = true;
+            this.lstFilesPassing.Location = new System.Drawing.Point(3, 3);
+            this.lstFilesPassing.Name = "lstFilesPassing";
+            this.lstFilesPassing.Size = new System.Drawing.Size(166, 797);
+            this.lstFilesPassing.TabIndex = 1;
+            this.lstFilesPassing.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
+            // 
+            // failTabPage
+            // 
+            this.failTabPage.Controls.Add(this.lstFilesFailing);
+            this.failTabPage.Location = new System.Drawing.Point(4, 22);
+            this.failTabPage.Name = "failTabPage";
+            this.failTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.failTabPage.Size = new System.Drawing.Size(172, 815);
+            this.failTabPage.TabIndex = 1;
+            this.failTabPage.Text = "Fail";
+            this.failTabPage.UseVisualStyleBackColor = true;
+            // 
+            // lstFilesFailing
+            // 
+            this.lstFilesFailing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lstFilesFailing.FormattingEnabled = true;
+            this.lstFilesFailing.Location = new System.Drawing.Point(3, 4);
+            this.lstFilesFailing.Name = "lstFilesFailing";
+            this.lstFilesFailing.Size = new System.Drawing.Size(169, 810);
+            this.lstFilesFailing.TabIndex = 0;
+            this.lstFilesFailing.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
+            // 
+            // otherTabPage
+            // 
+            this.otherTabPage.Controls.Add(this.lstFilesOther);
+            this.otherTabPage.Location = new System.Drawing.Point(4, 22);
+            this.otherTabPage.Name = "otherTabPage";
+            this.otherTabPage.Size = new System.Drawing.Size(172, 815);
+            this.otherTabPage.TabIndex = 2;
+            this.otherTabPage.Text = "Other";
+            this.otherTabPage.UseVisualStyleBackColor = true;
+            // 
+            // lstFilesOther
+            // 
+            this.lstFilesOther.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lstFilesOther.FormattingEnabled = true;
+            this.lstFilesOther.Location = new System.Drawing.Point(0, -2);
+            this.lstFilesOther.Name = "lstFilesOther";
+            this.lstFilesOther.Size = new System.Drawing.Size(172, 810);
+            this.lstFilesOther.TabIndex = 0;
+            this.lstFilesOther.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
             // 
             // View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1279, 865);
+            this.Controls.Add(this.fileTabBox);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "View";
-            this.Text = "Form1";
+            this.Text = "SVG W3C Test Runner";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -334,16 +387,16 @@ namespace SvgW3CTestRunner
             this.bottomTabBox.ResumeLayout(false);
             this.outputTab.ResumeLayout(false);
             this.descriptionTab.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.fileTabBox.ResumeLayout(false);
+            this.passTabPage.ResumeLayout(false);
+            this.failTabPage.ResumeLayout(false);
+            this.otherTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
         
 
         #endregion
-        private System.Windows.Forms.ListBox lstFiles;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
@@ -356,14 +409,18 @@ namespace SvgW3CTestRunner
         private System.Windows.Forms.PictureBox picSVGPNG;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fIleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem runAllToolStripMenuItem;
         private System.Windows.Forms.TabControl bottomTabBox;
         private System.Windows.Forms.TabPage outputTab;
         private System.Windows.Forms.RichTextBox boxConsoleLog;
         private System.Windows.Forms.TabPage descriptionTab;
         private System.Windows.Forms.RichTextBox boxDescription;
+        private System.Windows.Forms.TabControl fileTabBox;
+        private System.Windows.Forms.TabPage passTabPage;
+        private System.Windows.Forms.ListBox lstFilesPassing;
+        private System.Windows.Forms.TabPage failTabPage;
+        private System.Windows.Forms.ListBox lstFilesFailing;
+        private System.Windows.Forms.TabPage otherTabPage;
+        private System.Windows.Forms.ListBox lstFilesOther;
     }
 }
 

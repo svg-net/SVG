@@ -34,14 +34,16 @@ namespace SvgW3CTestRunner
                          !f.StartsWith("script-")
                          orderby f
                          select (object)f);
-            files = files.Where((f) => !passes.ContainsKey((string)f)).Union(Enumerable.Repeat((object)"## PASSING ##", 1)).Union(files.Where((f) => passes.ContainsKey((string)f)));
 
-            lstFiles.Items.AddRange(files.ToArray());
+            lstFilesOther.Items.AddRange(files.Where(f => ((string)f).StartsWith("__")).ToArray());
+            files = files.Where(f => !((string)f).StartsWith("__"));
+            lstFilesPassing.Items.AddRange(files.Where(f => passes.ContainsKey((string)f)).ToArray());
+            lstFilesFailing.Items.AddRange(files.Where(f => !passes.ContainsKey((string)f)).ToArray());
         }
 
 
 
-		private void boxConsoleLog_MouseDown(object sender, MouseEventArgs e)
+        private void boxConsoleLog_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (e.Button == System.Windows.Forms.MouseButtons.Right)
 			{   //click event
@@ -70,6 +72,7 @@ namespace SvgW3CTestRunner
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             //render svg
+            var lstFiles = sender as ListBox;
             var fileName = lstFiles.SelectedItem.ToString();
             if (fileName.StartsWith("#")) return;
             
@@ -102,7 +105,6 @@ namespace SvgW3CTestRunner
 				this.boxConsoleLog.AppendText ("Result: TEST FAILED\n");
 				this.boxConsoleLog.AppendText ("SVG RENDERING ERROR for " + fileName + "\n");
 				this.boxConsoleLog.AppendText (ex.ToString());
-                //MessageBox.Show(ex.ToString(), "SVG Rendering");
                 picSvg.Image = null;
             }
             
@@ -138,7 +140,6 @@ namespace SvgW3CTestRunner
 				this.boxConsoleLog.AppendText ("Result: TEST FAILED\n");
 				this.boxConsoleLog.AppendText ("SVG SERIALIZATION ERROR for " + fileName + "\n");
 				this.boxConsoleLog.AppendText (ex.ToString());
-                //MessageBox.Show(ex.ToString(), "SVG Serialization");
                 picSaveLoad.Image = null;
             }
             
@@ -152,9 +153,16 @@ namespace SvgW3CTestRunner
 				this.boxConsoleLog.AppendText ("Result: TEST FAILED\n");
 				this.boxConsoleLog.AppendText ("SVG TO PNG COMPARISON ERROR for " + fileName + "\n");
 				this.boxConsoleLog.AppendText (ex.ToString());
-                //MessageBox.Show(ex.ToString(), "SVG Comparison");
                 picSVGPNG.Image = null;
             }
+        }
+
+        private void fileTabBox_TabIndexChanged(object sender, EventArgs e)
+        {
+            picSvg.Image = null;
+            picPng.Image = null;
+            picSaveLoad.Image = null;
+            picSVGPNG.Image = null;
         }
 
         private SvgElement GetChildWithDescription(SvgElement element, string description)
@@ -211,21 +219,8 @@ namespace SvgW3CTestRunner
             }
             return output;
         }
-        
-        
-        void RunAllToolStripMenuItemClick(object sender, EventArgs e)
-        {
-            foreach(string fileName in lstFiles.Items)
-            {
-                if (fileName.StartsWith("#")) continue;
-                
-                
-            }    
-        }
-
-
     }
-    
+
     static class BitmapExtensions
     {
         public static DisposableImageData LockBitsDisposable(this Bitmap bitmap, Rectangle rect, ImageLockMode flags, PixelFormat format)
