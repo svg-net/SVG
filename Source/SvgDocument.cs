@@ -483,13 +483,6 @@ namespace Svg
 				{
 					renderer.SetBoundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
 
-					//EO, 2014-12-05: Requested to ensure proper zooming (draw the svg in the bitmap size, ==> proper scaling)
-					//EO, 2015-01-09, Added GetDimensions to use its returned size instead of this.Width and this.Height (request of Icarrere).
-                    //BBN, 2015-07-29, it is unnecassary to call again GetDimensions and transform to 1x1
-                    //JA, 2015-12-18, this is actually necessary to correctly render the Draw(rasterHeight, rasterWidth) overload, otherwise the rendered graphic doesn't scale correctly
-                    SizeF size = this.GetDimensions();
-					renderer.ScaleTransform(bitmap.Width / size.Width, bitmap.Height / size.Height);
-
 					//EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
 					this.Overflow = SvgOverflow.Auto;
 
