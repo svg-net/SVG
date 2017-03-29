@@ -167,12 +167,13 @@ namespace Svg
                     orig);
         }
 
+        
         /// <summary>
         /// Gets a <see cref="Brush"/> representing the current paint server.
         /// </summary>
         /// <param name="renderingElement">The owner <see cref="SvgVisualElement"/>.</param>
         /// <param name="opacity">The opacity of the brush.</param>
-        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
+        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke)
         {
             var chain = new List<SvgPatternServer>();
             var curr = this;

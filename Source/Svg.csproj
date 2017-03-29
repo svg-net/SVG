@@ -83,6 +83,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -110,6 +114,7 @@
     <Compile Include="Document Structure\SvgSymbol.cs" />
     <Compile Include="Exceptions\SvgMemoryException.cs" />
     <Compile Include="ExtensionMethods\UriExtensions.cs" />
+    <Compile Include="External\Extensions.cs" />
     <Compile Include="Filter Effects\ImageBuffer.cs" />
     <Compile Include="Painting\GenericBoundable.cs" />
     <Compile Include="Painting\SvgFallbackPaintServer .cs" />
@@ -249,7 +254,7 @@
     <Compile Include="NonSvgElement.cs" />
     <Compile Include="SvgUnknownElement.cs" />
     <Compile Include="SvgElementAttribute.cs" />
-    <Compile Include="SvgExtentions.cs" />
+    <Compile Include="SvgExtensions.cs" />
     <Compile Include="Rendering\SvgRenderer.cs" />
     <Compile Include="Painting\SvgColourConverter.cs" />
     <Compile Include="Painting\SvgGradientSpreadMethod.cs" />
@@ -352,12 +357,12 @@
     <EmbeddedResource Include="Resources\svg11.dtd" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Web\Resources\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Basic Shapes\DOM.cd" />
     <None Include="Svg.nuspec" />
     <None Include="svgkey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Web\Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

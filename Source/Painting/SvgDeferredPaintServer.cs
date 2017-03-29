@@ -45,7 +45,7 @@ namespace Svg
             }
         }
 
-        public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)
+        public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke)
         {
             EnsureServer(styleOwner);
             return _concreteServer.GetBrush(styleOwner, renderer, opacity, forStroke);

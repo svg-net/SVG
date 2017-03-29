@@ -20,10 +20,9 @@ namespace ExCSS
 
         public override string ToString()
         {
-            return ToString(false);
+            return this.ToString(false, 0);
         }
-
-        public override string ToString(bool friendlyFormat, int indentation = 0)
+        public override string ToString(bool friendlyFormat, int indentation)
         {
             if (_stopped)
             {

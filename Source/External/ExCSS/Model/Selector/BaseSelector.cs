@@ -6,10 +6,10 @@ namespace ExCSS
     {
         public sealed override string ToString()
         {
-            return ToString(false);
+            return ToString(false,0);
         }
 
-        public abstract string ToString(bool friendlyFormat, int indentation = 0);
+        public abstract string ToString(bool friendlyFormat, int indentation);
     }
 }
 

@@ -31,10 +31,10 @@ namespace ExCSS
 
         public override string ToString()
         {
-            return ToString(false);
+            return ToString(false,0);
         }
 
-        public override string ToString(bool friendlyFormat, int indentation = 0)
+        public override string ToString(bool friendlyFormat, int indentation)
         {
             var join = friendlyFormat ? "".NewLineIndent(true, indentation) : "";
 

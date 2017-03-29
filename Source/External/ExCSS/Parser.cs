@@ -104,16 +104,18 @@ namespace ExCSS
                 ? styleSheet.Rules[0] 
                 : null;
         }
-
-        internal static StyleDeclaration ParseDeclarations(string declarations, bool quirksMode = false)
+        
+        internal static StyleDeclaration ParseDeclarations(string declarations) { return ParseDeclarations(declarations,false);}
+        internal static StyleDeclaration ParseDeclarations(string declarations, bool quirksMode)
         {
             var decl = new StyleDeclaration();
             AppendDeclarations(decl, declarations, quirksMode);
 
             return decl;
         }
-
-        internal static void AppendDeclarations(StyleDeclaration list, string css, bool quirksMode = false)
+        
+        internal static void AppendDeclarations(StyleDeclaration list, string css) { AppendDeclarations(list, css,false);}
+        internal static void AppendDeclarations(StyleDeclaration list, string css, bool quirksMode)
         {
             var parser = new Parser();//(new StyleSheet(), new StylesheetReader(declarations))
            

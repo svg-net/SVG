@@ -19,6 +19,6 @@ namespace ExCSS
                 : string.Format(":{0}({1})", functionName, FunctionText);
         }
 
-        public abstract override string ToString(bool friendlyFormat, int indentation = 0);
+        public abstract override string ToString(bool friendlyFormat, int indentation);
     }
 }

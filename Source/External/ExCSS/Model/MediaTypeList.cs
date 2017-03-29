@@ -75,10 +75,10 @@ namespace ExCSS
 
         public override string ToString()
         {
-            return ToString(false);
+            return ToString(false, 0);
         }
 
-        public string ToString(bool friendlyFormat, int indentation = 0)
+        public string ToString(bool friendlyFormat, int indentation)
         {
             return friendlyFormat
                 ? string.Join(", ", _media.ToArray())

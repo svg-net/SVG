@@ -74,7 +74,7 @@ namespace Svg
         /// <param name="element">The <see cref="SvgElement"/> to be managed.</param>
         public virtual void Add(SvgElement element)
         {
-            AddAndForceUniqueID(element, null, false);
+            AddAndForceUniqueID(element, null, false, null);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Svg
         /// <param name="autoForceUniqueID">Pass true here, if you want the ID to be fixed</param>
         /// <param name="logElementOldIDNewID">If not null, the action is called before the id is fixed</param>
         /// <returns>true, if ID was altered</returns>
-        public virtual bool AddAndForceUniqueID(SvgElement element, SvgElement sibling, bool autoForceUniqueID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        public virtual bool AddAndForceUniqueID(SvgElement element, SvgElement sibling, bool autoForceUniqueID, Action<SvgElement, string, string> logElementOldIDNewID)
         {
             var result = false;
             if (!string.IsNullOrEmpty(element.ID))
@@ -128,7 +128,7 @@ namespace Svg
         /// <para>The ID cannot start with a digit.</para>
         /// <para>An element with the same ID already exists within the containing <see cref="SvgDocument"/>.</para>
         /// </exception>
-        public string EnsureValidId(string id, bool autoForceUniqueID = false)
+        public string EnsureValidId(string id, bool autoForceUniqueID)
         {
 
             if (string.IsNullOrEmpty(id))

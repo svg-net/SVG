@@ -17,8 +17,7 @@ namespace ExCSS
             
             Delimiter = delimiter;
         }
-
-        public override string ToString(bool friendlyFormat, int indentation = 0)
+        public override string ToString(bool friendlyFormat, int indentation)
         {
             var builder = new StringBuilder();
 

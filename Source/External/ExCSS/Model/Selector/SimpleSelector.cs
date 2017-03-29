@@ -118,7 +118,7 @@ namespace ExCSS
             return "'" + value + "'";
         }
 
-        public override string ToString(bool friendlyFormat, int indentation = 0)
+        public override string ToString(bool friendlyFormat, int indentation)
         {
             return _code;
         }

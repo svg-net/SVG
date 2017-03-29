@@ -61,7 +61,7 @@ namespace Svg
         	 System.Diagnostics.Debug.WriteLine("ID of SVG element " + elem.ToString() + " changed from " + oldId + " to " + newID);
         }
 
-        public void InsertAndForceUniqueID(int index, SvgElement item, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        public void InsertAndForceUniqueID(int index, SvgElement item, bool autoForceUniqueID, bool autoFixChildrenID, Action<SvgElement, string, string> logElementOldIDNewID)
         {
             AddToIdManager(item, this._elements[index], autoForceUniqueID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Insert(index, item);
@@ -89,14 +89,14 @@ namespace Svg
             this.AddAndForceUniqueID(item, true, true, LogIDChange);
         }
 
-        public void AddAndForceUniqueID(SvgElement item, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        public void AddAndForceUniqueID(SvgElement item, bool autoForceUniqueID, bool autoFixChildrenID, Action<SvgElement, string, string> logElementOldIDNewID)
         {
             AddToIdManager(item, null, autoForceUniqueID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Add(item);
             item._parent.OnElementAdded(item, this.Count - 1);
         }
 
-        private void AddToIdManager(SvgElement item, SvgElement sibling, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        private void AddToIdManager(SvgElement item, SvgElement sibling, bool autoForceUniqueID, bool autoFixChildrenID, Action<SvgElement, string, string> logElementOldIDNewID)
         {
             if (!this._mock)
             {

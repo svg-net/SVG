@@ -5,7 +5,7 @@ namespace ExCSS
 {
     internal sealed class NthLastChildSelector : NthChildSelector, IToString
     {
-        public override string ToString(bool friendlyFormat, int indentation = 0)
+        public override string ToString(bool friendlyFormat, int indentation)
         {
             return FormatSelector(PseudoSelectorPrefix.PseudoFunctionNthlastchild);
         }
