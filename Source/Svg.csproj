@@ -254,7 +254,7 @@
     <Compile Include="NonSvgElement.cs" />
     <Compile Include="SvgUnknownElement.cs" />
     <Compile Include="SvgElementAttribute.cs" />
-    <Compile Include="SvgExtensions.cs" />
+    <Compile Include="SvgExtentions.cs" />
     <Compile Include="Rendering\SvgRenderer.cs" />
     <Compile Include="Painting\SvgColourConverter.cs" />
     <Compile Include="Painting\SvgGradientSpreadMethod.cs" />
