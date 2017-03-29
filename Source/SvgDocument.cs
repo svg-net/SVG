@@ -483,6 +483,9 @@ namespace Svg
 				{
 					renderer.SetBoundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
 
+                    //JCT, 2017-3-23: Instead do transformations by setting viewbox to apply apsect ratio and scaling properly.
+                    this.ViewBox = new SvgViewBox(0, 0, bitmap.Width, bitmap.Height);
+
 					//EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
 					this.Overflow = SvgOverflow.Auto;
 

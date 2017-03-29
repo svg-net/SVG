@@ -138,10 +138,10 @@ namespace Svg
             var width = (frag == null ? this.Width : frag.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, frag));
             var height = (frag == null ? this.Height : frag.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, frag));
 
-            var fScaleX = width / this.Width;
-            var fScaleY = height / this.Height; //(this.MinY < 0 ? -1 : 1) * 
-            var fMinX = -this.MinX * fScaleX;
-            var fMinY = -this.MinY * fScaleY;
+            var fScaleX = this.Width / width;// width / this.Width;
+            var fScaleY = this.Height / height;//height / this.Height; //(this.MinY < 0 ? -1 : 1) * 
+            var fMinX = -this.MinX;// *fScaleX;
+            var fMinY = -this.MinY;// *fScaleY;
 
             if (aspectRatio == null) aspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid, false);
             if (aspectRatio.Align != SvgPreserveAspectRatio.none)
@@ -156,12 +156,12 @@ namespace Svg
                     fScaleX = Math.Min(fScaleX, fScaleY);
                     fScaleY = Math.Min(fScaleX, fScaleY);
                 }
-                float fViewMidX = (this.Width / 2) * fScaleX;
-                float fViewMidY = (this.Height / 2) * fScaleY;
-                float fMidX = width / 2;
-                float fMidY = height / 2;
-                fMinX = -this.MinX * fScaleX;
-                fMinY = -this.MinY * fScaleY;
+                float fViewMidX = (this.Width / 2);
+                float fViewMidY = (this.Height / 2);
+                float fMidX = width / 2 * fScaleX;
+                float fMidY = height / 2 * fScaleY;
+                fMinX = -this.MinX;// *fScaleX;
+                fMinY = -this.MinY;// *fScaleY;
 
                 switch (aspectRatio.Align)
                 {
@@ -201,7 +201,7 @@ namespace Svg
             }
             
             renderer.TranslateTransform(x, y, MatrixOrder.Prepend);
-            renderer.TranslateTransform(fMinX, fMinY, MatrixOrder.Prepend);
+            renderer.TranslateTransform(-fMinX, -fMinY, MatrixOrder.Prepend);
             renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Prepend);       
         }
     }
