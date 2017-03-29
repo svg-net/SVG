@@ -215,7 +215,6 @@
     <Compile Include="External\ExCSS\StylesheetParseError.cs" />
     <Compile Include="External\ExCSS\StylesheetReader.cs" />
     <Compile Include="Extensibility\SvgForeignObject.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="External\Fizzler\Either.cs" />
     <Compile Include="External\Fizzler\HumanReadableSelectorGenerator.cs" />
     <Compile Include="External\Fizzler\IElementOps.cs" />
