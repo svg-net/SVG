@@ -422,6 +422,7 @@ namespace Svg
         /// Renders the <see cref="SvgDocument"/> to the specified <see cref="Graphics"/>.
         /// </summary>
         /// <param name="graphics">The <see cref="Graphics"/> to be rendered to.</param>
+        /// <param name="bounds">Area on the graphics object to be rendered to.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
         public void Draw(Graphics graphics, RectangleF? bounds)
         {
