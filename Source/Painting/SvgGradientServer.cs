@@ -185,6 +185,7 @@ namespace Svg
                     radial
                     ? 1 - (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth)
                     : (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth);
+                position = (float)Math.Round(position, 1, MidpointRounding.AwayFromZero);
                 colour = System.Drawing.Color.FromArgb((int)Math.Round(mergedOpacity * 255), currentStop.GetColor(this));
 
                 actualStops++;
