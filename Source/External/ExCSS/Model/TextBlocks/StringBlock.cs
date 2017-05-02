@@ -8,12 +8,20 @@ namespace ExCSS.Model.TextBlocks
             GrammarSegment = type;
         }
 
-        internal static StringBlock Plain(string data, bool bad = false)
+        
+        internal static StringBlock Plain(string data)
+        {
+            return Plain(data,false);
+        }
+        internal static StringBlock Plain(string data, bool bad)
         {
             return new StringBlock(GrammarSegment.String) { Value = data, IsBad = bad };
         }
-
-        internal static StringBlock Url(string data, bool bad = false)
+        internal static StringBlock Url(string data)
+        {
+            return Url(data,false);
+        }
+        internal static StringBlock Url(string data, bool bad)
         {
             return new StringBlock(GrammarSegment.Url) { Value = data, IsBad = bad };
         }

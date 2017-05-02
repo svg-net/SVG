@@ -10,7 +10,6 @@ namespace ExCSS
         }
 
         public RuleType RuleType { get; set; }
-
-        public abstract string ToString(bool friendlyFormat, int indentation = 0);
+        public abstract string ToString(bool friendlyFormat, int indentation);
     }
 }

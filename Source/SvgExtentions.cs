@@ -15,6 +15,24 @@ namespace Svg
     /// </summary>
     public static class SvgExtentions
     {
+        public static Brush GetBrush(this SvgPaintServer source, SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity)
+        {
+            return source.GetBrush(styleOwner, renderer, opacity, false);
+        }
+
+        public static void SetClip(this ISvgRenderer source,Region region)
+        {
+            source.SetClip(region, System.Drawing.Drawing2D.CombineMode.Replace);
+        }
+        public static void ScaleTransform(this ISvgRenderer source, float dx, float dy)
+        {
+            source.ScaleTransform(dx, dy, System.Drawing.Drawing2D.MatrixOrder.Append);
+        }
+
+        public static void TranslateTransform(this ISvgRenderer source, float dx, float dy)
+        {
+            source.TranslateTransform(dx, dy, System.Drawing.Drawing2D.MatrixOrder.Append);
+        }
         public static void SetRectangle(this SvgRectangle r, RectangleF bounds)
         {
             r.X = bounds.X;

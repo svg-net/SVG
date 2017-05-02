@@ -568,7 +568,15 @@ namespace Svg
             }
         }
 
-        public void Write(Stream stream, bool useBom = true)
+        public void Write(string path)
+        {
+            this.Write(path, false);
+        }
+        public void Write(Stream stream)
+        {
+            this.Write(stream, false);
+        }
+        public void Write(Stream stream, bool useBom)
         {
 
             var xmlWriter = new XmlTextWriter(stream, useBom ? Encoding.UTF8 : new System.Text.UTF8Encoding(false));
@@ -584,7 +592,7 @@ namespace Svg
             xmlWriter.Flush();
         }
 
-        public void Write(string path, bool useBom = true)
+        public void Write(string path, bool useBom)
         {
             using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {

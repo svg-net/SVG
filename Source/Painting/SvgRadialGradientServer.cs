@@ -105,7 +105,7 @@ namespace Svg
                     orig);
         }
 
-        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
+        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke)
         {
             LoadStops(renderingElement);
 
@@ -140,7 +140,7 @@ namespace Svg
 
                 // Calculate any required scaling
                 var scaleBounds = RectangleF.Inflate(renderingElement.Bounds, renderingElement.StrokeWidth, renderingElement.StrokeWidth);
-								var scale = CalcScale(scaleBounds, path);
+								var scale = CalcScale(scaleBounds, path,null);
 
                 // Not ideal, but this makes sure that the rest of the shape gets properly filled or drawn
                 if (scale > 1.0f && SpreadMethod == SvgGradientSpreadMethod.Pad)
@@ -156,7 +156,7 @@ namespace Svg
                         {
                             var newClip = origClip.Clone();
                             newClip.Exclude(path);
-                            renderer.SetClip(newClip);
+                            renderer.SetClip(newClip, CombineMode.Replace);
 
                             var renderPath = (GraphicsPath)renderingElement.Path(renderer);
                             if (forStroke)
@@ -215,7 +215,7 @@ namespace Svg
         /// This method continually transforms the rectangle (fewer points) until it is contained by the path
         /// and returns the result of the search.  The scale factor is set to a constant 95%
         /// </remarks>
-        private float CalcScale(RectangleF bounds, GraphicsPath path, Graphics graphics = null)
+        private float CalcScale(RectangleF bounds, GraphicsPath path, Graphics graphics)
         {
             var points = new PointF[] {
                 new PointF(bounds.Left, bounds.Top), 

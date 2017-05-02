@@ -181,23 +181,27 @@ namespace ExCSS
 
         public override string ToString()
         {
-            return ToString(false);
+            return ToString(false,0);
         }
 
-        public string ToString(bool friendlyFormat, int indentation = 0)
+        public string ToString(bool friendlyFormat, int indentation)
         {
             return ToCss().Indent(friendlyFormat, indentation);
         }
 
-        public string ToString(bool forceLong, bool friendlyFormat, int indentation = 0)
+        public string ToString(bool forceLong, bool friendlyFormat, int indentation)
         {
             return ToCss(forceLong).Indent(friendlyFormat, indentation);
         }
 
+        string ToCss()
+        {
+            return ToCss(false);
+        }
         /// <summary>
         /// Return the shortest form possible
         /// </summary>
-        string ToCss(bool forceLong = false)
+        string ToCss(bool forceLong)
         {
             if (A == 255 && !forceLong && ((R >> 4) == (R & 0x0F)) && ((G >> 4) == (G & 0x0F)) && ((B >> 4) == (B & 0x0F)))
                 return "#" + R.ToHexChar() + G.ToHexChar() + B.ToHexChar();

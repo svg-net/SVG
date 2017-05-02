@@ -52,6 +52,6 @@ namespace ExCSS
             return ((IEnumerable)Selectors).GetEnumerator();
         }
 
-        public override abstract string ToString(bool friendlyFormat, int indentation = 0);
+        public override abstract string ToString(bool friendlyFormat, int indentation);
     }
 }

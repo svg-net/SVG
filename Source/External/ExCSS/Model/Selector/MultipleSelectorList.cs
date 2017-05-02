@@ -19,7 +19,7 @@ namespace ExCSS
 
         internal bool IsInvalid { get; set; }
 
-        public override string ToString(bool friendlyFormat, int indentation = 0)
+        public override string ToString(bool friendlyFormat, int indentation)
         {
             var builder = new StringBuilder();
 

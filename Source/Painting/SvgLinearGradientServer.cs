@@ -79,7 +79,7 @@ namespace Svg
             Y2 = new SvgUnit(SvgUnitType.Percentage, 0F);
         }
 
-        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
+        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke)
         {
             LoadStops(renderingElement);
 

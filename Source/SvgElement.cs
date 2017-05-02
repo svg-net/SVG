@@ -372,7 +372,7 @@ namespace Svg
             get { return this.Attributes.GetAttribute<string>("id"); }
             set
             {
-                SetAndForceUniqueID(value, false);
+                SetAndForceUniqueID(value, false,null);
             }
         }
 
@@ -387,7 +387,7 @@ namespace Svg
             set { this.Attributes["space"] = value; }
         }
 
-        public void SetAndForceUniqueID(string value, bool autoForceUniqueID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        public void SetAndForceUniqueID(string value, bool autoForceUniqueID, Action<SvgElement, string, string> logElementOldIDNewID)
         {
             // Don't do anything if it hasn't changed
             if (string.Compare(this.ID, value) == 0)

@@ -2,6 +2,6 @@
 {
     public interface IToString
     {
-        string ToString(bool friendlyFormat, int indentation = 0);
+        string ToString(bool friendlyFormat, int indentation);
     }
 }
