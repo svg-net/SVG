@@ -199,10 +199,10 @@ namespace Svg
                         break;
                 }
             }
-            
+
             renderer.TranslateTransform(x, y, MatrixOrder.Prepend);
             renderer.TranslateTransform(fMinX, fMinY, MatrixOrder.Prepend);
-            renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Prepend);       
+            renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Prepend);
         }
     }
 
