@@ -12,7 +12,7 @@ namespace Svg
     /// <summary>
     /// Provides the methods required in order to parse and create <see cref="SvgElement"/> instances from XML.
     /// </summary>
-    internal class SvgElementFactory
+    public class SvgElementFactory
     {
         private Dictionary<string, ElementInfo> availableElements;
         private Parser cssParser = new Parser();
@@ -132,7 +132,7 @@ namespace Svg
 
             while (reader.MoveToNextAttribute())
             {
-                if (reader.LocalName.Equals("style") && !(element is NonSvgElement)) 
+                if (reader.LocalName.Equals("style") && !(element is NonSvgElement))
                 {
                     var inlineSheet = cssParser.Parse("#a{" + reader.Value + "}");
                     foreach (var rule in inlineSheet.StyleRules)
@@ -254,7 +254,7 @@ namespace Svg
                     _propertyDescriptors.Add(elementType, new Dictionary<string, PropertyDescriptorCollection>());
 
                     _propertyDescriptors[elementType].Add(attributeName, properties);
-                } 
+                }
             }
 
             if (properties.Count > 0)
@@ -269,7 +269,7 @@ namespace Svg
 					}
 
 					descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
-					
+
 
                 }
                 catch
@@ -307,7 +307,7 @@ namespace Svg
         /// Contains information about a type inheriting from <see cref="SvgElement"/>.
         /// </summary>
         [DebuggerDisplay("{ElementName}, {ElementType}")]
-        internal sealed class ElementInfo
+        public sealed class ElementInfo
         {
             /// <summary>
             /// Gets the SVG name of the <see cref="SvgElement"/>.
