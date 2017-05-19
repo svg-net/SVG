@@ -233,6 +233,8 @@ namespace Fizzler
                     case "first-child": _generator.FirstChild(); break;
                     case "last-child": _generator.LastChild(); break;
                     case "only-child": _generator.OnlyChild(); break;
+                    case "hover":
+                        break;
                     case "empty": _generator.Empty(); break;
                     default:
                         {

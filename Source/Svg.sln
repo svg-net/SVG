@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svg", "Svg.csproj", "{886A98C5-37C0-4E8B-885E-30C1D2F98B47}"
 EndProject
@@ -19,6 +19,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SvgW3CTestRunner", "..\Tests\SvgW3CTestRunner\SvgW3CTestRunner.csproj", "{8ED74C39-6CFF-421E-952A-30F9E6957108}"
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Svg.Package", "SvgNuget\Svg.Package.nuproj", "{AEEFC0CC-6D17-439D-B8E0-53B713485E3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPdfSharp", "..\TestPdfSharp\TestPdfSharp.csproj", "{4CC1C8E3-8610-4570-A795-143CEE3EB739}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +88,16 @@ Global
 		{AEEFC0CC-6D17-439D-B8E0-53B713485E3B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{AEEFC0CC-6D17-439D-B8E0-53B713485E3B}.Release|x86.ActiveCfg = Release|Any CPU
 		{AEEFC0CC-6D17-439D-B8E0-53B713485E3B}.Release|x86.Build.0 = Release|Any CPU
+		{4CC1C8E3-8610-4570-A795-143CEE3EB739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CC1C8E3-8610-4570-A795-143CEE3EB739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CC1C8E3-8610-4570-A795-143CEE3EB739}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4CC1C8E3-8610-4570-A795-143CEE3EB739}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4CC1C8E3-8610-4570-A795-143CEE3EB739}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4CC1C8E3-8610-4570-A795-143CEE3EB739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CC1C8E3-8610-4570-A795-143CEE3EB739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CC1C8E3-8610-4570-A795-143CEE3EB739}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4CC1C8E3-8610-4570-A795-143CEE3EB739}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4CC1C8E3-8610-4570-A795-143CEE3EB739}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

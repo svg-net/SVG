@@ -285,6 +285,7 @@ namespace Fizzler
         /// </summary>
         public virtual void Empty()
         {
+            
             Add(Ops.Empty());
         }
 

@@ -1,11 +1,17 @@
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Svg.Pathing
 {
+
+
     public sealed class SvgClosePathSegment : SvgPathSegment
     {
+
+
         public override void AddToPath(System.Drawing.Drawing2D.GraphicsPath graphicsPath)
         {
             var pathData = graphicsPath.PathData;
@@ -26,10 +32,14 @@ namespace Svg.Pathing
             }
         }
 
+
         public override string ToString()
         {
             return "z";
         }
 
+
     }
+
+
 }

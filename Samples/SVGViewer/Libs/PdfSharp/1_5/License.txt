@@ -1,0 +1,30 @@
+﻿
+http://www.pdfsharp.net/
+http://www.pdfsharp.net/wiki/PDFsharpSamples.ashx
+http://www.pdfsharp.net/wiki/Graphics-sample.ashx
+http://www.pdfsharp.net/wiki/Images-sample.ashx
+http://www.pdfsharp.net/wiki/Graphics-sample.ashx#Draw_an_image_in_original_size_20
+
+
+D:\Stefan.Steiger\Desktop\PDFSharp-MigraDocFoundation-1_32\PDFsharp\samples\Samples C#\Based on GDI+\Graphics\
+D:\Stefan.Steiger\Desktop\PDFSharp-MigraDocFoundation-1_32\PDFsharp\samples\Samples C#\Based on GDI+\Graphics\Program.cs
+
+        
+PDFsharp and MigraDoc Foundation are published under the MIT License.
+
+See the PDFsharp License.
+See the MigraDoc Foundation License.
+
+
+
+
+
+http://stackoverflow.com/questions/13196244/why-is-pdfsharp-creating-borders-around-web-links
+
+Downloading the latest release of PDFSharp from CodePlex 
+
+2.) Modifying the PdfLinkAnnotations.cs line 120 
+from 
+new PdfLiteral("<</Type/Border>>"); 
+to 
+new PdfLiteral("<</Type/Border/W 0>>");.

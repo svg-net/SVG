@@ -16,7 +16,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <SccProjectName>
     </SccProjectName>
@@ -82,6 +82,10 @@
     <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PdfSharp, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\PdfSharp\1_5\PdfSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -116,6 +120,7 @@
     <Compile Include="Paths\CoordinateParser.cs" />
     <Compile Include="Rendering\IGraphicsProvider.cs" />
     <Compile Include="Rendering\ISvgRenderer.cs" />
+    <Compile Include="Rendering\Pdf\XColorHelper.cs" />
     <Compile Include="Rendering\SvgRendering.cs" />
     <Compile Include="SvgElementStyle.cs" />
     <Compile Include="SvgNodeReader.cs" />
@@ -320,6 +325,24 @@
     <Compile Include="Transforms\SvgTransformConverter.cs" />
     <Compile Include="Transforms\SvgTranslate.cs" />
     <Compile Include="Web\SvgHandler.cs" />
+    <Compile Include="___COR\Action.cs" />
+    <Compile Include="___COR\Check.cs" />
+    <Compile Include="___COR\Enumerable.cs" />
+    <Compile Include="___COR\ExtensionAttribute.cs" />
+    <Compile Include="___COR\Funcs.cs" />
+    <Compile Include="___COR\Grouping.cs" />
+    <Compile Include="___COR\HashPrimeNumbers.cs" />
+    <Compile Include="___COR\HashSet.cs" />
+    <Compile Include="___COR\IGrouping.cs" />
+    <Compile Include="___COR\ILookup_T.cs" />
+    <Compile Include="___COR\IOrderedEnumerable_T.cs" />
+    <Compile Include="___COR\Lookup.cs" />
+    <Compile Include="___COR\OrderedEnumerable.cs" />
+    <Compile Include="___COR\OrderedSequence.cs" />
+    <Compile Include="___COR\QuickSort.cs" />
+    <Compile Include="___COR\SortContext.cs" />
+    <Compile Include="___COR\SortDirection.cs" />
+    <Compile Include="___COR\SortSequenceContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -358,6 +381,10 @@
     <None Include="Basic Shapes\DOM.cd" />
     <None Include="Svg.nuspec" />
     <None Include="svgkey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libs\PdfSharp\1_5\License.txt" />
+    <Content Include="Libs\PdfSharp\1_5\PdfSharp.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

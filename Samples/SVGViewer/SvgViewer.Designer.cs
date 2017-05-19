@@ -64,8 +64,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.svgImage.Location = new System.Drawing.Point(0, 25);
             this.svgImage.Name = "svgImage";
-            this.svgImage.Size = new System.Drawing.Size(735, 449);
-            this.svgImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.svgImage.Size = new System.Drawing.Size(735, 651);
+            this.svgImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.svgImage.TabIndex = 1;
             this.svgImage.TabStop = false;
             // 
@@ -81,7 +81,7 @@
             this.textBox1.MaxLength = 327670;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(307, 446);
+            this.textBox1.Size = new System.Drawing.Size(307, 648);
             this.textBox1.TabIndex = 2;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -89,11 +89,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1060, 474);
+            this.ClientSize = new System.Drawing.Size(1060, 676);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.svgImage);
             this.Controls.Add(this.toolStrip1);
             this.Name = "SVGViewer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SVG Viewer";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

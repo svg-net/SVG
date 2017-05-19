@@ -455,7 +455,7 @@ namespace Svg
 			    throw new SvgMemoryException("Cannot process SVG file, cannot allocate the required memory", e);
 		    }
 
-	    // 	bitmap.SetResolution(300, 300);
+	        // 	bitmap.SetResolution(300, 300);
             try
             {
                 Draw(bitmap);
@@ -469,6 +469,93 @@ namespace Svg
             //Trace.TraceInformation("End Render");
             return bitmap;
         }
+
+
+        public virtual PdfSharp.Pdf.PdfDocument DrawPdf()
+        {
+            //Trace.TraceInformation("Begin Render");
+
+            var size = GetDimensions();
+            PdfSharp.Pdf.PdfDocument doc = null;
+
+            try
+            {
+                doc = new PdfSharp.Pdf.PdfDocument();
+                doc.Info.Title = "SVG";
+                doc.Info.Author = "COR Managementsysteme GmbH - Stefan Steiger";
+                doc.Info.Subject = "Vector PDF";
+                doc.Info.Keywords = "Vector PDF, Floorplan, Floor, Plan, 2D";
+
+                
+
+
+
+                doc.ViewerPreferences.Direction = PdfSharp.Pdf.PdfReadingDirection.LeftToRight;
+
+                PdfSharp.Pdf.PdfPage page = doc.AddPage();
+                page.Orientation = PdfSharp.PageOrientation.Landscape;
+
+
+
+                double marginLeft = 0;
+                double marginTop = marginLeft;
+
+                page.Width = marginLeft * 2
+                    + size.Width
+                ;
+
+                page.Height = marginTop * 2
+                    + size.Height
+                ;
+            }
+            catch (ArgumentException e)
+            {
+                //When processing too many files at one the system can run out of memory
+                throw new SvgMemoryException("Cannot process SVG file, cannot allocate the required memory", e);
+            }
+
+            // 	bitmap.SetResolution(300, 300);
+            try
+            {
+                Draw(doc);
+            }
+            catch
+            {
+                doc.Dispose();
+                throw;
+            }
+
+            //Trace.TraceInformation("End Render");
+            return doc;
+        }
+
+        /// <summary>
+        /// Renders the <see cref="SvgDocument"/> into a given Bitmap <see cref="Bitmap"/>.
+        /// </summary>
+        public virtual void Draw(PdfSharp.Pdf.PdfDocument doc)
+        {
+            //Trace.TraceInformation("Begin Render");
+
+            try
+            {
+                using (var renderer = SvgRenderer.FromPdf(doc))
+                {
+                    renderer.SetBoundable(new GenericBoundable(0, 0, (int) doc.Pages[0].Width, (int) doc.Pages[0].Height));
+
+                    //EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
+                    this.Overflow = SvgOverflow.Auto;
+
+                    this.Render(renderer);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+
+            //Trace.TraceInformation("End Render");
+        }
+
 
         /// <summary>
         /// Renders the <see cref="SvgDocument"/> into a given Bitmap <see cref="Bitmap"/>.
