@@ -1,6 +1,12 @@
 using System;
 using System.Collections.Generic;
+#if NETFULL
+using System.Drawing.Drawing2D;
 using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -11,7 +17,7 @@ namespace Svg
     /// <summary>
     /// Converts string representations of colours into <see cref="Color"/> objects.
     /// </summary>
-    public class SvgColourConverter : System.Drawing.ColorConverter
+    public class SvgColourConverter : ColorConverter
     {
         /// <summary>
         /// Converts the given object to the converter's native type.
@@ -74,13 +80,13 @@ namespace Svg
                             Color colorpart;
                             if (values[0].Trim().EndsWith("%"))
                             {
-                                colorpart = System.Drawing.Color.FromArgb(alphaValue, (int)Math.Round(255 * float.Parse(values[0].Trim().TrimEnd('%')) / 100f),
+                                colorpart = Color.FromArgb(alphaValue, (int)Math.Round(255 * float.Parse(values[0].Trim().TrimEnd('%')) / 100f),
                                                                                       (int)Math.Round(255 * float.Parse(values[1].Trim().TrimEnd('%')) / 100f),
                                                                                       (int)Math.Round(255 * float.Parse(values[2].Trim().TrimEnd('%')) / 100f));
                             }
                             else
                             {
-                                colorpart = System.Drawing.Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
+                                colorpart = Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
                             }
 
                             return colorpart;

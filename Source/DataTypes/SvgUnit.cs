@@ -2,7 +2,13 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+#if NETFULL
+using System.Drawing.Drawing2D;
 using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 
 namespace Svg
 {
@@ -148,7 +154,7 @@ namespace Svg
                         break;
                     }
 
-                    System.Drawing.SizeF size = boundable.Bounds.Size;
+                    SizeF size = boundable.Bounds.Size;
 
                     switch (renderType)
                     {
@@ -322,20 +328,20 @@ namespace Svg
             this._deviceValue = null;
         }
 
-        public static System.Drawing.PointF GetDevicePoint(SvgUnit x, SvgUnit y, ISvgRenderer renderer, SvgElement owner)
+        public static PointF GetDevicePoint(SvgUnit x, SvgUnit y, ISvgRenderer renderer, SvgElement owner)
         {
-            return new System.Drawing.PointF(x.ToDeviceValue(renderer, UnitRenderingType.Horizontal, owner),
+            return new PointF(x.ToDeviceValue(renderer, UnitRenderingType.Horizontal, owner),
                                              y.ToDeviceValue(renderer, UnitRenderingType.Vertical, owner));
         }
-        public static System.Drawing.PointF GetDevicePointOffset(SvgUnit x, SvgUnit y, ISvgRenderer renderer, SvgElement owner)
+        public static PointF GetDevicePointOffset(SvgUnit x, SvgUnit y, ISvgRenderer renderer, SvgElement owner)
         {
-            return new System.Drawing.PointF(x.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, owner),
+            return new PointF(x.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, owner),
                                              y.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, owner));
         }
 
-        public static System.Drawing.SizeF GetDeviceSize(SvgUnit width, SvgUnit height, ISvgRenderer renderer, SvgElement owner)
+        public static SizeF GetDeviceSize(SvgUnit width, SvgUnit height, ISvgRenderer renderer, SvgElement owner)
         {
-            return new System.Drawing.SizeF(width.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, owner),
+            return new SizeF(width.ToDeviceValue(renderer, UnitRenderingType.HorizontalOffset, owner),
                                             height.ToDeviceValue(renderer, UnitRenderingType.VerticalOffset, owner));
         }
     }

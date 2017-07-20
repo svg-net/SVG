@@ -1,6 +1,11 @@
 using System;
-using System.Drawing;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 using Svg.ExtensionMethods;
 
 namespace Svg
@@ -122,7 +127,7 @@ namespace Svg
         {
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             if ((this._path == null || this.IsPathDirty) && base.StrokeWidth > 0)
             {

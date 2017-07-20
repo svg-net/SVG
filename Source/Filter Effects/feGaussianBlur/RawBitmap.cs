@@ -1,6 +1,13 @@
 ﻿using System;
+#if NETFULL
+using System.Drawing.Drawing2D;
 using System.Drawing;
 using System.Drawing.Imaging;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+using System.DrawingCore.Imaging;
+#endif
 using System.Runtime.InteropServices;
 
 namespace Svg.FilterEffects

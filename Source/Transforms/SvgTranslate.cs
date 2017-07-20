@@ -1,6 +1,12 @@
 using System;
 using System.Collections.Generic;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 using System.Globalization;
 using System.Text;
 
@@ -23,7 +29,7 @@ namespace Svg.Transforms
             set { this.y = value; }
         }
 
-        public override System.Drawing.Drawing2D.Matrix Matrix
+        public override Matrix Matrix
         {
             get
             {

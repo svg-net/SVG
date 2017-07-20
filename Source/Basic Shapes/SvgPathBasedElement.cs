@@ -1,4 +1,10 @@
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 
 namespace Svg
 {
@@ -7,7 +13,7 @@ namespace Svg
     /// </summary>
     public abstract class SvgPathBasedElement : SvgVisualElement
     {
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {

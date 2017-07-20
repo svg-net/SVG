@@ -1,7 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 using System.Globalization;
 
 namespace Svg.Transforms
@@ -23,11 +29,11 @@ namespace Svg.Transforms
             set { this.scaleFactorY = value; }
         }
 
-        public override System.Drawing.Drawing2D.Matrix Matrix
+        public override Matrix Matrix
         {
             get
             {
-                var matrix = new System.Drawing.Drawing2D.Matrix();
+                var matrix = new Matrix();
                 matrix.Scale(this.X, this.Y);
                 return matrix;
             }

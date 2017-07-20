@@ -1,6 +1,11 @@
 using System;
-using System.Drawing;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 using System.Linq;
 using Svg.DataTypes;
 
@@ -87,7 +92,7 @@ namespace Svg
             Overflow = SvgOverflow.Hidden;
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             var path = this.Children.FirstOrDefault(x => x is SvgVisualElement);
             if (path != null)
@@ -95,14 +100,14 @@ namespace Svg
             return null;
         }
 
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {
                 var path = this.Path(null);
                 if (path != null)
                     return path.GetBounds();
-                return new System.Drawing.RectangleF();
+                return new RectangleF();
             }
         }
 

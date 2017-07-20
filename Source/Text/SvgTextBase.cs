@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
-using System.Drawing;
+#if NETFULL
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using System.Drawing;
+using SystemColor = System.Drawing.Color;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore.Text;
+using System.DrawingCore;
+using SystemColor = System.DrawingCore.Color;
+#endif
 using Svg.DataTypes;
 using System.Linq;
 using System.Globalization;
@@ -192,7 +200,7 @@ namespace Svg
         /// <value>The fill.</value>
         public override SvgPaintServer Fill
         {
-            get { return (this.Attributes["fill"] == null) ? new SvgColourServer(System.Drawing.Color.Black) : (SvgPaintServer)this.Attributes["fill"]; }
+            get { return (this.Attributes["fill"] == null) ? new SvgColourServer(SystemColor.Black) : (SvgPaintServer)this.Attributes["fill"]; }
             set { this.Attributes["fill"] = value; }
         }
 
@@ -211,7 +219,7 @@ namespace Svg
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {

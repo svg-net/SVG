@@ -1,7 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+using SystemColor = System.Drawing.Color;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+using SystemColor = System.DrawingCore.Color;
+#endif
 using Svg.Transforms;
 
 namespace Svg
@@ -174,7 +181,7 @@ namespace Svg
             int actualStops = 0;
             float mergedOpacity = 0.0f;
             float position = 0.0f;
-            Color colour = System.Drawing.Color.Black;
+            Color colour = SystemColor.Black;
 
             for (int i = 0; i < colourBlends; i++)
             {
@@ -187,7 +194,7 @@ namespace Svg
                     ? 1 - (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth)
                     : (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth);
                 position = (float)Math.Round(position, 1, MidpointRounding.AwayFromZero);
-                colour = System.Drawing.Color.FromArgb((int)Math.Round(mergedOpacity * 255), currentStop.GetColor(this));
+                colour = SystemColor.FromArgb((int)Math.Round(mergedOpacity * 255), currentStop.GetColor(this));
 
                 actualStops++;
 

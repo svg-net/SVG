@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+#if NETFULL
+using System.Drawing.Drawing2D;
 using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 
 namespace Svg.Document_Structure
 {
@@ -39,7 +45,7 @@ namespace Svg.Document_Structure
         /// Gets the <see cref="System.Drawing.Drawing2D.GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             return GetPaths(this, renderer);
         }
@@ -48,7 +54,7 @@ namespace Svg.Document_Structure
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {

@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Drawing;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 
 namespace Svg
 {
@@ -53,7 +58,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Svg.SvgViewBox"/> to <see cref="System.Drawing.RectangleF"/>.
+        /// Performs an implicit conversion from <see cref="Svg.SvgViewBox"/> to <see cref="RectangleF"/>.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The result of the conversion.</returns>
@@ -63,7 +68,7 @@ namespace Svg
         }
         
         /// <summary>
-        /// Performs an implicit conversion from <see cref="System.Drawing.RectangleF"/> to <see cref="Svg.SvgViewBox"/>.
+        /// Performs an implicit conversion from <see cref="RectangleF"/> to <see cref="Svg.SvgViewBox"/>.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The result of the conversion.</returns>

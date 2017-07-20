@@ -1,8 +1,15 @@
 using System;
-using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
+#if NETFULL
+using System.Drawing.Drawing2D;
+using System.Drawing;
 using System.Drawing.Imaging;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+using System.DrawingCore.Imaging;
+#endif
 
 namespace Svg.FilterEffects
 {

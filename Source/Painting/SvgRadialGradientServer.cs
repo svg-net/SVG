@@ -1,8 +1,15 @@
 using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Collections.Generic;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+using SystemColor = System.Drawing.Color;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+using SystemColor = System.DrawingCore.Color;
+#endif
 using System.Linq;
 
 namespace Svg
@@ -147,7 +154,7 @@ namespace Svg
                 {
                     var stop = Stops.Last();
                     var origColor = stop.GetColor(renderingElement);
-                    var renderColor = System.Drawing.Color.FromArgb((int)Math.Round(opacity * stop.Opacity * 255), origColor);
+                    var renderColor = SystemColor.FromArgb((int)Math.Round(opacity * stop.Opacity * 255), origColor);
 
                     var origClip = renderer.GetClip();
                     try

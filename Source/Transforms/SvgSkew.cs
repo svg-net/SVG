@@ -1,5 +1,11 @@
 ﻿﻿using System;
-﻿using System.Drawing.Drawing2D;
+#if NETFULL
+using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+ using System.DrawingCore.Drawing2D;
+ using System.DrawingCore;
+#endif
 using System.Globalization;
 
 namespace Svg.Transforms

@@ -1,12 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+#if NETFULL
+using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 
 namespace Svg.Pathing
 {
     public sealed class SvgClosePathSegment : SvgPathSegment
     {
-        public override void AddToPath(System.Drawing.Drawing2D.GraphicsPath graphicsPath)
+        public override void AddToPath(GraphicsPath graphicsPath)
         {
             var pathData = graphicsPath.PathData;
 

@@ -1,8 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+using SystemColor = System.Drawing.Color;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+using SystemColor = System.DrawingCore.Color;
+#endif
 using System.Linq;
 
 namespace Svg
@@ -88,7 +95,7 @@ namespace Svg
             {
                 var stopColor = this.Stops[0].GetColor(renderingElement); 
                 int alpha = (int)Math.Round((opacity * (stopColor.A/255.0f) ) * 255);
-                Color colour = System.Drawing.Color.FromArgb(alpha, stopColor);
+                SystemColor colour = SystemColor.FromArgb(alpha, stopColor);
                 return new SolidBrush(colour);
             }
 
@@ -161,7 +168,7 @@ namespace Svg
                     effectiveEnd = expansion.EndPoint;
                 }
 
-                var result = new LinearGradientBrush(effectiveStart, effectiveEnd, System.Drawing.Color.Transparent, System.Drawing.Color.Transparent)
+                var result = new LinearGradientBrush(effectiveStart, effectiveEnd, SystemColor.Transparent, SystemColor.Transparent)
                 {
                     InterpolationColors = CalculateColorBlend(renderer, opacity, points[0], effectiveStart, points[1], effectiveEnd),
                     WrapMode = WrapMode.TileFlipX

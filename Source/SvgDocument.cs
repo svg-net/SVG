@@ -2,9 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
 using System.Drawing.Text;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+using System.DrawingCore.Text;
+#endif
 using System.IO;
 using System.Text;
 using System.Xml;

@@ -1,8 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Drawing;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 using System.Xml.Serialization;
 using System.Xml;
 using System.Diagnostics;
@@ -108,7 +113,7 @@ namespace Svg
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get { return this.Path(null).GetBounds(); }
         }

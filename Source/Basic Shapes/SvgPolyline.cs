@@ -1,8 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Drawing;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 using System.Diagnostics;
 using Svg.ExtensionMethods;
 

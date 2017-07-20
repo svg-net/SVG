@@ -2,8 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+#if NETFULL
 using System.Drawing;
 using System.Drawing.Imaging;
+#else
+using System.DrawingCore;
+using System.DrawingCore.Imaging;
+#endif
 using System.IO;
 using System.Linq;
 using System.Text;

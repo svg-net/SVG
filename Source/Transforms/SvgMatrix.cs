@@ -1,7 +1,13 @@
 ﻿﻿using System;
 using System.Collections.Generic;
 using System.Text;
+#if NETFULL
 using System.Drawing.Drawing2D;
+using System.Drawing;
+#else
+using System.DrawingCore.Drawing2D;
+using System.DrawingCore;
+#endif
 using System.Globalization;
 
 namespace Svg.Transforms
@@ -19,7 +25,7 @@ namespace Svg.Transforms
             set { this.points = value; }
         }
 
-        public override System.Drawing.Drawing2D.Matrix Matrix
+        public override Matrix Matrix
         {
             get
             {
