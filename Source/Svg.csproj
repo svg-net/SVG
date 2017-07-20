@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net4</TargetFrameworks>
+    <TargetFrameworks>net4.0;net35;netstandard2.0</TargetFrameworks>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
     <Company></Company>
