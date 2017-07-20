@@ -43,6 +43,7 @@ Global
 		{E702EB7D-D01D-438A-BADD-E72D4E49109F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{E702EB7D-D01D-438A-BADD-E72D4E49109F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{E702EB7D-D01D-438A-BADD-E72D4E49109F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E702EB7D-D01D-438A-BADD-E72D4E49109F}.Debug|x86.Build.0 = Debug|Any CPU
 		{E702EB7D-D01D-438A-BADD-E72D4E49109F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E702EB7D-D01D-438A-BADD-E72D4E49109F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E702EB7D-D01D-438A-BADD-E72D4E49109F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU

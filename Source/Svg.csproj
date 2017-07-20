@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.2;net35</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.2;net35;netstandard2.0</TargetFrameworks>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
@@ -82,6 +82,11 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <DefineConstants>$(DefineConstants);NETCORE;NETCORE22</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp2.2'">
+    <Title>Svg for .Net Standard 2.0</Title>
+    <DefineConstants>$(DefineConstants);NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup Condition="'$(TargetFramework)'=='net35'">
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -119,6 +124,12 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
+    <PackageReference Include="System.Drawing.Common">
+      <Version>4.5.1</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Drawing.Common">
       <Version>4.5.1</Version>
     </PackageReference>

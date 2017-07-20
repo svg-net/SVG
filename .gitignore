@@ -1,4 +1,3 @@
-
 Source/**/bin/
 Source/**/obj/
 Source/**/*.csproj.user
@@ -18,3 +17,11 @@ Source/TestResults/
 Source/.vs
 /Source/Svg.sln.DotSettings.user
 /Source/Svg.XML
+*~
+*.swp
+.vs/**
+.vs
+packages/
+obj/
+bin/
+packages.config
