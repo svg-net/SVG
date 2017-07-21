@@ -32,7 +32,7 @@ License: Microsoft Public License: https://svg.codeplex.com/license</Description
     <AssemblyVersion>2.3.1.0</AssemblyVersion>
     <FileVersion>2.3.1.0</FileVersion>
     <PackageLicenseUrl>http://opensource.org/licenses/MS-PL.html</PackageLicenseUrl>
-    <Version>2.3.2-netcore</Version>
+    <Version>2.3.1</Version>
     <PackageTags>svg, vector graphics, rendering</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
