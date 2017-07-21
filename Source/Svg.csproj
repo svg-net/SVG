@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net4.0;net35;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net4.0;net3.5;netstandard2.0</TargetFrameworks>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
     <Company></Company>
@@ -32,7 +32,7 @@ License: Microsoft Public License: https://svg.codeplex.com/license</Description
     <AssemblyVersion>2.3.1.0</AssemblyVersion>
     <FileVersion>2.3.1.0</FileVersion>
     <PackageLicenseUrl>http://opensource.org/licenses/MS-PL.html</PackageLicenseUrl>
-    <Version>2.3.1</Version>
+    <Version>2.3.2-netcore</Version>
     <PackageTags>svg, vector graphics, rendering</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
