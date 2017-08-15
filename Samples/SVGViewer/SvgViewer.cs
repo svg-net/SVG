@@ -24,14 +24,14 @@ namespace SVGViewer
         {
             if (openSvgFile.ShowDialog() == DialogResult.OK)
             {
-            	SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
-            	RenderSvg(svgDoc);
+                SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
+                RenderSvg(svgDoc);
             }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-        	using(var s = new MemoryStream(UTF8Encoding.Default.GetBytes(textBox1.Text)))
+        	using(var s = new MemoryStream(Encoding.UTF8.GetBytes(textBox1.Text)))
         	{
         		SvgDocument svgDoc = SvgDocument.Open<SvgDocument>(s, null);
         		RenderSvg(svgDoc);
