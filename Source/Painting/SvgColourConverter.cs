@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -192,7 +192,7 @@ namespace Svg
             if (destinationType == typeof(string))
             {
                 var colour = (Color)value;
-                return "#" + colour.R.ToString("X2", null) + colour.G.ToString("X2", null) + colour.B.ToString("X2", null);
+								return ColorTranslator.ToHtml(colour);
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
