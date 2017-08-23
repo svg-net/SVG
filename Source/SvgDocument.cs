@@ -422,8 +422,9 @@ namespace Svg
         /// Renders the <see cref="SvgDocument"/> to the specified <see cref="Graphics"/>.
         /// </summary>
         /// <param name="graphics">The <see cref="Graphics"/> to be rendered to.</param>
+        /// <param name="size">The <see cref="SizeF"/> to render the document.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
-        public void Draw(Graphics graphics)
+        public void Draw(Graphics graphics, SizeF? size = null)
         {
             if (graphics == null)
             {
@@ -431,15 +432,22 @@ namespace Svg
             }
 
             var renderer = SvgRenderer.FromGraphics(graphics);
-            renderer.SetBoundable(this);
+            if (size.HasValue)
+            {
+                renderer.SetBoundable(new GenericBoundable(0, 0, size.Value.Width, size.Value.Height));
+            }
+            else
+            {
+                renderer.SetBoundable(this);
+            }
             this.Render(renderer);
         }
 
-	    /// <summary>
-	    /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
-	    /// </summary>
-	    /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
-	    public virtual Bitmap Draw()
+        /// <summary>
+        /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
+        /// </summary>
+        /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
+        public virtual Bitmap Draw()
 	    {
 		    //Trace.TraceInformation("Begin Render");
 
