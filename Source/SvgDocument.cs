@@ -443,11 +443,11 @@ namespace Svg
             this.Render(renderer);
         }
 
-        /// <summary>
-        /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
-        /// </summary>
-        /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
-        public virtual Bitmap Draw()
+	    /// <summary>
+	    /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
+	    /// </summary>
+	    /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
+	    public virtual Bitmap Draw()
 	    {
 		    //Trace.TraceInformation("Begin Render");
 
