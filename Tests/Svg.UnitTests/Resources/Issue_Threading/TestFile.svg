@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 452 440">
+ <g id="SFixTitle" />
+ <g id="SContent">
+  <g transform="scale(1.33333)">
+   <g transform="matrix(1,0,0,1,0,0)">
+    <g>
+     <defs>
+      <clipPath id="CLIP0">
+       <path d="M0,0 L339,0 L339,330 L0,330 Z " />
+      </clipPath>
+     </defs>
+     <g clip-path="url(#CLIP0)">
+      <g transform="matrix(1,0,0,1,0,0)">
+       <image Id="Image1" x="0" y="0" width="339" height="330" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC45bDN+TgAAAPtJREFUKFMtjsFLhEAUh/1TO3YJOkYdg2DbXVqaZrNrBduiBuuhQ+jBNsXDBlI06jrm0EhsdYxu6vQz/fjN48374PE0pVTTNF0tZSmlrOsa3w4NU+AHwdw0w5UVPlkz01guH3uN54PA/vne+/iy3zeLz9/9h5XteV6rsep8SqW9xZKEizIX5WuSWvHByWQMpQkhDP04mh+yOImTFGFxeuXT0fUgy7JWL/ShmA3Wa57+B40eXR7djDjnWlVVU0o3O7sseuF5gTwzth0MJ+QUqj3Ndd07QsW9mxfirRBOHI6NCwz7y4HjOOSMmuYtQgjtHOg1wCrcAdD0I6X+AFY0+G5kPytUAAAAAElFTkSuQmCC" />
+      </g>
+     </g>
+     <g>
+      <path d="M170.25,165.75 L225.007827759,88.731620789 L225.007827759,88.731620789 C226.193939209,89.574920654 227.360412598,90.445503235 228.506332397,91.342681885 Z " stroke="none" stroke-width="0" fill="#C0504D" fill-opacity="1" transform="matrix(1,0,0,1,0,0)" />
+     </g>
+     <g />
+     <g transform="matrix(1,0,0,1,0,0)">
+      <defs>
+       <clipPath id="CLIP2">
+        <path d="M153.75,240 L183.75,240 L183.75,261 L153.75,261 Z " />
+       </clipPath>
+      </defs>
+      <g clip-path="url(#CLIP2)">
+       <g transform="matrix(1,0,0,1,156.57810974,259.06246948)">
+        <text x="0" y="-2.9615624" font-family="Impact" font-size="14.03999996" fill="#568ED4">64%</text>
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs />
+</svg>
