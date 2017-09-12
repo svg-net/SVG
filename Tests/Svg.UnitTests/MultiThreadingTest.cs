@@ -10,25 +10,24 @@ namespace Svg.UnitTests
     [TestClass]
     public class MultiThreadingTest : SvgTestHelper
     {
-
-        protected override string TestFile { get { return @"d:\temp\test.svg"; } }
-        protected override int ExpectedSize { get { return 600000; } }
+		protected override string TestResource { get { return GetFullResourceString("Issue_Threading.TestFile.svg"); } }
+		protected override int ExpectedSize { get { return 100; } }
 
         private void LoadFile()
         {
-            LoadSvg(GetXMLDocFromFile());
+            LoadSvg(GetXMLDocFromResource());
         }
 
         
         [TestMethod]
-        public void TestSingleThread()
+        public void LoadSVGThreading_SingleThread_YieldsNoError()
         {
             LoadFile();
         }
 
 
         [TestMethod]
-        public void TestMultiThread()
+        public void LoadSVGThreading_MultiThread_YieldsNoErrorWhileInBounds()
         {
             Parallel.For(0, 10, (x) =>
             {
@@ -39,20 +38,24 @@ namespace Svg.UnitTests
 
 
         [TestMethod]
-        [ExpectedException(typeof(SvgMemoryException))]
-        public void SVGGivesMemoryExceptionOnTooManyParallelTest()
+        public void LoadSVGThreading_MultiThread_GivesMemoryExceptionOnTooManyParallelTest()
         {
-            try
-            {
-                Parallel.For(0, 50, (x) =>
-                {
-                    LoadFile();
-                });
-            }
-            catch (AggregateException ex)
-            {
-                throw ex.InnerException;
-            }
+			try
+			{
+				Parallel.For(0, 100, (x) =>
+				{
+					LoadFile();
+				});
+			}
+			catch (AggregateException ex)
+			{
+				//We expect an SVG Memory Exception to be thrown, thats okay, otherwise fail
+				if (!(ex.InnerException is SvgMemoryException))
+				{
+					throw ex.InnerException;
+				}
+			}
+			Assert.Inconclusive("This test was expected to throw and SVGMemoryException, however this is higly dependent on the file and machine under test. This is not a fail reason.");
         }
     }
 }
