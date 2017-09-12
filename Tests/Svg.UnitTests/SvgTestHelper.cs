@@ -14,7 +14,8 @@ namespace Svg.UnitTests
         /// <summary>
         /// Test file path.
         /// </summary>
-        protected virtual string TestFile
+        [Obsolete("Try not to use the file loader, please use the resource loader to ensure working of tests on all systems")]
+		protected virtual string TestFile
         {
             get
             {
@@ -134,7 +135,8 @@ namespace Svg.UnitTests
         /// Get xml document from <see cref="TestFile"/>.
         /// </summary>
         /// <returns>File data as xml document.</returns>
-        protected virtual XmlDocument GetXMLDocFromFile()
+        [Obsolete("Try not to use the file loader, please use the resource loader to ensure working of tests on all systems")]
+		protected virtual XmlDocument GetXMLDocFromFile()
         {
             return GetXMLDocFromFile(TestFile);
         }
@@ -145,7 +147,8 @@ namespace Svg.UnitTests
         /// </summary>
         /// <param name="file">File to load.</param>
         /// <returns>File data as xml document.</returns>
-        protected virtual XmlDocument GetXMLDocFromFile(string file)
+        [Obsolete("Try not to use the file loader, please use the resource loader to ensure working of tests on all systems")]
+		protected virtual XmlDocument GetXMLDocFromFile(string file)
         {
             if (!File.Exists(file))
                 Assert.Fail("Test file missing.", file);
