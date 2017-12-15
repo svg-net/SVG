@@ -37,6 +37,12 @@ namespace SVGViewer
         {
             
         }
+
+        public void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit, float opacity)
+        {
+
+        }
+
         public void DrawImageUnscaled(Image image, Point location)
         {
             
@@ -91,8 +97,7 @@ namespace SVGViewer
         public void TranslateTransform(float dx, float dy, MatrixOrder order = MatrixOrder.Append)
         {
             _transform.Translate(dx, dy, order);
-        }
-
+        }        
 
 
         public SmoothingMode SmoothingMode

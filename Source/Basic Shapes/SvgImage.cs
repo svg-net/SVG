@@ -209,7 +209,10 @@ namespace Svg
 
                     if (bmp != null)
                     {
-                        renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel);
+                        if(Opacity==1F)
+                            renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel);
+                        else
+                            renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel, Opacity);
                         bmp.Dispose();
                     }
                     else if (svg != null)
