@@ -22,5 +22,6 @@ namespace Svg
         SmoothingMode SmoothingMode { get; set; }
         Matrix Transform { get; set; }
         void TranslateTransform(float dx, float dy, MatrixOrder order = MatrixOrder.Append);
+        void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit, float opacity);
     }
 }
