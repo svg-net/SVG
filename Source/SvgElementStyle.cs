@@ -249,6 +249,16 @@ namespace Svg
             set { this.Attributes["font-weight"] = value; this.IsPathDirty = true; }
         }
 
+        /// <summary>
+        /// Refers to the text transformation.
+        /// </summary>
+        [SvgAttribute("text-transform", true)]
+        public virtual SvgTextTransformation TextTransformation
+        {
+            get { return (SvgTextTransformation)(this.Attributes["text-transform"] ?? SvgTextTransformation.Inherit); }
+            set { this.Attributes["text-transform"] = value; this.IsPathDirty = true; }
+        }
+
         private enum FontParseState
         {
             fontStyle,
