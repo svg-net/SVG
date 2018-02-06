@@ -305,13 +305,16 @@ namespace Svg
         [CLSCompliant(false)]
         public static bool TryParse<TEnum>(string value, out TEnum result) where TEnum : struct, IConvertible
         {
-            var retValue = value == null ?
-                        false :
-                        Enum.IsDefined(typeof(TEnum), value);
-            result = retValue ?
-                        (TEnum)Enum.Parse(typeof(TEnum), value) :
-                        default(TEnum);
-            return retValue;
+            try
+            {
+                result = (TEnum)Enum.Parse(typeof(TEnum), value, true);
+                return true;
+            }
+            catch
+            {
+                result = default(TEnum);
+                return false;
+            }
         }
     }
 }
