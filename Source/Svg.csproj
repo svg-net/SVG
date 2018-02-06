@@ -102,6 +102,7 @@
     <Compile Include="Clipping and Masking\SvgMask.cs" />
     <Compile Include="DataTypes\ISvgSupportsCoordinateUnits.cs" />
     <Compile Include="DataTypes\SvgPointCollection.cs" />
+    <Compile Include="DataTypes\SvgTextTransformation.cs" />
     <Compile Include="DataTypes\SvgTextDecoration.cs" />
     <Compile Include="DataTypes\SvgTextLengthAdjust.cs" />
     <Compile Include="DataTypes\SvgTextPathMethod.cs" />

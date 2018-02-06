@@ -217,6 +217,7 @@ namespace Svg
                 case "text-anchor":
                 case "text-decoration":
                 case "text-rendering":
+                case "text-transform":
                 case "unicode-bidi":
                 case "visibility":
                 case "word-spacing":

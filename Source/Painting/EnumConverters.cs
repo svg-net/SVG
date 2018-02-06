@@ -300,6 +300,11 @@ namespace Svg
         }
     }
 
+    public sealed class SvgTextTransformationConverter : EnumBaseConverter<SvgTextTransformation>
+    {
+        public SvgTextTransformationConverter() : base(SvgTextTransformation.None) { }
+    }
+
     public static class Enums 
     {
         [CLSCompliant(false)]
