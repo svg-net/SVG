@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using Svg.DataTypes;
 using System.Linq;
+using System.Globalization;
 
 namespace Svg
 {
@@ -393,12 +394,13 @@ namespace Svg
         private static readonly Regex MultipleSpaces = new Regex(@" {2,}", RegexOptions.Compiled);
 
         /// <summary>
-        /// Prepare the text according to the whitespace handling rules.  <see href="http://www.w3.org/TR/SVG/text.html">SVG Spec</see>.
+        /// Prepare the text according to the whitespace handling rules and text transformations.  <see href="http://www.w3.org/TR/SVG/text.html">SVG Spec</see>.
         /// </summary>
         /// <param name="value">Text to be prepared</param>
         /// <returns>Prepared text</returns>
         protected string PrepareText(string value)
         {
+            value = ApplyTransformation(value);
             if (this.SpaceHandling == XmlSpaceHandling.preserve)
             {
                 return value.Replace('\t', ' ').Replace("\r\n", " ").Replace('\r', ' ').Replace('\n', ' ');
@@ -408,6 +410,23 @@ namespace Svg
                 var convValue = MultipleSpaces.Replace(value.Replace("\r", "").Replace("\n", "").Replace('\t', ' '), " ");
                 return convValue;
             }
+        }
+
+        private string ApplyTransformation(string value)
+        {
+            switch (this.TextTransformation)
+            {
+                case SvgTextTransformation.Capitalize:
+                    return value.ToUpper();
+
+                case SvgTextTransformation.Uppercase:
+                    return value.ToUpper();
+
+                case SvgTextTransformation.Lowercase:
+                    return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
+            }
+
+            return value;
         }
 
         [SvgAttribute("onchange")]
