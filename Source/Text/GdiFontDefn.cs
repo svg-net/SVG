@@ -37,7 +37,7 @@ namespace Svg
             var ff = _font.FontFamily;
             float ascent = ff.GetCellAscent(_font.Style);
             float baselineOffset = _font.SizeInPoints / ff.GetEmHeight(_font.Style) * ascent;
-            return renderer.DpiY / 72f * baselineOffset;
+            return SvgDocument.PointsPerInch / 72f * baselineOffset;
         }
 
         public IList<RectangleF> MeasureCharacters(ISvgRenderer renderer, string text)
