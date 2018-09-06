@@ -151,14 +151,15 @@ namespace Svg
                     renderer.SetClip(new Region(destClip), CombineMode.Intersect);
                     this.SetClip(renderer);
 
-                    if (AspectRatio != null && AspectRatio.Align != SvgPreserveAspectRatio.none)
+                    SvgAspectRatio aspectRatio = AspectRatio ?? new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid);
+                    if (aspectRatio.Align != SvgPreserveAspectRatio.none)
                     {
                         var fScaleX = destClip.Width / srcRect.Width;
                         var fScaleY = destClip.Height / srcRect.Height;
                         var xOffset = 0.0f;
                         var yOffset = 0.0f;
 
-                        if (AspectRatio.Slice)
+                        if (aspectRatio.Slice)
                         {
                             fScaleX = Math.Max(fScaleX, fScaleY);
                             fScaleY = Math.Max(fScaleX, fScaleY);
@@ -169,7 +170,7 @@ namespace Svg
                             fScaleY = Math.Min(fScaleX, fScaleY);
                         }
 
-                        switch (AspectRatio.Align)
+                        switch (aspectRatio.Align)
                         {
                             case SvgPreserveAspectRatio.xMinYMin:
                                 break;
