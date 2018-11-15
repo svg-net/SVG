@@ -350,9 +350,12 @@ namespace Svg
                     {
                         if (this.LengthAdjust == SvgTextLengthAdjust.Spacing)
                         {
-                            origState.LetterSpacingAdjust = -1 * diff / (state.NumChars - origState.NumChars - 1);
-                            SetPath(origState, false);
-                            return;
+                            if (this.X.Count < 2)
+                            {
+                                origState.LetterSpacingAdjust = -1 * diff / (state.NumChars - origState.NumChars - 1);
+                                SetPath(origState, false);
+                                return;
+                            }
                         }
                         else
                         {
