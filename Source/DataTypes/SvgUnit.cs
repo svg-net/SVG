@@ -62,7 +62,6 @@ namespace Svg
         /// <summary>
         /// Converts the current unit to one that can be used at render time.
         /// </summary>
-        /// <param name="boundable">The container element used as the basis for calculations</param>
         /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
         public float ToDeviceValue(ISvgRenderer renderer, UnitRenderingType renderType, SvgElement owner)
         {
@@ -187,7 +186,7 @@ namespace Svg
         /// <summary>
         /// Converts the current unit to a percentage, if applicable.
         /// </summary>
-        /// <returns>An <see cref="SvgUnit"/> of type <see cref="SvgUnitType.Perscentage"/>.</returns>
+        /// <returns>An <see cref="SvgUnit"/> of type <see cref="SvgUnitType.Percentage"/>.</returns>
         public SvgUnit ToPercentage()
         {
             switch (this.Type)

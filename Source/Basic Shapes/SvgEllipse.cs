@@ -104,9 +104,9 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
+        /// Renders the <see cref="SvgElement"/> and contents using the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
-        /// <param name="graphics">The <see cref="Graphics"/> object to render to.</param>
+        /// <param name="renderer">The <see cref="ISvgRenderer"/> object used for rendering.</param>
         protected override void Render(ISvgRenderer renderer)
         {
             if (this._radiusX.Value > 0.0f && this._radiusY.Value > 0.0f)

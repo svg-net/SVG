@@ -501,7 +501,7 @@ namespace Svg
                 return result;
             }
 
-            /// <remarks>http://community.topcoder.com/tc?module=Static&d1=tutorials&d2=geometry2</remarks>
+            /// <remarks>http://community.topcoder.com/tc?module=Static&amp;d1=tutorials&amp;d2=geometry2</remarks>
             private PointF? Intersection(LineF other)
             {
                 const int precision = 8;

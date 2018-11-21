@@ -7,7 +7,7 @@ using System.Linq;
 namespace Svg
 {
     /// <summary>
-    /// Represents a list of <see cref="SvgUnits"/>.
+    /// Represents a list of <see cref="SvgUnit"/>.
     /// </summary>
     [TypeConverter(typeof(SvgUnitCollectionConverter))]
     public class SvgUnitCollection : List<SvgUnit>

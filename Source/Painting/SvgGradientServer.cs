@@ -28,7 +28,7 @@ namespace Svg
 
         /// <summary>
         /// Called by the underlying <see cref="SvgElement"/> when an element has been added to the
-        /// <see cref="Children"/> collection.
+        /// 'Children' collection.
         /// </summary>
         /// <param name="child">The <see cref="SvgElement"/> that has been added.</param>
         /// <param name="index">An <see cref="int"/> representing the index where the element was added to the collection.</param>
@@ -44,7 +44,7 @@ namespace Svg
 
         /// <summary>
         /// Called by the underlying <see cref="SvgElement"/> when an element has been removed from the
-        /// <see cref="Children"/> collection.
+        /// 'Children' collection.
         /// </summary>
         /// <param name="child">The <see cref="SvgElement"/> that has been removed.</param>
         protected override void RemoveElement(SvgElement child)
@@ -122,8 +122,9 @@ namespace Svg
         /// <summary>
         /// Gets a <see cref="ColorBlend"/> representing the <see cref="SvgGradientServer"/>'s gradient stops.
         /// </summary>
-        /// <param name="owner">The parent <see cref="SvgVisualElement"/>.</param>
+        /// <param name="renderer">The renderer <see cref="ISvgRenderer"/>.</param>
         /// <param name="opacity">The opacity of the colour blend.</param>
+        /// <param name="radial">True if it's a radial gradiant.</param>
         protected ColorBlend GetColorBlend(ISvgRenderer renderer, float opacity, bool radial)
         {
             int colourBlends = this.Stops.Count;
