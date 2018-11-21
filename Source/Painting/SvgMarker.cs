@@ -129,6 +129,7 @@ namespace Svg
         /// </summary>
         /// <param name="pRenderer"></param>
         /// <param name="pOwner"></param>
+        /// <param name="pRefPoint"></param>
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
         public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
@@ -150,6 +151,7 @@ namespace Svg
         /// </summary>
         /// <param name="pRenderer"></param>
         /// <param name="pOwner"></param>
+        /// <param name="pRefPoint"></param>
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
         /// <param name="pMarkerPoint3"></param>
@@ -233,7 +235,6 @@ namespace Svg
         /// <summary>
         /// Create a pen that can be used to render this marker
         /// </summary>
-        /// <param name="pStroke"></param>
         /// <returns></returns>
         private Pen CreatePen(SvgVisualElement pPath, ISvgRenderer renderer)
         {
@@ -286,7 +287,7 @@ namespace Svg
         /// <summary>
         /// Adjust the given value to account for the height of the viewbox in the viewport
         /// </summary>
-        /// <param name="fWidth"></param>
+        /// <param name="fHeight"></param>
         /// <returns></returns>
         private float AdjustForViewBoxHeight(float fHeight)
         {

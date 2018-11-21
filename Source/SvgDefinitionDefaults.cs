@@ -47,7 +47,7 @@ namespace Svg
         /// Checks whether the property value is the default value of the svg definition.
         /// </summary>
         /// <param name="attributeName">Name of the svg attribute</param>
-        /// <param name="propertyValue">.NET value of the attribute</param>
+        /// <param name="value">.NET value of the attribute</param>
         public static bool IsDefault(string attributeName, string value)
         {
             if (_defaults.ContainsKey(attributeName))

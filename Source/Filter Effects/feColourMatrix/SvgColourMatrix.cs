@@ -23,7 +23,7 @@ namespace Svg.FilterEffects
         
 
 		/// <summary>
-		/// list of <number>s
+		/// list of numbers
 		/// The contents of ‘values’ depends on the value of attribute ‘type’: 
 		/// Note: this is not used in calculations to bitmap - used only to allow for svg xml output
 		/// </summary>

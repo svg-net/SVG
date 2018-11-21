@@ -40,7 +40,9 @@ namespace Svg
         /// Gets a <see cref="Brush"/> representing the current paint server.
         /// </summary>
         /// <param name="styleOwner">The owner <see cref="SvgVisualElement"/>.</param>
+        /// <param name="renderer">The renderer object.</param>
         /// <param name="opacity">The opacity of the brush.</param>
+        /// <param name="forStroke">Not used.</param>
         public abstract Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false);
 
         /// <summary>

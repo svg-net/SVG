@@ -82,6 +82,7 @@ namespace Svg
         /// And can auto fix the ID if it already exists or it starts with a number.
         /// </summary>
         /// <param name="element">The <see cref="SvgElement"/> to be managed.</param>
+        /// <param name="sibling">Not used.</param>
         /// <param name="autoForceUniqueID">Pass true here, if you want the ID to be fixed</param>
         /// <param name="logElementOldIDNewID">If not null, the action is called before the id is fixed</param>
         /// <returns>true, if ID was altered</returns>
