@@ -111,7 +111,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SvgGraphicsElement"/> class.
+        /// Initializes a new instance of the <see cref="SvgVisualElement"/> class.
         /// </summary>
         public SvgVisualElement()
         {

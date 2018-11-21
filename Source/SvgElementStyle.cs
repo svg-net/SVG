@@ -15,7 +15,7 @@ namespace Svg
         private bool _dirty;
 
         /// <summary>
-        /// Gets or sets a value indicating whether this element's <see cref="Path"/> is dirty.
+        /// Gets or sets a value indicating whether this element's 'Path' is dirty.
         /// </summary>
         /// <value>
         /// 	<c>true</c> if the path is dirty; otherwise, <c>false</c>.

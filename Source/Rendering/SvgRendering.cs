@@ -7,7 +7,7 @@ using System.ComponentModel;
 namespace Svg
 {
     /// <summary>
-    /// The creator of SVG content might want to provide a hint about what tradeoffs to make as the browser renders <path> element or basic shapes. The shape-rendering attribute provides these hints.
+    /// The creator of SVG content might want to provide a hint about what tradeoffs to make as the browser renders 'path' element or basic shapes. The shape-rendering attribute provides these hints.
     /// </summary>
     /// <references>https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering</references>
     /// <remarks>

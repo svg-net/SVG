@@ -186,7 +186,7 @@ namespace Svg
         /// Gets or sets the fill.
         /// </summary>
         /// <remarks>
-        /// <para>Unlike other <see cref="SvgGraphicsElement"/>s, <see cref="SvgText"/> has a default fill of black rather than transparent.</para>
+        /// <para>Unlike other <see cref="SvgVisualElement"/>s, <see cref="SvgText"/> has a default fill of black rather than transparent.</para>
         /// </remarks>
         /// <value>The fill.</value>
         public override SvgPaintServer Fill
@@ -299,6 +299,7 @@ namespace Svg
         /// object to track the state of the drawing
         /// </summary>
         /// <param name="state">State of the drawing operation</param>
+        /// <param name="doMeasurements">If true, calculate and apply text length adjustments.</param>
         private void SetPath(TextDrawingState state, bool doMeasurements)
         {
             TextDrawingState origState = null;

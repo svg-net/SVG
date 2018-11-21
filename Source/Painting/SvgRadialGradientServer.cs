@@ -210,6 +210,7 @@ namespace Svg
         /// </summary>
         /// <param name="bounds">Bounds that the path must contain</param>
         /// <param name="path">Path of the gradient</param>
+        /// <param name="graphics">Not used</param>
         /// <returns>Scale factor</returns>
         /// <remarks>
         /// This method continually transforms the rectangle (fewer points) until it is contained by the path

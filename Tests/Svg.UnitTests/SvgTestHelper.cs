@@ -150,8 +150,8 @@ namespace Svg.UnitTests
         [Obsolete("Try not to use the file loader, please use the resource loader to ensure working of tests on all systems")]
 		protected virtual XmlDocument GetXMLDocFromFile(string file)
         {
-            if (!File.Exists(file))
-                Assert.Fail("Test file missing.", file);
+            if (!File.Exists(file))                
+                Assert.Fail("Test file missing." + Directory.GetCurrentDirectory() + file);
 
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(File.ReadAllText(file));
