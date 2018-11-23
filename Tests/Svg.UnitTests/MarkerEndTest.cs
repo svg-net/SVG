@@ -25,10 +25,8 @@ namespace Svg.UnitTests
 
 
         [TestMethod]
-        [Ignore]
         public void TestOperatingPlanRendering()
         {
-            // FIXME: loading file times out - probably regression
             LoadSvg(GetXMLDocFromResource());
         }
 
