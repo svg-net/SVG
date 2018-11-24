@@ -64,7 +64,15 @@ namespace Svg
 
         public override System.Drawing.RectangleF Bounds
         {
-            get { return new System.Drawing.RectangleF(); }
+            get
+            {
+                var element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement) as SvgVisualElement;
+                if (element != null)
+                {
+                    return element.Bounds;
+                }
+                return new System.Drawing.RectangleF();
+            }
         }
 
         protected override bool Renderable { get { return false; } }
