@@ -1,9 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using System.Xml;
-using System.Xml.Serialization;
 using System.Drawing.Drawing2D;
 
 namespace Svg
@@ -18,6 +14,51 @@ namespace Svg
         {
             get { return this._referencedElement; }
             set { this._referencedElement = value; }
+        }
+
+        static private bool ElementReferencesUri(SvgElement element, List<Uri> elementUris)
+        {
+            var useElement = element as SvgUse;
+            if (useElement != null)
+            {
+                if (elementUris.Contains(useElement.ReferencedElement))
+                {
+                    return true;
+                }
+                // also detect cycles in referenced elements
+                elementUris.Add(useElement.ReferencedElement);
+                return useElement.ReferencedElementReferencesUri(elementUris);
+            }
+            var groupElement = element as SvgGroup;
+            if (groupElement != null)
+            {
+                foreach (var child in groupElement.Children)
+                {
+                    if (ElementReferencesUri(child, elementUris))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool ReferencedElementReferencesUri( List<Uri> elementUris )
+        {
+            var refElement = this.OwnerDocument.IdManager.GetElementById(ReferencedElement);
+            return ElementReferencesUri(refElement, elementUris);
+        }
+
+        /// <summary>
+        /// Checks for any direct or indirect recursions in referenced elements, 
+        /// including recursions via groups.
+        /// </summary>
+        /// <returns>True if any recursions are found.</returns>
+        private bool HasRecursiveReference()
+        {
+            var refElement = this.OwnerDocument.IdManager.GetElementById(ReferencedElement);
+            var uris = new List<Uri>() { ReferencedElement };
+            return ElementReferencesUri(refElement, uris);
         }
 
         [SvgAttribute("x")]
@@ -59,7 +100,7 @@ namespace Svg
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
             SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
-            return (element != null) ? element.Path(renderer) : null;
+            return (element != null && !this.HasRecursiveReference()) ? element.Path(renderer) : null;
         }
 
         public override System.Drawing.RectangleF Bounds
@@ -79,7 +120,7 @@ namespace Svg
 
         protected override void Render(ISvgRenderer renderer)
         {
-            if (this.Visible && this.Displayable && this.PushTransforms(renderer))
+            if (this.Visible && this.Displayable && !this.HasRecursiveReference() && this.PushTransforms(renderer))
             {
                 this.SetClip(renderer);
 
