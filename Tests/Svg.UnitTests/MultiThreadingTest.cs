@@ -55,7 +55,7 @@ namespace Svg.UnitTests
 					throw ex.InnerException;
 				}
 			}
-			Assert.Inconclusive("This test was expected to throw and SVGMemoryException, however this is higly dependent on the file and machine under test. This is not a fail reason.");
+			Assert.Inconclusive("This test was expected to throw an SVGMemoryException, however this is higly dependent on the file and machine under test. This is not a fail reason.");
         }
     }
 }
