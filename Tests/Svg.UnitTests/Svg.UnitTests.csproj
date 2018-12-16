@@ -44,6 +44,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -67,6 +68,7 @@
     <Compile Include="SvgTestHelper.cs" />
     <Compile Include="SvgTextTests.cs" />
     <Compile Include="SvgTextElementDeepCopyTest.cs" />
+    <Compile Include="ImageComparisonTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Svg.csproj">
@@ -76,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Issue204_PrivateFont\BrushScriptMT2.ttf" />
+    <None Include="AllTests.csv" />
+    <None Include="PassingTests.csv" />
     <None Include="svgkey.snk" />
   </ItemGroup>
   <ItemGroup>
