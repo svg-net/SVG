@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="34" height="48" xml:space="preserve">
+<line fill="none" stroke="#000" stroke-width="2" stroke-miterlimit="2" x1="1" x2="1" y1="0" y2="48"/>
+<line fill="none" stroke="#000" stroke-width="2" stroke-miterlimit="2" x1="33" x2="33" y1="0" y2="48"/>
+<text x="2" y="15" fill="#000" font-family="Meiryo, メイリオ, sans-serif" font-size="14" textLength="30" lengthAdjust="spacingAndGlyphs">AB</text>
+<text x="2" y="30" fill="#000" font-family="Meiryo, メイリオ, sans-serif" font-size="14" textLength="30" lengthAdjust="spacingAndGlyphs">あい</text>
+<text x="2" y="45" fill="#000" font-family="Meiryo, メイリオ, sans-serif" font-size="14" textLength="30" lengthAdjust="spacingAndGlyphs">（あ</text>
+</svg>

@@ -342,9 +342,8 @@ namespace Svg
             {
                 if (this.TextLength != SvgUnit.None)
                 {
-                    var bounds = path.GetBounds();
                     var specLength = this.TextLength.ToDeviceValue(state.Renderer, UnitRenderingType.Horizontal, this);
-                    var actLength = bounds.Width;
+                    var actLength = state.TextBounds.Width;
                     var diff = (actLength - specLength);
                     if (Math.Abs(diff) > 1.5)
                     {
@@ -358,9 +357,9 @@ namespace Svg
                         {
                             using (var matrix = new Matrix())
                             {
-                                matrix.Translate(-1 * bounds.X, 0, MatrixOrder.Append);
+                                matrix.Translate(-1 * state.TextBounds.X, 0, MatrixOrder.Append);
                                 matrix.Scale(specLength / actLength, 1, MatrixOrder.Append);
-                                matrix.Translate(bounds.X, 0, MatrixOrder.Append);
+                                matrix.Translate(state.TextBounds.X, 0, MatrixOrder.Append);
                                 path.Transform(matrix);
                             }
                         }
@@ -504,6 +503,7 @@ namespace Svg
 
             public GraphicsPath BaselinePath { get; set; }
             public PointF Current { get; set; }
+            public RectangleF TextBounds { get; set; }
             public SvgTextBase Element { get; set; }
             public float LetterSpacingAdjust { get; set; }
             public int NumChars { get; set; }
@@ -517,6 +517,7 @@ namespace Svg
                 this.Element = element;
                 this.Renderer = renderer;
                 this.Current = PointF.Empty;
+                this.TextBounds = RectangleF.Empty;
                 _xAnchor = 0;
                 this.BaselinePath = element.GetBaselinePath(renderer);
                 _authorPathLength = element.GetAuthorPathLength();
@@ -527,6 +528,7 @@ namespace Svg
                 this.Renderer = parent.Renderer;
                 this.Parent = parent;
                 this.Current = parent.Current;
+                this.TextBounds = parent.TextBounds;
                 this.BaselinePath = element.GetBaselinePath(parent.Renderer) ?? parent.BaselinePath;
                 var currPathLength = element.GetAuthorPathLength();
                 _authorPathLength = currPathLength == 0 ? parent._authorPathLength : currPathLength;
@@ -545,6 +547,7 @@ namespace Svg
                 result.BaselinePath = this.BaselinePath;
                 result._xAnchor = this._xAnchor;
                 result.Current = this.Current;
+                result.TextBounds = this.TextBounds;
                 result.Element = this.Element;
                 result.NumChars = this.NumChars;
                 result.Parent = this.Parent;
@@ -652,6 +655,7 @@ namespace Svg
                         this.Renderer.PopBoundable();
                     }
 
+                    var xTextStart = Current.X;
                     // NOTE: Assuming a horizontal left-to-right font
                     // Render absolutely positioned items in the horizontal direction
                     var yPos = Current.Y;
@@ -662,6 +666,7 @@ namespace Svg
                         EnsurePath();
                         yPos = (yAnchors.Count > i ? yAnchors[i] : yPos) + (yOffsets.Count > i ? yOffsets[i] : 0);
 
+                        xTextStart = xTextStart.Equals(Current.X) ? _xAnchor : xTextStart;
                         DrawStringOnCurrPath(value[i].ToString(), font, new PointF(_xAnchor, yPos),
                                              fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
                     }
@@ -694,6 +699,7 @@ namespace Svg
                             yPos = (yAnchors.Count > i ? yAnchors[i] : yPos) + (yOffsets.Count > i ? yOffsets[i] : 0);
                             if (pathStats == null)
                             {
+                                xTextStart = xTextStart.Equals(Current.X) ? xPos : xTextStart;
                                 DrawStringOnCurrPath(value[i].ToString(), font, new PointF(xPos, yPos),
                                                      fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
                             }
@@ -706,6 +712,7 @@ namespace Svg
                                     pathStats.LocationAngleAtOffset(xPos + halfWidth, out pathPoint, out rotation);
                                     pathPoint = new PointF((float)(pathPoint.X - halfWidth * Math.Cos(rotation * Math.PI / 180) - (float)pathScale * yPos * Math.Sin(rotation * Math.PI / 180)),
                                                            (float)(pathPoint.Y - halfWidth * Math.Sin(rotation * Math.PI / 180) + (float)pathScale * yPos * Math.Cos(rotation * Math.PI / 180)));
+                                    xTextStart = xTextStart.Equals(Current.X) ? pathPoint.X : xTextStart;
                                     DrawStringOnCurrPath(value[i].ToString(), font, pathPoint, fontBaselineHeight, rotation);
                                 }
                             }
@@ -728,6 +735,7 @@ namespace Svg
                         xPos += (xOffsets.Count > lastIndividualChar ? xOffsets[lastIndividualChar] : 0);
                         yPos = (yAnchors.Count > lastIndividualChar ? yAnchors[lastIndividualChar] : yPos) +
                                 (yOffsets.Count > lastIndividualChar ? yOffsets[lastIndividualChar] : 0);
+                        xTextStart = xTextStart.Equals(Current.X) ? xPos : xTextStart;
                         DrawStringOnCurrPath(value.Substring(lastIndividualChar), font, new PointF(xPos, yPos),
                                              fontBaselineHeight, rotations.LastOrDefault());
                         var bounds = font.MeasureString(this.Renderer, value.Substring(lastIndividualChar));
@@ -738,6 +746,7 @@ namespace Svg
                     NumChars += value.Length;
                     // Undo any baseline shift.  This is not persisted, unlike normal vertical offsets.
                     this.Current = new PointF(xPos, yPos - baselineShift);
+                    this.TextBounds = new RectangleF(xTextStart, 0, this.Current.X - xTextStart, 0);
                 }
             }
 
