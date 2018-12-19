@@ -39,7 +39,7 @@ namespace Svg
         {
             float ascent = _font.Descendants().OfType<SvgFontFace>().First().Ascent;
             float baselineOffset = this.SizeInPoints * (_emScale / _size) * ascent;
-            return renderer.DpiY / 72f * baselineOffset;
+            return SvgDocument.PointsPerInch / 72f * baselineOffset;
         }
 
         public IList<System.Drawing.RectangleF> MeasureCharacters(ISvgRenderer renderer, string text)
