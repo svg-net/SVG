@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="80" height="80" xml:space="preserve">
+<text x="10,30,50"            y="15" fill="#000" font-size="14"                >ABC</text>
+<text x="10,30,50"            y="30" fill="#000" font-size="14" textLength="14">ABC</text>
+<text x="10,30,50" dx="4,4,4" y="45" fill="#000" font-size="14" textLength="14">ABC</text>
+<text x="10"                  y="60" fill="#000" font-size="14" textLength="14">ABC</text>
+<text                         y="75" fill="#000" font-size="14" textLength="14">ABC</text>
+</svg>
