@@ -180,7 +180,7 @@ namespace Svg
         {
             if (owner == null) return null;
             var visual = owner.Parents.OfType<SvgVisualElement>().FirstOrDefault();
-            return visual?.GetFont(renderer);
+            return visual != null ? visual.GetFont(renderer) : null;
         }
 
         /// <summary>
