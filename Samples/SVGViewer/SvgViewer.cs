@@ -22,28 +22,40 @@ namespace SVGViewer
 
         private void open_Click(object sender, EventArgs e)
         {
-            if (openSvgFile.ShowDialog() == DialogResult.OK)
+            try
             {
-                SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
-                RenderSvg(svgDoc);
+                if (openSvgFile.ShowDialog() == DialogResult.OK)
+                {
+                    SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
+                    RenderSvg(svgDoc);
+                }
+            }
+            catch
+            {
             }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-        	using(var s = new MemoryStream(Encoding.UTF8.GetBytes(textBox1.Text)))
-        	{
-        		SvgDocument svgDoc = SvgDocument.Open<SvgDocument>(s, null);
-        		RenderSvg(svgDoc);
-        	}
+            try
+            {
+                using (var s = new MemoryStream(Encoding.UTF8.GetBytes(textBox1.Text)))
+                {
+                    SvgDocument svgDoc = SvgDocument.Open<SvgDocument>(s, null);
+                    RenderSvg(svgDoc);
+                }
+            }
+            catch
+            {
+            }
         }
-        
+
         private void RenderSvg(SvgDocument svgDoc)
         {
             //var render = new DebugRenderer();
             //svgDoc.Draw(render);
             svgImage.Image = svgDoc.Draw();
-            
+
             string outputDir;
             if (svgDoc.BaseUri == null)
                 outputDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath); 
