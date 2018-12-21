@@ -174,7 +174,7 @@ namespace Svg
                     {
                         var size = (this.Parent == null ? renderer.GetBoundable().Bounds.Size : GetDimensions());
                         var clip = new RectangleF(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                                  this.Y.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                                                  this.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
                                                   size.Width, size.Height);
                         renderer.SetClip(new Region(clip), CombineMode.Intersect);
                         base.Render(renderer);
