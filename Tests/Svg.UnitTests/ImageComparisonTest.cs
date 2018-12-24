@@ -86,9 +86,16 @@ namespace Svg.UnitTests
             try
             {
                 doc = SvgDocument.Open(svgPath);
-                var img = new Bitmap(480, 360);
-                doc.Draw(img);
-                svgImage = img;
+                if (fileName.StartsWith("__"))
+                {
+                    svgImage = doc.Draw();
+                }
+                else
+                {
+                    var img = new Bitmap(480, 360);
+                    doc.Draw(img);
+                    svgImage = img;
+                }
             }
             catch (Exception)
             {

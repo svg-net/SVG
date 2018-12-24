@@ -16,7 +16,7 @@ namespace Svg
             set { this._referencedElement = value; }
         }
 
-        static private bool ElementReferencesUri(SvgElement element, List<Uri> elementUris)
+        private bool ElementReferencesUri(SvgElement element, List<Uri> elementUris)
         {
             var useElement = element as SvgUse;
             if (useElement != null)
@@ -26,7 +26,11 @@ namespace Svg
                     return true;
                 }
                 // also detect cycles in referenced elements
-                elementUris.Add(useElement.ReferencedElement);
+                var refElement = this.OwnerDocument.IdManager.GetElementById(useElement.ReferencedElement);
+                if (refElement is SvgUse)
+                {
+                    elementUris.Add(useElement.ReferencedElement);
+                }
                 return useElement.ReferencedElementReferencesUri(elementUris);
             }
             var groupElement = element as SvgGroup;
