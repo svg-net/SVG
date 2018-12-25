@@ -1,0 +1,15 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="400" width="1240" xmlns="http://www.w3.org/2000/svg" style="font-family:'lucida grande', 'lucida sans unicode', arial, helvetica, sans-serif;font-size:12px;" version="1.1">
+    <defs>
+        <clipPath id="highcharts-41">
+            <rect height="241" width="1032" y="45" x="78"/>
+        </clipPath>
+    </defs>
+    <rect class=" highcharts-background" fill="#fbfc92" strokeWidth="0" height="400" width="1240" y="0" x="0"/>
+    <g clip-path="url(#highcharts-41)"  class="highcharts-annotations-group-0">
+        <g transform="translate(719.1574467936198,67.23511904761904)">
+            <g style="" transform="translate(0,0)">
+                <text transform="translate(0,15)"  x="3">test</text>
+            </g>
+        </g>
+    </g>
+</svg>

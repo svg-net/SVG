@@ -1,0 +1,11 @@
+<svg width="600" height="250" viewBox="0 0 600 250"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+    <filter id="blurFilter4" x="-20" y="-20" width="200" height="200">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+    </filter>
+</defs>
+<rect x="20" y="20" width="90" height="90"
+      style="stroke: none; fill: #00ff00; filter: url(#blurFilter4);" />
+</svg>

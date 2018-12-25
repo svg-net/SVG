@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="40px" height="40px" overflow="auto" viewBox="0, 0, 40, 40" preserveAspectRatio="none" id="Livello_1">
+    <defs>
+        <symbol id="clip" viewBox="0, 0, 40, 40">
+            <polygon points="36.534 16.666 20.083 5.072 3.525 16.666 4.475 18.288 20.029 7.444 35.585 18.288 " fill="White" xmlns="http://www.w3.org/2000/svg" />
+            <g xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.352 32.266 L13.352 15.147 L16.809 15.147 L16.809 21.885 L23.583 21.885 L23.583 15.147 L27.038 15.147 L27.038 32.266 L23.583 32.266 L23.583 24.782 L16.809 24.782 L16.809 32.266 L13.352 32.266 z" pathLength="0" fill="White" />
+            </g>
+        </symbol>
+    </defs>
+    <path d="M40 34 C40 37.313 37.313 40 34 40 L6 40 C2.687 40 0 37.313 0 34 L0 6 C0 2.687 2.687 0 6 0 L34 0 C37.313 0 40 2.687 40 6 L40 34 z" pathLength="0" fill="#D28700" />
+    <use xlink:href="#clip" x="0%" y="0%" width="100%" height="100%" />
+</svg>
