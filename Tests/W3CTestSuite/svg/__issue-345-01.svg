@@ -1,0 +1,19 @@
+<svg width="2463" height="3783" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <marker se_type="leftarrow" orient="auto" markerHeight="5" markerWidth="5" markerUnits="strokeWidth" refY="50" refX="50" viewBox="0 0 100 100" id="se_marker_start_svg_4">
+   <path d="m0,50l100,40l-30,-40l30,-40z" stroke-width="10" stroke="#000000" fill="#000000"/>
+  </marker>
+  <marker se_type="rightarrow" orient="auto" markerHeight="5" markerWidth="5" markerUnits="strokeWidth" refY="50" refX="50" viewBox="0 0 100 100" id="se_marker_end_svg_4">
+   <path d="m100,50l-100,40l30,-40l-30,-40z" stroke-width="10" stroke="#000000" fill="#000000"/>
+  </marker>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <rect height="396.923" width="663.077" y="200.077" x="209.308" stroke-width="5" stroke="#000000" fill="#ff0000" id="svg_1"/>
+  <polygon strokeWidth="5" strokecolor="#000000" edge="161.01585" orient="x" sides="5" shape="regularPoly" cy="709.30778" cx="1189.30777" points="1326.28,709.308 1231.63,839.572 1078.5,789.816 1078.5,628.8 1231.63,579.043 1326.28,709.308" stroke-width="5" stroke="#000000" fill="#ff0000" id="svg_2"/>
+  <polygon strokeWidth="5" strokecolor="#000000" edge="53.48336" orient="x" sides="5" shape="regularPoly" cy="710.84624" cx="1210.84623" points="1256.34,710.846 1224.91,754.115 1174.04,737.588 1174.04,684.105 1224.91,667.577 1256.34,710.846" stroke-width="5" stroke="#000000" fill="#ff0000" id="svg_3"/>
+  <polyline points="903.154,735.462 907.769,778.539 912.385,821.615" stroke-width="5" stroke="#000000" marker-start="url(&quot;#se_marker_start_svg_4&quot;)" marker-end="url(&quot;#se_marker_end_svg_4&quot;)" fill="none" id="svg_4"/>
+  <text xml:space="preserve" y="786.1607" x="925.2162" transform="rotate(-6.18119 925.16 778.568)" text-anchor="middle" stroke-width="0" stroke="#000000" fill="#000000" style="cursor: move; pointer-events: inherit;" font-size="24" font-family="serif" id="svg_5">32</text>
+ </g>
+</svg>

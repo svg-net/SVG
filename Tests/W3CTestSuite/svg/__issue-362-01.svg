@@ -1,0 +1,22 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <symbol id="el1" width="50" height="50" viewBox="0 0 50 50">
+            <rect x="-5" y="-5" width="60" height="60">
+            </rect>
+            <line class="block" x1="-5" y1="-5" x2="55" y2="55" stroke="blue"></line>
+            <rect x="-18" y="-18" width="36" height="36" transform="rotate(45)" fill="green"></rect>
+            <circle cx="50" cy="50" r="26" fill="orange">
+            </circle>
+            <circle cx="50" cy="50" r="16" fill="olive">
+            </circle>
+        </symbol>
+        <symbol id="big1" width="100" height="100" viewBox="-50 -50 100 100">
+            <use width="50" height="50" href="#el1" transform=""/>
+            <use width="50" height="50" href="#el1" transform="scale(-1,-1)"/>
+            <use width="50" height="50" href="#el1" transform="scale(-1,1)"/>
+            <use width="50" height="50" href="#el1" transform="scale(1,-1)"/>
+        </symbol>
+    </defs>
+    <rect class="block" x="0" y="0" width="400" height="400" fill="white"></rect>
+    <use x="120" y="120" width="100"  height="100" href="#big1" fill="red" />
+</svg>

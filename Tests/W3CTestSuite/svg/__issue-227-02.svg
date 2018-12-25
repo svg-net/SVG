@@ -1,0 +1,345 @@
+<svg id="Drawing1" version="1.1" width="840" height="594" viewBox="0 0 420 297" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" type="1" fileName="" comment="" author="">
+      <defs>
+	  <style type="text/css"><![CDATA[
+line,
+rect,
+circle,
+ellipse,
+path,
+text {
+  vector-effect: non-scaling-stroke;
+}
+/* основная */
+.lt1 {
+  fill: none;
+  stroke: blue;
+  stroke-width: 2;
+}
+/* тонкая */
+.lt2 {
+  fill: none;
+  stroke: black;
+  stroke-width: .7;
+}
+/* осевая */
+.lt3 {
+  fill: none;
+  stroke: red;
+  stroke-width: .7;
+  stroke-dasharray: 25, 4, 3, 4;
+}
+/* штриховая */
+.lt4 {
+  fill: none;
+  stroke: black;
+  stroke-width: .7;
+  stroke-dasharray: 7, 4;
+}
+/* для линии обрыва */
+.lt5 {
+  fill: none;
+  stroke: black;
+  stroke-width: .7;
+}
+/* утолщеная */
+.lt7 {
+  fill: none;
+  stroke: teal;
+  stroke-width: 3.3;
+}
+/* пунктир 2 */
+.lt8 {
+  fill: none;
+  stroke: black;
+  stroke-width: .7;
+  stroke-dasharray: 25, 4, 3, 4, 3, 4;
+}
+/* штриховая осн. */
+.lt9 {
+  fill: none;
+  stroke: blue;
+  stroke-width: 2;
+  stroke-dasharray: 10, 5;
+}
+/* осевая осн. */
+.lt10 {
+  fill: none;
+  stroke: blue;
+  stroke-width: 2;
+  stroke-dasharray: 25, 5, 3, 5;
+}
+/* тонкая */
+.lt11 {
+  fill: none;
+  stroke: black;
+  stroke-width: .5;
+}
+
+/* основная для масштаба 0.25 */
+.lt1_025 {
+  fill: none;
+  stroke: blue;
+  stroke-width: 8;
+}
+
+/* тонкая для масштаба 0.25 */
+.lt2_025 {  
+  stroke: black;
+  stroke-width: 2.8;
+}
+
+/* тонкая линия, тип для точки, масштаба 0.25  */
+.pt1 {
+  fill: none;
+  stroke-width: 2;
+}
+
+text {fill: black; font-family: GOST type A; font-weight: 400; text-decoration: none; font-style: italic}
+
+/*0	- умолчательный стиль для данного типа объекта*/
+.styles0{font-size: 5mm}
+/*1	- обычный текст*/
+.styles1{font-family: GOST type A; font-size: 5mm}
+/*2	- текст для технических требований*/
+.styles2{font-family: GOST type A; font-size: 5mm}
+/*3	- текст размерной надписи*/
+.styles3{font-family: GOST type A; font-size: 5mm}
+/*4	- текст в обозначении шероховатости*/
+.styles4{font-family: GOST type A; font-size: 5mm; font-weight: 400;}
+/*5	- текст на позиционной линии-выноске*/
+.styles5{font-family: GOST type A; font-size: 5mm; font-weight: 400;}
+/*6	- текст над\под полкой линии-выноски*/
+.styles6{font-family: GOST type A; font-size: 5mm; font-weight: 400;}
+/*7	- текст на ответвлении линии-выноски*/
+.styles7{font-family: GOST type A; font-size: 5mm; font-weight: 400;}
+/*8	- текст в обозначении допуска формы*/
+.styles8{font-family: GOST type A; font-size: 7mm; font-weight: 400;}
+/*9	- текст для заголовка таблицы*/
+.styles9{font-family: GOST type A; font-size: 5mm; font-weight: 400;}
+/*10	- текст для ячейки таблицы*/
+.styles10{font-family: GOST type A; font-size: 5mm; font-weight: 400;}
+/*11	- текст для линии разреза*/
+.styles11{font-family: GOST type A; font-size: 5mm; font-weight: 400;}
+/*12	- текст для стрелки направления взгляда*/
+.styles12{font-family: GOST type A; font-size: 7mm; font-weight: 400;}
+/*13	- текст в обозначении неуказанной шероховатости*/
+.styles13{font-family: GOST type A; font-size: 5mm; font-weight: 400;}
+/*14	- текст в обозначении изменения*/
+.styles14{font-family: GOST type A; font-size: 5mm; font-weight: 400;}
+/*15	- текст для фигурной скобки*/
+.styles15{font-family: GOST type A; font-size: 5mm; font-weight: 400;}
+    ]]></style>
+<!-- Рисование точки - PointParam -->
+        <marker id="Point0" viewBox="-10 -10 20 20" markerWidth="5" markerHeight="5">
+          <path class="pt1" d="M-3,0 L0,-3 3,0 0,3 z" stroke="red"/>
+		</marker>
+        <marker id="Point1" viewBox="-10 -10 20 20" markerWidth="5" markerHeight="5">
+          <path  class="pt1" d="M-9,-9 L9,9 M-9,9 L9,-9" stroke="blue"/>
+		</marker>
+        <marker id="Point2" viewBox="-10 -10 20 20" markerWidth="5" markerHeight="5">
+          <path  class="pt1" d="M-9,-9 L9,9 M-9,9 L9,-9 M-9,0 L9,0" stroke="red"/>
+		</marker>
+        <marker id="Point3" viewBox="-10 -10 20 20" markerWidth="5" markerHeight="5">
+          <circle class="pt1" stroke="red" cx="0" cy="0" r="9"/>
+	    </marker>
+        <marker id="Point4" viewBox="-10 -10 20 20" markerWidth="5" markerHeight="5">
+          <path  class="pt1" d="M-9,-9 L9,-9 9,9 -9,9 z" stroke="fuchsia"/>
+		</marker>
+        <marker id="Point5" viewBox="-10 -10 20 20" markerWidth="5" markerHeight="5">
+          <path  class="pt1" d="M0,-9 L9,9 -9,9 z" stroke="lime"/>
+		</marker>
+        <marker id="Point6" viewBox="-10 -10 20 20" markerWidth="5" markerHeight="5">
+          <path  class="pt1" d="M-9,-9 L9,-9 9,9 -9,9 z L9,9 M9,-9 L-9,9" stroke="black"/>
+	    </marker>
+        <marker id="Point7" viewBox="-10 -10 20 20" markerWidth="5" markerHeight="5">
+          <path  class="pt1" d="M0,-9 L0,9 M-9,0 L9,0" stroke="black"/>
+		</marker>
+        <marker id="Point8" viewBox="-10 -10 20 20" markerWidth="5" markerHeight="5">
+          <path  class="pt1" d="M0,-9 L0,9 M-9,0 L9,0" stroke="blue"/>
+		</marker>
+<!-- Рисование штриховки - Hatch --> 
+        <pattern id="hatch1_45" width="20" height="20" patternUnits="userSpaceOnUse">
+	      <line class="lt2_025 " x1="1" y1="20" x2="20" y2="1" />
+		  <line class="lt2_025 " x1="0" y1="1" x2="1" y2="0" />
+		</pattern>		
+<!-- Рисование стрелок и засечек - DimPoint -->
+        <marker id="DimPoint1" viewBox="-2 -12 29 24" markerWidth="44" markerHeight="36" orient="auto">
+          <path class="lt2_025" stroke="black" d="M0,0 L20,-4 16,0 20,4 z M0,-10 L0,10 M0,0 L27,0"/>
+		</marker>
+        <marker id="DimPoint2" viewBox="-27 -12 29 24" markerWidth="44" markerHeight="36" orient="auto">
+          <path class="lt2_025" stroke="black" d="M0,0 L-20,-4 -16,0 -20,4 z M0,-10 L0,10 M0,0 L-27,0"/>
+		</marker>
+        <marker id="ViewPoint" viewBox="-2 -12 29 24" markerWidth="87" markerHeight="72" orient="auto">
+          <path class="lt2_025" stroke="black" d="M0,0 L20,-4 16,0 20,4 z M0,-10 L0,10 M0,0 L27,0"/>
+		</marker>	
+      </defs>
+      <title>SVG for CAD</title>
+<!-- Рисование документа - DocumentParam -->
+      <svg id="Shtamp" type="1" x="0" y="0" width="420" height="297" viewBox="0 0 420 297">
+        <title>Штамп чертежа</title>
+	    <rect class="lt1" x="20" y="5" width="395" height="287"/>
+		<line class="lt1" x1="230" y1="237" x2="415" y2="237"/>
+		<line class="lt1" x1="230" y1="237" x2="230" y2="292"/>
+		<line class="lt1" x1="90" y1="5" x2="90" y2="19"/>
+		<line class="lt1" x1="20" y1="19" x2="90" y2="19"/>	
+        <rect class="lt2" x="1" y="1" width="418" height="295"/>
+    
+		<line class="lt1" x1="247" y1="237" x2="247" y2="292"/>
+		<line class="lt1" x1="270" y1="237" x2="270" y2="292"/>
+		<line class="lt1" x1="285" y1="237" x2="285" y2="292"/>
+		<line class="lt1" x1="295" y1="237" x2="295" y2="292"/>
+		<line class="lt1" x1="237" y1="237" x2="237" y2="262"/>
+		<line class="lt2" x1="230" y1="242" x2="295" y2="242"/>
+		<line class="lt2" x1="230" y1="247" x2="295" y2="247"/>
+		<line class="lt2" x1="230" y1="252" x2="295" y2="252"/>
+		<line class="lt1" x1="230" y1="257" x2="295" y2="257"/>
+		<line class="lt1" x1="230" y1="262" x2="295" y2="262"/>
+		<line class="lt2" x1="230" y1="267" x2="295" y2="267"/>
+		<line class="lt2" x1="230" y1="272" x2="295" y2="272"/>
+		<line class="lt2" x1="230" y1="277" x2="295" y2="277"/>
+		<line class="lt2" x1="230" y1="282" x2="295" y2="282"/>
+		<line class="lt2" x1="230" y1="287" x2="295" y2="287"/>
+		<line class="lt1" x1="295" y1="277" x2="415" y2="277"/>
+		<line class="lt1" x1="295" y1="252" x2="415" y2="252"/>
+		<line class="lt1" x1="365" y1="252" x2="365" y2="292"/>
+		<line class="lt1" x1="365" y1="257" x2="415" y2="257"/>
+		<line class="lt1" x1="365" y1="272" x2="415" y2="272"/>
+		<line class="lt2" x1="370" y1="257" x2="370" y2="272"/>
+		<line class="lt2" x1="375" y1="257" x2="375" y2="272"/>
+		<line class="lt1" x1="380" y1="252" x2="380" y2="272"/>
+		<line class="lt1" x1="397" y1="252" x2="397" y2="272"/>
+		<line class="lt1" x1="386" y1="272" x2="386" y2="277"/>
+	  </svg>  
+<!-- Рисование вида - ViewParam -->
+      <svg id="View1" x="50" y="7" width="150" height="162" viewBox="-25 -200 600 648">
+        <title>Вид 1</title>
+		<line class="lt1" x1="0" y1="325" x2="500" y2="325"/>
+		<line class="lt1" x1="0" y1="225" x2="0" y2="325"/>
+		<line class="lt1" x1="0" y1="225" x2="250" y2="225"/>
+		<line class="lt1" x1="140" y1="225" x2="190" y2="0"/>
+		<line class="lt1" x1="190" y1="0" x2="310" y2="0"/>	
+		<line class="lt1" x1="340" y1="250" x2="190" y2="250"/>
+		<line class="lt1" x1="190" y1="250" x2="190" y2="290"/>
+		<line class="lt1" x1="190" y1="290" x2="250" y2="290"/>
+		<line class="lt1" x1="500" y1="225" x2="500" y2="325"/>
+		<line class="lt1" x1="500" y1="225" x2="360" y2="225"/>
+		<line class="lt1" x1="310" y1="0" x2="360" y2="225"/>
+		<line class="lt1" x1="290" y1="0" x2="290" y2="250"/>
+		<line class="lt1" x1="340" y1="325" x2="340" y2="250"/>	
+		<line class="lt1" x1="170" y1="225" x2="170" y2="325"/>
+	
+		<line class="lt3" x1="250" y1="350" x2="250" y2="-25"/>
+		<line class="lt3" x1="50" y1="350" x2="50" y2="200"/>
+		<line class="lt3" x1="450" y1="350" x2="450" y2="200"/>
+	
+		<line class="lt4" x1="210" y1="0" x2="210" y2="250"/>
+		<line class="lt4" x1="160" y1="250" x2="190" y2="250"/>
+		<line class="lt4" x1="160" y1="325" x2="160" y2="250"/>	
+	
+		<line class="lt4" x1="25" y1="325" x2="25" y2="225"/>
+		<line class="lt4" x1="75" y1="325" x2="75" y2="225"/>
+		<line class="lt1" x1="425" y1="325" x2="425" y2="225"/>
+		<line class="lt1" x1="475" y1="325" x2="475" y2="225"/>
+	
+		<path d="M475,225 L475,325 L500,325 L500,225 Z" fill="url(#hatch1_45)"/>
+		<path d="M290,0 L290,250 L340,250 L340,325 L425,325 L425,225 L360,225 L310,0 Z" fill="url(#hatch1_45)"/>
+	  </svg>
+<!-- Рисование вида - ViewParam -->
+	  <svg id="View2" x="25" y="158" width="200" height="130" viewBox="-100 -250 800 520">
+		<title>Вид 2</title>
+		<circle class="lt1" cx="250" cy="0" r="40"/>
+		<circle class="lt1" cx="250" cy="0" r="60"/>
+		<circle class="lt1" cx="50" cy="0" r="25"/>
+		<circle class="lt1" cx="450" cy="0" r="25"/>
+		<line class="lt3" x1="50" y1="-30" x2="50" y2="30"/>
+		<line class="lt3" x1="450" y1="-30" x2="450" y2="30"/>	
+		<line class="lt3" x1="250" y1="-150" x2="250" y2="200"/>
+		<line class="lt3" x1="170" y1="180" x2="330" y2="180"/>
+		<line class="lt3" x1="-25" y1="0" x2="525" y2="0"/>	
+		<line class="lt1" x1="27.5" y1="44.6514" x2="170" y2="116.457"/>
+		<line class="lt1" x1="472.5" y1="44.6514" x2="330" y2="116.457"/>
+		<line class="lt1" x1="27.5" y1="-44.6514" x2="187" y2="-125.024"/>
+		<line class="lt1" x1="472.5" y1="-44.6514" x2="313" y2="-125.024"/>	
+		<line class="lt1" x1="170" y1="180" x2="170" y2="116.457"/>
+		<line class="lt1" x1="170" y1="180" x2="330" y2="180"/>
+		<line class="lt1" x1="330" y1="180" x2="330" y2="116.457"/>
+		<line class="lt1" x1="190" y1="180" x2="190" y2="67.0820"/>
+		<line class="lt1" x1="310" y1="180" x2="310" y2="67.0820"/>	
+		<path class="lt1" d="M187,-125.024 A140,140 0 0 1 313,-125.024"/>	
+		<path class="lt1" d="M27.5,44.6514 A50,50 0 0 1 27.5,-44.6514"/>
+		<path class="lt1" d="M472.5,44.6514 A50,50 0 0 0 472.5,-44.6514"/>
+		<path class="lt1" d="M162.822,67.0820 A110,110 0 1 1 337.178,67.0820"/>
+		<path class="lt1" d="M180.459,57.1320 A90,90 0 0 0 319.54,57.1320"/>
+		<path class="lt2" d="M140,101.34 C144.696,86.7859 152.303,75.3664 162.822,67.0820
+                             C167.996,63.0066 174.363,58.9944 180.459,57.1320
+							 C194.3626,52.8843 213.0561,57.1320 225.5589,67.0820
+							 C232.5067,72.6114 241.8569,77.1221 250,77.9937
+							 C263.3438,79.4220 275.9399,63.2633 290.0,60
+							 C299.5142,57.7918 310.4253,54.6301 319.5409,57.1320
+							 C325.7604,58.8390 332.0035,63.0066 337.1780,67.0820
+							 C347.6966,75.3664 353.3294,89.2060 360,101.3405"/>
+		<path d="M170,180 L170,116.4576 L140,101.3405
+                 C144.696,86.7859 152.303,75.3664 162.822,67.0820
+                 C167.996,63.0066 174.363,58.9944 180.459,57.1320
+		    	 A90,90 0 0 0 190,67.0820
+		    	 L190,180 Z" fill="url(#hatch1_45)"/>
+		<path d="M310,180 L310,67.0820 A90,90 0 0 0 319.54,57.1320
+                 C325.7604,58.8390 332.0035,63.0066 337.1780,67.0820
+    	         C347.6966,75.3664 353.3294,89.2060 360,101.3405
+		    	 L330,116.4576 L330,180 Z" fill="url(#hatch1_45)"/>			 
+		<g class="DimL">
+		  <line class="lt2" x1="190" y1="180" x2="190" y2="230"/>
+		  <line class="lt2" x1="310" y1="180" x2="310" y2="230"/>
+		  <line id="dim1" class="lt2" x1="190" y1="230" x2="310" y2="230" marker-start="url(#DimPoint1)" marker-end="url(#DimPoint2)"/>
+		  <text x="265" y="222" font-size="28" text-anchor="middle">120</text> 
+		</g>									  
+		<g class="DimL">
+		  <line class="lt2" x1="170" y1="180" x2="170" y2="265"/>
+	      <line class="lt2" x1="330" y1="180" x2="330" y2="265"/>   
+		  <line id="dim1" class="lt2" x1="170" y1="265" x2="330" y2="265" marker-start="url(#DimPoint1)" marker-end="url(#DimPoint2)"/>
+		  <text x="225" y="257" font-size="28" text-anchor="middle">160</text> 
+		</g>	
+		<g class="DimL">
+          <line class="lt2" x1="330" y1="180" x2="560" y2="180"/>
+          <line class="lt2" x1="250" y1="-140" x2="560" y2="-140"/>
+          <line id="dim1" class="lt2" x1="560" y1="180" x2="560" y2="-140" marker-start="url(#DimPoint1)" marker-end="url(#DimPoint2)"/>
+          <text x="552" y="20" font-size="28" text-anchor="middle" transform="rotate(-90, 552, 20)">320</text> 
+		</g>
+	  </svg>
+	  <svg id="View3" x="250" y="45" width="125" height="100" viewBox="-50 -50 500 400">
+        <title>Вид 3</title>
+		<line class="lt1" x1="0" y1="325" x2="320" y2="325"/>
+		<line class="lt1" x1="0" y1="225" x2="30" y2="225"/>
+		<line class="lt1" x1="0" y1="225" x2="0" y2="325"/>
+		<line class="lt1" x1="320" y1="325" x2="320" y2="225"/>
+		<line class="lt1" x1="80" y1="0" x2="200" y2="0"/>
+		<line class="lt1" x1="100" y1="0" x2="100" y2="250"/>
+		<line class="lt1" x1="180" y1="0" x2="180" y2="250"/>
+		<line class="lt1" x1="30" y1="225" x2="80" y2="0"/>
+		<line class="lt1" x1="250" y1="225" x2="200" y2="0"/>
+		<line class="lt1" x1="320" y1="225" x2="250" y2="225"/>
+		<line class="lt1" x1="50" y1="250" x2="320" y2="250"/>
+		<line class="lt1" x1="50" y1="250" x2="50" y2="325"/>
+		<line class="lt1" x1="207.082" y1="290" x2="207.082" y2="250"/>
+		<line class="lt1" x1="207.082" y1="290" x2="320" y2="290"/>
+		<line class="lt1" x1="230" y1="290" x2="230" y2="325"/>
+		<line class="lt3" x1="140" y1="350" x2="140" y2="-25"/>
+
+		<path d="M230,290L230,325 320,325 320,290z" fill="url(#hatch1_45)"/>	
+		<path d="M0,325L0,225 30,225 80,0 100,0 100,250 50,250 50,325z" fill="url(#hatch1_45)"/>
+		<path d="M180,250L180,0 200,0 250,225 320,225 320,250z" fill="url(#hatch1_45)"/>
+	
+		<g class="DimL">
+  	      <line class="lt2" x1="320" y1="250" x2="370" y2="250"/>
+		  <line class="lt2" x1="320" y1="290" x2="370" y2="290"/>
+		  <line id="dim1" class="lt2" x1="370" y1="250" x2="370" y2="290" marker-start="url(#DimPoint2)" marker-end="url(#DimPoint1)"/>
+		  <text x="362" y="270" font-size="28" text-anchor="middle" transform="rotate(-90, 362, 270)">40</text> 
+		</g>
+		<g class="DimL">
+		  <line class="lt2" x1="320" y1="250" x2="420" y2="250"/>
+		  <line class="lt2" x1="320" y1="325" x2="420" y2="325"/>
+		  <line id="dim1" class="lt2" x1="420" y1="250" x2="420" y2="325" marker-start="url(#DimPoint1)" marker-end="url(#DimPoint2)"/>
+		  <text x="412" y="288" font-size="28" text-anchor="middle" transform="rotate(-90, 412, 288)">75</text> 
+		</g>
+      </svg>	
+    </svg>

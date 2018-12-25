@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0" y="0" width="768" height="1024">
+    <defs>
+        <rect x="22.85714" y="62.36218" width="464.2857" height="274.2857" fill="#C8B7B7" id="pieChartRect" />
+    </defs>
+    <use x="250.7143" y="406.6479" id="usePieChart1" xlink:href="#pieChartRect"/>
+</svg>
