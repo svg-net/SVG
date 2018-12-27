@@ -50,6 +50,20 @@ namespace SVGViewer
             }
         }
 
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Control && e.KeyCode == Keys.A)
+                {
+                    (sender as TextBox).SelectAll();
+                }
+            }
+            catch
+            {
+            }
+        }
+
         private void RenderSvg(SvgDocument svgDoc)
         {
             //var render = new DebugRenderer();
