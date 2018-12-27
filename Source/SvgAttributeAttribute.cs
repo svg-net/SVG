@@ -35,6 +35,11 @@ namespace Svg
             return Match(obj);
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         /// <summary>
         /// When overridden in a derived class, returns a value that indicates whether this instance equals a specified object.
         /// </summary>
