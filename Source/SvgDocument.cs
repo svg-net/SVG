@@ -14,6 +14,7 @@ using Svg.Css;
 using System.Threading;
 using System.Globalization;
 using Svg.Exceptions;
+using System.Runtime.InteropServices;
 
 namespace Svg
 {
@@ -22,10 +23,29 @@ namespace Svg
     /// </summary>
     public class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
-        public static readonly int PointsPerInch = 96;
+        public static readonly int PointsPerInch = GetSystemDpi();
         private SvgElementIdManager _idManager;
 
         private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;
+
+        private static int GetSystemDpi()
+        {
+            IntPtr hDC = GetDC(IntPtr.Zero);
+            const int LOGPIXELSY = 90;
+            int result = GetDeviceCaps(hDC, LOGPIXELSY);
+            ReleaseDC(IntPtr.Zero, hDC);
+            return result;
+        }
+
+        [DllImport("gdi32.dll")]
+        private static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetDC(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
         internal Dictionary<string, IEnumerable<SvgFontFace>> FontDefns()
         {
             if (_fontDefns == null)
