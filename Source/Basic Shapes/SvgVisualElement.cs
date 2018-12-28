@@ -254,6 +254,12 @@ namespace Svg
                                     /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
                                     pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) /
                                         ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
+
+                                    if (this.StrokeDashOffset != null && this.StrokeDashOffset.Value != 0)
+                                    {
+                                        pen.DashOffset = ((this.StrokeDashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : this.StrokeDashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this)) /
+                                            ((strokeWidth <= 0) ? 1 : strokeWidth);
+                                    }
                                 }
                                 switch (this.StrokeLineJoin)
                                 {
