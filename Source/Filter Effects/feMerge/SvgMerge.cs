@@ -26,7 +26,6 @@ namespace Svg.FilterEffects
                 }
                 g.Flush();
             }
-            result.Save(@"C:\test.png");
             buffer[this.Result] = result;
         }
 
