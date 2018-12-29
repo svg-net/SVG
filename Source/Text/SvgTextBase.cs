@@ -839,10 +839,12 @@ namespace Svg
                         switch (Element.TextAnchor)
                         {
                             case SvgTextAnchor.Middle:
-                                xOffset -= (maxX - minX) / 2;
+                                if (_anchoredPaths.Count() == 1) xOffset -= this.TextBounds.Width / 2; 
+                                else xOffset -= (maxX - minX) / 2;
                                 break;
                             case SvgTextAnchor.End:
-                                xOffset -= (maxX - minX);
+                                if (_anchoredPaths.Count() == 1) xOffset -= this.TextBounds.Width;
+                                else xOffset -= (maxX - minX); 
                                 break;
                         }
 
