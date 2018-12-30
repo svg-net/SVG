@@ -251,6 +251,11 @@ namespace Svg
                             {
                                 if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
                                 {
+                                    if (this.StrokeDashArray.Count % 2 != 0)
+                                    {
+                                        // handle odd dash arrays by repeating them once
+                                        this.StrokeDashArray.AddRange(this.StrokeDashArray);
+                                    }
                                     /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
                                     pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) /
                                         ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();

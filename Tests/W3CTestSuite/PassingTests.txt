@@ -39,6 +39,7 @@ masking-path-06-b.svg
 masking-path-03-b.svg
 metadata-example-01-t.svg
 painting-control-04-f.svg
+painting-stroke-06-t.svg
 painting-stroke-09-t.svg
 painting-stroke-10-t.svg
 pservers-grad-01-b.svg
