@@ -186,8 +186,11 @@ namespace Svg
                 // If the corners aren't to be rounded just create a rectangle
                 if (CornerRadiusX.Value == 0.0f && CornerRadiusY.Value == 0.0f)
                 {
+                  var loc_y = Location.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                  var loc_x = Location.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+
                   // Starting location which take consideration of stroke width
-                  SvgPoint strokedLocation = new SvgPoint(Location.X - halfStrokeWidth, Location.Y - halfStrokeWidth);
+                  SvgPoint strokedLocation = new SvgPoint(loc_x- halfStrokeWidth, loc_y - halfStrokeWidth);
 
                   var width = this.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) + halfStrokeWidth;
                   var height = this.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) + halfStrokeWidth;
