@@ -442,9 +442,19 @@ namespace Svg
         /// Renders the <see cref="SvgDocument"/> to the specified <see cref="Graphics"/>.
         /// </summary>
         /// <param name="graphics">The <see cref="Graphics"/> to be rendered to.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
+        public void Draw(Graphics graphics)
+        {
+            Draw(graphics, null);
+        }
+
+        /// <summary>
+        /// Renders the <see cref="SvgDocument"/> to the specified <see cref="Graphics"/>.
+        /// </summary>
+        /// <param name="graphics">The <see cref="Graphics"/> to be rendered to.</param>
         /// <param name="size">The <see cref="SizeF"/> to render the document. If <c>null</c> document is rendered at the default document size.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
-        public void Draw(Graphics graphics, SizeF? size = null)
+        public void Draw(Graphics graphics, SizeF? size)
         {
             if (graphics == null)
             {
