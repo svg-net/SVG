@@ -256,9 +256,26 @@ namespace Svg
                                         // handle odd dash arrays by repeating them once
                                         this.StrokeDashArray.AddRange(this.StrokeDashArray);
                                     }
+
                                     /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
                                     pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) /
                                         ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
+
+                                    if (this.StrokeLineCap == SvgStrokeLineCap.Round)
+                                    {
+                                        // to handle round caps, we have to adapt the dash pattern
+                                        // by increasing the dash length by the stroke width - GDI draws the rounded 
+                                        // edge inside the dash line, SVG draws it outside the line  
+                                        var pattern = new float[pen.DashPattern.Length];
+                                        int offset = 1; // the values are already normalized to dash width
+                                        for ( int i = 0; i < pen.DashPattern.Length; i++)                               
+                                        {
+                                            pattern[i] = pen.DashPattern[i] + offset;
+                                            offset *= -1; // increase dash length, decrease spaces
+                                        }
+                                        pen.DashPattern = pattern;
+                                        pen.DashCap = DashCap.Round;
+                                    }
 
                                     if (this.StrokeDashOffset != null && this.StrokeDashOffset.Value != 0)
                                     {
