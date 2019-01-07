@@ -1,0 +1,3263 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1092" height="453">
+  <style type="text/css">/* line 5, REDACTED_scan-nav.scss */
+#header {
+  color: white;
+  background: #3a4557;
+  background: rgba(58, 69, 87, 0.5);
+}
+
+/* line 11, REDACTED_scan-nav.scss */
+a.logout {
+  background: url("/Content/images/logout.png") right center no-repeat;
+  padding: 0;
+  margin-right: 1em;
+  padding-right: 1.5em !important;
+}
+
+/* line 22, REDACTED_scan-nav.scss */
+.navbar-static-top a.site-nav, .navbar-static-top a.navbar-icon {
+  background-image: none !important;
+}
+
+/* line 29, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav li.navbar-icon {
+  padding: 0;
+}
+/* line 32, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav li {
+  padding-top: 1em;
+}
+/* line 34, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav li a {
+  color: white;
+  background-color: transparent;
+}
+/* line 37, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav li a:hover {
+  color: #03bf57;
+  background-color: inherit;
+}
+/* line 42, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav li a.site-nav-admin {
+  color: #ff9c26;
+}
+/* line 44, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav li a.site-nav-admin:hover {
+  color: #03bf57;
+}
+/* line 46, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav li a.site-nav-admin.current-page {
+  color: #03bf57;
+}
+/* line 47, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav li a.current-page {
+  color: #03bf57;
+}
+/* line 49, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav li.navbar-brand {
+  padding-top: 1.6rem;
+  font-size: 1.65rem;
+  color: white;
+}
+/* line 55, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav li.current-tab a {
+  color: #5cb85c;
+  /* the IES colour but looks too dark for text*/
+}
+/* line 58, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open .dropdown-menu {
+  background-color: #555555;
+}
+/* line 61, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open .dropdown-menu .active a {
+  color: cyan;
+  background-color: #555555;
+}
+/* line 64, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open .dropdown-menu .active a:hover, .navbar-default .navbar-nav .open .dropdown-menu .active a:focus {
+  color: cyan;
+  background-color: #555555;
+}
+/* line 71, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open .dropdown-menu .disabled a {
+  color: #cccccc;
+  background-color: #555555;
+}
+/* line 74, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open .dropdown-menu .disabled a:hover, .navbar-default .navbar-nav .open .dropdown-menu .disabled a:focus {
+  color: #cccccc;
+  background-color: #555555;
+}
+/* line 80, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open .dropdown-menu .dropdown-menu {
+  top: 0;
+  left: 75%;
+  margin-top: -1px;
+  border: 1px solid #009c46;
+}
+/* line 86, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open .dropdown-menu li {
+  padding: 0;
+  background-color: #555555;
+}
+/* line 89, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open .dropdown-menu li a {
+  color: white;
+  background-color: #555555;
+}
+/* line 92, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open .dropdown-menu li a:hover, .navbar-default .navbar-nav .open .dropdown-menu li a:focus {
+  color: #03bf57;
+  background-color: #555555;
+}
+/* line 97, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open .dropdown-menu li a.current-page {
+  color: #03bf57;
+}
+/* line 100, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav .open a, .navbar-default .navbar-nav .open a:hover, .navbar-default .navbar-nav .open a:focus {
+  color: #03bf57;
+  background-color: inherit;
+}
+
+/* line 108, REDACTED_scan-nav.scss */
+a.site-nav .current-page {
+  color: #03bf57;
+}
+
+/* boostrap 3 changed nav active colours */
+/* line 112, REDACTED_scan-nav.scss */
+.nav &gt; .active &gt; a {
+  color: white;
+  background-color: #428bca;
+}
+
+/* line 117, REDACTED_scan-nav.scss */
+.navbar-default .navbar-nav &gt; li &gt; .current-page {
+  color: #03bf57;
+}
+
+/* line 118, REDACTED_scan-nav.scss */
+.nav &gt; li &gt; a.navbar-icon {
+  padding-left: 0;
+}
+
+/* line 121, REDACTED_scan-nav.scss */
+ul.navbar-icon-dropdown {
+  margin-top: -15px;
+}
+
+/* line 122, REDACTED_scan-nav.scss */
+.nav &gt; .navbar-brand &gt; a {
+  padding-top: 0;
+}
+
+/* Force correct box model globally where boostrap does not override. */
+/* line 4, REDACTED_scan-bootstrap-overrides.scss */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+/* line 6, REDACTED_scan-bootstrap-overrides.scss */
+html {
+  font-size: 16px;
+  /* Sets uniformly readable font size as base to call rems and ems from */
+  min-width: 330px;
+  /* Force iPhone width to be smallest the site will accomodate
+                (captures all the way down to iPhone 3, bigger phones
+                will use tablet details and will be subject to review
+                if and when phones are actually supported.)*/
+}
+
+@media screen and (max-width: 330px) {
+  /* line 14, REDACTED_scan-bootstrap-overrides.scss */
+  html {
+    min-width: 330px;
+    overflow-x: hidden;
+    margin: 0 auto;
+  }
+}
+/* Font sizing in rem so as to always adhere to the new base html font size.
+    When traversing breakpoints, the goal is to change only the base font-size on html, though often compromises must be made */
+/* line 22, REDACTED_scan-bootstrap-overrides.scss */
+body {
+  font-size: 1rem;
+}
+
+/* line 23, REDACTED_scan-bootstrap-overrides.scss */
+h1, h2.h3.h4 {
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  font-family: 'bliss_2light';
+  color: #3a4557;
+}
+
+/* line 30, REDACTED_scan-bootstrap-overrides.scss */
+h1 {
+  font-size: 2rem;
+  line-height: 2.2rem;
+}
+
+/* line 35, REDACTED_scan-bootstrap-overrides.scss */
+h2 {
+  font-size: 1.3rem;
+  line-height: 1.5rem;
+}
+
+/* line 40, REDACTED_scan-bootstrap-overrides.scss */
+h3 {
+  font-size: 1.1rem;
+  line-height: 1.3rem;
+}
+
+/* line 45, REDACTED_scan-bootstrap-overrides.scss */
+h4 {
+  font-size: 1rem;
+  line-height: 1.2rem;
+}
+
+/* line 50, REDACTED_scan-bootstrap-overrides.scss */
+p {
+  font-size: 1rem;
+  line-height: 1.2rem;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  font-family: 'bliss_2light';
+  color: #3a4557;
+}
+
+/* Container */
+/* Base style */
+/* line 61, REDACTED_scan-bootstrap-overrides.scss */
+.container {
+  width: 95%;
+}
+
+/* Project List overrides*/
+/* line 66, REDACTED_scan-bootstrap-overrides.scss */
+#project-list .building-thumbnail {
+  height: auto;
+}
+
+/* line 67, REDACTED_scan-bootstrap-overrides.scss */
+#project-list .building-thumbnail .thumbnail-borderless {
+  width: 100%;
+}
+
+/* override hr tag width */
+/* line 70, REDACTED_scan-bootstrap-overrides.scss */
+hr {
+  width: 100%;
+}
+
+/* line 73, REDACTED_scan-bootstrap-overrides.scss */
+#show-sync-to-ve, #show-ve-live-sync {
+  width: 48%;
+}
+
+/* line 76, REDACTED_scan-bootstrap-overrides.scss */
+#show-ve-live-sync {
+  margin-left: 2%;
+}
+
+@media screen and (max-width: 1199px) {
+  /* line 80, REDACTED_scan-bootstrap-overrides.scss */
+  #show-sync-to-ve, #show-ve-live-sync {
+    width: 100%;
+  }
+
+  /* line 83, REDACTED_scan-bootstrap-overrides.scss */
+  #show-ve-live-sync {
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 380px) {
+  /* line 88, REDACTED_scan-bootstrap-overrides.scss */
+  #show-sync-to-ve, #show-ve-live-sync {
+    width: 100%;
+    float: none;
+  }
+}
+/* line 6, REDACTED_scan-calendar.scss */
+table.calendar {
+  display: inline-block;
+  *display: inline;
+  margin-bottom: 0;
+  margin-left: 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  *zoom: 1;
+  -webkit-box-shadow: 0 1px 2px #eeeeee;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 2px #eeeeee;
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px #eeeeee;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -moz-border-radius-topleft: 3px;
+}
+/* line 28, REDACTED_scan-calendar.scss */
+table.calendar tr &gt; td, table.calendar tr &gt; th {
+  padding: 1px 6px;
+  line-height: 1.25rem;
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid #cccccc;
+  text-align: center;
+  font-size: 0.75rem;
+}
+/* line 36, REDACTED_scan-calendar.scss */
+table.calendar tr &gt; td.active, table.calendar tr &gt; th.active {
+  background-color: #f7f7f7;
+  color: #999999;
+}
+/* line 40, REDACTED_scan-calendar.scss */
+table.calendar tr &gt; td.disabled, table.calendar tr &gt; th.disabled {
+  color: #999999;
+}
+/* line 43, REDACTED_scan-calendar.scss */
+table.calendar tr &gt; td &gt; * {
+  font-size: 0.625rem;
+  text-decoration: none;
+}
+/* line 46, REDACTED_scan-calendar.scss */
+table.calendar tr &gt; td &gt; *:hover {
+  font-size: 0.625rem;
+  text-decoration: none;
+}
+/* line 52, REDACTED_scan-calendar.scss */
+table.calendar tr &gt; td.active &gt; * {
+  color: #999999;
+}
+
+/* line 58, REDACTED_scan-calendar.scss */
+option.selected-disabled {
+  background-color: #a6dbed;
+}
+
+/* line 59, REDACTED_scan-calendar.scss */
+td.format-cell:hover {
+  background-color: #dcf6ff;
+}
+
+/* line 60, REDACTED_scan-calendar.scss */
+td.selected {
+  background-color: #98b4ff;
+}
+
+/* line 61, REDACTED_scan-calendar.scss */
+.calendar-grid .month, .calendar-grid .day-marker, .calendar-grid .week, .calendar-grid .year {
+  cursor: pointer;
+}
+
+/* Grid Vars */
+/* line 6, REDACTED_scan-data-grid.scss */
+table.data-grid {
+  display: inline-block;
+  *display: inline;
+  margin-bottom: 0;
+  margin-left: 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  *zoom: 1;
+  -webkit-box-shadow: 0 1px 2px #eeeeee;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 2px #eeeeee;
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px #eeeeee;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  -moz-border-radius-topleft: 3px;
+}
+/* line 28, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; td, table.data-grid tr &gt; th {
+  padding: 1px 6px;
+  line-height: 1.25rem;
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid #cccccc;
+  font-size: 0.75rem;
+  overflow: hidden;
+}
+/* line 36, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; td.selected, table.data-grid tr &gt; th.selected {
+  background-color: #e3eff5;
+}
+/* line 40, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; td {
+  text-align: right;
+}
+/* line 41, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; td &gt; * {
+  font-size: 0.625rem;
+  text-decoration: none;
+}
+/* line 44, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; td &gt; *:hover {
+  font-size: 0.625rem;
+  text-decoration: none;
+}
+/* line 50, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; td.active {
+  background-color: #f7f7f7;
+  color: black;
+}
+/* line 53, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; td.active &gt; * {
+  color: #cccccc;
+}
+/* line 55, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; td.disabled {
+  color: #cccccc;
+  background-color: #eeeeee;
+}
+/* line 60, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; th {
+  text-align: center;
+}
+/* line 62, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; th.active {
+  background-color: #f7f7f7;
+  color: black;
+}
+/* line 66, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; th.disabled {
+  color: #cccccc;
+  background-color: #eeeeee;
+}
+/* line 70, REDACTED_scan-data-grid.scss */
+table.data-grid tr &gt; th.column-header {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 50px;
+  min-width: 50px;
+}
+
+/* line 81, REDACTED_scan-data-grid.scss */
+.data-loading {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+/* line 86, REDACTED_scan-data-grid.scss */
+.data-interpolated {
+  color: #ff6a00;
+}
+
+/* line 87, REDACTED_scan-data-grid.scss */
+.data-derived {
+  color: #006aff;
+}
+
+/* line 89, REDACTED_scan-data-grid.scss */
+.data-grid-data-dirty {
+  background-color: #fafacc;
+}
+
+/* line 90, REDACTED_scan-data-grid.scss */
+a.local {
+  color: black;
+}
+
+/* prevent selection of typographic items */
+/* line 93, REDACTED_scan-data-grid.scss */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* line 104, REDACTED_scan-data-grid.scss */
+.data-grid-row {
+  width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* line 110, REDACTED_scan-data-grid.scss */
+.data-grid-content {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+/* line 115, REDACTED_scan-data-grid.scss */
+#data-content {
+  padding-right: 0;
+}
+
+/* line 1, REDACTED_scan-scrollbar.scss */
+.scrollbar {
+  background-color: #f7f7f7;
+  position: relative;
+}
+
+/* line 6, REDACTED_scan-scrollbar.scss */
+div.scrollbar-v {
+  width: 21px;
+  max-width: 21px;
+}
+
+/* line 11, REDACTED_scan-scrollbar.scss */
+div.scrollbar-h {
+  height: 21px;
+  max-height: 21px;
+}
+
+/* line 16, REDACTED_scan-scrollbar.scss */
+.scrollbar-btn {
+  position: absolute;
+  text-align: center;
+  background-color: #f7f7f7;
+}
+
+/* line 22, REDACTED_scan-scrollbar.scss */
+.scrollbar-btn:hover {
+  background-color: #cccccc;
+}
+
+/* line 24, REDACTED_scan-scrollbar.scss */
+div.scrollbar-thumb {
+  background-color: #cccccc;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* line 31, REDACTED_scan-scrollbar.scss */
+div.scrollbar-thumb.disabled {
+  background-color: #cccccc;
+}
+
+/* line 32, REDACTED_scan-scrollbar.scss */
+form.form-horizontal .control-label {
+  margin-right: 8px;
+}
+
+/* line 33, REDACTED_scan-scrollbar.scss */
+.hidden {
+  display: none;
+}
+
+@media (min-width: 767px) {
+  /* line 6, REDACTED_scan-responsivity.scss */
+  .navbar-fixed-top {
+    position: fixed;
+  }
+}
+@media (max-width: 767px) {
+  /* line 10, REDACTED_scan-responsivity.scss */
+  .nav.navbar-nav li a.btn.btn-link {
+    float: left !important;
+  }
+}
+@media (min-width: 767px) {
+  /* line 14, REDACTED_scan-responsivity.scss */
+  .navbar-fixed-top {
+    position: fixed;
+  }
+}
+@media screen and (max-width: 767px) {
+  /* line 18, REDACTED_scan-responsivity.scss */
+  .bs-callout .btn-block address {
+    float: none !important;
+  }
+}
+@media (max-width: 767px) {
+  /* line 22, REDACTED_scan-responsivity.scss */
+  #application-links {
+    display: none;
+  }
+}
+@media screen and (max-width: 767px) {
+  /* line 26, REDACTED_scan-responsivity.scss */
+  .tag-table--tag-container {
+    height: 50px;
+  }
+}
+@media screen and (max-width: 991px) {
+  /* line 31, REDACTED_scan-responsivity.scss */
+  #tag-table--body {
+    margin-top: 1.3rem;
+  }
+}
+@media screen and (max-width: 1199px) and (min-width: 768px) {
+  /* line 36, REDACTED_scan-responsivity.scss */
+  .nav.navbar-nav.navbar-right {
+    position: absolute;
+    right: 1rem;
+    top: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  /* line 44, REDACTED_scan-responsivity.scss */
+  .nav.navbar-nav.navbar-right {
+    float: left;
+  }
+}
+@media screen and (max-width: 1075px) {
+  /* line 48, REDACTED_scan-responsivity.scss */
+  .navbar-collapse {
+    clear: both;
+  }
+
+  /* line 49, REDACTED_scan-responsivity.scss */
+  #footer {
+    padding-bottom: 2rem;
+  }
+}
+@media print {
+  /* line 54, REDACTED_scan-responsivity.scss */
+  #dashboard-content, #dashboard-content.full-screen {
+    margin-left: 0;
+    height: auto;
+    width: 100%;
+    overflow-y: visible;
+  }
+
+  /* line 60, REDACTED_scan-responsivity.scss */
+  div.btn-toolbar {
+    display: none;
+  }
+
+  /* line 61, REDACTED_scan-responsivity.scss */
+  div.fill-vertical {
+    max-height: initial;
+    height: initial;
+  }
+}
+@media print {
+  /* line 72, REDACTED_scan-responsivity.scss */
+  .widget1x1, .widget2x1, .widget3x1, .widget4x1, .widget5x1, .widget6x1, .widget7x1,
+  .widget1x2, .widget2x2, .widget3x2, .widget4x2, .widget5x2, .widget6x2, .widget7x2,
+  .widget1x3, .widget2x3, .widget3x3, .widget4x3, .widget5x3, .widget6x3, .widget7x3,
+  .widget1x4, .widget2x4, .widget3x4, .widget4x4, .widget5x4, .widget6x4, .widget7x4,
+  .widget1x5, .widget2x5, .widget3x5, .widget4x5, .widget5x5, .widget6x5, .widget7x5 {
+    page-break-inside: avoid;
+    width: 90%;
+  }
+
+  /* line 78, REDACTED_scan-responsivity.scss */
+  .widget1x3, .widget2x3, .widget3x3, .widget4x3, .widget5x3, .widget6x3, .widget7x3,
+  .widget1x4, .widget2x4, .widget3x4, .widget4x4, .widget5x4, .widget6x4, .widget7x4,
+  .widget1x5, .widget2x5, .widget3x5, .widget4x5, .widget5x5, .widget6x5, .widget7x5 {
+    height: auto;
+  }
+}
+@media print {
+  /* line 82, REDACTED_scan-responsivity.scss */
+  footer {
+    display: none;
+  }
+}
+/* Bespoke h1 media query for mobile/small tablet size*/
+@media screen and (max-width: 541px) {
+  /* line 87, REDACTED_scan-responsivity.scss */
+  h1 {
+    font-size: 1.5rem !important;
+  }
+}
+/* Tablet style (directed at iPad) */
+@media screen and (max-width: 767px) {
+  /* Header fixes - navbar  */
+  /* Keep the logout to the right, because:
+      a) It's functionally different to the other links and an accidental click is catastrophic on some pages
+      b) It looks nicer to the designer bit of my brain.
+  */
+  /* line 98, REDACTED_scan-responsivity.scss */
+  .navbar-right {
+    float: right;
+  }
+
+  /* Page help button */
+  /* Pushed back along to be in line with the rest of the menu. */
+  /* line 101, REDACTED_scan-responsivity.scss */
+  #show-page-help {
+    float: left !important;
+  }
+}
+/* Mobile style (used for the pages that will work at mobile network speeds, directed at iPhone) */
+@media screen and (max-width: 330px) {
+  /* line 106, REDACTED_scan-responsivity.scss */
+  .container {
+    padding: 0 1rem 0;
+  }
+  /* line 108, REDACTED_scan-responsivity.scss */
+  .container #content {
+    padding: 0.5rem 1rem;
+  }
+
+  /* line 110, REDACTED_scan-responsivity.scss */
+  #footer {
+    padding: 20px 21px 0 !important;
+    float: left;
+    border-top: 1px solid #009c46 !important;
+  }
+}
+/* Base styles */
+/* Header fixes - navbar */
+@media screen and (max-width: 1097px) and (min-width: 768px) {
+  /* Remove float on the header when the sign out link breaks to a new line.
+      This will causes the nav to stack under the header/logo system. */
+  /* line 122, REDACTED_scan-responsivity.scss */
+  .navbar-header {
+    float: none;
+  }
+
+  /* At the same time, force the logout link up into the new space created, 
+      this will force the sign out link into the same space relative to the viewport edge
+      at all times until the Tablet view takes over.  */
+  /* line 126, REDACTED_scan-responsivity.scss */
+  .navbar-right {
+    float: none !important;
+    position: absolute;
+    top: 0;
+    right: 2rem;
+  }
+}
+@media screen and (max-width: 330px) {
+  /* line 135, REDACTED_scan-responsivity.scss */
+  .container &gt; .navbar-header {
+    margin: 0.4rem 0;
+  }
+
+  /* line 136, REDACTED_scan-responsivity.scss */
+  .navbar-default .navbar-nav li.navbar-brand {
+    margin: 0;
+    position: absolute;
+    top: 5px;
+    left: 0;
+  }
+}
+/* Project buttons - fix to make uniform over multiple lines where broken but not elswhere
+    This ammounts to below 794px and above 767px (tablet) widths */
+@media screen and (max-width: 794px) and (min-width: 766px) {
+  /* line 148, REDACTED_scan-responsivity.scss */
+  .project .btn-group {
+    margin-bottom: 0.65rem;
+  }
+}
+@media screen and (max-width: 755px) {
+  /* line 152, REDACTED_scan-responsivity.scss */
+  .project .btn-group {
+    margin-bottom: 0.65rem;
+  }
+}
+/* Project Buttons - reduce button size on small mobiles to prevent ugly new line snap
+    of remove project button. */
+@media screen and (max-width: 450px) {
+  /* line 158, REDACTED_scan-responsivity.scss */
+  .project .btn-group {
+    margin: 0;
+  }
+
+  /* line 159, REDACTED_scan-responsivity.scss */
+  .project .btn-group .btn {
+    border-radius: 3px !important;
+    margin: .65rem 0.25rem 0;
+  }
+}
+/* Building Details overrides */
+/* Here on out we use this for a 100% image in a container */
+/* line 167, REDACTED_scan-responsivity.scss */
+.full-width-img {
+  width: 100%;
+}
+
+@media screen and (max-width: 991px) {
+  /* Spacing off the image container for smaller sizes*/
+  /* line 171, REDACTED_scan-responsivity.scss */
+  .tab-content.tab-content-headless {
+    margin-bottom: 10px;
+  }
+}
+/* Sync to/from VE buttons */
+@media screen and (max-width: 1199px) {
+  /* Set the bottom margin on the Sync to VE button 
+      as they will be the full width from here 
+      to avoid the text clipping out of the buttons. */
+  /* line 179, REDACTED_scan-responsivity.scss */
+  #show-sync-to-ve {
+    margin-bottom: 0.5rem;
+  }
+}
+@media screen and (max-width: 490px) {
+  /* line 184, REDACTED_scan-responsivity.scss */
+  #bd-btn-toolbar .btn {
+    width: 100%;
+    float: none !important;
+    margin: 0.5rem auto 0;
+  }
+
+  /* line 189, REDACTED_scan-responsivity.scss */
+  .switches-left .applicability-label, .switches-right .applicability-label {
+    width: 100%;
+    padding-left: 0;
+  }
+}
+/* Set font size on form-control elements for mobile */
+@media screen and (max-width: 365px) {
+  /* line 197, REDACTED_scan-responsivity.scss */
+  .form-control {
+    font-size: 0.6rem !important;
+    padding: 0.25rem 0.5rem;
+  }
+}
+/* Tag Vocabularies section */
+/* Notes and summary buttons breakpoint 1 (512px) */
+@media screen and (max-width: 512px) {
+  /* line 206, REDACTED_scan-responsivity.scss */
+  #metadata-controls .btn {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+}
+/* line 1, REDACTED_scan-widgets.scss */
+.widget {
+  display: table-cell;
+  border: solid 1px #cccccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  float: left;
+  margin: 5px;
+  background-color: #f7f7f7;
+  padding: 3px;
+  page-break-inside: avoid;
+}
+
+/* line 14, REDACTED_scan-widgets.scss */
+.widget1x1, .widget1x2, .widget1x3, .widget1x4, .widget1x5 {
+  width: 250px;
+}
+
+/* line 15, REDACTED_scan-widgets.scss */
+.widget2x1, .widget2x2, .widget2x3, .widget2x4, .widget2x5 {
+  width: 510px;
+}
+
+/* line 16, REDACTED_scan-widgets.scss */
+.widget3x1, .widget3x2, .widget3x3, .widget3x4, .widget3x5 {
+  width: 770px;
+}
+
+/* line 17, REDACTED_scan-widgets.scss */
+.widget4x1, .widget4x2, .widget4x3, .widget4x4, .widget4x5 {
+  width: 1030px;
+}
+
+/* line 18, REDACTED_scan-widgets.scss */
+.widget5x1, .widget5x2, .widget5x3, .widget5x4, .widget5x5 {
+  width: 1290px;
+}
+
+/* line 19, REDACTED_scan-widgets.scss */
+.widget6x1, .widget6x2, .widget6x3, .widget6x4, .widget6x5 {
+  width: 1550px;
+}
+
+/* line 20, REDACTED_scan-widgets.scss */
+.widget7x1, .widget7x2, .widget7x3, .widget7x4, .widget7x5 {
+  width: 1810px;
+}
+
+/* line 21, REDACTED_scan-widgets.scss */
+.widget1x1, .widget2x1, .widget3x1, .widget4x1, .widget5x1, .widget6x1, .widget7x1 {
+  height: 170px;
+}
+
+/* line 22, REDACTED_scan-widgets.scss */
+.widget1x2, .widget2x2, .widget3x2, .widget4x2, .widget5x2, .widget6x2, .widget7x2 {
+  height: 350px;
+}
+
+/* line 23, REDACTED_scan-widgets.scss */
+.widget1x3, .widget2x3, .widget3x3, .widget4x3, .widget5x3, .widget6x3, .widget7x3 {
+  height: 530px;
+}
+
+/* line 24, REDACTED_scan-widgets.scss */
+.widget1x4, .widget2x4, .widget3x4, .widget4x4, .widget5x4, .widget6x4, .widget7x4 {
+  height: 710px;
+}
+
+/* line 25, REDACTED_scan-widgets.scss */
+.widget1x5, .widget2x5, .widget3x5, .widget4x5, .widget5x5, .widget6x5, .widget7x5 {
+  height: 890px;
+}
+
+/* widget controls */
+/* line 28, REDACTED_scan-widgets.scss */
+.widget-controls {
+  position: absolute;
+  height: 20px;
+  border: solid #eeeeee 1px;
+}
+
+/* _scan-plot.scss start */
+/* line 2, REDACTED_scan-plot.scss */
+svg {
+  shape-rendering: geometricPrecision;
+}
+
+/* line 6, REDACTED_scan-plot.scss */
+.plot-line {
+  fill: none;
+  stroke-width: 2px;
+}
+
+/* line 11, REDACTED_scan-plot.scss */
+.plot-line.alt1 {
+  stroke-dasharray: 5px,5px;
+}
+
+/* line 15, REDACTED_scan-plot.scss */
+.plot-line.alt2 {
+  stroke-dasharray: 5px,10px;
+}
+
+/* line 19, REDACTED_scan-plot.scss */
+.plot-line.alt3 {
+  stroke-dasharray: 2px,3px;
+}
+
+/* line 23, REDACTED_scan-plot.scss */
+.plot-line.alt4 {
+  stroke-dasharray: 5px,4px,2px,4px;
+}
+
+/* line 27, REDACTED_scan-plot.scss */
+.plot-fill {
+  stroke: none;
+}
+
+/* line 31, REDACTED_scan-plot.scss */
+.plot-mark {
+  fill: none;
+  stroke-width: 2px;
+}
+
+/* line 36, REDACTED_scan-plot.scss */
+.plot-call {
+  fill: none;
+  stroke-width: 1px;
+  stroke: #ccc;
+}
+
+/* line 42, REDACTED_scan-plot.scss */
+.plot-text {
+  stroke: none;
+  fill: #555555;
+  alignment-baseline: middle;
+  font-size: 12px;
+}
+
+/* line 49, REDACTED_scan-plot.scss */
+.plot-window {
+  stroke: #428bca;
+  stroke-width: 1px;
+  fill: #428BCA;
+  fill-opacity: 0.5;
+  opacity: 0.5;
+}
+
+/* line 57, REDACTED_scan-plot.scss */
+.axis .domain {
+  fill: none;
+  stroke: #555555;
+  stroke-width: 2px;
+}
+
+/* line 62, REDACTED_scan-plot.scss */
+.plot-zero {
+  fill: none;
+  stroke: #663fa0;
+  stroke-width: 1px;
+}
+
+/* line 68, REDACTED_scan-plot.scss */
+.plot-now {
+  fill: none;
+  stroke: #ff7b0e;
+  stroke-width: 1px;
+}
+
+/* line 74, REDACTED_scan-plot.scss */
+.axis .tick line {
+  fill: none;
+  stroke: #555555;
+  stroke-width: 1px;
+}
+
+/* line 80, REDACTED_scan-plot.scss */
+.axis .tick text {
+  fill: #555555;
+  stroke: none;
+  letter-spacing: -0.05rem;
+}
+
+/* line 86, REDACTED_scan-plot.scss */
+svg text {
+  font-family: sans-serif;
+  font-size: 12px;
+  fill: black;
+  stroke: none;
+}
+
+/* line 93, REDACTED_scan-plot.scss */
+path.plot-hover {
+  fill: none;
+  stroke: black;
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+/* line 101, REDACTED_scan-plot.scss */
+.plot-hover-back,
+.plot-legend-back {
+  fill: white;
+  stroke: none;
+  stroke-width: 1;
+  opacity: 0.85;
+}
+
+/* line 108, REDACTED_scan-plot.scss */
+#plot-calendar {
+  text-align: center;
+}
+
+/* line 112, REDACTED_scan-plot.scss */
+text.plot-warning {
+  fill: grey;
+  stroke: none;
+  text-anchor: middle;
+}
+
+/* line 118, REDACTED_scan-plot.scss */
+text.plot-units {
+  fill: black;
+  stroke: none;
+  text-anchor: end;
+}
+
+/* line 124, REDACTED_scan-plot.scss */
+text.plot-caption {
+  fill: black;
+  stroke: none;
+  text-anchor: middle;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* line 132, REDACTED_scan-plot.scss */
+.plot-scrub-background {
+  fill: black;
+  stroke: none;
+  fill-opacity: 0.25;
+}
+
+/* line 138, REDACTED_scan-plot.scss */
+.plot-scrub-arrow {
+  fill: none;
+  stroke: white;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 12;
+}
+
+/* line 146, REDACTED_scan-plot.scss */
+li.base-scenario a {
+  font-weight: bold;
+}
+
+/* line 150, REDACTED_scan-plot.scss */
+.plot-summary-table {
+  overflow: auto;
+  margin: 0 0 0 -6px;
+  /* remove 6px between plot svg and table */
+  padding: 0;
+}
+
+/* line 156, REDACTED_scan-plot.scss */
+.plot-summary-table table.table {
+  width: auto;
+  margin: 0 auto;
+}
+
+/* line 162, REDACTED_scan-plot.scss */
+.plot-summary-table th,
+.plot-summary-table td {
+  white-space: nowrap;
+}
+
+/* line 166, REDACTED_scan-plot.scss */
+.plot-summary-table td.value {
+  text-align: right;
+}
+
+/* line 170, REDACTED_scan-plot.scss */
+.plot-summary-table td.value.compare {
+  color: lightgrey;
+}
+
+/* line 174, REDACTED_scan-plot.scss */
+.plot-summary-table th.date {
+  width: 80px;
+}
+
+/* line 178, REDACTED_scan-plot.scss */
+.plot-axis .tick text {
+  font-size: 12px;
+}
+
+/* line 182, REDACTED_scan-plot.scss */
+.plot-axis-tiny .tick text {
+  font-size: 6px;
+  letter-spacing: -0.2px;
+}
+
+/* line 187, REDACTED_scan-plot.scss */
+.plot-axis-xs .tick text {
+  font-size: 9px;
+  letter-spacing: -0.5px;
+}
+
+/* line 192, REDACTED_scan-plot.scss */
+.plot-axis-sm .tick text {
+  font-size: 10px;
+  letter-spacing: -1px;
+}
+
+/* _scan-plot.scss end */
+/* line 77, REDACTEDscan-site.scss */
+.container {
+  width: 95vw;
+}
+
+/* line 81, REDACTEDscan-site.scss */
+#content {
+  width: 100%;
+  overflow-y: auto;
+}
+/* line 85, REDACTEDscan-site.scss */
+#content form .row {
+  margin-bottom: 20px;
+}
+
+/* line 89, REDACTEDscan-site.scss */
+.building-thumbnail {
+  height: 200px;
+  width: 100%;
+  text-align: center;
+}
+/* line 93, REDACTEDscan-site.scss */
+.building-thumbnail img {
+  vertical-align: central;
+}
+
+/* line 97, REDACTEDscan-site.scss */
+h4.building-title {
+  text-align: center;
+}
+
+/* line 101, REDACTEDscan-site.scss */
+body .modal.large .modal-dialog, body .modal.large .modal-content {
+  width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* line 111, REDACTEDscan-site.scss */
+.tag-details.modal .modal-body .label {
+  color: black;
+  font-size: 100%;
+}
+
+/* line 118, REDACTEDscan-site.scss */
+span.help {
+  display: none;
+}
+
+/* line 120, REDACTEDscan-site.scss */
+img.help {
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+/* line 125, REDACTEDscan-site.scss */
+p.tile-clock-display {
+  font-size: 80px;
+  text-align: center;
+  font-family: 'Trebuchet MS';
+  margin-top: 60px;
+  margin-bottom: 5px;
+}
+
+/* line 133, REDACTEDscan-site.scss */
+.tile-clock-seconds {
+  font-size: 24px;
+}
+
+/* line 135, REDACTEDscan-site.scss */
+.tile-clock-info, .tile-clock-date {
+  font-size: 16px;
+  line-height: 16px;
+  text-align: center;
+  margin: 0;
+}
+
+/* line 142, REDACTEDscan-site.scss */
+div.tile-plot {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 147, REDACTEDscan-site.scss */
+#dashboard-content {
+  width: 100%;
+  margin-left: 0;
+  margin-top: -10px;
+  margin-right: -50px;
+  height: 570px;
+  overflow: hidden;
+}
+
+/* csv import */
+/* line 157, REDACTEDscan-site.scss */
+.format-cell {
+  border-left: #eeeeee solid 1px;
+  width: 180px;
+  max-width: 180px;
+  min-width: 180px;
+  overflow-x: hidden;
+}
+
+/* line 165, REDACTEDscan-site.scss */
+div.tile-Image img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  margin: auto;
+  display: block;
+}
+
+/* line 174, REDACTEDscan-site.scss */
+footer {
+  clear: both;
+}
+
+/* line 177, REDACTEDscan-site.scss */
+.channel-limit-no-limit {
+  color: #cccccc;
+}
+
+/* line 181, REDACTEDscan-site.scss */
+.data-grid tr &gt; th.active-column {
+  color: white;
+  background-color: #428bca;
+}
+
+/*cell formats*/
+/* line 187, REDACTEDscan-site.scss */
+td.cell-format-empty {
+  color: #eeeeee;
+}
+
+/* line 188, REDACTEDscan-site.scss */
+td.cell-format-float {
+  color: #b93500;
+}
+
+/* line 189, REDACTEDscan-site.scss */
+td.cell-format-text {
+  color: #81aaa3;
+}
+
+/* line 190, REDACTEDscan-site.scss */
+td.cell-mapping-channel {
+  background-color: #c1ffbd;
+}
+
+/* line 191, REDACTEDscan-site.scss */
+td.cell-mapping-value {
+  background-color: #f9ffbd;
+}
+
+/* line 192, REDACTEDscan-site.scss */
+td.cell-mapping-pointcount {
+  background-color: #fdb8e2;
+}
+
+/* line 195, REDACTEDscan-site.scss */
+td.cell-mapping-intervalseconds,
+td.cell-mapping-intervalminutes,
+td.cell-mapping-intervalhours {
+  background-color: #bdffc1;
+}
+
+/* line 199, REDACTEDscan-site.scss */
+td.cell-mapping-context,
+td.cell-mapping-display-name,
+td.cell-mapping-importreference,
+td.cell-mapping-units {
+  background-color: #ffd8c8;
+}
+
+/* line 200, REDACTEDscan-site.scss */
+td.cell-mapping-timestamp {
+  background-color: #c6f2fe;
+}
+
+/* line 201, REDACTEDscan-site.scss */
+td.cell-mapping-channel-not-found {
+  background-color: #ffcd94;
+}
+
+/* line 202, REDACTEDscan-site.scss */
+td.cell-binding-grid {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+}
+
+/* line 207, REDACTEDscan-site.scss */
+th.cell-header {
+  text-align: center;
+}
+
+/* data overview completeness indicators */
+/* line 210, REDACTEDscan-site.scss */
+span.data-indicator-full, span.data-indicator-part, span.data-indicator-none {
+  font-size: 10px;
+  vertical-align: middle;
+}
+
+/* line 214, REDACTEDscan-site.scss */
+span.data-indicator-full {
+  color: #009c46;
+}
+
+/* line 215, REDACTEDscan-site.scss */
+span.data-indicator-part {
+  color: #ff9205;
+}
+
+/* line 216, REDACTEDscan-site.scss */
+span.data-indicator-none {
+  color: #eeeeee;
+}
+
+/* line 217, REDACTEDscan-site.scss */
+td.monthly-data-link {
+  text-align: center;
+}
+
+/* sub-table used to scroll html tables */
+/* line 220, REDACTEDscan-site.scss */
+.sub-table {
+  max-height: 420px;
+  height: 420px;
+  overflow-y: auto;
+}
+
+/* line 226, REDACTEDscan-site.scss */
+label.checkbox, label.radio, label.label-plain {
+  font-weight: normal;
+}
+
+/* line 227, REDACTEDscan-site.scss */
+.modal {
+  overflow-y: auto;
+}
+
+/* points for index page */
+/* line 230, REDACTEDscan-site.scss */
+.point {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: #009c46;
+  display: inline-block;
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  line-height: 20px;
+  position: relative;
+}
+
+/* line 243, REDACTEDscan-site.scss */
+.project {
+  margin-left: 1.25rem;
+}
+
+/* line 245, REDACTEDscan-site.scss */
+.alert-heading {
+  font-weight: bold;
+  font-size: larger;
+}
+
+/* line 253, REDACTEDscan-site.scss */
+div.alert &gt; *,
+.allow-select,
+.allow-select &gt; *,
+.allow-select * {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* line 261, REDACTEDscan-site.scss */
+.innertable tbody &gt; tr &gt; td, .innertable tbody &gt; tr &gt; th {
+  border: none;
+}
+
+/* line 263, REDACTEDscan-site.scss */
+.nav-list-container {
+  min-height: 400px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+/* line 269, REDACTEDscan-site.scss */
+span.line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* select-list looks like nav but doesn't have bootstrap bindings */
+/* line 275, REDACTEDscan-site.scss */
+.select-list-container {
+  min-height: 320px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+/* start of copy of bootstrap nav styling */
+/* line 283, REDACTEDscan-site.scss */
+.select-list {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+/* line 287, REDACTEDscan-site.scss */
+.select-list li {
+  position: relative;
+  display: block;
+}
+/* line 290, REDACTEDscan-site.scss */
+.select-list li &gt; a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+/* line 294, REDACTEDscan-site.scss */
+.select-list li &gt; a:hover, .select-list li &gt; a:focus {
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+/* line 298, REDACTEDscan-site.scss */
+.select-list li &gt; a &gt; img {
+  max-width: none;
+}
+/* line 304, REDACTEDscan-site.scss */
+.select-list .open &gt; a {
+  background-color: #eeeeee;
+  border-color: #428bca;
+}
+/* line 307, REDACTEDscan-site.scss */
+.select-list .open &gt; a:hover, .select-list .open &gt; a:focus {
+  background-color: #e1e1e1;
+  border-color: #357ebd;
+}
+/* line 314, REDACTEDscan-site.scss */
+.select-list .active &gt; a {
+  color: white;
+  background-color: #428bca;
+}
+/* line 317, REDACTEDscan-site.scss */
+.select-list .active &gt; a &gt; a {
+  color: white;
+}
+/* line 321, REDACTEDscan-site.scss */
+.select-list .active:hover {
+  color: white;
+  background-color: #428bca;
+}
+/* line 327, REDACTEDscan-site.scss */
+.select-list &gt; li.disabled &gt; a {
+  color: #cccccc;
+  background-color: #eeeeee;
+}
+/* line 330, REDACTEDscan-site.scss */
+.select-list &gt; li.disabled &gt; a:hover, .select-list &gt; li.disabled &gt; a:focus {
+  color: #cccccc;
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+/* line 338, REDACTEDscan-site.scss */
+.select-list:before, .select-list:after {
+  display: table;
+  content: " ";
+}
+/* line 342, REDACTEDscan-site.scss */
+.select-list:after {
+  clear: both;
+}
+/* line 343, REDACTEDscan-site.scss */
+.select-list .select-list-divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #eeeeee;
+}
+
+/* end of copy of bootstrap nav styling */
+/* line 352, REDACTEDscan-site.scss */
+li.nav-thin {
+  white-space: nowrap;
+}
+/* line 354, REDACTEDscan-site.scss */
+li.nav-thin &gt; a {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* line 361, REDACTEDscan-site.scss */
+button.close-sticky {
+  color: red;
+}
+
+/* line 363, REDACTEDscan-site.scss */
+ul.typeahead {
+  max-height: 240px;
+  overflow-y: scroll;
+}
+
+/* line 368, REDACTEDscan-site.scss */
+div.dropup ul {
+  bottom: 100% !important;
+  top: auto !important;
+}
+
+/* line 373, REDACTEDscan-site.scss */
+.autoscroll {
+  overflow: auto;
+}
+
+/* new */
+/* line 376, REDACTEDscan-site.scss */
+#content {
+  width: 100%;
+}
+
+/* line 378, REDACTEDscan-site.scss */
+.navbar-inner {
+  background-color: transparent;
+  background-image: none;
+}
+/* line 381, REDACTEDscan-site.scss */
+.navbar-inner:before, .navbar-inner:after {
+  content: "";
+  display: table;
+  line-height: 0;
+}
+/* line 386, REDACTEDscan-site.scss */
+.navbar-inner:after {
+  clear: both;
+}
+
+/* IES style */
+/* line 390, REDACTEDscan-site.scss */
+body {
+  background: url("/Content/images/bg-footer.jpg") center center repeat;
+  font-family: 'bliss_2light';
+}
+
+/* line 395, REDACTEDscan-site.scss */
+#page-warp.bgimg1 {
+  background: url("/Content/images/bg-image-city1.jpg") center center no-repeat;
+  background-size: cover;
+}
+
+/* line 400, REDACTEDscan-site.scss */
+#page-warp.bgimg2 {
+  background: url("/Content/images/bg-image-city2.jpg") center center no-repeat;
+  background-size: cover;
+}
+
+/* line 405, REDACTEDscan-site.scss */
+#content {
+  background: white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem 3.125rem;
+  -webkit-box-shadow: 0 2px 5px #555555;
+  -moz-box-shadow: 0 2px 5px #555555;
+  box-shadow: 0 2px 5px #555555;
+  min-height: 80%;
+}
+
+/* line 419, REDACTEDscan-site.scss */
+#footer {
+  border-top: 2px solid #009c46;
+  color: #999999;
+  font-size: 0.7rem;
+  color: white;
+  padding-top: 1.25rem;
+  padding-bottom: 1rem;
+}
+
+/* line 428, REDACTEDscan-site.scss */
+.modal-content, .modal-dialog {
+  width: 800px;
+}
+
+/* line 430, REDACTEDscan-site.scss */
+img.banner {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+/* line 435, REDACTEDscan-site.scss */
+.navbar-static-top {
+  margin-bottom: 0;
+}
+
+/* line 436, REDACTEDscan-site.scss */
+.form-horizontal .control-label {
+  text-align: left;
+}
+
+/* line 438, REDACTEDscan-site.scss */
+span.btn-link {
+  color: #333333;
+}
+
+/* line 440, REDACTEDscan-site.scss */
+.table thead &gt; tr &gt; th &gt; .progress, .table tbody &gt; tr &gt; th &gt; .progress, .table tfoot &gt; tr &gt; th &gt; .progress, .table thead &gt; tr &gt; td &gt; .progress, .table tbody &gt; tr &gt; td &gt; .progress, .table tfoot &gt; tr &gt; td &gt; .progress {
+  margin-bottom: 0;
+}
+
+/* line 442, REDACTEDscan-site.scss */
+.file-link {
+  font-size: 16px;
+}
+
+/* line 444, REDACTEDscan-site.scss */
+.file-link-primary {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* line 450, REDACTEDscan-site.scss */
+.file-link-error {
+  color: orangered;
+}
+
+/* align text baseline of plain td with selects in the same row */
+/* line 454, REDACTEDscan-site.scss */
+td.with-select, .table &gt; tbody &gt; tr &gt; td.with-select {
+  padding-top: 16px;
+}
+
+/* line 456, REDACTEDscan-site.scss */
+.support-link {
+  font-weight: bold;
+  color: #03bf57;
+}
+
+/* line 461, REDACTEDscan-site.scss */
+#page-help {
+  display: block;
+  z-index: 1039;
+  position: fixed;
+  top: 72px;
+  width: 420px;
+  min-width: 420px;
+  max-width: 420px;
+  padding: 3px 20px 3px 20px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* line 474, REDACTEDscan-site.scss */
+.file-img-thumbnail {
+  width: 200px;
+  max-height: 200px;
+}
+
+/* line 479, REDACTEDscan-site.scss */
+.btn-group &gt; .btn-group {
+  float: left;
+}
+
+/* line 483, REDACTEDscan-site.scss */
+.btn-group &gt; .btn-group &gt; .btn {
+  border-radius: 0;
+}
+
+/* line 487, REDACTEDscan-site.scss */
+.btn-group &gt; .btn-group:last-child &gt; .btn {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* line 492, REDACTEDscan-site.scss */
+.btn-group &gt; .btn-group:first-child &gt; .btn {
+  margin-left: 0;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+/* line 498, REDACTEDscan-site.scss */
+img.expander {
+  padding-right: 6px;
+}
+
+/* line 499, REDACTEDscan-site.scss */
+label.text-right {
+  text-align: right;
+}
+
+/* line 501, REDACTEDscan-site.scss */
+th.row-select {
+  text-align: center;
+  width: 29px;
+}
+
+/* line 506, REDACTEDscan-site.scss */
+input.row-select {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* svg calender */
+/* line 513, REDACTEDscan-site.scss */
+svg {
+  font: 10px sans-serif;
+}
+
+/* line 514, REDACTEDscan-site.scss */
+.calendar-grid svg {
+  shape-rendering: crispEdges;
+}
+
+/* line 516, REDACTEDscan-site.scss */
+.day {
+  fill: white;
+  stroke: #cccccc;
+}
+
+/* line 521, REDACTEDscan-site.scss */
+.month {
+  fill: none;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+/* line 527, REDACTEDscan-site.scss */
+rect.day-marker {
+  fill: none;
+  stroke: none;
+  stroke-width: 2;
+}
+
+/* line 533, REDACTEDscan-site.scss */
+text.day-marker {
+  fill: black;
+  stroke: none;
+  text-anchor: middle;
+  font-weight: bold;
+}
+
+/* line 540, REDACTEDscan-site.scss */
+text.day {
+  fill: #333333;
+  stroke: none;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+/* line 547, REDACTEDscan-site.scss */
+text.month, text.week, text.year {
+  stroke: none;
+  fill: black;
+  font-weight: bold;
+}
+
+/* line 553, REDACTEDscan-site.scss */
+text.week, text.year {
+  text-anchor: middle;
+}
+
+/* line 557, REDACTEDscan-site.scss */
+rect.year {
+  fill: #e0f1ff;
+  stroke: black;
+  stroke-width: 1;
+}
+
+/* line 563, REDACTEDscan-site.scss */
+.selected-fill, rect.selected-fill {
+  fill: #428bca;
+}
+
+/* line 564, REDACTEDscan-site.scss */
+.selected-stroke {
+  stroke: #428bca;
+}
+
+/* line 565, REDACTEDscan-site.scss */
+text.selected-fill {
+  fill: white;
+}
+
+/* building clock values */
+/* line 568, REDACTEDscan-site.scss */
+text.clock-hour {
+  text-anchor: middle;
+  fill: black;
+  stroke: none;
+}
+
+/* colour gradient colour-swatches */
+/* line 575, REDACTEDscan-site.scss */
+span.colour-swatch {
+  width: 22px;
+  height: 16px;
+  display: inline-block;
+  padding: 0;
+}
+/* line 580, REDACTEDscan-site.scss */
+span.colour-swatch span {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 1px;
+  height: 100%;
+}
+
+/* line 589, REDACTEDscan-site.scss */
+span.colour-scale {
+  display: inline-block;
+  padding: 0;
+}
+/* line 592, REDACTEDscan-site.scss */
+span.colour-scale.colour-scale-horizontal {
+  width: 200px;
+  height: 8px;
+}
+/* line 595, REDACTEDscan-site.scss */
+span.colour-scale.colour-scale-horizontal span {
+  width: 2px;
+  height: 100%;
+}
+/* line 600, REDACTEDscan-site.scss */
+span.colour-scale span {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+/* line 607, REDACTEDscan-site.scss */
+span.colour-scale-max, span.colour-scale-min, span.colour-scale-units {
+  font-size: inherit;
+}
+
+/* line 609, REDACTEDscan-site.scss */
+li.inline-menu {
+  display: inline-block;
+}
+
+/* line 612, REDACTEDscan-site.scss */
+.form-inline &gt; .control-label, .form-inline &gt; .form-group {
+  margin-right: 0.75rem;
+}
+
+/* line 615, REDACTEDscan-site.scss */
+.radio-inline input {
+  position: relative;
+  top: -3px;
+}
+
+/* line 620, REDACTEDscan-site.scss */
+.clock-value {
+  fill: white;
+  stroke: #cccccc;
+}
+
+/* line 625, REDACTEDscan-site.scss */
+.clock-scheme-plot-axis {
+  fill: none;
+  stroke: #cccccc;
+  stroke-width: 1;
+}
+
+/* line 631, REDACTEDscan-site.scss */
+.clock-scheme-plot {
+  fill: none;
+  stroke: #428bca;
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+/* line 639, REDACTEDscan-site.scss */
+rect.quality-good {
+  fill: #009c46;
+}
+
+/* line 640, REDACTEDscan-site.scss */
+rect.quality-none {
+  fill: white;
+}
+
+/* line 641, REDACTEDscan-site.scss */
+rect.quality-nodata {
+  fill: #cccccc;
+}
+
+/* line 642, REDACTEDscan-site.scss */
+rect.quality-loading {
+  fill: #e0f1ff;
+}
+
+/* line 643, REDACTEDscan-site.scss */
+rect.quality-some {
+  fill: #ffe691;
+}
+
+/* line 644, REDACTEDscan-site.scss */
+rect.quality-other {
+  fill: #cccccc;
+}
+
+/* dashboard printing */
+/* line 648, REDACTEDscan-site.scss */
+#dashboard-content {
+  margin-left: 0;
+  height: 570px;
+  width: 1070px;
+  overflow-y: auto;
+}
+/* line 653, REDACTEDscan-site.scss */
+#dashboard-content.full-screen {
+  margin-left: -1rem;
+  height: 900px;
+  width: 1820px;
+  overflow-y: hidden;
+}
+
+/* line 661, REDACTEDscan-site.scss */
+.item-filter input {
+  height: 24px;
+  line-height: 24px;
+  margin: 0;
+}
+
+/* line 667, REDACTEDscan-site.scss */
+.fake-select-caret {
+  float: right !important;
+  margin-top: 4px;
+  font-size: 10px;
+}
+
+/* line 673, REDACTEDscan-site.scss */
+.scrollable {
+  overflow-y: auto;
+}
+
+/* line 674, REDACTEDscan-site.scss */
+.valid {
+  color: #009c46;
+}
+
+/* line 675, REDACTEDscan-site.scss */
+.invalid {
+  color: #d9534f;
+}
+
+/* line 677, REDACTEDscan-site.scss */
+tr.row-selected {
+  background-color: #e3eff5;
+}
+
+/* line 679, REDACTEDscan-site.scss */
+table.row-select-prime tr.row-selected-prime.row-selected {
+  background-color: #e3eff5;
+}
+
+/* line 682, REDACTEDscan-site.scss */
+div.form-group {
+  clear: both;
+}
+
+/* line 683, REDACTEDscan-site.scss */
+.table-scroll {
+  overflow-y: scroll;
+}
+
+/* line 684, REDACTEDscan-site.scss */
+table.table-fixed {
+  margin-bottom: 0;
+}
+
+/* line 685, REDACTEDscan-site.scss */
+div.table-fixed {
+  padding-right: 1.25rem;
+}
+
+/* line 686, REDACTEDscan-site.scss */
+th, td {
+  overflow-x: hidden;
+}
+
+/* line 687, REDACTEDscan-site.scss */
+li.separator {
+  line-height: 0.5rem;
+}
+
+/* line 688, REDACTEDscan-site.scss */
+.tab-content {
+  overflow: visible;
+}
+
+/* line 689, REDACTEDscan-site.scss */
+div.tab-content.tab-content-headless {
+  padding-top: 0;
+}
+
+/* line 690, REDACTEDscan-site.scss */
+.grid-edit label.checkbox, .grid-edit label.radio {
+  padding-top: 0;
+}
+
+/* line 691, REDACTEDscan-site.scss */
+.grid-edit .checkbox input, .grid-edit .radio input {
+  float: none;
+}
+
+/* button vertical */
+/* line 694, REDACTEDscan-site.scss */
+.input-group-btn-vertical {
+  position: relative;
+  white-space: nowrap;
+  width: 1%;
+  vertical-align: middle;
+  display: table-cell;
+}
+/* line 700, REDACTEDscan-site.scss */
+.input-group-btn-vertical &gt; .btn {
+  display: block;
+  float: none;
+  width: 100%;
+  max-width: 100%;
+  padding: 8px 10px;
+  margin-left: -1px;
+  position: relative;
+  border-radius: 0;
+}
+
+/* line 712, REDACTEDscan-site.scss */
+.input-group-btn-vertical.input-group-btn-vertical-sm &gt; .btn {
+  padding: 7px 8px;
+}
+
+/* line 714, REDACTEDscan-site.scss */
+.input-group-btn-vertical &gt; .btn:first-of-type {
+  border-top-right-radius: 4px;
+  border-bottom: 0;
+}
+
+/* line 719, REDACTEDscan-site.scss */
+.input-group-btn-vertical &gt; .btn:last-of-type {
+  border-bottom-right-radius: 4px;
+  border-top: 0;
+}
+
+/* line 725, REDACTEDscan-site.scss */
+.input-group-btn-vertical i {
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  font-size: 9px;
+  font-weight: normal;
+}
+
+/* line 732, REDACTEDscan-site.scss */
+.input-group-btn-vertical.input-group-btn-vertical-sm i {
+  font-size: 8px;
+}
+
+/* line 733, REDACTEDscan-site.scss */
+.progress-error {
+  color: #b52b27;
+}
+
+/* line 734, REDACTEDscan-site.scss */
+.progress-trace {
+  color: #2d672d;
+}
+
+/* callouts from http://codepen.io/chrisdpratt/pen/IAymB */
+/* line 737, REDACTEDscan-site.scss */
+.bs-callout {
+  padding: 0 1rem;
+  margin: 0.5rem 0;
+  border: 1px solid #eeeeee;
+  border-left-width: 0.35rem;
+  border-radius: 0.25rem;
+}
+/* line 743, REDACTEDscan-site.scss */
+.bs-callout h3 {
+  margin: 0.3rem 0;
+}
+/* line 744, REDACTEDscan-site.scss */
+.bs-callout p {
+  margin: 0.6rem 0;
+}
+/* line 745, REDACTEDscan-site.scss */
+.bs-callout .btn-block {
+  margin: 0.5rem 0;
+}
+/* line 746, REDACTEDscan-site.scss */
+.bs-callout code {
+  border-radius: 3px;
+}
+/* line 747, REDACTEDscan-site.scss */
+.bs-callout .bs-callout {
+  margin-top: -5px;
+}
+
+/* line 749, REDACTEDscan-site.scss */
+.bs-callout-default {
+  border-left-color: #555555;
+}
+/* line 751, REDACTEDscan-site.scss */
+.bs-callout-default h3 {
+  color: #555555;
+}
+
+/* line 753, REDACTEDscan-site.scss */
+.bs-callout-primary {
+  border-left-color: #428bca;
+}
+/* line 755, REDACTEDscan-site.scss */
+.bs-callout-primary h3 {
+  color: #428bca;
+}
+
+/* line 757, REDACTEDscan-site.scss */
+.bs-callout-success {
+  border-left-color: #5cb85c;
+}
+/* line 759, REDACTEDscan-site.scss */
+.bs-callout-success h3 {
+  color: #5cb85c;
+}
+
+/* line 761, REDACTEDscan-site.scss */
+.bs-callout-danger {
+  border-left-color: #d9534f;
+}
+/* line 763, REDACTEDscan-site.scss */
+.bs-callout-danger h3 {
+  color: #d9534f;
+}
+
+/* line 765, REDACTEDscan-site.scss */
+.bs-callout-warning {
+  border-left-color: #f0ad4e;
+}
+/* line 767, REDACTEDscan-site.scss */
+.bs-callout-warning h3 {
+  color: #f0ad4e;
+}
+
+/* line 769, REDACTEDscan-site.scss */
+.bs-callout-info {
+  border-left-color: #5bc0de;
+}
+/* line 771, REDACTEDscan-site.scss */
+.bs-callout-info h3 {
+  color: #5bc0de;
+}
+
+/* line 774, REDACTEDscan-site.scss */
+.setting-matrix input.row-select {
+  margin-top: 10px;
+}
+
+/* line 776, REDACTEDscan-site.scss */
+.btn-heading, .btn-heading.disabled {
+  color: black;
+  font-weight: bold;
+}
+
+/* line 781, REDACTEDscan-site.scss */
+label.checkbox-inline input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+/*
+    label.checkbox-inline input[type="checkbox"].checkbox-left,
+    label.checkbox input[type="checkbox"].checkbox-left
+    label.checkbox-inline input[type="checkbox"]:first-of-type
+    label.checkbox input:first-of-type {
+        margin-left: -15px;
+    }*/
+/* line 791, REDACTEDscan-site.scss */
+label.radio-inline input[type="radio"] {
+  position: static;
+  margin-top: -2px;
+}
+
+/* line 796, REDACTEDscan-site.scss */
+input.page-number {
+  border: none;
+  width: 4em;
+  text-align: center;
+}
+
+/* line 802, REDACTEDscan-site.scss */
+div.checkbox.checkbox-narrow {
+  padding-top: 0;
+}
+
+/* line 804, REDACTEDscan-site.scss */
+label.disabled {
+  color: #cccccc;
+}
+
+/* expired tokens*/
+/* line 807, REDACTEDscan-site.scss */
+.expired-token {
+  color: #cccccc;
+}
+
+/* line 809, REDACTEDscan-site.scss */
+.code-comment {
+  color: #5cb85c;
+}
+
+/* grid edit - remove margins on controls */
+/* line 815, REDACTEDscan-site.scss */
+.grid-edit .checkbox,
+.grid-edit .radio,
+.grid-edit input,
+.grid-edit select {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border: none;
+  width: 100%;
+}
+
+/* line 825, REDACTEDscan-site.scss */
+.grid-edit th,
+.grid-edit td {
+  overflow: hidden;
+  white-space: nowrap;
+  border-left: solid 1px #eeeeee;
+}
+/* line 829, REDACTEDscan-site.scss */
+.grid-edit th.disabled,
+.grid-edit td.disabled {
+  cursor: not-allowed;
+}
+
+/* line 832, REDACTEDscan-site.scss */
+.table.table-fixed-header &gt; thead &gt; tr &gt; th {
+  border-top: none;
+  border-bottom: none;
+}
+
+/* line 842, REDACTEDscan-site.scss */
+.table.table-condensed.table-extracondensed &gt; thead &gt; tr &gt; th,
+.table.table-condensed.table-extracondensed &gt; thead &gt; tr &gt; td,
+.table.table-condensed.table-extracondensed &gt; tbody &gt; tr &gt; th,
+.table.table-condensed.table-extracondensed &gt; tbody &gt; tr &gt; td,
+.table.table-condensed.table-extracondensed &gt; tfoot &gt; tr &gt; th,
+.table.table-condensed.table-extracondensed &gt; tfoot &gt; tr &gt; td {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* line 847, REDACTEDscan-site.scss */
+option, optgroup, optgroup option {
+  font-size: 0.875rem;
+}
+
+/* line 848, REDACTEDscan-site.scss */
+optgroup {
+  color: #555555;
+}
+/* line 850, REDACTEDscan-site.scss */
+optgroup option {
+  color: #555555;
+}
+
+/* line 855, REDACTEDscan-site.scss */
+button.colour-grade, button.colour-grade:hover, button.colour-grade:active, button.colour-grade:focus {
+  text-decoration: none;
+}
+
+/* line 857, REDACTEDscan-site.scss */
+div.colour-picker-row {
+  line-height: 10px;
+  width: 370px;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+/* line 862, REDACTEDscan-site.scss */
+div.colour-picker-row a {
+  line-height: 10px;
+  height: 10px;
+  display: inline-block;
+}
+
+/* line 869, REDACTEDscan-site.scss */
+span.colour-picker {
+  width: 10px;
+  line-height: 10px;
+  display: inline-block;
+  text-align: center;
+}
+
+/* line 876, REDACTEDscan-site.scss */
+div.colour-picker-row a.active span {
+  color: white;
+}
+
+/* line 878, REDACTEDscan-site.scss */
+label.form-control {
+  border: none;
+  box-shadow: none;
+}
+
+/* line 883, REDACTEDscan-site.scss */
+input.hide-text {
+  color: transparent;
+}
+
+/* line 886, REDACTEDscan-site.scss */
+td.column-small,
+th.column-small {
+  width: 80px;
+  text-align: center;
+}
+
+/* line 891, REDACTEDscan-site.scss */
+svg.figure {
+  border-radius: 4px;
+  border: solid #cccccc 1px;
+}
+
+/* line 895, REDACTEDscan-site.scss */
+#content2 .fill-vertical {
+  overflow-y: auto;
+}
+
+/* line 896, REDACTEDscan-site.scss */
+.applicability-label {
+  width: 50%;
+}
+
+/* line 897, REDACTEDscan-site.scss */
+#metadata-controls .btn {
+  margin-right: 5px;
+}
+
+/* line 898, REDACTEDscan-site.scss */
+#summary {
+  padding-top: 1.25rem;
+}
+
+/* line 899, REDACTEDscan-site.scss */
+.notes-no-btn .btn {
+  display: none;
+}
+
+/* line 901, REDACTEDscan-site.scss */
+#tag-table {
+  table-layout: fixed;
+}
+
+/* line 903, REDACTEDscan-site.scss */
+#tagsList {
+  list-style-type: none;
+  padding-left: 0;
+}
+/* line 906, REDACTEDscan-site.scss */
+#tagsList li {
+  float: left;
+  margin-right: 5px;
+  clear: right;
+}
+
+/* line 913, REDACTEDscan-site.scss */
+.export-filename-parent {
+  margin-top: 7px;
+}
+
+/* Spacing classes*/
+/* line 916, REDACTEDscan-site.scss */
+.no-bottom-margin {
+  margin-bottom: 0;
+}
+
+/* Channel page tag infobox*/
+/* line 919, REDACTEDscan-site.scss */
+.tag-infobox--list {
+  list-style-type: none;
+}
+
+/* Channel Details Tag area table*/
+/* line 922, REDACTEDscan-site.scss */
+.tag-table--tag-container {
+  height: 30px;
+}
+/* line 924, REDACTEDscan-site.scss */
+.tag-table--tag-container .tag-table--body--name, .tag-table--tag-container .tag-table--body--val, .tag-table--tag-container tag-table--body--rem {
+  margin-top: 5px;
+}
+
+/* line 928, REDACTEDscan-site.scss */
+#tag-table--body .tag-table--tag-container.even {
+  background-color: #cccccc;
+}
+/* line 929, REDACTEDscan-site.scss */
+#tag-table--body .tag-table--tag-container.odd {
+  background-color: #eeeeee;
+}
+
+/* line 932, REDACTEDscan-site.scss */
+#tag-table--controls {
+  margin: 10px -15px;
+}
+/* line 934, REDACTEDscan-site.scss */
+#tag-table--controls #tag-select, #tag-table--controls #tag-value, #tag-table--controls #btn-add-tag {
+  height: auto;
+}
+
+/* bring the buttons in the Channel Metadata tab (Channel List) into line*/
+/* line 938, REDACTEDscan-site.scss */
+#innerControls {
+  margin-left: -15px;
+  margin-bottom: 20px;
+}
+/* line 941, REDACTEDscan-site.scss */
+#innerControls .btn-group {
+  margin-left: 0;
+}
+
+/* form-horizontal should have horizontal groups */
+/* line 946, REDACTEDscan-site.scss */
+form.form-horizontal &gt; span.form-group {
+  display: inline;
+}
+
+/* line 948, REDACTEDscan-site.scss */
+.form-control-inline {
+  display: inline;
+  width: 50%;
+  float: right;
+}
+
+/* line 954, REDACTEDscan-site.scss */
+td.numeric-cell {
+  text-align: right;
+}
+
+/* line 955, REDACTEDscan-site.scss */
+.select-list .select-list {
+  margin-left: 10px;
+}
+
+/* line 956, REDACTEDscan-site.scss */
+#channel-grouping-text {
+  margin: 0.5rem 0 0;
+}
+
+/* Vocab lists table CSS override */
+/* line 959, REDACTEDscan-site.scss */
+.vocab-list.list {
+  margin-bottom: 10px;
+}
+/* line 961, REDACTEDscan-site.scss */
+.vocab-list.list tr {
+  margin: 0 0 0.25rem 0;
+}
+/* line 963, REDACTEDscan-site.scss */
+.vocab-list.list tr td {
+  display: inline-block;
+}
+/* line 965, REDACTEDscan-site.scss */
+.vocab-list.list tr td p {
+  margin: 0;
+}
+
+/* line 970, REDACTEDscan-site.scss */
+#show-sync-to-ve, #show-ve-live-sync {
+  width: 48%;
+}
+
+/* line 973, REDACTEDscan-site.scss */
+#show-ve-live-sync {
+  margin-left: 2%;
+}
+
+@media screen and (max-width: 1199px) {
+  /* line 977, REDACTEDscan-site.scss */
+  #show-sync-to-ve, #show-ve-live-sync {
+    width: 100%;
+  }
+
+  /* line 980, REDACTEDscan-site.scss */
+  #show-ve-live-sync {
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 380px) {
+  /* line 985, REDACTEDscan-site.scss */
+  #show-sync-to-ve, #show-ve-live-sync {
+    width: 100%;
+    float: none;
+  }
+}
+/* note severity mark */
+/* line 992, REDACTEDscan-site.scss */
+.item-severity {
+  color: #eeeeee;
+}
+
+/* line 996, REDACTEDscan-site.scss */
+.item-severity.item-severity-primary {
+  color: #428bca;
+}
+
+/* line 1000, REDACTEDscan-site.scss */
+.item-severity.item-severity-success {
+  color: #5cb85c;
+}
+
+/* line 1004, REDACTEDscan-site.scss */
+.item-severity.item-severity-danger {
+  color: #d9534f;
+}
+
+/* line 1008, REDACTEDscan-site.scss */
+.item-severity.item-severity-warning {
+  color: #f0ad4e;
+}
+
+/* line 1012, REDACTEDscan-site.scss */
+.item-severity.item-severity-info {
+  color: #5bc0de;
+}
+
+/* line 1016, REDACTEDscan-site.scss */
+.admin-notification {
+  font-variant: small-caps;
+  font-weight: bold;
+  color: white;
+  background: #ff9c26;
+  font-size: large;
+  padding: 0 20px;
+}
+</style>
+  <g transform="translate(40,20)" style="opacity: 1;">
+    <g clip-path="url(#clip-view-2)">
+      <g style="opacity: 1;">
+        <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABBIAAAC+CAYAAACIySxAAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAZMSURBVHhe7d3dymB1GcbhJ22miawIpKJAiCiIEKREsCIrskKmMOgDoqxwPCgTxK1oowOodiJoIplx3ncsTZHUUd+Z92s9RgfQ0/8AhHUfwLVxLe5j+MF6/tVv3D8AAAAACSEBAAAAiFW/+cAAAAAAJKpvfWkAAAAAEtW3vrwGAAAAwD4hAQAAAIhVv/XQAAAAACSq3/7KAAAAACSq3/nqAAAAACSEBAAAACBWffTIAAAAACSqj76xBgAAAMC+6tvfHAAAAICEkAAAAADEqm8/ugYAAADAvuo73x0AAACARPWd760BAAAAsE9IAAAAAGLVx48NAAAAQKL6+PIaAAAAAPuqj7+/BgAAAMA+IQEAAACIVZ/8YAAAAAAS1SePrwEAAACwr/rkh2sAAAAA7BMSAAAAgFj16Y8GAAAAIFF9+pM1AAAAAPZVn/10AAAAABLVZz9bAwAAAGCfkAAAAADEqs9/PgAAAACJ6vNfrAEAAACwr/r8iTUAAAAA9gkJAAAAQKz6/JdrAAAAAOyrPv/VGgAAAAD7qrcnBwAAACAhJAAAAACx6u3KGgAAAAD7qren1gAAAADYV1s/NQAAAAAJIQEAAACI1VlfGQAAAIBEnb57ZQAAAAASdfLukwMAAACQEBIAAACAWN35z68HAAAAIFFH6wMAAACQqFv/fWIAAAAAEkICAAAAEBMSAAAAgJiQAAAAAMSqjx4ZAAAAgISQAAAAAMSqX//CAAAAACSqX71vAAAAABLV//zYAAAAACSEBAAAACBW/eKHBwAAACBRffNDAwAAAJCoPrgwAAAAAInqw0sDAAAAkBASAAAAgFj14QfXAAAAANhXfb0GAAAAIFF94/0DAAAAkBASAAAAgJjnHwEAAIBYbddqAAAAABJCAgAAABATEgAAAICYkAAAAADEqg8+MAAAAAAJzz8CAAAAMSEBAAAAiFW/cNcAAAAAJKoPLw0AAABAovrg4gAAAAAkhAQAAAAgVn3jwgAAAAAkqg/WAAAAAAhU37h7AAAAABJCAgAAABCr93oTEgAAAOC9uJEAAAAAxPzaAAAAAMSEBAAAACDmRgIAAAAQq+1aDQAAAECi+vr7BgAAACAhJAAAAAAxNxIAAACAmBsJAAAAQKy259cAAAAACNT29zUAAAAAAkICAAAAEKvt6hoAAAAAASEBAAAAiAkJAAAAQExIAAAAAGK1/XkNAAAAgICQAAAAAMSEBAAAACAmJAAAAAAxIQEAAACI1fanNQAAAAACdf6HGgAAAICEkAAAAADE6vz3awAAAAAEhAQAAAAgJiQAAAAAMSEBAAAAiAkJAAAAQExIAAAAAGJCAgAAABATEgAAAICYkAAAAADE6ux3NQAAAACJOvvtGgAAAAABIQEAAACI1elzNQAAAACJOn1mDQAAAIBAnTxdAwAAAJCo02drAAAAABJCAgAAABCr09+sAQAAABBwIwEAAACI1cX5zgAAAAAkhAQAAAAgVnfN4wMAAACQqPrfjwcAAAAgcvVzNQAAAAAJIQEAAACI1fbHGgAAAIBE9SufGgAAAIBE9SufXgMAAABgn5AAAAAAxKpf/vgAAAAAJKpfuncAAAAAEtU37xkAAACAhJAAAAAAxKoPLw0AAABAovrgwgAAAAAkqq/XAAAAACSEBAAAACBW219rAAAAABK1/WUNAAAAgEBtV9cAAAAACAgJAAAAQExIAAAAAGJCAgAAABCr7W9rAAAAAASEBAAAACBW2/NrAAAAAARqu7YGAAAAQKD6hbsHAAAAIFF9cHEAAAAAEkICAAAAEKs+vDQAAAAAieqb9wwAAABAovrFjwwAAABAQkgAAAAAYtX/+OgAAAAAJKpfuncAAAAAEtUvf2IAAAAAEkICAAAAEKv+1ycHAAAAIFH96n0DAAAAkKh+7TMDAAAAkBASAAAAgFj1a59dAwAAAGBf9b8/PwAAAACJ6te/OAAAAAAJIQEAAACIVb9x/wAAAAAkqt98YAAAAAAS1bceHAAAAICEkAAAAADEqt96aAAAAAAS1W8/PAAAAACJ6ne+NgAAAAAJIQEAAACIVR99fQAAAAAS1be/NQAAAACJ6tvfXgMAAABgn5AAAAAAxKrvPDoAAAAAierjxwYAAAAgUX18eQ0AAACAPZfn/4QKqnNOEmq9AAAAAElFTkSuQmCC" y="218" width="1042" height="190"></image>
+        <text y="216">L11O11S4 - Block A VT Htg Flow Temp</text>
+        <image xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="data:image/png;base64,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" y="14" width="1042" height="190"></image>
+        <text y="12">L11O11S3 - Boiler Return Temp</text>
+      </g>
+      <g style="opacity: 0;">
+        <path class="plot-fill" style="fill: rgb(255, 0, 0);"></path>
+        <path class="plot-fill alt1" d="M0,0" style="fill: rgb(255, 0, 0);"></path>
+        <path class="plot-fill alt2" d="M0,0" style="fill: rgb(255, 0, 0);"></path>
+        <path class="plot-fill alt3" d="M0,0" style="fill: rgb(255, 0, 0);"></path>
+        <path class="plot-fill alt4" d="M0,0" style="fill: rgb(255, 0, 0);"></path>
+        <path class="plot-fill" style="fill: rgb(0, 151, 0);"></path>
+        <path class="plot-fill alt1" d="M0,0" style="fill: rgb(0, 151, 0);"></path>
+        <path class="plot-fill alt2" d="M0,0" style="fill: rgb(0, 151, 0);"></path>
+        <path class="plot-fill alt3" d="M0,0" style="fill: rgb(0, 151, 0);"></path>
+        <path class="plot-fill alt4" d="M0,0" style="fill: rgb(0, 151, 0);"></path>
+      </g>
+      <g style="opacity: 0;">
+        <path class="plot-line" style="stroke: rgb(255, 0, 0);"></path>
+        <path class="plot-line alt1" d="M0,0" style="stroke: rgb(255, 0, 0);"></path>
+        <path class="plot-line alt2" d="M0,0" style="stroke: rgb(255, 0, 0);"></path>
+        <path class="plot-line alt3" d="M0,0" style="stroke: rgb(255, 0, 0);"></path>
+        <path class="plot-line alt4" d="M0,0" style="stroke: rgb(255, 0, 0);"></path>
+        <path class="plot-line" style="stroke: rgb(0, 151, 0);"></path>
+        <path class="plot-line alt1" d="M0,0" style="stroke: rgb(0, 151, 0);"></path>
+        <path class="plot-line alt2" d="M0,0" style="stroke: rgb(0, 151, 0);"></path>
+        <path class="plot-line alt3" d="M0,0" style="stroke: rgb(0, 151, 0);"></path>
+        <path class="plot-line alt4" d="M0,0" style="stroke: rgb(0, 151, 0);"></path>
+      </g>
+      <g style="opacity: 0;">
+        <path class="plot-mark" style="stroke: rgb(255, 0, 0);"></path>
+        <path class="plot-mark alt1" d="M0,0" style="stroke: rgb(255, 0, 0);"></path>
+        <path class="plot-mark alt2" d="M0,0" style="stroke: rgb(255, 0, 0);"></path>
+        <path class="plot-mark alt3" d="M0,0" style="stroke: rgb(255, 0, 0);"></path>
+        <path class="plot-mark alt4" d="M0,0" style="stroke: rgb(255, 0, 0);"></path>
+        <path class="plot-mark" style="stroke: rgb(0, 151, 0);"></path>
+        <path class="plot-mark alt1" d="M0,0" style="stroke: rgb(0, 151, 0);"></path>
+        <path class="plot-mark alt2" d="M0,0" style="stroke: rgb(0, 151, 0);"></path>
+        <path class="plot-mark alt3" d="M0,0" style="stroke: rgb(0, 151, 0);"></path>
+        <path class="plot-mark alt4" d="M0,0" style="stroke: rgb(0, 151, 0);"></path>
+      </g>
+      <g style="opacity: 0; fill-opacity: 0.5;">
+        <path class="plot-line" style="stroke: rgb(255, 0, 0); fill: rgb(255, 0, 0);"></path>
+        <path class="plot-line alt1" d="M0,0" style="stroke: rgb(255, 0, 0); fill: rgb(255, 0, 0);"></path>
+        <path class="plot-line alt2" d="M0,0" style="stroke: rgb(255, 0, 0); fill: rgb(255, 0, 0);"></path>
+        <path class="plot-line alt3" d="M0,0" style="stroke: rgb(255, 0, 0); fill: rgb(255, 0, 0);"></path>
+        <path class="plot-line alt4" d="M0,0" style="stroke: rgb(255, 0, 0); fill: rgb(255, 0, 0);"></path>
+        <path class="plot-line" style="stroke: rgb(0, 151, 0); fill: rgb(0, 215, 0);"></path>
+        <path class="plot-line alt1" d="M0,0" style="stroke: rgb(0, 151, 0); fill: rgb(0, 215, 0);"></path>
+        <path class="plot-line alt2" d="M0,0" style="stroke: rgb(0, 151, 0); fill: rgb(0, 215, 0);"></path>
+        <path class="plot-line alt3" d="M0,0" style="stroke: rgb(0, 151, 0); fill: rgb(0, 215, 0);"></path>
+        <path class="plot-line alt4" d="M0,0" style="stroke: rgb(0, 151, 0); fill: rgb(0, 215, 0);"></path>
+      </g>
+      <g style="opacity: 0;">
+        <text class="plot-text"></text>
+        <path class="plot-call"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+        <text class="plot-text"></text>
+        <path class="plot-call" d="M0,0"></path>
+      </g>
+      <g style="opacity: 0;"></g>
+      <g style="opacity: 0;">
+        <rect class="plot-hover-back" rx="4" ry="4" width="0" height="0"></rect>
+        <path class="plot-hover"></path>
+        <g class="plot-hover"></g>
+      </g>
+      <g style="opacity: 1;">
+        <g style="opacity: 0;">
+          <rect class="plot-scrub-background" width="80" height="408"></rect>
+          <path class="plot-scrub-arrow" d="M16,-32L-16,0L16,32" transform="translate(40,204)"></path>
+        </g>
+        <g transform="translate(962,0)" style="opacity: 0;">
+          <rect class="plot-scrub-background" width="80" height="408"></rect>
+          <path class="plot-scrub-arrow" d="M-16,-32L16,0L-16,32" transform="translate(40,204)"></path>
+        </g>
+      </g>
+      <g id="grid" style="opacity: 1;"></g>
+    </g>
+    <g style="opacity: 1;">
+      <g class="y axis">
+        <g class="y axis plot-axis-default" style="opacity: 0;">
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.0</text>
+          </g>
+          <g class="tick" transform="translate(0,367.2)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.1</text>
+          </g>
+          <g class="tick" transform="translate(0,326.4)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.2</text>
+          </g>
+          <g class="tick" transform="translate(0,285.6)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.3</text>
+          </g>
+          <g class="tick" transform="translate(0,244.79999999999998)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.4</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.5</text>
+          </g>
+          <g class="tick" transform="translate(0,163.20000000000002)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.6</text>
+          </g>
+          <g class="tick" transform="translate(0,122.40000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.7</text>
+          </g>
+          <g class="tick" transform="translate(0,81.59999999999997)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.8</text>
+          </g>
+          <g class="tick" transform="translate(0,40.80000000000001)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.9</text>
+          </g>
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">1.0</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+          <text class="plot-units" transform="translate(0,-5)">units</text>
+        </g>
+        <g class="y axis" style="opacity: 0;">
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.0</text>
+          </g>
+          <g class="tick" transform="translate(0,367.2)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.1</text>
+          </g>
+          <g class="tick" transform="translate(0,326.4)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.2</text>
+          </g>
+          <g class="tick" transform="translate(0,285.6)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.3</text>
+          </g>
+          <g class="tick" transform="translate(0,244.79999999999998)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.4</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.5</text>
+          </g>
+          <g class="tick" transform="translate(0,163.20000000000002)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.6</text>
+          </g>
+          <g class="tick" transform="translate(0,122.40000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.7</text>
+          </g>
+          <g class="tick" transform="translate(0,81.59999999999997)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.8</text>
+          </g>
+          <g class="tick" transform="translate(0,40.80000000000001)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.9</text>
+          </g>
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">1.0</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+          <text class="plot-units" transform="translate(0,-5)">units</text>
+        </g>
+        <g class="y axis" style="opacity: 0;">
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.0</text>
+          </g>
+          <g class="tick" transform="translate(0,367.2)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.1</text>
+          </g>
+          <g class="tick" transform="translate(0,326.4)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.2</text>
+          </g>
+          <g class="tick" transform="translate(0,285.6)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.3</text>
+          </g>
+          <g class="tick" transform="translate(0,244.79999999999998)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.4</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.5</text>
+          </g>
+          <g class="tick" transform="translate(0,163.20000000000002)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.6</text>
+          </g>
+          <g class="tick" transform="translate(0,122.40000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.7</text>
+          </g>
+          <g class="tick" transform="translate(0,81.59999999999997)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.8</text>
+          </g>
+          <g class="tick" transform="translate(0,40.80000000000001)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.9</text>
+          </g>
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">1.0</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+          <text class="plot-units" transform="translate(0,-5)">units</text>
+        </g>
+        <g class="y axis" style="opacity: 0;">
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.0</text>
+          </g>
+          <g class="tick" transform="translate(0,367.2)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.1</text>
+          </g>
+          <g class="tick" transform="translate(0,326.4)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.2</text>
+          </g>
+          <g class="tick" transform="translate(0,285.6)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.3</text>
+          </g>
+          <g class="tick" transform="translate(0,244.79999999999998)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.4</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.5</text>
+          </g>
+          <g class="tick" transform="translate(0,163.20000000000002)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.6</text>
+          </g>
+          <g class="tick" transform="translate(0,122.40000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.7</text>
+          </g>
+          <g class="tick" transform="translate(0,81.59999999999997)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.8</text>
+          </g>
+          <g class="tick" transform="translate(0,40.80000000000001)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.9</text>
+          </g>
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">1.0</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+          <text class="plot-units" transform="translate(0,-5)">units</text>
+        </g>
+        <g class="y axis" style="opacity: 0;">
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.0</text>
+          </g>
+          <g class="tick" transform="translate(0,367.2)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.1</text>
+          </g>
+          <g class="tick" transform="translate(0,326.4)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.2</text>
+          </g>
+          <g class="tick" transform="translate(0,285.6)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.3</text>
+          </g>
+          <g class="tick" transform="translate(0,244.79999999999998)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.4</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.5</text>
+          </g>
+          <g class="tick" transform="translate(0,163.20000000000002)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.6</text>
+          </g>
+          <g class="tick" transform="translate(0,122.40000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.7</text>
+          </g>
+          <g class="tick" transform="translate(0,81.59999999999997)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.8</text>
+          </g>
+          <g class="tick" transform="translate(0,40.80000000000001)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.9</text>
+          </g>
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">1.0</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+          <text class="plot-units" transform="translate(0,-5)">units</text>
+        </g>
+        <g class="y axis" style="opacity: 0;">
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.0</text>
+          </g>
+          <g class="tick" transform="translate(0,367.2)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.1</text>
+          </g>
+          <g class="tick" transform="translate(0,326.4)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.2</text>
+          </g>
+          <g class="tick" transform="translate(0,285.6)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.3</text>
+          </g>
+          <g class="tick" transform="translate(0,244.79999999999998)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.4</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.5</text>
+          </g>
+          <g class="tick" transform="translate(0,163.20000000000002)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.6</text>
+          </g>
+          <g class="tick" transform="translate(0,122.40000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.7</text>
+          </g>
+          <g class="tick" transform="translate(0,81.59999999999997)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.8</text>
+          </g>
+          <g class="tick" transform="translate(0,40.80000000000001)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.9</text>
+          </g>
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">1.0</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+          <text class="plot-units" transform="translate(0,-5)">units</text>
+        </g>
+        <g class="y axis" style="opacity: 0;">
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.0</text>
+          </g>
+          <g class="tick" transform="translate(0,367.2)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.1</text>
+          </g>
+          <g class="tick" transform="translate(0,326.4)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.2</text>
+          </g>
+          <g class="tick" transform="translate(0,285.6)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.3</text>
+          </g>
+          <g class="tick" transform="translate(0,244.79999999999998)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.4</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.5</text>
+          </g>
+          <g class="tick" transform="translate(0,163.20000000000002)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.6</text>
+          </g>
+          <g class="tick" transform="translate(0,122.40000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.7</text>
+          </g>
+          <g class="tick" transform="translate(0,81.59999999999997)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.8</text>
+          </g>
+          <g class="tick" transform="translate(0,40.80000000000001)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.9</text>
+          </g>
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">1.0</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+          <text class="plot-units" transform="translate(0,-5)">units</text>
+        </g>
+        <g class="y axis" style="opacity: 0;">
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.0</text>
+          </g>
+          <g class="tick" transform="translate(0,367.2)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.1</text>
+          </g>
+          <g class="tick" transform="translate(0,326.4)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.2</text>
+          </g>
+          <g class="tick" transform="translate(0,285.6)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.3</text>
+          </g>
+          <g class="tick" transform="translate(0,244.79999999999998)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.4</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.5</text>
+          </g>
+          <g class="tick" transform="translate(0,163.20000000000002)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.6</text>
+          </g>
+          <g class="tick" transform="translate(0,122.40000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.7</text>
+          </g>
+          <g class="tick" transform="translate(0,81.59999999999997)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.8</text>
+          </g>
+          <g class="tick" transform="translate(0,40.80000000000001)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.9</text>
+          </g>
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">1.0</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+          <text class="plot-units" transform="translate(0,-5)">units</text>
+        </g>
+        <g class="y axis" style="opacity: 0;">
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.0</text>
+          </g>
+          <g class="tick" transform="translate(0,367.2)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.1</text>
+          </g>
+          <g class="tick" transform="translate(0,326.4)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.2</text>
+          </g>
+          <g class="tick" transform="translate(0,285.6)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.3</text>
+          </g>
+          <g class="tick" transform="translate(0,244.79999999999998)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.4</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.5</text>
+          </g>
+          <g class="tick" transform="translate(0,163.20000000000002)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.6</text>
+          </g>
+          <g class="tick" transform="translate(0,122.40000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.7</text>
+          </g>
+          <g class="tick" transform="translate(0,81.59999999999997)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.8</text>
+          </g>
+          <g class="tick" transform="translate(0,40.80000000000001)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.9</text>
+          </g>
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">1.0</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+          <text class="plot-units" transform="translate(0,-5)">units</text>
+        </g>
+        <g class="y axis" style="opacity: 0;">
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.0</text>
+          </g>
+          <g class="tick" transform="translate(0,367.2)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.1</text>
+          </g>
+          <g class="tick" transform="translate(0,326.4)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.2</text>
+          </g>
+          <g class="tick" transform="translate(0,285.6)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.3</text>
+          </g>
+          <g class="tick" transform="translate(0,244.79999999999998)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.4</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.5</text>
+          </g>
+          <g class="tick" transform="translate(0,163.20000000000002)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.6</text>
+          </g>
+          <g class="tick" transform="translate(0,122.40000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.7</text>
+          </g>
+          <g class="tick" transform="translate(0,81.59999999999997)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.8</text>
+          </g>
+          <g class="tick" transform="translate(0,40.80000000000001)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">0.9</text>
+          </g>
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">1.0</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+          <text class="plot-units" transform="translate(0,-5)">units</text>
+        </g>
+        <g class="y axis" style="opacity: 0;">
+          <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">00:00</text>
+          </g>
+          <g class="tick" transform="translate(0,34)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">02:00</text>
+          </g>
+          <g class="tick" transform="translate(0,68.00000000000006)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">04:00</text>
+          </g>
+          <g class="tick" transform="translate(0,102)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">06:00</text>
+          </g>
+          <g class="tick" transform="translate(0,136)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">08:00</text>
+          </g>
+          <g class="tick" transform="translate(0,170.00000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">10:00</text>
+          </g>
+          <g class="tick" transform="translate(0,204)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">12:00</text>
+          </g>
+          <g class="tick" transform="translate(0,238.00000000000003)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">14:00</text>
+          </g>
+          <g class="tick" transform="translate(0,272)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">16:00</text>
+          </g>
+          <g class="tick" transform="translate(0,306)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">18:00</text>
+          </g>
+          <g class="tick" transform="translate(0,340)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">20:00</text>
+          </g>
+          <g class="tick" transform="translate(0,374)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">22:00</text>
+          </g>
+          <g class="tick" transform="translate(0,408)" style="opacity: 1;">
+            <line x2="-6" y2="0"></line>
+            <text x="-9" y="0" dy=".32em" style="text-anchor: end;">24:00</text>
+          </g>
+          <path class="domain" d="M-6,0H0V408H-6"></path>
+        </g>
+      </g>
+      <g class="x axis" transform="translate(0,408)" style="opacity: 1;">
+        <g class="tick" transform="translate(0,0)" style="opacity: 1;">
+          <line y2="6" x2="0"></line>
+          <text y="9" x="0" dy=".71em" style="text-anchor: middle;" transform="translate(521,0)">Aug 09</text>
+        </g>
+        <path class="domain" d="M0,6V0H1042V6"></path>
+      </g>
+    </g>
+    <path class="plot-zero" d="M0,0 H1042" style="opacity: 0;"></path>
+    <path class="plot-now" d="" style="opacity: 0;"></path>
+  </g>
+  <clipPath id="clip-view-2">
+    <rect width="1042" height="408"></rect>
+  </clipPath>
+  <g style="opacity: 0;"></g>
+  <text class="plot-warning" y="9" x="521" style="opacity: 0;">data loading - 75%</text>
+  <text class="plot-caption" y="14" x="521" style="opacity: 0;"></text>
+</svg>

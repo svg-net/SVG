@@ -58,6 +58,7 @@
     <Compile Include="BoundsTests.cs" />
     <Compile Include="CssQueryTest.cs" />
     <Compile Include="LargeEmbeddedImageTest.cs" />
+    <Compile Include="LexerIssueTests.cs" />
     <Compile Include="MarkerEndTest.cs" />
     <Compile Include="MetafileRenderingTest.cs" />
     <Compile Include="MultiThreadingTest.cs" />
@@ -105,6 +106,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Issue_Threading\TestFile.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Issue399_LexerIssue\ComplexStyle.svg" />
+    <EmbeddedResource Include="Resources\Issue399_LexerIssue\EmptyDTag.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
