@@ -108,8 +108,11 @@
     <EmbeddedResource Include="Resources\Issue_Threading\TestFile.svg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Issue399_LexerIssue\ComplexStyle.svg" />
+    <EmbeddedResource Include="Resources\Issue399_LexerIssue\LexerFailOnImportantInBorder.svg" />
     <EmbeddedResource Include="Resources\Issue399_LexerIssue\EmptyDTag.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Issue399_LexerIssue\LexerSuccesOnNoImportantInBorder.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
