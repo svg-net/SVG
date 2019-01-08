@@ -1,13 +1,17 @@
 ﻿<svg xmlns="http://www.w3.org/2000/svg" width="1092" height="453">
   <style type="text/css">
-		
 
-		#footer 
+
+		#footer
 		{
-	
-			border-top: 1px solid #009c46 !important;
+			/*Hex is working, if no !important suffixing it (#399) */
+			border-top: 1px solid #009c46;
 		}
-
+		#footer2
+		{
+			/*Important is not failing on non-hex value*/
+			border-top: 1px solid red !important;
+		}
 	</style>
   <g transform="translate(40,20)" style="opacity: 1;">
     <path class="plot-zero" d="M0,0 H1042" style="opacity: 0;"></path>

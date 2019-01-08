@@ -1,12 +1,13 @@
 ﻿<svg xmlns="http://www.w3.org/2000/svg" width="1092" height="453">
   <style type="text/css">
-		
 
-		#footer 
+		
+		/* We only allow 3 or 6 digit hex */
+		#footer
 		{
-	
-			border-top: 1px solid #009c46;
+			color: #0046;
 		}
+
 
 	</style>
   <g transform="translate(40,20)" style="opacity: 1;">
