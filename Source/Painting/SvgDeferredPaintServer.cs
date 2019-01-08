@@ -35,7 +35,7 @@ namespace Svg
                                         where e.Color != SvgPaintServer.None && e.Color != SvgColourServer.NotSet && 
                                               e.Color != SvgColourServer.Inherit && e.Color != SvgColourServer.None
                                         select e).FirstOrDefault();
-                    _concreteServer = (colorElement == null ? SvgPaintServer.None : colorElement.Color);
+                    _concreteServer = (colorElement == null ? SvgColourServer.NotSet : colorElement.Color);
                 }
                 else 
                 {

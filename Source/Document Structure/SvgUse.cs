@@ -124,7 +124,7 @@ namespace Svg
 
         protected override void Render(ISvgRenderer renderer)
         {
-            if (this.Visible && this.Displayable && !this.HasRecursiveReference() && this.PushTransforms(renderer))
+            if (this.Visible && this.Displayable && this.ReferencedElement != null && !this.HasRecursiveReference() && this.PushTransforms(renderer))
             {
                 this.SetClip(renderer);
 
