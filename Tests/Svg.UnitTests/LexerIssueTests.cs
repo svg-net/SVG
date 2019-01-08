@@ -60,9 +60,10 @@ namespace Svg.UnitTests
 				var doc = OpenSvg(xml);
 				Assert.Fail("Expected the xml to fail due to invalid HEX value");
 			}
-			catch (ArgumentOutOfRangeException)
+			catch (ArgumentOutOfRangeException ex)
 			{
 				//Success, we expected this
+				System.Diagnostics.Trace.WriteLine($"Test failed as expected: {ex.Message}");
 			}
 		}	
 	}

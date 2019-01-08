@@ -11,6 +11,11 @@
 			border-top: 1px solid #009c46 !important;
 		}
 
+		#footer3
+		{
+			/*Also fails on whitespace behind the last element*/
+			border-bottom: 1px solid #009c46  ;
+		}
 
 	</style>
   <g transform="translate(40,20)" style="opacity: 1;">

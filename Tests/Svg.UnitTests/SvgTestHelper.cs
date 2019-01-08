@@ -159,6 +159,20 @@ namespace Svg.UnitTests
             return xmlDoc;
         }
 
+		/// <summary>
+		/// Get the xml document from an input string
+		/// </summary>
+		/// <param name="input"></param>
+		/// <returns></returns>
+		protected virtual XmlDocument GetXMLDocFromString(string input)
+		{
+			Trace.WriteLine("Load XmlDocument from input data.");
+			var xmlDoc = new XmlDocument();
+			xmlDoc.XmlResolver = new SvgDtdResolver();
+			xmlDoc.LoadXml(input);
+			Trace.WriteLine("Done XmlDocument loading from resource data.");
+			return xmlDoc;
+		}
 
         /// <summary>
         /// Get xml document from <see cref="TestResource"/>.
@@ -231,8 +245,9 @@ namespace Svg.UnitTests
             using (var ms = new MemoryStream())
             {
                 img.Save(ms, ImageFormat.Png);
+				img.Save($"d:\\temp\\{Guid.NewGuid().ToString()}.png");
                 ms.Flush();
-                Assert.IsTrue(ms.Length >= ExpectedSize, "Svg file does not match expected minimum size.");
+                Assert.IsTrue(ms.Length >= ExpectedSize, $"Svg file size {ms.Length} does not match expected minimum size (expected {ExpectedSize}).");
             }
         }
 
