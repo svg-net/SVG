@@ -45,6 +45,24 @@ namespace Svg.UnitTests
             AssertEqualBounds("rects", -50f, 9.5f, 80, 50.5f);
         }
 
+        [TestMethod]
+        public void TestTranslatedGroupBounds()
+        {
+            AssertEqualBounds("lines-translated", -12.5f, -7, 31, 86);
+        }
+
+        [TestMethod]
+        public void TestScaledGroupBounds()
+        {
+            AssertEqualBounds("lines-scaled", 19, -81, 62, 172);
+        }
+
+        [TestMethod]
+        public void TestRotatedGroupBounds()
+        {
+            AssertEqualBounds("lines-rotated", -45.5f, 9.5f, 86, 31);
+        }
+
         private void AssertEqualBounds(string elementId, float x, float y, float width, float height)
         {
             const float Epsilon = 0.01f;

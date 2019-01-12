@@ -74,7 +74,7 @@ namespace Svg.Document_Structure
                     }
                 }
 
-                return r;
+                return TransformedBounds(r);
             }
         }
 

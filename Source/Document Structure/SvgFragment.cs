@@ -238,7 +238,7 @@ namespace Svg
                     }
                 }
 
-                return bounds;
+                return TransformedBounds(bounds);
             }
         }
 

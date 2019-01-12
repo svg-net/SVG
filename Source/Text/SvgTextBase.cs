@@ -220,6 +220,10 @@ namespace Svg
                 {
                     path.AddPath(elem.Path(null), false);
                 }
+                if (Transforms != null && Transforms.Count > 0)
+                {
+                    path.Transform(Transforms.GetMatrix());
+                }
                 return path.GetBounds();
             }
         }
