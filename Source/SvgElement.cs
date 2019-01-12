@@ -363,6 +363,24 @@ namespace Svg
         }
 
         /// <summary>
+        /// Transforms the given rectangle with the set transformation, if any.
+        /// Can be applied to bounds calculated without considering the element transformation. 
+        /// </summary>
+        /// <param name="bounds">The rectangle to be transformed.</param>
+        /// <returns>The transformed rectangle, or the original rectangle if no transformation exists.</returns>
+        protected RectangleF TransformedBounds(RectangleF bounds)
+        {
+            if (Transforms != null && Transforms.Count > 0)
+            {
+                var path = new GraphicsPath();
+                path.AddRectangle(bounds);
+                path.Transform(Transforms.GetMatrix());
+                return path.GetBounds();
+            }
+            return bounds;
+        }
+
+        /// <summary>
         /// Gets or sets the ID of the element.
         /// </summary>
         /// <exception cref="SvgException">The ID is already used within the <see cref="SvgDocument"/>.</exception>

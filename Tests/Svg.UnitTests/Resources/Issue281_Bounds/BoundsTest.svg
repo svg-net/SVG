@@ -6,6 +6,21 @@
     <line id="line-xlate" x1="10" x2="30" y1="20" y2="40" transform="translate(5, 5)" />
     <line id="line-xform" x1="10" x2="30" y1="20" y2="40" transform="rotate(180), translate(-50, 0)" />
   </g>
+  <g id="lines-translated" transform="translate(-22, 33.5)">
+    <line id="line" x1="10" x2="30" y1="20" y2="40" />
+    <line id="line-xlate" x1="10" x2="30" y1="20" y2="40" transform="translate(5, 5)" />
+    <line id="line-xform" x1="10" x2="30" y1="20" y2="40" transform="rotate(180), translate(-50, 0)" />
+  </g>
+  <g id="lines-rotated" transform="rotate(90)">
+    <line id="line" x1="10" x2="30" y1="20" y2="40" />
+    <line id="line-xlate" x1="10" x2="30" y1="20" y2="40" transform="translate(5, 5)" />
+    <line id="line-xform" x1="10" x2="30" y1="20" y2="40" transform="rotate(180), translate(-50, 0)" />
+  </g>
+  <g id="lines-scaled" transform="scale(2)">
+    <line id="line" x1="10" x2="30" y1="20" y2="40" />
+    <line id="line-xlate" x1="10" x2="30" y1="20" y2="40" transform="translate(5, 5)" />
+    <line id="line-xform" x1="10" x2="30" y1="20" y2="40" transform="rotate(180), translate(-50, 0)" />
+  </g>
   <g id="rects">
     <rect id="rect" x="10" y="30" width="10" height="20" />
     <rect id="rect-xlate" x="10" y="30" width="10" height="20" transform="translate(10, 10)" />
