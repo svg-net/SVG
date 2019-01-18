@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Fizzler;
-using ExCSS;
+using Svg.ExCSS;
 
 namespace Svg.Css
 {

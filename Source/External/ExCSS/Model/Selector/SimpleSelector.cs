@@ -1,8 +1,8 @@
 ﻿using System;
-using ExCSS.Model;
+using Svg.ExCSS.Model;
 // ReSharper disable once CheckNamespace
 
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public sealed class SimpleSelector : BaseSelector
     {

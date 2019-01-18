@@ -5,7 +5,7 @@ using System.Xml;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using ExCSS;
+using Svg.ExCSS;
 
 namespace Svg
 {

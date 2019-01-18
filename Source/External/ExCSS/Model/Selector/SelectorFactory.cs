@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Globalization;
-using ExCSS.Model;
-using ExCSS.Model.TextBlocks;
+using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.TextBlocks;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     internal sealed class SelectorFactory
     {

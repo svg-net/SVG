@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class ComplexSelector : BaseSelector, IEnumerable<CombinatorSelector>
     {

@@ -2,7 +2,7 @@
 using System.Globalization;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class PrimitiveTerm : Term
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace ExCSS.Model.TextBlocks
+namespace Svg.ExCSS.Model.TextBlocks
 {
     internal class StringBlock : Block
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace ExCSS.Model.TextBlocks
+namespace Svg.ExCSS.Model.TextBlocks
 {
     internal class UnitBlock : Block
     {

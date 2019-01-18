@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class TermList : Term
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class InheritTerm : Term
     {
