@@ -1,4 +1,4 @@
-﻿namespace ExCSS
+﻿namespace Svg.ExCSS
 {
     public interface IToString
     {

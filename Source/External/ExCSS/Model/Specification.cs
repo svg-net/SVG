@@ -1,4 +1,4 @@
-﻿namespace ExCSS.Model
+﻿namespace Svg.ExCSS.Model
 {
     internal static class Specification
     {
