@@ -155,7 +155,13 @@ namespace Svg
                         case "windowframe": return SystemColors.WindowFrame;
                         case "windowtext": return SystemColors.WindowText;
                     }
-
+                    int number;
+                    if (Int32.TryParse(colour, out number))
+                    {
+                        // numbers are handled as colors by System.Drawing.ColorConverter - we
+                        // have to prevent this and ignore the color instead (see #342) 
+                        return SvgColourServer.NotSet;
+                    }
                 }
                 finally
                 {
