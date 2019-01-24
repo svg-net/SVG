@@ -93,11 +93,12 @@ namespace Svg
 							}
 
                 var center = SvgUnit.GetDevicePoint(this._centerX, this._centerY, renderer, this);
-								var radius = SvgUnit.GetDevicePoint(this._radiusX + halfStrokeWidth, this._radiusY + halfStrokeWidth, renderer, this);
+				var radiusX = this.RadiusX.ToDeviceValue(renderer, UnitRenderingType.Other, this) + halfStrokeWidth;
+                var radiusY = this.RadiusY.ToDeviceValue(renderer, UnitRenderingType.Other, this) + halfStrokeWidth;
 
                 this._path = new GraphicsPath();
                 _path.StartFigure();
-                _path.AddEllipse(center.X - radius.X, center.Y - radius.Y, 2 * radius.X, 2 * radius.Y);
+                _path.AddEllipse(center.X - radiusX, center.Y - radiusY, 2 * radiusX, 2 * radiusY);
                 _path.CloseFigure();
             }
             return _path;
