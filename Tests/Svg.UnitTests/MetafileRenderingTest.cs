@@ -13,7 +13,7 @@ namespace Svg.UnitTests
 {
 
     /// <summary>
-    /// Test Class of rendering SVGs as meterfile.
+    /// Test Class of rendering SVGs as metafile.
     /// Based on Issue 210.
     /// </summary>
     /// <remarks>

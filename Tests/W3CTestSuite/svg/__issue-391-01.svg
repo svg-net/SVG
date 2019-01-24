@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
-		width="0.240241in" height="0.185667in" viewBox="0 0 17.2974 13.368" xml:space="preserve" color-interpolation-filters="sRGB"
-		class="st3">
+		width="100" height="60" xml:space="preserve" color-interpolation-filters="sRGB"
+		class="st3" transform="scale(4)">
 	<title>Enkelpolige schakelaar met signalisatielamp</title>
 	
 	<style type="text/css">

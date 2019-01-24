@@ -12,6 +12,8 @@ It is also available via Nuget:
 PM> Install-Package Svg
 ```
 
+Release notes for the latest versions can be found in the [Wiki](https://github.com/vvvv/SVG/wiki/Release-Notes).
+
 ## Projects using the library
 
 * [vvvv](http://vvvv.org) a hybrid visual/textual live-programming environment for easy prototyping and development.

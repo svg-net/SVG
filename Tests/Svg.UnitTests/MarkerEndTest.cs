@@ -93,8 +93,6 @@ namespace Svg.UnitTests
             img.Save(file + ".png");
             Debug.WriteLine(string.Format("Svg saved to '{0}'", file));
 
-            Debugger.Break();
-
             // Remove
             var svg = new FileInfo(file + ".svg");
             if (svg.Exists) svg.Delete();
