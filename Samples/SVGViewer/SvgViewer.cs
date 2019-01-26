@@ -76,6 +76,7 @@ namespace SVGViewer
             else
                 outputDir = System.IO.Path.GetDirectoryName(svgDoc.BaseUri.LocalPath);
             svgImage.Image.Save(System.IO.Path.Combine(outputDir, "output.png"));
+            // svgDoc.Write(System.IO.Path.Combine(outputDir, "output.svg"));
         }
     }
 }

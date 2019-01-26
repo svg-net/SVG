@@ -7,7 +7,7 @@ using Svg.DataTypes;
 namespace Svg
 {
     [SvgElement("marker")]
-    public class SvgMarker : SvgVisualElement, ISvgViewPort
+    public class SvgMarker : SvgPathBasedElement, ISvgViewPort
     {
         private SvgOrient _svgOrient = new SvgOrient();
 
@@ -79,6 +79,37 @@ namespace Svg
             set { this.Attributes["markerUnits"] = value; }
         }
 
+        /// <summary>
+        /// If not set set in the marker, consider the attribute in the drawing element.
+        /// </summary>
+        public override SvgPaintServer Fill
+        {
+            get
+            {
+                var path = this.Children.FirstOrDefault(x => x is SvgVisualElement);
+                if (path != null)
+                {
+                    return path.Fill;
+                }
+                return base.Fill;
+            }
+        }
+
+        /// <summary>
+        /// If not set set in the marker, consider the attribute in the drawing element.
+        /// </summary>
+        public override SvgPaintServer Stroke
+        {
+            get {
+                var path = this.Children.FirstOrDefault(x => x is SvgVisualElement);
+                if (path != null)
+                {
+                    return path.Stroke;
+                }
+                return base.Stroke;
+            }
+        }
+
         public SvgMarker()
         {
             MarkerUnits = SvgMarkerUnits.StrokeWidth;
@@ -93,23 +124,6 @@ namespace Svg
             if (path != null)
                 return (path as SvgVisualElement).Path(renderer);
             return null;
-        }
-
-        public override System.Drawing.RectangleF Bounds
-        {
-            get
-            {
-                var path = this.Path(null);
-                if (path != null)
-                {
-                    if (Transforms != null && Transforms.Count > 0)
-                    {
-                        path.Transform(Transforms.GetMatrix());
-                    }
-                    return path.GetBounds();
-                }
-                return new RectangleF();
-            }
         }
 
         public override SvgElement DeepCopy()
@@ -199,10 +213,12 @@ namespace Svg
                             case SvgMarkerUnits.StrokeWidth:
                                 if (ViewBox.Width > 0 && ViewBox.Height > 0)
                                 {
+                                    transMatrix.Scale(MarkerWidth, MarkerHeight);
+                                    var strokeWidth = pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this);
                                     transMatrix.Translate(AdjustForViewBoxWidth(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this) *
-                                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)),
+                                                            strokeWidth),
                                                           AdjustForViewBoxHeight(-RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this) *
-                                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)));
+                                                            strokeWidth));
                                 }
                                 else
                                 {
@@ -244,13 +260,14 @@ namespace Svg
         /// <returns></returns>
         private Pen CreatePen(SvgVisualElement pPath, ISvgRenderer renderer)
         {
-            if (pPath.Stroke == null) return null;
-            Brush pBrush = pPath.Stroke.GetBrush(this, renderer, Opacity);
+            if (this.Stroke == null) return null;
+            Brush pBrush = this.Stroke.GetBrush(this, renderer, Opacity);
             switch (MarkerUnits)
             {
                 case SvgMarkerUnits.StrokeWidth:
-                    return (new Pen(pBrush, StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this) * 
-                                            pPath.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
+                    // TODO: have to multiply with marker stroke width if it is not inherted from the
+                    // same ancestor as owner path stroke width
+                    return (new Pen(pBrush, pPath.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
                 case SvgMarkerUnits.UserSpaceOnUse:
                     return (new Pen(pBrush, StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
             }
