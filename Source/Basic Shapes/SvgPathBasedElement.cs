@@ -12,12 +12,16 @@ namespace Svg
             get
             {
                 var path = this.Path(null);
-                if (Transforms != null && Transforms.Count > 0)
+                if (path != null)
                 {
-                    path = (GraphicsPath)path.Clone();
-                    path.Transform(Transforms.GetMatrix());
+                    if (Transforms != null && Transforms.Count > 0)
+                    {
+                        path = (GraphicsPath)path.Clone();
+                        path.Transform(Transforms.GetMatrix());
+                    }
+                    return path.GetBounds();
                 }
-                return path.GetBounds();
+                return new System.Drawing.RectangleF();
             }
         }
     }

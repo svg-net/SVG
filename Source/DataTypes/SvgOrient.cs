@@ -15,10 +15,16 @@ namespace Svg
   
 		public SvgOrient()
 		{
-			IsAuto = true;
+			IsAuto = false;
+            Angle = 0;
 		}
 
-		public SvgOrient(float angle)
+        public SvgOrient(bool isAuto)
+        {
+            IsAuto = isAuto;
+        }
+
+        public SvgOrient(float angle)
 		{
 			Angle = angle;
 		}

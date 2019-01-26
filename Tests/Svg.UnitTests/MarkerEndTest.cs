@@ -21,7 +21,7 @@ namespace Svg.UnitTests
     {
 
         protected override string TestResource { get { return GetFullResourceString("Issue212_MakerEnd.OperatingPlan.svg"); } }
-        protected override int ExpectedSize { get { return 5000; } } //5321 //5410
+        protected override int ExpectedSize { get { return 4300; } } // original image has 4314 bytes
 
 
         [TestMethod]
