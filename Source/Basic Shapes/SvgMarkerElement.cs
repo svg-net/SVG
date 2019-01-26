@@ -20,7 +20,7 @@ namespace Svg
 
 
         /// <summary>
-        /// Gets or sets the marker (start cap) of the path.
+        /// Gets or sets the marker (mid points) of the path.
         /// </summary>
         [SvgAttribute("marker-mid", true)]
         public Uri MarkerMid
@@ -41,7 +41,8 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the stroke of the <see cref="SvgVisualElement"/> to the specified <see cref="ISvgRenderer"/>
+        /// Renders the stroke of the element to the specified <see cref="ISvgRenderer"/>.
+        /// Includes rendering of all markers defined in attributes.
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected internal override bool RenderStroke(ISvgRenderer renderer)
