@@ -54,6 +54,7 @@ painting-fill-03-t.svg
 painting-fill-04-t.svg
 painting-fill-05-b.svg
 painting-marker-01-f.svg
+painting-marker-04-f.svg
 painting-marker-06-f.svg
 painting-stroke-01-t.svg
 painting-stroke-02-t.svg

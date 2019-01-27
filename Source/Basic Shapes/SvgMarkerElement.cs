@@ -67,8 +67,18 @@ namespace Svg
             if (this.MarkerMid != null)
             {
                 SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerMid.ToString());
+                int bezierIndex = -1;
                 for (int i = 1; i <= path.PathPoints.Length - 2; i++)
-                    marker.RenderMarker(renderer, this, path.PathPoints[i], path.PathPoints[i - 1], path.PathPoints[i], path.PathPoints[i + 1]);
+                {
+                    // for Bezier curves, the marker shall only been shown at the last point
+                    if ((path.PathTypes[i] & 7) == 3)
+                        bezierIndex = (bezierIndex + 1) % 3;
+                    else
+                        bezierIndex = -1;
+                    if (bezierIndex == -1 || bezierIndex == 2)
+                        marker.RenderMarker(renderer, this, path.PathPoints[i], path.PathPoints[i - 1], path.PathPoints[i], path.PathPoints[i + 1]);
+
+                }
             }
 
             if (this.MarkerEnd != null)
