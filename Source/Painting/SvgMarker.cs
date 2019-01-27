@@ -10,6 +10,22 @@ namespace Svg
     public class SvgMarker : SvgPathBasedElement, ISvgViewPort
     {
         private SvgOrient _svgOrient = new SvgOrient();
+        private SvgVisualElement _markerElement = null;
+
+        /// <summary>
+        /// Return the child element that represent the marker
+        /// </summary>
+        private SvgVisualElement MarkerElement
+        {
+            get
+            {
+                if (_markerElement == null)
+                {
+                    _markerElement = (SvgVisualElement)this.Children.FirstOrDefault(x => x is SvgVisualElement);
+                }
+                return _markerElement;
+            }
+        }
 
         [SvgAttribute("refX")]
         public virtual SvgUnit RefX
@@ -86,11 +102,8 @@ namespace Svg
         {
             get
             {
-                var path = this.Children.FirstOrDefault(x => x is SvgVisualElement);
-                if (path != null)
-                {
-                    return path.Fill;
-                }
+                if (MarkerElement != null)
+                    return MarkerElement.Fill;
                 return base.Fill;
             }
         }
@@ -100,12 +113,10 @@ namespace Svg
         /// </summary>
         public override SvgPaintServer Stroke
         {
-            get {
-                var path = this.Children.FirstOrDefault(x => x is SvgVisualElement);
-                if (path != null)
-                {
-                    return path.Stroke;
-                }
+            get
+            {
+                if (MarkerElement != null)
+                    return MarkerElement.Stroke;
                 return base.Stroke;
             }
         }
@@ -120,9 +131,8 @@ namespace Svg
 
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
-            var path = this.Children.FirstOrDefault(x => x is SvgVisualElement);
-            if (path != null)
-                return (path as SvgVisualElement).Path(renderer);
+            if (MarkerElement != null)
+                return MarkerElement.Path(renderer);
             return null;
         }
 
@@ -234,6 +244,14 @@ namespace Svg
                                 transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
                                                       -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
                                 break;
+                        }
+
+                        if (MarkerElement != null && MarkerElement.Transforms != null)
+                        {
+                            foreach (var transformation in MarkerElement.Transforms)
+                            {
+                                transMatrix.Multiply(transformation.Matrix);
+                            }
                         }
                         markerPath.Transform(transMatrix);
                         if (pRenderPen != null) pRenderer.DrawPath(pRenderPen, markerPath);
