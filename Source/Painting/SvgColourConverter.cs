@@ -197,8 +197,9 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
-                var colour = (Color)value;
-								return ColorTranslator.ToHtml(colour);
+                var colorString = ColorTranslator.ToHtml((Color)value);
+                // color names are expected to be lower case in XML
+                return colorString.StartsWith("#") ? colorString : colorString.ToLower();
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
