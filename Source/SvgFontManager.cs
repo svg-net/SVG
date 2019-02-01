@@ -28,7 +28,8 @@ namespace Svg
         public static FontFamily FindFont(string name)
         {
             if (name == null) return null;
-            if (SystemFonts.TryGetValue(name.ToLower(), out var ff)) return ff;
+            FontFamily ff = null;
+            if (SystemFonts.TryGetValue(name.ToLower(), out ff)) return ff;
             if (FontLoaderCallback == null) return null;
             var ff2 = FontLoaderCallback(name);
             SystemFonts.Add(name.ToLower(), ff2);
