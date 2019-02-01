@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace Svg
@@ -79,6 +80,21 @@ namespace Svg
             set { this.Attributes["y"] = value; }
         }
 
+
+        [SvgAttribute("width")]
+        public virtual SvgUnit Width
+        {
+            get { return this.Attributes.GetAttribute<SvgUnit>("width"); }
+            set { this.Attributes["width"] = value; }
+        }
+
+        [SvgAttribute("height")]
+        public virtual SvgUnit Height
+        {
+            get { return this.Attributes.GetAttribute<SvgUnit>("height"); }
+            set { this.Attributes["height"] = value; }
+        }
+
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
@@ -99,6 +115,8 @@ namespace Svg
         {
             this.X = 0;
             this.Y = 0;
+            this.Width = 0;
+            this.Height = 0;
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
@@ -107,15 +125,33 @@ namespace Svg
             return (element != null && !this.HasRecursiveReference()) ? element.Path(renderer) : null;
         }
 
+        /// <summary>
+        /// Gets an <see cref="SvgPoint"/> representing the top left point of the rectangle.
+        /// </summary>
+        public SvgPoint Location
+        {
+            get { return new SvgPoint(X, Y); }
+        }
+
+        /// <summary>
+        /// Gets the bounds of the element.
+        /// </summary>
+        /// <value>The bounds.</value>
         public override System.Drawing.RectangleF Bounds
         {
             get
             {
+                var ew = this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this);
+                var eh = this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this);
+                if (ew > 0 && eh > 0)
+                    return TransformedBounds(new RectangleF(this.Location.ToDeviceValue(null, this),
+                        new SizeF(ew, eh)));
                 var element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement) as SvgVisualElement;
                 if (element != null)
                 {
                     return element.Bounds;
                 }
+
                 return new System.Drawing.RectangleF();
             }
         }
@@ -131,6 +167,19 @@ namespace Svg
                 var element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement) as SvgVisualElement;
                 if (element != null)
                 {
+                    var ew = Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                    var eh = Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                    if (ew > 0 && eh > 0)
+                    {
+                        var viewBox = element.Attributes.GetAttribute<SvgViewBox>("viewBox");
+                        if (viewBox!=SvgViewBox.Empty && Math.Abs(ew - viewBox.Width) > float.Epsilon && Math.Abs(eh - viewBox.Height) > float.Epsilon)
+                        {
+                            var sw = ew / viewBox.Width;
+                            var sh = eh / viewBox.Height;
+                            renderer.ScaleTransform(sw, sh, MatrixOrder.Prepend);
+                        }
+                    }
+
                     var origParent = element.Parent;
                     element._parent = this;
                     // as the new parent may have other styles that are inherited,

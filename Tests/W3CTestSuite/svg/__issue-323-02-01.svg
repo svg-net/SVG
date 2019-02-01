@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-eu-small" viewBox="0 0 640 480">
+  <defs>
+    <symbol id="s" viewBox="0 0 640 480">
+      <image href="./__issue-323-02.svg" width="640" height="480" />
+    </symbol>
+  </defs>
+  <use x="0" y="0"  href="#s" width="320" height="240" />
+  <image x="0" y="240" width="320" height="240"  href="./__issue-323-02.svg" />
+  <rect x="0" y="0" width="320" height="240" fill="red" opacity="0.25" />
+</svg>
