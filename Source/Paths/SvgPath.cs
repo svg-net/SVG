@@ -45,13 +45,27 @@ namespace Svg
         {
             if (this._path == null || this.IsPathDirty)
             {
-                _path = new GraphicsPath();
+                this._path = new GraphicsPath();
 
                 foreach (SvgPathSegment segment in this.PathData)
                 {
                     segment.AddToPath(_path);
                 }
 
+                if (_path.PointCount == 0)
+                {
+                    if (this.PathData.Count > 0)
+                    {
+                        // special case with one move command only, see #223
+                        var segment = this.PathData.Last;
+                        _path.AddLine(segment.End, segment.End);
+                        this.Fill = SvgPaintServer.None;
+                    }
+                    else
+                    {
+                        _path = null;
+                    }
+                }
                 this.IsPathDirty = false;
             }
             return _path;
