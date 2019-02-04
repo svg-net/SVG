@@ -16,3 +16,4 @@ Tests/**/*.suo
 *.trx
 Source/TestResults/
 Source/.vs
+/Source/Svg.sln.DotSettings.user

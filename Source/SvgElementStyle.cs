@@ -434,8 +434,6 @@ namespace Svg
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
             var fontParts = (fontFamilyList ?? string.Empty).Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
-            var families = System.Drawing.FontFamily.Families;
-            Func<FontFamily, bool> getFamily;
             FontFamily family;
             IEnumerable<SvgFontFace> sFaces;
 
@@ -444,13 +442,10 @@ namespace Svg
             foreach (var f in fontParts)
             {
                 if (doc != null && doc.FontDefns().TryGetValue(f, out sFaces)) return sFaces;
-
-                getFamily = new Func<FontFamily, bool>(ff => string.Equals(ff.Name, f, StringComparison.OrdinalIgnoreCase));
-                family = families.FirstOrDefault(getFamily);
+                family = SvgFontManager.FindFont(f);
                 if (family != null) return family;
-                family = PrivateFonts.Families.FirstOrDefault(getFamily);
+                family = PrivateFonts.Families.FirstOrDefault(ff => string.Equals(ff.Name, f, StringComparison.OrdinalIgnoreCase));
                 if (family != null) return family;
-
                 switch (f.ToLower())
                 {
                     case "serif":

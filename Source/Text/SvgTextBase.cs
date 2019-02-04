@@ -218,6 +218,10 @@ namespace Svg
                 var path = this.Path(null);
                 foreach (var elem in this.Children.OfType<SvgVisualElement>())
                 {
+                	//When empty Text span, don't add path
+                    var span = elem as SvgTextSpan;
+                    if (span != null && span.Text == null)
+                        continue;
                     path.AddPath(elem.Path(null), false);
                 }
                 if (Transforms != null && Transforms.Count > 0)
