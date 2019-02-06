@@ -7,6 +7,3 @@ before_build:
 - ps: nuget restore Tests\Svg.UnitTests\Svg.UnitTests.csproj
 build:
   project: Source\Svg.sln
-test:
-  assemblies:
-    - '**\Svg.UnitTests.dll'

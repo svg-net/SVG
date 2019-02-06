@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <IsTestProject>true</IsTestProject>
     <TargetFrameworks>netcoreapp2.2;net35;net40;net452;net472</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <SignAssembly>true</SignAssembly>
