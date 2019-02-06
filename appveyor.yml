@@ -1,5 +1,6 @@
+version: '{build}'
+image: Visual Studio 2017
 configuration:
-  - Release
-  
+- Release
 build:
   project: Tests\Svg.UnitTests\Svg.UnitTests.csproj

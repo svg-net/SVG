@@ -1,4 +1,5 @@
 ﻿using System;
+#if __EXCLUDED__
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -34,7 +35,7 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("2.4.2.*")]
 //[assembly: AssemblyFileVersion("1.0.1.*")]
-
+#endif
 [assembly: CLSCompliant(true)]
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Svg.UnitTests,PublicKey=" + 

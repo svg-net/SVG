@@ -84,6 +84,7 @@ namespace Svg
 
         /// <summary>Creates a new instance.</summary>
         /// <param name="defaultValue">Specified the default value of the enum.</param>
+        /// <param name="caseHandling">Defines if the value shall be converted to lower camel case or lower case</param>
         public EnumBaseConverter(T defaultValue, CaseHandling caseHandling = CaseHandling.CamelCase)
         {
             this.DefaultValue = defaultValue;

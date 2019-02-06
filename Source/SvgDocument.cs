@@ -230,9 +230,10 @@ namespace Svg
 
             using (var strReader = new System.IO.StringReader(svg))
             {
-                var reader = new SvgTextReader(strReader, null);
-                reader.XmlResolver = new SvgDtdResolver();
-                reader.WhitespaceHandling = WhitespaceHandling.None;
+                var reader = new SvgTextReader(strReader, null)
+                {
+                    XmlResolver = new SvgDtdResolver(), WhitespaceHandling = WhitespaceHandling.None
+                };
                 return Open<T>(reader);
             }
         }
@@ -251,9 +252,10 @@ namespace Svg
             }
 
             // Don't close the stream via a dispose: that is the client's job.
-            var reader = new SvgTextReader(stream, entities);
-            reader.XmlResolver = new SvgDtdResolver();
-            reader.WhitespaceHandling = WhitespaceHandling.None;
+            var reader = new SvgTextReader(stream, entities)
+            {
+                XmlResolver = new SvgDtdResolver(), WhitespaceHandling = WhitespaceHandling.None
+            };
             return Open<T>(reader);
         }
 
@@ -613,8 +615,10 @@ namespace Svg
         public void Write(Stream stream, bool useBom = true)
         {
 
-            var xmlWriter = new XmlTextWriter(stream, useBom ? Encoding.UTF8 : new System.Text.UTF8Encoding(false));
-            xmlWriter.Formatting = Formatting.Indented;
+            var xmlWriter = new XmlTextWriter(stream, useBom ? Encoding.UTF8 : new System.Text.UTF8Encoding(false))
+            {
+                Formatting = Formatting.Indented
+            };
             xmlWriter.WriteStartDocument();
             xmlWriter.WriteDocType("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", null);
             

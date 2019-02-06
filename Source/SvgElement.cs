@@ -582,7 +582,12 @@ namespace Svg
                     (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(attr.Attribute.Name)))
                 {
                     object propertyValue = attr.Property.GetValue(this);
+#if NETFULL
                     string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+#else
+                    //dotnetcore throws exception if input is null
+    string value = propertyValue==null?null:(string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+#endif
 
                     forceWrite = false;
                     writeStyle = attr.Attribute.Name == "fill" || attr.Attribute.Name == "stroke";
