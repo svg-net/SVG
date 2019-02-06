@@ -1,3 +1,5 @@
+#if NET35
+#else 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Svg.Exceptions;
 using System;
@@ -37,3 +39,4 @@ namespace Svg.UnitTests
         }
     }
 }
+#endif

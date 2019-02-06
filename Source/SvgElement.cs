@@ -652,7 +652,13 @@ namespace Svg
                             }
                         }
 
+#if NETFULL
                         var value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+#else
+                        // dotnetcore throws exception if input is null
+                        string value = propertyValue==null?null:(string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+#endif
+
                         if (propertyValue != null)
                         {
                             var type = propertyValue.GetType();

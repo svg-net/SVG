@@ -1,3 +1,4 @@
+#if NETFULL
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -231,3 +232,4 @@ namespace Svg.Web
         }
     }
 }
+#endif
