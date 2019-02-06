@@ -2,5 +2,7 @@ version: '{build}'
 image: Visual Studio 2017
 configuration:
 - Release
+before_build:
+- ps: nuget restore Source\Svg.csproj
 build:
   project: Tests\Svg.UnitTests\Svg.UnitTests.csproj
