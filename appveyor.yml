@@ -4,7 +4,7 @@ configuration:
 - Release
 before_build:
 - ps: nuget restore Source\Svg.csproj
-- ps: nuget restore Tests\Svg.UnitTestsSvg.UnitTests.csproj
+- ps: nuget restore Tests\Svg.UnitTests\Svg.UnitTests.csproj
 build:
   project: Source\Svg.sln
 test:
