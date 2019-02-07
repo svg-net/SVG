@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <IsTestProject>true</IsTestProject>
-    <TargetFrameworks>netcoreapp2.2;net35;net40;net452;net472</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.2;net40;net452;net472</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
@@ -102,6 +102,7 @@
   <PropertyGroup>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
   </PropertyGroup>
+  <!--
   <PropertyGroup>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net40'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0</FrameworkPathOverride>
   </PropertyGroup>
@@ -111,6 +112,7 @@
   <PropertyGroup>
     <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net472'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2</FrameworkPathOverride>
   </PropertyGroup>
+  -->
 
 
   <ItemGroup>

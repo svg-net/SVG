@@ -1,8 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net40;netcoreapp2.2;net35;net452;net472</TargetFrameworks>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
+    <IsPackable>true</IsPackable>
     <Company></Company>
     <Authors>davescriven,jvenema,owaits,ddpruitt,Ralf1108,Tebjan Halm,and others</Authors>
     <PackageId>Svg</PackageId>
@@ -24,7 +26,6 @@
     <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
     <AssemblyVersion>2.4.5.0</AssemblyVersion>
     <FileVersion>2.4.5.0</FileVersion>
-    <PackageLicenseUrl>http://opensource.org/licenses/MS-PL.html</PackageLicenseUrl>
     <Version>2.4.5</Version>
     <PackageTags>svg, vector graphics, rendering</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
