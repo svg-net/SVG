@@ -223,6 +223,20 @@ namespace Svg.ExCSS
             }
         }
 
+        private void RemoveCurrentProperty()
+        {
+            if (_property != null)
+            {
+                var rule = CurrentRule as ISupportsDeclarations;
+
+                if (rule != null)
+                {
+                    rule.Declarations.Remove(_property);
+                }
+                _property = null;
+            }
+        }
+
         private T CastRuleSet<T>() where T : RuleSet
         {
             if (_activeRuleSets.Count > 0)

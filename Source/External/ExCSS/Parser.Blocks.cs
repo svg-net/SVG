@@ -342,8 +342,10 @@ namespace Svg.ExCSS
             switch (token.GrammarSegment)
             {
                 case GrammarSegment.Semicolon:
+                    // the value is empty - remove the property to use the default value
+                    RemoveCurrentProperty();
                     SetParsingContext(ParsingContext.InDeclaration);
-                    break;
+                    return true;
 
                 case GrammarSegment.CurlyBracketClose:
                     ParseDeclaration(token);
