@@ -600,7 +600,7 @@ namespace Svg
                         var type = propertyValue.GetType();
                         
                         //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
-                        if ((!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, value)) || forceWrite)
+                        if ((!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value)) || forceWrite)
                         {
                             if (writeStyle)
                             {
