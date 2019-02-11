@@ -85,7 +85,6 @@ namespace Svg
         /// <param name="value">.NET value of the attribute</param>
         public static bool IsDefault(string attributeName, string componentType, string value)
         {
-            Console.WriteLine(componentType + ": " + attributeName);
             if (_propDefaults.ContainsKey(componentType))
             {
                 if (_propDefaults[componentType].ContainsKey(attributeName))
