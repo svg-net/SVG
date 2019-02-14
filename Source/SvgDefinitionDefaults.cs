@@ -33,8 +33,6 @@ namespace Svg
                 { "clip", "auto" },
                 { "clip-rule", "nonzero" },
                 { "clipPathUnits", "userSpaceOnUse" },
-                { "x", "0" },
-                { "y", "0" },
                 { "transform", "" },
 
                 // line

@@ -230,7 +230,7 @@ namespace Svg
         private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
         private static object syncLock = new object();
 
-        internal static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
+        internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle=false)
         {
             var elementType = element.GetType();
 
@@ -298,10 +298,16 @@ namespace Svg
                 }
                 else
                 {
+                    if (isStyle)
+                    {
+                        // custom styles shall remain as style
+                        return false;
+                    }
                     //attribute is not a svg attribute, store it in custom attributes
                     element.CustomAttributes[attributeName] = attributeValue;
                 }
             }
+            return true;
         }
 
         /// <summary>
