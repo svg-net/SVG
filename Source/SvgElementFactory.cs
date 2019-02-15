@@ -264,14 +264,19 @@ namespace Svg
 
                 try
                 {
-					if (attributeName == "opacity" && attributeValue == "undefined")
-					{
-						attributeValue = "1";
-					}
-
-					descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
-					
-
+                    if (attributeName == "opacity" && attributeValue == "undefined")
+                    {
+                        attributeValue = "1";
+                    }
+                    var value = descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue);
+                    if (value is SvgColourServer && ((SvgColourServer)value).Colour.A < 255)
+                    {
+                        // handle alpha values less than 1 by adding an opacity property
+                        var opacity = ((SvgColourServer)value).Colour.A / 255.0;
+                        SetPropertyValue(element, "opacity", 
+                            opacity.ToString("F2", CultureInfo.InvariantCulture), document, isStyle);
+                    }
+                    descriptor.SetValue(element, value);
                 }
                 catch
                 {
