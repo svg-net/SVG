@@ -1,21 +1,12 @@
 ﻿<svg xmlns="http://www.w3.org/2000/svg" width="1092" height="453">
   <style type="text/css">
 
-		#footer2
-		{
-			border-top: 1px solid #333 !important;
-		}
-
+		
 		#footer
 		{
-			border-top: 1px solid #009c46 !important;
+			/*[REPLACE]*/
 		}
 
-		#footer3
-		{
-			/*Also fails on whitespace behind the last element*/
-			border-bottom: 1px solid #009c46  ;
-		}
 
 	</style>
   <g transform="translate(40,20)" style="opacity: 1;">

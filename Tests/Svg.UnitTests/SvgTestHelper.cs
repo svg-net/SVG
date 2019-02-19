@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
 using System.Xml;
 
 namespace Svg.UnitTests
@@ -131,6 +132,24 @@ namespace Svg.UnitTests
             }
         }
 
+		/// <summary>
+		/// Get embedded resource as string from Unit Test resources.
+		/// </summary>
+		/// <param name="fullResourceString">Full Unit Test resource string.</param>
+		/// <returns>Embedded resource data xml as string.</returns>
+		protected virtual string GetResourceXmlDocAsString(string fullResourceString)
+		{
+			using (var s = GetResourceStream(fullResourceString))
+			{
+				Trace.WriteLine("Load XmlDocument content from resource data.");
+				using (var reader = new StreamReader(s, Encoding.UTF8))
+				{
+					string value = reader.ReadToEnd();
+					Trace.WriteLine("Done XmlDocument content loading from resource data.");
+					return value;
+				}
+			}
+		}
 
         /// <summary>
         /// Get xml document from <see cref="TestFile"/>.

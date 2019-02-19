@@ -17,10 +17,11 @@ namespace Svg.UnitTests
 	public class LexerIssueTests : SvgTestHelper
 	{
 		private const string ResourceStringEmptyDTagFile = "Issue399_LexerIssue.EmptyDTag.svg";
-		private const string ResourceStringStyleWithImportantAfterHex = "Issue399_LexerIssue.LexerTestImportantAfterHex.svg";
-		private const string ResourceStringStyleWithImportantAfterNonHex = "Issue399_LexerIssue.LexerTestImportantAfterNonHex.svg";
-		private const string ResourceStringStyleWithInvalidHex = "Issue399_LexerIssue.LexerTestFailOnInvalidHex.svg";
-	
+		
+		private const string ResourceStringLexerTemplate = "Issue399_LexerIssue.LexerTestTemplate.svg";
+		private const string LexerTemplateReplaceToken = "/*[REPLACE]*/";
+
+		
 		/// <summary>
 		/// We encountered issues in the example file that were caused by an empty d tag in some of the elements
 		/// </summary>
@@ -37,8 +38,12 @@ namespace Svg.UnitTests
 		[TestMethod]
 		public void Lexer_ImportantAfterHex_Success()
 		{
-			var xml = GetXMLDocFromResource(GetFullResourceString(ResourceStringStyleWithImportantAfterHex));
-			var doc = OpenSvg(xml);
+			//Important should be valid on 3 digit hex
+			GenerateLexerTestFile("border-top: 1px solid #333 !important;");
+			//Important should be valid on 6 digit hex
+			GenerateLexerTestFile("border-top: 1px solid #009c46 !important;");
+			//Whitespace should not break the parser
+			GenerateLexerTestFile("border-bottom: 1px solid #009c46  ;");
 		}
 
 		/// <summary>
@@ -47,8 +52,10 @@ namespace Svg.UnitTests
 		[TestMethod]
 		public void Lexer_NoImportantAndImportantAfterNonHex_Success()
 		{
-			var xml = GetXMLDocFromResource(GetFullResourceString(ResourceStringStyleWithImportantAfterNonHex));
-			var doc = OpenSvg(xml);
+			//Hex is working, if no !important suffixing it (#399)
+			GenerateLexerTestFile("border-top: 1px solid #009c46;");
+			//Important is not failing on non-hex value
+			GenerateLexerTestFile("border-top: 1px solid red !important;");
 		}
 
 		[TestMethod]
@@ -56,8 +63,8 @@ namespace Svg.UnitTests
 		{
 			try
 			{
-				var xml = GetXMLDocFromResource(GetFullResourceString(ResourceStringStyleWithInvalidHex));
-				var doc = OpenSvg(xml);
+				//Invalid HEX should fail in the lexer (we updated the lexer to support 3 digits, but if not 3 nor 6 chars should fail
+				GenerateLexerTestFile("color: #0046;");
 				Assert.Fail("Expected the xml to fail due to invalid HEX value");
 			}
 			catch (ArgumentOutOfRangeException ex)
@@ -65,6 +72,21 @@ namespace Svg.UnitTests
 				//Success, we expected this
 				System.Diagnostics.Trace.WriteLine($"Test failed as expected: {ex.Message}");
 			}
-		}	
+		}
+
+		/// <summary>
+		/// Load the lexer template and replace the token with a test value and try generating the svg
+		/// </summary>
+		/// <param name="testContent">Content to test in the template</param>
+		/// <returns></returns>
+		private SvgDocument GenerateLexerTestFile(string testContent)
+		{
+			var str = GetResourceXmlDocAsString(GetFullResourceString(ResourceStringLexerTemplate));
+			str = str.Replace(LexerTemplateReplaceToken, testContent);
+			var xml = GetXMLDocFromString(str);
+			var doc = OpenSvg(xml);
+			return doc;
+		}
+
 	}
 }
