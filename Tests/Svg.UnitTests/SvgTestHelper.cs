@@ -16,7 +16,7 @@ namespace Svg.UnitTests
         /// Test file path.
         /// </summary>
         [Obsolete("Try not to use the file loader, please use the resource loader to ensure working of tests on all systems")]
-		protected virtual string TestFile
+        protected virtual string TestFile
         {
             get
             {
@@ -132,31 +132,31 @@ namespace Svg.UnitTests
             }
         }
 
-		/// <summary>
-		/// Get embedded resource as string from Unit Test resources.
-		/// </summary>
-		/// <param name="fullResourceString">Full Unit Test resource string.</param>
-		/// <returns>Embedded resource data xml as string.</returns>
-		protected virtual string GetResourceXmlDocAsString(string fullResourceString)
-		{
-			using (var s = GetResourceStream(fullResourceString))
-			{
-				Trace.WriteLine("Load XmlDocument content from resource data.");
-				using (var reader = new StreamReader(s, Encoding.UTF8))
-				{
-					string value = reader.ReadToEnd();
-					Trace.WriteLine("Done XmlDocument content loading from resource data.");
-					return value;
-				}
-			}
-		}
+        /// <summary>
+        /// Get embedded resource as string from Unit Test resources.
+        /// </summary>
+        /// <param name="fullResourceString">Full Unit Test resource string.</param>
+        /// <returns>Embedded resource data xml as string.</returns>
+        protected virtual string GetResourceXmlDocAsString(string fullResourceString)
+        {
+            using (var s = GetResourceStream(fullResourceString))
+            {
+                Trace.WriteLine("Load XmlDocument content from resource data.");
+                using (var reader = new StreamReader(s, Encoding.UTF8))
+                {
+                    string value = reader.ReadToEnd();
+                    Trace.WriteLine("Done XmlDocument content loading from resource data.");
+                    return value;
+                }
+            }
+        }
 
         /// <summary>
         /// Get xml document from <see cref="TestFile"/>.
         /// </summary>
         /// <returns>File data as xml document.</returns>
         [Obsolete("Try not to use the file loader, please use the resource loader to ensure working of tests on all systems")]
-		protected virtual XmlDocument GetXMLDocFromFile()
+        protected virtual XmlDocument GetXMLDocFromFile()
         {
             return GetXMLDocFromFile(TestFile);
         }
@@ -168,7 +168,7 @@ namespace Svg.UnitTests
         /// <param name="file">File to load.</param>
         /// <returns>File data as xml document.</returns>
         [Obsolete("Try not to use the file loader, please use the resource loader to ensure working of tests on all systems")]
-		protected virtual XmlDocument GetXMLDocFromFile(string file)
+        protected virtual XmlDocument GetXMLDocFromFile(string file)
         {
             if (!File.Exists(file))
                 Assert.Fail("Test file missing.", file);
@@ -178,20 +178,20 @@ namespace Svg.UnitTests
             return xmlDoc;
         }
 
-		/// <summary>
-		/// Get the xml document from an input string
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		protected virtual XmlDocument GetXMLDocFromString(string input)
-		{
-			Trace.WriteLine("Load XmlDocument from input data.");
-			var xmlDoc = new XmlDocument();
-			xmlDoc.XmlResolver = new SvgDtdResolver();
-			xmlDoc.LoadXml(input);
-			Trace.WriteLine("Done XmlDocument loading from resource data.");
-			return xmlDoc;
-		}
+        /// <summary>
+        /// Get the xml document from an input string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        protected virtual XmlDocument GetXMLDocFromString(string input)
+        {
+            Trace.WriteLine("Load XmlDocument from input data.");
+            var xmlDoc = new XmlDocument();
+            xmlDoc.XmlResolver = new SvgDtdResolver();
+            xmlDoc.LoadXml(input);
+            Trace.WriteLine("Done XmlDocument loading from resource data.");
+            return xmlDoc;
+        }
 
         /// <summary>
         /// Get xml document from <see cref="TestResource"/>.
@@ -264,7 +264,6 @@ namespace Svg.UnitTests
             using (var ms = new MemoryStream())
             {
                 img.Save(ms, ImageFormat.Png);
-				img.Save($"d:\\temp\\{Guid.NewGuid().ToString()}.png");
                 ms.Flush();
                 Assert.IsTrue(ms.Length >= ExpectedSize, $"Svg file size {ms.Length} does not match expected minimum size (expected {ExpectedSize}).");
             }
@@ -349,7 +348,7 @@ namespace Svg.UnitTests
             int totalPixelCount = img1.Width * img1.Height;
             var imgDiffFactor = ((float)diffPixelCount / totalPixelCount);
             imgEqualPercentage = imgDiffFactor * 100;
-            
+
             return (imgDiffFactor == 1f);
         }
     }
