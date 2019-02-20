@@ -556,7 +556,8 @@ namespace Svg.ExCSS
 
             if(HtmlColor.TryFromHex(color, out htmlColor))
                 return AddTerm(htmlColor);
-            return false;
+            
+            return false;    
         }
 
         #region Namespace
