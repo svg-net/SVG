@@ -60,19 +60,9 @@ namespace Svg.UnitTests
         }
 
         [TestMethod]
-        public void Lexer_FileWithInvalidHex_FailsWithError()
+        public void Lexer_FileWithInvalidHex_ColorTagIsIgnored()
         {
-            try
-            {
-                //Invalid HEX should fail in the lexer (we updated the lexer to support 3 digits, but if not 3 nor 6 chars should fail
-                GenerateLexerTestFile("color: #0046;");
-                Assert.Fail("Expected the xml to fail due to invalid HEX value");
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                //Success, we expected this
-                System.Diagnostics.Trace.WriteLine($"Test failed as expected: {ex.Message}");
-            }
+            GenerateLexerTestFile("color: #0046;");
         }
 
         /// <summary>

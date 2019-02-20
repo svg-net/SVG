@@ -554,7 +554,8 @@ namespace ExCSS
 
             if(HtmlColor.TryFromHex(color, out htmlColor))
                 return AddTerm(htmlColor);
-            throw new ArgumentOutOfRangeException(nameof(color), $"{color} is not a valid hex color");
+            
+            return false;    
         }
 
         #region Namespace
