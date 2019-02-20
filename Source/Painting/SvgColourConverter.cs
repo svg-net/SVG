@@ -155,7 +155,13 @@ namespace Svg
                         case "windowframe": return SystemColors.WindowFrame;
                         case "windowtext": return SystemColors.WindowText;
                     }
-
+                    int number;
+                    if (Int32.TryParse(colour, out number))
+                    {
+                        // numbers are handled as colors by System.Drawing.ColorConverter - we
+                        // have to prevent this and ignore the color instead (see #342) 
+                        return SvgColourServer.NotSet;
+                    }
                 }
                 finally
                 {
@@ -191,8 +197,9 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
-                var colour = (Color)value;
-								return ColorTranslator.ToHtml(colour);
+                var colorString = ColorTranslator.ToHtml((Color)value);
+                // color names are expected to be lower case in XML
+                return colorString.StartsWith("#") ? colorString : colorString.ToLower();
             }
 
             return base.ConvertTo(context, culture, value, destinationType);

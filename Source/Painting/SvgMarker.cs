@@ -7,9 +7,25 @@ using Svg.DataTypes;
 namespace Svg
 {
     [SvgElement("marker")]
-    public class SvgMarker : SvgVisualElement, ISvgViewPort
+    public class SvgMarker : SvgPathBasedElement, ISvgViewPort
     {
         private SvgOrient _svgOrient = new SvgOrient();
+        private SvgVisualElement _markerElement = null;
+
+        /// <summary>
+        /// Return the child element that represent the marker
+        /// </summary>
+        private SvgVisualElement MarkerElement
+        {
+            get
+            {
+                if (_markerElement == null)
+                {
+                    _markerElement = (SvgVisualElement)this.Children.FirstOrDefault(x => x is SvgVisualElement);
+                }
+                return _markerElement;
+            }
+        }
 
         [SvgAttribute("refX")]
         public virtual SvgUnit RefX
@@ -79,6 +95,32 @@ namespace Svg
             set { this.Attributes["markerUnits"] = value; }
         }
 
+        /// <summary>
+        /// If not set set in the marker, consider the attribute in the drawing element.
+        /// </summary>
+        public override SvgPaintServer Fill
+        {
+            get
+            {
+                if (MarkerElement != null)
+                    return MarkerElement.Fill;
+                return base.Fill;
+            }
+        }
+
+        /// <summary>
+        /// If not set set in the marker, consider the attribute in the drawing element.
+        /// </summary>
+        public override SvgPaintServer Stroke
+        {
+            get
+            {
+                if (MarkerElement != null)
+                    return MarkerElement.Stroke;
+                return base.Stroke;
+            }
+        }
+
         public SvgMarker()
         {
             MarkerUnits = SvgMarkerUnits.StrokeWidth;
@@ -89,21 +131,9 @@ namespace Svg
 
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
-            var path = this.Children.FirstOrDefault(x => x is SvgVisualElement);
-            if (path != null)
-                return (path as SvgVisualElement).Path(renderer);
+            if (MarkerElement != null)
+                return MarkerElement.Path(renderer);
             return null;
-        }
-
-        public override System.Drawing.RectangleF Bounds
-        {
-            get
-            {
-                var path = this.Path(null);
-                if (path != null)
-                    return path.GetBounds();
-                return new System.Drawing.RectangleF();
-            }
         }
 
         public override SvgElement DeepCopy()
@@ -193,10 +223,12 @@ namespace Svg
                             case SvgMarkerUnits.StrokeWidth:
                                 if (ViewBox.Width > 0 && ViewBox.Height > 0)
                                 {
+                                    transMatrix.Scale(MarkerWidth, MarkerHeight);
+                                    var strokeWidth = pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this);
                                     transMatrix.Translate(AdjustForViewBoxWidth(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this) *
-                                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)),
+                                                            strokeWidth),
                                                           AdjustForViewBoxHeight(-RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this) *
-                                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)));
+                                                            strokeWidth));
                                 }
                                 else
                                 {
@@ -212,6 +244,14 @@ namespace Svg
                                 transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
                                                       -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
                                 break;
+                        }
+
+                        if (MarkerElement != null && MarkerElement.Transforms != null)
+                        {
+                            foreach (var transformation in MarkerElement.Transforms)
+                            {
+                                transMatrix.Multiply(transformation.Matrix);
+                            }
                         }
                         markerPath.Transform(transMatrix);
                         if (pRenderPen != null) pRenderer.DrawPath(pRenderPen, markerPath);
@@ -238,13 +278,14 @@ namespace Svg
         /// <returns></returns>
         private Pen CreatePen(SvgVisualElement pPath, ISvgRenderer renderer)
         {
-            if (pPath.Stroke == null) return null;
-            Brush pBrush = pPath.Stroke.GetBrush(this, renderer, Opacity);
+            if (this.Stroke == null) return null;
+            Brush pBrush = this.Stroke.GetBrush(this, renderer, Opacity);
             switch (MarkerUnits)
             {
                 case SvgMarkerUnits.StrokeWidth:
-                    return (new Pen(pBrush, StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this) * 
-                                            pPath.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
+                    // TODO: have to multiply with marker stroke width if it is not inherted from the
+                    // same ancestor as owner path stroke width
+                    return (new Pen(pBrush, pPath.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
                 case SvgMarkerUnits.UserSpaceOnUse:
                     return (new Pen(pBrush, StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
             }

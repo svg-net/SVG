@@ -52,7 +52,7 @@ namespace Svg
                     }
                 }
 
-                return r;
+                return TransformedBounds(r);
             }
         }
 

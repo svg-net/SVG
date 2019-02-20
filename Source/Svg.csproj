@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Basic Shapes\SvgImage.cs" />
+    <Compile Include="Basic Shapes\SvgMarkerElement.cs" />
     <Compile Include="Basic Shapes\SvgPathBasedElement.cs" />
     <Compile Include="Basic Shapes\SvgVisualElement.cs" />
     <Compile Include="Basic Shapes\SvgCircle.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Rendering\ISvgRenderer.cs" />
     <Compile Include="Rendering\SvgRendering.cs" />
     <Compile Include="SvgElementStyle.cs" />
+    <Compile Include="SvgFontManager.cs" />
     <Compile Include="SvgNodeReader.cs" />
     <Compile Include="Css\CssQuery.cs" />
     <Compile Include="Css\SvgElementOps.cs" />

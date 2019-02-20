@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Linq;
-using ExCSS;
+using Svg.ExCSS;
 using Svg.Css;
 using System.Threading;
 using System.Globalization;
@@ -537,29 +537,33 @@ namespace Svg
 
         /// <summary>
         /// Renders the <see cref="SvgDocument"/> in given size and returns the image as a <see cref="Bitmap"/>.
+        /// If one of rasterWidth and rasterHeight is zero, the image is scaled preserving aspect ratio,
+        /// otherwise the aspect ratio is ignored.
         /// </summary>
         /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
         public virtual Bitmap Draw(int rasterWidth, int rasterHeight)
         {
-          var size = GetDimensions();
-          RasterizeDimensions(ref size, rasterWidth, rasterHeight);
+            var imageSize = GetDimensions();
+            var bitmapSize = imageSize;
+            RasterizeDimensions(ref bitmapSize, rasterWidth, rasterHeight);
 
-          if (size.Width == 0 || size.Height == 0)
-            return null;
+            if (bitmapSize.Width == 0 || bitmapSize.Height == 0)
+                return null;
 
-          var bitmap = new Bitmap((int)Math.Round(size.Width), (int)Math.Round(size.Height));
-          try
-          {
-            Draw(bitmap);
-          }
-          catch
-          {
-            bitmap.Dispose();
-            throw;
-          }
+            var bitmap = new Bitmap((int)Math.Round(bitmapSize.Width), (int)Math.Round(bitmapSize.Height));
+            try
+            {
+                var renderer = SvgRenderer.FromImage(bitmap);
+                renderer.ScaleTransform(bitmapSize.Width / imageSize.Width, bitmapSize.Height / imageSize.Height);
+                Draw(renderer);
+            }
+            catch
+            {
+                bitmap.Dispose();
+                throw;
+            }
 
-          //Trace.TraceInformation("End Render");
-          return bitmap;
+            return bitmap;
         }
 
         /// <summary>

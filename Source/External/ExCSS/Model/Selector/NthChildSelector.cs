@@ -1,6 +1,6 @@
 ﻿
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     internal abstract class NthChildSelector : BaseSelector, IToString
     {

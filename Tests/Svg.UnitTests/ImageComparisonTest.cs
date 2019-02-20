@@ -35,15 +35,46 @@ namespace Svg.UnitTests
             basePath = Path.Combine(basePath, "Tests", "W3CTestSuite");
             var svgBasePath = Path.Combine(basePath, "svg");
             var baseName = TestContext.DataRow[0] as string;
+            bool testSaveLoad = !baseName.StartsWith("#");
+            if (!testSaveLoad)
+            {
+                baseName = baseName.Substring(1);
+            }
             var svgPath = Path.Combine(basePath, "svg", baseName + ".svg");
             var pngPath = Path.Combine(basePath, "png", baseName + ".png");
             var pngImage = Image.FromFile(pngPath);
-            var svgImage = LoadSvgImage(baseName, svgPath);
+            var svgDoc = LoadSvgDocument(svgPath);
+            Assert.IsNotNull(svgDoc);
+            bool useFixedSize = !baseName.StartsWith("__");
+            var svgImage = LoadSvgImage(svgDoc, useFixedSize);
             Assert.AreNotEqual(null, pngImage, "Failed to load " + pngPath);
             Assert.AreNotEqual(null, svgImage, "Failed to load " + svgPath);
             var difference = svgImage.PercentageDifference(pngImage);
             Assert.IsTrue(difference < 0.05, 
                 baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
+            if (!testSaveLoad)
+            {
+                // for some images, save/load is still failing
+                return;
+            }
+
+            // test save/load
+            using (var memStream = new MemoryStream())
+            {
+                svgDoc.Write(memStream);
+                memStream.Position = 0;
+                var reader = new StreamReader(memStream);
+                var tempFilePath = Path.Combine(Path.GetTempPath(), "test.svg");
+                File.WriteAllText(tempFilePath, reader.ReadToEnd());
+                var baseUri = svgDoc.BaseUri;
+                svgDoc = SvgDocument.Open(tempFilePath);
+                svgDoc.BaseUri = baseUri;
+                svgImage = LoadSvgImage(svgDoc, useFixedSize);
+                Assert.IsNotNull(svgImage);
+                difference = svgImage.PercentageDifference(pngImage);
+                Assert.IsTrue(difference < 0.05,
+                    baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
+            }
         }
 
         /// <summary>
@@ -66,11 +97,16 @@ namespace Svg.UnitTests
                 if (File.Exists(pngPath) && File.Exists(svgPath))
                 {
                     var pngImage = Image.FromFile(pngPath);
-                    var svgImage = LoadSvgImage(baseName, svgPath);
-                    if (pngImage != null && svgImage != null)
+                    var svgDoc = LoadSvgDocument(svgPath);
+                    if (svgPath != null)
                     {
-                        var difference = svgImage.PercentageDifference(pngImage);
-                        Console.WriteLine(baseName + " " + (difference * 100.0).ToString());
+                        bool useFixedSize = !baseName.StartsWith("__");
+                        var svgImage = LoadSvgImage(svgDoc, useFixedSize);
+                        if (pngImage != null && svgImage != null)
+                        {
+                            var difference = svgImage.PercentageDifference(pngImage);
+                            Console.WriteLine(baseName + " " + (difference * 100.0).ToString());
+                        }
                     }
                 }
             }
@@ -79,22 +115,20 @@ namespace Svg.UnitTests
         /// <summary>
         /// Load the SVG image the same way as in the SVGW3CTestRunner.
         /// </summary>
-        private static Image LoadSvgImage(string fileName, string svgPath)
+        private static Image LoadSvgImage(SvgDocument svgDoc, bool usedFixedSize)
         {
-            var doc = new SvgDocument();
             Image svgImage;
             try
             {
-                doc = SvgDocument.Open(svgPath);
-                if (fileName.StartsWith("__"))
+                if (usedFixedSize)
                 {
-                    svgImage = doc.Draw();
+                    var img = new Bitmap(480, 360);
+                    svgDoc.Draw(img);
+                    svgImage = img;
                 }
                 else
                 {
-                    var img = new Bitmap(480, 360);
-                    doc.Draw(img);
-                    svgImage = img;
+                    svgImage = svgDoc.Draw();
                 }
             }
             catch (Exception)
@@ -103,6 +137,19 @@ namespace Svg.UnitTests
             }
             return svgImage;
         }
+
+        private static SvgDocument LoadSvgDocument(string svgPath)
+        {
+            try
+            {
+                return SvgDocument.Open(svgPath);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
     }
 
     /// <summary>

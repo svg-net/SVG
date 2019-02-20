@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ExCSS.Model.Extensions
+namespace Svg.ExCSS.Model.Extensions
 {
     static class CharacterExtensions
     {

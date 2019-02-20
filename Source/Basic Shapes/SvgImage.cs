@@ -88,9 +88,12 @@ namespace Svg
         /// <value>The bounds.</value>
         public override RectangleF Bounds
         {
-			get { return new RectangleF(this.Location.ToDeviceValue(null, this),
-                                        new SizeF(this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this),
-                                                  this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))); }
+            get
+            {
+                return TransformedBounds(new RectangleF(this.Location.ToDeviceValue(null, this),
+                                      new SizeF(this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this),
+                                                this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))));
+            }
         }
 
         /// <summary>

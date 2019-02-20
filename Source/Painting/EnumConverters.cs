@@ -68,6 +68,14 @@ namespace Svg
     public class EnumBaseConverter<T> : BaseConverter
         where T : struct
     {
+        public enum CaseHandling
+        {
+            CamelCase,
+            LowerCase
+        }
+        /// <summary> Defines if the enum literal shall be converted to lower camel case or lower case.</summary>
+        public CaseHandling CaseHandlingMode { get; }
+
         /// <summary>If specified, upon conversion, the default value will result in 'null'.</summary>
         public T? DefaultValue { get; protected set;}
 
@@ -76,9 +84,10 @@ namespace Svg
 
         /// <summary>Creates a new instance.</summary>
         /// <param name="defaultValue">Specified the default value of the enum.</param>
-        public EnumBaseConverter(T defaultValue)
+        public EnumBaseConverter(T defaultValue, CaseHandling caseHandling = CaseHandling.CamelCase)
         {
             this.DefaultValue = defaultValue;
+            this.CaseHandlingMode = caseHandling;
         }
 
         /// <summary>Attempts to convert the provided value to <typeparamref name="T"/>.</summary>
@@ -110,9 +119,13 @@ namespace Svg
                     return null;
                 else
                 {
-                    //SVG attributes should be camelCase.
                     string stringValue = ((T)value).ToString();
+                    if (CaseHandlingMode == CaseHandling.LowerCase)
+                    {
+                        return stringValue.ToLower();
+                    }
 
+                    //most SVG attributes should be camelCase.
                     stringValue = string.Format("{0}{1}", stringValue[0].ToString().ToLower(), stringValue.Substring(1));
 
                     return stringValue;
@@ -125,7 +138,7 @@ namespace Svg
     
     public sealed class SvgFillRuleConverter : EnumBaseConverter<SvgFillRule>
     {
-        public SvgFillRuleConverter() : base(SvgFillRule.NonZero) { }
+        public SvgFillRuleConverter() : base(SvgFillRule.NonZero, CaseHandling.LowerCase) { }
     }
     
     public sealed class SvgColourInterpolationConverter : EnumBaseConverter<SvgColourInterpolation>
@@ -135,7 +148,7 @@ namespace Svg
     
     public sealed class SvgClipRuleConverter : EnumBaseConverter<SvgClipRule>
     {
-        public SvgClipRuleConverter() : base(SvgClipRule.NonZero) { }
+        public SvgClipRuleConverter() : base(SvgClipRule.NonZero, CaseHandling.LowerCase) { }
     }
     
     public sealed class SvgTextAnchorConverter : EnumBaseConverter<SvgTextAnchor>

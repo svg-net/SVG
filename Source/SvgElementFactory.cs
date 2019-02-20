@@ -5,7 +5,7 @@ using System.Xml;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using ExCSS;
+using Svg.ExCSS;
 
 namespace Svg
 {
@@ -230,7 +230,7 @@ namespace Svg
         private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
         private static object syncLock = new object();
 
-        internal static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
+        internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle=false)
         {
             var elementType = element.GetType();
 
@@ -264,14 +264,19 @@ namespace Svg
 
                 try
                 {
-					if (attributeName == "opacity" && attributeValue == "undefined")
-					{
-						attributeValue = "1";
-					}
-
-					descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
-					
-
+                    if (attributeName == "opacity" && attributeValue == "undefined")
+                    {
+                        attributeValue = "1";
+                    }
+                    var value = descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue);
+                    if (value is SvgColourServer && ((SvgColourServer)value).Colour.A < 255)
+                    {
+                        // handle alpha values less than 1 by adding an opacity property
+                        var opacity = ((SvgColourServer)value).Colour.A / 255.0;
+                        SetPropertyValue(element, "opacity", 
+                            opacity.ToString("F2", CultureInfo.InvariantCulture), document, isStyle);
+                    }
+                    descriptor.SetValue(element, value);
                 }
                 catch
                 {
@@ -298,10 +303,16 @@ namespace Svg
                 }
                 else
                 {
+                    if (isStyle)
+                    {
+                        // custom styles shall remain as style
+                        return false;
+                    }
                     //attribute is not a svg attribute, store it in custom attributes
                     element.CustomAttributes[attributeName] = attributeValue;
                 }
             }
+            return true;
         }
 
         /// <summary>

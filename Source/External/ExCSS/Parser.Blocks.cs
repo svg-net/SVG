@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using ExCSS.Model;
-using ExCSS.Model.TextBlocks;
+using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.TextBlocks;
 
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public partial class Parser
     {
@@ -342,8 +342,10 @@ namespace ExCSS
             switch (token.GrammarSegment)
             {
                 case GrammarSegment.Semicolon:
+                    // the value is empty - remove the property to use the default value
+                    RemoveCurrentProperty();
                     SetParsingContext(ParsingContext.InDeclaration);
-                    break;
+                    return true;
 
                 case GrammarSegment.CurlyBracketClose:
                     ParseDeclaration(token);
@@ -554,7 +556,8 @@ namespace ExCSS
 
             if(HtmlColor.TryFromHex(color, out htmlColor))
                 return AddTerm(htmlColor);
-            return false;
+            
+            return false;    
         }
 
         #region Namespace

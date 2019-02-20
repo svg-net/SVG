@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using ExCSS.Model;
+using Svg.ExCSS.Model;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public abstract class AggregateRule : RuleSet, ISupportsRuleSets
     {

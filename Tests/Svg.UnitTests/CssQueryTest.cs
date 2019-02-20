@@ -1,7 +1,7 @@
 ﻿using Svg.Css;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using ExCSS;
+using Svg.ExCSS;
 
 namespace Svg.UnitTests
 {

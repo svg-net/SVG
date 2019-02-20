@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class TermList : Term
     {
@@ -55,14 +55,14 @@ namespace ExCSS
             }
         }
 
-        internal void AddSeparator(GrammarSegment termSepertor)
+        internal void AddSeparator(GrammarSegment termSeparator)
         {
             if (_items.Count != _separator.Count + 1)
             {
                 throw new NotSupportedException("Must call AddTerm AddSeparator in that order");
             }
 
-            _separator.Add(termSepertor);
+            _separator.Add(termSeparator);
         }
 
         public int Length

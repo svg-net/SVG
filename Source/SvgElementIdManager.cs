@@ -27,6 +27,11 @@ namespace Svg
             {
                 id = id.Substring(4);
                 id = id.TrimEnd(')');
+                if (id.StartsWith("\""))
+                {
+                    id = id.Substring(1);
+                    id = id.TrimEnd('\"');
+                }
             }
             if (id.StartsWith("#"))
             {

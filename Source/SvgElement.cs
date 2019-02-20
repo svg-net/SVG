@@ -65,11 +65,18 @@ namespace Svg
         }
         public void FlushStyles()
         {
-            foreach (var s in _styles)
+            if (_styles.Any())
             {
-                SvgElementFactory.SetPropertyValue(this, s.Key, s.Value.Last().Value, this.OwnerDocument);
+                var styles = new Dictionary<string, SortedDictionary<int, string>>();
+                foreach (var s in _styles)
+                {
+                    if (!SvgElementFactory.SetPropertyValue(this, s.Key, s.Value.Last().Value, this.OwnerDocument, isStyle: true))
+                    {
+                        styles.Add(s.Key, s.Value);
+                    }
+                }
+                _styles = styles;
             }
-            _styles = null;
         }
 
 
@@ -77,7 +84,7 @@ namespace Svg
         {
             SortedDictionary<int, string> rules;
             return (this.Attributes.ContainsKey(name) || this.CustomAttributes.ContainsKey(name) ||
-                (_styles != null && _styles.TryGetValue(name, out rules)) && (rules.ContainsKey(StyleSpecificity_InlineStyle) || rules.ContainsKey(StyleSpecificity_PresAttribute)));
+                (_styles.TryGetValue(name, out rules)) && (rules.ContainsKey(StyleSpecificity_InlineStyle) || rules.ContainsKey(StyleSpecificity_PresAttribute)));
         }
         public bool TryGetAttribute(string name, out string value)
         {
@@ -89,7 +96,7 @@ namespace Svg
             }
             if (this.CustomAttributes.TryGetValue(name, out value)) return true;
             SortedDictionary<int, string> rules;
-            if (_styles != null && _styles.TryGetValue(name, out rules))
+            if (_styles.TryGetValue(name, out rules))
             {
                 // Get staged styles that are 
                 if (rules.TryGetValue(StyleSpecificity_InlineStyle, out value)) return true;
@@ -363,6 +370,24 @@ namespace Svg
         }
 
         /// <summary>
+        /// Transforms the given rectangle with the set transformation, if any.
+        /// Can be applied to bounds calculated without considering the element transformation. 
+        /// </summary>
+        /// <param name="bounds">The rectangle to be transformed.</param>
+        /// <returns>The transformed rectangle, or the original rectangle if no transformation exists.</returns>
+        protected RectangleF TransformedBounds(RectangleF bounds)
+        {
+            if (Transforms != null && Transforms.Count > 0)
+            {
+                var path = new GraphicsPath();
+                path.AddRectangle(bounds);
+                path.Transform(Transforms.GetMatrix());
+                return path.GetBounds();
+            }
+            return bounds;
+        }
+
+        /// <summary>
         /// Gets or sets the ID of the element.
         /// </summary>
         /// <exception cref="SvgException">The ID is already used within the <see cref="SvgDocument"/>.</exception>
@@ -546,7 +571,7 @@ namespace Svg
         }
         protected virtual void WriteAttributes(XmlTextWriter writer)
         {
-            var styles = new Dictionary<string, string>();
+            var styles = _styles.ToDictionary(_styles => _styles.Key, _styles => _styles.Value.Last().Value);
             bool writeStyle;
             bool forceWrite;
 
@@ -582,7 +607,7 @@ namespace Svg
                         var type = propertyValue.GetType();
                         
                         //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
-                        if ((!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, value)) || forceWrite)
+                        if ((!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value)) || forceWrite)
                         {
                             if (writeStyle)
                             {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ExCSS.Model;
-using ExCSS.Model.TextBlocks;
+using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.TextBlocks;
 
 // ReSharper disable once CheckNamespace
 using System;
@@ -30,7 +30,7 @@ using System;
 //SOFTWARE.
 
 
-namespace ExCSS
+namespace Svg.ExCSS
 {
     internal delegate void ParseErrorEventHandler(StylesheetParseError e);
 
@@ -220,6 +220,20 @@ namespace ExCSS
             if (rule != null)
             {
                 rule.Declarations.Add(property);
+            }
+        }
+
+        private void RemoveCurrentProperty()
+        {
+            if (_property != null)
+            {
+                var rule = CurrentRule as ISupportsDeclarations;
+
+                if (rule != null)
+                {
+                    rule.Declarations.Remove(_property);
+                }
+                _property = null;
             }
         }
 

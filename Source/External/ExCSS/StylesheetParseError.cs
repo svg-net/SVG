@@ -1,5 +1,5 @@
 ﻿
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public sealed class StylesheetParseError
     {
