@@ -464,23 +464,23 @@ namespace ExCSS
 
         private bool ParseHexValue(Block token)
         {
-			switch (token.GrammarSegment)
+            switch (token.GrammarSegment)
             {
                 case GrammarSegment.Number:
                 case GrammarSegment.Dimension:
                 case GrammarSegment.Ident:
                     var rest = token.ToString();
 
-					if (_buffer.Length + rest.Length <= 6)
+                    if (_buffer.Length + rest.Length <= 6)
                     {
-						_buffer.Append(rest);
+                        _buffer.Append(rest);
                         return true;
                     }
 
                     break;
             }
 
-			ParseSingleValueHexColor(_buffer.ToString());
+            ParseSingleValueHexColor(_buffer.ToString());
             SetParsingContext(ParsingContext.InSingleValue);
             return ParseSingleValue(token);
         }
@@ -554,7 +554,7 @@ namespace ExCSS
 
             if(HtmlColor.TryFromHex(color, out htmlColor))
                 return AddTerm(htmlColor);
-			throw new ArgumentOutOfRangeException(nameof(color), $"{color} is not a valid hex color");
+            throw new ArgumentOutOfRangeException(nameof(color), $"{color} is not a valid hex color");
         }
 
         #region Namespace
