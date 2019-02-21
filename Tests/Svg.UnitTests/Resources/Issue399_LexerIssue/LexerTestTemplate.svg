@@ -1,16 +1,11 @@
 ﻿<svg xmlns="http://www.w3.org/2000/svg" width="1092" height="453">
   <style type="text/css">
-
-		
-		#footer
-		{
-			/*[REPLACE]*/
-		}
-
-
-	</style>
+    .plot-zero {
+      /*[REPLACE]*/ 
+    }
+  </style>
   <g transform="translate(40,20)" style="opacity: 1;">
-    <path class="plot-zero" d="M0,0 H1042" style="opacity: 0;"></path>
+    <path class="plot-zero" id="path1" d="M0,0 H1042"></path>
     <path class="plot-now" d="" style="opacity: 0;"></path>
   </g>
   <clipPath id="clip-view-2">

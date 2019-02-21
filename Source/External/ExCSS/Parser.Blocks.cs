@@ -554,10 +554,13 @@ namespace Svg.ExCSS
         {
             HtmlColor htmlColor;
 
-            if(HtmlColor.TryFromHex(color, out htmlColor))
+            if (HtmlColor.TryFromHex(color, out htmlColor))
                 return AddTerm(htmlColor);
-            
-            return false;    
+            else
+                // the value is invalid - remove the property to use the default value
+                RemoveCurrentProperty();
+
+            return true;    
         }
 
         #region Namespace
