@@ -482,8 +482,8 @@ namespace Svg.ExCSS
                     break;
             }
 
-            ParseSingleValueHexColor(_buffer.ToString());
             SetParsingContext(ParsingContext.InSingleValue);
+            ParseSingleValueHexColor(_buffer.ToString());
             return ParseSingleValue(token);
         }
 
