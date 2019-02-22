@@ -38,7 +38,6 @@ namespace Svg.UnitTests
         [TestMethod]
         public void Lexer_ImportantAfterHex_Success()
         {
-            Assert.Inconclusive("The important after the  hex codes is not working at the moment. Re-enable these tests if the issue is resolved (#399)");
             //Important should be valid on 3 digit hex
             GenerateLexerTestFile("border-top: 1px solid #333 !important;");
             //Important should be valid on 6 digit hex
