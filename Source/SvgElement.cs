@@ -585,7 +585,7 @@ namespace Svg
                     string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
 
                     forceWrite = false;
-                    writeStyle = (attr.Attribute.Name == "fill");
+                    writeStyle = attr.Attribute.Name == "fill" || attr.Attribute.Name == "stroke";
 
                     if (writeStyle && (Parent != null))
                     {
