@@ -28,6 +28,11 @@ namespace SVGViewer
                 {
                     SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
                     RenderSvg(svgDoc);
+
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.XmlResolver = null;
+                    xmlDoc.Load(openSvgFile.FileName);
+                    textBox1.Text = xmlDoc.InnerXml;
                 }
             }
             catch
