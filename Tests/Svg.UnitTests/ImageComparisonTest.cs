@@ -15,7 +15,6 @@ namespace Svg.UnitTests
     public class ImageComparisonTest
     {
         public TestContext TestContext { get; set; }
-#if NETCORE
         private static string _basePath = null;
         private static string GetSuiteTestsFolder
         {
@@ -55,38 +54,19 @@ namespace Svg.UnitTests
         //public void CompareSvgImageWithReference()
         public void CompareSvgImageWithReference(string basePath, string baseName)
         {
-            var svgPath = Path.Combine(basePath, "svg", baseName + ".svg");
-            var pngPath = Path.Combine(basePath, "png", baseName + ".png");
-            var pngImage = Image.FromFile(pngPath);
-            var svgImage = LoadSvgImage(baseName, svgPath);
-            Assert.AreNotEqual(null, pngImage, "Failed to load " + pngPath);
-            Assert.AreNotEqual(null, svgImage, "Failed to load " + svgPath);
-            var difference = svgImage.PercentageDifference(pngImage);
-            Assert.IsTrue(difference < 0.05, 
-                baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
-        }
-#else
-        [TestMethod]
-        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
-            @"|DataDirectory|\..\..\..\PassingTests.csv",
-            "PassingTests#csv", DataAccessMethod.Sequential)]
-        public void CompareSvgImageWithReference()
-        {
-            var basePath = TestContext.TestRunDirectory;
-            while (!basePath.ToLower().EndsWith("svg"))
-            {
-                basePath = Path.GetDirectoryName(basePath);
-            }
-            basePath = Path.Combine(Path.Combine(basePath, "Tests"), "W3CTestSuite");
-            var svgBasePath = Path.Combine(basePath, "svg");
-            var baseName = TestContext.DataRow[0] as string;
             bool testSaveLoad = !baseName.StartsWith("#");
             if (!testSaveLoad)
             {
                 baseName = baseName.Substring(1);
             }
-            var svgPath = Path.Combine(Path.Combine(basePath, "svg"), baseName + ".svg");
-            var pngPath = Path.Combine(Path.Combine(basePath, "png"), baseName + ".png");
+            var svgPath = Path.Combine(basePath, "svg", baseName + ".svg");
+            var pngPath = Path.Combine(basePath, "png", baseName + ".png");
+            CompareSvgImageWithReferenceImpl(baseName, svgPath, pngPath, testSaveLoad);
+        }
+
+        private void CompareSvgImageWithReferenceImpl(string baseName, 
+            string svgPath, string pngPath, bool testSaveLoad)
+        {
             var pngImage = Image.FromFile(pngPath);
             var svgDoc = LoadSvgDocument(svgPath);
             Assert.IsNotNull(svgDoc);
@@ -121,7 +101,6 @@ namespace Svg.UnitTests
                     baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
             }
         }
-#endif
 
         /// <summary>
         /// Enable this test to output the calculate percentage difference
@@ -131,13 +110,7 @@ namespace Svg.UnitTests
         // [TestClass]
         public void RecordDiffForAllSvgImagesWithReference()
         {
-#if NETCORE
             var basePath = Path.Combine(GetSuiteTestsFolder, "W3CTestSuite");
-#else
-            var basePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestRunDirectory)));
-            basePath = Path.Combine(Path.Combine(basePath, "Tests"), "W3CTestSuite");
-#endif
-            //      var svgBasePath = Path.Combine(basePath, "svg");
             string[] lines = File.ReadAllLines(@"..\..\..\..\Tests\Svg.UnitTests\all.csv");
             foreach (var baseName in lines)
             {
