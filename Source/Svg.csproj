@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net40;netcoreapp2.2;net35;net452;net472</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.2;net35</TargetFrameworks>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
@@ -30,6 +30,7 @@
     <PackageTags>svg, vector graphics, rendering</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
 Supports multiple targets v3.5 thru to dotnetcore2.2. 
@@ -86,27 +87,16 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web"/>
     <Reference Include="System.Xml"/>
   </ItemGroup>
-
-  <PropertyGroup>
-    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net35'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v3.5\Profile\Client</FrameworkPathOverride>
-  </PropertyGroup>
-  <PropertyGroup>
-    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net40'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0</FrameworkPathOverride>
-  </PropertyGroup>
-  <PropertyGroup>
-    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net452'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2</FrameworkPathOverride>
-  </PropertyGroup>
-  <PropertyGroup>
-    <FrameworkPathOverride Condition="'$(TargetFramework)' == 'net472'">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2</FrameworkPathOverride>
-  </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web"/>
     <Reference Include="System.Xml"/>
   </ItemGroup>
 
@@ -115,6 +105,7 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web"/>
     <Reference Include="System.Xml"/>
   </ItemGroup>
 
@@ -123,6 +114,7 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web"/>
     <Reference Include="System.Xml"/>
   </ItemGroup>
 

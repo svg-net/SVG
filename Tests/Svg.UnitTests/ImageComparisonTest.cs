@@ -55,15 +55,14 @@ namespace Svg.UnitTests
         //public void CompareSvgImageWithReference()
         public void CompareSvgImageWithReference(string basePath, string baseName)
         {
+            bool testSaveLoad = !baseName.StartsWith("#");
+            if (!testSaveLoad)
+            {
+                baseName = baseName.Substring(1);
+            }
             var svgPath = Path.Combine(basePath, "svg", baseName + ".svg");
             var pngPath = Path.Combine(basePath, "png", baseName + ".png");
-            var pngImage = Image.FromFile(pngPath);
-            var svgImage = LoadSvgImage(baseName, svgPath);
-            Assert.AreNotEqual(null, pngImage, "Failed to load " + pngPath);
-            Assert.AreNotEqual(null, svgImage, "Failed to load " + svgPath);
-            var difference = svgImage.PercentageDifference(pngImage);
-            Assert.IsTrue(difference < 0.05, 
-                baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
+            CompareSvgImageWithReferenceImpl(baseName, svgPath, pngPath, testSaveLoad);
         }
 #else
         [TestMethod]
@@ -87,6 +86,13 @@ namespace Svg.UnitTests
             }
             var svgPath = Path.Combine(Path.Combine(basePath, "svg"), baseName + ".svg");
             var pngPath = Path.Combine(Path.Combine(basePath, "png"), baseName + ".png");
+            CompareSvgImageWithReferenceImpl(baseName, svgPath, pngPath, testSaveLoad);
+        }
+#endif
+
+        private void CompareSvgImageWithReferenceImpl(string baseName, 
+            string svgPath, string pngPath, bool testSaveLoad)
+        {
             var pngImage = Image.FromFile(pngPath);
             var svgDoc = LoadSvgDocument(svgPath);
             Assert.IsNotNull(svgDoc);
@@ -121,7 +127,6 @@ namespace Svg.UnitTests
                     baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
             }
         }
-#endif
 
         /// <summary>
         /// Enable this test to output the calculate percentage difference
