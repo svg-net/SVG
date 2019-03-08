@@ -12,19 +12,24 @@ namespace Svg
 		public SvgAspectRatio() : this(SvgPreserveAspectRatio.none)
 		{
 		}
-		
+
 		public SvgAspectRatio(SvgPreserveAspectRatio align)
 			: this(align, false)
 		{
 		}
-		
+
 		public SvgAspectRatio(SvgPreserveAspectRatio align, bool slice)
+			: this(align, slice, false)
+		{
+		}
+
+		public SvgAspectRatio(SvgPreserveAspectRatio align, bool slice, bool defer)
 		{
 			this.Align = align;
 			this.Slice = slice;
-			this.Defer = false;
+			this.Defer = defer;
 		}
-		
+
 		public SvgPreserveAspectRatio Align
 		{
 			get;
@@ -49,8 +54,8 @@ namespace Svg
 		}
 
 	}
-	
-    [TypeConverter(typeof(SvgPreserveAspectRatioConverter))]
+
+	[TypeConverter(typeof(SvgPreserveAspectRatioConverter))]
 	public enum SvgPreserveAspectRatio
 	{
 		xMidYMid, //default

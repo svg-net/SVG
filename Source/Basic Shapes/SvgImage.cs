@@ -235,7 +235,6 @@ namespace Svg
                     this.PopTransforms(renderer);
                 }
                 // TODO: cache images... will need a shared context for this
-                // TODO: support preserveAspectRatio, etc
             }
         }
 
@@ -340,6 +339,7 @@ namespace Svg
 			newObj.X = this.X;
 			newObj.Y = this.Y;
 			newObj.Href = this.Href;
+			newObj.AspectRatio = new SvgAspectRatio(this.AspectRatio.Align, this.AspectRatio.Slice, this.AspectRatio.Defer);
 			return newObj;
 		}
     }

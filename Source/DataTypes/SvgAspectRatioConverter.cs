@@ -63,10 +63,7 @@ namespace Svg.DataTypes
             if(sParts.Length > nAlignIndex)
                 throw new ArgumentOutOfRangeException("value is not a member of SvgPreserveAspectRatio");
 
-            SvgAspectRatio pRet = new SvgAspectRatio(eAlign);
-            pRet.Slice = bSlice;
-            pRet.Defer = bDefer;
-            return (pRet);
+            return new SvgAspectRatio(eAlign, bSlice, bDefer);
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
