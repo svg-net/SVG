@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Net;
-using Svg.Transforms;
 
 namespace Svg
 {
@@ -101,19 +100,19 @@ namespace Svg
         /// </summary>
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-          if (_path == null)
-          {
-            // Same size of rectangle can suffice to provide bounds of the image
-            var rectangle = new RectangleF(Location.ToDeviceValue(renderer, this),
-                SvgUnit.GetDeviceSize(Width, Height, renderer, this));
+            if (_path == null)
+            {
+                // Same size of rectangle can suffice to provide bounds of the image
+                var rectangle = new RectangleF(Location.ToDeviceValue(renderer, this),
+                    SvgUnit.GetDeviceSize(Width, Height, renderer, this));
 
-            _path = new GraphicsPath();
-            _path.StartFigure();
-            _path.AddRectangle(rectangle);
-            _path.CloseFigure();
-          }
+                _path = new GraphicsPath();
+                _path.StartFigure();
+                _path.AddRectangle(rectangle);
+                _path.CloseFigure();
+            }
 
-          return _path;
+            return _path;
         }
 
         /// <summary>
@@ -267,7 +266,7 @@ namespace Svg
                     if (dataIdx <= 0 || dataIdx + 1 > uriString.Length)
                         throw new Exception("Invalid data URI");
 
-                    // we're assuming base64, as ascii encoding would be *highly* unsusual for images
+                    // we're assuming base64, as ascii encoding would be *highly* unusual for images
                     // also assuming it's png or jpeg mimetype
                     byte[] imageBytes = Convert.FromBase64String(uriString.Substring(dataIdx));
                     using (var stream = new MemoryStream(imageBytes))
