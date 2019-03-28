@@ -186,7 +186,6 @@ namespace Svg
                     this.ResetClip(renderer);
                     this.PopTransforms(renderer);
                 }
-
             }
         }
 
@@ -265,10 +264,10 @@ namespace Svg
                                     {
                                         // to handle round caps, we have to adapt the dash pattern
                                         // by increasing the dash length by the stroke width - GDI draws the rounded 
-                                        // edge inside the dash line, SVG draws it outside the line  
+                                        // edge inside the dash line, SVG draws it outside the line
                                         var pattern = new float[pen.DashPattern.Length];
                                         int offset = 1; // the values are already normalized to dash width
-                                        for ( int i = 0; i < pen.DashPattern.Length; i++)                               
+                                        for (int i = 0; i < pen.DashPattern.Length; i++)
                                         {
                                             pattern[i] = pen.DashPattern[i] + offset;
                                             offset *= -1; // increase dash length, decrease spaces
