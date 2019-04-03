@@ -10,26 +10,7 @@ namespace Svg
     [SvgElement("rect")]
     public class SvgRectangle : SvgPathBasedElement
     {
-        private SvgUnit _cornerRadiusX;
-        private SvgUnit _cornerRadiusY;
-        private SvgUnit _height;
         private GraphicsPath _path;
-        private SvgUnit _width;
-        private SvgUnit _x;
-        private SvgUnit _y;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgRectangle"/> class.
-        /// </summary>
-        public SvgRectangle()
-        {
-            _width = new SvgUnit(0.0f);
-            _height = new SvgUnit(0.0f);
-            _cornerRadiusX = new SvgUnit(0.0f);
-            _cornerRadiusY = new SvgUnit(0.0f);
-            _x = new SvgUnit(0.0f);
-            _y = new SvgUnit(0.0f);
-        }
 
         /// <summary>
         /// Gets an <see cref="SvgPoint"/> representing the top left point of the rectangle.
@@ -45,16 +26,8 @@ namespace Svg
         [SvgAttribute("x")]
         public SvgUnit X
         {
-        	get { return _x; }
-        	set
-        	{
-        		if(_x != value)
-        		{
-        			_x = value;
-        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
-        			IsPathDirty = true;
-        		}
-        	}
+            get { return this.Attributes.GetAttribute<SvgUnit>("x"); }
+            set { this.Attributes["x"] = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -63,16 +36,8 @@ namespace Svg
         [SvgAttribute("y")]
         public SvgUnit Y
         {
-        	get { return _y; }
-        	set
-        	{
-        		if(_y != value)
-        		{
-        			_y = value;
-        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
-        			IsPathDirty = true;
-        		}
-        	}
+            get { return this.Attributes.GetAttribute<SvgUnit>("y"); }
+            set { this.Attributes["y"] = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -81,16 +46,8 @@ namespace Svg
         [SvgAttribute("width")]
         public SvgUnit Width
         {
-        	get { return _width; }
-        	set
-        	{
-        		if(_width != value)
-        		{
-        			_width = value;
-        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "width", Value = value });
-        			IsPathDirty = true;
-        		}
-        	}
+            get { return this.Attributes.GetAttribute<SvgUnit>("width"); }
+            set { this.Attributes["width"] = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -99,16 +56,8 @@ namespace Svg
         [SvgAttribute("height")]
         public SvgUnit Height
         {
-        	get { return _height; }
-        	set
-        	{
-        		if(_height != value)
-        		{
-        			_height = value;
-        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "height", Value = value });
-        			IsPathDirty = true;
-        		}
-        	}
+            get { return this.Attributes.GetAttribute<SvgUnit>("height"); }
+            set { this.Attributes["height"] = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -120,16 +69,11 @@ namespace Svg
             get
             {
                 // If ry has been set and rx hasn't, use it's value
-                if (_cornerRadiusX.Value == 0.0f && _cornerRadiusY.Value > 0.0f)
-                    return _cornerRadiusY;
-
-                return _cornerRadiusX;
+                var rx = this.Attributes.GetAttribute<SvgUnit>("rx");
+                var ry = this.Attributes.GetAttribute<SvgUnit>("ry");
+                return (rx.Value == 0.0f && ry.Value > 0.0f) ? ry : rx;
             }
-            set
-            {
-                _cornerRadiusX = value;
-                IsPathDirty = true;
-            }
+            set { this.Attributes["rx"] = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -141,16 +85,11 @@ namespace Svg
             get
             {
                 // If rx has been set and ry hasn't, use it's value
-                if (_cornerRadiusY.Value == 0.0f && _cornerRadiusX.Value > 0.0f)
-                    return _cornerRadiusX;
-
-                return _cornerRadiusY;
+                var rx = this.Attributes.GetAttribute<SvgUnit>("rx");
+                var ry = this.Attributes.GetAttribute<SvgUnit>("ry");
+                return (ry.Value == 0.0f && rx.Value > 0.0f) ? rx : ry;
             }
-            set
-            {
-                _cornerRadiusY = value;
-                IsPathDirty = true;
-            }
+            set { this.Attributes["ry"] = value; this.IsPathDirty = true; }
         }
 
         /// <summary>
@@ -174,28 +113,28 @@ namespace Svg
         {
             if (_path == null || IsPathDirty)
             {
-                var halfStrokeWidth = new SvgUnit(base.StrokeWidth / 2);
+                var halfStrokeWidth = base.StrokeWidth / 2;
 
                 // If it is to render, don't need to consider stroke
                 if (renderer != null)
                 {
-                  halfStrokeWidth = 0;
-                  this.IsPathDirty = false;
+                    halfStrokeWidth = 0;
+                    this.IsPathDirty = false;
                 }
 
                 // If the corners aren't to be rounded just create a rectangle
                 if (CornerRadiusX.Value == 0.0f && CornerRadiusY.Value == 0.0f)
                 {
-                  var loc_y = Location.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
-                  var loc_x = Location.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                    var loc_y = Location.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                    var loc_x = Location.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
 
-                  // Starting location which take consideration of stroke width
-                  SvgPoint strokedLocation = new SvgPoint(loc_x- halfStrokeWidth, loc_y - halfStrokeWidth);
+                    // Starting location which take consideration of stroke width
+                    SvgPoint strokedLocation = new SvgPoint(loc_x - halfStrokeWidth, loc_y - halfStrokeWidth);
 
-                  var width = this.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) + halfStrokeWidth;
-                  var height = this.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) + halfStrokeWidth;
-                  
-                  var rectangle = new RectangleF(strokedLocation.ToDeviceValue(renderer, this), new SizeF(width, height));
+                    var width = this.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) + halfStrokeWidth;
+                    var height = this.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) + halfStrokeWidth;
+
+                    var rectangle = new RectangleF(strokedLocation.ToDeviceValue(renderer, this), new SizeF(width, height));
 
                     _path = new GraphicsPath();
                     _path.StartFigure();
@@ -289,7 +228,7 @@ namespace Svg
 
 		public override SvgElement DeepCopy<T>()
 		{
- 			var newObj = base.DeepCopy<T>() as SvgRectangle;
+			var newObj = base.DeepCopy<T>() as SvgRectangle;
 			newObj.CornerRadiusX = this.CornerRadiusX;
 			newObj.CornerRadiusY = this.CornerRadiusY;
 			newObj.Height = this.Height;
