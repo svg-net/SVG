@@ -5,10 +5,10 @@ using System.Globalization;
 
 namespace Svg
 {
-    //just overrrides canconvert and returns true
+    //just overrides canconvert and returns true
     public class BaseConverter : TypeConverter
     {
-        
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
@@ -29,16 +29,16 @@ namespace Svg
             return base.CanConvertTo(context, destinationType);
         }
     }
-    
+
     public sealed class SvgBoolConverter : BaseConverter
     {
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value == null)
             {
                 return true;
             }
-            
+
             if (!(value is string))
             {
                 throw new ArgumentOutOfRangeException("value must be a string.");
@@ -52,7 +52,7 @@ namespace Svg
             else
                 return true;
         }
-        
+
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -61,9 +61,9 @@ namespace Svg
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
-        }	
+        }
     }
-    
+
     //converts enums to lower case strings
     public class EnumBaseConverter<T> : BaseConverter
         where T : struct
@@ -77,7 +77,7 @@ namespace Svg
         public CaseHandling CaseHandlingMode { get; }
 
         /// <summary>If specified, upon conversion, the default value will result in 'null'.</summary>
-        public T? DefaultValue { get; protected set;}
+        public T? DefaultValue { get; protected set; }
 
         /// <summary>Creates a new instance.</summary>
         public EnumBaseConverter() { }
@@ -92,16 +92,16 @@ namespace Svg
         }
 
         /// <summary>Attempts to convert the provided value to <typeparamref name="T"/>.</summary>
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value == null)
             {
                 if (this.DefaultValue.HasValue)
                     return this.DefaultValue.Value;
-                
+
                 return Activator.CreateInstance(typeof(T));
             }
-            
+
             if (!(value is string))
             {
                 throw new ArgumentOutOfRangeException("value must be a string.");
@@ -109,7 +109,7 @@ namespace Svg
 
             return (T)Enum.Parse(typeof(T), (string)value, true);
         }
-        
+
         /// <summary>Attempts to convert the value to the destination type.</summary>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
@@ -134,29 +134,29 @@ namespace Svg
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
-        }	
+        }
     }
-    
+
     public sealed class SvgFillRuleConverter : EnumBaseConverter<SvgFillRule>
     {
         public SvgFillRuleConverter() : base(SvgFillRule.NonZero, CaseHandling.LowerCase) { }
     }
-    
+
     public sealed class SvgColourInterpolationConverter : EnumBaseConverter<SvgColourInterpolation>
     {
         public SvgColourInterpolationConverter() : base(SvgColourInterpolation.SRGB) { }
     }
-    
+
     public sealed class SvgClipRuleConverter : EnumBaseConverter<SvgClipRule>
     {
         public SvgClipRuleConverter() : base(SvgClipRule.NonZero, CaseHandling.LowerCase) { }
     }
-    
+
     public sealed class SvgTextAnchorConverter : EnumBaseConverter<SvgTextAnchor>
     {
         public SvgTextAnchorConverter() : base(SvgTextAnchor.Start) { }
     }
-    
+
     public sealed class SvgStrokeLineCapConverter : EnumBaseConverter<SvgStrokeLineCap>
     {
         public SvgStrokeLineCapConverter() : base(SvgStrokeLineCap.Butt) { }
@@ -196,7 +196,7 @@ namespace Svg
     {
         public SvgTextPathSpacingConverter() : base(SvgTextPathSpacing.Exact) { }
     }
-    
+
     public sealed class SvgShapeRenderingConverter : EnumBaseConverter<SvgShapeRendering>
     {
         public SvgShapeRenderingConverter() : base(SvgShapeRendering.Inherit) { }
@@ -211,7 +211,7 @@ namespace Svg
     {
         public SvgImageRenderingConverter() : base(SvgImageRendering.Inherit) { }
     }
-    
+
     public sealed class SvgFontVariantConverter : EnumBaseConverter<SvgFontVariant>
     {
         public SvgFontVariantConverter() : base(SvgFontVariant.Normal) { }
@@ -220,7 +220,7 @@ namespace Svg
         {
             if (value.ToString() == "small-caps")
                 return SvgFontVariant.Smallcaps;
-            
+
             return base.ConvertFrom(context, culture, value);
         }
 
@@ -230,7 +230,7 @@ namespace Svg
             {
                 return "small-caps";
             }
-            
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
     }
@@ -252,9 +252,9 @@ namespace Svg
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value.ToString() == "line-through") 
+            if (value.ToString() == "line-through")
                 return SvgTextDecoration.LineThrough;
-            
+
             return base.ConvertFrom(context, culture, value);
         }
 
@@ -319,7 +319,7 @@ namespace Svg
         public SvgTextTransformationConverter() : base(SvgTextTransformation.None) { }
     }
 
-    public static class Enums 
+    public static class Enums
     {
         [CLSCompliant(false)]
         public static bool TryParse<TEnum>(string value, out TEnum result) where TEnum : struct, IConvertible
