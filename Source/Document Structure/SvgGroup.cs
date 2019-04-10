@@ -1,5 +1,3 @@
-using Svg.ExtensionMethods;
-using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -70,12 +68,12 @@ namespace Svg
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
-            get 
-            { 
+            get
+            {
                 var r = new RectangleF();
-                foreach(var c in this.Children)
+                foreach (var c in this.Children)
                 {
                     if (c is SvgVisualElement)
                     {
@@ -100,7 +98,7 @@ namespace Svg
         }
 
         protected override bool Renderable { get { return false; } }
-                
+
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgGroup>();
