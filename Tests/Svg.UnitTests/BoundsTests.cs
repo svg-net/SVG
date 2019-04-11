@@ -29,20 +29,20 @@ namespace Svg.UnitTests
         public void TestRectangleBounds()
         {
             // x="10" y="30" width="10" height="20"
-            AssertEqualBounds("rect", 9.5f, 29.5f, 10.5f, 20.5f);
+            AssertEqualBounds("rect", 9.5f, 29.5f, 11f, 21f);
             // additional translation(10, 10)
-            AssertEqualBounds("rect-xlate", 19.5f, 39.5f, 10.5f, 20.5f);
+            AssertEqualBounds("rect-xlate", 19.5f, 39.5f, 11f, 21f);
             // additional rotation(90)
-            AssertEqualBounds("rect-rot", -50, 9.5f, 20.5f, 10.5f);
+            AssertEqualBounds("rect-rot", -50.5f, 9.5f, 21f, 11f);
         }
 
         [TestMethod]
         public void TestGroupBounds()
         {
             // all lines from TestLineBounds()
-            AssertEqualBounds("lines", 9.5f, -40.5f, 31, 86);
+            AssertEqualBounds("lines", 9.5f, -40.5f, 31f, 86f);
             // all rectangles from TestRectangleBounds()
-            AssertEqualBounds("rects", -50f, 9.5f, 80, 50.5f);
+            AssertEqualBounds("rects", -50.5f, 9.5f, 81f, 51f);
         }
 
         [TestMethod]
