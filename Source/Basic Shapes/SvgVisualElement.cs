@@ -140,7 +140,28 @@ namespace Svg
 
                     if (this.Renderable)
                     {
-                        this.RenderNormal(renderer);
+                        var opacity = Math.Min(Math.Max(this.Opacity, 0), 1);
+                        if (opacity == 1f)
+                            this.RenderNormal(renderer);
+                        else
+                        {
+                            IsPathDirty = true;
+                            var bounds = this.Bounds;
+                            IsPathDirty = true;
+
+                            using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                            {
+                                using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                                {
+                                    canvasRenderer.SetBoundable(renderer.GetBoundable());
+                                    canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+
+                                    RenderNormal(canvasRenderer);
+                                }
+                                var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                                renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                            }
+                        }
                     }
                     else
                     {
@@ -209,7 +230,7 @@ namespace Svg
         {
             if (this.Fill != null)
             {
-                using (var brush = this.Fill.GetBrush(this, renderer, Math.Min(Math.Max(this.FillOpacity * this.Opacity, 0), 1)))
+                using (var brush = this.Fill.GetBrush(this, renderer, Math.Min(Math.Max(this.FillOpacity, 0), 1)))
                 {
                     if (brush != null)
                     {
@@ -229,7 +250,7 @@ namespace Svg
             if (this.Stroke != null && this.Stroke != SvgColourServer.None && this.StrokeWidth > 0)
             {
                 var strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
-                using (var brush = this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity * this.Opacity, 0), 1), true))
+                using (var brush = this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity, 0), 1), true))
                 {
                     if (brush != null)
                     {
