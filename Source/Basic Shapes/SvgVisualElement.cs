@@ -132,51 +132,15 @@ namespace Svg
         private void Render(ISvgRenderer renderer, bool renderFilter)
         {
             if (this.Visible && this.Displayable && this.PushTransforms(renderer) &&
-                (!Renderable || this.Path(renderer) != null))
+                (!this.Renderable || this.Path(renderer) != null))
             {
-                bool renderNormal = true;
-
-                if (renderFilter && this.Filter != null)
-                {
-                    var filterPath = this.Filter;
-                    if (filterPath.ToString().StartsWith("url("))
-                    {
-                        filterPath = new Uri(filterPath.ToString().Substring(4, filterPath.ToString().Length - 5), UriKind.RelativeOrAbsolute);
-                    }
-                    var filter = this.OwnerDocument.IdManager.GetElementById(filterPath) as FilterEffects.SvgFilter;
-                    if (filter != null)
-                    {
-                        this.PopTransforms(renderer);
-                        try
-                        {
-                            filter.ApplyFilter(this, renderer, (r) => this.Render(r, false));
-                        }
-                        catch (Exception ex) { Debug.Print(ex.ToString()); }
-                        renderNormal = false;
-                    }
-                }
-
-
-                if (renderNormal)
+                if (!(renderFilter && this.RenderFilter(renderer)))
                 {
                     this.SetClip(renderer);
 
-                    if (Renderable)
+                    if (this.Renderable)
                     {
-                        // If this element needs smoothing enabled turn anti-aliasing on
-                        if (this.RequiresSmoothRendering)
-                        {
-                            renderer.SmoothingMode = SmoothingMode.AntiAlias;
-                        }
-
-                        this.RenderFill(renderer);
-                        this.RenderStroke(renderer);
-
-                        // Reset the smoothing mode
-                        if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
-                        {
-                            renderer.SmoothingMode = SmoothingMode.Default;
-                        }
+                        this.RenderNormal(renderer);
                     }
                     else
                     {
@@ -186,6 +150,54 @@ namespace Svg
                     this.ResetClip(renderer);
                     this.PopTransforms(renderer);
                 }
+            }
+        }
+
+        private bool RenderFilter(ISvgRenderer renderer)
+        {
+            var rendered = false;
+
+            var filterPath = this.Filter;
+            if (filterPath != null)
+            {
+                if (filterPath.ToString().StartsWith("url("))
+                {
+                    filterPath = new Uri(filterPath.ToString().Substring(4, filterPath.ToString().Length - 5), UriKind.RelativeOrAbsolute);
+                }
+                var element = this.OwnerDocument.IdManager.GetElementById(filterPath);
+                if (element is FilterEffects.SvgFilter)
+                {
+                    this.PopTransforms(renderer);
+                    try
+                    {
+                        ((FilterEffects.SvgFilter)element).ApplyFilter(this, renderer, (r) => this.Render(r, false));
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.Print(ex.ToString());
+                    }
+                    rendered = true;
+                }
+            }
+
+            return rendered;
+        }
+
+        private void RenderNormal(ISvgRenderer renderer)
+        {
+            // If this element needs smoothing enabled turn anti-aliasing on
+            if (this.RequiresSmoothRendering)
+            {
+                renderer.SmoothingMode = SmoothingMode.AntiAlias;
+            }
+
+            this.RenderFill(renderer);
+            this.RenderStroke(renderer);
+
+            // Reset the smoothing mode
+            if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
+            {
+                renderer.SmoothingMode = SmoothingMode.Default;
             }
         }
 
@@ -216,7 +228,7 @@ namespace Svg
         {
             if (this.Stroke != null && this.Stroke != SvgColourServer.None && this.StrokeWidth > 0)
             {
-                float strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
+                var strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
                 using (var brush = this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity * this.Opacity, 0), 1), true))
                 {
                     if (brush != null)
