@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using Svg.DataTypes;
-using System.Linq;
 using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Svg
 {
@@ -211,7 +207,7 @@ namespace Svg
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {
