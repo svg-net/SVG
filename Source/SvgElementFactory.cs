@@ -132,7 +132,7 @@ namespace Svg
 
             while (reader.MoveToNextAttribute())
             {
-                if (reader.LocalName.Equals("style") && !(element is NonSvgElement)) 
+                if (reader.LocalName.Equals("style") && !(element is NonSvgElement))
                 {
                     var inlineSheet = cssParser.Parse("#a{" + reader.Value + "}");
                     foreach (var rule in inlineSheet.StyleRules)
@@ -230,7 +230,7 @@ namespace Svg
         private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
         private static object syncLock = new object();
 
-        internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle=false)
+        internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle = false)
         {
             var elementType = element.GetType();
 
@@ -255,7 +255,7 @@ namespace Svg
                     _propertyDescriptors.Add(elementType, new Dictionary<string, PropertyDescriptorCollection>());
 
                     _propertyDescriptors[elementType].Add(attributeName, properties);
-                } 
+                }
             }
 
             if (properties.Count > 0)
@@ -268,15 +268,7 @@ namespace Svg
                     {
                         attributeValue = "1";
                     }
-                    var value = descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue);
-                    if (value is SvgColourServer && ((SvgColourServer)value).Colour.A < 255)
-                    {
-                        // handle alpha values less than 1 by adding an opacity property
-                        var opacity = ((SvgColourServer)value).Colour.A / 255.0;
-                        SetPropertyValue(element, "opacity", 
-                            opacity.ToString("F2", CultureInfo.InvariantCulture), document, isStyle);
-                    }
-                    descriptor.SetValue(element, value);
+                    descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
                 }
                 catch
                 {
