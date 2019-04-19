@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="320" height="320">
+
+<!-- rect -->
+<rect x="40"  y="40" width="40" height="40" style="opacity:0.5;fill:red;stroke:black;" />
+<rect x="100" y="40" width="40" height="40" style="opacity:0.5;fill:red;stroke:black;stroke-width:10;" />
+<rect x="160" y="40" width="40" height="40" style="opacity:0.5;fill:red;stroke:black;stroke-width:10;stroke-opacity:0.8;" />
+<rect x="220" y="40" width="40" height="40" style="opacity:0.5;fill:red;stroke:black;stroke-width:10;stroke-opacity:0.8;fill-opacity:0.8;" />
+
+<!-- circle -->
+<circle cx="60"  cy="120" r="20" style="opacity:0.5;fill:red;stroke:black;" />
+<circle cx="120" cy="120" r="20" style="opacity:0.5;fill:red;stroke:black;stroke-width:8;" />
+<circle cx="180" cy="120" r="20" style="opacity:0.5;fill:red;stroke:black;stroke-width:8;stroke-opacity:0.8;" />
+<circle cx="240" cy="120" r="20" style="opacity:0.5;fill:red;stroke:black;stroke-width:8;stroke-opacity:0.8;fill-opacity:0.8;" />
+
+<!-- ellipse -->
+<ellipse cx="60"  cy="180" rx="16" ry="20" style="opacity:0.5;fill:red;stroke:black;" />
+<ellipse cx="120" cy="180" rx="16" ry="20" style="opacity:0.5;fill:red;stroke:black;stroke-width:8;" />
+<ellipse cx="180" cy="180" rx="16" ry="20" style="opacity:0.5;fill:red;stroke:black;stroke-width:8;stroke-opacity:0.8;" />
+<ellipse cx="240" cy="180" rx="16" ry="20" style="opacity:0.5;fill:red;stroke:black;stroke-width:8;stroke-opacity:0.8;fill-opacity:0.8;" />
+
+<!-- polygon -->
+<polygon points="50,220  70,220  50,250  70,240"  style="opacity:0.5;fill:red;stroke:black;" />
+<polygon points="110,220 130,220 110,250 130,240" style="opacity:0.5;fill:red;stroke:black;stroke-width:8;" />
+<polygon points="170,220 190,220 170,250 190,240" style="opacity:0.5;fill:red;stroke:black;stroke-width:8;stroke-opacity:0.8;" />
+<polygon points="230,220 250,220 230,250 250,240" style="opacity:0.5;fill:red;stroke:black;stroke-width:8;stroke-opacity:0.8;fill-opacity:0.8;" />
+
+</svg>
