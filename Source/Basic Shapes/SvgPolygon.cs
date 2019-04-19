@@ -39,7 +39,7 @@ namespace Svg
                         // i.e stroke width only to be considered when calculating boundary
                         if (renderer == null)
                         {
-                            var radius = base.StrokeWidth / 2;
+                            var radius = base.StrokeWidth * 2;
                             _path.AddEllipse(endPoint.X - radius, endPoint.Y - radius, 2 * radius, 2 * radius);
                             continue;
                         }

@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Text;
-using Svg.DataTypes;
-using System.Linq;
 using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Svg
 {
@@ -211,7 +207,7 @@ namespace Svg
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {
@@ -250,9 +246,34 @@ namespace Svg
                     renderer.SmoothingMode = SmoothingMode.AntiAlias;
                 }
 
-                this.RenderFill(renderer);
-                this.RenderStroke(renderer);
-                this.RenderChildren(renderer);
+                var opacity = Math.Min(Math.Max(this.Opacity, 0), 1);
+                if (opacity == 1f)
+                {
+                    this.RenderFill(renderer);
+                    this.RenderStroke(renderer);
+                    this.RenderChildren(renderer);
+                }
+                else
+                {
+                    IsPathDirty = true;
+                    var bounds = this.Bounds;
+                    IsPathDirty = true;
+
+                    using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                    {
+                        using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                        {
+                            canvasRenderer.SetBoundable(renderer.GetBoundable());
+                            canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+
+                            this.RenderFill(canvasRenderer);
+                            this.RenderStroke(canvasRenderer);
+                            this.RenderChildren(canvasRenderer);
+                        }
+                        var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                        renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                    }
+                }
 
                 // Reset the smoothing mode
                 if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)

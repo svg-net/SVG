@@ -132,50 +132,35 @@ namespace Svg
         private void Render(ISvgRenderer renderer, bool renderFilter)
         {
             if (this.Visible && this.Displayable && this.PushTransforms(renderer) &&
-                (!Renderable || this.Path(renderer) != null))
+                (!this.Renderable || this.Path(renderer) != null))
             {
-                bool renderNormal = true;
-
-                if (renderFilter && this.Filter != null)
-                {
-                    var filterPath = this.Filter;
-                    if (filterPath.ToString().StartsWith("url("))
-                    {
-                        filterPath = new Uri(filterPath.ToString().Substring(4, filterPath.ToString().Length - 5), UriKind.RelativeOrAbsolute);
-                    }
-                    var filter = this.OwnerDocument.IdManager.GetElementById(filterPath) as FilterEffects.SvgFilter;
-                    if (filter != null)
-                    {
-                        this.PopTransforms(renderer);
-                        try
-                        {
-                            filter.ApplyFilter(this, renderer, (r) => this.Render(r, false));
-                        }
-                        catch (Exception ex) { Debug.Print(ex.ToString()); }
-                        renderNormal = false;
-                    }
-                }
-
-
-                if (renderNormal)
+                if (!(renderFilter && this.RenderFilter(renderer)))
                 {
                     this.SetClip(renderer);
 
-                    if (Renderable)
+                    if (this.Renderable)
                     {
-                        // If this element needs smoothing enabled turn anti-aliasing on
-                        if (this.RequiresSmoothRendering)
+                        var opacity = Math.Min(Math.Max(this.Opacity, 0), 1);
+                        if (opacity == 1f)
+                            this.RenderNormal(renderer);
+                        else
                         {
-                            renderer.SmoothingMode = SmoothingMode.AntiAlias;
-                        }
+                            IsPathDirty = true;
+                            var bounds = this.Bounds;
+                            IsPathDirty = true;
 
-                        this.RenderFill(renderer);
-                        this.RenderStroke(renderer);
+                            using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                            {
+                                using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                                {
+                                    canvasRenderer.SetBoundable(renderer.GetBoundable());
+                                    canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
 
-                        // Reset the smoothing mode
-                        if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
-                        {
-                            renderer.SmoothingMode = SmoothingMode.Default;
+                                    RenderNormal(canvasRenderer);
+                                }
+                                var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                                renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                            }
                         }
                     }
                     else
@@ -189,6 +174,54 @@ namespace Svg
             }
         }
 
+        private bool RenderFilter(ISvgRenderer renderer)
+        {
+            var rendered = false;
+
+            var filterPath = this.Filter;
+            if (filterPath != null)
+            {
+                if (filterPath.ToString().StartsWith("url("))
+                {
+                    filterPath = new Uri(filterPath.ToString().Substring(4, filterPath.ToString().Length - 5), UriKind.RelativeOrAbsolute);
+                }
+                var element = this.OwnerDocument.IdManager.GetElementById(filterPath);
+                if (element is FilterEffects.SvgFilter)
+                {
+                    this.PopTransforms(renderer);
+                    try
+                    {
+                        ((FilterEffects.SvgFilter)element).ApplyFilter(this, renderer, (r) => this.Render(r, false));
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.Print(ex.ToString());
+                    }
+                    rendered = true;
+                }
+            }
+
+            return rendered;
+        }
+
+        private void RenderNormal(ISvgRenderer renderer)
+        {
+            // If this element needs smoothing enabled turn anti-aliasing on
+            if (this.RequiresSmoothRendering)
+            {
+                renderer.SmoothingMode = SmoothingMode.AntiAlias;
+            }
+
+            this.RenderFill(renderer);
+            this.RenderStroke(renderer);
+
+            // Reset the smoothing mode
+            if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
+            {
+                renderer.SmoothingMode = SmoothingMode.Default;
+            }
+        }
+
         /// <summary>
         /// Renders the fill of the <see cref="SvgVisualElement"/> to the specified <see cref="ISvgRenderer"/>
         /// </summary>
@@ -197,7 +230,7 @@ namespace Svg
         {
             if (this.Fill != null)
             {
-                using (var brush = this.Fill.GetBrush(this, renderer, Math.Min(Math.Max(this.FillOpacity * this.Opacity, 0), 1)))
+                using (var brush = this.Fill.GetBrush(this, renderer, Math.Min(Math.Max(this.FillOpacity, 0), 1)))
                 {
                     if (brush != null)
                     {
@@ -216,8 +249,8 @@ namespace Svg
         {
             if (this.Stroke != null && this.Stroke != SvgColourServer.None && this.StrokeWidth > 0)
             {
-                float strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
-                using (var brush = this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity * this.Opacity, 0), 1), true))
+                var strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
+                using (var brush = this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity, 0), 1), true))
                 {
                     if (brush != null)
                     {
