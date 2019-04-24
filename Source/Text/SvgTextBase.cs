@@ -240,17 +240,10 @@ namespace Svg
                 this.PushTransforms(renderer);
                 this.SetClip(renderer);
 
-                // If this element needs smoothing enabled turn anti-aliasing on
-                if (this.RequiresSmoothRendering)
-                {
-                    renderer.SmoothingMode = SmoothingMode.AntiAlias;
-                }
-
                 var opacity = Math.Min(Math.Max(this.Opacity, 0), 1);
                 if (opacity == 1f)
                 {
-                    this.RenderFill(renderer);
-                    this.RenderStroke(renderer);
+                    this.RenderFillAndStroke(renderer);
                     this.RenderChildren(renderer);
                 }
                 else
@@ -266,19 +259,12 @@ namespace Svg
                             canvasRenderer.SetBoundable(renderer.GetBoundable());
                             canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
 
-                            this.RenderFill(canvasRenderer);
-                            this.RenderStroke(canvasRenderer);
+                            this.RenderFillAndStroke(canvasRenderer);
                             this.RenderChildren(canvasRenderer);
                         }
                         var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
                         renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
                     }
-                }
-
-                // Reset the smoothing mode
-                if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
-                {
-                    renderer.SmoothingMode = SmoothingMode.Default;
                 }
 
                 this.ResetClip(renderer);

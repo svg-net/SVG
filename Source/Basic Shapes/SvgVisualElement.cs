@@ -142,7 +142,7 @@ namespace Svg
                     {
                         var opacity = Math.Min(Math.Max(this.Opacity, 0), 1);
                         if (opacity == 1f)
-                            this.RenderNormal(renderer);
+                            this.RenderFillAndStroke(renderer);
                         else
                         {
                             IsPathDirty = true;
@@ -156,7 +156,7 @@ namespace Svg
                                     canvasRenderer.SetBoundable(renderer.GetBoundable());
                                     canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
 
-                                    RenderNormal(canvasRenderer);
+                                    this.RenderFillAndStroke(canvasRenderer);
                                 }
                                 var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
                                 renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
@@ -204,7 +204,7 @@ namespace Svg
             return rendered;
         }
 
-        private void RenderNormal(ISvgRenderer renderer)
+        protected void RenderFillAndStroke(ISvgRenderer renderer)
         {
             // If this element needs smoothing enabled turn anti-aliasing on
             if (this.RequiresSmoothRendering)
