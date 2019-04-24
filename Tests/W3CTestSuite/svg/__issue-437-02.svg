@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="400" height="400">
+
+<rect width="40" height="60" stroke-opacity="1" stroke="rgba(255, 0, 0, 0)" stroke-width="6" fill-opacity="1" fill="rgba(0, 0, 255, 0)" x="10" y="10" />
+<rect width="40" height="60" stroke-opacity="0" stroke="rgba(255, 0, 0, 1)" stroke-width="6" fill-opacity="0" fill="rgba(0, 0, 255, 1)" x="70" y="10" />
+
+<rect width="40" height="60" stroke-opacity="1" stroke="rgba(255, 0, 0, 1)" stroke-width="6" fill-opacity="1" fill="rgba(0, 0, 255, 1)" x="10" y="90" />
+<rect width="40" height="60" stroke-opacity="1" stroke="rgba(255, 0, 0, 0.5)" stroke-width="6" fill-opacity="1" fill="rgba(0, 0, 255, 0.5)" x="70" y="90" />
+
+<rect width="40" height="60" stroke-opacity="0.5" stroke="rgba(255, 0, 0, 1)" stroke-width="6" fill-opacity="0.5" fill="rgba(0, 0, 255, 1)" x="10" y="170" />
+<rect width="40" height="60" stroke-opacity="0.5" stroke="rgba(255, 0, 0, 0.5)" stroke-width="6" fill-opacity="0.5" fill="rgba(0, 0, 255, 0.5)" x="70" y="170" />
+
+<rect width="40" height="60" stroke-opacity="0.8" stroke="rgba(255, 0, 0, 0.6)" stroke-width="6" fill-opacity="0.8" fill="rgba(0, 0, 255, 0.6)" x="10" y="250" />
+<rect width="40" height="60" stroke-opacity="0.6" stroke="rgba(255, 0, 0, 0.8)" stroke-width="6" fill-opacity="0.6" fill="rgba(0, 0, 255, 0.8)" x="70" y="250" />
+<rect width="40" height="60" stroke-opacity="1" stroke="rgba(255, 0, 0, 0.48)" stroke-width="6" fill-opacity="1" fill="rgba(0, 0, 255, 0.48)" x="130" y="250" />
+<rect width="40" height="60" stroke-opacity="0.48" stroke="rgba(255, 0, 0, 1)" stroke-width="6" fill-opacity="0.48" fill="rgba(0, 0, 255, 1)" x="190" y="250" />
+
+<rect width="40" height="60" stroke="rgb(255, 0, 0)" stroke-width="6" fill="rgba(0, 0, 255)" x="10" y="330" />
+<rect width="40" height="60" stroke="rgba(255, 0, 0, 0.8)" stroke-width="6" fill="rgba(0, 0, 255, 0.8)" x="70" y="330" />
+<rect width="40" height="60" stroke-opacity="0.8" stroke="rgb(255, 0, 0)" stroke-width="6" fill-opacity="0.8" fill="rgb(0, 0, 255)" x="130" y="330" />
+<rect width="40" height="60" stroke-opacity="0.8" stroke="rgba(255, 0, 0, 0.8)" stroke-width="6" fill-opacity="0.8" fill="rgba(0, 0, 255, 0.8)" x="190" y="330" />
+</svg>
