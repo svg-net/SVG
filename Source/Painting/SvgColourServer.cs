@@ -1,21 +1,18 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
 
 namespace Svg
 {
     public sealed class SvgColourServer : SvgPaintServer
     {
-    	
-    	/// <summary>
+        /// <summary>
         /// An unspecified <see cref="SvgPaintServer"/>.
         /// </summary>
-        public static readonly SvgPaintServer NotSet = new SvgColourServer(System.Drawing.Color.Black);
+        public static readonly SvgPaintServer NotSet = new SvgColourServer();
         /// <summary>
         /// A <see cref="SvgPaintServer"/> that should inherit from its parent.
         /// </summary>
-        public static readonly SvgPaintServer Inherit = new SvgColourServer(System.Drawing.Color.Black);
+        public static readonly SvgPaintServer Inherit = new SvgColourServer();
 
         public SvgColourServer()
             : this(System.Drawing.Color.Black)
@@ -37,13 +34,13 @@ namespace Svg
 
         public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
-            //is none?
+            // is none?
             if (this == SvgPaintServer.None) return new SolidBrush(System.Drawing.Color.Transparent);
 
             // default fill color is black, default stroke color is none
             if (this == SvgColourServer.NotSet) return new SolidBrush(forStroke ? System.Drawing.Color.Transparent : System.Drawing.Color.Black);
 
-            int alpha = (int)Math.Round((opacity * (this.Colour.A/255.0) ) * 255);
+            int alpha = (int)Math.Round((opacity * (this.Colour.A / 255.0)) * 255);
             Color colour = System.Drawing.Color.FromArgb(alpha, this.Colour);
 
             return new SolidBrush(colour);
@@ -51,18 +48,18 @@ namespace Svg
 
         public override string ToString()
         {
-        	if(this == SvgPaintServer.None)
-        		return "none";
-        	else if(this == SvgColourServer.NotSet)
-        		return "";
-        	
+            if (this == SvgPaintServer.None)
+                return "none";
+            else if (this == SvgColourServer.NotSet)
+                return string.Empty;
+            else if (this == SvgColourServer.Inherit)
+                return "inherit";
+
             Color c = this.Colour;
 
             // Return the name if it exists
             if (c.IsKnownColor)
-            {
                 return c.Name;
-            }
 
             // Return the hex value
             return String.Format("#{0}", c.ToArgb().ToString("x").Substring(2));
@@ -74,13 +71,11 @@ namespace Svg
 			return DeepCopy<SvgColourServer>();
 		}
 
-
 		public override SvgElement DeepCopy<T>()
 		{
 			var newObj = base.DeepCopy<T>() as SvgColourServer;
 			newObj.Colour = this.Colour;
 			return newObj;
-
 		}
 
         public override bool Equals(object obj)
