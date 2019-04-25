@@ -422,6 +422,12 @@ namespace Svg
             return null;
         }
 
+        private void Draw(ISvgRenderer renderer, ISvgBoundable boundable)
+        {
+            renderer.SetBoundable(boundable);
+            this.Render(renderer);
+        }
+
         /// <summary>
         /// Renders the <see cref="SvgDocument"/> to the specified <see cref="ISvgRenderer"/>.
         /// </summary>
@@ -434,8 +440,7 @@ namespace Svg
                 throw new ArgumentNullException("renderer");
             }
 
-            renderer.SetBoundable(this);
-            this.Render(renderer);
+            this.Draw(renderer, this);
         }
 
         /// <summary>
@@ -445,7 +450,7 @@ namespace Svg
         /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
         public void Draw(Graphics graphics)
         {
-            Draw(graphics, null);
+            this.Draw(graphics, null);
         }
 
         /// <summary>
@@ -461,46 +466,43 @@ namespace Svg
                 throw new ArgumentNullException("graphics");
             }
 
-            var renderer = SvgRenderer.FromGraphics(graphics);
-            if (size.HasValue)
+            using (var renderer = SvgRenderer.FromGraphics(graphics))
             {
-                renderer.SetBoundable(new GenericBoundable(0, 0, size.Value.Width, size.Value.Height));
+                var boundable = size.HasValue ? (ISvgBoundable)new GenericBoundable(0, 0, size.Value.Width, size.Value.Height) : this;
+                this.Draw(renderer, boundable);
             }
-            else
-            {
-                renderer.SetBoundable(this);
-            }
-            this.Render(renderer);
         }
 
-	    /// <summary>
-	    /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
-	    /// </summary>
-	    /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
-	    public virtual Bitmap Draw()
-	    {
-		    //Trace.TraceInformation("Begin Render");
+        /// <summary>
+        /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
+        /// </summary>
+        /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
+        public virtual Bitmap Draw()
+        {
+            //Trace.TraceInformation("Begin Render");
 
-		    var size = GetDimensions();
-		    Bitmap bitmap = null;
-		    try
-		    {
-			    bitmap = new Bitmap((int) Math.Round(size.Width), (int) Math.Round(size.Height));
-		    }
-		    catch (ArgumentException e)
-		    {
-				//When processing too many files at one the system can run out of memory
-			    throw new SvgMemoryException("Cannot process SVG file, cannot allocate the required memory", e);
-		    }
-
-	    // 	bitmap.SetResolution(300, 300);
+            Bitmap bitmap = null;
             try
             {
-                Draw(bitmap);
+                try
+                {
+                    var size = GetDimensions();
+                    bitmap = new Bitmap((int)Math.Round(size.Width), (int)Math.Round(size.Height));
+                }
+                catch (ArgumentException e)
+                {
+                    // When processing too many files at one the system can run out of memory
+                    throw new SvgMemoryException("Cannot process SVG file, cannot allocate the required memory", e);
+                }
+
+                //bitmap.SetResolution(300, 300);
+
+                this.Draw(bitmap);
             }
             catch
             {
-                bitmap.Dispose();
+                if (bitmap != null)
+                    bitmap.Dispose();
                 throw;
             }
 
@@ -515,21 +517,13 @@ namespace Svg
         {
             //Trace.TraceInformation("Begin Render");
 
-            try
+            using (var renderer = SvgRenderer.FromImage(bitmap))
             {
-				using (var renderer = SvgRenderer.FromImage(bitmap))
-				{
-					renderer.SetBoundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
+                // EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
+                this.Overflow = SvgOverflow.Auto;
 
-					//EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
-					this.Overflow = SvgOverflow.Auto;
-
-					this.Render(renderer);
-				}
-            }
-            catch
-            {
-                throw;
+                var boundable = new GenericBoundable(0, 0, bitmap.Width, bitmap.Height);
+                this.Draw(renderer, boundable);
             }
 
             //Trace.TraceInformation("End Render");
@@ -545,21 +539,35 @@ namespace Svg
         {
             var imageSize = GetDimensions();
             var bitmapSize = imageSize;
-            RasterizeDimensions(ref bitmapSize, rasterWidth, rasterHeight);
+            this.RasterizeDimensions(ref bitmapSize, rasterWidth, rasterHeight);
 
             if (bitmapSize.Width == 0 || bitmapSize.Height == 0)
                 return null;
 
-            var bitmap = new Bitmap((int)Math.Round(bitmapSize.Width), (int)Math.Round(bitmapSize.Height));
+            Bitmap bitmap = null;
             try
             {
-                var renderer = SvgRenderer.FromImage(bitmap);
-                renderer.ScaleTransform(bitmapSize.Width / imageSize.Width, bitmapSize.Height / imageSize.Height);
-                Draw(renderer);
+                try
+                {
+                    bitmap = new Bitmap((int)Math.Round(bitmapSize.Width), (int)Math.Round(bitmapSize.Height));
+                }
+                catch (ArgumentException e)
+                {
+                    // When processing too many files at one the system can run out of memory
+                    throw new SvgMemoryException("Cannot process SVG file, cannot allocate the required memory", e);
+                }
+
+                using (var renderer = SvgRenderer.FromImage(bitmap))
+                {
+                    renderer.ScaleTransform(bitmapSize.Width / imageSize.Width, bitmapSize.Height / imageSize.Height);
+                    var boundable = new GenericBoundable(0, 0, imageSize.Width, imageSize.Height);
+                    this.Draw(renderer, boundable);
+                }
             }
             catch
             {
-                bitmap.Dispose();
+                if (bitmap != null)
+                    bitmap.Dispose();
                 throw;
             }
 

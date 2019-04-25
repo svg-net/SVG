@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Svg;
+﻿using System.Collections.Generic;
 using System.Drawing.Drawing2D;
 using System.Drawing;
+using Svg;
 
 namespace SVGViewer
 {
     class DebugRenderer : ISvgRenderer
     {
+        private readonly Stack<ISvgBoundable> _boundables = new Stack<ISvgBoundable>();
+
         private Region _clip = new Region();
         private Matrix _transform = new Matrix();
-        private Stack<ISvgBoundable> _boundables = new Stack<ISvgBoundable>();
 
         public void SetBoundable(ISvgBoundable boundable)
         {
@@ -27,7 +25,6 @@ namespace SVGViewer
             return _boundables.Pop();
         }
 
-
         public float DpiY
         {
             get { return 96; }
@@ -35,23 +32,18 @@ namespace SVGViewer
 
         public void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit)
         {
-            
         }
-
         public void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit, float opacity)
         {
-
         }
 
         public void DrawImageUnscaled(Image image, Point location)
         {
-            
         }
         public void DrawPath(Pen pen, GraphicsPath path)
         {
             var newPath = (GraphicsPath)path.Clone();
             newPath.Transform(_transform);
-
         }
         public void FillPath(Brush brush, GraphicsPath path)
         {
@@ -97,8 +89,7 @@ namespace SVGViewer
         public void TranslateTransform(float dx, float dy, MatrixOrder order = MatrixOrder.Append)
         {
             _transform.Translate(dx, dy, order);
-        }        
-
+        }
 
         public SmoothingMode SmoothingMode
         {
@@ -114,7 +105,6 @@ namespace SVGViewer
 
         public void Dispose()
         {
-            
         }
     }
 }

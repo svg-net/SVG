@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Drawing.Drawing2D;
 using System.Drawing;
-using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 
 namespace Svg
 {
