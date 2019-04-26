@@ -65,7 +65,7 @@ namespace Svg.UnitTests
         private void TestSelectorSpecificity(string selector, int specificity)
         {
             var parser = new ExCSS.Parser();
-            var sheet = parser.Parse(selector + " {color:black}");
+            var sheet = parser.Parse(selector + " {color:black;font-family:ZWBIQX+HelveticaUnicodeMS;}");
             Assert.AreEqual(specificity, CssQuery.GetSpecificity(sheet.StyleRules[0].Selector));
         }
 

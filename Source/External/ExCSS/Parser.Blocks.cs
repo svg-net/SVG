@@ -534,6 +534,10 @@ namespace Svg.ExCSS
                     _isFraction = true;
                     return true;
 
+                case Specification.PlusSign:
+                    _terms.AddSeparator(TermList.TermSeparator.PlusSign);
+                    SetParsingContext(ParsingContext.InValuePool);
+                    return true;
                 default:
                     return false;
             }
@@ -560,7 +564,7 @@ namespace Svg.ExCSS
                 // the value is invalid - remove the property to use the default value
                 RemoveCurrentProperty();
 
-            return true;    
+            return true;
         }
 
         #region Namespace
@@ -665,7 +669,7 @@ namespace Svg.ExCSS
             }
 
             _buffer = new StringBuilder();
-         
+
             return ParseKeyframeText(token);
         }
 
@@ -720,7 +724,7 @@ namespace Svg.ExCSS
 
             return false;
         }
-        
+
         #endregion
 
         #region Document

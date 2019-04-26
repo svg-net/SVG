@@ -196,3 +196,6 @@ text-ws-01-t.svg
 text-ws-02-t.svg
 text-ws-03-t.svg
 types-basic-01-f.svg
+Label-1.svg
+Label-2.svg
+Label-3.svg

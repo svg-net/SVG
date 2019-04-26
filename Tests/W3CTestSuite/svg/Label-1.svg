@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="main1" width="396" height="396">
+	<defs>
+		<clipPath id="clip1">
+			<path d="M0 297L0 0L0 0L297 0L297 0L297 297L297 297L0 297z" />
+		</clipPath>
+		<clipPath id="clip2">
+			<path d="M-1 299L296 299L296 299L296 2L296 2L-1 2z" />
+		</clipPath>
+		<clipPath id="clip3">
+			<path d="M71.25 214L221.01 214L221.01 214L221.01 178.9936L221.01 178.9936L71.25 178.9936z" />
+		</clipPath>
+	</defs>
+	<g transform="matrix(1.333333 0 0 1.333333 0 0)">
+		<g clip-path="url(#clip1)">
+			<g clip-path="url(#clip2)">
+				<path stroke="#000000" stroke-width="0.1" stroke-linecap="square" fill="none" d="M32.45 123L260.05 123L260.05 123L260.05 135L260.05 135L32.45 135z" transform="matrix(1 0 0 -1 0 297)"  />
+				<path stroke="#000000" stroke-width="0.1" fill="none" d="M260 123L260 83" transform="matrix(1 0 0 -1 0 297)"  />
+				<path stroke="#000000" stroke-width="0.1" fill="none" d="M32.5 123L32.5 83" transform="matrix(1 0 0 -1 0 297)"  />
+				<path stroke="#000000" stroke-width="0.1" fill="none" d="M260 83L260 43" transform="matrix(1 0 0 -1 0 297)"  />
+				<path stroke="#000000" stroke-width="0.1" fill="none" d="M32.5 83L32.5 43" transform="matrix(1 0 0 -1 0 297)"  />
+				<path stroke="#000000" stroke-width="0.1" fill="none" d="M260.05 23.05L32.45 23.05" transform="matrix(1 0 0 -1 0 297)"  />
+				<path stroke="#000000" stroke-width="0.1" fill="none" d="M260 43L260 23" transform="matrix(1 0 0 -1 0 297)"  />
+				<path stroke="#000000" stroke-width="0.1" fill="none" d="M32.5 43L32.5 23" transform="matrix(1 0 0 -1 0 297)"  />
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="8" x="139.58" y="172">4</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="8" x="144.028" y="172">3</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="8" x="148.476" y="172">8</text>
+				<g clip-path="url(#clip3)">
+					<path stroke="none" fill="#000000" fill-rule="winding" d="M221.01 93.0464L221.01 93.0464L221.01 93.0464L221.01 118.0064L221.01 118.0064L221.01 118.0064zM221.01 93.0464L221.01 93.0464L221.01 93.0464L221.01 118.0064L221.01 118.0064L221.01 118.0064zM221.01 93.0464L221.01 93.0464L221.01 93.0464L221.01 118.0064L221.01 118.0064L221.01 118.0064zM219.09 93.0464L221.01 93.0464L221.01 93.0464L221.01 118.0064L221.01 118.0064L219.09 118.0064zM217.17 93.0464L218.13 93.0464L218.13 93.0464L218.13 118.0064L218.13 118.0064L217.17 118.0064zM213.33 93.0464L216.21 93.0464L216.21 93.0464L216.21 118.0064L216.21 118.0064L213.33 118.0064zM208.53 93.0464L210.45 93.0464L210.45 93.0464L210.45 118.0064L210.45 118.0064L208.53 118.0064zM202.77 93.0464L205.65 93.0464L205.65 93.0464L205.65 118.0064L205.65 118.0064L202.77 118.0064zM199.89 93.0464L201.81 93.0464L201.81 93.0464L201.81 118.0064L201.81 118.0064L199.89 118.0064zM197.97 93.0464L198.93 93.0464L198.93 93.0464L198.93 118.0064L198.93 118.0064L197.97 118.0064zM195.09 93.0464L197.01 93.0464L197.01 93.0464L197.01 118.0064L197.01 118.0064L195.09 118.0064zM191.25 93.0464L194.13 93.0464L194.13 93.0464L194.13 118.0064L194.13 118.0064L191.25 118.0064zM187.41 93.0464L190.29 93.0464L190.29 93.0464L190.29 118.0064L190.29 118.0064L187.41 118.0064zM183.57 93.0464L184.53 93.0464L184.53 93.0464L184.53 118.0064L184.53 118.0064L183.57 118.0064zM180.69 93.0464L182.61 93.0464L182.61 93.0464L182.61 118.0064L182.61 118.0064L180.69 118.0064zM176.85 93.0464L179.73 93.0464L179.73 93.0464L179.73 118.0064L179.73 118.0064L176.85 118.0064zM173.01 93.0464L174.93 93.0464L174.93 93.0464L174.93 118.0064L174.93 118.0064L173.01 118.0064zM171.09 93.0464L172.05 93.0464L172.05 93.0464L172.05 118.0064L172.05 118.0064L171.09 118.0064zM166.29 93.0464L169.17 93.0464L169.17 93.0464L169.17 118.0064L169.17 118.0064L166.29 118.0064zM162.45 93.0464L165.33 93.0464L165.33 93.0464L165.33 118.0064L165.33 118.0064L162.45 118.0064zM157.65 93.0464L161.49 93.0464L161.49 93.0464L161.49 118.0064L161.49 118.0064L157.65 118.0064zM155.73 93.0464L156.69 93.0464L156.69 93.0464L156.69 118.0064L156.69 118.0064L155.73 118.0064zM150.93 93.0464L151.89 93.0464L151.89 93.0464L151.89 118.0064L151.89 118.0064L150.93 118.0064zM149.01 93.0464L149.97 93.0464L149.97 93.0464L149.97 118.0064L149.97 118.0064L149.01 118.0064zM145.17 93.0464L147.09 93.0464L147.09 93.0464L147.09 118.0064L147.09 118.0064L145.17 118.0064zM140.37 93.0464L141.33 93.0464L141.33 93.0464L141.33 118.0064L141.33 118.0064L140.37 118.0064zM138.45 93.0464L139.41 93.0464L139.41 93.0464L139.41 118.0064L139.41 118.0064L138.45 118.0064zM134.61 93.0464L136.53 93.0464L136.53 93.0464L136.53 118.0064L136.53 118.0064L134.61 118.0064zM130.77 93.0464L132.69 93.0464L132.69 93.0464L132.69 118.0064L132.69 118.0064L130.77 118.0064zM125.97 93.0464L128.85 93.0464L128.85 93.0464L128.85 118.0064L128.85 118.0064L125.97 118.0064zM124.05 93.0464L125.01 93.0464L125.01 93.0464L125.01 118.0064L125.01 118.0064L124.05 118.0064zM121.17 93.0464L122.13 93.0464L122.13 93.0464L122.13 118.0064L122.13 118.0064L121.17 118.0064zM117.33 93.0464L118.29 93.0464L118.29 93.0464L118.29 118.0064L118.29 118.0064L117.33 118.0064zM113.49 93.0464L115.41 93.0464L115.41 93.0464L115.41 118.0064L115.41 118.0064L113.49 118.0064zM108.69 93.0464L112.53 93.0464L112.53 93.0464L112.53 118.0064L112.53 118.0064L108.69 118.0064zM104.85 93.0464L107.73 93.0464L107.73 93.0464L107.73 118.0064L107.73 118.0064L104.85 118.0064zM102.93 93.0464L103.89 93.0464L103.89 93.0464L103.89 118.0064L103.89 118.0064L102.93 118.0064zM100.05 93.0464L101.97 93.0464L101.97 93.0464L101.97 118.0064L101.97 118.0064L100.05 118.0064zM96.21 93.0464L97.17 93.0464L97.17 93.0464L97.17 118.0064L97.17 118.0064L96.21 118.0064zM92.37 93.0464L93.33 93.0464L93.33 93.0464L93.33 118.0064L93.33 118.0064L92.37 118.0064zM88.53 93.0464L91.41 93.0464L91.41 93.0464L91.41 118.0064L91.41 118.0064L88.53 118.0064zM84.69 93.0464L87.57 93.0464L87.57 93.0464L87.57 118.0064L87.57 118.0064L84.69 118.0064zM81.81 93.0464L83.73 93.0464L83.73 93.0464L83.73 118.0064L83.73 118.0064L81.81 118.0064zM77.01 93.0464L77.97 93.0464L77.97 93.0464L77.97 118.0064L77.97 118.0064L77.01 118.0064zM74.13 93.0464L75.09 93.0464L75.09 93.0464L75.09 118.0064L75.09 118.0064L74.13 118.0064zM71.25 93.0464L73.17 93.0464L73.17 93.0464L73.17 118.0064L73.17 118.0064L71.25 118.0064z" transform="matrix(1 0 0 -1 0 297)"  />
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 108.774 212.2736)" x="0" y="0">U</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 115.7068 212.2736)" x="0" y="0">C</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 122.6396 212.2736)" x="0" y="0">1</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 127.9787 212.2736)" x="0" y="0">0</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 133.3177 212.2736)" x="0" y="0">1</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 138.6568 212.2736)" x="0" y="0">5</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 143.9959 212.2736)" x="0" y="0">7</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 149.3349 212.2736)" x="0" y="0">6</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 154.674 212.2736)" x="0" y="0">7</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 160.0131 212.2736)" x="0" y="0">6</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 165.3521 212.2736)" x="0" y="0">9</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 170.6912 212.2736)" x="0" y="0">Y</text>
+					<text style="fill:#000000;font-family:Arial;" font-size="8" transform="matrix(1.2 0 0 1.04 177.0943 212.2736)" x="0" y="0">P</text>
+				</g>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="42.45" y="222">T</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="46.11" y="222">O</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="50.772" y="222">:</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="52.434" y="222">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="54.096" y="222">B</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="58.092" y="222">a</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="61.42799" y="222">r</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="63.42599" y="222">i</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="64.758" y="222">n</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="68.09399" y="222">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="69.756" y="222">A</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="73.752" y="222">s</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="76.752" y="222">a</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="80.088" y="222">t</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="42.45" y="228">1</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="45.786" y="228">2</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="49.122" y="228">4</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="52.458" y="228">2</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="55.79399" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="57.45599" y="228">E</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="61.45199" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="63.11399" y="228">1</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="66.44999" y="228">0</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="69.78599" y="228">4</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="73.12199" y="228">t</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="74.78399" y="228">h</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="78.11999" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="79.78199" y="228">S</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="83.77799" y="228">t</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="85.43999" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="87.102" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="88.764" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="90.426" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="92.08801" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="93.75001" y="228">L</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="97.08601" y="228">o</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="100.422" y="228">s</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="103.422" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="105.084" y="228">A</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="109.08" y="228">n</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="112.416" y="228">g</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="115.752" y="228">e</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="119.088" y="228">l</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="120.42" y="228">e</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="123.756" y="228">s</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="126.756" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="128.418" y="228">9</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="131.754" y="228">0</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="135.09" y="228">0</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="138.426" y="228">0</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="141.762" y="228">2</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="145.098" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="146.76" y="228">C</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="151.092" y="228">A</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="155.088" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="156.75" y="228">U</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="161.082" y="228">N</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="165.414" y="228">I</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="167.076" y="228">T</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="170.736" y="228">E</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="174.732" y="228">D</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="179.064" y="228">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="180.726" y="228">S</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="184.722" y="228">T</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="188.382" y="228">A</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="192.378" y="228">T</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="196.038" y="228">E</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="200.034" y="228">S</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="42.45" y="262">5</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="45.786" y="262">0</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="49.122" y="262">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="50.784" y="262">P</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="54.77999" y="262">C</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="59.112" y="262">S</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="63.10799" y="262">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="64.77" y="262">D</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="69.102" y="262">i</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="70.434" y="262">s</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="73.434" y="262">p</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="76.77" y="262">o</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="80.106" y="262">s</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="83.106" y="262">a</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="86.44199" y="262">b</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="89.77799" y="262">l</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="91.10999" y="262">e</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="94.44599" y="262">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="96.10799" y="262">E</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="100.104" y="262">y</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="103.104" y="262">e</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="106.44" y="262">l</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="107.772" y="262">a</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="111.108" y="262">s</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="114.108" y="262">h</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="117.444" y="262">&#160;</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="119.106" y="262">M</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="124.104" y="262">i</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="125.436" y="262">n</text>
+				<text style="fill:#000000;font-family:VXYSRL+HelveticaUnicodeMS;" font-size="6" x="128.772" y="262">i</text>
+			</g>
+		</g>
+	</g>
+</svg>

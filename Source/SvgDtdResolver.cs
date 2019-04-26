@@ -29,7 +29,9 @@ namespace Svg
         {
             if (absoluteUri.ToString().IndexOf("svg", StringComparison.InvariantCultureIgnoreCase) > -1)
             {
-                return Assembly.GetExecutingAssembly().GetManifestResourceStream("Svg.Resources.svg11.dtd");
+                var assembly = Assembly.GetExecutingAssembly();
+                var assemblyName = assembly.GetName().Name;
+                return assembly.GetManifestResourceStream(assemblyName + ".Resources.svg11.dtd");
             }
             else
             {

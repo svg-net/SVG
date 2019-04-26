@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svg", "Svg.csproj", "{886A98C5-37C0-4E8B-885E-30C1D2F98B47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svg", "Svg.csproj", "{886A98C5-37C0-4E8B-885E-30C1D2F98B47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SVGViewer", "..\Samples\SVGViewer\SVGViewer.csproj", "{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svg.UnitTests", "..\Tests\Svg.UnitTests\Svg.UnitTests.csproj", "{E702EB7D-D01D-438A-BADD-E72D4E49109F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svg.UnitTests", "..\Tests\Svg.UnitTests\Svg.UnitTests.csproj", "{E702EB7D-D01D-438A-BADD-E72D4E49109F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A417AF1E-BEDB-4715-B4FD-D795579217F9}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,6 +19,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SvgW3CTestRunner", "..\Tests\SvgW3CTestRunner\SvgW3CTestRunner.csproj", "{8ED74C39-6CFF-421E-952A-30F9E6957108}"
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Svg.Package", "SvgNuget\Svg.Package.nuproj", "{AEEFC0CC-6D17-439D-B8E0-53B713485E3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "..\..\SVG\Samples\Entities\Entities.csproj", "{F34CF345-E7EF-4354-B49A-AFE7A78442A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SvgSample", "..\..\SVG\Samples\RuntimeUpdates\SvgSample.csproj", "{9782B15C-D0BA-4A4E-9A03-F97082AF9256}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XMLOutputTester", "..\..\SVG\Samples\XMLOutput\XMLOutputTester.csproj", "{8CEEB917-63E2-4AE7-B0D1-50A840050975}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{31D64B31-DDFB-41EA-87AB-FDC2AF71A620}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{61292429-1CE9-46CF-9354-89FA4AEE9CA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{C1EB5E28-2231-4616-8EC8-DAB34DA358F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,9 +98,51 @@ Global
 		{AEEFC0CC-6D17-439D-B8E0-53B713485E3B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{AEEFC0CC-6D17-439D-B8E0-53B713485E3B}.Release|x86.ActiveCfg = Release|Any CPU
 		{AEEFC0CC-6D17-439D-B8E0-53B713485E3B}.Release|x86.Build.0 = Release|Any CPU
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7}.Debug|x86.ActiveCfg = Debug|x86
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7}.Debug|x86.Build.0 = Debug|x86
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7}.Release|Any CPU.ActiveCfg = Release|x86
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7}.Release|Mixed Platforms.Build.0 = Release|x86
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7}.Release|x86.ActiveCfg = Release|x86
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7}.Release|x86.Build.0 = Release|x86
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256}.Debug|x86.ActiveCfg = Debug|x86
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256}.Debug|x86.Build.0 = Debug|x86
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256}.Release|Any CPU.ActiveCfg = Release|x86
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256}.Release|Mixed Platforms.Build.0 = Release|x86
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256}.Release|x86.ActiveCfg = Release|x86
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256}.Release|x86.Build.0 = Release|x86
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975}.Debug|x86.ActiveCfg = Debug|x86
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975}.Debug|x86.Build.0 = Debug|x86
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975}.Release|Any CPU.ActiveCfg = Release|x86
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975}.Release|Mixed Platforms.Build.0 = Release|x86
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975}.Release|x86.ActiveCfg = Release|x86
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{886A98C5-37C0-4E8B-885E-30C1D2F98B47} = {C1EB5E28-2231-4616-8EC8-DAB34DA358F1}
+		{1B8F3C8A-CCAC-474E-B09D-522FBA93DCFD} = {31D64B31-DDFB-41EA-87AB-FDC2AF71A620}
+		{E702EB7D-D01D-438A-BADD-E72D4E49109F} = {61292429-1CE9-46CF-9354-89FA4AEE9CA9}
+		{8ED74C39-6CFF-421E-952A-30F9E6957108} = {61292429-1CE9-46CF-9354-89FA4AEE9CA9}
+		{F34CF345-E7EF-4354-B49A-AFE7A78442A7} = {31D64B31-DDFB-41EA-87AB-FDC2AF71A620}
+		{9782B15C-D0BA-4A4E-9A03-F97082AF9256} = {31D64B31-DDFB-41EA-87AB-FDC2AF71A620}
+		{8CEEB917-63E2-4AE7-B0D1-50A840050975} = {31D64B31-DDFB-41EA-87AB-FDC2AF71A620}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {942C7339-AAC6-4705-82A4-85D98AE8203A}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Svg.vsmdi

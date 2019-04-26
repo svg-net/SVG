@@ -581,8 +581,12 @@ namespace Svg
                 if (attr.Property.Converter.CanConvertTo(typeof(string)) && 
                     (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(attr.Attribute.Name)))
                 {
+                    string value = string.Empty;
                     object propertyValue = attr.Property.GetValue(this);
-                    string value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+                    if (propertyValue!=null/*&&attr.Property.Converter is UriTypeConverter*/)
+                    {
+                         value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+                    }
 
                     forceWrite = false;
                     writeStyle = attr.Attribute.Name == "fill" || attr.Attribute.Name == "stroke";
