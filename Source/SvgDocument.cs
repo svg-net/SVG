@@ -98,11 +98,11 @@ namespace Svg
         /// Gets or sets the Pixels Per Inch of the rendered image.
         /// </summary>
         public int Ppi { get; set; }
-        
+
         /// <summary>
         /// Gets or sets an external Cascading Style Sheet (CSS)
         /// </summary>
-        public string ExternalCSSHref { get; set; }        
+        public string ExternalCSSHref { get; set; }
 
         #region ITypeDescriptorContext Members
 
@@ -264,7 +264,7 @@ namespace Svg
             SvgElement element = null;
             SvgElement parent;
             T svgDocument = null;
-			var elementFactory = new SvgElementFactory();
+            var elementFactory = new SvgElementFactory();
 
             var styles = new List<ISvgNode>();
 
@@ -454,7 +454,11 @@ namespace Svg
         /// <param name="graphics">The <see cref="Graphics"/> to be rendered to.</param>
         /// <param name="size">The <see cref="SizeF"/> to render the document. If <c>null</c> document is rendered at the default document size.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
-        public void Draw(Graphics graphics, SizeF? size)
+        public void Draw(Graphics graphics, SizeF size)
+        {
+            Draw(graphics, new RectangleF(0, 0, size.Width, size.Height));
+        }
+        public void Draw(Graphics graphics, RectangleF? size)
         {
             if (graphics == null)
             {
@@ -464,7 +468,7 @@ namespace Svg
             var renderer = SvgRenderer.FromGraphics(graphics);
             if (size.HasValue)
             {
-                renderer.SetBoundable(new GenericBoundable(0, 0, size.Value.Width, size.Value.Height));
+                renderer.SetBoundable(new GenericBoundable(size.Value));
             }
             else
             {
@@ -473,27 +477,27 @@ namespace Svg
             this.Render(renderer);
         }
 
-	    /// <summary>
-	    /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
-	    /// </summary>
-	    /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
-	    public virtual Bitmap Draw()
-	    {
-		    //Trace.TraceInformation("Begin Render");
+        /// <summary>
+        /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
+        /// </summary>
+        /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
+        public virtual Bitmap Draw()
+        {
+            //Trace.TraceInformation("Begin Render");
 
-		    var size = GetDimensions();
-		    Bitmap bitmap = null;
-		    try
-		    {
-			    bitmap = new Bitmap((int) Math.Round(size.Width), (int) Math.Round(size.Height));
-		    }
-		    catch (ArgumentException e)
-		    {
-				//When processing too many files at one the system can run out of memory
-			    throw new SvgMemoryException("Cannot process SVG file, cannot allocate the required memory", e);
-		    }
+            var size = GetDimensions();
+            Bitmap bitmap = null;
+            try
+            {
+                bitmap = new Bitmap((int)Math.Round(size.Width), (int)Math.Round(size.Height));
+            }
+            catch (ArgumentException e)
+            {
+                //When processing too many files at one the system can run out of memory
+                throw new SvgMemoryException("Cannot process SVG file, cannot allocate the required memory", e);
+            }
 
-	    // 	bitmap.SetResolution(300, 300);
+            // 	bitmap.SetResolution(300, 300);
             try
             {
                 Draw(bitmap);
@@ -517,15 +521,15 @@ namespace Svg
 
             try
             {
-				using (var renderer = SvgRenderer.FromImage(bitmap))
-				{
-					renderer.SetBoundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
+                using (var renderer = SvgRenderer.FromImage(bitmap))
+                {
+                    renderer.SetBoundable(new GenericBoundable(0, 0, bitmap.Width, bitmap.Height));
 
-					//EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
-					this.Overflow = SvgOverflow.Auto;
+                    //EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
+                    this.Overflow = SvgOverflow.Auto;
 
-					this.Render(renderer);
-				}
+                    this.Render(renderer);
+                }
             }
             catch
             {
@@ -575,30 +579,31 @@ namespace Svg
         /// <param name="rasterHeight"></param>
         public virtual void RasterizeDimensions(ref SizeF size, int rasterWidth, int rasterHeight)
         {
-          if (size == null || size.Width == 0)
-            return;
+            if (size == null || size.Width == 0)
+                return;
 
-          // Ratio of height/width of the original SVG size, to be used for scaling transformation
-          float ratio = size.Height / size.Width;
+            // Ratio of height/width of the original SVG size, to be used for scaling transformation
+            float ratio = size.Height / size.Width;
 
-          size.Width = rasterWidth > 0 ? (float)rasterWidth : size.Width;
-          size.Height = rasterHeight > 0 ? (float)rasterHeight : size.Height;
+            size.Width = rasterWidth > 0 ? (float)rasterWidth : size.Width;
+            size.Height = rasterHeight > 0 ? (float)rasterHeight : size.Height;
 
-          if (rasterHeight == 0 && rasterWidth > 0)
-          {
-            size.Height = (int)(rasterWidth * ratio);
-          }
-          else if (rasterHeight > 0 && rasterWidth == 0)
-          {
-            size.Width = (int)(rasterHeight / ratio);
-          }
+            if (rasterHeight == 0 && rasterWidth > 0)
+            {
+                size.Height = (int)(rasterWidth * ratio);
+            }
+            else if (rasterHeight > 0 && rasterWidth == 0)
+            {
+                size.Width = (int)(rasterHeight / ratio);
+            }
         }
 
         public override void Write(XmlTextWriter writer)
         {
             //Save previous culture and switch to invariant for writing
             var previousCulture = Thread.CurrentThread.CurrentCulture;
-            try {
+            try
+            {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
                 base.Write(writer);
             }
@@ -617,7 +622,7 @@ namespace Svg
             xmlWriter.Formatting = Formatting.Indented;
             xmlWriter.WriteStartDocument();
             xmlWriter.WriteDocType("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", null);
-            
+
             if (!String.IsNullOrEmpty(this.ExternalCSSHref))
                 xmlWriter.WriteProcessingInstruction("xml-stylesheet", String.Format("type=\"text/css\" href=\"{0}\"", this.ExternalCSSHref));
 
