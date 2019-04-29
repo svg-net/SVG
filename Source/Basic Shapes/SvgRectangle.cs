@@ -123,7 +123,7 @@ namespace Svg
                 }
 
                 // If the corners aren't to be rounded just create a rectangle
-                if (CornerRadiusX.Value == 0.0f && CornerRadiusY.Value == 0.0f)
+                if (renderer == null || (CornerRadiusX.Value == 0.0f && CornerRadiusY.Value == 0.0f))
                 {
                     var loc_y = Location.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
                     var loc_x = Location.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
