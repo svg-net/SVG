@@ -17,11 +17,11 @@ namespace Svg
         [SvgAttribute("d", true)]
         public SvgPathSegmentList PathData
         {
-        	get { return this.Attributes.GetAttribute<SvgPathSegmentList>("d"); }
+            get { return this.Attributes.GetAttribute<SvgPathSegmentList>("d"); }
             set
             {
-            	this.Attributes["d"] = value;
-            	value._owner = this;
+                this.Attributes["d"] = value;
+                value._owner = this;
                 this.IsPathDirty = true;
             }
         }
@@ -36,8 +36,6 @@ namespace Svg
             set { this.Attributes["pathLength"] = value; }
         }
 
-	
-
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
@@ -47,7 +45,7 @@ namespace Svg
             {
                 this._path = new GraphicsPath();
 
-                foreach (SvgPathSegment segment in this.PathData)
+                foreach (var segment in this.PathData)
                 {
                     segment.AddToPath(_path);
                 }
@@ -74,7 +72,7 @@ namespace Svg
         internal void OnPathUpdated()
         {
             this.IsPathDirty = true;
-            OnAttributeChanged(new AttributeEventArgs{ Attribute = "d", Value = this.Attributes.GetAttribute<SvgPathSegmentList>("d") });
+            OnAttributeChanged(new AttributeEventArgs { Attribute = "d", Value = this.Attributes.GetAttribute<SvgPathSegmentList>("d") });
         }
 
         /// <summary>
@@ -110,7 +108,6 @@ namespace Svg
 			newObj.MarkerStart = this.MarkerStart;
 			newObj.MarkerEnd = this.MarkerEnd;
 			return newObj;
-
 		}
     }
 }
