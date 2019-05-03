@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -129,9 +128,9 @@ namespace Svg
         private static Graphics CreateGraphics(Image image)
         {
             var g = Graphics.FromImage(image);
+            g.PixelOffsetMode = PixelOffsetMode.Half;
+            g.CompositingQuality = CompositingQuality.HighQuality;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
-            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.Half;
-            g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
             g.TextContrast = 1;
             return g;
         }
