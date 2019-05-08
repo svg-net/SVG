@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Linq;
+using Svg.FilterEffects;
 
 namespace Svg
 {
@@ -72,7 +73,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
+        /// Gets the associated <see cref="SvgFilter"/> if one has been specified.
         /// </summary>
         [SvgAttribute("filter")]
         public virtual Uri Filter
@@ -186,12 +187,12 @@ namespace Svg
                     filterPath = new Uri(filterPath.ToString().Substring(4, filterPath.ToString().Length - 5), UriKind.RelativeOrAbsolute);
                 }
                 var element = this.OwnerDocument.IdManager.GetElementById(filterPath);
-                if (element is FilterEffects.SvgFilter)
+                if (element is SvgFilter)
                 {
                     this.PopTransforms(renderer);
                     try
                     {
-                        ((FilterEffects.SvgFilter)element).ApplyFilter(this, renderer, (r) => this.Render(r, false));
+                        ((SvgFilter)element).ApplyFilter(this, renderer, (r) => this.Render(r, false));
                     }
                     catch (Exception ex)
                     {

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Net;
-using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Svg
 {
@@ -99,14 +96,14 @@ namespace Svg
                 var newID = this.EnsureValidId(element.ID, autoForceUniqueID);
                 if (autoForceUniqueID && newID != element.ID)
                 {
-                    if(logElementOldIDNewID != null)
+                    if (logElementOldIDNewID != null)
                         logElementOldIDNewID(element, element.ID, newID);
                     element.ForceUniqueID(newID);
                     result = true;
                 }
                 this._idValueMap.Add(element.ID, element);
             }
-            
+
             OnAdded(element);
             return result;
         }
@@ -121,7 +118,7 @@ namespace Svg
             {
                 this._idValueMap.Remove(element.ID);
             }
-            
+
             OnRemoved(element);
         }
 
@@ -153,7 +150,7 @@ namespace Svg
 
             if (this._idValueMap.ContainsKey(id))
             {
-                if(autoForceUniqueID)
+                if (autoForceUniqueID)
                 {
                     var match = regex.Match(id);
 
@@ -185,32 +182,32 @@ namespace Svg
             this._document = document;
             this._idValueMap = new Dictionary<string, SvgElement>();
         }
-        
+
         public event EventHandler<SvgElementEventArgs> ElementAdded;
         public event EventHandler<SvgElementEventArgs> ElementRemoved;
-        
+
         protected void OnAdded(SvgElement element)
         {
-        	var handler = ElementAdded;
-        	if(handler != null)
-        	{
-        		handler(this._document, new SvgElementEventArgs{ Element = element });
-        	}
+            var handler = ElementAdded;
+            if (handler != null)
+            {
+                handler(this._document, new SvgElementEventArgs { Element = element });
+            }
         }
-        
+
         protected void OnRemoved(SvgElement element)
         {
-        	var handler = ElementRemoved;
-        	if(handler != null)
-        	{
-        		handler(this._document, new SvgElementEventArgs{ Element = element });
-        	}
+            var handler = ElementRemoved;
+            if (handler != null)
+            {
+                handler(this._document, new SvgElementEventArgs { Element = element });
+            }
         }
-        
+
     }
-    
+
     public class SvgElementEventArgs : EventArgs
     {
-    	public SvgElement Element;
+        public SvgElement Element;
     }
 }
