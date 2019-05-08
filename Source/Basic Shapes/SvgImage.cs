@@ -23,6 +23,7 @@ namespace Svg
         }
 
         private GraphicsPath _path;
+        private bool _gettingBounds;
 
         /// <summary>
         /// Gets an <see cref="SvgPoint"/> representing the top left point of the rectangle.
@@ -89,9 +90,19 @@ namespace Svg
         {
             get
             {
-                return TransformedBounds(new RectangleF(this.Location.ToDeviceValue(null, this),
+                if (_gettingBounds)
+                {
+                    // we can get here recursively in case of percent size units while calculating
+                    // the size of the parent object - in this case just return empty bounds to avoid
+                    // a recursion (see issue #436)
+                    return new RectangleF();
+                }
+                _gettingBounds = true;
+                var bounds = TransformedBounds(new RectangleF(this.Location.ToDeviceValue(null, this),
                                       new SizeF(this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this),
                                                 this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))));
+                _gettingBounds = false;
+                return bounds;
             }
         }
 
