@@ -30,11 +30,28 @@ namespace Svg
 
         private static int GetSystemDpi()
         {
-            IntPtr hDC = GetDC(IntPtr.Zero);
-            const int LOGPIXELSY = 90;
-            int result = GetDeviceCaps(hDC, LOGPIXELSY);
-            ReleaseDC(IntPtr.Zero, hDC);
-            return result;
+            bool isWindows;
+
+#if NETCORE
+            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+#else
+            isWindows = true;
+#endif
+
+            if (isWindows)
+            {
+                // NOTE: starting with Windows 8.1, the DPI is no longer system-wide but screen-specific
+                IntPtr hDC = GetDC(IntPtr.Zero);
+                const int LOGPIXELSY = 90;
+                int result = GetDeviceCaps(hDC, LOGPIXELSY);
+                ReleaseDC(IntPtr.Zero, hDC);
+                return result;
+            }
+            else
+            {
+                // hack for macOS and Linux
+                return 96;
+            }
         }
 
         [DllImport("gdi32.dll")]
@@ -104,7 +121,7 @@ namespace Svg
         /// </summary>
         public string ExternalCSSHref { get; set; }        
 
-        #region ITypeDescriptorContext Members
+#region ITypeDescriptorContext Members
 
         IContainer ITypeDescriptorContext.Container
         {
@@ -136,7 +153,7 @@ namespace Svg
             throw new NotImplementedException();
         }
 
-        #endregion
+#endregion
 
         /// <summary>
         /// Retrieves the <see cref="SvgElement"/> with the specified ID.
