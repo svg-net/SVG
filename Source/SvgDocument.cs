@@ -30,11 +30,22 @@ namespace Svg
 
         private static int GetSystemDpi()
         {
-            IntPtr hDC = GetDC(IntPtr.Zero);
-            const int LOGPIXELSY = 90;
-            int result = GetDeviceCaps(hDC, LOGPIXELSY);
-            ReleaseDC(IntPtr.Zero, hDC);
-            return result;
+            bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+            if (isWindows)
+            {
+                // NOTE: starting with Windows 8.1, the DPI is no longer system-wide but screen-specific
+                IntPtr hDC = GetDC(IntPtr.Zero);
+                const int LOGPIXELSY = 90;
+                int result = GetDeviceCaps(hDC, LOGPIXELSY);
+                ReleaseDC(IntPtr.Zero, hDC);
+                return result;
+            }
+            else
+            {
+                // hack for macOS and Linux
+                return 96;
+            }
         }
 
         [DllImport("gdi32.dll")]
