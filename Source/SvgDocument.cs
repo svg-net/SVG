@@ -30,7 +30,13 @@ namespace Svg
 
         private static int GetSystemDpi()
         {
-            bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+            bool isWindows;
+
+#if NETCORE
+            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+#else
+            isWindows = true;
+#endif
 
             if (isWindows)
             {
@@ -115,7 +121,7 @@ namespace Svg
         /// </summary>
         public string ExternalCSSHref { get; set; }        
 
-        #region ITypeDescriptorContext Members
+#region ITypeDescriptorContext Members
 
         IContainer ITypeDescriptorContext.Container
         {
@@ -147,7 +153,7 @@ namespace Svg
             throw new NotImplementedException();
         }
 
-        #endregion
+#endregion
 
         /// <summary>
         /// Retrieves the <see cref="SvgElement"/> with the specified ID.
