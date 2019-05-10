@@ -21,7 +21,7 @@ namespace Svg
         {
             // WORKAROUND
             // ff.Name is not necessarily unique https://github.com/vvvv/SVG/issues/452
-            SystemFonts = FontFamily.Families.GroupBy(ff => ff.Name)
+            SystemFonts = FontFamily.Families.GroupBy(ff => ff.Name.ToLower())
                 .ToDictionary(x => x.Key, x => x.First());
         }
 
