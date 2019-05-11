@@ -20,16 +20,7 @@ namespace Svg
         /// <returns>An <see cref="SvgElement"/> of one exists with the specified ID; otherwise false.</returns>
         public virtual SvgElement GetElementById(string id)
         {
-            if (id.StartsWith("url("))
-            {
-                id = id.Substring(4);
-                id = id.TrimEnd(')');
-                if (id.StartsWith("\""))
-                {
-                    id = id.Substring(1);
-                    id = id.TrimEnd('\"');
-                }
-            }
+            id = GetUrlString(id);
             if (id.StartsWith("#"))
             {
                 id = id.Substring(1);
@@ -43,31 +34,59 @@ namespace Svg
 
         public virtual SvgElement GetElementById(Uri uri)
         {
-            if (uri.ToString().StartsWith("url(")) uri = new Uri(uri.ToString().Substring(4).TrimEnd(')'), UriKind.Relative);
-            if (!uri.IsAbsoluteUri && this._document.BaseUri != null && !uri.ToString().StartsWith("#"))
+            var urlString = GetUrlString(uri.ToString());
+
+            if (!urlString.StartsWith("#"))
             {
-                var fullUri = new Uri(this._document.BaseUri, uri);
-                var hash = fullUri.OriginalString.Substring(fullUri.OriginalString.LastIndexOf('#'));
-                SvgDocument doc;
-                switch (fullUri.Scheme.ToLowerInvariant())
+                var index = urlString.LastIndexOf('#');
+                var fragment = urlString.Substring(index);
+
+                uri = new Uri(urlString.Remove(index, fragment.Length), UriKind.RelativeOrAbsolute);
+
+                if (!uri.IsAbsoluteUri && _document.BaseUri != null)
+                    uri = new Uri(_document.BaseUri, uri);
+
+                if (uri.IsAbsoluteUri)
                 {
-                    case "file":
-                        doc = SvgDocument.Open<SvgDocument>(fullUri.LocalPath.Substring(0, fullUri.LocalPath.Length - hash.Length));
-                        return doc.IdManager.GetElementById(hash);
-                    case "http":
-                    case "https":
+                    if (uri.IsFile)
+                    {
+                        var doc = SvgDocument.Open<SvgDocument>(uri.LocalPath);
+                        return doc.IdManager.GetElementById(fragment);
+                    }
+                    else if (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
+                    {
                         var httpRequest = WebRequest.Create(uri);
-                        using (WebResponse webResponse = httpRequest.GetResponse())
+                        using (var webResponse = httpRequest.GetResponse())
                         {
-                            doc = SvgDocument.Open<SvgDocument>(webResponse.GetResponseStream());
-                            return doc.IdManager.GetElementById(hash);
+                            var doc = SvgDocument.Open<SvgDocument>(webResponse.GetResponseStream());
+                            return doc.IdManager.GetElementById(fragment);
                         }
-                    default:
+                    }
+                    else
                         throw new NotSupportedException();
                 }
-
             }
-            return this.GetElementById(uri.ToString());
+
+            return GetElementById(urlString);
+        }
+
+        private static string GetUrlString(string url)
+        {
+            url = url.Trim();
+            if (url.StartsWith("url(") && url.EndsWith(")"))
+            {
+                url = url.Substring(4).TrimEnd(')').Trim();
+
+                if (url.StartsWith("\"") && url.EndsWith("\""))
+                {
+                    url = url.Substring(1).TrimEnd('"').Trim();
+                }
+                else if (url.StartsWith("'") && url.EndsWith("'"))
+                {
+                    url = url.Substring(1).TrimEnd('\'').Trim();
+                }
+            }
+            return url;
         }
 
         /// <summary>

@@ -182,10 +182,6 @@ namespace Svg
             var filterPath = this.Filter;
             if (filterPath != null)
             {
-                if (filterPath.ToString().StartsWith("url("))
-                {
-                    filterPath = new Uri(filterPath.ToString().Substring(4, filterPath.ToString().Length - 5), UriKind.RelativeOrAbsolute);
-                }
                 var element = this.OwnerDocument.IdManager.GetElementById(filterPath);
                 if (element is SvgFilter)
                 {

@@ -37,12 +37,12 @@ namespace Svg
 
                 while (!string.IsNullOrEmpty(value))
                 {
-                    if (value.StartsWith("url(#"))
+                    if (value.StartsWith("url("))
                     {
-                        var leftParen = value.IndexOf(')', 5);
-                        Uri id = new Uri(value.Substring(5, leftParen - 5), UriKind.Relative);
-                        value = value.Substring(leftParen + 1).Trim();
-                        servers.Add((SvgPaintServer)document.IdManager.GetElementById(id));
+                        var nextIndex = value.IndexOf(')', 4) + 1;
+                        var uri = new Uri(value.Substring(0, nextIndex), UriKind.RelativeOrAbsolute);
+                        value = value.Substring(nextIndex).Trim();
+                        servers.Add((SvgPaintServer)document.IdManager.GetElementById(uri));
                     }
                     // If referenced to to a different (linear or radial) gradient
                     else if (document.IdManager.GetElementById(value) != null && document.IdManager.GetElementById(value).GetType().BaseType == typeof(SvgGradientServer))
@@ -98,11 +98,11 @@ namespace Svg
         {
             if (value is string)
             {
-                var s = (string)value;
-                if (String.Equals(s.Trim(), "none", StringComparison.OrdinalIgnoreCase) || string.IsNullOrEmpty(s) || s.Trim().Length < 1)
+                var s = ((string)value).Trim();
+                if (String.Equals(s, "none", StringComparison.OrdinalIgnoreCase) || string.IsNullOrEmpty(s))
                     return SvgPaintServer.None;
                 else
-                    return SvgPaintServerFactory.Create(s, (SvgDocument)context);
+                    return Create(s, (SvgDocument)context);
             }
 
             return base.ConvertFrom(context, culture, value);
