@@ -4,6 +4,7 @@ using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Linq;
 using Svg.FilterEffects;
+using System.Globalization;
 
 namespace Svg
 {
@@ -370,7 +371,7 @@ namespace Svg
                 {
                     clip = clip.Trim();
                     var offsets = (from o in clip.Substring(5, clip.Length - 6).Split(',')
-                                   select float.Parse(o.Trim())).ToList();
+                                   select float.Parse(o.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture)).ToList();
                     var bounds = this.Bounds;
                     var clipRect = new RectangleF(bounds.Left + offsets[3], bounds.Top + offsets[0],
                                                   bounds.Width - (offsets[3] + offsets[1]),

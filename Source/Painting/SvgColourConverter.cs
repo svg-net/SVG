@@ -74,13 +74,14 @@ namespace Svg
                             Color colorpart;
                             if (values[0].Trim().EndsWith("%"))
                             {
-                                colorpart = System.Drawing.Color.FromArgb(alphaValue, (int)Math.Round(255 * float.Parse(values[0].Trim().TrimEnd('%')) / 100f),
-                                                                                      (int)Math.Round(255 * float.Parse(values[1].Trim().TrimEnd('%')) / 100f),
-                                                                                      (int)Math.Round(255 * float.Parse(values[2].Trim().TrimEnd('%')) / 100f));
+                                colorpart = Color.FromArgb(alphaValue,
+                                    (int)Math.Round(255 * float.Parse(values[0].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f),
+                                    (int)Math.Round(255 * float.Parse(values[1].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f),
+                                    (int)Math.Round(255 * float.Parse(values[2].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f));
                             }
                             else
                             {
-                                colorpart = System.Drawing.Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
+                                colorpart = Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
                             }
 
                             return colorpart;

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing.Imaging;
+using System.Globalization;
 
 namespace Svg.FilterEffects
 {
@@ -43,7 +44,7 @@ namespace Svg.FilterEffects
             switch (this.Type)
             {
                 case SvgColourMatrixType.HueRotate:
-                    value = (string.IsNullOrEmpty(this.Values) ? 0 : float.Parse(this.Values));
+                    value = (string.IsNullOrEmpty(this.Values) ? 0 : float.Parse(this.Values, NumberStyles.Any, CultureInfo.InvariantCulture));
                     colorMatrixElements = new float[][] {
                         new float[] {(float)(0.213 + Math.Cos(value) * +0.787 + Math.Sin(value) * -0.213),
                                      (float)(0.715 + Math.Cos(value) * -0.715 + Math.Sin(value) * -0.715),
@@ -68,7 +69,7 @@ namespace Svg.FilterEffects
                     };
                     break;
                 case SvgColourMatrixType.Saturate:
-                    value = (string.IsNullOrEmpty(this.Values) ? 1 : float.Parse(this.Values));
+                    value = (string.IsNullOrEmpty(this.Values) ? 1 : float.Parse(this.Values, NumberStyles.Any, CultureInfo.InvariantCulture));
                     colorMatrixElements = new float[][] {
                         new float[] {(float)(0.213+0.787*value), (float)(0.715-0.715*value), (float)(0.072-0.072*value), 0, 0},
                         new float[] {(float)(0.213-0.213*value), (float)(0.715+0.285*value), (float)(0.072-0.072*value), 0, 0},
@@ -82,7 +83,8 @@ namespace Svg.FilterEffects
                     colorMatrixElements = new float[5][];
                     for (int i = 0; i < 4; i++)
                     {
-                        colorMatrixElements[i] = parts.Skip(i * 5).Take(5).Select(v => float.Parse(v)).ToArray();
+                        colorMatrixElements[i] = parts.Skip(i * 5).Take(5).Select(
+                            v => float.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture)).ToArray();
                     }
                     colorMatrixElements[4] = new float[] { 0, 0, 0, 0, 1 };
                     break;

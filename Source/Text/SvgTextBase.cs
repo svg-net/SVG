@@ -131,7 +131,8 @@ namespace Svg
                 {
                     this._rotate = value;
                     this._rotations.Clear();
-                    this._rotations.AddRange(from r in _rotate.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries) select float.Parse(r));
+                    this._rotations.AddRange(from r in _rotate.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries)
+                                             select float.Parse(r, NumberStyles.Any, CultureInfo.InvariantCulture));
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "rotate", Value = value });
                 }
