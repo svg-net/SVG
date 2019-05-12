@@ -34,15 +34,15 @@ namespace Svg
             else
             {
                 var servers = new List<SvgPaintServer>();
-                
+
                 while (!string.IsNullOrEmpty(value))
                 {
-                    if (value.StartsWith("url(#"))
+                    if (value.StartsWith("url("))
                     {
-                        var leftParen = value.IndexOf(')', 5);
-                        Uri id = new Uri(value.Substring(5, leftParen - 5), UriKind.Relative);
-                        value = value.Substring(leftParen + 1).Trim();
-                        servers.Add((SvgPaintServer)document.IdManager.GetElementById(id));
+                        var nextIndex = value.IndexOf(')', 4) + 1;
+                        var uri = new Uri(value.Substring(0, nextIndex), UriKind.RelativeOrAbsolute);
+                        value = value.Substring(nextIndex).Trim();
+                        servers.Add((SvgPaintServer)document.IdManager.GetElementById(uri));
                     }
                     // If referenced to to a different (linear or radial) gradient
                     else if (document.IdManager.GetElementById(value) != null && document.IdManager.GetElementById(value).GetType().BaseType == typeof(SvgGradientServer))
@@ -51,7 +51,7 @@ namespace Svg
                     }
                     else if (value.StartsWith("#")) // Otherwise try and parse as colour
                     {
-                        switch(CountHexDigits(value, 1))
+                        switch (CountHexDigits(value, 1))
                         {
                             case 3:
                                 servers.Add(new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Substring(0, 4))));
@@ -76,16 +76,14 @@ namespace Svg
                     return new SvgFallbackPaintServer(servers[0], servers.Skip(1));
                 }
                 return servers[0];
-            } 
-                
-                
+            }
         }
 
         private static int CountHexDigits(string value, int start)
         {
             int i = Math.Max(start, 0);
             int count = 0;
-            while (i < value.Length && 
+            while (i < value.Length &&
                    ((value[i] >= '0' && value[i] <= '9') ||
                     (value[i] >= 'a' && value[i] <= 'f') ||
                     (value[i] >= 'A' && value[i] <= 'F')))
@@ -95,16 +93,16 @@ namespace Svg
             }
             return count;
         }
-        
+
         public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
             if (value is string)
             {
-            	var s = (string) value;
-                if (String.Equals(s.Trim(), "none", StringComparison.OrdinalIgnoreCase) || string.IsNullOrEmpty(s) || s.Trim().Length < 1)
-            		return SvgPaintServer.None;
-            	else
-                	return SvgPaintServerFactory.Create(s, (SvgDocument)context);
+                var s = ((string)value).Trim();
+                if (String.Equals(s, "none", StringComparison.OrdinalIgnoreCase) || string.IsNullOrEmpty(s))
+                    return SvgPaintServer.None;
+                else
+                    return Create(s, (SvgDocument)context);
             }
 
             return base.ConvertFrom(context, culture, value);
@@ -134,7 +132,7 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
-                //check for none
+                // check for none
                 if (value == SvgPaintServer.None || value == SvgColourServer.None) return "none";
                 if (value == SvgColourServer.Inherit) return "inherit";
                 if (value == SvgColourServer.NotSet) return "";
@@ -157,7 +155,7 @@ namespace Svg
                 }
                 else
                 {
-                	return "none";
+                    return "none";
                 }
             }
 
