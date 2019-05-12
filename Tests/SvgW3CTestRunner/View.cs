@@ -35,10 +35,12 @@ namespace SvgW3CTestRunner
                          orderby f
                          select (object)f);
 
-            lstFilesOther.Items.AddRange(files.Where(f => ((string)f).StartsWith("__")).ToArray());
+            var other = files.Where(f => ((string)f).StartsWith("__"));
+            lstFilesOtherPassing.Items.AddRange(other.Where(f => passes.ContainsKey((string)f)).ToArray());
+            lstFilesOtherFailing.Items.AddRange(other.Where(f => !passes.ContainsKey((string)f)).ToArray());
             files = files.Where(f => !((string)f).StartsWith("__"));
-            lstFilesPassing.Items.AddRange(files.Where(f => passes.ContainsKey((string)f)).ToArray());
-            lstFilesFailing.Items.AddRange(files.Where(f => !passes.ContainsKey((string)f)).ToArray());
+            lstW3CFilesPassing.Items.AddRange(files.Where(f => passes.ContainsKey((string)f)).ToArray());
+            lstW3CFilesFailing.Items.AddRange(files.Where(f => !passes.ContainsKey((string)f)).ToArray());
         }
 
 
