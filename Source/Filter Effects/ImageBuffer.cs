@@ -36,8 +36,9 @@ namespace Svg.FilterEffects
             }
             set
             {
-                _images[ProcessKey(key)] = value;
-                if (key != null) _images[BufferKey] = value;
+                if (!string.IsNullOrEmpty(key))
+                     _images[key] = value;
+                _images[BufferKey] = value;
             }
         }
 
@@ -104,6 +105,9 @@ namespace Svg.FilterEffects
         {
             if (curr == null)
             {
+                if (string.IsNullOrEmpty(key))
+                    key = SvgFilterPrimitive.SourceGraphic;
+
                 switch (key)
                 {
                     case SvgFilterPrimitive.BackgroundAlpha:
