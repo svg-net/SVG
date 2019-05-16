@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Xml;
 using System.Linq;
-using Svg.Transforms;
 using System.Reflection;
-using System.Threading;
-using System.Globalization;
+using System.Text;
+using System.Xml;
+using Svg.Transforms;
 
 namespace Svg
 {
@@ -661,6 +660,12 @@ namespace Svg
 
                         if (propertyValue != null)
                         {
+                            if (!string.IsNullOrEmpty(value))
+                            {
+                                if (attr.Attribute.NamespaceAndName == "xlink:href" && value.StartsWith("url("))
+                                    value = new StringBuilder(value).Remove(value.Length - 1, 1).Remove(0, 4).ToString();
+                            }
+
                             //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
                             if (forceWrite || (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value)))
                             {
