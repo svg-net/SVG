@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Drawing.Drawing2D;
 using System.Drawing;
-using System.ComponentModel;
 
 using Svg.Transforms;
 using System.Linq;
@@ -145,11 +142,15 @@ namespace Svg
             }
         }
 
-        private SvgUnit NormalizeUnit(SvgUnit orig)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SvgPatternServer"/> class.
+        /// </summary>
+        public SvgPatternServer()
         {
-            return (orig.Type == SvgUnitType.Percentage && this.PatternUnits == SvgCoordinateUnits.ObjectBoundingBox ?
-                    new SvgUnit(SvgUnitType.User, orig.Value / 100) :
-                    orig);
+            this._x = SvgUnit.None;
+            this._y = SvgUnit.None;
+            this._width = SvgUnit.None;
+            this._height = SvgUnit.None;
         }
 
         /// <summary>
@@ -197,11 +198,11 @@ namespace Svg
                     var xScale = (patternUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Width : 1);
                     var yScale = (patternUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Height : 1);
 
-                    float x = xScale * NormalizeUnit(xUnit).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
-                    float y = yScale * NormalizeUnit(yUnit).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                    float x = xScale * xUnit.NormalizeUnit(PatternUnits).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                    float y = yScale * yUnit.NormalizeUnit(PatternUnits).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
 
-                    float width = xScale * NormalizeUnit(widthElem.Width).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
-                    float height = yScale * NormalizeUnit(heightElem.Height).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                    float width = xScale * widthElem.Width.NormalizeUnit(PatternUnits).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                    float height = yScale * heightElem.Height.NormalizeUnit(PatternUnits).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
 
                     // Apply a scale if needed
                     patternMatrix.Scale((patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Width : 1) *
