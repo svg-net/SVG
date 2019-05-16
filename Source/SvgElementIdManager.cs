@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Svg
@@ -75,16 +76,10 @@ namespace Svg
             url = url.Trim();
             if (url.StartsWith("url(") && url.EndsWith(")"))
             {
-                url = url.Substring(4).TrimEnd(')').Trim();
+                url = new StringBuilder(url).Remove(url.Length - 1, 1).Remove(0, 4).ToString().Trim();
 
-                if (url.StartsWith("\"") && url.EndsWith("\""))
-                {
-                    url = url.Substring(1).TrimEnd('"').Trim();
-                }
-                else if (url.StartsWith("'") && url.EndsWith("'"))
-                {
-                    url = url.Substring(1).TrimEnd('\'').Trim();
-                }
+                if ((url.StartsWith("\"") && url.EndsWith("\"")) || (url.StartsWith("'") && url.EndsWith("'")))
+                    url = new StringBuilder(url).Remove(url.Length - 1, 1).Remove(0, 1).ToString().Trim();
             }
             return url;
         }
