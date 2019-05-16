@@ -656,15 +656,13 @@ namespace Svg
                         var value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
 #else
                         // dotnetcore throws exception if input is null
-                        string value = propertyValue==null?null:(string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+                        var value = propertyValue == null ? null : (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
 #endif
 
                         if (propertyValue != null)
                         {
-                            var type = propertyValue.GetType();
-
                             //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
-                            if ((!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value)) || forceWrite)
+                            if (forceWrite || (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value)))
                             {
                                 if (writeStyle)
                                 {
