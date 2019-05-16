@@ -65,8 +65,8 @@ namespace Svg
                 if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.SetBoundable(renderingElement);
 
                 var points = new PointF[] {
-                    SvgUnit.GetDevicePoint(NormalizeUnit(this.X1), NormalizeUnit(this.Y1), renderer, this),
-                    SvgUnit.GetDevicePoint(NormalizeUnit(this.X2), NormalizeUnit(this.Y2), renderer, this)
+                    SvgUnit.GetDevicePoint(X1.NormalizeUnit(GradientUnits), Y1.NormalizeUnit(GradientUnits), renderer, this),
+                    SvgUnit.GetDevicePoint(X2.NormalizeUnit(GradientUnits), Y2.NormalizeUnit(GradientUnits), renderer, this)
                 };
 
                 var bounds = renderer.GetBoundable().Bounds;
@@ -140,13 +140,6 @@ namespace Svg
             {
                 if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.PopBoundable();
             }
-        }
-
-        private SvgUnit NormalizeUnit(SvgUnit orig)
-        {
-            return (orig.Type == SvgUnitType.Percentage && this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox ?
-                    new SvgUnit(SvgUnitType.User, orig.Value / 100) :
-                    orig);
         }
 
         [Flags]

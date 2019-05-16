@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace Svg.FilterEffects
 {
+    /// <summary>
+    /// Indicates the blend mode used to blend 2 images using the feBlend filter primitive.
+    /// </summary>
     [TypeConverter(typeof(SvgBlendModeConverter))]
     public enum SvgBlendMode
     {

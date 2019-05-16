@@ -16,12 +16,32 @@ namespace Svg.FilterEffects
         private Bitmap sourceAlpha;
 
         /// <summary>
+        /// Gets or sets the coordinate interpretation mode for the filter effects region.
+        /// </summary>
+        [SvgAttribute("filterUnits")]
+        public SvgCoordinateUnits FilterUnits
+        {
+            get { return Attributes.GetAttribute("filterUnits", SvgCoordinateUnits.ObjectBoundingBox); }
+            set { Attributes["filterUnits"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the coordinate interpretation mode for the filter primitive region.
+        /// </summary>
+        [SvgAttribute("primitiveUnits")]
+        public SvgCoordinateUnits PrimitiveUnits
+        {
+            get { return Attributes.GetAttribute("primitiveUnits", SvgCoordinateUnits.UserSpaceOnUse); }
+            set { Attributes["primitiveUnits"] = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the position where the left point of the filter.
         /// </summary>
         [SvgAttribute("x")]
         public SvgUnit X
         {
-            get { return GetAttribute<SvgUnit>("x", false); }
+            get { return GetAttribute<SvgUnit>("x", false, -10f); }
             set { Attributes["x"] = value; }
         }
 
@@ -31,7 +51,7 @@ namespace Svg.FilterEffects
         [SvgAttribute("y")]
         public SvgUnit Y
         {
-            get { return GetAttribute<SvgUnit>("y", false); }
+            get { return GetAttribute<SvgUnit>("y", false, -10f); }
             set { Attributes["y"] = value; }
         }
 
@@ -41,7 +61,7 @@ namespace Svg.FilterEffects
         [SvgAttribute("width")]
         public SvgUnit Width
         {
-            get { return GetAttribute<SvgUnit>("width", false); }
+            get { return GetAttribute<SvgUnit>("width", false, 120f); }
             set { Attributes["width"] = value; }
         }
 
@@ -51,7 +71,7 @@ namespace Svg.FilterEffects
         [SvgAttribute("height")]
         public SvgUnit Height
         {
-            get { return GetAttribute<SvgUnit>("height", false); }
+            get { return GetAttribute<SvgUnit>("height", false, 120f); }
             set { Attributes["height"] = value; }
         }
 
@@ -94,6 +114,24 @@ namespace Svg.FilterEffects
                                   Math.Abs(pts[0].X - pts[1].X), Math.Abs(pts[0].Y - pts[1].Y));
         }
 
+        private RectangleF GetClipRect(RectangleF bounds, ISvgRenderer renderer)
+        {
+            var xScale = FilterUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Width : 1;
+            var yScale = FilterUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Height : 1;
+
+            float x = xScale * X.NormalizeUnit(FilterUnits).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+            float y = yScale * Y.NormalizeUnit(FilterUnits).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+            float width = xScale * Width.NormalizeUnit(FilterUnits).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+            float height = yScale * Height.NormalizeUnit(FilterUnits).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+
+            if (FilterUnits == SvgCoordinateUnits.ObjectBoundingBox)
+            {
+                x += bounds.X;
+                y += bounds.Y;
+            }
+            return new RectangleF(x, y, width, height);
+        }
+
         public void ApplyFilter(SvgVisualElement element, ISvgRenderer renderer, Action<ISvgRenderer> renderMethod)
         {
             var inflate = 0.5f;
@@ -111,10 +149,10 @@ namespace Svg.FilterEffects
             }
 
             // Render the final filtered image
-            var bufferImg = buffer.Buffer;
+            var bufferImg = buffer.StraightImage();
             var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
             var prevClip = renderer.GetClip();
-            renderer.SetClip(new Region(imgDraw));
+            renderer.SetClip(new Region(GetClipRect(bounds, renderer)));
             renderer.DrawImage(bufferImg, imgDraw, new RectangleF(bounds.X, bounds.Y, imgDraw.Width, imgDraw.Height), GraphicsUnit.Pixel);
             renderer.SetClip(prevClip);
         }

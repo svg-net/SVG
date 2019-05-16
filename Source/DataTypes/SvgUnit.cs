@@ -205,6 +205,13 @@ namespace Svg
             }
         }
 
+        public SvgUnit NormalizeUnit(SvgCoordinateUnits coordUnits)
+        {
+            return Type == SvgUnitType.Percentage && coordUnits == SvgCoordinateUnits.ObjectBoundingBox ?
+                    new SvgUnit(SvgUnitType.User, Value / 100) : this;
+        }
+
+
         #region Equals and GetHashCode implementation
         public override bool Equals(object obj)
         {

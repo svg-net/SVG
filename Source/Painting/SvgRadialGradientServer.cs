@@ -59,13 +59,6 @@ namespace Svg
 
         private object _lockObj = new Object();
 
-        private SvgUnit NormalizeUnit(SvgUnit orig)
-        {
-            return (orig.Type == SvgUnitType.Percentage && this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox ?
-                    new SvgUnit(SvgUnitType.User, orig.Value / 100f) :
-                    orig);
-        }
-
         public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
             LoadStops(renderingElement);
@@ -75,11 +68,11 @@ namespace Svg
                 if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.SetBoundable(renderingElement);
 
                 // Calculate the path and transform it appropriately
-                var center = new PointF(NormalizeUnit(CenterX).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                        NormalizeUnit(CenterY).ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
-                var focals = new PointF[] {new PointF(NormalizeUnit(FocalX).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                                      NormalizeUnit(FocalY).ToDeviceValue(renderer, UnitRenderingType.Vertical, this)) };
-                var specifiedRadius = NormalizeUnit(Radius).ToDeviceValue(renderer, UnitRenderingType.Other, this);
+                var center = new PointF(CenterX.NormalizeUnit(GradientUnits).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                                        CenterY.NormalizeUnit(GradientUnits).ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+                var focals = new PointF[] {new PointF(FocalX.NormalizeUnit(GradientUnits).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                                                      FocalY.NormalizeUnit(GradientUnits).ToDeviceValue(renderer, UnitRenderingType.Vertical, this)) };
+                var specifiedRadius = Radius.NormalizeUnit(GradientUnits).ToDeviceValue(renderer, UnitRenderingType.Other, this);
                 var path = new GraphicsPath();
                 path.AddEllipse(
                     center.X - specifiedRadius, center.Y - specifiedRadius,

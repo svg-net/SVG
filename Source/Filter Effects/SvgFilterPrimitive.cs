@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 
 namespace Svg.FilterEffects
 {
@@ -27,6 +23,34 @@ namespace Svg.FilterEffects
         {
             get { return GetAttribute<string>("result", false); }
             set { Attributes["result"] = value; }
+        }
+
+        [SvgAttribute("x")]
+        public SvgUnit X
+        {
+            get { return this.Attributes.GetAttribute<SvgUnit>("x"); }
+            set { this.Attributes["x"] = value; }
+        }
+
+        [SvgAttribute("y")]
+        public SvgUnit Y
+        {
+            get { return this.Attributes.GetAttribute<SvgUnit>("y"); }
+            set { this.Attributes["y"] = value; }
+        }
+
+        [SvgAttribute("width")]
+        public SvgUnit Width
+        {
+            get { return this.Attributes.GetAttribute<SvgUnit>("width"); }
+            set { this.Attributes["width"] = value; }
+        }
+
+        [SvgAttribute("height")]
+        public SvgUnit Height
+        {
+            get { return this.Attributes.GetAttribute<SvgUnit>("height"); }
+            set { this.Attributes["height"] = value; }
         }
 
         protected SvgFilter Owner

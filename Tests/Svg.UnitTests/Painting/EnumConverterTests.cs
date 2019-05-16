@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Svg.FilterEffects;
+﻿using Svg.FilterEffects;
+
+using NUnit.Framework;
 
 namespace Svg.UnitTests.Painting
 {
-    [TestClass]
+    [TestFixture]
     public class EnumConverterTests : SvgTestHelper
     {
         private static readonly EnumBaseConverter<SvgBlendMode> DashedConverter = new EnumBaseConverter<SvgBlendMode>(SvgBlendMode.Normal, EnumBaseConverter<SvgBlendMode>.CaseHandling.DashedLowerCase);
         private static readonly EnumBaseConverter<SvgBlendMode> LowerCaseConverter = new EnumBaseConverter<SvgBlendMode>(SvgBlendMode.Normal, EnumBaseConverter<SvgBlendMode>.CaseHandling.LowerCase);
         private static readonly EnumBaseConverter<SvgBlendMode> CamelCaseConverter = new EnumBaseConverter<SvgBlendMode>(SvgBlendMode.Normal, EnumBaseConverter<SvgBlendMode>.CaseHandling.CamelCase);
 
-        [TestMethod]
+        [Test]
         public void DashedToStringWorksForSingleWord()
         {
             var value = SvgBlendMode.Color;
@@ -21,7 +19,7 @@ namespace Svg.UnitTests.Painting
             Assert.AreEqual("color", str);
         }
 
-        [TestMethod]
+        [Test]
         public void DashedToStringWorksForMultipleWords()
         {
             var value = SvgBlendMode.SoftLight;
@@ -29,7 +27,7 @@ namespace Svg.UnitTests.Painting
             Assert.AreEqual("soft-light", str);
         }
 
-        [TestMethod]
+        [Test]
         public void LowerToStringWorksForSingleWord()
         {
             var value = SvgBlendMode.Color;
@@ -37,7 +35,7 @@ namespace Svg.UnitTests.Painting
             Assert.AreEqual("color", str);
         }
 
-        [TestMethod]
+        [Test]
         public void LowerToStringWorksForMultipleWords()
         {
             var value = SvgBlendMode.SoftLight;
@@ -45,7 +43,7 @@ namespace Svg.UnitTests.Painting
             Assert.AreEqual("softlight", str);
         }
 
-        [TestMethod]
+        [Test]
         public void CamelToStringWorksForSingleWord()
         {
             var value = SvgBlendMode.Color;
@@ -53,7 +51,7 @@ namespace Svg.UnitTests.Painting
             Assert.AreEqual("color", str);
         }
 
-        [TestMethod]
+        [Test]
         public void CamelToStringWorksForMultipleWords()
         {
             var value = SvgBlendMode.SoftLight;
