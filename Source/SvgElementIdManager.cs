@@ -59,7 +59,7 @@ namespace Svg
                         var httpRequest = WebRequest.Create(uri);
                         using (var webResponse = httpRequest.GetResponse())
                         {
-                            var doc = SvgDocument.Open<SvgDocument>(webResponse.GetResponseStream());
+                            var doc = SvgDocument.Open<SvgDocument>(webResponse.GetResponseStream(), uri);
                             return doc.IdManager.GetElementById(fragment);
                         }
                     }

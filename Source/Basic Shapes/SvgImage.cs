@@ -304,8 +304,7 @@ namespace Svg
                         }
                         if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            var doc = SvgDocument.Open<SvgDocument>(stream);
-                            doc.BaseUri = uri;
+                            var doc = SvgDocument.Open<SvgDocument>(stream, uri);
                             return doc;
                         }
                         else

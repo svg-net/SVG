@@ -15,6 +15,7 @@ using System.Threading;
 using System.Globalization;
 using Svg.Exceptions;
 using System.Runtime.InteropServices;
+using System.Net;
 
 namespace Svg
 {
@@ -82,7 +83,8 @@ namespace Svg
             Ppi = PointsPerInch;
         }
 
-        public Uri BaseUri { get; set; }
+        //[Obsolete("'set' will be private.")]
+        public Uri BaseUri { get; private set; }
 
         /// <summary>
         /// Gets an <see cref="SvgElementIdManager"/> for this document.
@@ -218,9 +220,22 @@ namespace Svg
 
             using (var stream = File.OpenRead(path))
             {
-                var doc = Open<T>(stream, entities);
-                doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
+                var baseUri = new Uri(System.IO.Path.GetFullPath(path));
+                var doc = Open<T>(stream, entities, baseUri);
                 return doc;
+            }
+        }
+
+        public static T Open<T>(Uri uri) where T : SvgDocument, new()
+        {
+            var httpRequest = WebRequest.Create(uri);
+
+            using (var webResponse = httpRequest.GetResponse())
+            {
+                using (var stream = webResponse.GetResponseStream())
+                {
+                    return Open<T>(stream, uri);
+                }
             }
         }
 
@@ -228,9 +243,9 @@ namespace Svg
         /// Attempts to open an SVG document from the specified <see cref="Stream"/>.
         /// </summary>
         /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
-        public static T Open<T>(Stream stream) where T : SvgDocument, new()
+        public static T Open<T>(Stream stream, Uri baseUri = null) where T : SvgDocument, new()
         {
-            return Open<T>(stream, null);
+            return Open<T>(stream, null, baseUri);
         }
 
 
@@ -238,7 +253,7 @@ namespace Svg
         /// Attempts to create an SVG document from the specified string data.
         /// </summary>
         /// <param name="svg">The SVG data.</param>
-        public static T FromSvg<T>(string svg) where T : SvgDocument, new()
+        public static T FromSvg<T>(string svg, Uri baseUri = null) where T : SvgDocument, new()
         {
             if (string.IsNullOrEmpty(svg))
             {
@@ -251,7 +266,7 @@ namespace Svg
                 {
                     XmlResolver = new SvgDtdResolver(), WhitespaceHandling = WhitespaceHandling.None
                 };
-                return Open<T>(reader);
+                return Open<T>(reader, baseUri);
             }
         }
 
@@ -261,7 +276,7 @@ namespace Svg
         /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
         /// <param name="entities">Custom entity definitions.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="stream"/> parameter cannot be <c>null</c>.</exception>
-        public static T Open<T>(Stream stream, Dictionary<string, string> entities) where T : SvgDocument, new()
+        public static T Open<T>(Stream stream, Dictionary<string, string> entities, Uri baseUri = null) where T : SvgDocument, new()
         {
             if (stream == null)
             {
@@ -273,10 +288,10 @@ namespace Svg
             {
                 XmlResolver = new SvgDtdResolver(), WhitespaceHandling = WhitespaceHandling.None
             };
-            return Open<T>(reader);
+            return Open<T>(reader, baseUri);
         }
 
-        private static T Open<T>(XmlReader reader) where T : SvgDocument, new()
+        private static T Open<T>(XmlReader reader, Uri baseUri) where T : SvgDocument, new()
         {
             var elementStack = new Stack<SvgElement>();
             bool elementEmpty;
@@ -402,7 +417,18 @@ namespace Svg
                 }
             }
 
-            if (svgDocument != null) FlushStyles(svgDocument);
+            if (svgDocument != null)
+            {
+                baseUri = baseUri ?? (string.IsNullOrEmpty(reader.BaseURI) ? null : new Uri(reader.BaseURI));
+                if (baseUri != null)
+                {
+                    if (!baseUri.IsAbsoluteUri)
+                        throw new ArgumentException("baseUri is not absolute.");
+
+                    svgDocument.BaseUri = baseUri;
+                }
+                FlushStyles(svgDocument);
+            }
             return svgDocument;
         }
 
@@ -420,7 +446,7 @@ namespace Svg
         /// </summary>
         /// <param name="document">The <see cref="XmlDocument"/> containing the SVG document XML.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="document"/> parameter cannot be <c>null</c>.</exception>
-        public static SvgDocument Open(XmlDocument document)
+        public static SvgDocument Open(XmlDocument document, Uri baseUri = null)
         {
             if (document == null)
             {
@@ -428,7 +454,7 @@ namespace Svg
             }
 
             var reader = new SvgNodeReader(document.DocumentElement, null);
-            return Open<SvgDocument>(reader);
+            return Open<SvgDocument>(reader, baseUri);
         }
 
         public static Bitmap OpenAsBitmap(string path)
