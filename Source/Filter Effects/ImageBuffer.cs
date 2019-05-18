@@ -8,11 +8,19 @@ using System.Drawing.Drawing2D;
 
 namespace Svg.FilterEffects
 {
+    public enum AlphaState
+    {
+        Straight,
+        Premultiplied,
+        AlphaOnly
+    }
+
     public class ImageBuffer : IDictionary<string, Bitmap>
     {
         private const string BufferKey = "__!!BUFFER";
 
         private Dictionary<string, Bitmap> _images;
+        private Dictionary<string, AlphaState> _alphaStates;
         private RectangleF _bounds;
         private ISvgRenderer _renderer;
         private Action<ISvgRenderer> _renderMethod;
@@ -24,10 +32,38 @@ namespace Svg.FilterEffects
         {
             get { return _images[BufferKey]; }
         }
+
+        public AlphaState GetAlphaState(string key)
+        {
+            if (!_alphaStates.ContainsKey(key))
+            {
+                _alphaStates[key] = AlphaState.Straight;
+            }
+            return _alphaStates[key];
+        }
+
+        public static string PremultipliedImageKey(string key)
+        {
+            return key + "_Premul";
+        }
+
+        public static string StraightImageKey(string key)
+        {
+            return key + "_Straight";
+        }
+
+        public void SetAlphaState(string key, AlphaState value)
+        {
+            if (String.IsNullOrEmpty(key))
+                key = BufferKey;
+            _alphaStates[key] = value;
+        }
+
         public int Count
         {
             get { return _images.Count; }
         }
+
         public Bitmap this[string key]
         {
             get
@@ -49,12 +85,19 @@ namespace Svg.FilterEffects
             _renderer = renderer;
             _renderMethod = renderMethod;
             _images = new Dictionary<string, Bitmap>();
+            _alphaStates = new Dictionary<string, AlphaState>();
             _images[SvgFilterPrimitive.BackgroundAlpha] = null;
+            _alphaStates[SvgFilterPrimitive.BackgroundAlpha] = AlphaState.AlphaOnly;
             _images[SvgFilterPrimitive.BackgroundImage] = null;
+            _alphaStates[SvgFilterPrimitive.BackgroundImage] = AlphaState.Straight;
             _images[SvgFilterPrimitive.FillPaint] = null;
+            _alphaStates[SvgFilterPrimitive.FillPaint] = AlphaState.Straight;
             _images[SvgFilterPrimitive.SourceAlpha] = null;
+            _alphaStates[SvgFilterPrimitive.SourceAlpha] = AlphaState.AlphaOnly;
             _images[SvgFilterPrimitive.SourceGraphic] = null;
+            _alphaStates[SvgFilterPrimitive.SourceGraphic] = AlphaState.Straight;
             _images[SvgFilterPrimitive.StrokePaint] = null;
+            _alphaStates[SvgFilterPrimitive.StrokePaint] = AlphaState.Straight;
         }
 
         public void Add(string key, Bitmap value)
@@ -68,6 +111,7 @@ namespace Svg.FilterEffects
         public void Clear()
         {
             _images.Clear();
+            _alphaStates.Clear();
         }
         public IEnumerator<KeyValuePair<string, Bitmap>> GetEnumerator()
         {
@@ -117,10 +161,12 @@ namespace Svg.FilterEffects
                         // Do nothing
                         return null;
                     case SvgFilterPrimitive.SourceAlpha:
-                        _images[key] = CreateSourceAlpha();
+                        if (_images[key] == null)
+                            _images[key] = CreateSourceAlpha();
                         return _images[key];
                     case SvgFilterPrimitive.SourceGraphic:
-                        _images[key] = CreateSourceGraphic();
+                        if (_images[key] == null)
+                            _images[key] = CreateSourceGraphic();
                         return _images[key];
                 }
             }
@@ -131,8 +177,6 @@ namespace Svg.FilterEffects
             if (string.IsNullOrEmpty(key)) return _images.ContainsKey(BufferKey) ? BufferKey : SvgFilterPrimitive.SourceGraphic;
             return key;
         }
-
-
 
         private Bitmap CreateSourceGraphic()
         {
@@ -178,6 +222,123 @@ namespace Svg.FilterEffects
             return sourceAlpha;
         }
 
+        private Bitmap ToPremultipliedRGBA(string key)
+        {
+            var inputImage = this[key];
+            var bitmapSrc = inputImage as Bitmap;
+            if (bitmapSrc == null)
+                return null;
+
+            using (var src = new RawBitmap(bitmapSrc))
+            {
+                using (var dest = new RawBitmap(new Bitmap(inputImage.Width, inputImage.Height)))
+                {
+                    int pixelCount = src.Width * src.Height;
+                    int index = 0;
+                    for (int i = 0; i < pixelCount; i++)
+                    {
+                        var alpha = src.ArgbValues[index + 3] / 255.0;
+                        dest.ArgbValues[index] = (byte)(src.ArgbValues[index] * alpha + 0.5);
+                        ++index;
+                        dest.ArgbValues[index] = (byte)(src.ArgbValues[index] * alpha + 0.5);
+                        ++index;
+                        dest.ArgbValues[index] = (byte)(src.ArgbValues[index] * alpha + 0.5);
+                        ++index;
+                        dest.ArgbValues[index] = src.ArgbValues[index];
+                        ++index;
+                    }
+                    return dest.Bitmap;
+                }
+            }
+        }
+
+        private Bitmap ToStraightRGBA(string key)
+        {
+            var inputImage = this[key];
+            var bitmapSrc = inputImage as Bitmap;
+            if (bitmapSrc == null)
+                return null;
+
+            using (var src = new RawBitmap(bitmapSrc))
+            {
+                using (var dest = new RawBitmap(new Bitmap(inputImage.Width, inputImage.Height)))
+                {
+                    int pixelCount = src.Width * src.Height;
+                    int index = 0;
+                    for (int i = 0; i < pixelCount; i++)
+                    {
+                        var alpha = src.ArgbValues[index + 3] / 255.0;
+                        if (alpha == 0)
+                        {
+                            dest.ArgbValues[index] = 0;
+                            dest.ArgbValues[++index] = 0;
+                            dest.ArgbValues[++index] = 0;
+                            dest.ArgbValues[++index] = 0;
+                            ++index;
+                        }
+                        else
+                        {
+                            dest.ArgbValues[index] = (byte)(src.ArgbValues[index] / alpha + 0.5);
+                            ++index;
+                            dest.ArgbValues[index] = (byte)(src.ArgbValues[index] / alpha + 0.5);
+                            ++index;
+                            dest.ArgbValues[index] = (byte)(src.ArgbValues[index] / alpha + 0.5);
+                            ++index;
+                            dest.ArgbValues[index] = src.ArgbValues[index];
+                            ++index;
+                        }
+                    }
+                    return dest.Bitmap;
+                }
+            }
+        }
+
+        /// <summary>
+        /// If the given image is not premultiplied (e.g. straight), a premultiplied
+        /// image with a separate key is returned, otherwise the original image.
+        /// Most filter primitives work with premultiplied images.
+        /// </summary>
+        public Bitmap PremultipliedImage(string key = BufferKey)
+        {
+            if (GetAlphaState(key) == AlphaState.Straight)
+            {
+                var premultipliedKey = PremultipliedImageKey(key);
+                if (ContainsKey(premultipliedKey))
+                {
+                    return _images[premultipliedKey];
+                }
+
+                var image = ToPremultipliedRGBA(key);
+                Add(premultipliedKey, image);
+                SetAlphaState(premultipliedKey, AlphaState.Premultiplied);
+                return image;
+            }
+            return this[key];
+        }
+
+        /// <summary>
+        /// If the given image is premultiplied, a straight
+        /// image with a separate key is returned, otherwise the original image.
+        /// Usually the image output from the last filter primitive has to be 
+        /// converted back to straight format for display.
+        /// </summary>
+        public Bitmap StraightImage(string key = BufferKey)
+        {
+            if (GetAlphaState(key) == AlphaState.Premultiplied)
+            {
+                var straightKey = ImageBuffer.StraightImageKey(key);
+                if (ContainsKey(straightKey))
+                {
+                    return _images[straightKey];
+                }
+
+                var image = ToStraightRGBA(key);
+                Add(straightKey, image);
+                SetAlphaState(straightKey, AlphaState.Straight);
+                return image;
+            }
+            return this[key];
+        }
 
 
         bool ICollection<KeyValuePair<string, Bitmap>>.IsReadOnly

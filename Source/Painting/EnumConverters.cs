@@ -319,6 +319,11 @@ namespace Svg
         public SvgTextTransformationConverter() : base(SvgTextTransformation.None) { }
     }
 
+    public sealed class SvgBlendModeConverter : EnumBaseConverter<SvgBlendMode>
+    {
+        public SvgBlendModeConverter() : base(SvgBlendMode.Normal) { }
+    }
+
     public static class Enums
     {
         [CLSCompliant(false)]

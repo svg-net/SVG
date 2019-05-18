@@ -16,13 +16,23 @@ namespace Svg.FilterEffects
         private Bitmap sourceAlpha;
 
         /// <summary>
-        /// Gets or sets the coordinate interpretation mode.
+        /// Gets or sets the coordinate interpretation mode for the filter effects region.
         /// </summary>
         [SvgAttribute("filterUnits")]
         public SvgCoordinateUnits FilterUnits
         {
             get { return Attributes.GetAttribute("filterUnits", SvgCoordinateUnits.ObjectBoundingBox); }
             set { Attributes["filterUnits"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the coordinate interpretation mode for the filter primitive region.
+        /// </summary>
+        [SvgAttribute("primitiveUnits")]
+        public SvgCoordinateUnits PrimitiveUnits
+        {
+            get { return Attributes.GetAttribute("primitiveUnits", SvgCoordinateUnits.UserSpaceOnUse); }
+            set { Attributes["primitiveUnits"] = value; }
         }
 
         /// <summary>
@@ -151,7 +161,7 @@ namespace Svg.FilterEffects
             }
 
             // Render the final filtered image
-            var bufferImg = buffer.Buffer;
+            var bufferImg = buffer.StraightImage();
             var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
             var prevClip = renderer.GetClip();
             renderer.SetClip(new Region(GetClipRect(bounds, renderer)));
