@@ -34,7 +34,7 @@ namespace Svg
 
         public SvgOrient(float angle)
         {
-        Angle = angle;
+            Angle = angle;
         }
 
         /// <summary>
