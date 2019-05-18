@@ -22,8 +22,8 @@ namespace Svg.DataTypes
 			{
 				case "auto":
 					return (new SvgOrient(true));
-                case "auto-start-reverse":
-                    return (new SvgOrient(true, true));
+				case "auto-start-reverse":
+					return (new SvgOrient(true, true));
 				default:
 					float fTmp = float.MinValue;
 					if(!float.TryParse(value.ToString(), out fTmp))
