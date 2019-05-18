@@ -11,23 +11,31 @@ namespace Svg
 	public class SvgOrient
     {
         private bool _isAuto = true;
+        private bool _isAutoStartReverse = false;
         private float _angle;
   
-		public SvgOrient()
-		{
-			IsAuto = false;
+        public SvgOrient()
+        {
+            IsAuto = false;
+            IsAutoStartReverse = false;
             Angle = 0;
-		}
+        }
 
         public SvgOrient(bool isAuto)
         {
             IsAuto = isAuto;
         }
 
+        public SvgOrient(bool isAuto, bool isAutoStartReverse)
+        {
+            IsAuto = isAuto;
+            IsAutoStartReverse = isAutoStartReverse;
+        }
+
         public SvgOrient(float angle)
-		{
-			Angle = angle;
-		}
+        {
+            Angle = angle;
+        }
 
         /// <summary>
         /// Gets the value of the unit.
@@ -53,6 +61,16 @@ namespace Svg
 				this._isAuto = value;
             	this._angle = 0f;
 			}
+        }
+
+        /// <summary>
+        /// If IsAuto is true, indicates if the orientation of a 'marker-start' must be rotated of 180° from the original orientation
+        /// </summary>
+        /// This allows a single arrowhead marker to be defined that can be used for both the start and end of a path, point in the right directions.
+        public bool IsAutoStartReverse
+        {
+            get { return this._isAutoStartReverse; }
+            set { this._isAutoStartReverse = value; }
         }
 
 
@@ -82,7 +100,7 @@ namespace Svg
             string type = string.Empty;
 
 			if (this.IsAuto)
-				return "auto";
+				return this.IsAutoStartReverse ? "auto-start-reverse" : "auto";
 			else
 				return this.Angle.ToString();
         }

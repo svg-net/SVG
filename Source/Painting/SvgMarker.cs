@@ -162,7 +162,7 @@ namespace Svg
         /// <param name="pRefPoint"></param>
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
-        public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
+        public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2, bool isStartMarker)
         {
             float fAngle1 = 0f;
             if (Orient.IsAuto)
@@ -171,6 +171,11 @@ namespace Svg
                 float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
                 float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
                 fAngle1 = (float)(Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI);
+
+                if (isStartMarker && Orient.IsAutoStartReverse)
+                {
+                    fAngle1 += 180;
+                }
             }
 
             RenderPart2(fAngle1, pRenderer, pOwner, pRefPoint);
