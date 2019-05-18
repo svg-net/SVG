@@ -14,12 +14,12 @@ namespace Svg
         private bool _isAutoStartReverse = false;
         private float _angle;
   
-		public SvgOrient()
-		{
-			IsAuto = false;
+        public SvgOrient()
+        {
+            IsAuto = false;
             IsAutoStartReverse = false;
             Angle = 0;
-		}
+        }
 
         public SvgOrient(bool isAuto)
         {
@@ -33,9 +33,9 @@ namespace Svg
         }
 
         public SvgOrient(float angle)
-		{
-			Angle = angle;
-		}
+        {
+        Angle = angle;
+        }
 
         /// <summary>
         /// Gets the value of the unit.
