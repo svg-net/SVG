@@ -23,7 +23,7 @@ namespace Svg
         }
         public ISvgBoundable GetBoundable()
         {
-            return _boundables.Peek();
+            return _boundables.Count > 0 ? _boundables.Peek() : null;
         }
         public ISvgBoundable PopBoundable()
         {
