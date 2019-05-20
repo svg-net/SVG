@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Net;
+using System.Text;
 
 namespace Svg
 {
@@ -13,14 +15,7 @@ namespace Svg
     [SvgElement("image")]
     public class SvgImage : SvgVisualElement
     {
-        /// <summary>
-		/// Initializes a new instance of the <see cref="SvgImage"/> class.
-        /// </summary>
-		public SvgImage()
-        {
-            Width = new SvgUnit(0.0f);
-            Height = new SvgUnit(0.0f);
-        }
+        private const string MimeTypeSvg = "image/svg+xml";
 
         private GraphicsPath _path;
         private bool _gettingBounds;
@@ -40,47 +35,44 @@ namespace Svg
         [SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio
         {
-            get { return this.Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio"); }
-            set { this.Attributes["preserveAspectRatio"] = value; }
+            get { return Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio", new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid)); }
+            set { Attributes["preserveAspectRatio"] = value; }
         }
 
-		[SvgAttribute("x")]
-		public virtual SvgUnit X
-		{
-			get { return this.Attributes.GetAttribute<SvgUnit>("x"); }
-			set { this.Attributes["x"] = value; }
-		}
+        [SvgAttribute("x")]
+        public virtual SvgUnit X
+        {
+            get { return Attributes.GetAttribute<SvgUnit>("x"); }
+            set { Attributes["x"] = value; }
+        }
 
-		[SvgAttribute("y")]
-		public virtual SvgUnit Y
-		{
-			get { return this.Attributes.GetAttribute<SvgUnit>("y"); }
-			set { this.Attributes["y"] = value; }
-		}
+        [SvgAttribute("y")]
+        public virtual SvgUnit Y
+        {
+            get { return Attributes.GetAttribute<SvgUnit>("y"); }
+            set { Attributes["y"] = value; }
+        }
 
+        [SvgAttribute("width")]
+        public virtual SvgUnit Width
+        {
+            get { return Attributes.GetAttribute<SvgUnit>("width"); }
+            set { Attributes["width"] = value; }
+        }
 
-		[SvgAttribute("width")]
-		public virtual SvgUnit Width
-		{
-			get { return this.Attributes.GetAttribute<SvgUnit>("width"); }
-			set { this.Attributes["width"] = value; }
-		}
+        [SvgAttribute("height")]
+        public virtual SvgUnit Height
+        {
+            get { return Attributes.GetAttribute<SvgUnit>("height"); }
+            set { Attributes["height"] = value; }
+        }
 
-		[SvgAttribute("height")]
-		public virtual SvgUnit Height
-		{
-			get { return this.Attributes.GetAttribute<SvgUnit>("height"); }
-			set { this.Attributes["height"] = value; }
-		}
-
-		[SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
-		public virtual string Href
-		{
-			get { return this.Attributes.GetAttribute<string>("href"); }
-			set { this.Attributes["href"] = value; }
-		}
-
-
+        [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
+        public virtual string Href
+        {
+            get { return Attributes.GetAttribute<string>("href"); }
+            set { Attributes["href"] = value; }
+        }
 
         /// <summary>
         /// Gets the bounds of the element.
@@ -98,9 +90,9 @@ namespace Svg
                     return new RectangleF();
                 }
                 _gettingBounds = true;
-                var bounds = TransformedBounds(new RectangleF(this.Location.ToDeviceValue(null, this),
-                                      new SizeF(this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this),
-                                                this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))));
+                var bounds = TransformedBounds(new RectangleF(Location.ToDeviceValue(null, this),
+                                               new SizeF(Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this),
+                                                         Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))));
                 _gettingBounds = false;
                 return bounds;
             }
@@ -114,8 +106,7 @@ namespace Svg
             if (_path == null)
             {
                 // Same size of rectangle can suffice to provide bounds of the image
-                var rectangle = new RectangleF(Location.ToDeviceValue(renderer, this),
-                    SvgUnit.GetDeviceSize(Width, Height, renderer, this));
+                var rectangle = new RectangleF(Location.ToDeviceValue(renderer, this), SvgUnit.GetDeviceSize(Width, Height, renderer, this));
 
                 _path = new GraphicsPath();
                 _path.StartFigure();
@@ -131,46 +122,40 @@ namespace Svg
         /// </summary>
         protected override void Render(ISvgRenderer renderer)
         {
-            if (!Visible || !Displayable)
+            if (!(Visible && Displayable && Width.Value > 0f && Height.Value > 0f && Href != null))
                 return;
 
-            if (Width.Value > 0.0f && Height.Value > 0.0f && this.Href != null)
+            var img = GetImage(Href);
+            if (img != null)
             {
-                var img = GetImage();
-                if (img != null)
+                var bmp = img as Image;
+                var svg = img as SvgFragment;
+                try
                 {
                     RectangleF srcRect;
-                    var bmp = img as Image;
-                    var svg = img as SvgFragment;
                     if (bmp != null)
-                    {
-                        srcRect = new RectangleF(0, 0, bmp.Width, bmp.Height);
-                    }
+                        srcRect = new RectangleF(0f, 0f, bmp.Width, bmp.Height);
                     else if (svg != null)
-                    {
-                        srcRect = new RectangleF(new PointF(0, 0), svg.GetDimensions());
-                    }
+                        srcRect = new RectangleF(new PointF(0f, 0f), svg.GetDimensions());
                     else
-                    {
                         return;
-                    }
 
-                    var destClip = new RectangleF(this.Location.ToDeviceValue(renderer, this),
+                    var destClip = new RectangleF(Location.ToDeviceValue(renderer, this),
                                                   new SizeF(Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
                                                             Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this)));
-                    RectangleF destRect = destClip;
+                    var destRect = destClip;
 
-                    this.PushTransforms(renderer);
+                    PushTransforms(renderer);
                     renderer.SetClip(new Region(destClip), CombineMode.Intersect);
-                    this.SetClip(renderer);
+                    SetClip(renderer);
 
-                    SvgAspectRatio aspectRatio = AspectRatio ?? new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid);
+                    var aspectRatio = AspectRatio;
                     if (aspectRatio.Align != SvgPreserveAspectRatio.none)
                     {
                         var fScaleX = destClip.Width / srcRect.Width;
                         var fScaleY = destClip.Height / srcRect.Height;
-                        var xOffset = 0.0f;
-                        var yOffset = 0.0f;
+                        var xOffset = 0f;
+                        var yOffset = 0f;
 
                         if (aspectRatio.Slice)
                         {
@@ -218,18 +203,17 @@ namespace Svg
                         }
 
                         destRect = new RectangleF(destClip.X + xOffset, destClip.Y + yOffset,
-                                                    srcRect.Width * fScaleX, srcRect.Height * fScaleY);
+                                                  srcRect.Width * fScaleX, srcRect.Height * fScaleY);
                     }
 
                     if (bmp != null)
                     {
-                        if(Opacity==1F)
+                        if (Opacity == 1f)
                             renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel);
                         else
                             renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel, Opacity);
-                        bmp.Dispose();
                     }
-                    else if (svg != null)
+                    else
                     {
                         var currOffset = new PointF(renderer.Transform.OffsetX, renderer.Transform.OffsetY);
                         renderer.TranslateTransform(-currOffset.X, -currOffset.Y);
@@ -240,31 +224,23 @@ namespace Svg
                         renderer.PopBoundable();
                     }
 
-
-                    this.ResetClip(renderer);
-                    this.PopTransforms(renderer);
+                    ResetClip(renderer);
+                    PopTransforms(renderer);
                 }
-                // TODO: cache images... will need a shared context for this
+                finally
+                {
+                    if (bmp != null)
+                        bmp.Dispose();
+                }
             }
+            // TODO: cache images... will need a shared context for this
         }
 
-        public object GetImage()
+        protected object GetImage(string uriString)
         {
-            return this.GetImage(this.Href);
-        }
-
-        public object GetImage(string uriString)
-        {
-            string safeUriString;
-            if (uriString.Length > 65519)
-            {
-                //Uri MaxLength is 65519 (https://msdn.microsoft.com/en-us/library/z6c2z492.aspx)
-                safeUriString = uriString.Substring(0, 65519);
-            }
-            else
-            {
-                safeUriString = uriString;
-            }
+            // Uri MaxLength is 65519 (https://msdn.microsoft.com/en-us/library/z6c2z492.aspx)
+            // main use is data URI scheme, but very long to use it as data URI scheme.
+            var safeUriString = uriString.Length > 65519 ? uriString.Substring(0, 65519) : uriString;
 
             try
             {
@@ -272,46 +248,26 @@ namespace Svg
 
                 // handle data/uri embedded images (http://en.wikipedia.org/wiki/Data_URI_scheme)
                 if (uri.IsAbsoluteUri && uri.Scheme == "data")
-                {
-                    int dataIdx = uriString.IndexOf(",") + 1;
-                    if (dataIdx <= 0 || dataIdx + 1 > uriString.Length)
-                        throw new Exception("Invalid data URI");
-
-                    // we're assuming base64, as ascii encoding would be *highly* unusual for images
-                    // also assuming it's png or jpeg mimetype
-                    byte[] imageBytes = Convert.FromBase64String(uriString.Substring(dataIdx));
-                    using (var stream = new MemoryStream(imageBytes))
-                    {
-                        return Image.FromStream(stream);
-                    }
-                }
+                    return GetImageFromDataUri(uriString);
 
                 if (!uri.IsAbsoluteUri)
-                {
                     uri = new Uri(OwnerDocument.BaseUri, uri);
-                }
 
                 // should work with http: and file: protocol urls
                 var httpRequest = WebRequest.Create(uri);
 
-                using (WebResponse webResponse = httpRequest.GetResponse())
+                using (var webResponse = httpRequest.GetResponse())
                 {
                     using (var stream = webResponse.GetResponseStream())
                     {
                         if (stream.CanSeek)
-                        {
                             stream.Position = 0;
-                        }
-                        if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            var doc = SvgDocument.Open<SvgDocument>(stream);
-                            doc.BaseUri = uri;
-                            return doc;
-                        }
+
+                        if (webResponse.ContentType.StartsWith(MimeTypeSvg, StringComparison.InvariantCultureIgnoreCase) ||
+                            uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
+                            return LoadSvg(stream, uri);
                         else
-                        {
-                            return Bitmap.FromStream(stream);
-                        }
+                            return Image.FromStream(stream);
                     }
                 }
             }
@@ -322,35 +278,89 @@ namespace Svg
             }
         }
 
-        protected static MemoryStream BufferToMemoryStream(Stream input)
+        private object GetImageFromDataUri(string uriString)
         {
-            byte[] buffer = new byte[4 * 1024];
-            int len;
-            MemoryStream ms = new MemoryStream();
-            while ((len = input.Read(buffer, 0, buffer.Length)) > 0)
+            var headerStartIndex = 5;
+            var headerEndIndex = uriString.IndexOf(",", headerStartIndex);
+            if (headerEndIndex < 0 || headerEndIndex + 1 >= uriString.Length)
+                throw new Exception("Invalid data URI");
+
+            var mimeType = "text/plain";
+            var charset = "US-ASCII";
+            var base64 = false;
+
+            var headers = new List<string>(uriString.Substring(headerStartIndex, headerEndIndex - headerStartIndex).Split(';'));
+            if (headers[0].Contains("/"))
             {
-                ms.Write(buffer, 0, len);
+                mimeType = headers[0].Trim();
+                headers.RemoveAt(0);
+                charset = string.Empty;
             }
-            ms.Seek(0, SeekOrigin.Begin);
-            return ms;
+
+            if (headers.Count > 0 && headers[headers.Count - 1].Trim().Equals("base64", StringComparison.InvariantCultureIgnoreCase))
+            {
+                base64 = true;
+                headers.RemoveAt(headers.Count - 1);
+            }
+
+            foreach (var param in headers)
+            {
+                var p = param.Split('=');
+                if (p.Length < 2)
+                    continue;
+
+                var attribute = p[0].Trim();
+                if (attribute.Equals("charset", StringComparison.InvariantCultureIgnoreCase))
+                    charset = p[1].Trim();
+            }
+
+            var data = uriString.Substring(headerEndIndex + 1);
+            if (mimeType.Equals(MimeTypeSvg, StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (base64)
+                {
+                    var encoding = string.IsNullOrEmpty(charset) ? Encoding.UTF8 : Encoding.GetEncoding(charset);
+                    data = encoding.GetString(Convert.FromBase64String(data));
+                }
+                using (var stream = new MemoryStream(Encoding.Default.GetBytes(data)))
+                {
+                    return LoadSvg(stream, OwnerDocument.BaseUri);
+                }
+            }
+            else if (mimeType.StartsWith("image/"))
+            {
+                var dataBytes = base64 ? Convert.FromBase64String(data) : Encoding.Default.GetBytes(data);
+                using (var stream = new MemoryStream(dataBytes))
+                {
+                    return Image.FromStream(stream);
+                }
+            }
+            else
+                return null;
         }
 
+        private SvgDocument LoadSvg(Stream stream, Uri baseUri)
+        {
+            var document = SvgDocument.Open<SvgDocument>(stream);
+            document.BaseUri = baseUri;
+            return document;
+        }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgImage>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgImage>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
- 			var newObj = base.DeepCopy<T>() as SvgImage;
-			newObj.Height = this.Height;
-			newObj.Width = this.Width;
-			newObj.X = this.X;
-			newObj.Y = this.Y;
-			newObj.Href = this.Href;
-			newObj.AspectRatio = new SvgAspectRatio(this.AspectRatio.Align, this.AspectRatio.Slice, this.AspectRatio.Defer);
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgImage;
+            newObj.Height = Height;
+            newObj.Width = Width;
+            newObj.X = X;
+            newObj.Y = Y;
+            newObj.Href = Href;
+            newObj.AspectRatio = new SvgAspectRatio(AspectRatio.Align, AspectRatio.Slice, AspectRatio.Defer);
+            return newObj;
+        }
     }
 }
