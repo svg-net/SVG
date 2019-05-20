@@ -12,7 +12,7 @@ namespace Svg.ExCSS
         readonly List<KeyValuePair<DocumentFunction, string>> _conditions;
 
         internal DocumentRule()
-        { 
+        {
             RuleType = RuleType.Document;
             _conditions = new List<KeyValuePair<DocumentFunction, string>>();
         }
@@ -74,8 +74,8 @@ namespace Svg.ExCSS
 
         public override string ToString(bool friendlyFormat, int indentation = 0)
         {
-            return "@document " + ConditionText + " {" + 
-                RuleSets + 
+            return "@document " + ConditionText + " {" +
+                RuleSets +
                 "}".NewLineIndent(friendlyFormat, indentation);
         }
     }

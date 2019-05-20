@@ -17,7 +17,7 @@ namespace Svg.UnitTests
         {
             var document = new SvgDocument();
             document.Children.Add(new SvgText { Text = "test1" });
-            using(var stream = new MemoryStream())
+            using (var stream = new MemoryStream())
             {
                 document.Write(stream);
                 stream.Position = 0;

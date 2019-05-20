@@ -103,16 +103,16 @@ namespace Svg
             return core.Colour;
         }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgGradientStop>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgGradientStop>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgGradientStop;
-			newObj.Offset = this.Offset;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgGradientStop;
+            newObj.Offset = this.Offset;
+            return newObj;
+        }
     }
 }

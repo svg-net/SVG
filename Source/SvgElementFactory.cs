@@ -97,7 +97,7 @@ namespace Svg
                     ElementInfo validType = null;
                     if (AvailableElements.TryGetValue(elementName, out validType))
                     {
-                        createdElement = (SvgElement) Activator.CreateInstance(validType.ElementType);
+                        createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
                     }
                     else
                     {

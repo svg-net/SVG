@@ -11,7 +11,7 @@ namespace Svg
     public static class SvgDefaults
     {
         // defaults that are specific to some elements
-        private static Dictionary<string, Dictionary<string, string>> _propDefaults = 
+        private static Dictionary<string, Dictionary<string, string>> _propDefaults =
             new Dictionary<string, Dictionary<string, string>>
             {
                 { "SvgRadialGradientServer", new Dictionary<string, string>

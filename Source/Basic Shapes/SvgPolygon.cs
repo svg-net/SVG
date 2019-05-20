@@ -67,18 +67,18 @@ namespace Svg
             return this._path;
         }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgPolygon>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgPolygon>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgPolygon;
-			newObj.Points = new SvgPointCollection();
-			foreach (var pt in this.Points)
-				newObj.Points.Add(pt);
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgPolygon;
+            newObj.Points = new SvgPointCollection();
+            foreach (var pt in this.Points)
+                newObj.Points.Add(pt);
+            return newObj;
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace Svg.UnitTests
             var testSuite = Path.Combine(basePath, "W3CTestSuite");
             var rows = File.ReadAllLines(Path.Combine(basePath, "Svg.UnitTests", "PassingTests.csv")).Skip(1);
             foreach (var row in rows)
-                yield return new[] { (object)testSuite, (object) row,};
+                yield return new[] { (object)testSuite, (object)row, };
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Svg.UnitTests
         }
 #endif
 
-        private void CompareSvgImageWithReferenceImpl(string baseName, 
+        private void CompareSvgImageWithReferenceImpl(string baseName,
             string svgPath, string pngPath, bool testSaveLoad)
         {
             var pngImage = Image.FromFile(pngPath);

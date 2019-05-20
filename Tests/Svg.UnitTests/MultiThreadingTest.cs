@@ -12,15 +12,15 @@ namespace Svg.UnitTests
     [TestClass]
     public class MultiThreadingTest : SvgTestHelper
     {
-		protected override string TestResource { get { return GetFullResourceString("Issue_Threading.TestFile.svg"); } }
-		protected override int ExpectedSize { get { return 100; } }
+        protected override string TestResource { get { return GetFullResourceString("Issue_Threading.TestFile.svg"); } }
+        protected override int ExpectedSize { get { return 100; } }
 
         private void LoadFile()
         {
             LoadSvg(GetXMLDocFromResource());
         }
 
-        
+
         [TestMethod]
         public void LoadSVGThreading_SingleThread_YieldsNoError()
         {

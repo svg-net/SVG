@@ -48,7 +48,7 @@ namespace Svg
             return false;
         }
 
-        private bool ReferencedElementReferencesUri( List<Uri> elementUris )
+        private bool ReferencedElementReferencesUri(List<Uri> elementUris)
         {
             var refElement = this.OwnerDocument.IdManager.GetElementById(ReferencedElement);
             return ElementReferencesUri(refElement, elementUris);
@@ -172,7 +172,7 @@ namespace Svg
                     if (ew > 0 && eh > 0)
                     {
                         var viewBox = element.Attributes.GetAttribute<SvgViewBox>("viewBox");
-                        if (viewBox!=SvgViewBox.Empty && Math.Abs(ew - viewBox.Width) > float.Epsilon && Math.Abs(eh - viewBox.Height) > float.Epsilon)
+                        if (viewBox != SvgViewBox.Empty && Math.Abs(ew - viewBox.Width) > float.Epsilon && Math.Abs(eh - viewBox.Height) > float.Epsilon)
                         {
                             var sw = ew / viewBox.Width;
                             var sh = eh / viewBox.Height;

@@ -12,7 +12,7 @@ namespace Svg.ExCSS.Model.TextBlocks
         {
             GrammarSegment = type;
         }
-        
+
         public override string ToString()
         {
             return Value.ToString();

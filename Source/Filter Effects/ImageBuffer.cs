@@ -37,7 +37,7 @@ namespace Svg.FilterEffects
             set
             {
                 if (!string.IsNullOrEmpty(key))
-                     _images[key] = value;
+                    _images[key] = value;
                 _images[BufferKey] = value;
             }
         }
@@ -132,7 +132,7 @@ namespace Svg.FilterEffects
             return key;
         }
 
-        
+
 
         private Bitmap CreateSourceGraphic()
         {

@@ -23,7 +23,7 @@ namespace Svg.ExCSS
 
         public PrimitiveTerm(string unit, Single value)
         {
-            PrimitiveType = ConvertStringToUnitType(unit);;
+            PrimitiveType = ConvertStringToUnitType(unit); ;
             Value = value;
         }
 

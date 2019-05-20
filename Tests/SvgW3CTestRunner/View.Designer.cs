@@ -189,7 +189,7 @@ namespace SvgW3CTestRunner
             // 
             // picSVGPNG
             // 
-            this.picSVGPNG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.picSVGPNG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picSVGPNG.BackColor = System.Drawing.Color.White;
             this.picSVGPNG.Location = new System.Drawing.Point(0, 407);
@@ -231,7 +231,7 @@ namespace SvgW3CTestRunner
             // bottomTabBox
             // 
             this.bottomTabBox.Alignment = System.Windows.Forms.TabAlignment.Left;
-            this.bottomTabBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.bottomTabBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bottomTabBox.Controls.Add(this.outputTab);
             this.bottomTabBox.Controls.Add(this.descriptionTab);
@@ -289,7 +289,7 @@ namespace SvgW3CTestRunner
             // 
             // fileTabBox
             // 
-            this.fileTabBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.fileTabBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.fileTabBox.Controls.Add(this.passW3CTabPage);
             this.fileTabBox.Controls.Add(this.failW3CTabPage);
@@ -316,7 +316,7 @@ namespace SvgW3CTestRunner
             // 
             // lstW3CFilesPassing
             // 
-            this.lstW3CFilesPassing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstW3CFilesPassing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lstW3CFilesPassing.FormattingEnabled = true;
             this.lstW3CFilesPassing.Location = new System.Drawing.Point(3, 3);
@@ -338,7 +338,7 @@ namespace SvgW3CTestRunner
             // 
             // lstW3CFilesFailing
             // 
-            this.lstW3CFilesFailing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstW3CFilesFailing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lstW3CFilesFailing.FormattingEnabled = true;
             this.lstW3CFilesFailing.Location = new System.Drawing.Point(3, 4);
@@ -359,7 +359,7 @@ namespace SvgW3CTestRunner
             // 
             // lstFilesOtherPassing
             // 
-            this.lstFilesOtherPassing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstFilesOtherPassing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lstFilesOtherPassing.FormattingEnabled = true;
             this.lstFilesOtherPassing.Location = new System.Drawing.Point(0, -2);
@@ -421,7 +421,7 @@ namespace SvgW3CTestRunner
             this.ResumeLayout(false);
 
         }
-        
+
 
         #endregion
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

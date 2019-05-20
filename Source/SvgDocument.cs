@@ -115,13 +115,13 @@ namespace Svg
         /// Gets or sets the Pixels Per Inch of the rendered image.
         /// </summary>
         public int Ppi { get; set; }
-        
+
         /// <summary>
         /// Gets or sets an external Cascading Style Sheet (CSS)
         /// </summary>
-        public string ExternalCSSHref { get; set; }        
+        public string ExternalCSSHref { get; set; }
 
-#region ITypeDescriptorContext Members
+        #region ITypeDescriptorContext Members
 
         IContainer ITypeDescriptorContext.Container
         {
@@ -153,7 +153,7 @@ namespace Svg
             throw new NotImplementedException();
         }
 
-#endregion
+        #endregion
 
         /// <summary>
         /// Retrieves the <see cref="SvgElement"/> with the specified ID.
@@ -249,7 +249,8 @@ namespace Svg
             {
                 var reader = new SvgTextReader(strReader, null)
                 {
-                    XmlResolver = new SvgDtdResolver(), WhitespaceHandling = WhitespaceHandling.None
+                    XmlResolver = new SvgDtdResolver(),
+                    WhitespaceHandling = WhitespaceHandling.None
                 };
                 return Open<T>(reader);
             }
@@ -271,7 +272,8 @@ namespace Svg
             // Don't close the stream via a dispose: that is the client's job.
             var reader = new SvgTextReader(stream, entities)
             {
-                XmlResolver = new SvgDtdResolver(), WhitespaceHandling = WhitespaceHandling.None
+                XmlResolver = new SvgDtdResolver(),
+                WhitespaceHandling = WhitespaceHandling.None
             };
             return Open<T>(reader);
         }
@@ -283,7 +285,7 @@ namespace Svg
             SvgElement element = null;
             SvgElement parent;
             T svgDocument = null;
-			var elementFactory = new SvgElementFactory();
+            var elementFactory = new SvgElementFactory();
 
             var styles = new List<ISvgNode>();
 
@@ -602,30 +604,31 @@ namespace Svg
         /// <param name="rasterHeight"></param>
         public virtual void RasterizeDimensions(ref SizeF size, int rasterWidth, int rasterHeight)
         {
-          if (size == null || size.Width == 0)
-            return;
+            if (size == null || size.Width == 0)
+                return;
 
-          // Ratio of height/width of the original SVG size, to be used for scaling transformation
-          float ratio = size.Height / size.Width;
+            // Ratio of height/width of the original SVG size, to be used for scaling transformation
+            float ratio = size.Height / size.Width;
 
-          size.Width = rasterWidth > 0 ? (float)rasterWidth : size.Width;
-          size.Height = rasterHeight > 0 ? (float)rasterHeight : size.Height;
+            size.Width = rasterWidth > 0 ? (float)rasterWidth : size.Width;
+            size.Height = rasterHeight > 0 ? (float)rasterHeight : size.Height;
 
-          if (rasterHeight == 0 && rasterWidth > 0)
-          {
-            size.Height = (int)(rasterWidth * ratio);
-          }
-          else if (rasterHeight > 0 && rasterWidth == 0)
-          {
-            size.Width = (int)(rasterHeight / ratio);
-          }
+            if (rasterHeight == 0 && rasterWidth > 0)
+            {
+                size.Height = (int)(rasterWidth * ratio);
+            }
+            else if (rasterHeight > 0 && rasterWidth == 0)
+            {
+                size.Width = (int)(rasterHeight / ratio);
+            }
         }
 
         public override void Write(XmlTextWriter writer)
         {
             //Save previous culture and switch to invariant for writing
             var previousCulture = Thread.CurrentThread.CurrentCulture;
-            try {
+            try
+            {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
                 base.Write(writer);
             }
@@ -646,7 +649,7 @@ namespace Svg
             };
             xmlWriter.WriteStartDocument();
             xmlWriter.WriteDocType("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", null);
-            
+
             if (!String.IsNullOrEmpty(this.ExternalCSSHref))
                 xmlWriter.WriteProcessingInstruction("xml-stylesheet", String.Format("type=\"text/css\" href=\"{0}\"", this.ExternalCSSHref));
 

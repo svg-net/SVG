@@ -81,18 +81,18 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgCircle>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgCircle>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgCircle;
-			newObj.CenterX = this.CenterX;
-			newObj.CenterY = this.CenterY;
-			newObj.Radius = this.Radius;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgCircle;
+            newObj.CenterX = this.CenterX;
+            newObj.CenterY = this.CenterY;
+            newObj.Radius = this.Radius;
+            return newObj;
+        }
     }
 }

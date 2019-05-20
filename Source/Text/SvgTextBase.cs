@@ -23,10 +23,11 @@ namespace Svg
         public virtual string Text
         {
             get { return base.Content; }
-            set {
+            set
+            {
                 Nodes.Clear();
                 Children.Clear();
-                if(value != null)
+                if (value != null)
                 {
                     Nodes.Add(new SvgContentNode { Content = value });
                 }
@@ -215,7 +216,7 @@ namespace Svg
                 var path = this.Path(null);
                 foreach (var elem in this.Children.OfType<SvgVisualElement>())
                 {
-                	//When empty Text span, don't add path
+                    //When empty Text span, don't add path
                     var span = elem as SvgTextSpan;
                     if (span != null && span.Text == null)
                         continue;
@@ -345,7 +346,7 @@ namespace Svg
                 }
                 else
                 {
-                    TextDrawingState newState= new TextDrawingState(state, textNode);
+                    TextDrawingState newState = new TextDrawingState(state, textNode);
 
                     textNode.SetPath(newState);
                     state.NumChars += newState.NumChars;
@@ -855,12 +856,12 @@ namespace Svg
                         switch (Element.TextAnchor)
                         {
                             case SvgTextAnchor.Middle:
-                                if (_anchoredPaths.Count() == 1) xOffset -= this.TextBounds.Width / 2; 
+                                if (_anchoredPaths.Count() == 1) xOffset -= this.TextBounds.Width / 2;
                                 else xOffset -= (maxX - minX) / 2;
                                 break;
                             case SvgTextAnchor.End:
                                 if (_anchoredPaths.Count() == 1) xOffset -= this.TextBounds.Width;
-                                else xOffset -= (maxX - minX); 
+                                else xOffset -= (maxX - minX);
                                 break;
                         }
 

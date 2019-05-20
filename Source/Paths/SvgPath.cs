@@ -94,20 +94,20 @@ namespace Svg
             pathData._owner = this;
         }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgPath>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgPath>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgPath;
-			foreach (var pathData in this.PathData)
-				newObj.PathData.Add(pathData.Clone());
-			newObj.PathLength = this.PathLength;
-			newObj.MarkerStart = this.MarkerStart;
-			newObj.MarkerEnd = this.MarkerEnd;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgPath;
+            foreach (var pathData in this.PathData)
+                newObj.PathData.Add(pathData.Clone());
+            newObj.PathLength = this.PathLength;
+            newObj.MarkerStart = this.MarkerStart;
+            newObj.MarkerEnd = this.MarkerEnd;
+            return newObj;
+        }
     }
 }

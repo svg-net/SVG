@@ -6,7 +6,7 @@ namespace Svg.ExCSS
 {
     public class NamespaceRule : RuleSet
     {
-        public NamespaceRule() 
+        public NamespaceRule()
         {
             RuleType = RuleType.Namespace;
         }

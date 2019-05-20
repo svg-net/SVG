@@ -22,9 +22,9 @@ namespace Svg
             // Do nothing. Children should NOT be rendered.
         }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgDefinitionList>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgDefinitionList>();
+        }
     }
 }

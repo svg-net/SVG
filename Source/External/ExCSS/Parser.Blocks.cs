@@ -560,7 +560,7 @@ namespace Svg.ExCSS
                 // the value is invalid - remove the property to use the default value
                 RemoveCurrentProperty();
 
-            return true;    
+            return true;
         }
 
         #region Namespace
@@ -665,7 +665,7 @@ namespace Svg.ExCSS
             }
 
             _buffer = new StringBuilder();
-         
+
             return ParseKeyframeText(token);
         }
 
@@ -720,7 +720,7 @@ namespace Svg.ExCSS
 
             return false;
         }
-        
+
         #endregion
 
         #region Document
