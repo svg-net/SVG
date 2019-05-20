@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Net;
+using System.Text;
 
 namespace Svg
 {
@@ -13,6 +15,8 @@ namespace Svg
     [SvgElement("image")]
     public class SvgImage : SvgVisualElement
     {
+        private const string MimeTypeSvg = "image/svg+xml";
+
         private GraphicsPath _path;
         private bool _gettingBounds;
 
@@ -244,19 +248,7 @@ namespace Svg
 
                 // handle data/uri embedded images (http://en.wikipedia.org/wiki/Data_URI_scheme)
                 if (uri.IsAbsoluteUri && uri.Scheme == "data")
-                {
-                    var dataIdx = uriString.IndexOf(",", 5) + 1;
-                    if (dataIdx <= 0 || dataIdx + 1 > uriString.Length)
-                        throw new Exception("Invalid data URI");
-
-                    // we're assuming base64, as ascii encoding would be *highly* unusual for images
-                    // also assuming it's png or jpeg mimetype
-                    var imageBytes = Convert.FromBase64String(uriString.Substring(dataIdx));
-                    using (var stream = new MemoryStream(imageBytes))
-                    {
-                        return Image.FromStream(stream);
-                    }
-                }
+                    return GetImageFromDataUri(uriString);
 
                 if (!uri.IsAbsoluteUri)
                     uri = new Uri(OwnerDocument.BaseUri, uri);
@@ -271,12 +263,9 @@ namespace Svg
                         if (stream.CanSeek)
                             stream.Position = 0;
 
-                        if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            var doc = SvgDocument.Open<SvgDocument>(stream);
-                            doc.BaseUri = uri;
-                            return doc;
-                        }
+                        if (webResponse.ContentType.StartsWith(MimeTypeSvg, StringComparison.InvariantCultureIgnoreCase) ||
+                            uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
+                            return LoadSvg(stream, uri);
                         else
                             return Image.FromStream(stream);
                     }
@@ -287,6 +276,74 @@ namespace Svg
                 Trace.TraceError("Error loading image: '{0}', error: {1} ", uriString, ex.Message);
                 return null;
             }
+        }
+
+        private object GetImageFromDataUri(string uriString)
+        {
+            var headerStartIndex = 5;
+            var headerEndIndex = uriString.IndexOf(",", headerStartIndex);
+            if (headerEndIndex < 0 || headerEndIndex + 1 >= uriString.Length)
+                throw new Exception("Invalid data URI");
+
+            var mimeType = "text/plain";
+            var charset = "US-ASCII";
+            var base64 = false;
+
+            var headers = new List<string>(uriString.Substring(headerStartIndex, headerEndIndex - headerStartIndex).Split(';'));
+            if (headers[0].Contains("/"))
+            {
+                mimeType = headers[0].Trim();
+                headers.RemoveAt(0);
+                charset = string.Empty;
+            }
+
+            if (headers.Count > 0 && headers[headers.Count - 1].Trim().Equals("base64", StringComparison.InvariantCultureIgnoreCase))
+            {
+                base64 = true;
+                headers.RemoveAt(headers.Count - 1);
+            }
+
+            foreach (var param in headers)
+            {
+                var p = param.Split('=');
+                if (p.Length < 2)
+                    continue;
+
+                var attribute = p[0].Trim();
+                if (attribute.Equals("charset", StringComparison.InvariantCultureIgnoreCase))
+                    charset = p[1].Trim();
+            }
+
+            var data = uriString.Substring(headerEndIndex + 1);
+            if (mimeType.Equals(MimeTypeSvg, StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (base64)
+                {
+                    var encoding = string.IsNullOrEmpty(charset) ? Encoding.UTF8 : Encoding.GetEncoding(charset);
+                    data = encoding.GetString(Convert.FromBase64String(data));
+                }
+                using (var stream = new MemoryStream(Encoding.Default.GetBytes(data)))
+                {
+                    return LoadSvg(stream, OwnerDocument.BaseUri);
+                }
+            }
+            else if (mimeType.StartsWith("image/"))
+            {
+                var dataBytes = base64 ? Convert.FromBase64String(data) : Encoding.Default.GetBytes(data);
+                using (var stream = new MemoryStream(dataBytes))
+                {
+                    return Image.FromStream(stream);
+                }
+            }
+            else
+                return null;
+        }
+
+        private SvgDocument LoadSvg(Stream stream, Uri baseUri)
+        {
+            var document = SvgDocument.Open<SvgDocument>(stream);
+            document.BaseUri = baseUri;
+            return document;
         }
 
         public override SvgElement DeepCopy()
