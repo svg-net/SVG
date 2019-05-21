@@ -153,15 +153,6 @@ namespace Svg
                 return id;
             }
 
-            if (char.IsDigit(id[0]))
-            {
-                if (autoForceUniqueID)
-                {
-                    return EnsureValidId("id" + id, true);
-                }
-                throw new SvgIDWrongFormatException("ID cannot start with a digit: '" + id + "'.");
-            }
-
             if (this._idValueMap.ContainsKey(id))
             {
                 if (autoForceUniqueID)
