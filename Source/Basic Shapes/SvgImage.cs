@@ -239,7 +239,7 @@ namespace Svg
         protected object GetImage(string uriString)
         {
             // Uri MaxLength is 65519 (https://msdn.microsoft.com/en-us/library/z6c2z492.aspx)
-            // main use is data URI scheme, but very long to use it as data URI scheme.
+            // if using data URI scheme, very long URI may happen.
             var safeUriString = uriString.Length > 65519 ? uriString.Substring(0, 65519) : uriString;
 
             try
