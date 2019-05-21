@@ -22,12 +22,20 @@ namespace SVGViewer
                     var svgDoc = SvgDocument.Open(openSvgFile.FileName);
                     RenderSvg(svgDoc);
 
-                    var xmlDoc = new XmlDocument
+                    textBox1.TextChanged -= TextBox1_TextChanged;
+                    try
                     {
-                        XmlResolver = null
-                    };
-                    xmlDoc.Load(openSvgFile.FileName);
-                    textBox1.Text = xmlDoc.InnerXml;
+                        var xmlDoc = new XmlDocument
+                        {
+                            XmlResolver = null
+                        };
+                        xmlDoc.Load(openSvgFile.FileName);
+                        textBox1.Text = xmlDoc.InnerXml;
+                    }
+                    finally
+                    {
+                        textBox1.TextChanged += TextBox1_TextChanged;
+                    }
                 }
             }
             catch
