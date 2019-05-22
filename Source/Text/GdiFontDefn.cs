@@ -47,11 +47,13 @@ namespace Svg
             StringFormat format;
             for (int s = 0; s <= (text.Length - 1) / 32; s++)
             {
+                int numberOfChar = Math.Min(32, text.Length - 32 * s);
+
                 format = StringFormat.GenericTypographic;
                 format.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
-                format.SetMeasurableCharacterRanges((from r in Enumerable.Range(32 * s, Math.Min(32, text.Length - 32 * s))
+                format.SetMeasurableCharacterRanges((from r in Enumerable.Range(32 * s, numberOfChar)
                                                      select new CharacterRange(r, 1)).ToArray());
-                regions.AddRange(from r in g.MeasureCharacterRanges(text, _font, new Rectangle(0, 0, 1000, 1000), format)
+                regions.AddRange(from r in g.MeasureCharacterRanges(text, _font, new Rectangle(0, 0, numberOfChar * _font.Height, 1000), format)
                                  select r.GetBounds(g));
             }
             return regions;
