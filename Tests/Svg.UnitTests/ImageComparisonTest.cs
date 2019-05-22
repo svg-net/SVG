@@ -284,15 +284,16 @@ namespace Svg.UnitTests
             using (Graphics g = Graphics.FromImage(newBitmap))
             {
                 //create some image attributes
-                ImageAttributes attributes = new ImageAttributes();
+                using (ImageAttributes attributes = new ImageAttributes())
+                {
+                    //set the color matrix attribute
+                    attributes.SetColorMatrix(ColorMatrix);
 
-                //set the color matrix attribute
-                attributes.SetColorMatrix(ColorMatrix);
-
-                //draw the original image on the new image
-                //using the grayscale color matrix
-                g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                   0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                    //draw the original image on the new image
+                    //using the grayscale color matrix
+                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                }
             }
             return newBitmap;
 

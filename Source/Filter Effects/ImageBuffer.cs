@@ -164,14 +164,12 @@ namespace Svg.FilterEffects
 
             var matrix = new ColorMatrix(colorMatrixElements);
 
-            ImageAttributes attributes = new ImageAttributes();
-            attributes.SetColorMatrix(matrix);
-
             var sourceAlpha = new Bitmap(source.Width, source.Height);
 
             using (var graphics = Graphics.FromImage(sourceAlpha))
+            using (var attributes = new ImageAttributes())
             {
-
+                attributes.SetColorMatrix(matrix);
                 graphics.DrawImage(source, new Rectangle(0, 0, source.Width, source.Height), 0, 0,
                       source.Width, source.Height, GraphicsUnit.Pixel, attributes);
                 graphics.Save();
