@@ -301,8 +301,11 @@ namespace Svg
 
             if (_path == null || IsPathDirty || nodes.Count() == 1)
             {
-                renderer = (renderer ?? SvgRenderer.FromNull());
-                SetPath(new TextDrawingState(renderer, this));
+                if (renderer == null)
+                    using (var r = SvgRenderer.FromNull())
+                        SetPath(new TextDrawingState(r, this));
+                else
+                    SetPath(new TextDrawingState(renderer, this));
             }
             return _path;
         }
