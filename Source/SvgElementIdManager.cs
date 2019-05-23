@@ -137,12 +137,11 @@ namespace Svg
         }
 
         /// <summary>
-        /// Ensures that the specified ID is valid within the containing <see cref="SvgDocument"/>.
+        /// Ensures that the specified ID is unique within the containing <see cref="SvgDocument"/>.
         /// </summary>
         /// <param name="id">A <see cref="string"/> containing the ID to validate.</param>
         /// <param name="autoForceUniqueID">Creates a new unique id <see cref="string"/>.</param>
         /// <exception cref="SvgException">
-        /// <para>The ID cannot start with a digit.</para>
         /// <para>An element with the same ID already exists within the containing <see cref="SvgDocument"/>.</para>
         /// </exception>
         public string EnsureValidId(string id, bool autoForceUniqueID = false)
@@ -151,15 +150,6 @@ namespace Svg
             if (string.IsNullOrEmpty(id))
             {
                 return id;
-            }
-
-            if (char.IsDigit(id[0]))
-            {
-                if (autoForceUniqueID)
-                {
-                    return EnsureValidId("id" + id, true);
-                }
-                throw new SvgIDWrongFormatException("ID cannot start with a digit: '" + id + "'.");
             }
 
             if (this._idValueMap.ContainsKey(id))
