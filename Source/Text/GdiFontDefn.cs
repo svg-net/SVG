@@ -71,23 +71,14 @@ namespace Svg
             }
         }
 
-        private Graphics _graphics;
-        private Graphics GetGraphics(object renderer)
+        private Graphics GetGraphics(ISvgRenderer renderer)
         {
             var provider = renderer as IGraphicsProvider;
             if (provider == null)
             {
-                if (_graphics == null)
-                {
-                    var bmp = new Bitmap(1, 1);
-                    _graphics = Graphics.FromImage(bmp);
-                }
-                return _graphics;
+                throw new NotImplementedException("renderer is not IGraphicsProvider");
             }
-            else
-            {
-                return provider.GetGraphics();
-            }
+            return provider.GetGraphics();
         }
 
         public void Dispose()
