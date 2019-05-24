@@ -8,7 +8,7 @@ namespace Svg
 {
     public class GdiFontDefn : IFontDefn
     {
-        private Font _font;
+        private readonly Font _font;
 
         public float Size
         {
@@ -33,8 +33,8 @@ namespace Svg
         public float Ascent(ISvgRenderer renderer)
         {
             var ff = _font.FontFamily;
-            float ascent = ff.GetCellAscent(_font.Style);
-            float baselineOffset = _font.SizeInPoints / ff.GetEmHeight(_font.Style) * ascent;
+            var ascent = ff.GetCellAscent(_font.Style);
+            var baselineOffset = _font.SizeInPoints / ff.GetEmHeight(_font.Style) * ascent;
             return SvgDocument.PointsPerInch / 72f * baselineOffset;
         }
 
@@ -47,7 +47,7 @@ namespace Svg
                 format.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
                 for (var s = 0; s <= (text.Length - 1) / 32; s++)
                 {
-                    int numberOfChar = Math.Min(32, text.Length - 32 * s);
+                    var numberOfChar = Math.Min(32, text.Length - 32 * s);
                     format.SetMeasurableCharacterRanges((from r in Enumerable.Range(32 * s, numberOfChar)
                                                          select new CharacterRange(r, 1)).ToArray());
                     regions.AddRange(from r in g.MeasureCharacterRanges(text, _font, new Rectangle(0, 0, numberOfChar * _font.Height, 1000), format)
