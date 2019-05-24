@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace Svg
 {
@@ -44,17 +42,17 @@ namespace Svg
         {
             var g = GetGraphics(renderer);
             var regions = new List<RectangleF>();
-            StringFormat format;
-            for (int s = 0; s <= (text.Length - 1) / 32; s++)
+            using (var format = new StringFormat(StringFormat.GenericTypographic))
             {
-                int numberOfChar = Math.Min(32, text.Length - 32 * s);
-
-                format = StringFormat.GenericTypographic;
                 format.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
-                format.SetMeasurableCharacterRanges((from r in Enumerable.Range(32 * s, numberOfChar)
-                                                     select new CharacterRange(r, 1)).ToArray());
-                regions.AddRange(from r in g.MeasureCharacterRanges(text, _font, new Rectangle(0, 0, numberOfChar * _font.Height, 1000), format)
-                                 select r.GetBounds(g));
+                for (var s = 0; s <= (text.Length - 1) / 32; s++)
+                {
+                    int numberOfChar = Math.Min(32, text.Length - 32 * s);
+                    format.SetMeasurableCharacterRanges((from r in Enumerable.Range(32 * s, numberOfChar)
+                                                         select new CharacterRange(r, 1)).ToArray());
+                    regions.AddRange(from r in g.MeasureCharacterRanges(text, _font, new Rectangle(0, 0, numberOfChar * _font.Height, 1000), format)
+                                     select r.GetBounds(g));
+                }
             }
             return regions;
         }
@@ -62,32 +60,25 @@ namespace Svg
         public SizeF MeasureString(ISvgRenderer renderer, string text)
         {
             var g = GetGraphics(renderer);
-            StringFormat format = StringFormat.GenericTypographic.Clone() as StringFormat;
-            format.SetMeasurableCharacterRanges(new CharacterRange[] { new CharacterRange(0, text.Length) });
-            format.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
-            Region[] r = g.MeasureCharacterRanges(text, _font, new Rectangle(0, 0, 1000, 1000), format);
-            RectangleF rect = r[0].GetBounds(g);
+            using (var format = new StringFormat(StringFormat.GenericTypographic))
+            {
+                format.SetMeasurableCharacterRanges(new CharacterRange[] { new CharacterRange(0, text.Length) });
+                format.FormatFlags |= StringFormatFlags.MeasureTrailingSpaces;
+                var r = g.MeasureCharacterRanges(text, _font, new Rectangle(0, 0, 1000, 1000), format);
+                var rect = r[0].GetBounds(g);
 
-            return new SizeF(rect.Width, Ascent(renderer));
+                return new SizeF(rect.Width, Ascent(renderer));
+            }
         }
 
-        private Graphics _graphics;
-        private Graphics GetGraphics(object renderer)
+        private Graphics GetGraphics(ISvgRenderer renderer)
         {
             var provider = renderer as IGraphicsProvider;
             if (provider == null)
             {
-                if (_graphics == null)
-                {
-                    var bmp = new Bitmap(1, 1);
-                    _graphics = Graphics.FromImage(bmp);
-                }
-                return _graphics;
+                throw new NotImplementedException("renderer is not IGraphicsProvider");
             }
-            else
-            {
-                return provider.GetGraphics();
-            }
+            return provider.GetGraphics();
         }
 
         public void Dispose()
