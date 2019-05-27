@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Svg
@@ -421,15 +422,8 @@ namespace Svg
         protected string PrepareText(string value)
         {
             value = ApplyTransformation(value);
-            if (this.SpaceHandling == XmlSpaceHandling.preserve)
-            {
-                return value.Replace('\t', ' ').Replace("\r\n", " ").Replace('\r', ' ').Replace('\n', ' ');
-            }
-            else
-            {
-                var convValue = MultipleSpaces.Replace(value.Replace("\r", "").Replace("\n", "").Replace('\t', ' '), " ");
-                return convValue;
-            }
+            value = new StringBuilder(value).Replace("\r\n", " ").Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ').ToString();
+            return this.SpaceHandling == XmlSpaceHandling.preserve ? value : MultipleSpaces.Replace(value, " ").Trim();
         }
 
         private string ApplyTransformation(string value)
