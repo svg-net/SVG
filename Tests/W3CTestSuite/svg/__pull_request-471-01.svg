@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="480">
+
+<!-- none == default -->
+<text fill="blue"  font-size="16" font-family="Verdana"                      x="150" y="22"> SVG is XML . </text>
+<text fill="blue"  font-size="16" font-family="Verdana"                      x="150" y="44">  SVG  is  XML  .  </text>
+<text fill="blue"  font-size="16" font-family="Verdana"                      x="150" y="66">
+SVG
+is
+XML
+.
+</text>
+<text fill="blue"  font-size="16" font-family="Verdana"                      x="150" y="88">
+
+SVG
+
+is
+
+XML
+
+.
+
+</text>
+<text fill="blue"  font-size="16" font-family="Verdana"                      x="150" y="110">	SVG	is	XML	.	</text>
+<text fill="blue"  font-size="16" font-family="Verdana"                      x="150" y="132">		SVG		is		XML		.		</text>
+<text fill="blue"  font-size="16" font-family="Verdana"                      x="150" y="154">
+ SVG
+	is
+ XML
+	.
+ </text>
+
+<!-- default -->
+<text fill="red"   font-size="16" font-family="Verdana" xml:space="default"  x="150" y="176"> SVG is XML . </text>
+<text fill="red"   font-size="16" font-family="Verdana" xml:space="default"  x="150" y="198">  SVG  is  XML  .  </text>
+<text fill="red"   font-size="16" font-family="Verdana" xml:space="default"  x="150" y="220">
+SVG
+is
+XML
+.
+</text>
+<text fill="red"   font-size="16" font-family="Verdana" xml:space="default"  x="150" y="242">
+
+SVG
+
+is
+
+XML
+
+.
+
+</text>
+<text fill="red"   font-size="16" font-family="Verdana" xml:space="default"  x="150" y="264">	SVG	is	XML	.	</text>
+<text fill="red"   font-size="16" font-family="Verdana" xml:space="default"  x="150" y="286">		SVG		is		XML		.		</text>
+<text fill="red"   font-size="16" font-family="Verdana" xml:space="default"  x="150" y="308">
+ SVG
+	is
+ XML
+	.
+ </text>
+
+
+<!-- preserve -->
+<text fill="green" font-size="16" font-family="Verdana" xml:space="preserve" x="150" y="330"> SVG is XML . </text>
+<text fill="green" font-size="16" font-family="Verdana" xml:space="preserve" x="150" y="352">  SVG  is  XML  .  </text>
+<text fill="green" font-size="16" font-family="Verdana" xml:space="preserve" x="150" y="374">
+SVG
+is
+XML
+.
+</text>
+<text fill="green" font-size="16" font-family="Verdana" xml:space="preserve" x="150" y="396">
+
+SVG
+
+is
+
+XML
+
+.
+
+</text>
+<text fill="green" font-size="16" font-family="Verdana" xml:space="preserve" x="150" y="418">	SVG	is	XML	.	</text>
+<text fill="green" font-size="16" font-family="Verdana" xml:space="preserve" x="150" y="440">		SVG		is		XML		.		</text>
+<text fill="green" font-size="16" font-family="Verdana" xml:space="preserve" x="150" y="462">
+ SVG
+	is
+ XML
+	.
+ </text>
+
+
+<line x1="150" y1="0" x2="150" y2="480" stroke="black" stroke-width="1" />
+</svg>
