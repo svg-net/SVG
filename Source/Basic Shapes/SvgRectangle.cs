@@ -134,7 +134,8 @@ namespace Svg
                     var width = this.Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) + halfStrokeWidth * 2;
                     var height = this.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this) + halfStrokeWidth * 2;
 
-                    var rectangle = new RectangleF(strokedLocation.ToDeviceValue(renderer, this), new SizeF(width, height));
+                    var location = strokedLocation.ToDeviceValue(renderer, this);
+                    var rectangle = new RectangleF(location, new SizeF(width, height));
 
                     _path = new GraphicsPath();
                     _path.StartFigure();

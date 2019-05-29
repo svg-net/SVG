@@ -63,7 +63,7 @@
         </filter>
         <filter id="BlendScreen" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
           <feFlood in="SourceGraphic" flood-color="#0f0" flood-opacity="0.5" result="img2"/>
-          <feBlend in="SourceGraphic" in2="img2" mode="screen"/>
+          <!-- <feBlend in="SourceGraphic" in2="img2" mode="screen"/> -->
         </filter>
         <filter id="BlendDarken" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
           <feFlood in="SourceGraphic" flood-color="#0f0" flood-opacity="0.5" result="img2"/>
