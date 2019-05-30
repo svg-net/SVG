@@ -31,7 +31,8 @@ namespace SvgW3CTestRunner
                           select Path.GetFileName(g))
                          where !f.StartsWith("animate-") && !f.StartsWith("conform-viewer") &&
                          !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-") &&
-                         !f.StartsWith("script-")
+                         !f.StartsWith("script-") && f.EndsWith(".svg")
+                         && File.Exists(_pngBasePath + f.Substring(0, f.Length - 3) + "png")
                          orderby f
                          select (object)f);
 
@@ -186,7 +187,8 @@ namespace SvgW3CTestRunner
                     var descriptionLines = new List<string>();
                     foreach (var child in descriptionElement.Children)
                     {
-                        descriptionLines.Add(regex.Replace(child.Content, " "));
+                        if (child.Content != null)
+                            descriptionLines.Add(regex.Replace(child.Content, " "));
                     }
                     return string.Join("\n", descriptionLines.ToArray());
                 }

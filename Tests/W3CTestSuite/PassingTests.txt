@@ -137,6 +137,7 @@ shapes-rect-04-f.svg
 shapes-rect-05-f.svg
 shapes-rect-06-f.svg
 shapes-rect-07-f.svg
+struct-defs-01-t.svg
 struct-frag-01-t.svg
 struct-frag-02-t.svg
 struct-frag-03-t.svg
@@ -154,10 +155,12 @@ struct-image-13-f.svg
 struct-image-14-f.svg
 struct-image-15-f.svg
 struct-image-17-b.svg
-struct-defs-01-t.svg
+struct-svg-03-f.svg
+struct-symbol-01-b.svg
 struct-use-01-t.svg
 struct-use-03-t.svg
 struct-use-05-b.svg
+struct-use-11-f.svg
 struct-use-12-f.svg
 struct-use-14-f.svg
 struct-use-15-f.svg
