@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.2;net35</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.2;net35;net452;net472</TargetFrameworks>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
@@ -37,6 +37,7 @@ Supports multiple targets v3.5 thru to dotnetcore2.2.
 NetStandard does not fully support the Drawing2D package - so has been left out.
     </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/vvvv/SVG</PackageProjectUrl>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>
@@ -87,8 +88,9 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web"/>
-    <Reference Include="System.Xml"/>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+	<Reference Include="WindowsBase" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
@@ -96,8 +98,8 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web"/>
-    <Reference Include="System.Xml"/>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net452'">
@@ -105,8 +107,8 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web"/>
-    <Reference Include="System.Xml"/>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net472'">
@@ -114,13 +116,16 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web"/>
-    <Reference Include="System.Xml"/>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
     <PackageReference Include="System.Drawing.Common">
       <Version>4.5.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.ObjectModel">
+      <Version>4.3.0</Version>
     </PackageReference>
   </ItemGroup>
 
