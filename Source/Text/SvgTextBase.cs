@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
@@ -11,12 +12,20 @@ namespace Svg
 {
     public abstract class SvgTextBase : SvgVisualElement
     {
-        [CLSCompliant(false)] protected SvgUnitCollection _x = new SvgUnitCollection();
-        [CLSCompliant(false)] protected SvgUnitCollection _y = new SvgUnitCollection();
-        [CLSCompliant(false)] protected SvgUnitCollection _dy = new SvgUnitCollection();
-        [CLSCompliant(false)] protected SvgUnitCollection _dx = new SvgUnitCollection();
+        [CLSCompliant(false)] private SvgUnitCollection _x = new SvgUnitCollection();
+        [CLSCompliant(false)] private SvgUnitCollection _y = new SvgUnitCollection();
+        [CLSCompliant(false)] private SvgUnitCollection _dy = new SvgUnitCollection();
+        [CLSCompliant(false)] private SvgUnitCollection _dx = new SvgUnitCollection();
         private string _rotate;
         private List<float> _rotations = new List<float>();
+
+        public SvgTextBase()
+        {
+            _x.CollectionChanged += OnCoordinateChanged;
+            _dx.CollectionChanged += OnCoordinateChanged;
+            _y.CollectionChanged += OnCoordinateChanged;
+            _dy.CollectionChanged += OnCoordinateChanged;
+        }
 
         /// <summary>
         /// Gets or sets the text to be rendered.
@@ -55,7 +64,10 @@ namespace Svg
             {
                 if (_x != value)
                 {
+                    if (_x != null) { _x.CollectionChanged -= OnCoordinateChanged; }
                     this._x = value;
+                    if (_x != null) { _x.CollectionChanged += OnCoordinateChanged; }
+
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "x", Value = value });
                 }
@@ -74,7 +86,10 @@ namespace Svg
             {
                 if (_dx != value)
                 {
+                    if (_dx != null) { _dx.CollectionChanged -= OnCoordinateChanged; }
                     this._dx = value;
+                    if (_dx != null) { _dx.CollectionChanged += OnCoordinateChanged; }
+
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "dx", Value = value });
                 }
@@ -93,7 +108,10 @@ namespace Svg
             {
                 if (_y != value)
                 {
+                    if (_y != null) { _y.CollectionChanged -= OnCoordinateChanged; } 
                     this._y = value;
+                    if (_y != null) { _y.CollectionChanged += OnCoordinateChanged; }
+
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "y", Value = value });
                 }
@@ -112,11 +130,19 @@ namespace Svg
             {
                 if (_dy != value)
                 {
+                    if (_dy != null) { _dy.CollectionChanged -= OnCoordinateChanged; }
                     this._dy = value;
+                    if (_dy != null) { _dy.CollectionChanged += OnCoordinateChanged; }
+
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "dy", Value = value });
                 }
             }
+        }
+
+        private void OnCoordinateChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            this.IsPathDirty = true;
         }
 
         /// <summary>

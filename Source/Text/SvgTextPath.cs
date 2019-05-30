@@ -25,16 +25,16 @@ namespace Svg
         [SvgAttribute("startOffset")]
         public virtual SvgUnit StartOffset
         {
-            get { return (_dx.Count < 1 ? SvgUnit.None : _dx[0]); }
+            get { return (base.Dx.Count < 1 ? SvgUnit.None : base.Dx[0]); }
             set
             {
-                if (_dx.Count < 1)
+                if (base.Dx.Count < 1)
                 {
-                    _dx.Add(value);
+                    base.Dx.Add(value);
                 }
                 else
                 {
-                    _dx[0] = value;
+                    base.Dx[0] = value;
                 }
             }
         }
