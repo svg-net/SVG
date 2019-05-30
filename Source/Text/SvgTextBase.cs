@@ -145,11 +145,11 @@ namespace Svg
             this.IsPathDirty = true;
         }
 
-		/// <summary>
-		/// Gets or sets the rotate.
-		/// </summary>
-		/// <value>The rotate.</value>
-		[SvgAttribute("rotate")]
+        /// <summary>
+        /// Gets or sets the rotate.
+        /// </summary>
+        /// <value>The rotate.</value>
+        [SvgAttribute("rotate")]
         public virtual string Rotate
         {
             get { return this._rotate; }

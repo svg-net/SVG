@@ -90,7 +90,7 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-	<Reference Include="WindowsBase" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
