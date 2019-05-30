@@ -17,7 +17,19 @@ namespace Svg
         {
             if (collection == null) { throw new ArgumentNullException(nameof(collection)); }
 
-            foreach(SvgUnit unit in collection)
+            if (collection == this)
+            {
+                // handle special case where the collection is duplicated
+                // we need to clone it to avoid an excpeption during enumeration
+                var clonedCollection = new SvgUnitCollection();
+                foreach (var unit in collection)
+                {
+                    clonedCollection.Add(unit);
+                }
+                collection = clonedCollection;
+            }
+
+            foreach (SvgUnit unit in collection)
             {
                 this.Add(unit);
             }

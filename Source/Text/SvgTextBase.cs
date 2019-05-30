@@ -12,10 +12,10 @@ namespace Svg
 {
     public abstract class SvgTextBase : SvgVisualElement
     {
-        [CLSCompliant(false)] private SvgUnitCollection _x = new SvgUnitCollection();
-        [CLSCompliant(false)] private SvgUnitCollection _y = new SvgUnitCollection();
-        [CLSCompliant(false)] private SvgUnitCollection _dy = new SvgUnitCollection();
-        [CLSCompliant(false)] private SvgUnitCollection _dx = new SvgUnitCollection();
+        private SvgUnitCollection _x = new SvgUnitCollection();
+        private SvgUnitCollection _y = new SvgUnitCollection();
+        private SvgUnitCollection _dy = new SvgUnitCollection();
+        private SvgUnitCollection _dx = new SvgUnitCollection();
         private string _rotate;
         private List<float> _rotations = new List<float>();
 
