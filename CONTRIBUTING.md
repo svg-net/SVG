@@ -1,7 +1,6 @@
 # Contributing to SVG.NET
 
-SVG.NET is a community project and lives from contributions by the community - information 
-about the history of the library can be found in the [README](https://github.com/vvvv/SVG/blob/master/README.md).
+SVG.NET is a community project and lives from contributions by the community.
 Any help to improve and evolve the library is very welcome! 
 Contributions may include bug reports, bug fixes, new features, infrastructure enhancements, or 
 documentation updates.
