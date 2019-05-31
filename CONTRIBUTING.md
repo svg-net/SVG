@@ -16,7 +16,7 @@ If you can reproduce the problem, please provide enough information so that it c
 This includes:
   * The Operating System
   * The used .NET / .NET Core version
-  * An example image that shows the incorrect behavior, or a respective code snippet (preferrably in the form of a failing unit test)
+  * An example image that shows the incorrect behavior, or a respective code snippet (preferably in the form of a failing unit test)
   * The stack trace in case of an unexpected exception
 For better readability, you may use [markdown code formatting](https://help.github.com/articles/creating-and-highlighting-code-blocks/) for any included code.
 
