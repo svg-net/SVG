@@ -392,13 +392,20 @@ namespace Svg
 
                     foreach (var selector in selectors)
                     {
-                        elemsToStyle = svgDocument.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
-                        foreach (var elem in elemsToStyle)
+                        try
                         {
-                            foreach (var decl in rule.Declarations)
+                            elemsToStyle = svgDocument.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
+                            foreach (var elem in elemsToStyle)
                             {
-                                elem.AddStyle(decl.Name, decl.Term.ToString(), rule.Selector.GetSpecificity());
+                                foreach (var decl in rule.Declarations)
+                                {
+                                    elem.AddStyle(decl.Name, decl.Term.ToString(), rule.Selector.GetSpecificity());
+                                }
                             }
+                        }
+                        catch (Exception ex)
+                        {
+                            Trace.TraceWarning(ex.Message);
                         }
                     }
                 }
