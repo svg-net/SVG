@@ -15,6 +15,9 @@ namespace Svg
                 { { "cx", "50%" }, { "cy", "50%" }, { "r", "50%" } } },
                 { "SvgLinearGradientServer", new Dictionary<string, string>
                 { { "x1", "0%" }, { "x2", "100%" }, { "y1", "0%" }, { "y2", "100%" } } },
+
+                { "SvgFragment", new Dictionary<string, string>
+                { { "space", "default" } } },
             };
 
         // common defaults
@@ -65,6 +68,8 @@ namespace Svg
                 { "markerWidth", "3" },
                 { "markerHeight", "3" },
                 { "orient", "0" },
+
+                { "space", "inherit" },
             };
 
         /// <summary>

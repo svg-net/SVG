@@ -148,6 +148,12 @@ namespace Svg
             set { this.Attributes["font-family"] = value; }
         }
 
+        public override XmlSpaceHandling SpaceHandling
+        {
+            get { return GetAttribute("space", false, XmlSpaceHandling.@default); }
+            set { base.SpaceHandling = value; this.IsPathDirty = true; }
+        }
+
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
