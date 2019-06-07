@@ -150,7 +150,7 @@ namespace Svg
 
         public override XmlSpaceHandling SpaceHandling
         {
-            get { return GetAttribute("space", false, XmlSpaceHandling.@default); }
+            get { return GetAttribute("space", Inherited, XmlSpaceHandling.@default); }
             set { base.SpaceHandling = value; this.IsPathDirty = true; }
         }
 
