@@ -238,7 +238,7 @@ namespace Svg
                                 else
                                 {
                                     // SvgMarkerUnits.UserSpaceOnUse
-                                    //	TODO: We know this isn't correct.
+                                    // TODO: We know this isn't correct.
                                     //        But use this until the TODOs from AdjustForViewBoxWidth and AdjustForViewBoxHeight are done.
                                     //  MORE see Unit Test "MakerEndTest.TestArrowCodeCreation()"
                                     transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
@@ -262,7 +262,7 @@ namespace Svg
                         if (pRenderPen != null) pRenderer.DrawPath(pRenderPen, markerPath);
 
                         SvgPaintServer pFill = this.Children.First().Fill;
-                        SvgFillRule pFillRule = FillRule;								// TODO: What do we use the fill rule for?
+                        SvgFillRule pFillRule = FillRule;    // TODO: What do we use the fill rule for?
                         float fOpacity = FillOpacity;
 
                         if (pFill != null)
@@ -326,7 +326,7 @@ namespace Svg
         /// <returns></returns>
         private float AdjustForViewBoxWidth(float fWidth)
         {
-            //	TODO: We know this isn't correct
+            // TODO: We know this isn't correct
             return (ViewBox.Width <= 0 ? 1 : fWidth / ViewBox.Width);
         }
 
@@ -337,7 +337,7 @@ namespace Svg
         /// <returns></returns>
         private float AdjustForViewBoxHeight(float fHeight)
         {
-            //	TODO: We know this isn't correct
+            // TODO: We know this isn't correct
             return (ViewBox.Height <= 0 ? 1 : fHeight / ViewBox.Height);
         }
     }

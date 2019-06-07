@@ -25,7 +25,7 @@ namespace Svg
         Hidden,
 
         /// <summary>The value is inherited from the parent element.</summary>
-		Inherit,
+        Inherit,
 
         /// <summary>The overflow is rendered - same as "visible".</summary>
         Auto,
@@ -34,6 +34,6 @@ namespace Svg
         Visible,
 
         /// <summary>Overflow causes a scrollbar to appear (horizontal, vertical or both).</summary>
-		Scroll
+        Scroll
     }
 }

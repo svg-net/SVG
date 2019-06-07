@@ -7,7 +7,7 @@ namespace Svg
     /// <summary>
     /// Represents an orientation in an Scalable Vector Graphics document.
     /// </summary>
-	[TypeConverter(typeof(SvgOrientConverter))]
+    [TypeConverter(typeof(SvgOrientConverter))]
     public class SvgOrient
     {
         private bool _isAuto = true;
