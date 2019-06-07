@@ -403,7 +403,7 @@ namespace Svg
         [SvgAttribute("id")]
         public string ID
         {
-            get { return this.Attributes.GetAttribute<string>("id"); }
+            get { return GetAttribute<string>("id", false); }
             set
             {
                 SetAndForceUniqueID(value, false);
