@@ -287,9 +287,9 @@ namespace Svg
         protected internal TAttributeType GetAttribute<TAttributeType>(string attributeName, bool inherit, TAttributeType defaultValue = default(TAttributeType))
         {
             if (inherit)
-                return Attributes.GetInheritedAttribute<TAttributeType>(attributeName, defaultValue);
+                return Attributes.GetInheritedAttribute(attributeName, defaultValue);
             else
-                return Attributes.GetAttribute<TAttributeType>(attributeName, defaultValue);
+                return Attributes.GetAttribute(attributeName, defaultValue);
         }
 
         /// <summary>
