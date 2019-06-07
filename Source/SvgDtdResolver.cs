@@ -20,10 +20,10 @@ namespace Svg
         /// A System.IO.Stream object or null if a type other than stream is specified.
         /// </returns>
         /// <exception cref="T:System.Xml.XmlException">
-        /// 	<paramref name="ofObjectToReturn"/> is neither null nor a Stream type. </exception>
+        ///     <paramref name="ofObjectToReturn"/> is neither null nor a Stream type. </exception>
         /// <exception cref="T:System.UriFormatException">The specified URI is not an absolute URI. </exception>
         /// <exception cref="T:System.NullReferenceException">
-        /// 	<paramref name="absoluteUri"/> is null. </exception>
+        ///     <paramref name="absoluteUri"/> is null. </exception>
         /// <exception cref="T:System.Exception">There is a runtime error (for example, an interrupted server connection). </exception>
         public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
         {

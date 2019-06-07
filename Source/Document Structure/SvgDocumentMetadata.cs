@@ -11,7 +11,7 @@ namespace Svg
     [SvgElement("metadata")]
     public class SvgDocumentMetadata : SvgElement
     {
-        //	private string _metadata; 
+        //private string _metadata;
 
 
         /// <summary>

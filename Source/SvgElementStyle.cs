@@ -18,7 +18,7 @@ namespace Svg
         /// Gets or sets a value indicating whether this element's 'Path' is dirty.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if the path is dirty; otherwise, <c>false</c>.
+        ///     <c>true</c> if the path is dirty; otherwise, <c>false</c>.
         /// </value>
         protected virtual bool IsPathDirty
         {

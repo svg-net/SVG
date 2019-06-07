@@ -930,8 +930,8 @@ namespace Svg
             newObj.Content = this.Content;
             newObj.ElementName = this.ElementName;
 
-            //			if (this.Parent != null)
-            //			this.Parent.Children.Add(newObj);
+            //if (this.Parent != null)
+            //    this.Parent.Children.Add(newObj);
 
             if (this.Transforms != null)
             {
@@ -1017,16 +1017,16 @@ namespace Svg
 
         #region graphical EVENTS
 
-        /*  
-            	onfocusin = "<anything>"
-            	onfocusout = "<anything>"
-            	onactivate = "<anything>"
-                onclick = "<anything>"
-                onmousedown = "<anything>"
-                onmouseup = "<anything>"
-                onmouseover = "<anything>"
-                onmousemove = "<anything>"
-            	onmouseout = "<anything>" 
+        /*
+            onfocusin = "<anything>"
+            onfocusout = "<anything>"
+            onactivate = "<anything>"
+            onclick = "<anything>"
+            onmousedown = "<anything>"
+            onmouseup = "<anything>"
+            onmouseover = "<anything>"
+            onmousemove = "<anything>"
+            onmouseout = "<anything>" 
          */
 
 #if Net4
@@ -1051,25 +1051,25 @@ namespace Svg
                 caller.RegisterAction<int, bool, bool, bool, string>(rpcID + "onmousescroll", OnMouseScroll);
             }
         }
-        
+
         /// <summary>
         /// Use this method to provide your implementation ISvgEventCaller to unregister Actions
         /// </summary>
         /// <param name="caller"></param>
         public virtual void UnregisterEvents(ISvgEventCaller caller)
         {
-        	if (caller != null && !string.IsNullOrEmpty(this.ID))
-        	{
-        		var rpcID = this.ID + "/";
+            if (caller != null && !string.IsNullOrEmpty(this.ID))
+            {
+                var rpcID = this.ID + "/";
 
-        		caller.UnregisterAction(rpcID + "onclick");
-        		caller.UnregisterAction(rpcID + "onmousedown");
-        		caller.UnregisterAction(rpcID + "onmouseup");
-        		caller.UnregisterAction(rpcID + "onmousemove");
-        		caller.UnregisterAction(rpcID + "onmousescroll");
-        		caller.UnregisterAction(rpcID + "onmouseover");
-        		caller.UnregisterAction(rpcID + "onmouseout");
-        	}
+                caller.UnregisterAction(rpcID + "onclick");
+                caller.UnregisterAction(rpcID + "onmousedown");
+                caller.UnregisterAction(rpcID + "onmouseup");
+                caller.UnregisterAction(rpcID + "onmousemove");
+                caller.UnregisterAction(rpcID + "onmousescroll");
+                caller.UnregisterAction(rpcID + "onmouseover");
+                caller.UnregisterAction(rpcID + "onmouseout");
+            }
         }
 #endif
 
@@ -1097,8 +1097,8 @@ namespace Svg
 #if Net4
         protected Action<float, float, int, int, bool, bool, bool, string> CreateMouseEventAction(Action<object, MouseArg> eventRaiser)
         {
-        	return (x, y, button, clickCount, altKey, shiftKey, ctrlKey, sessionID) =>
-        		eventRaiser(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount, AltKey = altKey, ShiftKey = shiftKey, CtrlKey = ctrlKey, SessionID = sessionID });
+            return (x, y, button, clickCount, altKey, shiftKey, ctrlKey, sessionID) =>
+                eventRaiser(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount, AltKey = altKey, ShiftKey = shiftKey, CtrlKey = ctrlKey, SessionID = sessionID });
         }
 #endif
 

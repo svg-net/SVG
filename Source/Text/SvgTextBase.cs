@@ -108,7 +108,7 @@ namespace Svg
             {
                 if (_y != value)
                 {
-                    if (_y != null) { _y.CollectionChanged -= OnCoordinateChanged; } 
+                    if (_y != null) { _y.CollectionChanged -= OnCoordinateChanged; }
                     this._y = value;
                     if (_y != null) { _y.CollectionChanged += OnCoordinateChanged; }
 
@@ -508,20 +508,19 @@ namespace Svg
         public override void RegisterEvents(ISvgEventCaller caller)
         {
             //register basic events
-            base.RegisterEvents(caller); 
-            
+            base.RegisterEvents(caller);
+
             //add change event for text
             caller.RegisterAction<string, string>(this.ID + "/onchange", OnChange);
         }
-        
+
         public override void UnregisterEvents(ISvgEventCaller caller)
         {
             //unregister base events
             base.UnregisterEvents(caller);
-            
+
             //unregister change event
             caller.UnregisterAction(this.ID + "/onchange");
-            
         }
 #endif
 

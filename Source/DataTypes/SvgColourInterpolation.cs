@@ -12,7 +12,7 @@ namespace Svg.DataTypes
     public enum SvgColourInterpolation
     {
         /// <summary>Indicates that the user agent can choose either the sRGB or linearRGB spaces for color interpolation. This option indicates that the author doesn't require that color interpolation occur in a particular color space.</summary>
-		Auto,
+        Auto,
 
         /// <summary>Indicates that color interpolation should occur in the sRGB color space.</summary>
         SRGB,
@@ -21,6 +21,6 @@ namespace Svg.DataTypes
         LinearRGB,
 
         /// <summary>The value is inherited from the parent element.</summary>
-		Inherit
+        Inherit
     }
 }
