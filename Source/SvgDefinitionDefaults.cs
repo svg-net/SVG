@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Svg
 {
@@ -11,18 +8,21 @@ namespace Svg
     public static class SvgDefaults
     {
         // defaults that are specific to some elements
-        private static Dictionary<string, Dictionary<string, string>> _propDefaults =
+        private static readonly Dictionary<string, Dictionary<string, string>> _propDefaults =
             new Dictionary<string, Dictionary<string, string>>
             {
                 { "SvgRadialGradientServer", new Dictionary<string, string>
                 { { "cx", "50%" }, { "cy", "50%" }, { "r", "50%" } } },
                 { "SvgLinearGradientServer", new Dictionary<string, string>
-                { { "x1", "0%" }, { "x2", "100%" }, { "y1", "0%" }, { "y2", "100%" }  } },
+                { { "x1", "0%" }, { "x2", "100%" }, { "y1", "0%" }, { "y2", "100%" } } },
+
+                { "SvgFragment", new Dictionary<string, string>
+                { { "space", "default" } } },
             };
 
         // common defaults
         private static readonly Dictionary<string, string> _defaults =
-            new Dictionary<string, string>()
+            new Dictionary<string, string>
             {
                 { "d", "" },
                 { "viewBox", "0, 0, 0, 0" },
@@ -67,13 +67,10 @@ namespace Svg
                 { "refY", "0" },
                 { "markerWidth", "3" },
                 { "markerHeight", "3" },
-                { "orient", "0" }
+                { "orient", "0" },
+
+                { "space", "inherit" },
             };
-
-
-        static SvgDefaults()
-        {
-        }
 
         /// <summary>
         /// Checks whether the property value is the default value of the svg definition.
@@ -83,18 +80,12 @@ namespace Svg
         /// <param name="value">.NET value of the attribute</param>
         public static bool IsDefault(string attributeName, string componentType, string value)
         {
-            if (_propDefaults.ContainsKey(componentType))
-            {
-                if (_propDefaults[componentType].ContainsKey(attributeName))
-                {
-                    return _propDefaults[componentType][attributeName] == value;
-                }
-            }
+            if (_propDefaults.ContainsKey(componentType) && _propDefaults[componentType].ContainsKey(attributeName))
+                return _propDefaults[componentType][attributeName] == value;
 
             if (_defaults.ContainsKey(attributeName))
-            {
                 return _defaults[attributeName] == value;
-            }
+
             return false;
         }
     }

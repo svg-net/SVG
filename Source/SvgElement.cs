@@ -282,6 +282,16 @@ namespace Svg
             }
         }
 
+        protected bool Inherited { get; set; } = true;
+
+        protected internal TAttributeType GetAttribute<TAttributeType>(string attributeName, bool inherit, TAttributeType defaultValue = default(TAttributeType))
+        {
+            if (inherit)
+                return Attributes.GetInheritedAttribute(attributeName, defaultValue);
+            else
+                return Attributes.GetAttribute(attributeName, defaultValue);
+        }
+
         /// <summary>
         /// Gets a collection of custom attributes
         /// </summary>
@@ -393,7 +403,7 @@ namespace Svg
         [SvgAttribute("id")]
         public string ID
         {
-            get { return this.Attributes.GetAttribute<string>("id"); }
+            get { return GetAttribute<string>("id", false); }
             set
             {
                 SetAndForceUniqueID(value, false);
@@ -407,8 +417,8 @@ namespace Svg
         [SvgAttribute("space", SvgAttributeAttribute.XmlNamespace)]
         public virtual XmlSpaceHandling SpaceHandling
         {
-            get { return (this.Attributes["space"] == null) ? XmlSpaceHandling.@default : (XmlSpaceHandling)this.Attributes["space"]; }
-            set { this.Attributes["space"] = value; }
+            get { return GetAttribute("space", Inherited, XmlSpaceHandling.inherit); }
+            set { Attributes["space"] = value; }
         }
 
         public void SetAndForceUniqueID(string value, bool autoForceUniqueID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
@@ -609,65 +619,81 @@ namespace Svg
             var opacityAttributes = new List<PropertyAttributeTuple>();
             var opacityValues = new Dictionary<string, float>();
 
-            foreach (var attr in _svgPropertyAttributes)
+            try
             {
-                if (attr.Property.Converter.CanConvertTo(typeof(string)))
+                Inherited = false;
+
+                foreach (var attr in _svgPropertyAttributes)
                 {
-                    if (attr.Attribute.Name == "fill-opacity" || attr.Attribute.Name == "stroke-opacity")
+                    if (attr.Property.Converter.CanConvertTo(typeof(string)))
                     {
-                        opacityAttributes.Add(attr);
-                        continue;
-                    }
-
-                    if (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(attr.Attribute.Name))
-                    {
-                        var propertyValue = attr.Property.GetValue(this);
-
-                        var forceWrite = false;
-                        var writeStyle = attr.Attribute.Name == "fill" || attr.Attribute.Name == "stroke";
-
-                        if (writeStyle && (Parent != null))
+                        if (attr.Attribute.Name == "fill-opacity" || attr.Attribute.Name == "stroke-opacity")
                         {
-                            if (propertyValue == SvgColourServer.NotSet) continue;
-
-                            object parentValue;
-                            if (TryResolveParentAttributeValue(attr.Attribute.Name, out parentValue))
-                            {
-                                if ((parentValue == propertyValue)
-                                    || ((parentValue != null) && parentValue.Equals(propertyValue)))
-                                    continue;
-
-                                forceWrite = true;
-                            }
+                            opacityAttributes.Add(attr);
+                            continue;
                         }
 
-                        var hasOpacity = writeStyle;
-                        if (hasOpacity)
+                        if (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(attr.Attribute.Name))
                         {
-                            if (propertyValue is SvgColourServer && ((SvgColourServer)propertyValue).Colour.A < 255)
+                            var propertyValue = attr.Property.GetValue(this);
+
+                            var forceWrite = false;
+                            var writeStyle = attr.Attribute.Name == "fill" || attr.Attribute.Name == "stroke";
+
+                            if (writeStyle && (Parent != null))
                             {
-                                var opacity = ((SvgColourServer)propertyValue).Colour.A / 255f;
-                                opacityValues.Add(attr.Attribute.Name + "-opacity", opacity);
+                                if (propertyValue == SvgColourServer.NotSet) continue;
+
+                                object parentValue;
+                                if (TryResolveParentAttributeValue(attr.Attribute.Name, out parentValue))
+                                {
+                                    if ((parentValue == propertyValue)
+                                        || ((parentValue != null) && parentValue.Equals(propertyValue)))
+                                        continue;
+
+                                    forceWrite = true;
+                                }
                             }
-                        }
+
+                            var hasOpacity = writeStyle;
+                            if (hasOpacity)
+                            {
+                                if (propertyValue is SvgColourServer && ((SvgColourServer)propertyValue).Colour.A < 255)
+                                {
+                                    var opacity = ((SvgColourServer)propertyValue).Colour.A / 255f;
+                                    opacityValues.Add(attr.Attribute.Name + "-opacity", opacity);
+                                }
+                            }
 
 #if NETFULL
-                        var value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+                            var value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
 #else
-                        // dotnetcore throws exception if input is null
-                        var value = propertyValue == null ? null : (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
+                            // dotnetcore throws exception if input is null
+                            var value = propertyValue == null ? null : (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
 #endif
 
-                        if (propertyValue != null)
-                        {
-                            if (!string.IsNullOrEmpty(value))
+                            if (propertyValue != null)
                             {
-                                if (attr.Attribute.NamespaceAndName == "xlink:href" && value.StartsWith("url("))
-                                    value = new StringBuilder(value).Remove(value.Length - 1, 1).Remove(0, 4).ToString();
-                            }
+                                if (!string.IsNullOrEmpty(value))
+                                {
+                                    if (attr.Attribute.NamespaceAndName == "xlink:href" && value.StartsWith("url("))
+                                        value = new StringBuilder(value).Remove(value.Length - 1, 1).Remove(0, 4).ToString();
+                                }
 
-                            //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
-                            if (forceWrite || (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value)))
+                                //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
+                                if (forceWrite || (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value)))
+                                {
+                                    if (writeStyle)
+                                    {
+                                        styles[attr.Attribute.Name] = value;
+                                    }
+                                    else
+                                    {
+                                        writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
+                                    }
+                                }
+                            }
+                            else if (attr.Attribute.Name == "fill") //if fill equals null, write 'none'
                             {
                                 if (writeStyle)
                                 {
@@ -679,44 +705,37 @@ namespace Svg
                                 }
                             }
                         }
-                        else if (attr.Attribute.Name == "fill") //if fill equals null, write 'none'
-                        {
-                            if (writeStyle)
-                            {
-                                styles[attr.Attribute.Name] = value;
-                            }
-                            else
-                            {
-                                writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
-                            }
-                        }
+                    }
+                }
+
+                foreach (var attr in opacityAttributes)
+                {
+                    var opacity = 1f;
+                    var write = false;
+
+                    var key = attr.Attribute.Name;
+                    if (opacityValues.ContainsKey(key))
+                    {
+                        opacity = opacityValues[key];
+                        write = true;
+                    }
+                    if (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(key))
+                    {
+                        opacity *= (float)attr.Property.GetValue(this);
+                        write = true;
+                    }
+                    if (write)
+                    {
+                        opacity = (float)Math.Round(opacity, 2, MidpointRounding.AwayFromZero);
+                        var value = (string)attr.Property.Converter.ConvertTo(opacity, typeof(string));
+                        if (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value))
+                            writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
                     }
                 }
             }
-
-            foreach (var attr in opacityAttributes)
+            finally
             {
-                var opacity = 1f;
-                var write = false;
-
-                var key = attr.Attribute.Name;
-                if (opacityValues.ContainsKey(key))
-                {
-                    opacity = opacityValues[key];
-                    write = true;
-                }
-                if (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(key))
-                {
-                    opacity *= (float)attr.Property.GetValue(this);
-                    write = true;
-                }
-                if (write)
-                {
-                    opacity = (float)Math.Round(opacity, 2, MidpointRounding.AwayFromZero);
-                    var value = (string)attr.Property.Converter.ConvertTo(opacity, typeof(string));
-                    if (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value))
-                        writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
-                }
+                Inherited = true;
             }
 
             return styles;
