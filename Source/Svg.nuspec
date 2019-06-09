@@ -6,6 +6,5 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <description>TaxModel/PAW altered implementation of the Svg library</description>
   </metadata>
 </package>
