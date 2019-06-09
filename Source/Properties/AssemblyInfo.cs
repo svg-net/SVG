@@ -7,17 +7,6 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("4b6e2fba-c110-43e9-bd41-e0b7fd067f29")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-[assembly: AssemblyVersion("2.4.5.0")]
-
 [assembly: CLSCompliant(true)]
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Svg.UnitTests,PublicKey=" +

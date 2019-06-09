@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.2;net35;netstandard2.0</TargetFrameworks>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <TargetFrameworks>netcoreapp2.2;net35</TargetFrameworks>
+    <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
     <IsPackable>true</IsPackable>
     <Company></Company>
-    <Authors>davescriven, jvenema, mrbean-bremen ,owaits, ddpruitt, Ralf1108, Tebjan Halm, and others</Authors>
+    <Authors>davescriven, jvenema, mrbean-bremen, owaits, ddpruitt, Ralf1108, Tebjan Halm, and others</Authors>
     <PackageId>Svg</PackageId>
     <Product>SVG Rendering Library</Product>
     <Summary>SVG Rendering Library</Summary>
@@ -19,25 +19,20 @@
     <Copyright>Copyright © vvvv.org</Copyright>
     <Tags>svg, vector graphics, rendering</Tags>
     <ProjectGuid>{886A98C5-37C0-4E8B-885E-30C1D2F98B47}</ProjectGuid>
-    <DocumentationFile>$(OutputPath)Svg.XML</DocumentationFile>
     <Configurations>Debug;Release</Configurations>
     <NoWarn>1591</NoWarn>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>2.4.5.0</AssemblyVersion>
-    <FileVersion>2.4.5.0</FileVersion>
-    <Version>2.4.5</Version>
     <PackageTags>svg, vector graphics, rendering</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
-Supports multiple targets v3.5 thru to dotnetcore2.2. 
-NetStandard does not fully support the Drawing2D package - so has been left out.
+      Supports multiple targets v3.5 thru to dotnetcore2.2.
+      NetStandard does not fully support the Drawing2D package - so has been left out.
     </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/vvvv/SVG</PackageProjectUrl>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>
@@ -85,7 +80,15 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
 
   <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp2.2'">
     <Title>Svg for .Net Standard 2.0</Title>
-    <DefineConstants>$(DefineConstants);NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETCORE22;NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp2.2|AnyCPU'">
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.2|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net35'">
@@ -93,9 +96,9 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="WindowsBase" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net40'">
@@ -134,20 +137,16 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Drawing.Common">
-      <Version>4.5.1</Version>
-    </PackageReference>
-  </ItemGroup>
-
   <ItemGroup>
     <Compile Remove=".\External\ExCSS\Parser.generated.cs" />
     <Compile Remove=".\External\ExCSS\ParserX.cs" />
     <Compile Remove=".\Resources\svg11.dtd" />
-    <None Remove="Local.testsettings" />
-    <None Remove="Svg.csproj.vspscc" />
-    <None Remove="Svg.nuspec" />
-    <None Remove="Svg.vsmdi" />
-    <None Remove="Svg.XML" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.3.167">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
