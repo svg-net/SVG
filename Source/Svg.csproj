@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.2;net35;net452;net472</TargetFrameworks>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
     <IsPackable>true</IsPackable>
     <Company></Company>
-    <Authors>davescriven,jvenema,owaits,ddpruitt,Ralf1108,Tebjan Halm,and others</Authors>
+    <Authors>davescriven, jvenema, owaits, ddpruitt, Ralf1108, Tebjan Halm, and others</Authors>
     <PackageId>Svg</PackageId>
     <Product>SVG Rendering Library</Product>
     <Summary>SVG Rendering Library</Summary>
@@ -19,25 +19,20 @@
     <Copyright>Copyright © vvvv.org</Copyright>
     <Tags>svg, vector graphics, rendering</Tags>
     <ProjectGuid>{886A98C5-37C0-4E8B-885E-30C1D2F98B47}</ProjectGuid>
-    <DocumentationFile>$(OutputPath)Svg.XML</DocumentationFile>
     <Configurations>Debug;Release</Configurations>
     <NoWarn>1591</NoWarn>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>2.4.5.0</AssemblyVersion>
-    <FileVersion>2.4.5.0</FileVersion>
-    <Version>2.4.5</Version>
     <PackageTags>svg, vector graphics, rendering</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
-Supports multiple targets v3.5 thru to dotnetcore2.2. 
-NetStandard does not fully support the Drawing2D package - so has been left out.
+      Supports multiple targets v3.5 thru to dotnetcore2.2.
+      NetStandard does not fully support the Drawing2D package - so has been left out.
     </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/vvvv/SVG</PackageProjectUrl>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <ItemGroup>
@@ -133,10 +128,12 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     <Compile Remove=".\External\ExCSS\Parser.generated.cs" />
     <Compile Remove=".\External\ExCSS\ParserX.cs" />
     <Compile Remove=".\Resources\svg11.dtd" />
-    <None Remove="Local.testsettings" />
-    <None Remove="Svg.csproj.vspscc" />
-    <None Remove="Svg.nuspec" />
-    <None Remove="Svg.vsmdi" />
-    <None Remove="Svg.XML" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nerdbank.GitVersioning" Version="2.3.167">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
