@@ -66,17 +66,17 @@ namespace Svg
         }
 
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgColourServer>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgColourServer>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgColourServer;
-			newObj.Colour = this.Colour;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgColourServer;
+            newObj.Colour = this.Colour;
+            return newObj;
+        }
 
         public override bool Equals(object obj)
         {

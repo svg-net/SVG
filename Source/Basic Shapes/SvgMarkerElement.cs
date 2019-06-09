@@ -61,7 +61,7 @@ namespace Svg
                 }
                 var refPoint2 = path.PathPoints[index];
                 SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerStart.ToString());
-                marker.RenderMarker(renderer, this, refPoint1, refPoint1, refPoint2);
+                marker.RenderMarker(renderer, this, refPoint1, refPoint1, refPoint2, true);
             }
 
             if (this.MarkerMid != null)
@@ -92,7 +92,7 @@ namespace Svg
                 }
                 var refPoint2 = path.PathPoints[index];
                 SvgMarker marker = this.OwnerDocument.GetElementById<SvgMarker>(this.MarkerEnd.ToString());
-                marker.RenderMarker(renderer, this, refPoint1, refPoint2, path.PathPoints[path.PathPoints.Length - 1]);
+                marker.RenderMarker(renderer, this, refPoint1, refPoint2, path.PathPoints[path.PathPoints.Length - 1], false);
             }
 
             return result;

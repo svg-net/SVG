@@ -39,7 +39,7 @@ namespace Svg.UnitTests
             var testSuite = Path.Combine(basePath, "W3CTestSuite");
             var rows = File.ReadAllLines(Path.Combine(basePath, "Svg.UnitTests", "PassingTests.csv")).Skip(1);
             foreach (var row in rows)
-                yield return new[] { (object)testSuite, (object) row,};
+                yield return new[] { (object)testSuite, (object)row, };
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Svg.UnitTests
         }
 #endif
 
-        private void CompareSvgImageWithReferenceImpl(string baseName, 
+        private void CompareSvgImageWithReferenceImpl(string baseName,
             string svgPath, string pngPath, bool testSaveLoad)
         {
             var pngImage = Image.FromFile(pngPath);
@@ -284,15 +284,16 @@ namespace Svg.UnitTests
             using (Graphics g = Graphics.FromImage(newBitmap))
             {
                 //create some image attributes
-                ImageAttributes attributes = new ImageAttributes();
+                using (ImageAttributes attributes = new ImageAttributes())
+                {
+                    //set the color matrix attribute
+                    attributes.SetColorMatrix(ColorMatrix);
 
-                //set the color matrix attribute
-                attributes.SetColorMatrix(ColorMatrix);
-
-                //draw the original image on the new image
-                //using the grayscale color matrix
-                g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                   0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                    //draw the original image on the new image
+                    //using the grayscale color matrix
+                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                }
             }
             return newBitmap;
 

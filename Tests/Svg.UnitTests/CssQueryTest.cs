@@ -5,11 +5,11 @@ using Svg.ExCSS;
 
 namespace Svg.UnitTests
 {
-	/// <summary>
-	///This is a test class for CssQueryTest and is intended
-	///to contain all CssQueryTest Unit Tests
-	///</summary>
-	[TestClass()]
+    /// <summary>
+    ///This is a test class for CssQueryTest and is intended
+    ///to contain all CssQueryTest Unit Tests
+    ///</summary>
+    [TestClass()]
     public class CssQueryTest
     {
 
@@ -61,7 +61,7 @@ namespace Svg.UnitTests
         //}
         //
         #endregion
-        
+
         private void TestSelectorSpecificity(string selector, int specificity)
         {
             var parser = new ExCSS.Parser();

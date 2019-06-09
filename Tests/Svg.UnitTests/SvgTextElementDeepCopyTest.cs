@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -14,7 +14,7 @@ namespace Svg.UnitTests
     public class SvgTextElementDeepCopyTest : SvgTestHelper
     {
         private const string PureTextElementSvg = "Issue_TextElement.Text.svg";
-        
+
         [TestMethod]
         public void TestSvgTextElementDeepCopy()
         {

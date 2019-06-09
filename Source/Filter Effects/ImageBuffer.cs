@@ -36,8 +36,9 @@ namespace Svg.FilterEffects
             }
             set
             {
-                _images[ProcessKey(key)] = value;
-                if (key != null) _images[BufferKey] = value;
+                if (!string.IsNullOrEmpty(key))
+                    _images[key] = value;
+                _images[BufferKey] = value;
             }
         }
 
@@ -104,6 +105,9 @@ namespace Svg.FilterEffects
         {
             if (curr == null)
             {
+                if (string.IsNullOrEmpty(key))
+                    key = SvgFilterPrimitive.SourceGraphic;
+
                 switch (key)
                 {
                     case SvgFilterPrimitive.BackgroundAlpha:
@@ -128,7 +132,7 @@ namespace Svg.FilterEffects
             return key;
         }
 
-        
+
 
         private Bitmap CreateSourceGraphic()
         {
@@ -160,14 +164,12 @@ namespace Svg.FilterEffects
 
             var matrix = new ColorMatrix(colorMatrixElements);
 
-            ImageAttributes attributes = new ImageAttributes();
-            attributes.SetColorMatrix(matrix);
-
             var sourceAlpha = new Bitmap(source.Width, source.Height);
 
             using (var graphics = Graphics.FromImage(sourceAlpha))
+            using (var attributes = new ImageAttributes())
             {
-
+                attributes.SetColorMatrix(matrix);
                 graphics.DrawImage(source, new Rectangle(0, 0, source.Width, source.Height), 0, 0,
                       source.Width, source.Height, GraphicsUnit.Pixel, attributes);
                 graphics.Save();

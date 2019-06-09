@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -10,8 +11,30 @@ namespace Svg
     /// Represents a list of <see cref="SvgUnit"/>.
     /// </summary>
     [TypeConverter(typeof(SvgUnitCollectionConverter))]
-    public class SvgUnitCollection : List<SvgUnit>
+    public class SvgUnitCollection : ObservableCollection<SvgUnit>
     {
+        public void AddRange(IEnumerable<SvgUnit> collection)
+        {
+            if (collection == null) { throw new ArgumentNullException(nameof(collection)); }
+
+            if (collection == this)
+            {
+                // handle special case where the collection is duplicated
+                // we need to clone it to avoid an excpeption during enumeration
+                var clonedCollection = new SvgUnitCollection();
+                foreach (var unit in collection)
+                {
+                    clonedCollection.Add(unit);
+                }
+                collection = clonedCollection;
+            }
+
+            foreach (SvgUnit unit in collection)
+            {
+                this.Add(unit);
+            }
+        }
+
         public override string ToString()
         {
             // The correct separator should be a single white space.

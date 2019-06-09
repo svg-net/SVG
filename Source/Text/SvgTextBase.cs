@@ -1,21 +1,31 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Svg
 {
     public abstract class SvgTextBase : SvgVisualElement
     {
-        [CLSCompliant(false)] protected SvgUnitCollection _x = new SvgUnitCollection();
-        [CLSCompliant(false)] protected SvgUnitCollection _y = new SvgUnitCollection();
-        [CLSCompliant(false)] protected SvgUnitCollection _dy = new SvgUnitCollection();
-        [CLSCompliant(false)] protected SvgUnitCollection _dx = new SvgUnitCollection();
+        private SvgUnitCollection _x = new SvgUnitCollection();
+        private SvgUnitCollection _y = new SvgUnitCollection();
+        private SvgUnitCollection _dy = new SvgUnitCollection();
+        private SvgUnitCollection _dx = new SvgUnitCollection();
         private string _rotate;
         private List<float> _rotations = new List<float>();
+
+        public SvgTextBase()
+        {
+            _x.CollectionChanged += OnCoordinateChanged;
+            _dx.CollectionChanged += OnCoordinateChanged;
+            _y.CollectionChanged += OnCoordinateChanged;
+            _dy.CollectionChanged += OnCoordinateChanged;
+        }
 
         /// <summary>
         /// Gets or sets the text to be rendered.
@@ -23,10 +33,11 @@ namespace Svg
         public virtual string Text
         {
             get { return base.Content; }
-            set {
+            set
+            {
                 Nodes.Clear();
                 Children.Clear();
-                if(value != null)
+                if (value != null)
                 {
                     Nodes.Add(new SvgContentNode { Content = value });
                 }
@@ -53,7 +64,10 @@ namespace Svg
             {
                 if (_x != value)
                 {
+                    if (_x != null) { _x.CollectionChanged -= OnCoordinateChanged; }
                     this._x = value;
+                    if (_x != null) { _x.CollectionChanged += OnCoordinateChanged; }
+
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "x", Value = value });
                 }
@@ -72,7 +86,10 @@ namespace Svg
             {
                 if (_dx != value)
                 {
+                    if (_dx != null) { _dx.CollectionChanged -= OnCoordinateChanged; }
                     this._dx = value;
+                    if (_dx != null) { _dx.CollectionChanged += OnCoordinateChanged; }
+
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "dx", Value = value });
                 }
@@ -91,7 +108,10 @@ namespace Svg
             {
                 if (_y != value)
                 {
+                    if (_y != null) { _y.CollectionChanged -= OnCoordinateChanged; }
                     this._y = value;
+                    if (_y != null) { _y.CollectionChanged += OnCoordinateChanged; }
+
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "y", Value = value });
                 }
@@ -110,11 +130,19 @@ namespace Svg
             {
                 if (_dy != value)
                 {
+                    if (_dy != null) { _dy.CollectionChanged -= OnCoordinateChanged; }
                     this._dy = value;
+                    if (_dy != null) { _dy.CollectionChanged += OnCoordinateChanged; }
+
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "dy", Value = value });
                 }
             }
+        }
+
+        private void OnCoordinateChanged(object sender, NotifyCollectionChangedEventArgs args)
+        {
+            this.IsPathDirty = true;
         }
 
         /// <summary>
@@ -131,7 +159,8 @@ namespace Svg
                 {
                     this._rotate = value;
                     this._rotations.Clear();
-                    this._rotations.AddRange(from r in _rotate.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries) select float.Parse(r));
+                    this._rotations.AddRange(from r in _rotate.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries)
+                                             select float.Parse(r, NumberStyles.Any, CultureInfo.InvariantCulture));
                     this.IsPathDirty = true;
                     OnAttributeChanged(new AttributeEventArgs { Attribute = "rotate", Value = value });
                 }
@@ -214,7 +243,7 @@ namespace Svg
                 var path = this.Path(null);
                 foreach (var elem in this.Children.OfType<SvgVisualElement>())
                 {
-                	//When empty Text span, don't add path
+                    //When empty Text span, don't add path
                     var span = elem as SvgTextSpan;
                     if (span != null && span.Text == null)
                         continue;
@@ -299,8 +328,11 @@ namespace Svg
 
             if (_path == null || IsPathDirty || nodes.Count() == 1)
             {
-                renderer = (renderer ?? SvgRenderer.FromNull());
-                SetPath(new TextDrawingState(renderer, this));
+                if (renderer != null && renderer is IGraphicsProvider)
+                    SetPath(new TextDrawingState(renderer, this));
+                else
+                    using (var r = SvgRenderer.FromNull())
+                        SetPath(new TextDrawingState(r, this));
             }
             return _path;
         }
@@ -344,7 +376,7 @@ namespace Svg
                 }
                 else
                 {
-                    TextDrawingState newState= new TextDrawingState(state, textNode);
+                    TextDrawingState newState = new TextDrawingState(state, textNode);
 
                     textNode.SetPath(newState);
                     state.NumChars += newState.NumChars;
@@ -416,15 +448,8 @@ namespace Svg
         protected string PrepareText(string value)
         {
             value = ApplyTransformation(value);
-            if (this.SpaceHandling == XmlSpaceHandling.preserve)
-            {
-                return value.Replace('\t', ' ').Replace("\r\n", " ").Replace('\r', ' ').Replace('\n', ' ');
-            }
-            else
-            {
-                var convValue = MultipleSpaces.Replace(value.Replace("\r", "").Replace("\n", "").Replace('\t', ' '), " ");
-                return convValue;
-            }
+            value = new StringBuilder(value).Replace("\r\n", " ").Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ').ToString();
+            return this.SpaceHandling == XmlSpaceHandling.preserve ? value : MultipleSpaces.Replace(value.Trim(), " ");
         }
 
         private string ApplyTransformation(string value)
@@ -483,20 +508,19 @@ namespace Svg
         public override void RegisterEvents(ISvgEventCaller caller)
         {
             //register basic events
-            base.RegisterEvents(caller); 
-            
+            base.RegisterEvents(caller);
+
             //add change event for text
             caller.RegisterAction<string, string>(this.ID + "/onchange", OnChange);
         }
-        
+
         public override void UnregisterEvents(ISvgEventCaller caller)
         {
             //unregister base events
             base.UnregisterEvents(caller);
-            
+
             //unregister change event
             caller.UnregisterAction(this.ID + "/onchange");
-            
         }
 #endif
 
@@ -854,12 +878,12 @@ namespace Svg
                         switch (Element.TextAnchor)
                         {
                             case SvgTextAnchor.Middle:
-                                if (_anchoredPaths.Count() == 1) xOffset -= this.TextBounds.Width / 2; 
+                                if (_anchoredPaths.Count() == 1) xOffset -= this.TextBounds.Width / 2;
                                 else xOffset -= (maxX - minX) / 2;
                                 break;
                             case SvgTextAnchor.End:
                                 if (_anchoredPaths.Count() == 1) xOffset -= this.TextBounds.Width;
-                                else xOffset -= (maxX - minX); 
+                                else xOffset -= (maxX - minX);
                                 break;
                         }
 

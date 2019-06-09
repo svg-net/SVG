@@ -17,7 +17,8 @@ namespace Svg.ExCSS
 
         public char Character
         {
-            get{
+            get
+            {
                 switch (Delimiter)
                 {
                     case Combinator.Child:

@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.Linq;
+using Svg.FilterEffects;
+using System.Globalization;
 
 namespace Svg
 {
@@ -72,7 +74,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
+        /// Gets the associated <see cref="SvgFilter"/> if one has been specified.
         /// </summary>
         [SvgAttribute("filter")]
         public virtual Uri Filter
@@ -181,17 +183,13 @@ namespace Svg
             var filterPath = this.Filter;
             if (filterPath != null)
             {
-                if (filterPath.ToString().StartsWith("url("))
-                {
-                    filterPath = new Uri(filterPath.ToString().Substring(4, filterPath.ToString().Length - 5), UriKind.RelativeOrAbsolute);
-                }
                 var element = this.OwnerDocument.IdManager.GetElementById(filterPath);
-                if (element is FilterEffects.SvgFilter)
+                if (element is SvgFilter)
                 {
                     this.PopTransforms(renderer);
                     try
                     {
-                        ((FilterEffects.SvgFilter)element).ApplyFilter(this, renderer, (r) => this.Render(r, false));
+                        ((SvgFilter)element).ApplyFilter(this, renderer, (r) => this.Render(r, false));
                     }
                     catch (Exception ex)
                     {
@@ -290,7 +288,7 @@ namespace Svg
                                     }
 
                                     /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
-                                    pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) /
+                                    pen.DashPattern = this.StrokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) /
                                         ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
 
                                     if (this.StrokeLineCap == SvgStrokeLineCap.Round)
@@ -373,7 +371,7 @@ namespace Svg
                 {
                     clip = clip.Trim();
                     var offsets = (from o in clip.Substring(5, clip.Length - 6).Split(',')
-                                   select float.Parse(o.Trim())).ToList();
+                                   select float.Parse(o.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture)).ToList();
                     var bounds = this.Bounds;
                     var clipRect = new RectangleF(bounds.Left + offsets[3], bounds.Top + offsets[0],
                                                   bounds.Width - (offsets[3] + offsets[1]),

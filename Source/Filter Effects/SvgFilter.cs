@@ -1,10 +1,7 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using Svg.DataTypes;
 
 namespace Svg.FilterEffects
@@ -18,27 +15,25 @@ namespace Svg.FilterEffects
         private Bitmap sourceGraphic;
         private Bitmap sourceAlpha;
 
-	
-		/// <summary>
-		/// Gets or sets the position where the left point of the filter.
-		/// </summary>
-		[SvgAttribute("x")]
-		public SvgUnit X
+        /// <summary>
+        /// Gets or sets the position where the left point of the filter.
+        /// </summary>
+        [SvgAttribute("x")]
+        public SvgUnit X
         {
             get { return this.Attributes.GetAttribute<SvgUnit>("x"); }
             set { this.Attributes["x"] = value; }
         }
 
-		/// <summary>
-		/// Gets or sets the position where the top point of the filter.
-		/// </summary>
-		[SvgAttribute("y")]
-		public SvgUnit Y 
+        /// <summary>
+        /// Gets or sets the position where the top point of the filter.
+        /// </summary>
+        [SvgAttribute("y")]
+        public SvgUnit Y
         {
             get { return this.Attributes.GetAttribute<SvgUnit>("y"); }
             set { this.Attributes["y"] = value; }
         }
-
 
         /// <summary>
         /// Gets or sets the width of the resulting filter graphic.
@@ -60,10 +55,9 @@ namespace Svg.FilterEffects
             set { this.Attributes["height"] = value; }
         }
 
-
         /// <summary>
-		/// Gets or sets the color-interpolation-filters of the resulting filter graphic.
-		/// NOT currently mapped through to bitmap
+        /// Gets or sets the color-interpolation-filters of the resulting filter graphic.
+        /// NOT currently mapped through to bitmap
         /// </summary>
         [SvgAttribute("color-interpolation-filters")]
         public SvgColourInterpolation ColorInterpolationFilters
@@ -85,18 +79,7 @@ namespace Svg.FilterEffects
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected override void Render(ISvgRenderer renderer)
         {
-			base.RenderChildren(renderer);
-        }
-
-        /// <summary>
-        /// Creates a new object that is a copy of the current instance.
-        /// </summary>
-        /// <returns>
-        /// A new object that is a copy of this instance.
-        /// </returns>
-        public override object Clone()
-        {
-            return (SvgFilter)this.MemberwiseClone();
+            base.RenderChildren(renderer);
         }
 
         private Matrix GetTransform(SvgVisualElement element)
@@ -130,26 +113,19 @@ namespace Svg.FilterEffects
 
             var buffer = new ImageBuffer(bounds, inflate, renderer, renderMethod) { Transform = transform };
 
-            IEnumerable<SvgFilterPrimitive> primitives = this.Children.OfType<SvgFilterPrimitive>();
-
-            if (primitives.Count() > 0)
+            foreach (var primitive in this.Children.OfType<SvgFilterPrimitive>())
             {
-                foreach (var primitive in primitives)
-                {
-                    primitive.Process(buffer);
-                }
-
-                // Render the final filtered image
-                var bufferImg = buffer.Buffer;
-                //bufferImg.Save(@"C:\test.png");
-                var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
-                var prevClip = renderer.GetClip();
-                renderer.SetClip(new Region(imgDraw));
-                renderer.DrawImage(bufferImg, imgDraw, new RectangleF(bounds.X, bounds.Y, imgDraw.Width, imgDraw.Height), GraphicsUnit.Pixel);
-                renderer.SetClip(prevClip);
+                primitive.Process(buffer);
             }
+
+            // Render the final filtered image
+            var bufferImg = buffer.Buffer;
+            var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
+            var prevClip = renderer.GetClip();
+            renderer.SetClip(new Region(imgDraw));
+            renderer.DrawImage(bufferImg, imgDraw, new RectangleF(bounds.X, bounds.Y, imgDraw.Width, imgDraw.Height), GraphicsUnit.Pixel);
+            renderer.SetClip(prevClip);
         }
-                
 
         #region Defaults
 
@@ -168,25 +144,22 @@ namespace Svg.FilterEffects
             }
         }
 
-        
         #endregion
 
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgFilter>();
+        }
 
-
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgFilter>();
-		}
-
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgFilter;
-			newObj.Height = this.Height;
-			newObj.Width = this.Width;
-			newObj.X = this.X;
-			newObj.Y = this.Y;
-			newObj.ColorInterpolationFilters = this.ColorInterpolationFilters;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgFilter;
+            newObj.Height = this.Height;
+            newObj.Width = this.Width;
+            newObj.X = this.X;
+            newObj.Y = this.Y;
+            newObj.ColorInterpolationFilters = this.ColorInterpolationFilters;
+            return newObj;
+        }
     }
 }

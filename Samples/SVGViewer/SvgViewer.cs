@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Svg;
-using Svg.Transforms;
-using System.Xml;
 using System.IO;
+using System.Windows.Forms;
+using System.Xml;
+using Svg;
 
 namespace SVGViewer
 {
@@ -20,19 +13,29 @@ namespace SVGViewer
             InitializeComponent();
         }
 
-        private void open_Click(object sender, EventArgs e)
+        private void Open_Click(object sender, EventArgs e)
         {
             try
             {
                 if (openSvgFile.ShowDialog() == DialogResult.OK)
                 {
-                    SvgDocument svgDoc = SvgDocument.Open(openSvgFile.FileName);
+                    var svgDoc = SvgDocument.Open(openSvgFile.FileName);
                     RenderSvg(svgDoc);
 
-                    XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.XmlResolver = null;
-                    xmlDoc.Load(openSvgFile.FileName);
-                    textBox1.Text = xmlDoc.InnerXml;
+                    textBox1.TextChanged -= TextBox1_TextChanged;
+                    try
+                    {
+                        var xmlDoc = new XmlDocument
+                        {
+                            XmlResolver = null
+                        };
+                        xmlDoc.Load(openSvgFile.FileName);
+                        textBox1.Text = xmlDoc.InnerXml;
+                    }
+                    finally
+                    {
+                        textBox1.TextChanged += TextBox1_TextChanged;
+                    }
                 }
             }
             catch
@@ -40,11 +43,11 @@ namespace SVGViewer
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void TextBox1_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                SvgDocument svgDoc = SvgDocument.FromSvg<SvgDocument>(textBox1.Text);
+                var svgDoc = SvgDocument.FromSvg<SvgDocument>(textBox1.Text);
                 RenderSvg(svgDoc);
             }
             catch
@@ -52,7 +55,7 @@ namespace SVGViewer
             }
         }
 
-        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox1_KeyDown(object sender, KeyEventArgs e)
         {
             try
             {
@@ -68,17 +71,20 @@ namespace SVGViewer
 
         private void RenderSvg(SvgDocument svgDoc)
         {
+            if (svgImage.Image != null)
+            {
+                svgImage.Image.Dispose();
+                svgImage.Image = null;
+            }
+
             //var render = new DebugRenderer();
             //svgDoc.Draw(render);
             svgImage.Image = svgDoc.Draw();
 
-            string outputDir;
-            if (svgDoc.BaseUri == null)
-                outputDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath); 
-            else
-                outputDir = System.IO.Path.GetDirectoryName(svgDoc.BaseUri.LocalPath);
-            svgImage.Image.Save(System.IO.Path.Combine(outputDir, "output.png"));
-            // svgDoc.Write(System.IO.Path.Combine(outputDir, "output.svg"));
+            var baseUri = svgDoc.BaseUri;
+            var outputDir = Path.GetDirectoryName(baseUri != null && baseUri.IsFile ? baseUri.LocalPath : Application.ExecutablePath);
+            svgImage.Image.Save(Path.Combine(outputDir, "output.png"));
+            //svgDoc.Write(Path.Combine(outputDir, "output.svg"));
         }
     }
 }

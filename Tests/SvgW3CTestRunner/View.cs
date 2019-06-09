@@ -14,59 +14,62 @@ namespace SvgW3CTestRunner
 {
     public partial class View : Form
     {
-		//DIRECTORY SEPARATOR: The value of this field is a slash ("/") on UNIX and on Mac OSX, and a backslash ("\") on the Windows operating systems.
-		static private string sprt = Path.DirectorySeparatorChar.ToString (); 
+        //DIRECTORY SEPARATOR: The value of this field is a slash ("/") on UNIX and on Mac OSX, and a backslash ("\") on the Windows operating systems.
+        static private string sprt = Path.DirectorySeparatorChar.ToString();
 
-		//Data folders
-		private string _svgBasePath = @".."+sprt+".."+sprt+".."+sprt+"W3CTestSuite"+sprt+"svg"+sprt;
-		private string _pngBasePath = @".."+sprt+".."+sprt+".."+sprt+"W3CTestSuite"+sprt+"png"+sprt;
+        //Data folders
+        private string _svgBasePath = @".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "svg" + sprt;
+        private string _pngBasePath = @".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "png" + sprt;
 
         public View()
         {
             InitializeComponent();
             // ignore tests pertaining to javascript or xml reading
-			var passes = File.ReadAllLines(_svgBasePath + @".."+sprt+"PassingTests.txt").ToDictionary((f) => f, (f) => true);
+            var passes = File.ReadAllLines(_svgBasePath + @".." + sprt + "PassingTests.txt").ToDictionary((f) => f, (f) => true);
             var files = (from f in
                          (from g in Directory.GetFiles(_svgBasePath)
                           select Path.GetFileName(g))
                          where !f.StartsWith("animate-") && !f.StartsWith("conform-viewer") &&
                          !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-") &&
-                         !f.StartsWith("script-")
+                         !f.StartsWith("script-") && f.EndsWith(".svg")
+                         && File.Exists(_pngBasePath + f.Substring(0, f.Length - 3) + "png")
                          orderby f
                          select (object)f);
 
-            lstFilesOther.Items.AddRange(files.Where(f => ((string)f).StartsWith("__")).ToArray());
+            var other = files.Where(f => ((string)f).StartsWith("__"));
+            lstFilesOtherPassing.Items.AddRange(other.Where(f => passes.ContainsKey((string)f)).ToArray());
+            lstFilesOtherFailing.Items.AddRange(other.Where(f => !passes.ContainsKey((string)f)).ToArray());
             files = files.Where(f => !((string)f).StartsWith("__"));
-            lstFilesPassing.Items.AddRange(files.Where(f => passes.ContainsKey((string)f)).ToArray());
-            lstFilesFailing.Items.AddRange(files.Where(f => !passes.ContainsKey((string)f)).ToArray());
+            lstW3CFilesPassing.Items.AddRange(files.Where(f => passes.ContainsKey((string)f)).ToArray());
+            lstW3CFilesFailing.Items.AddRange(files.Where(f => !passes.ContainsKey((string)f)).ToArray());
         }
 
 
 
         private void boxConsoleLog_MouseDown(object sender, MouseEventArgs e)
-		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
-			{   //click event
-				
-				ContextMenu contextMenu = new System.Windows.Forms.ContextMenu();
-				MenuItem menuItem = new MenuItem("Copy");
-				menuItem.Click += new EventHandler(CopyAction);
-				contextMenu.MenuItems.Add(menuItem);
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {   //click event
 
-				boxConsoleLog.ContextMenu = contextMenu;
-			}
-		}
+                ContextMenu contextMenu = new System.Windows.Forms.ContextMenu();
+                MenuItem menuItem = new MenuItem("Copy");
+                menuItem.Click += new EventHandler(CopyAction);
+                contextMenu.MenuItems.Add(menuItem);
+
+                boxConsoleLog.ContextMenu = contextMenu;
+            }
+        }
 
 
-		void CopyAction(object sender, EventArgs e)
-		{
-			if (boxConsoleLog.SelectedText != null && boxConsoleLog.SelectedText != "")
-			{
-				//Clipboard.SetText(boxConsoleLog.SelectedText.Replace("\n", "\r\n"));
+        void CopyAction(object sender, EventArgs e)
+        {
+            if (boxConsoleLog.SelectedText != null && boxConsoleLog.SelectedText != "")
+            {
+                //Clipboard.SetText(boxConsoleLog.SelectedText.Replace("\n", "\r\n"));
 
-				boxConsoleLog.Copy ();
-			}
-		}
+                boxConsoleLog.Copy();
+            }
+        }
 
 
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
@@ -75,11 +78,11 @@ namespace SvgW3CTestRunner
             var lstFiles = sender as ListBox;
             var fileName = lstFiles.SelectedItem.ToString();
             if (fileName.StartsWith("#")) return;
-            
+
             //display png
             var png = Image.FromFile(_pngBasePath + Path.GetFileNameWithoutExtension(fileName) + ".png");
             picPng.Image = png;
-            
+
             var doc = new SvgDocument();
             try
             {
@@ -96,25 +99,25 @@ namespace SvgW3CTestRunner
                     picSvg.Image = img;
                 }
 
-                this.boxConsoleLog.AppendText ("\n\nWC3 TEST " + fileName + "\n");
+                this.boxConsoleLog.AppendText("\n\nWC3 TEST " + fileName + "\n");
                 this.boxDescription.Text = GetDescription(doc);
 
             }
             catch (Exception ex)
             {
-				this.boxConsoleLog.AppendText ("Result: TEST FAILED\n");
-				this.boxConsoleLog.AppendText ("SVG RENDERING ERROR for " + fileName + "\n");
-				this.boxConsoleLog.AppendText (ex.ToString());
+                this.boxConsoleLog.AppendText("Result: TEST FAILED\n");
+                this.boxConsoleLog.AppendText("SVG RENDERING ERROR for " + fileName + "\n");
+                this.boxConsoleLog.AppendText(ex.ToString());
                 picSvg.Image = null;
             }
-            
+
             //save load
-            try 
+            try
             {
-                using(var memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     doc.Write(memStream);
-                    memStream.Position = 0;  
+                    memStream.Position = 0;
                     var reader = new StreamReader(memStream);
                     var tempFilePath = Path.Combine(Path.GetTempPath(), "test.svg");
                     System.IO.File.WriteAllText(tempFilePath, reader.ReadToEnd());
@@ -122,7 +125,7 @@ namespace SvgW3CTestRunner
                     var baseUri = doc.BaseUri;
                     doc = SvgDocument.Open(tempFilePath);
                     doc.BaseUri = baseUri;
-                    
+
                     if (fileName.StartsWith("__"))
                     {
                         picSaveLoad.Image = doc.Draw();
@@ -134,15 +137,15 @@ namespace SvgW3CTestRunner
                         picSaveLoad.Image = img;
                     }
                 }
-            } 
+            }
             catch (Exception ex)
             {
-				this.boxConsoleLog.AppendText ("Result: TEST FAILED\n");
-				this.boxConsoleLog.AppendText ("SVG SERIALIZATION ERROR for " + fileName + "\n");
-				this.boxConsoleLog.AppendText (ex.ToString());
+                this.boxConsoleLog.AppendText("Result: TEST FAILED\n");
+                this.boxConsoleLog.AppendText("SVG SERIALIZATION ERROR for " + fileName + "\n");
+                this.boxConsoleLog.AppendText(ex.ToString());
                 picSaveLoad.Image = null;
             }
-            
+
             //compare svg to png
             try
             {
@@ -150,9 +153,9 @@ namespace SvgW3CTestRunner
             }
             catch (Exception ex)
             {
-				this.boxConsoleLog.AppendText ("Result: TEST FAILED\n");
-				this.boxConsoleLog.AppendText ("SVG TO PNG COMPARISON ERROR for " + fileName + "\n");
-				this.boxConsoleLog.AppendText (ex.ToString());
+                this.boxConsoleLog.AppendText("Result: TEST FAILED\n");
+                this.boxConsoleLog.AppendText("SVG TO PNG COMPARISON ERROR for " + fileName + "\n");
+                this.boxConsoleLog.AppendText(ex.ToString());
                 picSVGPNG.Image = null;
             }
         }
@@ -184,21 +187,22 @@ namespace SvgW3CTestRunner
                     var descriptionLines = new List<string>();
                     foreach (var child in descriptionElement.Children)
                     {
-                        descriptionLines.Add(regex.Replace(child.Content, " "));
+                        if (child.Content != null)
+                            descriptionLines.Add(regex.Replace(child.Content, " "));
                     }
                     return string.Join("\n", descriptionLines.ToArray());
                 }
             }
             return description;
         }
-        
+
         unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)
         {
             Bitmap output = new Bitmap(a.Width, a.Height, PixelFormat.Format32bppArgb);
             Rectangle rect = new Rectangle(Point.Empty, a.Size);
             using (var aData = a.LockBitsDisposable(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-                using (var bData = b.LockBitsDisposable(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-                    using (var outputData = output.LockBitsDisposable(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
+            using (var bData = b.LockBitsDisposable(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
+            using (var outputData = output.LockBitsDisposable(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
             {
                 byte* aPtr = (byte*)aData.Scan0;
                 byte* bPtr = (byte*)bData.Scan0;
@@ -208,7 +212,7 @@ namespace SvgW3CTestRunner
                 {
                     // For alpha use the average of both images (otherwise pixels with the same alpha won't be visible)
                     if ((i + 1) % 4 == 0)
-                        *outputPtr = (byte)((*aPtr  + *bPtr) / 2);
+                        *outputPtr = (byte)((*aPtr + *bPtr) / 2);
                     else
                         *outputPtr = (byte)~(*aPtr ^ *bPtr);
 
@@ -251,27 +255,27 @@ namespace SvgW3CTestRunner
 
             public int Stride
             {
-                get { return _data.Stride;}
+                get { return _data.Stride; }
             }
 
             public int Width
             {
-                get { return _data.Width;}
+                get { return _data.Width; }
             }
 
             public int Height
             {
-                get { return _data.Height;}
+                get { return _data.Height; }
             }
 
             public PixelFormat PixelFormat
             {
-                get { return _data.PixelFormat;}
+                get { return _data.PixelFormat; }
             }
 
             public int Reserved
             {
-                get { return _data.Reserved;}
+                get { return _data.Reserved; }
             }
         }
     }

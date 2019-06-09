@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Svg
 {
     /// <summary>
@@ -26,10 +22,9 @@ namespace Svg
             // Do nothing. Children should NOT be rendered.
         }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgDefinitionList>();
-		}
-
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgDefinitionList>();
+        }
     }
 }

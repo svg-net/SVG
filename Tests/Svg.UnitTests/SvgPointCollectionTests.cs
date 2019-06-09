@@ -1,15 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Svg.UnitTests {
+namespace Svg.UnitTests
+{
 
     [TestClass]
-    public class SvgPointCollectionTests 
+    public class SvgPointCollectionTests
     {
 
         [TestMethod]
-        public void ToStringReturnsValidString() 
+        public void ToStringReturnsValidString()
         {
-            var collection = new SvgPointCollection 
+            var collection = new SvgPointCollection
             {
                 new SvgUnit(1.6f), new SvgUnit(3.2f),
                 new SvgUnit(1.2f), new SvgUnit(5f)

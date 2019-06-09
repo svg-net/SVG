@@ -162,7 +162,7 @@ namespace Svg
         /// <param name="pRefPoint"></param>
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
-        public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
+        public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2, bool isStartMarker)
         {
             float fAngle1 = 0f;
             if (Orient.IsAuto)
@@ -171,6 +171,11 @@ namespace Svg
                 float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
                 float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
                 fAngle1 = (float)(Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI);
+
+                if (isStartMarker && Orient.IsAutoStartReverse)
+                {
+                    fAngle1 += 180;
+                }
             }
 
             RenderPart2(fAngle1, pRenderer, pOwner, pRefPoint);
@@ -233,7 +238,7 @@ namespace Svg
                                 else
                                 {
                                     // SvgMarkerUnits.UserSpaceOnUse
-                                    //	TODO: We know this isn't correct.
+                                    // TODO: We know this isn't correct.
                                     //        But use this until the TODOs from AdjustForViewBoxWidth and AdjustForViewBoxHeight are done.
                                     //  MORE see Unit Test "MakerEndTest.TestArrowCodeCreation()"
                                     transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
@@ -257,7 +262,7 @@ namespace Svg
                         if (pRenderPen != null) pRenderer.DrawPath(pRenderPen, markerPath);
 
                         SvgPaintServer pFill = this.Children.First().Fill;
-                        SvgFillRule pFillRule = FillRule;								// TODO: What do we use the fill rule for?
+                        SvgFillRule pFillRule = FillRule;    // TODO: What do we use the fill rule for?
                         float fOpacity = FillOpacity;
 
                         if (pFill != null)
@@ -321,7 +326,7 @@ namespace Svg
         /// <returns></returns>
         private float AdjustForViewBoxWidth(float fWidth)
         {
-            //	TODO: We know this isn't correct
+            // TODO: We know this isn't correct
             return (ViewBox.Width <= 0 ? 1 : fWidth / ViewBox.Width);
         }
 
@@ -332,7 +337,7 @@ namespace Svg
         /// <returns></returns>
         private float AdjustForViewBoxHeight(float fHeight)
         {
-            //	TODO: We know this isn't correct
+            // TODO: We know this isn't correct
             return (ViewBox.Height <= 0 ? 1 : fHeight / ViewBox.Height);
         }
     }
