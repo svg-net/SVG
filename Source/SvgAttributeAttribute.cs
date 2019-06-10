@@ -68,7 +68,7 @@ namespace Svg
         /// </summary>
         public string NameSpace { get; private set; }
 
-        public bool InAttributeDictionary { get; private set; }
+        public bool InAttributeDictionary { get; private set; } = true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgAttributeAttribute"/> class.

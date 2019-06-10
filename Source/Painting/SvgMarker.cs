@@ -42,7 +42,7 @@ namespace Svg
         }
 
 
-        [SvgAttribute("orient")]
+        [SvgAttribute("orient", false)]
         public virtual SvgOrient Orient
         {
             get { return _svgOrient; }

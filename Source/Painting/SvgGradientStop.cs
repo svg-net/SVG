@@ -17,7 +17,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the offset, i.e. where the stop begins from the beginning, of the gradient stop.
         /// </summary>
-        [SvgAttribute("offset")]
+        [SvgAttribute("offset", false)]
         public SvgUnit Offset
         {
             get { return this._offset; }

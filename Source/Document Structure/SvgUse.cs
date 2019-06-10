@@ -8,13 +8,11 @@ namespace Svg
     [SvgElement("use")]
     public class SvgUse : SvgVisualElement
     {
-        private Uri _referencedElement;
-
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual Uri ReferencedElement
         {
-            get { return this._referencedElement; }
-            set { this._referencedElement = value; }
+            get { return this.Attributes.GetAttribute<Uri>("href"); }
+            set { this.Attributes["href"] = value; }
         }
 
         private bool ElementReferencesUri(SvgElement element, List<Uri> elementUris)

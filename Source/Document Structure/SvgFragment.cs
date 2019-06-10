@@ -46,7 +46,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the position where the left point of the svg should start.
         /// </summary>
-        [SvgAttribute("x")]
+        [SvgAttribute("x", false)]
         public SvgUnit X
         {
             get { return _x; }
@@ -63,7 +63,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the position where the top point of the svg should start.
         /// </summary>
-        [SvgAttribute("y")]
+        [SvgAttribute("y", false)]
         public SvgUnit Y
         {
             get { return _y; }

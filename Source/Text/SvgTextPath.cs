@@ -14,15 +14,13 @@ namespace Svg
     [SvgElement("textPath")]
     public class SvgTextPath : SvgTextBase
     {
-        private Uri _referencedPath;
-
         public override SvgUnitCollection Dx
         {
             get { return null; }
             set { /* do nothing */ }
         }
 
-        [SvgAttribute("startOffset")]
+        [SvgAttribute("startOffset", false)]
         public virtual SvgUnit StartOffset
         {
             get { return (base.Dx.Count < 1 ? SvgUnit.None : base.Dx[0]); }
@@ -56,8 +54,8 @@ namespace Svg
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual Uri ReferencedPath
         {
-            get { return this._referencedPath; }
-            set { this._referencedPath = value; }
+            get { return GetAttribute<Uri>("href", false); }
+            set { Attributes["href"] = value; }
         }
 
         protected override GraphicsPath GetBaselinePath(ISvgRenderer renderer)
