@@ -20,7 +20,6 @@ namespace Svg
         private SvgUnit _height;
         private SvgUnit _x;
         private SvgUnit _y;
-        private SvgPaintServer _inheritGradient;
         private SvgViewBox _viewBox;
         private SvgCoordinateUnits _patternUnits = SvgCoordinateUnits.Inherit;
         private SvgCoordinateUnits _patternContentUnits = SvgCoordinateUnits.Inherit;
@@ -37,7 +36,7 @@ namespace Svg
         /// Specifies a supplemental transformation which is applied on top of any 
         /// transformations necessary to create a new pattern coordinate system.
         /// </summary>
-        [SvgAttribute("viewBox")]
+        [SvgAttribute("viewBox", false)]
         public SvgViewBox ViewBox
         {
             get { return this._viewBox; }
@@ -48,7 +47,7 @@ namespace Svg
         /// Gets or sets the aspect of the viewport.
         /// </summary>
         /// <value></value>
-        [SvgAttribute("preserveAspectRatio")]
+        [SvgAttribute("preserveAspectRatio", false)]
         public SvgAspectRatio AspectRatio
         {
             get;
@@ -58,7 +57,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the width of the pattern.
         /// </summary>
-        [SvgAttribute("width")]
+        [SvgAttribute("width", false)]
         public SvgUnit Width
         {
             get { return this._width; }
@@ -68,7 +67,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the width of the pattern.
         /// </summary>
-        [SvgAttribute("patternUnits")]
+        [SvgAttribute("patternUnits", false)]
         public SvgCoordinateUnits PatternUnits
         {
             get { return this._patternUnits; }
@@ -78,7 +77,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the width of the pattern.
         /// </summary>
-        [SvgAttribute("patternContentUnits")]
+        [SvgAttribute("patternContentUnits", false)]
         public SvgCoordinateUnits PatternContentUnits
         {
             get { return this._patternContentUnits; }
@@ -88,7 +87,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the height of the pattern.
         /// </summary>
-        [SvgAttribute("height")]
+        [SvgAttribute("height", false)]
         public SvgUnit Height
         {
             get { return this._height; }
@@ -98,7 +97,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the X-axis location of the pattern.
         /// </summary>
-        [SvgAttribute("x")]
+        [SvgAttribute("x", false)]
         public SvgUnit X
         {
             get { return this._x; }
@@ -108,7 +107,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the Y-axis location of the pattern.
         /// </summary>
-        [SvgAttribute("y")]
+        [SvgAttribute("y", false)]
         public SvgUnit Y
         {
             get { return this._y; }
@@ -121,11 +120,8 @@ namespace Svg
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public SvgPaintServer InheritGradient
         {
-            get { return this._inheritGradient; }
-            set
-            {
-                this._inheritGradient = value;
-            }
+            get { return (this.Attributes.GetAttribute<SvgPaintServer>("href")); }
+            set { this.Attributes["href"] = value; }
         }
 
         [SvgAttribute("patternTransform")]
@@ -181,7 +177,7 @@ namespace Svg
             while (curr != null)
             {
                 chain.Add(curr);
-                curr = SvgDeferredPaintServer.TryGet<SvgPatternServer>(curr._inheritGradient, renderingElement);
+                curr = SvgDeferredPaintServer.TryGet<SvgPatternServer>(curr.InheritGradient, renderingElement);
             }
 
             var childElem = chain.Where((p) => p.Children != null && p.Children.Count > 0).FirstOrDefault();

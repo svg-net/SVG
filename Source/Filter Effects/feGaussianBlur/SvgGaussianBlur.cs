@@ -226,7 +226,7 @@ namespace Svg.FilterEffects
         /// <summary>
         /// Gets or sets the radius of the blur (only allows for one value - not the two specified in the SVG Spec)
         /// </summary>
-        [SvgAttribute("stdDeviation")]
+        [SvgAttribute("stdDeviation", false)]
         public float StdDeviation
         {
             get { return _stdDeviation; }

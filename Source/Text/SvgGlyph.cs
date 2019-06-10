@@ -12,44 +12,44 @@ namespace Svg
         /// <summary>
         /// Gets or sets a <see cref="SvgPathSegmentList"/> of path data.
         /// </summary>
-        [SvgAttribute("d", true)]
+        [SvgAttribute("d")]
         public SvgPathSegmentList PathData
         {
             get { return this.Attributes.GetAttribute<SvgPathSegmentList>("d"); }
             set { this.Attributes["d"] = value; }
         }
 
-        [SvgAttribute("glyph-name", true)]
+        [SvgAttribute("glyph-name")]
         public virtual string GlyphName
         {
             get { return this.Attributes["glyph-name"] as string; }
             set { this.Attributes["glyph-name"] = value; }
         }
-        [SvgAttribute("horiz-adv-x", true)]
+        [SvgAttribute("horiz-adv-x")]
         public float HorizAdvX
         {
             get { return (this.Attributes["horiz-adv-x"] == null ? this.Parents.OfType<SvgFont>().First().HorizAdvX : (float)this.Attributes["horiz-adv-x"]); }
             set { this.Attributes["horiz-adv-x"] = value; }
         }
-        [SvgAttribute("unicode", true)]
+        [SvgAttribute("unicode")]
         public string Unicode
         {
             get { return this.Attributes["unicode"] as string; }
             set { this.Attributes["unicode"] = value; }
         }
-        [SvgAttribute("vert-adv-y", true)]
+        [SvgAttribute("vert-adv-y")]
         public float VertAdvY
         {
             get { return (this.Attributes["vert-adv-y"] == null ? this.Parents.OfType<SvgFont>().First().VertAdvY : (float)this.Attributes["vert-adv-y"]); }
             set { this.Attributes["vert-adv-y"] = value; }
         }
-        [SvgAttribute("vert-origin-x", true)]
+        [SvgAttribute("vert-origin-x")]
         public float VertOriginX
         {
             get { return (this.Attributes["vert-origin-x"] == null ? this.Parents.OfType<SvgFont>().First().VertOriginX : (float)this.Attributes["vert-origin-x"]); }
             set { this.Attributes["vert-origin-x"] = value; }
         }
-        [SvgAttribute("vert-origin-y", true)]
+        [SvgAttribute("vert-origin-y")]
         public float VertOriginY
         {
             get { return (this.Attributes["vert-origin-y"] == null ? this.Parents.OfType<SvgFont>().First().VertOriginY : (float)this.Attributes["vert-origin-y"]); }

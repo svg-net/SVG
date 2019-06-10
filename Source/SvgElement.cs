@@ -129,7 +129,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the color <see cref="SvgPaintServer"/> of this element which drives the currentColor property.
         /// </summary>
-        [SvgAttribute("color", true)]
+        [SvgAttribute("color")]
         public virtual SvgPaintServer Color
         {
             get { return (this.Attributes["color"] == null) ? SvgColourServer.NotSet : (SvgPaintServer)this.Attributes["color"]; }

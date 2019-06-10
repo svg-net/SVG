@@ -48,7 +48,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the fill <see cref="SvgPaintServer"/> of this element.
         /// </summary>
-        [SvgAttribute("fill", true)]
+        [SvgAttribute("fill")]
         public virtual SvgPaintServer Fill
         {
             get { return ((SvgPaintServer)this.Attributes["fill"] ?? SvgColourServer.NotSet); }
@@ -58,14 +58,14 @@ namespace Svg
         /// <summary>
         /// Gets or sets the <see cref="SvgPaintServer"/> to be used when rendering a stroke around this element.
         /// </summary>
-        [SvgAttribute("stroke", true)]
+        [SvgAttribute("stroke")]
         public virtual SvgPaintServer Stroke
         {
             get { return (SvgPaintServer)this.Attributes["stroke"]; }
             set { this.Attributes["stroke"] = value; }
         }
 
-        [SvgAttribute("fill-rule", true)]
+        [SvgAttribute("fill-rule")]
         public virtual SvgFillRule FillRule
         {
             get { return (SvgFillRule)(this.Attributes["fill-rule"] ?? SvgFillRule.NonZero); }
@@ -75,7 +75,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the opacity of this element's <see cref="Fill"/>.
         /// </summary>
-        [SvgAttribute("fill-opacity", true)]
+        [SvgAttribute("fill-opacity")]
         public virtual float FillOpacity
         {
             get { return (float)(this.Attributes["fill-opacity"] ?? 1.0f); }
@@ -85,42 +85,42 @@ namespace Svg
         /// <summary>
         /// Gets or sets the width of the stroke (if the <see cref="Stroke"/> property has a valid value specified.
         /// </summary>
-        [SvgAttribute("stroke-width", true)]
+        [SvgAttribute("stroke-width")]
         public virtual SvgUnit StrokeWidth
         {
             get { return (SvgUnit)(this.Attributes["stroke-width"] ?? new SvgUnit(1.0f)); }
             set { this.Attributes["stroke-width"] = value; }
         }
 
-        [SvgAttribute("stroke-linecap", true)]
+        [SvgAttribute("stroke-linecap")]
         public virtual SvgStrokeLineCap StrokeLineCap
         {
             get { return (SvgStrokeLineCap)(this.Attributes["stroke-linecap"] ?? SvgStrokeLineCap.Butt); }
             set { this.Attributes["stroke-linecap"] = value; }
         }
 
-        [SvgAttribute("stroke-linejoin", true)]
+        [SvgAttribute("stroke-linejoin")]
         public virtual SvgStrokeLineJoin StrokeLineJoin
         {
             get { return (SvgStrokeLineJoin)(this.Attributes["stroke-linejoin"] ?? SvgStrokeLineJoin.Miter); }
             set { this.Attributes["stroke-linejoin"] = value; }
         }
 
-        [SvgAttribute("stroke-miterlimit", true)]
+        [SvgAttribute("stroke-miterlimit")]
         public virtual float StrokeMiterLimit
         {
             get { return (float)(this.Attributes["stroke-miterlimit"] ?? 4f); }
             set { this.Attributes["stroke-miterlimit"] = value; }
         }
 
-        [SvgAttribute("stroke-dasharray", true)]
+        [SvgAttribute("stroke-dasharray")]
         public virtual SvgUnitCollection StrokeDashArray
         {
             get { return this.Attributes["stroke-dasharray"] as SvgUnitCollection; }
             set { this.Attributes["stroke-dasharray"] = value; }
         }
 
-        [SvgAttribute("stroke-dashoffset", true)]
+        [SvgAttribute("stroke-dashoffset")]
         public virtual SvgUnit StrokeDashOffset
         {
             get { return (SvgUnit)(this.Attributes["stroke-dashoffset"] ?? SvgUnit.Empty); }
@@ -130,7 +130,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the opacity of the stroke, if the <see cref="Stroke"/> property has been specified. 1.0 is fully opaque; 0.0 is transparent.
         /// </summary>
-        [SvgAttribute("stroke-opacity", true)]
+        [SvgAttribute("stroke-opacity")]
         public virtual float StrokeOpacity
         {
             get { return (float)(this.Attributes["stroke-opacity"] ?? 1.0f); }
@@ -141,7 +141,7 @@ namespace Svg
         /// Gets or sets the colour of the gradient stop.
         /// </summary>
         /// <remarks>Apparently this can be set on non-sensical elements.  Don't ask; just check the tests.</remarks>
-        [SvgAttribute("stop-color", true)]
+        [SvgAttribute("stop-color")]
         [TypeConverter(typeof(SvgPaintServerFactory))]
         public virtual SvgPaintServer StopColor
         {
@@ -152,7 +152,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the opacity of the element. 1.0 is fully opaque; 0.0 is transparent.
         /// </summary>
-        [SvgAttribute("opacity", true)]
+        [SvgAttribute("opacity")]
         public virtual float Opacity
         {
             get { return (float)(this.Attributes["opacity"] ?? 1.0f); }
@@ -172,7 +172,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the text anchor.
         /// </summary>
-        [SvgAttribute("text-anchor", true)]
+        [SvgAttribute("text-anchor")]
         public virtual SvgTextAnchor TextAnchor
         {
             get { return this.Attributes.GetInheritedAttribute<SvgTextAnchor>("text-anchor"); }
@@ -182,7 +182,7 @@ namespace Svg
         /// <summary>
         /// Specifies dominant-baseline positioning of text.
         /// </summary>
-        [SvgAttribute("baseline-shift", true)]
+        [SvgAttribute("baseline-shift")]
         public virtual string BaselineShift
         {
             get { return this.Attributes.GetInheritedAttribute<string>("baseline-shift"); }
@@ -192,7 +192,7 @@ namespace Svg
         /// <summary>
         /// Indicates which font family is to be used to render the text.
         /// </summary>
-        [SvgAttribute("font-family", true)]
+        [SvgAttribute("font-family")]
         public virtual string FontFamily
         {
             get { return this.Attributes["font-family"] as string; }
@@ -202,7 +202,7 @@ namespace Svg
         /// <summary>
         /// Refers to the size of the font from baseline to baseline when multiple lines of text are set solid in a multiline layout environment.
         /// </summary>
-        [SvgAttribute("font-size", true)]
+        [SvgAttribute("font-size")]
         public virtual SvgUnit FontSize
         {
             get { return (SvgUnit)(this.Attributes["font-size"] ?? SvgUnit.Empty); }
@@ -212,7 +212,7 @@ namespace Svg
         /// <summary>
         /// Refers to the style of the font.
         /// </summary>
-        [SvgAttribute("font-style", true)]
+        [SvgAttribute("font-style")]
         public virtual SvgFontStyle FontStyle
         {
             get { return (SvgFontStyle)(this.Attributes["font-style"] ?? SvgFontStyle.All); }
@@ -222,7 +222,7 @@ namespace Svg
         /// <summary>
         /// Refers to the varient of the font.
         /// </summary>
-        [SvgAttribute("font-variant", true)]
+        [SvgAttribute("font-variant")]
         public virtual SvgFontVariant FontVariant
         {
             get { return (SvgFontVariant)(this.Attributes["font-variant"] ?? SvgFontVariant.Inherit); }
@@ -232,7 +232,7 @@ namespace Svg
         /// <summary>
         /// Refers to the boldness of the font.
         /// </summary>
-        [SvgAttribute("text-decoration", true)]
+        [SvgAttribute("text-decoration")]
         public virtual SvgTextDecoration TextDecoration
         {
             get { return (SvgTextDecoration)(this.Attributes["text-decoration"] ?? SvgTextDecoration.Inherit); }
@@ -242,7 +242,7 @@ namespace Svg
         /// <summary>
         /// Refers to the boldness of the font.
         /// </summary>
-        [SvgAttribute("font-weight", true)]
+        [SvgAttribute("font-weight")]
         public virtual SvgFontWeight FontWeight
         {
             get { return (SvgFontWeight)(this.Attributes["font-weight"] ?? SvgFontWeight.Inherit); }
@@ -252,7 +252,7 @@ namespace Svg
         /// <summary>
         /// Refers to the text transformation.
         /// </summary>
-        [SvgAttribute("text-transform", true)]
+        [SvgAttribute("text-transform")]
         public virtual SvgTextTransformation TextTransformation
         {
             get { return (SvgTextTransformation)(this.Attributes["text-transform"] ?? SvgTextTransformation.Inherit); }
@@ -272,7 +272,7 @@ namespace Svg
         /// <summary>
         /// Set all font information.
         /// </summary>
-        [SvgAttribute("font", true)]
+        [SvgAttribute("font")]
         public virtual string Font
         {
             get { return ((this.Attributes["font"] ?? string.Empty) as string); }

@@ -56,7 +56,7 @@ namespace Svg
         /// Gets or sets the X.
         /// </summary>
         /// <value>The X.</value>
-        [SvgAttribute("x")]
+        [SvgAttribute("x", false)]
         public virtual SvgUnitCollection X
         {
             get { return this._x; }
@@ -78,7 +78,7 @@ namespace Svg
         /// Gets or sets the dX.
         /// </summary>
         /// <value>The dX.</value>
-        [SvgAttribute("dx")]
+        [SvgAttribute("dx", false)]
         public virtual SvgUnitCollection Dx
         {
             get { return this._dx; }
@@ -100,7 +100,7 @@ namespace Svg
         /// Gets or sets the Y.
         /// </summary>
         /// <value>The Y.</value>
-        [SvgAttribute("y")]
+        [SvgAttribute("y", false)]
         public virtual SvgUnitCollection Y
         {
             get { return this._y; }
@@ -122,7 +122,7 @@ namespace Svg
         /// Gets or sets the dY.
         /// </summary>
         /// <value>The dY.</value>
-        [SvgAttribute("dy")]
+        [SvgAttribute("dy", false)]
         public virtual SvgUnitCollection Dy
         {
             get { return this._dy; }
@@ -149,7 +149,7 @@ namespace Svg
         /// Gets or sets the rotate.
         /// </summary>
         /// <value>The rotate.</value>
-        [SvgAttribute("rotate")]
+        [SvgAttribute("rotate", false)]
         public virtual string Rotate
         {
             get { return this._rotate; }
@@ -170,7 +170,7 @@ namespace Svg
         /// <summary>
         /// The pre-calculated length of the text
         /// </summary>
-        [SvgAttribute("textLength", true)]
+        [SvgAttribute("textLength")]
         public virtual SvgUnit TextLength
         {
             get { return (this.Attributes["textLength"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["textLength"]); }
@@ -181,7 +181,7 @@ namespace Svg
         /// Gets or sets the text anchor.
         /// </summary>
         /// <value>The text anchor.</value>
-        [SvgAttribute("lengthAdjust", true)]
+        [SvgAttribute("lengthAdjust")]
         public virtual SvgTextLengthAdjust LengthAdjust
         {
             get { return (this.Attributes["lengthAdjust"] == null) ? SvgTextLengthAdjust.Spacing : (SvgTextLengthAdjust)this.Attributes["lengthAdjust"]; }
@@ -191,7 +191,7 @@ namespace Svg
         /// <summary>
         /// Specifies spacing behavior between text characters.
         /// </summary>
-        [SvgAttribute("letter-spacing", true)]
+        [SvgAttribute("letter-spacing")]
         public virtual SvgUnit LetterSpacing
         {
             get { return (this.Attributes["letter-spacing"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["letter-spacing"]); }
@@ -201,7 +201,7 @@ namespace Svg
         /// <summary>
         /// Specifies spacing behavior between words.
         /// </summary>
-        [SvgAttribute("word-spacing", true)]
+        [SvgAttribute("word-spacing")]
         public virtual SvgUnit WordSpacing
         {
             get { return (this.Attributes["word-spacing"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["word-spacing"]); }

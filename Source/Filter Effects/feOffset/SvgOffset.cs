@@ -13,20 +13,20 @@ namespace Svg.FilterEffects
 
 
         /// <summary>
-        /// The amount to offset the input graphic along the x-axis. The offset amount is expressed in the coordinate system established by attribute ‘primitiveUnits’ on the ‘filter’ element.
+        /// The amount to offset the input graphic along the x-axis. The offset amount is expressed in the coordinate system established by attribute 'primitiveUnits' on the 'filter' element.
         /// If the attribute is not specified, then the effect is as if a value of 0 were specified.
         /// Note: this is not used in calculations to bitmap - used only to allow for svg xml output
         /// </summary>
-        [SvgAttribute("dx")]
+        [SvgAttribute("dx", false)]
         public SvgUnit Dx { get; set; }
 
 
         /// <summary>
-        /// The amount to offset the input graphic along the y-axis. The offset amount is expressed in the coordinate system established by attribute ‘primitiveUnits’ on the ‘filter’ element.
+        /// The amount to offset the input graphic along the y-axis. The offset amount is expressed in the coordinate system established by attribute 'primitiveUnits' on the 'filter' element.
         /// If the attribute is not specified, then the effect is as if a value of 0 were specified.
         /// Note: this is not used in calculations to bitmap - used only to allow for svg xml output
         /// </summary>
-        [SvgAttribute("dy")]
+        [SvgAttribute("dy", false)]
         public SvgUnit Dy { get; set; }
 
 

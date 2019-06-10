@@ -18,7 +18,7 @@ namespace Svg
         /// <summary>
         /// Specifies the coordinate system for the clipping path.
         /// </summary>
-        [SvgAttribute("clipPathUnits")]
+        [SvgAttribute("clipPathUnits", false)]
         public SvgCoordinateUnits ClipPathUnits { get; set; }
 
         /// <summary>

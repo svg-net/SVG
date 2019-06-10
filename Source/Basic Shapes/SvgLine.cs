@@ -15,7 +15,7 @@ namespace Svg
         private SvgUnit _endY;
         private GraphicsPath _path;
 
-        [SvgAttribute("x1")]
+        [SvgAttribute("x1", false)]
         public SvgUnit StartX
         {
             get { return this._startX; }
@@ -30,7 +30,7 @@ namespace Svg
             }
         }
 
-        [SvgAttribute("y1")]
+        [SvgAttribute("y1", false)]
         public SvgUnit StartY
         {
             get { return this._startY; }
@@ -45,7 +45,7 @@ namespace Svg
             }
         }
 
-        [SvgAttribute("x2")]
+        [SvgAttribute("x2", false)]
         public SvgUnit EndX
         {
             get { return this._endX; }
@@ -60,7 +60,7 @@ namespace Svg
             }
         }
 
-        [SvgAttribute("y2")]
+        [SvgAttribute("y2", false)]
         public SvgUnit EndY
         {
             get { return this._endY; }

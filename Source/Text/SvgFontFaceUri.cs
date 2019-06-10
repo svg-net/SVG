@@ -8,13 +8,11 @@ namespace Svg
     [SvgElement("font-face-uri")]
     public class SvgFontFaceUri : SvgElement
     {
-        private Uri _referencedElement;
-
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual Uri ReferencedElement
         {
-            get { return this._referencedElement; }
-            set { this._referencedElement = value; }
+            get { return GetAttribute<Uri>("href", false); }
+            set { Attributes["href"] = value; }
         }
 
         public override SvgElement DeepCopy()

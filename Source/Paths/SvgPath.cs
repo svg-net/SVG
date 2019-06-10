@@ -14,7 +14,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets a <see cref="SvgPathSegmentList"/> of path data.
         /// </summary>
-        [SvgAttribute("d", true)]
+        [SvgAttribute("d")]
         public SvgPathSegmentList PathData
         {
             get { return this.Attributes.GetAttribute<SvgPathSegmentList>("d"); }
@@ -29,7 +29,7 @@ namespace Svg
         /// <summary>
         /// Gets or sets the length of the path.
         /// </summary>
-        [SvgAttribute("pathLength", true)]
+        [SvgAttribute("pathLength")]
         public float PathLength
         {
             get { return this.Attributes.GetAttribute<float>("pathLength"); }
