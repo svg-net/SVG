@@ -16,10 +16,10 @@ namespace Svg
     [SvgElement("pattern")]
     public sealed class SvgPatternServer : SvgPaintServer, ISvgViewPort, ISvgSupportsCoordinateUnits
     {
-        private SvgUnit _width;
-        private SvgUnit _height;
-        private SvgUnit _x;
-        private SvgUnit _y;
+        private SvgUnit _x = SvgUnit.None;
+        private SvgUnit _y = SvgUnit.None;
+        private SvgUnit _width = SvgUnit.None;
+        private SvgUnit _height = SvgUnit.None;
         private SvgViewBox _viewBox;
         private SvgCoordinateUnits _patternUnits = SvgCoordinateUnits.Inherit;
         private SvgCoordinateUnits _patternContentUnits = SvgCoordinateUnits.Inherit;
@@ -36,82 +36,82 @@ namespace Svg
         /// Specifies a supplemental transformation which is applied on top of any 
         /// transformations necessary to create a new pattern coordinate system.
         /// </summary>
-        [SvgAttribute("viewBox", false)]
+        [SvgAttribute("viewBox")]
         public SvgViewBox ViewBox
         {
             get { return this._viewBox; }
-            set { this._viewBox = value; }
+            set { this._viewBox = value; Attributes["viewBox"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the aspect of the viewport.
         /// </summary>
         /// <value></value>
-        [SvgAttribute("preserveAspectRatio", false)]
+        [SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio
         {
-            get;
-            set;
+            get { return Attributes.GetAttribute("preserveAspectRatio", new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid)); }
+            set { Attributes["preserveAspectRatio"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the width of the pattern.
         /// </summary>
-        [SvgAttribute("width", false)]
+        [SvgAttribute("width")]
         public SvgUnit Width
         {
             get { return this._width; }
-            set { this._width = value; }
+            set { this._width = value; Attributes["width"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the width of the pattern.
         /// </summary>
-        [SvgAttribute("patternUnits", false)]
+        [SvgAttribute("patternUnits")]
         public SvgCoordinateUnits PatternUnits
         {
             get { return this._patternUnits; }
-            set { this._patternUnits = value; }
+            set { this._patternUnits = value; Attributes["patternUnits"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the width of the pattern.
         /// </summary>
-        [SvgAttribute("patternContentUnits", false)]
+        [SvgAttribute("patternContentUnits")]
         public SvgCoordinateUnits PatternContentUnits
         {
             get { return this._patternContentUnits; }
-            set { this._patternContentUnits = value; }
+            set { this._patternContentUnits = value; Attributes["patternContentUnits"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the height of the pattern.
         /// </summary>
-        [SvgAttribute("height", false)]
+        [SvgAttribute("height")]
         public SvgUnit Height
         {
             get { return this._height; }
-            set { this._height = value; }
+            set { this._height = value; Attributes["height"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the X-axis location of the pattern.
         /// </summary>
-        [SvgAttribute("x", false)]
+        [SvgAttribute("x")]
         public SvgUnit X
         {
             get { return this._x; }
-            set { this._x = value; }
+            set { this._x = value; Attributes["x"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the Y-axis location of the pattern.
         /// </summary>
-        [SvgAttribute("y", false)]
+        [SvgAttribute("y")]
         public SvgUnit Y
         {
             get { return this._y; }
-            set { this._y = value; }
+            set { this._y = value; Attributes["y"] = value; }
         }
 
         /// <summary>
@@ -143,17 +143,6 @@ namespace Svg
                 }
                 return transform;
             }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgPatternServer"/> class.
-        /// </summary>
-        public SvgPatternServer()
-        {
-            this._x = SvgUnit.None;
-            this._y = SvgUnit.None;
-            this._width = SvgUnit.None;
-            this._height = SvgUnit.None;
         }
 
         private SvgUnit NormalizeUnit(SvgUnit orig)

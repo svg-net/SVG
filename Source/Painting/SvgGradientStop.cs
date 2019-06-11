@@ -12,12 +12,12 @@ namespace Svg
     [SvgElement("stop")]
     public class SvgGradientStop : SvgElement
     {
-        private SvgUnit _offset;
+        private SvgUnit _offset = 0f;
 
         /// <summary>
         /// Gets or sets the offset, i.e. where the stop begins from the beginning, of the gradient stop.
         /// </summary>
-        [SvgAttribute("offset", false)]
+        [SvgAttribute("offset")]
         public SvgUnit Offset
         {
             get { return this._offset; }
@@ -49,6 +49,7 @@ namespace Svg
                 }
 
                 this._offset = unit.ToPercentage();
+                Attributes["offset"] = unit;
             }
         }
 

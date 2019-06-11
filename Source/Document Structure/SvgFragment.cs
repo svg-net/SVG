@@ -40,40 +40,36 @@ namespace Svg
             }
         }
 
-        private SvgUnit _x;
-        private SvgUnit _y;
+        private SvgUnit _x = 0f;
+        private SvgUnit _y = 0f;
 
         /// <summary>
         /// Gets or sets the position where the left point of the svg should start.
         /// </summary>
-        [SvgAttribute("x", false)]
+        [SvgAttribute("x")]
         public SvgUnit X
         {
             get { return _x; }
             set
             {
                 if (_x != value)
-                {
                     _x = value;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "x", Value = value });
-                }
+                Attributes["x"] = value;
             }
         }
 
         /// <summary>
         /// Gets or sets the position where the top point of the svg should start.
         /// </summary>
-        [SvgAttribute("y", false)]
+        [SvgAttribute("y")]
         public SvgUnit Y
         {
             get { return _y; }
             set
             {
                 if (_y != value)
-                {
                     _y = value;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "y", Value = value });
-                }
+                Attributes["y"] = value;
             }
         }
 
@@ -84,7 +80,7 @@ namespace Svg
         [SvgAttribute("width")]
         public SvgUnit Width
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("width"); }
+            get { return this.Attributes.GetAttribute("width", new SvgUnit(SvgUnitType.Percentage, 100f)); }
             set { this.Attributes["width"] = value; }
         }
 
@@ -95,7 +91,7 @@ namespace Svg
         [SvgAttribute("height")]
         public SvgUnit Height
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("height"); }
+            get { return this.Attributes.GetAttribute("height", new SvgUnit(SvgUnitType.Percentage, 100f)); }
             set { this.Attributes["height"] = value; }
         }
 
@@ -113,7 +109,7 @@ namespace Svg
         [SvgAttribute("viewBox")]
         public SvgViewBox ViewBox
         {
-            get { return this.Attributes.GetAttribute<SvgViewBox>("viewBox"); }
+            get { return this.Attributes.GetAttribute("viewBox", SvgViewBox.Empty); }
             set { this.Attributes["viewBox"] = value; }
         }
 
@@ -124,7 +120,7 @@ namespace Svg
         [SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio
         {
-            get { return this.Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio"); }
+            get { return this.Attributes.GetAttribute("preserveAspectRatio", new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid)); }
             set { this.Attributes["preserveAspectRatio"] = value; }
         }
 
@@ -246,19 +242,6 @@ namespace Svg
 
                 return TransformedBounds(bounds);
             }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgFragment"/> class.
-        /// </summary>
-        public SvgFragment()
-        {
-            _x = 0.0f;
-            _y = 0.0f;
-            this.Height = new SvgUnit(SvgUnitType.Percentage, 100.0f);
-            this.Width = new SvgUnit(SvgUnitType.Percentage, 100.0f);
-            this.ViewBox = SvgViewBox.Empty;
-            this.AspectRatio = new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid);
         }
 
         public SizeF GetDimensions()
