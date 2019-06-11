@@ -8,34 +8,39 @@ namespace Svg
     [SvgElement("ellipse")]
     public class SvgEllipse : SvgPathBasedElement
     {
+        private SvgUnit _centerX = 0f;
+        private SvgUnit _centerY = 0f;
+        private SvgUnit _radiusX = 0f;
+        private SvgUnit _radiusY = 0f;
+
         private GraphicsPath _path;
 
         [SvgAttribute("cx")]
         public virtual SvgUnit CenterX
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("cx"); }
-            set { this.Attributes["cx"] = value; this.IsPathDirty = true; }
+            get { return _centerX; }
+            set { _centerX = value; Attributes["cx"] = value; IsPathDirty = true; }
         }
 
         [SvgAttribute("cy")]
         public virtual SvgUnit CenterY
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("cy"); }
-            set { this.Attributes["cy"] = value; this.IsPathDirty = true; }
+            get { return _centerY; }
+            set { _centerY = value; Attributes["cy"] = value; IsPathDirty = true; }
         }
 
         [SvgAttribute("rx")]
         public virtual SvgUnit RadiusX
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("rx"); }
-            set { this.Attributes["rx"] = value; this.IsPathDirty = true; }
+            get { return _radiusX; }
+            set { _radiusX = value; Attributes["rx"] = value; IsPathDirty = true; }
         }
 
         [SvgAttribute("ry")]
         public virtual SvgUnit RadiusY
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("ry"); }
-            set { this.Attributes["ry"] = value; this.IsPathDirty = true; }
+            get { return _radiusY; }
+            set { _radiusY = value; Attributes["ry"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
