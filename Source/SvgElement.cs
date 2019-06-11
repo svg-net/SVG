@@ -633,7 +633,7 @@ namespace Svg
                             continue;
                         }
 
-                        if (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(attr.Attribute.Name))
+                        if (Attributes.ContainsKey(attr.Attribute.Name))
                         {
                             var propertyValue = attr.Property.GetValue(this);
 
@@ -719,7 +719,7 @@ namespace Svg
                         opacity = opacityValues[key];
                         write = true;
                     }
-                    if (!attr.Attribute.InAttributeDictionary || _attributes.ContainsKey(key))
+                    if (Attributes.ContainsKey(key))
                     {
                         opacity *= (float)attr.Property.GetValue(this);
                         write = true;
