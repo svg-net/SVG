@@ -9,13 +9,14 @@ namespace Svg
     [SvgElement("line")]
     public class SvgLine : SvgMarkerElement
     {
-        private SvgUnit _startX;
-        private SvgUnit _startY;
-        private SvgUnit _endX;
-        private SvgUnit _endY;
+        private SvgUnit _startX = 0f;
+        private SvgUnit _startY = 0f;
+        private SvgUnit _endX = 0f;
+        private SvgUnit _endY = 0f;
+
         private GraphicsPath _path;
 
-        [SvgAttribute("x1", false)]
+        [SvgAttribute("x1")]
         public SvgUnit StartX
         {
             get { return this._startX; }
@@ -25,12 +26,12 @@ namespace Svg
                 {
                     this._startX = value;
                     this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "x1", Value = value });
                 }
+                Attributes["x1"] = value;
             }
         }
 
-        [SvgAttribute("y1", false)]
+        [SvgAttribute("y1")]
         public SvgUnit StartY
         {
             get { return this._startY; }
@@ -40,12 +41,12 @@ namespace Svg
                 {
                     this._startY = value;
                     this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "y1", Value = value });
                 }
+                Attributes["y1"] = value;
             }
         }
 
-        [SvgAttribute("x2", false)]
+        [SvgAttribute("x2")]
         public SvgUnit EndX
         {
             get { return this._endX; }
@@ -55,12 +56,12 @@ namespace Svg
                 {
                     this._endX = value;
                     this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "x2", Value = value });
                 }
+                Attributes["x2"] = value;
             }
         }
 
-        [SvgAttribute("y2", false)]
+        [SvgAttribute("y2")]
         public SvgUnit EndY
         {
             get { return this._endY; }
@@ -70,8 +71,8 @@ namespace Svg
                 {
                     this._endY = value;
                     this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "y2", Value = value });
                 }
+                Attributes["y2"] = value;
             }
         }
 
@@ -82,10 +83,6 @@ namespace Svg
             {
                 // Do nothing
             }
-        }
-
-        public SvgLine()
-        {
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)

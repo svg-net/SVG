@@ -8,6 +8,10 @@ namespace Svg
     [SvgElement("circle")]
     public class SvgCircle : SvgPathBasedElement
     {
+        private SvgUnit _centerX = 0f;
+        private SvgUnit _centerY = 0f;
+        private SvgUnit _radius = 0f;
+
         private GraphicsPath _path;
 
         /// <summary>
@@ -22,22 +26,22 @@ namespace Svg
         [SvgAttribute("cx")]
         public virtual SvgUnit CenterX
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("cx"); }
-            set { this.Attributes["cx"] = value; this.IsPathDirty = true; }
+            get { return _centerX; }
+            set { _centerX = value; Attributes["cx"] = value; IsPathDirty = true; }
         }
 
         [SvgAttribute("cy")]
         public virtual SvgUnit CenterY
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("cy"); }
-            set { this.Attributes["cy"] = value; this.IsPathDirty = true; }
+            get { return _centerY; }
+            set { _centerY = value; Attributes["cy"] = value; IsPathDirty = true; }
         }
 
         [SvgAttribute("r")]
         public virtual SvgUnit Radius
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("r"); }
-            set { this.Attributes["r"] = value; this.IsPathDirty = true; }
+            get { return _radius; }
+            set { _radius = value; Attributes["r"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -79,7 +83,6 @@ namespace Svg
                 base.Render(renderer);
             }
         }
-
 
         public override SvgElement DeepCopy()
         {

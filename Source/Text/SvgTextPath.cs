@@ -20,7 +20,7 @@ namespace Svg
             set { /* do nothing */ }
         }
 
-        [SvgAttribute("startOffset", false)]
+        [SvgAttribute("startOffset")]
         public virtual SvgUnit StartOffset
         {
             get { return (base.Dx.Count < 1 ? SvgUnit.None : base.Dx[0]); }
@@ -34,6 +34,7 @@ namespace Svg
                 {
                     base.Dx[0] = value;
                 }
+                Attributes["startOffset"] = value;
             }
         }
 

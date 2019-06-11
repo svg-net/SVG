@@ -56,7 +56,7 @@ namespace Svg
         /// Gets or sets the X.
         /// </summary>
         /// <value>The X.</value>
-        [SvgAttribute("x", false)]
+        [SvgAttribute("x")]
         public virtual SvgUnitCollection X
         {
             get { return this._x; }
@@ -69,8 +69,8 @@ namespace Svg
                     if (_x != null) { _x.CollectionChanged += OnCoordinateChanged; }
 
                     this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "x", Value = value });
                 }
+                Attributes["x"] = value;
             }
         }
 
@@ -78,7 +78,7 @@ namespace Svg
         /// Gets or sets the dX.
         /// </summary>
         /// <value>The dX.</value>
-        [SvgAttribute("dx", false)]
+        [SvgAttribute("dx")]
         public virtual SvgUnitCollection Dx
         {
             get { return this._dx; }
@@ -91,8 +91,8 @@ namespace Svg
                     if (_dx != null) { _dx.CollectionChanged += OnCoordinateChanged; }
 
                     this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "dx", Value = value });
                 }
+                Attributes["dx"] = value;
             }
         }
 
@@ -100,7 +100,7 @@ namespace Svg
         /// Gets or sets the Y.
         /// </summary>
         /// <value>The Y.</value>
-        [SvgAttribute("y", false)]
+        [SvgAttribute("y")]
         public virtual SvgUnitCollection Y
         {
             get { return this._y; }
@@ -113,8 +113,8 @@ namespace Svg
                     if (_y != null) { _y.CollectionChanged += OnCoordinateChanged; }
 
                     this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "y", Value = value });
                 }
+                Attributes["y"] = value;
             }
         }
 
@@ -122,7 +122,7 @@ namespace Svg
         /// Gets or sets the dY.
         /// </summary>
         /// <value>The dY.</value>
-        [SvgAttribute("dy", false)]
+        [SvgAttribute("dy")]
         public virtual SvgUnitCollection Dy
         {
             get { return this._dy; }
@@ -135,8 +135,8 @@ namespace Svg
                     if (_dy != null) { _dy.CollectionChanged += OnCoordinateChanged; }
 
                     this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "dy", Value = value });
                 }
+                Attributes["dy"] = value;
             }
         }
 
@@ -149,7 +149,7 @@ namespace Svg
         /// Gets or sets the rotate.
         /// </summary>
         /// <value>The rotate.</value>
-        [SvgAttribute("rotate", false)]
+        [SvgAttribute("rotate")]
         public virtual string Rotate
         {
             get { return this._rotate; }
@@ -162,8 +162,8 @@ namespace Svg
                     this._rotations.AddRange(from r in _rotate.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries)
                                              select float.Parse(r, NumberStyles.Any, CultureInfo.InvariantCulture));
                     this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "rotate", Value = value });
                 }
+                Attributes["rotate"] = value;
             }
         }
 
