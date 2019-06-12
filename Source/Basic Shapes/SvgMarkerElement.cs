@@ -14,10 +14,9 @@ namespace Svg
         [SvgAttribute("marker-end")]
         public Uri MarkerEnd
         {
-            get { return this.Attributes.GetAttribute<Uri>("marker-end").ReplaceWithNullIfNone(); }
-            set { this.Attributes["marker-end"] = value; }
+            get { return GetAttribute<Uri>("marker-end", false).ReplaceWithNullIfNone(); }
+            set { Attributes["marker-end"] = value; }
         }
-
 
         /// <summary>
         /// Gets or sets the marker (mid points) of the path.
@@ -25,10 +24,9 @@ namespace Svg
         [SvgAttribute("marker-mid")]
         public Uri MarkerMid
         {
-            get { return this.Attributes.GetAttribute<Uri>("marker-mid").ReplaceWithNullIfNone(); }
-            set { this.Attributes["marker-mid"] = value; }
+            get { return GetAttribute<Uri>("marker-mid", false).ReplaceWithNullIfNone(); }
+            set { Attributes["marker-mid"] = value; }
         }
-
 
         /// <summary>
         /// Gets or sets the marker (start cap) of the path.
@@ -36,8 +34,8 @@ namespace Svg
         [SvgAttribute("marker-start")]
         public Uri MarkerStart
         {
-            get { return this.Attributes.GetAttribute<Uri>("marker-start").ReplaceWithNullIfNone(); }
-            set { this.Attributes["marker-start"] = value; }
+            get { return GetAttribute<Uri>("marker-start", false).ReplaceWithNullIfNone(); }
+            set { Attributes["marker-start"] = value; }
         }
 
         /// <summary>

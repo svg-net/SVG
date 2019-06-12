@@ -19,13 +19,13 @@ namespace Svg
         [SvgAttribute("x1")]
         public SvgUnit StartX
         {
-            get { return this._startX; }
+            get { return _startX; }
             set
             {
                 if (_startX != value)
                 {
-                    this._startX = value;
-                    this.IsPathDirty = true;
+                    _startX = value;
+                    IsPathDirty = true;
                 }
                 Attributes["x1"] = value;
             }
@@ -34,13 +34,13 @@ namespace Svg
         [SvgAttribute("y1")]
         public SvgUnit StartY
         {
-            get { return this._startY; }
+            get { return _startY; }
             set
             {
                 if (_startY != value)
                 {
-                    this._startY = value;
-                    this.IsPathDirty = true;
+                    _startY = value;
+                    IsPathDirty = true;
                 }
                 Attributes["y1"] = value;
             }
@@ -49,13 +49,13 @@ namespace Svg
         [SvgAttribute("x2")]
         public SvgUnit EndX
         {
-            get { return this._endX; }
+            get { return _endX; }
             set
             {
                 if (_endX != value)
                 {
-                    this._endX = value;
-                    this.IsPathDirty = true;
+                    _endX = value;
+                    IsPathDirty = true;
                 }
                 Attributes["x2"] = value;
             }
@@ -64,13 +64,13 @@ namespace Svg
         [SvgAttribute("y2")]
         public SvgUnit EndY
         {
-            get { return this._endY; }
+            get { return _endY; }
             set
             {
                 if (_endY != value)
                 {
-                    this._endY = value;
-                    this.IsPathDirty = true;
+                    _endY = value;
+                    IsPathDirty = true;
                 }
                 Attributes["y2"] = value;
             }
@@ -132,6 +132,5 @@ namespace Svg
 
             return newObj;
         }
-
     }
 }

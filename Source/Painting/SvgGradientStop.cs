@@ -20,35 +20,35 @@ namespace Svg
         [SvgAttribute("offset")]
         public SvgUnit Offset
         {
-            get { return this._offset; }
+            get { return _offset; }
             set
             {
                 SvgUnit unit = value;
 
                 if (value.Type == SvgUnitType.Percentage)
                 {
-                    if (value.Value > 100)
+                    if (value.Value > 100f)
                     {
-                        unit = new SvgUnit(value.Type, 100);
+                        unit = new SvgUnit(value.Type, 100f);
                     }
-                    else if (value.Value < 0)
+                    else if (value.Value < 0f)
                     {
-                        unit = new SvgUnit(value.Type, 0);
+                        unit = new SvgUnit(value.Type, 0f);
                     }
                 }
                 else if (value.Type == SvgUnitType.User)
                 {
-                    if (value.Value > 1)
+                    if (value.Value > 1f)
                     {
-                        unit = new SvgUnit(value.Type, 1);
+                        unit = new SvgUnit(value.Type, 1f);
                     }
-                    else if (value.Value < 0)
+                    else if (value.Value < 0f)
                     {
-                        unit = new SvgUnit(value.Type, 0);
+                        unit = new SvgUnit(value.Type, 0f);
                     }
                 }
 
-                this._offset = unit.ToPercentage();
+                _offset = unit.ToPercentage();
                 Attributes["offset"] = unit;
             }
         }
@@ -60,13 +60,8 @@ namespace Svg
         [TypeConverter(typeof(SvgPaintServerFactory))]
         public override SvgPaintServer StopColor
         {
-            get
-            {
-                var direct = this.Attributes.GetAttribute<SvgPaintServer>("stop-color", SvgColourServer.NotSet);
-                if (direct == SvgColourServer.Inherit) return this.Attributes["stop-color"] as SvgPaintServer ?? SvgColourServer.NotSet;
-                return direct;
-            }
-            set { this.Attributes["stop-color"] = value; }
+            get { return GetAttribute("stop-color", Inherited, SvgColourServer.NotSet); }
+            set { Attributes["stop-color"] = value; }
         }
 
         /// <summary>
@@ -75,8 +70,8 @@ namespace Svg
         [SvgAttribute("stop-opacity")]
         public override float Opacity
         {
-            get { return (this.Attributes["stop-opacity"] == null) ? 1.0f : (float)this.Attributes["stop-opacity"]; }
-            set { this.Attributes["stop-opacity"] = FixOpacityValue(value); }
+            get { return GetAttribute("stop-opacity", Inherited, 1f); }
+            set { Attributes["stop-opacity"] = FixOpacityValue(value); }
         }
 
         /// <summary>

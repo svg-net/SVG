@@ -12,7 +12,6 @@ namespace Svg.Document_Structure
     [SvgElement("symbol")]
     public class SvgSymbol : SvgVisualElement
     {
-
         /// <summary>
         /// Gets or sets the viewport of the element.
         /// </summary>
@@ -20,8 +19,8 @@ namespace Svg.Document_Structure
         [SvgAttribute("viewBox")]
         public SvgViewBox ViewBox
         {
-            get { return this.Attributes.GetAttribute<SvgViewBox>("viewBox"); }
-            set { this.Attributes["viewBox"] = value; }
+            get { return GetAttribute<SvgViewBox>("viewBox", false); }
+            set { Attributes["viewBox"] = value; }
         }
 
         /// <summary>
@@ -31,8 +30,8 @@ namespace Svg.Document_Structure
         [SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio
         {
-            get { return this.Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio"); }
-            set { this.Attributes["preserveAspectRatio"] = value; }
+            get { return GetAttribute<SvgAspectRatio>("preserveAspectRatio", false); }
+            set { Attributes["preserveAspectRatio"] = value; }
         }
 
         /// <summary>

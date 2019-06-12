@@ -80,8 +80,8 @@ namespace Svg
         [SvgAttribute("width")]
         public SvgUnit Width
         {
-            get { return this.Attributes.GetAttribute("width", new SvgUnit(SvgUnitType.Percentage, 100f)); }
-            set { this.Attributes["width"] = value; }
+            get { return GetAttribute("width", false, new SvgUnit(SvgUnitType.Percentage, 100f)); }
+            set { Attributes["width"] = value; }
         }
 
         /// <summary>
@@ -91,15 +91,15 @@ namespace Svg
         [SvgAttribute("height")]
         public SvgUnit Height
         {
-            get { return this.Attributes.GetAttribute("height", new SvgUnit(SvgUnitType.Percentage, 100f)); }
-            set { this.Attributes["height"] = value; }
+            get { return GetAttribute("height", false, new SvgUnit(SvgUnitType.Percentage, 100f)); }
+            set { Attributes["height"] = value; }
         }
 
         [SvgAttribute("overflow")]
         public virtual SvgOverflow Overflow
         {
-            get { return this.Attributes.GetAttribute<SvgOverflow>("overflow"); }
-            set { this.Attributes["overflow"] = value; }
+            get { return GetAttribute<SvgOverflow>("overflow", false); }
+            set { Attributes["overflow"] = value; }
         }
 
         /// <summary>
@@ -109,8 +109,8 @@ namespace Svg
         [SvgAttribute("viewBox")]
         public SvgViewBox ViewBox
         {
-            get { return this.Attributes.GetAttribute("viewBox", SvgViewBox.Empty); }
-            set { this.Attributes["viewBox"] = value; }
+            get { return GetAttribute("viewBox", false, SvgViewBox.Empty); }
+            set { Attributes["viewBox"] = value; }
         }
 
         /// <summary>
@@ -120,8 +120,8 @@ namespace Svg
         [SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio
         {
-            get { return this.Attributes.GetAttribute("preserveAspectRatio", new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid)); }
-            set { this.Attributes["preserveAspectRatio"] = value; }
+            get { return GetAttribute("preserveAspectRatio", false, new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid)); }
+            set { Attributes["preserveAspectRatio"] = value; }
         }
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace Svg
         [SvgAttribute("font-size")]
         public override SvgUnit FontSize
         {
-            get { return (this.Attributes["font-size"] == null) ? SvgUnit.Empty : (SvgUnit)this.Attributes["font-size"]; }
-            set { this.Attributes["font-size"] = value; }
+            get { return GetAttribute("font-size", Inherited, SvgUnit.Empty); }
+            set { Attributes["font-size"] = value; }
         }
 
         /// <summary>
@@ -140,14 +140,14 @@ namespace Svg
         [SvgAttribute("font-family")]
         public override string FontFamily
         {
-            get { return this.Attributes["font-family"] as string; }
-            set { this.Attributes["font-family"] = value; }
+            get { return GetAttribute<string>("font-family", Inherited); }
+            set { Attributes["font-family"] = value; }
         }
 
         public override XmlSpaceHandling SpaceHandling
         {
             get { return GetAttribute("space", Inherited, XmlSpaceHandling.@default); }
-            set { base.SpaceHandling = value; this.IsPathDirty = true; }
+            set { base.SpaceHandling = value; IsPathDirty = true; }
         }
 
         /// <summary>

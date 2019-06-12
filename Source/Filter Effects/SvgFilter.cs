@@ -21,8 +21,8 @@ namespace Svg.FilterEffects
         [SvgAttribute("x")]
         public SvgUnit X
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("x"); }
-            set { this.Attributes["x"] = value; }
+            get { return GetAttribute<SvgUnit>("x", false); }
+            set { Attributes["x"] = value; }
         }
 
         /// <summary>
@@ -31,8 +31,8 @@ namespace Svg.FilterEffects
         [SvgAttribute("y")]
         public SvgUnit Y
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("y"); }
-            set { this.Attributes["y"] = value; }
+            get { return GetAttribute<SvgUnit>("y", false); }
+            set { Attributes["y"] = value; }
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace Svg.FilterEffects
         [SvgAttribute("width")]
         public SvgUnit Width
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("width"); }
-            set { this.Attributes["width"] = value; }
+            get { return GetAttribute<SvgUnit>("width", false); }
+            set { Attributes["width"] = value; }
         }
 
         /// <summary>
@@ -51,8 +51,8 @@ namespace Svg.FilterEffects
         [SvgAttribute("height")]
         public SvgUnit Height
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("height"); }
-            set { this.Attributes["height"] = value; }
+            get { return GetAttribute<SvgUnit>("height", false); }
+            set { Attributes["height"] = value; }
         }
 
         /// <summary>
@@ -62,15 +62,8 @@ namespace Svg.FilterEffects
         [SvgAttribute("color-interpolation-filters")]
         public SvgColourInterpolation ColorInterpolationFilters
         {
-            get { return this.Attributes.GetAttribute<SvgColourInterpolation>("color-interpolation-filters"); }
-            set { this.Attributes["color-interpolation-filters"] = value; }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgFilter"/> class.
-        /// </summary>
-        public SvgFilter()
-        {
+            get { return GetAttribute<SvgColourInterpolation>("color-interpolation-filters", false); }
+            set { Attributes["color-interpolation-filters"] = value; }
         }
 
         /// <summary>

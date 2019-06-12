@@ -13,40 +13,22 @@ namespace Svg
         [SvgAttribute("cx")]
         public SvgUnit CenterX
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("cx");
-            }
-            set
-            {
-                this.Attributes["cx"] = value;
-            }
+            get { return GetAttribute("cx", false, new SvgUnit(SvgUnitType.Percentage, 50f)); }
+            set { Attributes["cx"] = value; }
         }
 
         [SvgAttribute("cy")]
         public SvgUnit CenterY
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("cy");
-            }
-            set
-            {
-                this.Attributes["cy"] = value;
-            }
+            get { return GetAttribute("cy", false, new SvgUnit(SvgUnitType.Percentage, 50f)); }
+            set { Attributes["cy"] = value; }
         }
 
         [SvgAttribute("r")]
         public SvgUnit Radius
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("r");
-            }
-            set
-            {
-                this.Attributes["r"] = value;
-            }
+            get { return GetAttribute("r", false, new SvgUnit(SvgUnitType.Percentage, 50f)); }
+            set { Attributes["r"] = value; }
         }
 
         [SvgAttribute("fx")]
@@ -54,19 +36,12 @@ namespace Svg
         {
             get
             {
-                var value = this.Attributes.GetAttribute<SvgUnit>("fx");
-
+                var value = GetAttribute("fx", false, SvgUnit.None);
                 if (value.IsEmpty || value.IsNone)
-                {
-                    value = this.CenterX;
-                }
-
+                    value = CenterX;
                 return value;
             }
-            set
-            {
-                this.Attributes["fx"] = value;
-            }
+            set { Attributes["fx"] = value; }
         }
 
         [SvgAttribute("fy")]
@@ -74,26 +49,12 @@ namespace Svg
         {
             get
             {
-                var value = this.Attributes.GetAttribute<SvgUnit>("fy");
-
+                var value = GetAttribute("fy", false, SvgUnit.None);
                 if (value.IsEmpty || value.IsNone)
-                {
-                    value = this.CenterY;
-                }
-
+                    value = CenterY;
                 return value;
             }
-            set
-            {
-                this.Attributes["fy"] = value;
-            }
-        }
-
-        public SvgRadialGradientServer()
-        {
-            CenterX = new SvgUnit(SvgUnitType.Percentage, 50F);
-            CenterY = new SvgUnit(SvgUnitType.Percentage, 50F);
-            Radius = new SvgUnit(SvgUnitType.Percentage, 50F);
+            set { Attributes["fy"] = value; }
         }
 
         private object _lockObj = new Object();
@@ -101,7 +62,7 @@ namespace Svg
         private SvgUnit NormalizeUnit(SvgUnit orig)
         {
             return (orig.Type == SvgUnitType.Percentage && this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox ?
-                    new SvgUnit(SvgUnitType.User, orig.Value / 100) :
+                    new SvgUnit(SvgUnitType.User, orig.Value / 100f) :
                     orig);
         }
 

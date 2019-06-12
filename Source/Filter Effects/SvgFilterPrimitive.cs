@@ -18,15 +18,15 @@ namespace Svg.FilterEffects
         [SvgAttribute("in")]
         public string Input
         {
-            get { return this.Attributes.GetAttribute<string>("in"); }
-            set { this.Attributes["in"] = value; }
+            get { return GetAttribute<string>("in", false); }
+            set { Attributes["in"] = value; }
         }
 
         [SvgAttribute("result")]
         public string Result
         {
-            get { return this.Attributes.GetAttribute<string>("result"); }
-            set { this.Attributes["result"] = value; }
+            get { return GetAttribute<string>("result", false); }
+            set { Attributes["result"] = value; }
         }
 
         protected SvgFilter Owner
