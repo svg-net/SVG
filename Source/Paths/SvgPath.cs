@@ -8,7 +8,7 @@ namespace Svg
     /// Represents an SVG path element.
     /// </summary>
     [SvgElement("path")]
-    public class SvgPath : SvgMarkerElement
+    public class SvgPath : SvgMarkerElement, ISvgPathElement
     {
         private GraphicsPath _path;
 
@@ -19,7 +19,15 @@ namespace Svg
         public SvgPathSegmentList PathData
         {
             get { return GetAttribute<SvgPathSegmentList>("d", false); }
-            set { Attributes["d"] = value; value._owner = this; IsPathDirty = true; }
+            set
+            {
+                var old = PathData;
+                if (old != null)
+                    old.Owner = null;
+                Attributes["d"] = value;
+                value.Owner = this;
+                IsPathDirty = true;
+            }
         }
 
         /// <summary>
@@ -59,12 +67,14 @@ namespace Svg
                             _path = null;
                     }
                 }
-                IsPathDirty = false;
+
+                if (renderer != null)
+                    IsPathDirty = false;
             }
             return _path;
         }
 
-        internal void OnPathUpdated()
+        public void OnPathUpdated()
         {
             IsPathDirty = true;
             OnAttributeChanged(new AttributeEventArgs { Attribute = "d", Value = Attributes.GetAttribute<SvgPathSegmentList>("d") });
@@ -94,9 +104,9 @@ namespace Svg
                     pathData.Add(segment.Clone());
                 newObj.PathData = pathData;
             }
-            newObj.PathLength = this.PathLength;
-            newObj.MarkerStart = this.MarkerStart;
-            newObj.MarkerEnd = this.MarkerEnd;
+            newObj.PathLength = PathLength;
+            newObj.MarkerStart = MarkerStart;
+            newObj.MarkerEnd = MarkerEnd;
             return newObj;
         }
     }

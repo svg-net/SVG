@@ -5,9 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
-
 using Svg.Pathing;
 
 namespace Svg
@@ -29,21 +27,16 @@ namespace Svg
         public static SvgPathSegmentList Parse(string path)
         {
             if (string.IsNullOrEmpty(path))
-            {
                 throw new ArgumentNullException("path");
-            }
 
             var segments = new SvgPathSegmentList();
 
             try
             {
-                char command;
-                bool isRelative;
-
                 foreach (var commandSet in SplitCommands(path.TrimEnd(null)))
                 {
-                    command = commandSet[0];
-                    isRelative = char.IsLower(command);
+                    var command = commandSet[0];
+                    var isRelative = char.IsLower(command);
                     // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
 
                     CreatePathSegment(command, segments, new CoordinateParser(commandSet.Trim()), isRelative);
@@ -59,7 +52,6 @@ namespace Svg
 
         private static void CreatePathSegment(char command, SvgPathSegmentList segments, CoordinateParser parser, bool isRelative)
         {
-
             var coords = new float[6];
 
             switch (command)
@@ -67,9 +59,7 @@ namespace Svg
                 case 'm': // relative moveto
                 case 'M': // moveto
                     if (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
-                    {
                         segments.Add(new SvgMoveToSegment(ToAbsolute(coords[0], coords[1], segments, isRelative)));
-                    }
 
                     while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                     {
@@ -89,8 +79,8 @@ namespace Svg
                     {
                         // A|a rx ry x-axis-rotation large-arc-flag sweep-flag x y
                         segments.Add(new SvgArcSegment(segments.Last.End, coords[0], coords[1], coords[2],
-                            (size ? SvgArcSize.Large : SvgArcSize.Small),
-                            (sweep ? SvgArcSweep.Positive : SvgArcSweep.Negative),
+                            size ? SvgArcSize.Large : SvgArcSize.Small,
+                            sweep ? SvgArcSweep.Positive : SvgArcSweep.Negative,
                             ToAbsolute(coords[3], coords[4], segments, isRelative)));
                     }
                     break;
@@ -179,26 +169,11 @@ namespace Svg
 
         private static PointF Reflect(PointF point, PointF mirror)
         {
-            float x, y, dx, dy;
-            dx = Math.Abs(mirror.X - point.X);
-            dy = Math.Abs(mirror.Y - point.Y);
+            var dx = Math.Abs(mirror.X - point.X);
+            var dy = Math.Abs(mirror.Y - point.Y);
 
-            if (mirror.X >= point.X)
-            {
-                x = mirror.X + dx;
-            }
-            else
-            {
-                x = mirror.X - dx;
-            }
-            if (mirror.Y >= point.Y)
-            {
-                y = mirror.Y + dy;
-            }
-            else
-            {
-                y = mirror.Y - dy;
-            }
+            var x = mirror.X + (mirror.X >= point.X ? dx : -dx);
+            var y = mirror.Y + (mirror.Y >= point.Y ? dy : -dy);
 
             return new PointF(x, y);
         }
@@ -234,17 +209,14 @@ namespace Svg
                 var lastSegment = segments.Last;
 
                 // if the last element is a SvgClosePathSegment the position of the previous element should be used because the position of SvgClosePathSegment is 0,0
-                if (lastSegment is SvgClosePathSegment) lastSegment = segments.Reverse().OfType<SvgMoveToSegment>().First();
+                if (lastSegment is SvgClosePathSegment)
+                    lastSegment = segments.Reverse().OfType<SvgMoveToSegment>().First();
 
                 if (isRelativeX)
-                {
                     point.X += lastSegment.End.X;
-                }
 
                 if (isRelativeY)
-                {
                     point.Y += lastSegment.End.Y;
-                }
             }
 
             return point;
@@ -254,37 +226,28 @@ namespace Svg
         {
             var commandStart = 0;
 
-            for (var i = 0; i < path.Length; i++)
+            for (var i = 0; i < path.Length; ++i)
             {
-                string command;
-                if (char.IsLetter(path[i]) && path[i] != 'e' && path[i] != 'E') //e is used in scientific notiation. but not svg path
+                if (char.IsLetter(path[i]) && path[i] != 'e' && path[i] != 'E') // e is used in scientific notiation. but not svg path
                 {
-                    command = path.Substring(commandStart, i - commandStart).Trim();
+                    var command = path.Substring(commandStart, i - commandStart).Trim();
                     commandStart = i;
 
                     if (!string.IsNullOrEmpty(command))
-                    {
                         yield return command;
-                    }
 
                     if (path.Length == i + 1)
-                    {
                         yield return path[i].ToString();
-                    }
                 }
                 else if (path.Length == i + 1)
                 {
-                    command = path.Substring(commandStart, i - commandStart + 1).Trim();
+                    var command = path.Substring(commandStart, i - commandStart + 1).Trim();
 
                     if (!string.IsNullOrEmpty(command))
-                    {
                         yield return command;
-                    }
                 }
             }
         }
-
-
 
         //private static IEnumerable<float> ParseCoordinates(string coords)
         //{
@@ -294,7 +257,7 @@ namespace Svg
         //    var currState = NumState.separator;
         //    var newState = NumState.separator;
 
-        //    for (int i = 1; i < coords.Length; i++)
+        //    for (int i = 1; i < coords.Length; ++i)
         //    {
         //        switch (currState)
         //        {
@@ -506,9 +469,7 @@ namespace Svg
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string)
-            {
                 return Parse((string)value);
-            }
 
             return base.ConvertFrom(context, culture, value);
         }
@@ -542,9 +503,7 @@ namespace Svg
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
-            {
                 return true;
-            }
 
             return base.CanConvertTo(context, destinationType);
         }
