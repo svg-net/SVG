@@ -22,7 +22,7 @@ namespace Svg.FilterEffects
         public SvgUnit Dx
         {
             get { return _dx; }
-            set { this._dx = value; Attributes["dx"] = value; }
+            set { _dx = value; Attributes["dx"] = value; }
         }
 
         /// <summary>
@@ -56,9 +56,6 @@ namespace Svg.FilterEffects
             buffer[this.Result] = result;
         }
 
-
-
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgOffset>();
@@ -72,6 +69,5 @@ namespace Svg.FilterEffects
 
             return newObj;
         }
-
     }
 }

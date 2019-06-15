@@ -30,17 +30,16 @@ namespace Svg
         [SvgAttribute("refX")]
         public virtual SvgUnit RefX
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("refX"); }
-            set { this.Attributes["refX"] = value; }
+            get { return GetAttribute<SvgUnit>("refX", false); }
+            set { Attributes["refX"] = value; }
         }
 
         [SvgAttribute("refY")]
         public virtual SvgUnit RefY
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("refY"); }
-            set { this.Attributes["refY"] = value; }
+            get { return GetAttribute<SvgUnit>("refY", false); }
+            set { Attributes["refY"] = value; }
         }
-
 
         [SvgAttribute("orient")]
         public virtual SvgOrient Orient
@@ -49,50 +48,46 @@ namespace Svg
             set { _svgOrient = value; Attributes["orient"] = value; }
         }
 
-
         [SvgAttribute("overflow")]
         public virtual SvgOverflow Overflow
         {
-            get { return this.Attributes.GetAttribute<SvgOverflow>("overflow"); }
-            set { this.Attributes["overflow"] = value; }
+            get { return GetAttribute("overflow", false, SvgOverflow.Hidden); }
+            set { Attributes["overflow"] = value; }
         }
-
 
         [SvgAttribute("viewBox")]
         public virtual SvgViewBox ViewBox
         {
-            get { return this.Attributes.GetAttribute<SvgViewBox>("viewBox"); }
-            set { this.Attributes["viewBox"] = value; }
+            get { return GetAttribute<SvgViewBox>("viewBox", false); }
+            set { Attributes["viewBox"] = value; }
         }
-
 
         [SvgAttribute("preserveAspectRatio")]
         public virtual SvgAspectRatio AspectRatio
         {
-            get { return this.Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio"); }
-            set { this.Attributes["preserveAspectRatio"] = value; }
+            get { return GetAttribute<SvgAspectRatio>("preserveAspectRatio", false); }
+            set { Attributes["preserveAspectRatio"] = value; }
         }
-
 
         [SvgAttribute("markerWidth")]
         public virtual SvgUnit MarkerWidth
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("markerWidth"); }
-            set { this.Attributes["markerWidth"] = value; }
+            get { return GetAttribute<SvgUnit>("markerWidth", false, 3f); }
+            set { Attributes["markerWidth"] = value; }
         }
 
         [SvgAttribute("markerHeight")]
         public virtual SvgUnit MarkerHeight
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("markerHeight"); }
-            set { this.Attributes["markerHeight"] = value; }
+            get { return GetAttribute<SvgUnit>("markerHeight", false, 3f); }
+            set { Attributes["markerHeight"] = value; }
         }
 
         [SvgAttribute("markerUnits")]
         public virtual SvgMarkerUnits MarkerUnits
         {
-            get { return this.Attributes.GetAttribute<SvgMarkerUnits>("markerUnits"); }
-            set { this.Attributes["markerUnits"] = value; }
+            get { return GetAttribute("markerUnits", false, SvgMarkerUnits.StrokeWidth); }
+            set { Attributes["markerUnits"] = value; }
         }
 
         /// <summary>
@@ -119,14 +114,6 @@ namespace Svg
                     return MarkerElement.Stroke;
                 return base.Stroke;
             }
-        }
-
-        public SvgMarker()
-        {
-            MarkerUnits = SvgMarkerUnits.StrokeWidth;
-            MarkerHeight = 3;
-            MarkerWidth = 3;
-            Overflow = SvgOverflow.Hidden;
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)

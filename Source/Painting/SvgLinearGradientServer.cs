@@ -13,53 +13,29 @@ namespace Svg
         [SvgAttribute("x1")]
         public SvgUnit X1
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("x1");
-            }
-            set
-            {
-                Attributes["x1"] = value;
-            }
+            get { return GetAttribute("x1", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            set { Attributes["x1"] = value; }
         }
 
         [SvgAttribute("y1")]
         public SvgUnit Y1
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("y1");
-            }
-            set
-            {
-                this.Attributes["y1"] = value;
-            }
+            get { return GetAttribute("y1", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            set { Attributes["y1"] = value; }
         }
 
         [SvgAttribute("x2")]
         public SvgUnit X2
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("x2");
-            }
-            set
-            {
-                Attributes["x2"] = value;
-            }
+            get { return GetAttribute("x2", false, new SvgUnit(SvgUnitType.Percentage, 100f)); }
+            set { Attributes["x2"] = value; }
         }
 
         [SvgAttribute("y2")]
         public SvgUnit Y2
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("y2");
-            }
-            set
-            {
-                this.Attributes["y2"] = value;
-            }
+            get { return GetAttribute("y2", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            set { Attributes["y2"] = value; }
         }
 
         private bool IsInvalid
@@ -69,14 +45,6 @@ namespace Svg
                 // Need at least 2 colours to do the gradient fill
                 return this.Stops.Count < 2;
             }
-        }
-
-        public SvgLinearGradientServer()
-        {
-            X1 = new SvgUnit(SvgUnitType.Percentage, 0F);
-            Y1 = new SvgUnit(SvgUnitType.Percentage, 0F);
-            X2 = new SvgUnit(SvgUnitType.Percentage, 100F);
-            Y2 = new SvgUnit(SvgUnitType.Percentage, 0F);
         }
 
         public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)

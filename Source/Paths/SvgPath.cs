@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using Svg.Pathing;
 
@@ -17,13 +18,8 @@ namespace Svg
         [SvgAttribute("d")]
         public SvgPathSegmentList PathData
         {
-            get { return this.Attributes.GetAttribute<SvgPathSegmentList>("d"); }
-            set
-            {
-                this.Attributes["d"] = value;
-                value._owner = this;
-                this.IsPathDirty = true;
-            }
+            get { return GetAttribute<SvgPathSegmentList>("d", false); }
+            set { Attributes["d"] = value; value._owner = this; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -32,8 +28,8 @@ namespace Svg
         [SvgAttribute("pathLength")]
         public float PathLength
         {
-            get { return this.Attributes.GetAttribute<float>("pathLength"); }
-            set { this.Attributes["pathLength"] = value; }
+            get { return GetAttribute<float>("pathLength", false); }
+            set { Attributes["pathLength"] = value; }
         }
 
         /// <summary>
@@ -41,57 +37,46 @@ namespace Svg
         /// </summary>
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if (this._path == null || this.IsPathDirty)
+            if (_path == null || IsPathDirty)
             {
-                this._path = new GraphicsPath();
+                _path = new GraphicsPath();
 
-                foreach (var segment in this.PathData)
+                if (PathData != null)
                 {
-                    segment.AddToPath(_path);
-                }
+                    foreach (var segment in PathData)
+                        segment.AddToPath(_path);
 
-                if (_path.PointCount == 0)
-                {
-                    if (this.PathData.Count > 0)
+                    if (_path.PointCount == 0)
                     {
-                        // special case with one move command only, see #223
-                        var segment = this.PathData.Last;
-                        _path.AddLine(segment.End, segment.End);
-                        this.Fill = SvgPaintServer.None;
-                    }
-                    else
-                    {
-                        _path = null;
+                        if (PathData.Count > 0)
+                        {
+                            // special case with one move command only, see #223
+                            var segment = PathData.Last;
+                            _path.AddLine(segment.End, segment.End);
+                            Fill = SvgPaintServer.None;
+                        }
+                        else
+                            _path = null;
                     }
                 }
-                this.IsPathDirty = false;
+                IsPathDirty = false;
             }
             return _path;
         }
 
         internal void OnPathUpdated()
         {
-            this.IsPathDirty = true;
-            OnAttributeChanged(new AttributeEventArgs { Attribute = "d", Value = this.Attributes.GetAttribute<SvgPathSegmentList>("d") });
+            IsPathDirty = true;
+            OnAttributeChanged(new AttributeEventArgs { Attribute = "d", Value = Attributes.GetAttribute<SvgPathSegmentList>("d") });
         }
 
         /// <summary>
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
-            get { return this.Path(null).GetBounds(); }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgPath"/> class.
-        /// </summary>
-        public SvgPath()
-        {
-            var pathData = new SvgPathSegmentList();
-            this.Attributes["d"] = pathData;
-            pathData._owner = this;
+            get { return Path(null).GetBounds(); }
         }
 
         public override SvgElement DeepCopy()
@@ -102,8 +87,13 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgPath;
-            foreach (var pathData in this.PathData)
-                newObj.PathData.Add(pathData.Clone());
+            if (PathData != null)
+            {
+                var pathData = new SvgPathSegmentList();
+                foreach (var segment in PathData)
+                    pathData.Add(segment.Clone());
+                newObj.PathData = pathData;
+            }
             newObj.PathLength = this.PathLength;
             newObj.MarkerStart = this.MarkerStart;
             newObj.MarkerEnd = this.MarkerEnd;

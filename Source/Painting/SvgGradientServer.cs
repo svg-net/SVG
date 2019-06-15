@@ -57,7 +57,7 @@ namespace Svg
         [SvgAttribute("spreadMethod")]
         public SvgGradientSpreadMethod SpreadMethod
         {
-            get { return Attributes.GetAttribute<SvgGradientSpreadMethod>("spreadMethod", SvgGradientSpreadMethod.Pad); }
+            get { return GetAttribute("spreadMethod", false, SvgGradientSpreadMethod.Pad); }
             set { Attributes["spreadMethod"] = value; }
         }
 
@@ -67,7 +67,7 @@ namespace Svg
         [SvgAttribute("gradientUnits")]
         public SvgCoordinateUnits GradientUnits
         {
-            get { return Attributes.GetAttribute<SvgCoordinateUnits>("gradientUnits", SvgCoordinateUnits.ObjectBoundingBox); }
+            get { return GetAttribute("gradientUnits", false, SvgCoordinateUnits.ObjectBoundingBox); }
             set { Attributes["gradientUnits"] = value; }
         }
 
@@ -77,14 +77,14 @@ namespace Svg
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public SvgPaintServer InheritGradient
         {
-            get { return Attributes.GetAttribute<SvgPaintServer>("href"); }
+            get { return GetAttribute<SvgPaintServer>("href", false); }
             set { Attributes["href"] = value; }
         }
 
         [SvgAttribute("gradientTransform")]
         public SvgTransformCollection GradientTransform
         {
-            get { return Attributes.GetAttribute<SvgTransformCollection>("gradientTransform"); }
+            get { return GetAttribute<SvgTransformCollection>("gradientTransform", false); }
             set { Attributes["gradientTransform"] = value; }
         }
 

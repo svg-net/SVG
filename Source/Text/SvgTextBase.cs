@@ -59,16 +59,16 @@ namespace Svg
         [SvgAttribute("x")]
         public virtual SvgUnitCollection X
         {
-            get { return this._x; }
+            get { return _x; }
             set
             {
                 if (_x != value)
                 {
-                    if (_x != null) { _x.CollectionChanged -= OnCoordinateChanged; }
-                    this._x = value;
-                    if (_x != null) { _x.CollectionChanged += OnCoordinateChanged; }
+                    if (_x != null) _x.CollectionChanged -= OnCoordinateChanged;
+                    _x = value;
+                    if (_x != null) _x.CollectionChanged += OnCoordinateChanged;
 
-                    this.IsPathDirty = true;
+                    IsPathDirty = true;
                 }
                 Attributes["x"] = value;
             }
@@ -81,16 +81,16 @@ namespace Svg
         [SvgAttribute("dx")]
         public virtual SvgUnitCollection Dx
         {
-            get { return this._dx; }
+            get { return _dx; }
             set
             {
                 if (_dx != value)
                 {
-                    if (_dx != null) { _dx.CollectionChanged -= OnCoordinateChanged; }
-                    this._dx = value;
-                    if (_dx != null) { _dx.CollectionChanged += OnCoordinateChanged; }
+                    if (_dx != null) _dx.CollectionChanged -= OnCoordinateChanged;
+                    _dx = value;
+                    if (_dx != null) _dx.CollectionChanged += OnCoordinateChanged;
 
-                    this.IsPathDirty = true;
+                    IsPathDirty = true;
                 }
                 Attributes["dx"] = value;
             }
@@ -103,16 +103,16 @@ namespace Svg
         [SvgAttribute("y")]
         public virtual SvgUnitCollection Y
         {
-            get { return this._y; }
+            get { return _y; }
             set
             {
                 if (_y != value)
                 {
-                    if (_y != null) { _y.CollectionChanged -= OnCoordinateChanged; }
-                    this._y = value;
-                    if (_y != null) { _y.CollectionChanged += OnCoordinateChanged; }
+                    if (_y != null) _y.CollectionChanged -= OnCoordinateChanged;
+                    _y = value;
+                    if (_y != null) _y.CollectionChanged += OnCoordinateChanged;
 
-                    this.IsPathDirty = true;
+                    IsPathDirty = true;
                 }
                 Attributes["y"] = value;
             }
@@ -125,16 +125,16 @@ namespace Svg
         [SvgAttribute("dy")]
         public virtual SvgUnitCollection Dy
         {
-            get { return this._dy; }
+            get { return _dy; }
             set
             {
                 if (_dy != value)
                 {
-                    if (_dy != null) { _dy.CollectionChanged -= OnCoordinateChanged; }
-                    this._dy = value;
-                    if (_dy != null) { _dy.CollectionChanged += OnCoordinateChanged; }
+                    if (_dy != null) _dy.CollectionChanged -= OnCoordinateChanged;
+                    _dy = value;
+                    if (_dy != null) _dy.CollectionChanged += OnCoordinateChanged;
 
-                    this.IsPathDirty = true;
+                    IsPathDirty = true;
                 }
                 Attributes["dy"] = value;
             }
@@ -152,16 +152,16 @@ namespace Svg
         [SvgAttribute("rotate")]
         public virtual string Rotate
         {
-            get { return this._rotate; }
+            get { return _rotate; }
             set
             {
                 if (_rotate != value)
                 {
-                    this._rotate = value;
-                    this._rotations.Clear();
-                    this._rotations.AddRange(from r in _rotate.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries)
-                                             select float.Parse(r, NumberStyles.Any, CultureInfo.InvariantCulture));
-                    this.IsPathDirty = true;
+                    _rotate = value;
+                    _rotations.Clear();
+                    _rotations.AddRange(from r in _rotate.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries)
+                                        select float.Parse(r, NumberStyles.Any, CultureInfo.InvariantCulture));
+                    IsPathDirty = true;
                 }
                 Attributes["rotate"] = value;
             }
@@ -173,8 +173,8 @@ namespace Svg
         [SvgAttribute("textLength")]
         public virtual SvgUnit TextLength
         {
-            get { return (this.Attributes["textLength"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["textLength"]); }
-            set { this.Attributes["textLength"] = value; this.IsPathDirty = true; }
+            get { return GetAttribute("textLength", Inherited, SvgUnit.None); }
+            set { Attributes["textLength"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -184,8 +184,8 @@ namespace Svg
         [SvgAttribute("lengthAdjust")]
         public virtual SvgTextLengthAdjust LengthAdjust
         {
-            get { return (this.Attributes["lengthAdjust"] == null) ? SvgTextLengthAdjust.Spacing : (SvgTextLengthAdjust)this.Attributes["lengthAdjust"]; }
-            set { this.Attributes["lengthAdjust"] = value; this.IsPathDirty = true; }
+            get { return GetAttribute("lengthAdjust", Inherited, SvgTextLengthAdjust.Spacing); }
+            set { Attributes["lengthAdjust"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -194,8 +194,8 @@ namespace Svg
         [SvgAttribute("letter-spacing")]
         public virtual SvgUnit LetterSpacing
         {
-            get { return (this.Attributes["letter-spacing"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["letter-spacing"]); }
-            set { this.Attributes["letter-spacing"] = value; this.IsPathDirty = true; }
+            get { return GetAttribute("letter-spacing", Inherited, SvgUnit.None); }
+            set { Attributes["letter-spacing"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -204,8 +204,8 @@ namespace Svg
         [SvgAttribute("word-spacing")]
         public virtual SvgUnit WordSpacing
         {
-            get { return (this.Attributes["word-spacing"] == null ? SvgUnit.None : (SvgUnit)this.Attributes["word-spacing"]); }
-            set { this.Attributes["word-spacing"] = value; this.IsPathDirty = true; }
+            get { return GetAttribute("word-spacing", Inherited, SvgUnit.None); }
+            set { Attributes["word-spacing"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -217,8 +217,8 @@ namespace Svg
         /// <value>The fill.</value>
         public override SvgPaintServer Fill
         {
-            get { return (this.Attributes["fill"] == null) ? new SvgColourServer(System.Drawing.Color.Black) : (SvgPaintServer)this.Attributes["fill"]; }
-            set { this.Attributes["fill"] = value; }
+            get { return GetAttribute<SvgPaintServer>("fill", Inherited, new SvgColourServer(System.Drawing.Color.Black)); }
+            set { Attributes["fill"] = value; }
         }
 
         /// <summary>
@@ -486,8 +486,6 @@ namespace Svg
                 handler(sender, s);
             }
         }
-
-
 
         //private static GraphicsPath GetPath(string text, Font font)
         //{

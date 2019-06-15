@@ -11,8 +11,8 @@ namespace Svg
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual Uri ReferencedElement
         {
-            get { return this.Attributes.GetAttribute<Uri>("href"); }
-            set { this.Attributes["href"] = value; }
+            get { return GetAttribute<Uri>("href", false); }
+            set { Attributes["href"] = value; }
         }
 
         private bool ElementReferencesUri(SvgElement element, List<Uri> elementUris)
@@ -67,30 +67,29 @@ namespace Svg
         [SvgAttribute("x")]
         public virtual SvgUnit X
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("x"); }
-            set { this.Attributes["x"] = value; }
+            get { return GetAttribute<SvgUnit>("x", false, 0f); }
+            set { Attributes["x"] = value; }
         }
 
         [SvgAttribute("y")]
         public virtual SvgUnit Y
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("y"); }
-            set { this.Attributes["y"] = value; }
+            get { return GetAttribute<SvgUnit>("y", false, 0f); }
+            set { Attributes["y"] = value; }
         }
-
 
         [SvgAttribute("width")]
         public virtual SvgUnit Width
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("width"); }
-            set { this.Attributes["width"] = value; }
+            get { return GetAttribute<SvgUnit>("width", false, 0f); }
+            set { Attributes["width"] = value; }
         }
 
         [SvgAttribute("height")]
         public virtual SvgUnit Height
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("height"); }
-            set { this.Attributes["height"] = value; }
+            get { return GetAttribute<SvgUnit>("height", false, 0f); }
+            set { Attributes["height"] = value; }
         }
 
         /// <summary>
@@ -104,17 +103,6 @@ namespace Svg
                                         this.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
                                         MatrixOrder.Prepend);
             return true;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgUse"/> class.
-        /// </summary>
-        public SvgUse()
-        {
-            this.X = 0;
-            this.Y = 0;
-            this.Width = 0;
-            this.Height = 0;
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
@@ -192,7 +180,6 @@ namespace Svg
             }
         }
 
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgUse>();
@@ -207,6 +194,5 @@ namespace Svg
 
             return newObj;
         }
-
     }
 }

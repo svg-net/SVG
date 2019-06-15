@@ -17,8 +17,8 @@ namespace Svg
         [SvgAttribute("points")]
         public SvgPointCollection Points
         {
-            get { return this.Attributes.GetAttribute<SvgPointCollection>("points"); }
-            set { this.Attributes["points"] = value; this.IsPathDirty = true; }
+            get { return GetAttribute<SvgPointCollection>("points", false); }
+            set { Attributes["points"] = value; IsPathDirty = true; }
         }
 
         public override GraphicsPath Path(ISvgRenderer renderer)

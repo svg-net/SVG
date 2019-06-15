@@ -35,42 +35,42 @@ namespace Svg
         [SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio
         {
-            get { return Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio", new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid)); }
+            get { return GetAttribute("preserveAspectRatio", false, new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid)); }
             set { Attributes["preserveAspectRatio"] = value; }
         }
 
         [SvgAttribute("x")]
         public virtual SvgUnit X
         {
-            get { return Attributes.GetAttribute<SvgUnit>("x"); }
+            get { return GetAttribute<SvgUnit>("x", false); }
             set { Attributes["x"] = value; }
         }
 
         [SvgAttribute("y")]
         public virtual SvgUnit Y
         {
-            get { return Attributes.GetAttribute<SvgUnit>("y"); }
+            get { return GetAttribute<SvgUnit>("y", false); }
             set { Attributes["y"] = value; }
         }
 
         [SvgAttribute("width")]
         public virtual SvgUnit Width
         {
-            get { return Attributes.GetAttribute<SvgUnit>("width"); }
+            get { return GetAttribute<SvgUnit>("width", false); }
             set { Attributes["width"] = value; }
         }
 
         [SvgAttribute("height")]
         public virtual SvgUnit Height
         {
-            get { return Attributes.GetAttribute<SvgUnit>("height"); }
+            get { return GetAttribute<SvgUnit>("height", false); }
             set { Attributes["height"] = value; }
         }
 
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual string Href
         {
-            get { return Attributes.GetAttribute<string>("href"); }
+            get { return GetAttribute<string>("href", false); }
             set { Attributes["href"] = value; }
         }
 

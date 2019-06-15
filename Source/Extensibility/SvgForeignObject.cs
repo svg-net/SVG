@@ -9,10 +9,6 @@ namespace Svg
     [SvgElement("foreignObject")]
     public class SvgForeignObject : SvgVisualElement
     {
-        public SvgForeignObject()
-        {
-        }
-
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>

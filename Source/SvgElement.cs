@@ -132,8 +132,8 @@ namespace Svg
         [SvgAttribute("color")]
         public virtual SvgPaintServer Color
         {
-            get { return (this.Attributes["color"] == null) ? SvgColourServer.NotSet : (SvgPaintServer)this.Attributes["color"]; }
-            set { this.Attributes["color"] = value; }
+            get { return GetAttribute<SvgPaintServer>("color", Inherited, SvgColourServer.NotSet); }
+            set { Attributes["color"] = value; }
         }
 
         /// <summary>
@@ -367,14 +367,14 @@ namespace Svg
         [SvgAttribute("transform")]
         public SvgTransformCollection Transforms
         {
-            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("transform")); }
+            get { return GetAttribute<SvgTransformCollection>("transform", false); }
             set
             {
-                var old = this.Transforms;
+                var old = Transforms;
                 if (old != null)
                     old.TransformChanged -= Attributes_AttributeChanged;
                 value.TransformChanged += Attributes_AttributeChanged;
-                this.Attributes["transform"] = value;
+                Attributes["transform"] = value;
             }
         }
 
@@ -404,10 +404,7 @@ namespace Svg
         public string ID
         {
             get { return GetAttribute<string>("id", false); }
-            set
-            {
-                SetAndForceUniqueID(value, false);
-            }
+            set { SetAndForceUniqueID(value, false); }
         }
 
         /// <summary>
@@ -424,21 +421,21 @@ namespace Svg
         public void SetAndForceUniqueID(string value, bool autoForceUniqueID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
         {
             // Don't do anything if it hasn't changed
-            if (string.Compare(this.ID, value) == 0)
+            if (string.Compare(ID, value) == 0)
             {
                 return;
             }
 
-            if (this.OwnerDocument != null)
+            if (OwnerDocument != null)
             {
-                this.OwnerDocument.IdManager.Remove(this);
+                OwnerDocument.IdManager.Remove(this);
             }
 
-            this.Attributes["id"] = value;
+            Attributes["id"] = value;
 
-            if (this.OwnerDocument != null)
+            if (OwnerDocument != null)
             {
-                this.OwnerDocument.IdManager.AddAndForceUniqueID(this, null, autoForceUniqueID, logElementOldIDNewID);
+                OwnerDocument.IdManager.AddAndForceUniqueID(this, null, autoForceUniqueID, logElementOldIDNewID);
             }
         }
 
@@ -448,7 +445,7 @@ namespace Svg
         /// <param name="newID"></param>
         internal void ForceUniqueID(string newID)
         {
-            this.Attributes["id"] = newID;
+            Attributes["id"] = newID;
         }
 
         /// <summary>

@@ -9,10 +9,6 @@ namespace Svg
     [SvgElement("switch")]
     public class SvgSwitch : SvgVisualElement
     {
-        public SvgSwitch()
-        {
-        }
-
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
@@ -71,7 +67,6 @@ namespace Svg
             this.ResetClip(renderer);
             this.PopTransforms(renderer);
         }
-
 
         public override SvgElement DeepCopy()
         {
