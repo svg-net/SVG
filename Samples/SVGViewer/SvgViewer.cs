@@ -72,10 +72,7 @@ namespace SVGViewer
         private void RenderSvg(SvgDocument svgDoc)
         {
             if (svgImage.Image != null)
-            {
                 svgImage.Image.Dispose();
-                svgImage.Image = null;
-            }
 
             //var render = new DebugRenderer();
             //svgDoc.Draw(render);

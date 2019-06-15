@@ -82,6 +82,8 @@ namespace SVGViewer
                     _clip.Xor(region);
                     break;
                 default:
+                    if (_clip != null)
+                        _clip.Dispose();
                     _clip = region;
                     break;
             }
@@ -100,11 +102,20 @@ namespace SVGViewer
         public Matrix Transform
         {
             get { return _transform; }
-            set { _transform = value; }
+            set
+            {
+                if (_transform != null)
+                    _transform.Dispose();
+                _transform = value;
+            }
         }
 
         public void Dispose()
         {
+            if (_clip != null)
+                _clip.Dispose();
+            if (_transform != null)
+                _transform.Dispose();
         }
     }
 }
