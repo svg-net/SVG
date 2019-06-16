@@ -400,9 +400,13 @@ namespace Svg
                         {
                             if (this.X.Count < 2)
                             {
-                                origState.LetterSpacingAdjust = -1 * diff / (state.NumChars - origState.NumChars - 1);
-                                SetPath(origState, false);
-                                return;
+                                var numCharDiff = state.NumChars - origState.NumChars - 1;
+                                if ( numCharDiff != 0)
+                                {
+                                    origState.LetterSpacingAdjust = -1 * diff / numCharDiff;
+                                    SetPath(origState, false);
+                                    return;
+                                }
                             }
                         }
                         else
