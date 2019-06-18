@@ -42,6 +42,8 @@ namespace Svg.UnitTests
                 yield return new[] { (object)testSuite, (object)row, };
         }
 
+        //TODO: The testcases should be fed with a custom element, refer to https://github.com/ObjectivityLtd/Ocaramba/wiki/NUnit-DataDriven-tests-from-Xml,-CSV-and-Excel-files for more information
+
         /// <summary>
         /// Compares SVG images against reference PNG images from the W3C SVG 1.1 test suite.
         /// This tests 158 out of 179 passing tests - the rest will not pass
