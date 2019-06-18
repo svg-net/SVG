@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Svg.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class PercentageSizeTests
     {
-        [TestMethod]
+        [Test]
         public void TestRectangle()
         {
             var svgRectangle = new SvgRectangle()
@@ -18,7 +18,7 @@ namespace Svg.UnitTests
             CheckPercentageSize(svgRectangle);
         }
 
-        [TestMethod]
+        [Test]
         public void TestCircle()
         {
             var svgCircle = new SvgCircle()
@@ -30,7 +30,7 @@ namespace Svg.UnitTests
             CheckPercentageSize(svgCircle);
         }
 
-        [TestMethod]
+        [Test]
         public void TestEllipse()
         {
             var svgEllipse = new SvgEllipse()

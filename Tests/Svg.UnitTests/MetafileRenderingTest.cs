@@ -1,13 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
 
 namespace Svg.UnitTests
 {
@@ -20,15 +15,16 @@ namespace Svg.UnitTests
     /// Test use the following embedded resources:
     ///   - Issue210_Metafile\3DSceneSnapshotBIG.svg
     /// </remarks>
-    [TestClass]
+    [TestFixture]
     public class MetafileRenderingTest : SvgTestHelper
     {
         protected override string TestResource { get { return GetFullResourceString("Issue210_Metafile.3DSceneSnapshotBIG.svg"); } }
         protected override int ExpectedSize { get { return 12500; } } //12896
 
 
-        [TestMethod]
-        [TestProperty(name: "speed", value: "slow")]
+        [Test]
+        //TODO: What does this one do?
+        //[TestProperty(name: "speed", value: "slow")]
         public void TestMetafileRendering()
         {
             LoadSvg(GetXMLDocFromResource());

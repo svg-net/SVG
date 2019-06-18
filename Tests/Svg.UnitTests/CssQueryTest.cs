@@ -1,7 +1,5 @@
 ﻿using Svg.Css;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using Svg.ExCSS;
+using NUnit.Framework;
 
 namespace Svg.UnitTests
 {
@@ -9,7 +7,7 @@ namespace Svg.UnitTests
     ///This is a test class for CssQueryTest and is intended
     ///to contain all CssQueryTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [NUnit.Framework.TestFixture]
     public class CssQueryTest
     {
 
@@ -73,7 +71,7 @@ namespace Svg.UnitTests
         ///A test for GetSpecificity
         ///</summary>
         ///<remarks>Lifted from http://www.smashingmagazine.com/2007/07/27/css-specificity-things-you-should-know/, and http://css-tricks.com/specifics-on-css-specificity/ </remarks>
-        [TestMethod()]
+        [Test]
         public void RunSpecificityTests()
         {
             TestSelectorSpecificity("*", 0x0);

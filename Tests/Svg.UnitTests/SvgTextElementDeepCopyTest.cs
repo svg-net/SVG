@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -10,12 +10,12 @@ namespace Svg.UnitTests
     /// text element has contains only text and now other elements like <see cref="SvgTextSpan"/>.
     /// </summary>
     /// <seealso cref="Svg.UnitTests.SvgTestHelper" />
-    [TestClass]
+    [TestFixture]
     public class SvgTextElementDeepCopyTest : SvgTestHelper
     {
         private const string PureTextElementSvg = "Issue_TextElement.Text.svg";
 
-        [TestMethod]
+        [Test]
         public void TestSvgTextElementDeepCopy()
         {
             var svgDocument = OpenSvg(GetResourceXmlDoc(GetFullResourceString(PureTextElementSvg)));
@@ -31,9 +31,10 @@ namespace Svg.UnitTests
         /// <param name="svgDocument">The SVG document to check.</param>
         private static void CheckDocument(SvgDocument svgDocument)
         {
+            //TODO: check if the assignablefrom indeed is the correct replacement
             Assert.AreEqual(2, svgDocument.Children.Count);
-            Assert.IsInstanceOfType(svgDocument.Children[0], typeof(SvgDefinitionList));
-            Assert.IsInstanceOfType(svgDocument.Children[1], typeof(SvgText));
+            Assert.IsAssignableFrom(typeof(SvgDefinitionList), svgDocument.Children[0]);
+            Assert.IsAssignableFrom(typeof(SvgText), svgDocument.Children[1]);
 
             var textElement = (SvgText)svgDocument.Children[1];
             Assert.AreEqual("IP", textElement.Content);

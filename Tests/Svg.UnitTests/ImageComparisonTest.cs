@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,7 +11,7 @@ namespace Svg.UnitTests
 {
     /// <summary>
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ImageComparisonTest
     {
         public TestContext TestContext { get; set; }
@@ -49,8 +49,9 @@ namespace Svg.UnitTests
         /// Note that with the current test there are still a lot of false positives,
         /// so this is not a definitive test for image equality yet.
         /// </summary>
-        [TestMethod]
-        [DynamicData(nameof(GetData), DynamicDataSourceType.Method)]
+        [Test]
+        //TODO: The DynamicData should be fixed
+        //[DynamicData(nameof(GetData), DynamicDataSourceType.Method)]
         //                [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",@"|DataDirectory|\..\..\PassingTests.csv","PassingTests#csv", DataAccessMethod.Sequential)]
         //public void CompareSvgImageWithReference()
         public void CompareSvgImageWithReference(string basePath, string baseName)
@@ -65,20 +66,21 @@ namespace Svg.UnitTests
             CompareSvgImageWithReferenceImpl(baseName, svgPath, pngPath, testSaveLoad);
         }
 #else
-        [TestMethod]
-        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
-            @"|DataDirectory|\..\..\..\PassingTests.csv",
-            "PassingTests#csv", DataAccessMethod.Sequential)]
+        [Test]
+        //TODO: Same goes for the datasource here
+        //[DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
+         //   @"|DataDirectory|\..\..\..\PassingTests.csv",
+           // "PassingTests#csv", DataAccessMethod.Sequential)]
         public void CompareSvgImageWithReference()
         {
-            var basePath = TestContext.TestRunDirectory;
+            var basePath = ""; //TODO: This was interpreted from the context -> TestContext.TestRunDirectory;
             while (!basePath.ToLower().EndsWith("svg"))
             {
                 basePath = Path.GetDirectoryName(basePath);
             }
             basePath = Path.Combine(Path.Combine(basePath, "Tests"), "W3CTestSuite");
             var svgBasePath = Path.Combine(basePath, "svg");
-            var baseName = TestContext.DataRow[0] as string;
+            var baseName = ""; //TODO: Was read from import, replace -> TestContext.DataRow[0] as string;
             bool testSaveLoad = !baseName.StartsWith("#");
             if (!testSaveLoad)
             {
@@ -133,13 +135,13 @@ namespace Svg.UnitTests
         /// of all considered W3C tests.
         /// Can be used to enhance the difference calculation.
         /// </summary>
-        // [TestClass]
+        // [TestFixture]
         public void RecordDiffForAllSvgImagesWithReference()
         {
 #if NETCORE
             var basePath = Path.Combine(GetSuiteTestsFolder, "W3CTestSuite");
 #else
-            var basePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestRunDirectory)));
+            var basePath = ""; //TODO: Tthe get dir name was parsed from the testparams -> Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestRunDirectory)));
             basePath = Path.Combine(Path.Combine(basePath, "Tests"), "W3CTestSuite");
 #endif
             //      var svgBasePath = Path.Combine(basePath, "svg");

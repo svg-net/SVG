@@ -1,8 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using NUnit.Framework;
 
 namespace Svg.UnitTests
 {
@@ -13,7 +9,7 @@ namespace Svg.UnitTests
     /// 
     /// This test class will test against these issues to prevent the bug from reoccuring
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class LexerIssueTests : SvgTestHelper
     {
         private const string ResourceStringEmptyDTagFile = "Issue399_LexerIssue.EmptyDTag.svg";
@@ -25,7 +21,7 @@ namespace Svg.UnitTests
         /// <summary>
         /// We encountered issues in the example file that were caused by an empty d tag in some of the elements
         /// </summary>
-        [TestMethod]
+        [Test]
         public void Lexer_FileWithEmptyDAttribute_Success()
         {
             var xml = GetXMLDocFromResource(GetFullResourceString(ResourceStringEmptyDTagFile));
@@ -35,32 +31,31 @@ namespace Svg.UnitTests
         /// <summary>
         /// Stylesheet lexer fails if there is an important after a hex value, this tests the 3 and 6 lenght variants in the file
         /// </summary>
-        [TestMethod]
-        public void Lexer_ImportantAfterHex_Success()
+        [Test]
+        [TestCase("border-top: 1px solid #333 !important;")] //Important should be valid on 3 digit hex
+        [TestCase("border-top: 1px solid #009c46 !important;")] //Important should be valid on 6 digit hex
+        [TestCase("border-bottom: 1px solid #009c46  ;")] //Whitespace should not break the parser
+        public void Lexer_ImportantAfterHex_Success(string testString)
         {
-            //Important should be valid on 3 digit hex
-            GenerateLexerTestFile("border-top: 1px solid #333 !important;");
-            //Important should be valid on 6 digit hex
-            GenerateLexerTestFile("border-top: 1px solid #009c46 !important;");
-            //Whitespace should not break the parser
-            GenerateLexerTestFile("border-bottom: 1px solid #009c46  ;");
+            GenerateLexerTestFile(testString);
         }
 
         /// <summary>
         ///Reference test if there is an important after a non-hex value (should never fail) and on hex without an important
         /// </summary>
-        [TestMethod]
-        public void Lexer_NoImportantAndImportantAfterNonHex_Success()
+        [Test]
+           
+        [TestCase("border-top: 1px solid #009c46;")] //Hex is working, if no !important suffixing it (#399)
+        [TestCase("border-top: 1px solid red !important;")] //Important is not failing on non-hex value
+        public void Lexer_NoImportantAndImportantAfterNonHex_Success(string testString)
         {
-            //Hex is working, if no !important suffixing it (#399)
-            GenerateLexerTestFile("border-top: 1px solid #009c46;");
-            //Important is not failing on non-hex value
-            GenerateLexerTestFile("border-top: 1px solid red !important;");
+            GenerateLexerTestFile(testString);
         }
 
-        [TestMethod]
+        [Test]
         public void Lexer_FileWithInvalidHex_ColorTagIsIgnored()
         {
+            //TODO: This test can be changed to TestCases or split to separate test
             // valid colors
             var doc = GenerateLexerTestFile("fill: #ff0000; stroke: #ffff00");
             var path = doc.GetElementById<SvgPath>("path1");

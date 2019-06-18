@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Svg.UnitTests
 {
@@ -10,7 +10,7 @@ namespace Svg.UnitTests
     ///   Test use the following embedded resources:
     ///   - Issue225_LargeUri\Speedometer.svg
     /// </remarks>
-    [TestClass]
+    [TestFixture]
     public class SmallEmbeddingImageTest : SvgTestHelper
     {
         protected override string TestResource
@@ -29,7 +29,7 @@ namespace Svg.UnitTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void TestImageIsRendered()
         {
             this.LoadSvg(this.GetXMLDocFromResource());
