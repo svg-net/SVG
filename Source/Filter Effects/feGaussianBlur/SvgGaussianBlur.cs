@@ -237,6 +237,7 @@ namespace Svg.FilterEffects
                     throw new InvalidOperationException("Radius must be greater then 0");
                 }
                 _stdDeviation = value;
+                Attributes["stdDeviation"] = value;
                 PreCalculate();
             }
         }

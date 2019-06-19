@@ -1,15 +1,13 @@
 #if NET35
 #else 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Svg.Exceptions;
-using System;
+using NUnit.Framework;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Svg.UnitTests
 {
 
-    [TestClass]
+    [TestFixture]
     public class MultiThreadingTest : SvgTestHelper
     {
         protected override string TestResource { get { return GetFullResourceString("Issue_Threading.TestFile.svg"); } }
@@ -21,14 +19,14 @@ namespace Svg.UnitTests
         }
 
 
-        [TestMethod]
+        [Test]
         public void LoadSVGThreading_SingleThread_YieldsNoError()
         {
             LoadFile();
         }
 
 
-        [TestMethod]
+        [Test]
         public void LoadSVGThreading_MultiThread_YieldsNoErrorWhileInBounds()
         {
             Parallel.For(0, 10, (x) =>

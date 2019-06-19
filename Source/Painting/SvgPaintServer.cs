@@ -21,13 +21,6 @@ namespace Svg
         public static readonly SvgPaintServer None = new SvgColourServer();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SvgPaintServer"/> class.
-        /// </summary>
-        public SvgPaintServer()
-        {
-        }
-
-        /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
@@ -55,8 +48,5 @@ namespace Svg
         {
             return String.Format("url(#{0})", this.ID);
         }
-
-
-
     }
 }

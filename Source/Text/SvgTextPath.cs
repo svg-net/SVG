@@ -14,8 +14,6 @@ namespace Svg
     [SvgElement("textPath")]
     public class SvgTextPath : SvgTextBase
     {
-        private Uri _referencedPath;
-
         public override SvgUnitCollection Dx
         {
             get { return null; }
@@ -25,39 +23,36 @@ namespace Svg
         [SvgAttribute("startOffset")]
         public virtual SvgUnit StartOffset
         {
-            get { return (base.Dx.Count < 1 ? SvgUnit.None : base.Dx[0]); }
+            get { return base.Dx.Count < 1 ? SvgUnit.None : base.Dx[0]; }
             set
             {
                 if (base.Dx.Count < 1)
-                {
                     base.Dx.Add(value);
-                }
                 else
-                {
                     base.Dx[0] = value;
-                }
+                Attributes["startOffset"] = value;
             }
         }
 
         [SvgAttribute("method")]
         public virtual SvgTextPathMethod Method
         {
-            get { return (this.Attributes["method"] == null ? SvgTextPathMethod.Align : (SvgTextPathMethod)this.Attributes["method"]); }
-            set { this.Attributes["method"] = value; }
+            get { return GetAttribute("method", Inherited, SvgTextPathMethod.Align); }
+            set { Attributes["method"] = value; }
         }
 
         [SvgAttribute("spacing")]
         public virtual SvgTextPathSpacing Spacing
         {
-            get { return (this.Attributes["spacing"] == null ? SvgTextPathSpacing.Exact : (SvgTextPathSpacing)this.Attributes["spacing"]); }
-            set { this.Attributes["spacing"] = value; }
+            get { return GetAttribute("spacing", Inherited, SvgTextPathSpacing.Exact); }
+            set { Attributes["spacing"] = value; }
         }
 
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual Uri ReferencedPath
         {
-            get { return this._referencedPath; }
-            set { this._referencedPath = value; }
+            get { return GetAttribute<Uri>("href", false); }
+            set { Attributes["href"] = value; }
         }
 
         protected override GraphicsPath GetBaselinePath(ISvgRenderer renderer)
@@ -89,9 +84,5 @@ namespace Svg
         {
             return base.DeepCopy<SvgTextPath>();
         }
-
-
-
-
     }
 }

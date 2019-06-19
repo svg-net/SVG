@@ -9,69 +9,70 @@ namespace Svg
     [SvgElement("line")]
     public class SvgLine : SvgMarkerElement
     {
-        private SvgUnit _startX;
-        private SvgUnit _startY;
-        private SvgUnit _endX;
-        private SvgUnit _endY;
+        private SvgUnit _startX = 0f;
+        private SvgUnit _startY = 0f;
+        private SvgUnit _endX = 0f;
+        private SvgUnit _endY = 0f;
+
         private GraphicsPath _path;
 
         [SvgAttribute("x1")]
         public SvgUnit StartX
         {
-            get { return this._startX; }
+            get { return _startX; }
             set
             {
                 if (_startX != value)
                 {
-                    this._startX = value;
-                    this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "x1", Value = value });
+                    _startX = value;
+                    IsPathDirty = true;
                 }
+                Attributes["x1"] = value;
             }
         }
 
         [SvgAttribute("y1")]
         public SvgUnit StartY
         {
-            get { return this._startY; }
+            get { return _startY; }
             set
             {
                 if (_startY != value)
                 {
-                    this._startY = value;
-                    this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "y1", Value = value });
+                    _startY = value;
+                    IsPathDirty = true;
                 }
+                Attributes["y1"] = value;
             }
         }
 
         [SvgAttribute("x2")]
         public SvgUnit EndX
         {
-            get { return this._endX; }
+            get { return _endX; }
             set
             {
                 if (_endX != value)
                 {
-                    this._endX = value;
-                    this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "x2", Value = value });
+                    _endX = value;
+                    IsPathDirty = true;
                 }
+                Attributes["x2"] = value;
             }
         }
 
         [SvgAttribute("y2")]
         public SvgUnit EndY
         {
-            get { return this._endY; }
+            get { return _endY; }
             set
             {
                 if (_endY != value)
                 {
-                    this._endY = value;
-                    this.IsPathDirty = true;
-                    OnAttributeChanged(new AttributeEventArgs { Attribute = "y2", Value = value });
+                    _endY = value;
+                    IsPathDirty = true;
                 }
+                Attributes["y2"] = value;
             }
         }
 
@@ -82,10 +83,6 @@ namespace Svg
             {
                 // Do nothing
             }
-        }
-
-        public SvgLine()
-        {
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
@@ -135,6 +132,5 @@ namespace Svg
 
             return newObj;
         }
-
     }
 }

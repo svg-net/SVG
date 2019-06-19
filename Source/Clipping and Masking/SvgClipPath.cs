@@ -13,20 +13,18 @@ namespace Svg
     [SvgElement("clipPath")]
     public sealed class SvgClipPath : SvgElement
     {
+        private SvgCoordinateUnits _clipPathUnits = SvgCoordinateUnits.Inherit;
+
         private bool _pathDirty = true;
 
         /// <summary>
         /// Specifies the coordinate system for the clipping path.
         /// </summary>
         [SvgAttribute("clipPathUnits")]
-        public SvgCoordinateUnits ClipPathUnits { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgClipPath"/> class.
-        /// </summary>
-        public SvgClipPath()
+        public SvgCoordinateUnits ClipPathUnits
         {
-            this.ClipPathUnits = SvgCoordinateUnits.Inherit;
+            get { return _clipPathUnits; }
+            set { _clipPathUnits = value; Attributes["clipPathUnits"] = value; }
         }
 
         private GraphicsPath cachedClipPath = null;

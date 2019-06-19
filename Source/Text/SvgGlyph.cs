@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using System.Drawing.Drawing2D;
+using System.Linq;
 using Svg.Pathing;
-using System.Drawing.Drawing2D;
 
 namespace Svg
 {
@@ -12,77 +12,71 @@ namespace Svg
         /// <summary>
         /// Gets or sets a <see cref="SvgPathSegmentList"/> of path data.
         /// </summary>
-        [SvgAttribute("d", true)]
+        [SvgAttribute("d")]
         public SvgPathSegmentList PathData
         {
-            get { return this.Attributes.GetAttribute<SvgPathSegmentList>("d"); }
-            set { this.Attributes["d"] = value; }
+            get { return GetAttribute<SvgPathSegmentList>("d", false); }
+            set { Attributes["d"] = value; }
         }
 
-        [SvgAttribute("glyph-name", true)]
+        [SvgAttribute("glyph-name")]
         public virtual string GlyphName
         {
-            get { return this.Attributes["glyph-name"] as string; }
-            set { this.Attributes["glyph-name"] = value; }
-        }
-        [SvgAttribute("horiz-adv-x", true)]
-        public float HorizAdvX
-        {
-            get { return (this.Attributes["horiz-adv-x"] == null ? this.Parents.OfType<SvgFont>().First().HorizAdvX : (float)this.Attributes["horiz-adv-x"]); }
-            set { this.Attributes["horiz-adv-x"] = value; }
-        }
-        [SvgAttribute("unicode", true)]
-        public string Unicode
-        {
-            get { return this.Attributes["unicode"] as string; }
-            set { this.Attributes["unicode"] = value; }
-        }
-        [SvgAttribute("vert-adv-y", true)]
-        public float VertAdvY
-        {
-            get { return (this.Attributes["vert-adv-y"] == null ? this.Parents.OfType<SvgFont>().First().VertAdvY : (float)this.Attributes["vert-adv-y"]); }
-            set { this.Attributes["vert-adv-y"] = value; }
-        }
-        [SvgAttribute("vert-origin-x", true)]
-        public float VertOriginX
-        {
-            get { return (this.Attributes["vert-origin-x"] == null ? this.Parents.OfType<SvgFont>().First().VertOriginX : (float)this.Attributes["vert-origin-x"]); }
-            set { this.Attributes["vert-origin-x"] = value; }
-        }
-        [SvgAttribute("vert-origin-y", true)]
-        public float VertOriginY
-        {
-            get { return (this.Attributes["vert-origin-y"] == null ? this.Parents.OfType<SvgFont>().First().VertOriginY : (float)this.Attributes["vert-origin-y"]); }
-            set { this.Attributes["vert-origin-y"] = value; }
+            get { return GetAttribute<string>("glyph-name", Inherited); }
+            set { Attributes["glyph-name"] = value; }
         }
 
+        [SvgAttribute("horiz-adv-x")]
+        public float HorizAdvX
+        {
+            get { return GetAttribute("horiz-adv-x", Inherited, Parents.OfType<SvgFont>().First().HorizAdvX); }
+            set { Attributes["horiz-adv-x"] = value; }
+        }
+
+        [SvgAttribute("unicode")]
+        public string Unicode
+        {
+            get { return GetAttribute<string>("unicode", Inherited); }
+            set { Attributes["unicode"] = value; }
+        }
+
+        [SvgAttribute("vert-adv-y")]
+        public float VertAdvY
+        {
+            get { return GetAttribute("vert-adv-y", Inherited, Parents.OfType<SvgFont>().First().VertAdvY); }
+            set { Attributes["vert-adv-y"] = value; }
+        }
+
+        [SvgAttribute("vert-origin-x")]
+        public float VertOriginX
+        {
+            get { return GetAttribute("vert-origin-x", Inherited, Parents.OfType<SvgFont>().First().VertOriginX); }
+            set { Attributes["vert-origin-x"] = value; }
+        }
+
+        [SvgAttribute("vert-origin-y")]
+        public float VertOriginY
+        {
+            get { return GetAttribute("vert-origin-y", Inherited, Parents.OfType<SvgFont>().First().VertOriginY); }
+            set { Attributes["vert-origin-y"] = value; }
+        }
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if (this._path == null || this.IsPathDirty)
+            if (_path == null || IsPathDirty)
             {
                 _path = new GraphicsPath();
 
-                foreach (SvgPathSegment segment in this.PathData)
-                {
-                    segment.AddToPath(_path);
-                }
+                if (PathData != null)
+                    foreach (var segment in PathData)
+                        segment.AddToPath(_path);
 
-                this.IsPathDirty = false;
+                IsPathDirty = false;
             }
             return _path;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgGlyph"/> class.
-        /// </summary>
-        public SvgGlyph()
-        {
-            var pathData = new SvgPathSegmentList();
-            this.Attributes["d"] = pathData;
         }
 
         public override SvgElement DeepCopy()
@@ -93,10 +87,14 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgGlyph;
-            foreach (var pathData in this.PathData)
-                newObj.PathData.Add(pathData.Clone());
+            if (PathData != null)
+            {
+                var pathData = new SvgPathSegmentList();
+                foreach (var segment in PathData)
+                    pathData.Add(segment.Clone());
+                newObj.PathData = pathData;
+            }
             return newObj;
-
         }
     }
 }

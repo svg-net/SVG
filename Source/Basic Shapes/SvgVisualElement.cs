@@ -49,8 +49,8 @@ namespace Svg
         [SvgAttribute("clip")]
         public virtual string Clip
         {
-            get { return this.Attributes.GetInheritedAttribute<string>("clip"); }
-            set { this.Attributes["clip"] = value; }
+            get { return GetAttribute<string>("clip", Inherited); }
+            set { Attributes["clip"] = value; }
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace Svg
         [SvgAttribute("clip-path")]
         public virtual Uri ClipPath
         {
-            get { return this.Attributes.GetAttribute<Uri>("clip-path"); }
-            set { this.Attributes["clip-path"] = value; }
+            get { return GetAttribute<Uri>("clip-path", false); }
+            set { Attributes["clip-path"] = value; }
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace Svg
         [SvgAttribute("clip-rule")]
         public SvgClipRule ClipRule
         {
-            get { return this.Attributes.GetAttribute<SvgClipRule>("clip-rule", SvgClipRule.NonZero); }
-            set { this.Attributes["clip-rule"] = value; }
+            get { return GetAttribute("clip-rule", false, SvgClipRule.NonZero); }
+            set { Attributes["clip-rule"] = value; }
         }
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace Svg
         [SvgAttribute("filter")]
         public virtual Uri Filter
         {
-            get { return this.Attributes.GetInheritedAttribute<Uri>("filter"); }
-            set { this.Attributes["filter"] = value; }
+            get { return GetAttribute<Uri>("filter", Inherited); }
+            set { Attributes["filter"] = value; }
         }
 
         /// <summary>
@@ -437,6 +437,5 @@ namespace Svg
 
             return newObj;
         }
-
     }
 }

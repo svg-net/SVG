@@ -16,11 +16,10 @@ namespace Svg
     [SvgElement("pattern")]
     public sealed class SvgPatternServer : SvgPaintServer, ISvgViewPort, ISvgSupportsCoordinateUnits
     {
-        private SvgUnit _width;
-        private SvgUnit _height;
-        private SvgUnit _x;
-        private SvgUnit _y;
-        private SvgPaintServer _inheritGradient;
+        private SvgUnit _x = SvgUnit.None;
+        private SvgUnit _y = SvgUnit.None;
+        private SvgUnit _width = SvgUnit.None;
+        private SvgUnit _height = SvgUnit.None;
         private SvgViewBox _viewBox;
         private SvgCoordinateUnits _patternUnits = SvgCoordinateUnits.Inherit;
         private SvgCoordinateUnits _patternContentUnits = SvgCoordinateUnits.Inherit;
@@ -28,10 +27,9 @@ namespace Svg
         [SvgAttribute("overflow")]
         public SvgOverflow Overflow
         {
-            get { return this.Attributes.GetAttribute<SvgOverflow>("overflow"); }
-            set { this.Attributes["overflow"] = value; }
+            get { return GetAttribute<SvgOverflow>("overflow", false); }
+            set { Attributes["overflow"] = value; }
         }
-
 
         /// <summary>
         /// Specifies a supplemental transformation which is applied on top of any 
@@ -40,8 +38,8 @@ namespace Svg
         [SvgAttribute("viewBox")]
         public SvgViewBox ViewBox
         {
-            get { return this._viewBox; }
-            set { this._viewBox = value; }
+            get { return _viewBox; }
+            set { _viewBox = value; Attributes["viewBox"] = value; }
         }
 
         /// <summary>
@@ -51,8 +49,8 @@ namespace Svg
         [SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio
         {
-            get;
-            set;
+            get { return GetAttribute("preserveAspectRatio", false, new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid)); }
+            set { Attributes["preserveAspectRatio"] = value; }
         }
 
         /// <summary>
@@ -61,8 +59,8 @@ namespace Svg
         [SvgAttribute("width")]
         public SvgUnit Width
         {
-            get { return this._width; }
-            set { this._width = value; }
+            get { return _width; }
+            set { _width = value; Attributes["width"] = value; }
         }
 
         /// <summary>
@@ -71,8 +69,8 @@ namespace Svg
         [SvgAttribute("patternUnits")]
         public SvgCoordinateUnits PatternUnits
         {
-            get { return this._patternUnits; }
-            set { this._patternUnits = value; }
+            get { return _patternUnits; }
+            set { _patternUnits = value; Attributes["patternUnits"] = value; }
         }
 
         /// <summary>
@@ -81,8 +79,8 @@ namespace Svg
         [SvgAttribute("patternContentUnits")]
         public SvgCoordinateUnits PatternContentUnits
         {
-            get { return this._patternContentUnits; }
-            set { this._patternContentUnits = value; }
+            get { return _patternContentUnits; }
+            set { _patternContentUnits = value; Attributes["patternContentUnits"] = value; }
         }
 
         /// <summary>
@@ -91,8 +89,8 @@ namespace Svg
         [SvgAttribute("height")]
         public SvgUnit Height
         {
-            get { return this._height; }
-            set { this._height = value; }
+            get { return _height; }
+            set { _height = value; Attributes["height"] = value; }
         }
 
         /// <summary>
@@ -101,8 +99,8 @@ namespace Svg
         [SvgAttribute("x")]
         public SvgUnit X
         {
-            get { return this._x; }
-            set { this._x = value; }
+            get { return _x; }
+            set { _x = value; Attributes["x"] = value; }
         }
 
         /// <summary>
@@ -111,8 +109,8 @@ namespace Svg
         [SvgAttribute("y")]
         public SvgUnit Y
         {
-            get { return this._y; }
-            set { this._y = value; }
+            get { return _y; }
+            set { _y = value; Attributes["y"] = value; }
         }
 
         /// <summary>
@@ -121,18 +119,15 @@ namespace Svg
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public SvgPaintServer InheritGradient
         {
-            get { return this._inheritGradient; }
-            set
-            {
-                this._inheritGradient = value;
-            }
+            get { return GetAttribute<SvgPaintServer>("href", false); }
+            set { Attributes["href"] = value; }
         }
 
         [SvgAttribute("patternTransform")]
         public SvgTransformCollection PatternTransform
         {
-            get { return (this.Attributes.GetAttribute<SvgTransformCollection>("patternTransform")); }
-            set { this.Attributes["patternTransform"] = value; }
+            get { return GetAttribute<SvgTransformCollection>("patternTransform", false); }
+            set { Attributes["patternTransform"] = value; }
         }
 
         private Matrix EffectivePatternTransform
@@ -149,21 +144,10 @@ namespace Svg
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgPatternServer"/> class.
-        /// </summary>
-        public SvgPatternServer()
-        {
-            this._x = SvgUnit.None;
-            this._y = SvgUnit.None;
-            this._width = SvgUnit.None;
-            this._height = SvgUnit.None;
-        }
-
         private SvgUnit NormalizeUnit(SvgUnit orig)
         {
             return (orig.Type == SvgUnitType.Percentage && this.PatternUnits == SvgCoordinateUnits.ObjectBoundingBox ?
-                    new SvgUnit(SvgUnitType.User, orig.Value / 100) :
+                    new SvgUnit(SvgUnitType.User, orig.Value / 100f) :
                     orig);
         }
 
@@ -181,7 +165,7 @@ namespace Svg
             while (curr != null)
             {
                 chain.Add(curr);
-                curr = SvgDeferredPaintServer.TryGet<SvgPatternServer>(curr._inheritGradient, renderingElement);
+                curr = SvgDeferredPaintServer.TryGet<SvgPatternServer>(curr.InheritGradient, renderingElement);
             }
 
             var childElem = chain.Where((p) => p.Children != null && p.Children.Count > 0).FirstOrDefault();
@@ -257,7 +241,6 @@ namespace Svg
         {
             return DeepCopy<SvgPatternServer>();
         }
-
 
         public override SvgElement DeepCopy<T>()
         {

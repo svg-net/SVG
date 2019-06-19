@@ -10,6 +10,13 @@ namespace Svg
     [SvgElement("rect")]
     public class SvgRectangle : SvgPathBasedElement
     {
+        private SvgUnit _x = 0f;
+        private SvgUnit _y = 0f;
+        private SvgUnit _width = 0f;
+        private SvgUnit _height = 0f;
+        private SvgUnit _cornerRadiusX = 0f;
+        private SvgUnit _cornerRadiusY = 0f;
+
         private GraphicsPath _path;
 
         /// <summary>
@@ -26,8 +33,8 @@ namespace Svg
         [SvgAttribute("x")]
         public SvgUnit X
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("x"); }
-            set { this.Attributes["x"] = value; this.IsPathDirty = true; }
+            get { return _x; }
+            set { _x = value; Attributes["x"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -36,8 +43,8 @@ namespace Svg
         [SvgAttribute("y")]
         public SvgUnit Y
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("y"); }
-            set { this.Attributes["y"] = value; this.IsPathDirty = true; }
+            get { return _y; }
+            set { _y = value; Attributes["y"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -46,8 +53,8 @@ namespace Svg
         [SvgAttribute("width")]
         public SvgUnit Width
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("width"); }
-            set { this.Attributes["width"] = value; this.IsPathDirty = true; }
+            get { return _width; }
+            set { _width = value; Attributes["width"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -56,8 +63,8 @@ namespace Svg
         [SvgAttribute("height")]
         public SvgUnit Height
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("height"); }
-            set { this.Attributes["height"] = value; this.IsPathDirty = true; }
+            get { return _height; }
+            set { _height = value; Attributes["height"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -69,11 +76,9 @@ namespace Svg
             get
             {
                 // If ry has been set and rx hasn't, use it's value
-                var rx = this.Attributes.GetAttribute<SvgUnit>("rx");
-                var ry = this.Attributes.GetAttribute<SvgUnit>("ry");
-                return (rx.Value == 0.0f && ry.Value > 0.0f) ? ry : rx;
+                return (_cornerRadiusX.Value == 0.0f && _cornerRadiusY.Value > 0.0f) ? _cornerRadiusY : _cornerRadiusX;
             }
-            set { this.Attributes["rx"] = value; this.IsPathDirty = true; }
+            set { _cornerRadiusX = value; Attributes["rx"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -85,11 +90,9 @@ namespace Svg
             get
             {
                 // If rx has been set and ry hasn't, use it's value
-                var rx = this.Attributes.GetAttribute<SvgUnit>("rx");
-                var ry = this.Attributes.GetAttribute<SvgUnit>("ry");
-                return (ry.Value == 0.0f && rx.Value > 0.0f) ? rx : ry;
+                return (_cornerRadiusY.Value == 0.0f && _cornerRadiusX.Value > 0.0f) ? _cornerRadiusX : _cornerRadiusY;
             }
-            set { this.Attributes["ry"] = value; this.IsPathDirty = true; }
+            set { _cornerRadiusY = value; Attributes["ry"] = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -100,7 +103,7 @@ namespace Svg
             get
             {
                 if (base.RequiresSmoothRendering)
-                    return (CornerRadiusX.Value > 0 || CornerRadiusY.Value > 0);
+                    return (CornerRadiusX.Value > 0.0f || CornerRadiusY.Value > 0.0f);
                 else
                     return false;
             }

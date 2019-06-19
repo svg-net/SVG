@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Drawing;
+﻿using NUnit.Framework;
 
 namespace Svg.UnitTests
 {
@@ -8,13 +7,13 @@ namespace Svg.UnitTests
     /// (see issue 281). Only some basic elements are tested - this should be sufficient
     /// to verify the functionality for all path-based elements.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BoundsTests : SvgTestHelper
     {
         private const string BoundsTestSvg = "Issue281_Bounds.BoundsTest.svg";
         private static SvgDocument testDocument;
 
-        [TestMethod]
+        [Test]
         public void TestLineBounds()
         {
             // x1="10" x2="30" y1="20" y2="40", default line thickness is 1
@@ -25,7 +24,7 @@ namespace Svg.UnitTests
             AssertEqualBounds("line-xform", 19.5f, -40.5f, 21, 21);
         }
 
-        [TestMethod]
+        [Test]
         public void TestRectangleBounds()
         {
             // x="10" y="30" width="10" height="20"
@@ -36,7 +35,7 @@ namespace Svg.UnitTests
             AssertEqualBounds("rect-rot", -50.5f, 9.5f, 21f, 11f);
         }
 
-        [TestMethod]
+        [Test]
         public void TestGroupBounds()
         {
             // all lines from TestLineBounds()
@@ -45,19 +44,19 @@ namespace Svg.UnitTests
             AssertEqualBounds("rects", -50.5f, 9.5f, 81f, 51f);
         }
 
-        [TestMethod]
+        [Test]
         public void TestTranslatedGroupBounds()
         {
             AssertEqualBounds("lines-translated", -12.5f, -7, 31, 86);
         }
 
-        [TestMethod]
+        [Test]
         public void TestScaledGroupBounds()
         {
             AssertEqualBounds("lines-scaled", 19, -81, 62, 172);
         }
 
-        [TestMethod]
+        [Test]
         public void TestRotatedGroupBounds()
         {
             AssertEqualBounds("lines-rotated", -45.5f, 9.5f, 86, 31);

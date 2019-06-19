@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Svg.DataTypes;
 using System;
 using System.Diagnostics;
@@ -16,7 +16,7 @@ namespace Svg.UnitTests
     /// Test use the following embedded resources:
     ///   - Issue212_MakerEnd\OperatingPlan.svg
     /// </remarks>
-    [TestClass]
+    [TestFixture]
     public class MarkerEndTest : SvgTestHelper
     {
 
@@ -24,14 +24,14 @@ namespace Svg.UnitTests
         protected override int ExpectedSize { get { return 4300; } } // original image has 4314 bytes
 
 
-        [TestMethod]
+        [Test]
         public void TestOperatingPlanRendering()
         {
             LoadSvg(GetXMLDocFromResource());
         }
 
 
-        [TestMethod]
+        [Test]
         public void TestArrowCodeCreation()
         {
             // Sample code from Issue 212. Thanks to podostro.

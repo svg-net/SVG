@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System.Drawing.Text;
 using System.Runtime.InteropServices;
 
@@ -14,7 +14,7 @@ namespace Svg.UnitTests
     ///   - Issue204_PrivateFont\Text.svg
     ///   - Issue204_PrivateFont\BrushScriptMT2.ttf
     /// </remarks>
-    [TestClass]
+    [TestFixture]
     public class PrivateFontsTests : SvgTestHelper
     {
         private const string PrivateFontSvg = "Issue204_PrivateFont.Text.svg";
@@ -23,7 +23,7 @@ namespace Svg.UnitTests
         protected override int ExpectedSize { get { return 3200; } } //3512
 
 
-        [TestMethod]
+        [Test]
         public void TestPrivateFont()
         {
             AddFontFromResource(SvgElement.PrivateFonts, GetFullResourceString(PrivateFont));

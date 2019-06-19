@@ -1,12 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Reflection;
 using System.ComponentModel;
-using Svg.DataTypes;
-using System.Text.RegularExpressions;
-using System.Linq;
 
 namespace Svg
 {
@@ -19,8 +11,8 @@ namespace Svg
         [SvgAttribute("visibility")]
         public virtual bool Visible
         {
-            get { return (this.Attributes["visibility"] == null) ? true : (bool)this.Attributes["visibility"]; }
-            set { this.Attributes["visibility"] = value; }
+            get { return GetAttribute("visibility", Inherited, true); }
+            set { Attributes["visibility"] = value; }
         }
 
         /// <summary>
@@ -30,21 +22,14 @@ namespace Svg
         [SvgAttribute("display")]
         public virtual string Display
         {
-            get { return this.Attributes["display"] as string; }
-            set { this.Attributes["display"] = value; }
+            get { return GetAttribute<string>("display", Inherited); }
+            set { Attributes["display"] = value; }
         }
 
         // Displayable - false if attribute display="none", true otherwise
         protected virtual bool Displayable
         {
-            get
-            {
-                string checkForDisplayNone = this.Attributes["display"] as string;
-                if ((!string.IsNullOrEmpty(checkForDisplayNone)) && (checkForDisplayNone == "none"))
-                    return false;
-                else
-                    return true;
-            }
+            get { return !string.Equals(Display, "none"); }
         }
 
         /// <summary>
@@ -53,9 +38,8 @@ namespace Svg
         [SvgAttribute("enable-background")]
         public virtual string EnableBackground
         {
-            get { return this.Attributes["enable-background"] as string; }
-            set { this.Attributes["enable-background"] = value; }
+            get { return GetAttribute<string>("enable-background", Inherited); }
+            set { Attributes["enable-background"] = value; }
         }
-
     }
 }
