@@ -18,7 +18,7 @@ namespace Svg.UnitTests
         public TestContext TestContext { get; set; }
 #if NETCORE
            
-	    /// <summary>
+        /// <summary>
         /// Compares SVG images against reference PNG images from the W3C SVG 1.1 test suite.
         /// This tests 158 out of 179 passing tests - the rest will not pass
         /// the test for several reasons. 
@@ -26,12 +26,12 @@ namespace Svg.UnitTests
         /// so this is not a definitive test for image equality yet.
         /// </summary>
         [Test]
-		[TestCaseSource(typeof(ImageTestDataSource), nameof(ImageTestDataSource.PassingTests))]		
-		public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
+        [TestCaseSource(typeof(ImageTestDataSource), nameof(ImageTestDataSource.PassingTests))]        
+        public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
         {
-			string basePath = testData.BasePath;
-			string baseName = testData.BaseName;			
-			bool testSaveLoad = !baseName.StartsWith("#");
+            string basePath = testData.BasePath;
+            string baseName = testData.BaseName;            
+            bool testSaveLoad = !baseName.StartsWith("#");
             if (!testSaveLoad)
             {
                 baseName = baseName.Substring(1);
@@ -42,7 +42,7 @@ namespace Svg.UnitTests
         }
 #else
         [Test]
-		[TestCaseSource(typeof(ImageTestDataSource), "PassingTests")]		        
+        [TestCaseSource(typeof(ImageTestDataSource), "PassingTests")]                
         public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
         {
             var basePath = testData.BasePath;
@@ -64,7 +64,7 @@ namespace Svg.UnitTests
         }
 #endif
 
-		private void CompareSvgImageWithReferenceImpl(string baseName,
+        private void CompareSvgImageWithReferenceImpl(string baseName,
             string svgPath, string pngPath, bool testSaveLoad)
         {
             var pngImage = Image.FromFile(pngPath);
@@ -111,13 +111,13 @@ namespace Svg.UnitTests
         public void RecordDiffForAllSvgImagesWithReference()
         {
 #if NETCORE
-			var basePath = Path.Combine(ImageTestDataSource.SuiteTestsFolder, "W3CTestSuite");
+            var basePath = Path.Combine(ImageTestDataSource.SuiteTestsFolder, "W3CTestSuite");
 #else
             var basePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDirectory))); //TODO: Tthe get dir name was parsed from the testparams -> Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestRunDirectory)));
             basePath = Path.Combine(Path.Combine(basePath, "Tests"), "W3CTestSuite");
 #endif
-			//      var svgBasePath = Path.Combine(basePath, "svg");
-			string[] lines = File.ReadAllLines(@"..\..\..\..\Tests\Svg.UnitTests\all.csv");
+            //      var svgBasePath = Path.Combine(basePath, "svg");
+            string[] lines = File.ReadAllLines(@"..\..\..\..\Tests\Svg.UnitTests\all.csv");
             foreach (var baseName in lines)
             {
                 var svgPath = Path.Combine(Path.Combine(basePath, "svg"), baseName + ".svg");
@@ -294,70 +294,70 @@ namespace Svg.UnitTests
         }
     }
 
-	/// <summary>
-	/// Helper class to read the datasource for the image tests. The datasource will read the embedded resource with the Tests and will pass a
-	/// TestData class with the data to test.
-	/// </summary>
-	public class ImageTestDataSource
-	{
-		public class TestData
-		{
-			public string BasePath { get; set; }
-			public string BaseName { get; set; }
-			public override string ToString()
-			{
-				return $"TestDataSource - {BaseName}";
-			}
-		}
+    /// <summary>
+    /// Helper class to read the datasource for the image tests. The datasource will read the embedded resource with the Tests and will pass a
+    /// TestData class with the data to test.
+    /// </summary>
+    public class ImageTestDataSource
+    {
+        public class TestData
+        {
+            public string BasePath { get; set; }
+            public string BaseName { get; set; }
+            public override string ToString()
+            {
+                return $"TestDataSource - {BaseName}";
+            }
+        }
 
-		public static IEnumerable<TestData> PassingTests()
-		{			
-			var basePath = SuiteTestsFolder;
-			var testSuite = Path.Combine(basePath, "W3CTestSuite");
-			var rows = new ImageTestDataSource().LoadRowsFromResourceCsv().Skip(1); //Skip header row
-			foreach (var row in rows)
-				yield return new TestData() { BasePath = testSuite, BaseName = row };
-		}
-		
-		private const string ResourceIdentifier = "PassingTests.csv";
-		/// <summary>
-		/// Read the rows from the resource
-		/// </summary>
-		/// <returns></returns>
-		private string[] LoadRowsFromResourceCsv()
-		{
-			var assembly = typeof(ImageTestDataSource).Assembly;
-			string resourceName = assembly.GetManifestResourceNames().FirstOrDefault(r => r.IndexOf(ResourceIdentifier) > -1);
-			if(resourceName == null) { throw new Exception($"Cannot find data resource: {ResourceIdentifier}"); }
-			String res = "";
-			using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-			{
-				using (StreamReader reader = new StreamReader(stream))
-				{
-					res = reader.ReadToEnd();
-				}
-			}
-			return res.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-		}
+        public static IEnumerable<TestData> PassingTests()
+        {            
+            var basePath = SuiteTestsFolder;
+            var testSuite = Path.Combine(basePath, "W3CTestSuite");
+            var rows = new ImageTestDataSource().LoadRowsFromResourceCsv().Skip(1); //Skip header row
+            foreach (var row in rows)
+                yield return new TestData() { BasePath = testSuite, BaseName = row };
+        }
+        
+        private const string ResourceIdentifier = "PassingTests.csv";
+        /// <summary>
+        /// Read the rows from the resource
+        /// </summary>
+        /// <returns></returns>
+        private string[] LoadRowsFromResourceCsv()
+        {
+            var assembly = typeof(ImageTestDataSource).Assembly;
+            string resourceName = assembly.GetManifestResourceNames().FirstOrDefault(r => r.IndexOf(ResourceIdentifier) > -1);
+            if(resourceName == null) { throw new Exception($"Cannot find data resource: {ResourceIdentifier}"); }
+            String res = "";
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    res = reader.ReadToEnd();
+                }
+            }
+            return res.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        }
 
-		private static string _basePath = null;
-		/// <summary>
-		/// Determine the folder the testsuite is running in.
-		/// </summary>
-		public static string SuiteTestsFolder
-		{
-			get
-			{
-				if (_basePath != null) return _basePath;
-				var basePath = Environment.CurrentDirectory;
-				while (!basePath.ToLower().EndsWith("svg"))
-				{
-					basePath = Path.GetDirectoryName(basePath);
-				}
+        private static string _basePath = null;
+        /// <summary>
+        /// Determine the folder the testsuite is running in.
+        /// </summary>
+        public static string SuiteTestsFolder
+        {
+            get
+            {
+                if (_basePath != null) return _basePath;
+                var basePath = Environment.CurrentDirectory;
+                while (!basePath.ToLower().EndsWith("svg"))
+                {
+                    basePath = Path.GetDirectoryName(basePath);
+                }
 
-				_basePath = Path.Combine(basePath, "Tests");
-				return _basePath;
-			}
-		}
-	}
+                _basePath = Path.Combine(basePath, "Tests");
+                return _basePath;
+            }
+        }
+    }
 }
