@@ -1,18 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
+﻿using NUnit.Framework;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace Svg.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class SvgTextTests
     {
 
-        [TestMethod]
+        [Test]
         public void TextPropertyAffectsSvgOutput()
         {
             var document = new SvgDocument();
@@ -35,7 +31,7 @@ namespace Svg.UnitTests
         /// We doing this indirectly by checking the Bound property, which uses the cache.
         /// The Bound coordinates must be updated after adding a X and a Y
         /// </summary>
-        [TestMethod]
+        [Test]
         public void ChangingCoordinatesInvalidatePathCache()
         {
             SvgText text = new SvgText();

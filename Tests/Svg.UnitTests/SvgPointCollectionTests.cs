@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace Svg.UnitTests
 {
 
-    [TestClass]
+    [TestFixture]
     public class SvgPointCollectionTests
     {
 
-        [TestMethod]
+        [Test]
         public void ToStringReturnsValidString()
         {
             var collection = new SvgPointCollection
