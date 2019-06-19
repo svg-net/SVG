@@ -236,6 +236,7 @@ __issue-342-01.svg
 __issue-345-01.svg
 __issue-354-01.svg
 __issue-385-01_Test_text-anchor-middle.svg
+__issue-363-01.svg
 __issue-419-01.svg
 __issue-436-01.svg
 __issue-437-01.svg
@@ -248,6 +249,7 @@ __pull_request-374-01.svg
 __pull_request-414-01.svg
 __pull_request-433-01.svg
 __pull_request-444-01.svg
+__pull_request-492-01.svg
 __AJ_Digital_Camera.svg
 __Telefunken_FuBK_test_pattern.svg
 __tiger.svg
