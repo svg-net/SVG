@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Svg
 {
@@ -71,8 +72,10 @@ namespace Svg
         public enum CaseHandling
         {
             CamelCase,
-            LowerCase
+            LowerCase,
+            DashedLowerCase
         }
+        
         /// <summary> Defines if the enum literal shall be converted to lower camel case or lower case.</summary>
         public CaseHandling CaseHandlingMode { get; }
 
@@ -107,8 +110,13 @@ namespace Svg
                 throw new ArgumentOutOfRangeException("value must be a string.");
             }
 
+            if (CaseHandlingMode == CaseHandling.DashedLowerCase)
+                value = ((string) value).Replace("-", String.Empty);
+
             return (T)Enum.Parse(typeof(T), (string)value, true);
         }
+
+        private static readonly Regex DashExpression = new Regex("([a-z])([A-Z])", RegexOptions.Compiled);
 
         /// <summary>Attempts to convert the value to the destination type.</summary>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
@@ -124,6 +132,10 @@ namespace Svg
                     if (CaseHandlingMode == CaseHandling.LowerCase)
                     {
                         return stringValue.ToLower();
+                    }
+                    if (CaseHandlingMode == CaseHandling.DashedLowerCase)
+                    {
+                        return DashExpression.Replace(stringValue, "$1-$2").ToLower();
                     }
 
                     //most SVG attributes should be camelCase.
