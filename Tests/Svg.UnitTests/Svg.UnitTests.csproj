@@ -26,8 +26,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Issue204_PrivateFont\BrushScriptMT2.ttf" />
-    <None Include="AllTests.csv" />
-    <None Include="PassingTests.csv" />
+    <EmbeddedResource Include="AllTests.csv" />
+    <EmbeddedResource Include="PassingTests.csv" />
     <None Include="svgkey.snk" />
   </ItemGroup>
   <ItemGroup>
