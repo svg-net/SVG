@@ -23,8 +23,6 @@ namespace Svg.UnitTests
 
 
         [Test]
-        //TODO: What does this one do?
-        //[TestProperty(name: "speed", value: "slow")]
         public void TestMetafileRendering()
         {
             LoadSvg(GetXMLDocFromResource());
