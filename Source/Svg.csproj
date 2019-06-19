@@ -6,7 +6,7 @@
     <AssemblyName>Svg</AssemblyName>
     <IsPackable>true</IsPackable>
     <Company></Company>
-    <Authors>davescriven, jvenema, owaits, ddpruitt, Ralf1108, Tebjan Halm, and others</Authors>
+    <Authors>davescriven, jvenema, mrbean-bremen, H1Gdev, owaits, ddpruitt, Ralf1108, Tebjan Halm, and others</Authors>
     <PackageId>Svg</PackageId>
     <Product>SVG Rendering Library</Product>
     <Summary>SVG Rendering Library</Summary>
