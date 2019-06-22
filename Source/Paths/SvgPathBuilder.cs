@@ -26,7 +26,7 @@ namespace Svg
         /// <param name="path">A <see cref="string"/> containing path data.</param>
         public static SvgPathSegmentList Parse(string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (path == null)
                 throw new ArgumentNullException("path");
 
             var segments = new SvgPathSegmentList();
