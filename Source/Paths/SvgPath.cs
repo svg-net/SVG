@@ -66,6 +66,13 @@ namespace Svg
                         else
                             _path = null;
                     }
+                    else if (renderer == null)
+                    {
+                        var radius = StrokeWidth * 2;
+                        var bounds = _path.GetBounds();
+                        _path.AddEllipse(bounds.Left - radius, bounds.Top - radius, 2 * radius, 2 * radius);
+                        _path.AddEllipse(bounds.Right - radius, bounds.Bottom - radius, 2 * radius, 2 * radius);
+                    }
                 }
 
                 if (renderer != null)
