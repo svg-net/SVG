@@ -68,6 +68,7 @@ namespace Svg
                     }
                     else if (renderer == null)
                     {
+                        // Calculate boundary including stroke width.
                         var radius = StrokeWidth * 2;
                         var bounds = _path.GetBounds();
                         _path.AddEllipse(bounds.Left - radius, bounds.Top - radius, 2 * radius, 2 * radius);
