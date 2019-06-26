@@ -280,142 +280,180 @@ namespace Svg
 
         private static T Open<T>(XmlReader reader) where T : SvgDocument, new()
         {
-            var elementStack = new Stack<SvgElement>();
-            bool elementEmpty;
-            SvgElement element = null;
-            SvgElement parent;
-            T svgDocument = null;
-            var elementFactory = new SvgElementFactory();
-
-            var styles = new List<ISvgNode>();
-
-            while (reader.Read())
+            try
             {
-                try
-                {
-                    switch (reader.NodeType)
-                    {
-                        case XmlNodeType.Element:
-                            // Does this element have a value or children
-                            // (Must do this check here before we progress to another node)
-                            elementEmpty = reader.IsEmptyElement;
-                            // Create element
-                            if (elementStack.Count > 0)
-                            {
-                                element = elementFactory.CreateElement(reader, svgDocument);
-                            }
-                            else
-                            {
-                                svgDocument = elementFactory.CreateDocument<T>(reader);
-                                element = svgDocument;
-                            }
+                var elementStack = new Stack<SvgElement>();
+                bool elementEmpty;
+                SvgElement element = null;
+                SvgElement parent;
+                T svgDocument = null;
+                var elementFactory = new SvgElementFactory();
 
-                            // Add to the parents children
-                            if (elementStack.Count > 0)
-                            {
-                                parent = elementStack.Peek();
-                                if (parent != null && element != null)
+                var styles = new List<ISvgNode>();
+
+                while (reader.Read())
+                {
+                    try
+                    {
+                        switch (reader.NodeType)
+                        {
+                            case XmlNodeType.Element:
+                                // Does this element have a value or children
+                                // (Must do this check here before we progress to another node)
+                                elementEmpty = reader.IsEmptyElement;
+                                // Create element
+                                if (elementStack.Count > 0)
                                 {
-                                    parent.Children.Add(element);
-                                    parent.Nodes.Add(element);
+                                    element = elementFactory.CreateElement(reader, svgDocument);
                                 }
-                            }
+                                else
+                                {
+                                    svgDocument = elementFactory.CreateDocument<T>(reader);
+                                    element = svgDocument;
+                                }
 
-                            // Push element into stack
-                            elementStack.Push(element);
+                                // Add to the parents children
+                                if (elementStack.Count > 0)
+                                {
+                                    parent = elementStack.Peek();
+                                    if (parent != null && element != null)
+                                    {
+                                        parent.Children.Add(element);
+                                        parent.Nodes.Add(element);
+                                    }
+                                }
 
-                            // Need to process if the element is empty
-                            if (elementEmpty)
-                            {
-                                goto case XmlNodeType.EndElement;
-                            }
+                                // Push element into stack
+                                elementStack.Push(element);
 
-                            break;
-                        case XmlNodeType.EndElement:
+                                // Need to process if the element is empty
+                                if (elementEmpty)
+                                {
+                                    goto case XmlNodeType.EndElement;
+                                }
 
-                            // Pop the element out of the stack
-                            element = elementStack.Pop();
+                                break;
+                            case XmlNodeType.EndElement:
 
-                            if (element.Nodes.OfType<SvgContentNode>().Any())
-                            {
-                                element.Content = (from e in element.Nodes select e.Content).Aggregate((p, c) => p + c);
-                            }
-                            else
-                            {
-                                element.Nodes.Clear(); // No sense wasting the space where it isn't needed
-                            }
+                                // Pop the element out of the stack
+                                element = elementStack.Pop();
 
-                            var unknown = element as SvgUnknownElement;
-                            if (unknown != null && unknown.ElementName == "style")
-                            {
-                                styles.Add(unknown);
-                            }
-                            break;
-                        case XmlNodeType.CDATA:
-                        case XmlNodeType.Text:
-                            element = elementStack.Peek();
-                            element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
-                            break;
-                        case XmlNodeType.EntityReference:
-                            reader.ResolveEntity();
-                            element = elementStack.Peek();
-                            element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
-                            break;
+                                if (element.Nodes.OfType<SvgContentNode>().Any())
+                                {
+                                    element.Content = (from e in element.Nodes select e.Content).Aggregate((p, c) => p + c);
+                                }
+                                else
+                                {
+                                    element.Nodes.Clear(); // No sense wasting the space where it isn't needed
+                                }
+
+                                var unknown = element as SvgUnknownElement;
+                                if (unknown != null && unknown.ElementName == "style")
+                                {
+                                    styles.Add(unknown);
+                                }
+                                break;
+                            case XmlNodeType.CDATA:
+                            case XmlNodeType.Text:
+                                element = elementStack.Peek();
+                                element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
+                                break;
+                            case XmlNodeType.EntityReference:
+                                reader.ResolveEntity();
+                                element = elementStack.Peek();
+                                element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
+                                break;
+                        }
+                    }
+                    catch (Exception exc)
+                    {
+                        Trace.TraceError(exc.Message);
+                        if (ExceptionCaughtIsGdiPlusRelated(exc)) { throw; } //Gdi+ errors should be rethrown
                     }
                 }
-                catch (Exception exc)
+
+                if (styles.Any())
                 {
-                    Trace.TraceError(exc.Message);
-                }
-            }
+                    var cssTotal = styles.Select((s) => s.Content).Aggregate((p, c) => p + Environment.NewLine + c);
+                    var cssParser = new Parser();
+                    var sheet = cssParser.Parse(cssTotal);
+                    AggregateSelectorList aggList;
+                    IEnumerable<BaseSelector> selectors;
+                    IEnumerable<SvgElement> elemsToStyle;
 
-            if (styles.Any())
-            {
-                var cssTotal = styles.Select((s) => s.Content).Aggregate((p, c) => p + Environment.NewLine + c);
-                var cssParser = new Parser();
-                var sheet = cssParser.Parse(cssTotal);
-                AggregateSelectorList aggList;
-                IEnumerable<BaseSelector> selectors;
-                IEnumerable<SvgElement> elemsToStyle;
+                    foreach (var rule in sheet.StyleRules)
+                    {
+                        aggList = rule.Selector as AggregateSelectorList;
+                        if (aggList != null && aggList.Delimiter == ",")
+                        {
+                            selectors = aggList;
+                        }
+                        else
+                        {
+                            selectors = Enumerable.Repeat(rule.Selector, 1);
+                        }
 
-                foreach (var rule in sheet.StyleRules)
-                {
-                    aggList = rule.Selector as AggregateSelectorList;
-                    if (aggList != null && aggList.Delimiter == ",")
-                    {
-                        selectors = aggList;
-                    }
-                    else
-                    {
-                        selectors = Enumerable.Repeat(rule.Selector, 1);
-                    }
-
-                    foreach (var selector in selectors)
-                    {
-                        try
+                        foreach (var selector in selectors)
                         {
                             var rootNode = new NonSvgElement();
                             rootNode.Children.Add(svgDocument);
 
-                            elemsToStyle = rootNode.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
-                            foreach (var elem in elemsToStyle)
+                            try
                             {
-                                foreach (var decl in rule.Declarations)
+                                elemsToStyle = rootNode.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
+                                foreach (var elem in elemsToStyle)
                                 {
-                                    elem.AddStyle(decl.Name, decl.Term.ToString(), rule.Selector.GetSpecificity());
+                                    foreach (var decl in rule.Declarations)
+                                    {
+                                        elem.AddStyle(decl.Name, decl.Term.ToString(), rule.Selector.GetSpecificity());
+                                    }
                                 }
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            Trace.TraceWarning(ex.Message);
+                            catch (Exception ex)
+                            {
+                                Trace.TraceWarning(ex.Message);
+                                if (ExceptionCaughtIsGdiPlusRelated(ex)) { throw; } //Gdi+ errors should be rethrown
+                            }
                         }
                     }
                 }
-            }
 
-            if (svgDocument != null) FlushStyles(svgDocument);
-            return svgDocument;
+                if (svgDocument != null) FlushStyles(svgDocument);
+                return svgDocument;
+            }
+            //GDI+ loading errors will result in TypeInitializationExceptions, for readability we will catch and wrap the error
+            catch (Exception e)
+            {
+                if (ExceptionCaughtIsGdiPlusRelated(e))
+                {
+                    //Throw only the customized excpetion if we are sure the gdi+ is causing the problem
+                    throw new SvgGdiPlusCannotBeLoadedException(e);
+                }
+                //No wrapping, just retrow the exception
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Check if the current exception or one of its children is the targeted GDI+ exception. 
+        /// It can be hidden in one of the InnerExceptions, so we need to iterate over them.
+        /// </summary>
+        /// <param name="e">The exception to validate against the GDI+ check</param>
+        private static bool ExceptionCaughtIsGdiPlusRelated(Exception e)
+        {
+            var currE = e;
+            int cnt = 0; //Keep track of depth to prevent endless-loops
+            while (currE != null && cnt < 10)
+            {
+                var typeException = currE as DllNotFoundException;
+                if (typeException?.Message?.LastIndexOf("libgdiplus", StringComparison.OrdinalIgnoreCase) > -1)
+                {
+                    return true;
+                }
+                currE = currE.InnerException;
+                cnt++;
+            }
+            return false;
         }
 
         private static void FlushStyles(SvgElement elem)
