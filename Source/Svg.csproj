@@ -129,6 +129,11 @@ NetStandard does not fully support the Drawing2D package - so has been left out.
     </PackageReference>
   </ItemGroup>
 
+  <!-- Mac specific include -->
+  <!--ItemGroup>
+    <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.6.20" />
+  </ItemGroup-->
+
   <ItemGroup>
     <Compile Remove=".\External\ExCSS\Parser.generated.cs" />
     <Compile Remove=".\External\ExCSS\ParserX.cs" />
