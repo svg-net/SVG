@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Svg
 {
+    [SvgElement("mask")]
     public class SvgMask : SvgElement
     {
-
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgMask>();

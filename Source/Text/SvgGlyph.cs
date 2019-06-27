@@ -5,7 +5,7 @@ using Svg.Pathing;
 namespace Svg
 {
     [SvgElement("glyph")]
-    public class SvgGlyph : SvgPathBasedElement
+    public class SvgGlyph : SvgPathBasedElement, ISvgPathElement
     {
         private GraphicsPath _path;
 
@@ -16,7 +16,14 @@ namespace Svg
         public SvgPathSegmentList PathData
         {
             get { return GetAttribute<SvgPathSegmentList>("d", false); }
-            set { Attributes["d"] = value; }
+            set
+            {
+                var old = PathData;
+                if (old != null)
+                    old.Owner = null;
+                Attributes["d"] = value;
+                value.Owner = this;
+            }
         }
 
         [SvgAttribute("glyph-name")]
@@ -77,6 +84,10 @@ namespace Svg
                 IsPathDirty = false;
             }
             return _path;
+        }
+
+        public void OnPathUpdated()
+        {
         }
 
         public override SvgElement DeepCopy()

@@ -363,7 +363,7 @@ namespace Svg
                 if (this.ClipPath != null)
                 {
                     SvgClipPath clipPath = this.OwnerDocument.GetElementById<SvgClipPath>(this.ClipPath.ToString());
-                    if (clipPath != null) renderer.SetClip(clipPath.GetClipRegion(this), CombineMode.Intersect);
+                    if (clipPath != null) renderer.SetClip(clipPath.GetClipRegion(this, renderer), CombineMode.Intersect);
                 }
 
                 var clip = this.Clip;
