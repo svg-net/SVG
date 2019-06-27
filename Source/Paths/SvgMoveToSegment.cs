@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Svg.Pathing
 {
@@ -9,19 +7,18 @@ namespace Svg.Pathing
     {
         public SvgMoveToSegment(PointF moveTo)
         {
-            this.Start = moveTo;
-            this.End = moveTo;
+            Start = moveTo;
+            End = moveTo;
         }
 
-        public override void AddToPath(System.Drawing.Drawing2D.GraphicsPath graphicsPath)
+        public override void AddToPath(GraphicsPath graphicsPath)
         {
             graphicsPath.StartFigure();
         }
 
         public override string ToString()
         {
-            return "M" + this.Start.ToSvgString();
+            return "M" + Start.ToSvgString();
         }
-
     }
 }
