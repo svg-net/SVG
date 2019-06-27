@@ -103,6 +103,7 @@ namespace Svg.UnitTests
             str = str.Replace(LexerTemplateReplaceToken, testContent);
             var xml = GetXMLDocFromString(str);
             var doc = OpenSvg(xml);
+            if(doc == null) { Assert.Fail("Expected a document result, but got null"); }
             return doc;
         }
 

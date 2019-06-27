@@ -69,15 +69,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp2.2'">
-
     <Reference Include="WindowsBase" />
-
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net452'">
-
     <Reference Include="WindowsBase" />
-
   </ItemGroup>
 
 </Project>
