@@ -9,7 +9,6 @@ namespace Svg
     [SvgElement("marker")]
     public class SvgMarker : SvgPathBasedElement, ISvgViewPort
     {
-        private SvgOrient _svgOrient = new SvgOrient();
         private SvgVisualElement _markerElement = null;
 
         /// <summary>
@@ -30,22 +29,22 @@ namespace Svg
         [SvgAttribute("refX")]
         public virtual SvgUnit RefX
         {
-            get { return GetAttribute<SvgUnit>("refX", false); }
+            get { return GetAttribute<SvgUnit>("refX", false, 0f); }
             set { Attributes["refX"] = value; }
         }
 
         [SvgAttribute("refY")]
         public virtual SvgUnit RefY
         {
-            get { return GetAttribute<SvgUnit>("refY", false); }
+            get { return GetAttribute<SvgUnit>("refY", false, 0f); }
             set { Attributes["refY"] = value; }
         }
 
         [SvgAttribute("orient")]
         public virtual SvgOrient Orient
         {
-            get { return _svgOrient; }
-            set { _svgOrient = value; Attributes["orient"] = value; }
+            get { return GetAttribute<SvgOrient>("orient", false, 0f); }
+            set { Attributes["orient"] = value; }
         }
 
         [SvgAttribute("overflow")]

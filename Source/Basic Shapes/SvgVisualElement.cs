@@ -49,7 +49,7 @@ namespace Svg
         [SvgAttribute("clip")]
         public virtual string Clip
         {
-            get { return GetAttribute<string>("clip", Inherited); }
+            get { return GetAttribute("clip", Inherited, "auto"); }
             set { Attributes["clip"] = value; }
         }
 
