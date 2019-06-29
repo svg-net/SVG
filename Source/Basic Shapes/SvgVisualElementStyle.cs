@@ -23,7 +23,7 @@ namespace Svg
         [SvgAttribute("display")]
         public virtual string Display
         {
-            get { return GetAttribute<string>("display", Inherited); }
+            get { return GetAttribute("display", Inherited, "inline"); }
             set { Attributes["display"] = value; }
         }
 

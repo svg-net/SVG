@@ -9,8 +9,6 @@ namespace Svg
     [SvgElement("clipPath")]
     public sealed class SvgClipPath : SvgElement
     {
-        private SvgCoordinateUnits _clipPathUnits = SvgCoordinateUnits.Inherit;
-
         private GraphicsPath _path;
 
         /// <summary>
@@ -19,8 +17,8 @@ namespace Svg
         [SvgAttribute("clipPathUnits")]
         public SvgCoordinateUnits ClipPathUnits
         {
-            get { return _clipPathUnits; }
-            set { _clipPathUnits = value; Attributes["clipPathUnits"] = value; }
+            get { return GetAttribute("clipPathUnits", false, SvgCoordinateUnits.UserSpaceOnUse); }
+            set { Attributes["clipPathUnits"] = value; }
         }
 
         /// <summary>
