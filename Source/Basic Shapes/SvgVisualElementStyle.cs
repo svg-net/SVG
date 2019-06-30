@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 
 namespace Svg
@@ -29,7 +30,7 @@ namespace Svg
         // Displayable - false if attribute display="none", true otherwise
         protected virtual bool Displayable
         {
-            get { return !string.Equals(Display, "none"); }
+            get { return !string.Equals(Display, "none", StringComparison.OrdinalIgnoreCase); }
         }
 
         /// <summary>
