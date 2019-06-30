@@ -15,24 +15,21 @@ namespace Svg
     {
         public void AddRange(IEnumerable<SvgUnit> collection)
         {
-            if (collection == null) { throw new ArgumentNullException(nameof(collection)); }
+            if (collection == null)
+                throw new ArgumentNullException(nameof(collection));
 
             if (collection == this)
             {
                 // handle special case where the collection is duplicated
-                // we need to clone it to avoid an excpeption during enumeration
+                // we need to clone it to avoid an exception during enumeration
                 var clonedCollection = new SvgUnitCollection();
                 foreach (var unit in collection)
-                {
                     clonedCollection.Add(unit);
-                }
                 collection = clonedCollection;
             }
 
-            foreach (SvgUnit unit in collection)
-            {
-                this.Add(unit);
-            }
+            foreach (var unit in collection)
+                Add(unit);
         }
 
         public override string ToString()
@@ -45,9 +42,9 @@ namespace Svg
             // http://www.w3.org/TR/SVGTiny12/paths.html#PathDataGeneralInformation
             // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d#Notes
 #if Net4
-            return String.Join(" ", this.Select(u => u.ToString()));
+            return string.Join(" ", this.Select(u => u.ToString()));
 #else
-            return String.Join(" ", this.Select(u => u.ToString()).ToArray());
+            return string.Join(" ", this.Select(u => u.ToString()).ToArray());
 #endif
         }
 
@@ -74,17 +71,17 @@ namespace Svg
         /// An <see cref="T:System.Object"/> that represents the converted value.
         /// </returns>
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string)
             {
                 if (string.Compare(((string)value).Trim(), "none", StringComparison.InvariantCultureIgnoreCase) == 0) return null;
-                string[] points = ((string)value).Trim().Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                SvgUnitCollection units = new SvgUnitCollection();
+                var points = ((string)value).Trim().Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                var units = new SvgUnitCollection();
 
-                foreach (string point in points)
+                foreach (var point in points)
                 {
-                    SvgUnit newUnit = (SvgUnit)_unitConverter.ConvertFrom(point.Trim());
+                    var newUnit = (SvgUnit)_unitConverter.ConvertFrom(point.Trim());
                     if (!newUnit.IsNone)
                         units.Add(newUnit);
                 }
@@ -98,18 +95,15 @@ namespace Svg
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
-            {
                 return true;
-            }
+
             return base.CanConvertTo(context, destinationType);
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (value != null && destinationType == typeof(string))
-            {
                 return ((SvgUnitCollection)value).ToString();
-            }
 
             return base.ConvertTo(context, culture, value, destinationType);
         }
