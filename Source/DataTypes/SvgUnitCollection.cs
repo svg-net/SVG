@@ -75,16 +75,19 @@ namespace Svg
         {
             if (value is string)
             {
-                if (string.Compare(((string)value).Trim(), "none", StringComparison.InvariantCultureIgnoreCase) == 0) return null;
-                var points = ((string)value).Trim().Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                var units = new SvgUnitCollection();
+                var s = ((string)value).Trim();
 
-                foreach (var point in points)
-                {
-                    var newUnit = (SvgUnit)_unitConverter.ConvertFrom(point.Trim());
-                    if (!newUnit.IsNone)
-                        units.Add(newUnit);
-                }
+                if (s.Equals("inherit", StringComparison.OrdinalIgnoreCase))
+                    return null;
+
+                var units = new SvgUnitCollection();
+                if (!s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                    foreach (var point in s.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        var newUnit = (SvgUnit)_unitConverter.ConvertFrom(point.Trim());
+                        if (!newUnit.IsNone)
+                            units.Add(newUnit);
+                    }
 
                 return units;
             }
