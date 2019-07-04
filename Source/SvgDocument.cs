@@ -394,7 +394,10 @@ namespace Svg
                     {
                         try
                         {
-                            elemsToStyle = svgDocument.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
+                            var rootNode = new NonSvgElement();
+                            rootNode.Children.Add(svgDocument);
+
+                            elemsToStyle = rootNode.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
                             foreach (var elem in elemsToStyle)
                             {
                                 foreach (var decl in rule.Declarations)
