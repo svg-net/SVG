@@ -237,6 +237,7 @@ __issue-345-01.svg
 __issue-354-01.svg
 __issue-385-01_Test_text-anchor-middle.svg
 __issue-363-01.svg
+__issue-391-01.svg
 __issue-419-01.svg
 __issue-436-01.svg
 __issue-437-01.svg
