@@ -368,7 +368,7 @@ namespace Svg
                     catch (Exception exc)
                     {
                         Trace.TraceError(exc.Message);
-                        if (ExceptionCaughtIsGdiPlusRelated(exc)) { throw; } //Gdi+ errors should be rethrown
+                        if (ExceptionCaughtIsGdiPlusRelated(exc)) { throw; } // GDI+ errors should be rethrown
                     }
                 }
 
@@ -395,11 +395,11 @@ namespace Svg
 
                         foreach (var selector in selectors)
                         {
-                            var rootNode = new NonSvgElement();
-                            rootNode.Children.Add(svgDocument);
-
                             try
                             {
+                                var rootNode = new NonSvgElement();
+                                rootNode.Children.Add(svgDocument);
+
                                 elemsToStyle = rootNode.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
                                 foreach (var elem in elemsToStyle)
                                 {
@@ -412,7 +412,7 @@ namespace Svg
                             catch (Exception ex)
                             {
                                 Trace.TraceWarning(ex.Message);
-                                if (ExceptionCaughtIsGdiPlusRelated(ex)) { throw; } //Gdi+ errors should be rethrown
+                                if (ExceptionCaughtIsGdiPlusRelated(ex)) { throw; } // GDI+ errors should be rethrown
                             }
                         }
                     }
@@ -421,15 +421,16 @@ namespace Svg
                 if (svgDocument != null) FlushStyles(svgDocument);
                 return svgDocument;
             }
-            //GDI+ loading errors will result in TypeInitializationExceptions, for readability we will catch and wrap the error
+            // GDI+ loading errors will result in TypeInitializationExceptions, 
+            // for readability we will catch and wrap the error
             catch (Exception e)
             {
                 if (ExceptionCaughtIsGdiPlusRelated(e))
                 {
-                    //Throw only the customized excpetion if we are sure the gdi+ is causing the problem
+                    // Throw only the customized exception if we are sure GDI+ is causing the problem
                     throw new SvgGdiPlusCannotBeLoadedException(e);
                 }
-                //No wrapping, just retrow the exception
+                // No wrapping, just rethrow the exception
                 throw;
             }
         }
@@ -442,7 +443,7 @@ namespace Svg
         private static bool ExceptionCaughtIsGdiPlusRelated(Exception e)
         {
             var currE = e;
-            int cnt = 0; //Keep track of depth to prevent endless-loops
+            int cnt = 0; // Keep track of depth to prevent endless-loops
             while (currE != null && cnt < 10)
             {
                 var typeException = currE as DllNotFoundException;
