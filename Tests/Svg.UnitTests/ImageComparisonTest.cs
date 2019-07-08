@@ -15,8 +15,8 @@ namespace Svg.UnitTests
     public class ImageComparisonTest
     {
         public TestContext TestContext { get; set; }
-#if NETSTANDARD || NETCORE
 
+#if NETSTANDARD || NETCORE
         /// <summary>
         /// Compares SVG images against reference PNG images from the W3C SVG 1.1 test suite.
         /// This tests 158 out of 179 passing tests - the rest will not pass
