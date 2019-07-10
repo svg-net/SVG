@@ -245,19 +245,19 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected internal virtual bool RenderStroke(ISvgRenderer renderer)
         {
-            if (this.Stroke != null && this.Stroke != SvgColourServer.None && this.StrokeWidth > 0)
+            if (Stroke != null && Stroke != SvgColourServer.None && StrokeWidth > 0)
             {
-                var strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
-                using (var brush = this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity, 0), 1), true))
+                var strokeWidth = StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
+                using (var brush = Stroke.GetBrush(this, renderer, Math.Min(Math.Max(StrokeOpacity, 0), 1), true))
                 {
                     if (brush != null)
                     {
-                        var path = this.Path(renderer);
+                        var path = Path(renderer);
                         var bounds = path.GetBounds();
                         if (path.PointCount < 1) return false;
                         if (bounds.Width <= 0 && bounds.Height <= 0)
                         {
-                            switch (this.StrokeLineCap)
+                            switch (StrokeLineCap)
                             {
                                 case SvgStrokeLineCap.Round:
                                     using (var capPath = new GraphicsPath())
@@ -279,41 +279,86 @@ namespace Svg
                         {
                             using (var pen = new Pen(brush, strokeWidth))
                             {
-                                if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
+                                if (StrokeDashArray != null && StrokeDashArray.Count > 0)
                                 {
-                                    if (this.StrokeDashArray.Count % 2 != 0)
+                                    strokeWidth = strokeWidth <= 0 ? 1 : strokeWidth;
+                                    if (StrokeDashArray.Count % 2 != 0)
                                     {
                                         // handle odd dash arrays by repeating them once
-                                        this.StrokeDashArray.AddRange(this.StrokeDashArray);
+                                        StrokeDashArray.AddRange(StrokeDashArray);
                                     }
 
-                                    /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
-                                    pen.DashPattern = this.StrokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) /
-                                        ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
+                                    var dashOffset = StrokeDashOffset != null ? StrokeDashOffset : 0;
 
-                                    if (this.StrokeLineCap == SvgStrokeLineCap.Round)
+                                    /* divide by stroke width - GDI uses stroke width as unit.*/
+                                    var dashPattern = StrokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : 
+                                        u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth).ToArray();
+                                    int length = dashPattern.Length;
+
+                                    if (StrokeLineCap == SvgStrokeLineCap.Round)
                                     {
                                         // to handle round caps, we have to adapt the dash pattern
                                         // by increasing the dash length by the stroke width - GDI draws the rounded 
                                         // edge inside the dash line, SVG draws it outside the line
-                                        var pattern = new float[pen.DashPattern.Length];
+                                        var pattern = new float[length];
                                         int offset = 1; // the values are already normalized to dash width
-                                        for (int i = 0; i < pen.DashPattern.Length; i++)
+                                        for (int i = 0; i < length; i++)
                                         {
-                                            pattern[i] = pen.DashPattern[i] + offset;
+                                            pattern[i] = dashPattern[i] + offset;
+                                            if (pattern[i] <= 0)
+                                            {
+                                                // overlapping caps - remove the gap for simplicity, see #508
+                                                if (i < length - 1)
+                                                {
+                                                    // add the next dash segment to the current one
+                                                    dashPattern[i - 1] += dashPattern[i] + dashPattern[i + 1];
+                                                    length -= 2;
+                                                    for (int k = i; k < length; k++)
+                                                        dashPattern[k] = dashPattern[k + 2];
+
+                                                    // and handle the combined segment again
+                                                    i -= 2;
+                                                }
+                                                else if (i > 2)
+                                                {
+                                                    // add the last dash segment to the first one
+                                                    // this will change the start point, so adapt the offset
+                                                    var dashLength = dashPattern[i - 1] + dashPattern[i];
+                                                    pattern[0] += dashLength;
+                                                    length -= 2;
+                                                    dashOffset += dashLength * strokeWidth;
+                                                }
+                                                else
+                                                {
+                                                    // we have only one dash with the gap too small -
+                                                    // do not use dash at all
+                                                    length = 0;
+                                                    break;
+                                                }
+                                            }
                                             offset *= -1; // increase dash length, decrease spaces
                                         }
-                                        pen.DashPattern = pattern;
-                                        pen.DashCap = DashCap.Round;
+                                        if (length > 0)
+                                        {
+                                            if (length < dashPattern.Length)
+                                                Array.Resize(ref pattern, length);
+                                            dashPattern = pattern;
+                                            pen.DashCap = DashCap.Round;
+                                        }
                                     }
 
-                                    if (this.StrokeDashOffset != null && this.StrokeDashOffset.Value != 0)
+                                    if (length > 0)
                                     {
-                                        pen.DashOffset = ((this.StrokeDashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : this.StrokeDashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this)) /
-                                            ((strokeWidth <= 0) ? 1 : strokeWidth);
+                                        pen.DashPattern = dashPattern;
+
+                                        if (dashOffset != 0)
+                                        {
+                                            pen.DashOffset = ((dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : 
+                                                dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth;
+                                        }
                                     }
                                 }
-                                switch (this.StrokeLineJoin)
+                                switch (StrokeLineJoin)
                                 {
                                     case SvgStrokeLineJoin.Bevel:
                                         pen.LineJoin = LineJoin.Bevel;
@@ -325,8 +370,8 @@ namespace Svg
                                         pen.LineJoin = LineJoin.Miter;
                                         break;
                                 }
-                                pen.MiterLimit = this.StrokeMiterLimit;
-                                switch (this.StrokeLineCap)
+                                pen.MiterLimit = StrokeMiterLimit;
+                                switch (StrokeLineCap)
                                 {
                                     case SvgStrokeLineCap.Round:
                                         pen.StartCap = LineCap.Round;
