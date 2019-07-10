@@ -55,6 +55,9 @@
     <EmbeddedResource Include="Resources\Issue_Threading\TestFile.svg" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Issue508_DashArray\DashArray.svg" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Resources\Issue399_LexerIssue\LexerTestTemplate.svg" />
     <EmbeddedResource Include="Resources\Issue399_LexerIssue\EmptyDTag.svg" />
   </ItemGroup>
