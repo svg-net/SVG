@@ -412,7 +412,6 @@ namespace Svg
                             catch (Exception ex)
                             {
                                 Trace.TraceWarning(ex.Message);
-                                if (ExceptionCaughtIsGdiPlusRelated(ex)) { throw; } // GDI+ errors should be rethrown
                             }
                         }
                     }
