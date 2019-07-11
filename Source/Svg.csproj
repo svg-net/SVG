@@ -125,9 +125,9 @@
   </ItemGroup>
 
   <!-- Mac specific include -->
-  <!--ItemGroup>
+  <!-- <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.6.20" />
-  </ItemGroup-->
+  </ItemGroup> -->
 
   <ItemGroup>
     <Compile Remove=".\External\ExCSS\Parser.generated.cs" />
