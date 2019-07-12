@@ -6,7 +6,6 @@ using System.IO;
 
 namespace Svg.UnitTests
 {
-
     /// <summary>
     /// Test Class of rendering SVGs as metafile.
     /// Based on Issue 210.
@@ -21,13 +20,11 @@ namespace Svg.UnitTests
         protected override string TestResource { get { return GetFullResourceString("Issue210_Metafile.3DSceneSnapshotBIG.svg"); } }
         protected override int ExpectedSize { get { return 12500; } } //12896
 
-
         [Test]
         public void TestMetafileRendering()
         {
             LoadSvg(GetXMLDocFromResource());
         }
-
 
         protected override Image DrawSvg(SvgDocument svgDoc)
         {

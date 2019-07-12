@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 
 namespace Svg.UnitTests
 {
-
     /// <summary>
     /// Test Class of the feature to use Private Fonts in SVGs.
     /// Based on Issue 204.
@@ -22,14 +21,12 @@ namespace Svg.UnitTests
 
         protected override int ExpectedSize { get { return 3200; } } //3512
 
-
         [Test]
         public void TestPrivateFont()
         {
             AddFontFromResource(SvgElement.PrivateFonts, GetFullResourceString(PrivateFont));
             LoadSvg(GetXMLDocFromResource(GetFullResourceString(PrivateFontSvg)));
         }
-
 
         private void AddFontFromResource(PrivateFontCollection privateFontCollection, string fullFontResourceString)
         {

@@ -6,7 +6,6 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace Svg.UnitTests
 {
@@ -16,8 +15,8 @@ namespace Svg.UnitTests
     public class ImageComparisonTest
     {
         public TestContext TestContext { get; set; }
+
 #if NETCORE
-           
         /// <summary>
         /// Compares SVG images against reference PNG images from the W3C SVG 1.1 test suite.
         /// This tests 158 out of 179 passing tests - the rest will not pass
@@ -329,7 +328,7 @@ namespace Svg.UnitTests
             var assembly = typeof(ImageTestDataSource).Assembly;
             string resourceName = assembly.GetManifestResourceNames().FirstOrDefault(r => r.IndexOf(ResourceIdentifier) > -1);
             if(resourceName == null) { throw new Exception($"Cannot find data resource: {ResourceIdentifier}"); }
-            String res = "";
+            var res = string.Empty;
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             {
                 using (StreamReader reader = new StreamReader(stream))

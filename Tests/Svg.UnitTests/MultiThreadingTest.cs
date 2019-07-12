@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Svg.UnitTests
 {
-
     [TestFixture]
     public class MultiThreadingTest : SvgTestHelper
     {
@@ -18,13 +17,11 @@ namespace Svg.UnitTests
             LoadSvg(GetXMLDocFromResource());
         }
 
-
         [Test]
         public void LoadSVGThreading_SingleThread_YieldsNoError()
         {
             LoadFile();
         }
-
 
         [Test]
         public void LoadSVGThreading_MultiThread_YieldsNoErrorWhileInBounds()

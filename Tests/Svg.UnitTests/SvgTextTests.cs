@@ -7,7 +7,6 @@ namespace Svg.UnitTests
     [TestFixture]
     public class SvgTextTests
     {
-
         [Test]
         public void TextPropertyAffectsSvgOutput()
         {

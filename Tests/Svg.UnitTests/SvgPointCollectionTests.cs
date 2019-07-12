@@ -2,11 +2,9 @@
 
 namespace Svg.UnitTests
 {
-
     [TestFixture]
     public class SvgPointCollectionTests
     {
-
         [Test]
         public void ToStringReturnsValidString()
         {

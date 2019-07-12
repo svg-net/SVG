@@ -11,7 +11,6 @@ namespace Svg.UnitTests
 {
     public abstract class SvgTestHelper
     {
-
         /// <summary>
         /// Test file path.
         /// </summary>
@@ -25,7 +24,6 @@ namespace Svg.UnitTests
                 throw new NotImplementedException(msg);
             }
         }
-
 
         /// <summary>
         /// Full Unit Test resource string for test file. 
@@ -43,7 +41,6 @@ namespace Svg.UnitTests
             }
         }
 
-
         /// <summary>
         /// Expected size of svg file after drawing.
         /// </summary>
@@ -56,11 +53,6 @@ namespace Svg.UnitTests
                 throw new NotImplementedException(msg);
             }
         }
-
-
-
-
-
 
         /// <summary>
         /// Get full Unit Test resource string.
@@ -80,7 +72,6 @@ namespace Svg.UnitTests
                 resourcePath);
         }
 
-
         /// <summary>
         /// Get embedded resource as stream from Unit Test resources.
         /// </summary>
@@ -97,7 +88,6 @@ namespace Svg.UnitTests
             return s;
         }
 
-
         /// <summary>
         /// Get embedded resource as byte array from Unit Test resources.
         /// </summary>
@@ -112,7 +102,6 @@ namespace Svg.UnitTests
                 return resource;
             }
         }
-
 
         /// <summary>
         /// Get embedded resource as xml document from Unit Test resources.
@@ -161,7 +150,6 @@ namespace Svg.UnitTests
             return GetXMLDocFromFile(TestFile);
         }
 
-
         /// <summary>
         /// Get xml document from file.
         /// </summary>
@@ -202,7 +190,6 @@ namespace Svg.UnitTests
             return GetResourceXmlDoc(TestResource);
         }
 
-
         /// <summary>
         /// Get xml document from resource.
         /// </summary>
@@ -212,7 +199,6 @@ namespace Svg.UnitTests
         {
             return GetResourceXmlDoc(fullResourceString);
         }
-
 
         /// <summary>
         /// Load, draw and check svg file.
@@ -231,7 +217,6 @@ namespace Svg.UnitTests
             CheckSvg(svgDoc, img);
         }
 
-
         /// <summary>
         /// Open SVG document from XML document.
         /// </summary>
@@ -242,7 +227,6 @@ namespace Svg.UnitTests
             return SvgDocument.Open(xml);
         }
 
-
         /// <summary>
         /// Draw SVG.
         /// </summary>
@@ -252,7 +236,6 @@ namespace Svg.UnitTests
         {
             return svgDoc.Draw();
         }
-
 
         /// <summary>
         /// Check svg file data.
@@ -269,7 +252,6 @@ namespace Svg.UnitTests
             }
         }
 
-
         /// <summary>
         /// Compare Images.
         /// </summary>
@@ -281,7 +263,6 @@ namespace Svg.UnitTests
             float imgEqualPercentage; // To ignore.
             return ImagesAreEqual(img1, img2, out imgEqualPercentage);
         }
-
 
         /// <summary>
         /// Compare Images.
@@ -295,7 +276,6 @@ namespace Svg.UnitTests
             Bitmap imgDiff; // To ignore.
             return ImagesAreEqual(img1, img2, out imgEqualPercentage, out imgDiff);
         }
-
 
         /// <summary>
         /// Compare Images.

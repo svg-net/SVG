@@ -2,7 +2,6 @@
 
 namespace Svg.UnitTests
 {
-
     /// <summary>
     /// Some complexer stylesheets seemed to crash the lexer and result in errors (#399)
     /// Found several issues in the lexer and parser of the SVG file. 
@@ -16,7 +15,6 @@ namespace Svg.UnitTests
 
         private const string ResourceStringLexerTemplate = "Issue399_LexerIssue.LexerTestTemplate.svg";
         private const string LexerTemplateReplaceToken = "/*[REPLACE]*/";
-
 
         /// <summary>
         /// We encountered issues in the example file that were caused by an empty d tag in some of the elements
@@ -44,7 +42,6 @@ namespace Svg.UnitTests
         ///Reference test if there is an important after a non-hex value (should never fail) and on hex without an important
         /// </summary>
         [Test]
-           
         [TestCase("border-top: 1px solid #009c46;")] //Hex is working, if no !important suffixing it (#399)
         [TestCase("border-top: 1px solid red !important;")] //Important is not failing on non-hex value
         public void Lexer_NoImportantAndImportantAfterNonHex_Success(string testString)
