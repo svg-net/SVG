@@ -9,7 +9,7 @@ namespace Svg.UnitTests
     /// Tests that the deep copy of a <see cref="SvgText"/> is done correctly where the
     /// text element has contains only text and now other elements like <see cref="SvgTextSpan"/>.
     /// </summary>
-    /// <seealso cref="Svg.UnitTests.SvgTestHelper" />
+    /// <seealso cref="SvgTestHelper" />
     [TestFixture]
     public class SvgTextElementDeepCopyTest : SvgTestHelper
     {

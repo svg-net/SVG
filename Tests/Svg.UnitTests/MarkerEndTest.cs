@@ -7,7 +7,6 @@ using System.IO;
 
 namespace Svg.UnitTests
 {
-
     /// <summary>
     /// Test Class of rendering SVGs with marker-end elements.
     /// Based on Issue 212.
@@ -19,17 +18,14 @@ namespace Svg.UnitTests
     [TestFixture]
     public class MarkerEndTest : SvgTestHelper
     {
-
         protected override string TestResource { get { return GetFullResourceString("Issue212_MakerEnd.OperatingPlan.svg"); } }
         protected override int ExpectedSize { get { return 4300; } } // original image has 4314 bytes
-
 
         [Test]
         public void TestOperatingPlanRendering()
         {
             LoadSvg(GetXMLDocFromResource());
         }
-
 
         [Test]
         public void TestArrowCodeCreation()
@@ -99,6 +95,5 @@ namespace Svg.UnitTests
             var png = new FileInfo(file + ".png");
             if (png.Exists) png.Delete();
         }
-
     }
 }

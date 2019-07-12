@@ -2,7 +2,6 @@
 
 namespace Svg.UnitTests
 {
-
     /// <summary>
     /// Test Class of rendering SVGs with a large embedded image
     /// Based on Issue 225
