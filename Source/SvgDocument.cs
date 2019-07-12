@@ -189,6 +189,11 @@ namespace Svg
             {
                 return false;
             }
+            catch(Exception)
+            {
+                //If somehow another type of exception is raised by the ensure function we will let it bubble up, since that might indicate other issues/problems
+                throw;
+            }
             return true;
         }
 
@@ -210,8 +215,9 @@ namespace Svg
                 {
                     // Throw only the customized exception if we are sure GDI+ is causing the problem
                     throw new SvgGdiPlusCannotBeLoadedException(e);
-                }   
-                //Ignore any other form of error
+                }
+                //If the Matrix creation is causing another type of exception we should just raise that one
+                throw;   
             }
         }
 
