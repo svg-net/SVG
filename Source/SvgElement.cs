@@ -50,7 +50,6 @@ namespace Svg
 
         private Dictionary<string, SortedDictionary<int, string>> _styles = new Dictionary<string, SortedDictionary<int, string>>();
 
-
         public void AddStyle(string name, string value, int specificity)
         {
             SortedDictionary<int, string> rules;
@@ -59,25 +58,29 @@ namespace Svg
                 rules = new SortedDictionary<int, string>();
                 _styles[name] = rules;
             }
-            while (rules.ContainsKey(specificity)) specificity++;
+            while (rules.ContainsKey(specificity)) ++specificity;
             rules[specificity] = value;
         }
-        public void FlushStyles()
+
+        public void FlushStyles(bool children = false)
+        {
+            FlushStyles();
+            if (children)
+                foreach (var child in Children)
+                    child.FlushStyles(children);
+        }
+
+        private void FlushStyles()
         {
             if (_styles.Any())
             {
                 var styles = new Dictionary<string, SortedDictionary<int, string>>();
                 foreach (var s in _styles)
-                {
-                    if (!SvgElementFactory.SetPropertyValue(this, s.Key, s.Value.Last().Value, this.OwnerDocument, isStyle: true))
-                    {
+                    if (!SvgElementFactory.SetPropertyValue(this, s.Key, s.Value.Last().Value, OwnerDocument, true))
                         styles.Add(s.Key, s.Value);
-                    }
-                }
                 _styles = styles;
             }
         }
-
 
         public bool ContainsAttribute(string name)
         {

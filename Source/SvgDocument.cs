@@ -483,17 +483,8 @@ namespace Svg
                 }
             }
 
-            if (svgDocument != null) FlushStyles(svgDocument);
+            svgDocument?.FlushStyles(true);
             return svgDocument;
-        }
-
-        private static void FlushStyles(SvgElement elem)
-        {
-            elem.FlushStyles();
-            foreach (var child in elem.Children)
-            {
-                FlushStyles(child);
-            }
         }
 
         /// <summary>
