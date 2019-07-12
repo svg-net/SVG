@@ -596,8 +596,14 @@ namespace Svg
             }
 
             //add the custom attributes
+            var additionalStyleValue = string.Empty;
             foreach (var item in this._customAttributes)
             {
+                if (item.Key.Equals("style") && styles.Any())
+                {
+                    additionalStyleValue = item.Value;
+                    continue;
+                }
                 writer.WriteAttributeString(item.Key, item.Value);
             }
 
@@ -605,7 +611,7 @@ namespace Svg
             if (styles.Any())
             {
                 writer.WriteAttributeString("style", (from s in styles
-                                                      select s.Key + ":" + s.Value + ";").Aggregate((p, c) => p + c));
+                                                      select s.Key + ":" + s.Value + ";").Aggregate((p, c) => p + c) + additionalStyleValue);
             }
         }
 
