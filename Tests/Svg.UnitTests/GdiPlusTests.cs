@@ -18,9 +18,7 @@ namespace Svg.UnitTests
         [Test]
         public void GdiPlus_EnsureCapability_YieldsNoError()
         {
-            SvgDocument.EnsureSystemIsGdiPlusCapable();
-            //This should not cause problems
+            SvgDocument.EnsureSystemIsGdiPlusCapable(); //This call is a void, if everything works as expected, we won't get an exception and the test will finish.
         }
-
     }
 }
