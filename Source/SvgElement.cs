@@ -50,6 +50,12 @@ namespace Svg
 
         private Dictionary<string, SortedDictionary<int, string>> _styles = new Dictionary<string, SortedDictionary<int, string>>();
 
+        /// <summary>
+        /// Add style.
+        /// </summary>
+        /// <param name="name">The style name.</param>
+        /// <param name="value">The style value.</param>
+        /// <param name="specificity">The specificity value.</param>
         public void AddStyle(string name, string value, int specificity)
         {
             SortedDictionary<int, string> rules;
@@ -62,6 +68,10 @@ namespace Svg
             rules[specificity] = value;
         }
 
+        /// <summary>
+        /// Flush styles.
+        /// </summary>
+        /// <param name="children">If true, flush styles to the children.</param>
         public void FlushStyles(bool children = false)
         {
             FlushStyles();
