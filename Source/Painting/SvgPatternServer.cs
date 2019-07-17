@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -138,9 +139,9 @@ namespace Svg
             }
         }
 
-        private SvgUnit NormalizeUnit(SvgUnit orig)
+        private SvgUnit NormalizeUnit(SvgUnit orig, SvgCoordinateUnits patternUnits)
         {
-            return orig.Type == SvgUnitType.Percentage && PatternUnits == SvgCoordinateUnits.ObjectBoundingBox ?
+            return orig.Type == SvgUnitType.Percentage && patternUnits == SvgCoordinateUnits.ObjectBoundingBox ?
                 new SvgUnit(SvgUnitType.User, orig.Value / 100f) : orig;
         }
 
@@ -191,11 +192,11 @@ namespace Svg
                     var xScale = patternUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Width : 1f;
                     var yScale = patternUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Height : 1f;
 
-                    var x = xScale * NormalizeUnit(xUnit).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
-                    var y = yScale * NormalizeUnit(yUnit).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                    var x = xScale * NormalizeUnit(xUnit, patternUnits).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                    var y = yScale * NormalizeUnit(yUnit, patternUnits).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
 
-                    var width = xScale * NormalizeUnit(widthElem.Width).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
-                    var height = yScale * NormalizeUnit(heightElem.Height).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
+                    var width = xScale * NormalizeUnit(widthElem.Width, patternUnits).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
+                    var height = yScale * NormalizeUnit(heightElem.Height, patternUnits).ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
 
                     // Apply a scale if needed
                     patternMatrix.Scale((patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Width : 1) *
@@ -203,7 +204,7 @@ namespace Svg
                                         (patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox ? bounds.Height : 1) *
                                         (viewBox.Height > 0 ? height / viewBox.Height : 1), MatrixOrder.Prepend);
 
-                    var image = new Bitmap((int)width, (int)height);
+                    var image = new Bitmap((int)Math.Ceiling(width), (int)Math.Ceiling(height));
                     using (var iRenderer = SvgRenderer.FromImage(image))
                     {
                         iRenderer.SetBoundable((_patternContentUnits == SvgCoordinateUnits.ObjectBoundingBox) ? new GenericBoundable(0, 0, width, height) : renderer.GetBoundable());
@@ -217,7 +218,7 @@ namespace Svg
                             child.RenderElement(iRenderer);
                     }
 
-                    var textureBrush = new TextureBrush(image);
+                    var textureBrush = new TextureBrush(image, new RectangleF(0f, 0f, width, height));
                     var brushTransform = EffectivePatternTransform.Clone();
                     brushTransform.Translate(x, y, MatrixOrder.Append);
                     textureBrush.Transform = brushTransform;
@@ -226,7 +227,7 @@ namespace Svg
             }
             finally
             {
-                if (PatternUnits == SvgCoordinateUnits.ObjectBoundingBox)
+                if (patternUnits == SvgCoordinateUnits.ObjectBoundingBox)
                     renderer.PopBoundable();
             }
         }
