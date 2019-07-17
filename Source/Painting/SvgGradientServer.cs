@@ -9,7 +9,7 @@ namespace Svg
     /// <summary>
     /// Provides the base class for all paint servers that wish to render a gradient.
     /// </summary>
-    public abstract class SvgGradientServer : SvgPaintServer, ISvgSupportsCoordinateUnits
+    public abstract class SvgGradientServer : SvgPaintServer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgGradientServer"/> class.
@@ -214,11 +214,6 @@ namespace Svg
             newObj.GradientTransform = GradientTransform;
 
             return newObj;
-        }
-
-        public SvgCoordinateUnits GetUnits()
-        {
-            return GradientUnits;
         }
     }
 }
