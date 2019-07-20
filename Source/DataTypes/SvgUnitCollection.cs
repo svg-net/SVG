@@ -13,6 +13,8 @@ namespace Svg
     [TypeConverter(typeof(SvgUnitCollectionConverter))]
     public class SvgUnitCollection : ObservableCollection<SvgUnit>
     {
+        internal bool IsNull { get; set; }
+
         public void AddRange(IEnumerable<SvgUnit> collection)
         {
             if (collection == null)
@@ -81,7 +83,8 @@ namespace Svg
                     return null;
 
                 var units = new SvgUnitCollection();
-                if (!s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                units.IsNull = s.Equals("none", StringComparison.OrdinalIgnoreCase);
+                if (!units.IsNull)
                     foreach (var point in s.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries))
                     {
                         var newUnit = (SvgUnit)_unitConverter.ConvertFrom(point.Trim());
@@ -106,7 +109,11 @@ namespace Svg
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (value != null && destinationType == typeof(string))
+            {
+                if (((SvgUnitCollection)value).IsNull)
+                    return "none";
                 return ((SvgUnitCollection)value).ToString();
+            }
 
             return base.ConvertTo(context, culture, value, destinationType);
         }
