@@ -656,18 +656,22 @@ namespace Svg
                             var forceWrite = false;
                             var writeStyle = attr.Attribute.Name == "fill" || attr.Attribute.Name == "stroke";
 
-                            if (writeStyle && (Parent != null))
+                            if (Parent != null)
                             {
-                                if (propertyValue == SvgColourServer.NotSet) continue;
+                                if (writeStyle && propertyValue == SvgColourServer.NotSet)
+                                    continue;
 
                                 object parentValue;
                                 if (TryResolveParentAttributeValue(attr.Attribute.Name, out parentValue))
                                 {
                                     if ((parentValue == propertyValue)
                                         || ((parentValue != null) && parentValue.Equals(propertyValue)))
-                                        continue;
-
-                                    forceWrite = true;
+                                    {
+                                        if (writeStyle)
+                                            continue;
+                                    }
+                                    else
+                                        forceWrite = true;
                                 }
                             }
 
