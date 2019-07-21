@@ -14,11 +14,7 @@ namespace Svg
         public SvgNodeReader(XmlNode node, Dictionary<string, string> entities)
             : base(node)
         {
-            _entities = entities;
-            if (_entities == null)
-            {
-                _entities = new Dictionary<string, string>();
-            }
+            _entities = entities ?? new Dictionary<string, string>();
         }
 
         /// <summary>
