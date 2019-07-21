@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <IsTestProject>true</IsTestProject>
-    <TargetFrameworks>netcoreapp2.2;net452</TargetFrameworks>
+    <TargetFrameworks>net452</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
@@ -60,6 +60,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Issue399_LexerIssue\LexerTestTemplate.svg" />
     <EmbeddedResource Include="Resources\Issue399_LexerIssue\EmptyDTag.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Issue518_Entities\Entities.svg" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.1" />

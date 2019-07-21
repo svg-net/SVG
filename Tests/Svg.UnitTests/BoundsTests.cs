@@ -81,5 +81,17 @@ namespace Svg.UnitTests
             }
             return testDocument.GetElementById<SvgVisualElement>(elementId);
         }
+
+        [Test]
+        public void TestRenderSvg()
+        {
+            var svgDoc = SvgDocument.Open(@"c:\dev\GitHub\results\SVG\test_images\__issue-521-01.svg");
+            svgDoc.Fill = SvgPaintServer.None;
+            svgDoc.FillRule = SvgFillRule.NonZero;
+            var bitmap = svgDoc.Draw();
+            bitmap.Save(@"c:\dev\test\output.png");
+            svgDoc.Write(@"c:\dev\test\output.svg");
+        }
+
     }
 }

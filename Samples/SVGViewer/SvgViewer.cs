@@ -76,12 +76,14 @@ namespace SVGViewer
 
             //var render = new DebugRenderer();
             //svgDoc.Draw(render);
+            svgDoc.Fill = SvgPaintServer.None;
+            svgDoc.FillRule = SvgFillRule.NonZero;
             svgImage.Image = svgDoc.Draw();
 
             var baseUri = svgDoc.BaseUri;
             var outputDir = Path.GetDirectoryName(baseUri != null && baseUri.IsFile ? baseUri.LocalPath : Application.ExecutablePath);
             svgImage.Image.Save(Path.Combine(outputDir, "output.png"));
-            //svgDoc.Write(Path.Combine(outputDir, "output.svg"));
+            svgDoc.Write(Path.Combine(outputDir, "output.svg"));
         }
     }
 }
