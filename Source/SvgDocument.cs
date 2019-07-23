@@ -484,7 +484,7 @@ namespace Svg
                 }
             }
 
-            svgDocument?.FlushStyles();
+            svgDocument?.FlushStyles(true);
             return svgDocument;
         }
 
