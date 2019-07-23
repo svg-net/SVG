@@ -157,27 +157,27 @@ namespace Svg
                 curr = SvgDeferredPaintServer.TryGet<SvgPatternServer>(curr.InheritGradient, renderingElement);
             } while (curr != null);
 
-            var hasChildren = chain.Where(p => p.Children.Count > 0).FirstOrDefault();
-            if (hasChildren == null)
+            var firstChildren = chain.Where(p => p.Children.Count > 0).FirstOrDefault();
+            if (firstChildren == null)
                 return null;
-            var hasX = chain.Where(p => p.X != null && p.X != SvgUnit.None).FirstOrDefault();
-            var hasY = chain.Where(p => p.Y != null && p.Y != SvgUnit.None).FirstOrDefault();
-            var hasWidth = chain.Where(p => p.Width != null && p.Width != SvgUnit.None).FirstOrDefault();
-            var hasHeight = chain.Where(p => p.Height != null && p.Height != SvgUnit.None).FirstOrDefault();
-            if (hasWidth == null || hasHeight == null)
+            var firstX = chain.Where(p => p.X != null && p.X != SvgUnit.None).FirstOrDefault();
+            var firstY = chain.Where(p => p.Y != null && p.Y != SvgUnit.None).FirstOrDefault();
+            var firstWidth = chain.Where(p => p.Width != null && p.Width != SvgUnit.None).FirstOrDefault();
+            var firstHeight = chain.Where(p => p.Height != null && p.Height != SvgUnit.None).FirstOrDefault();
+            if (firstWidth == null || firstHeight == null)
                 return null;
-            var hasPatternUnit = chain.Where(p => p.PatternUnits != SvgCoordinateUnits.Inherit).FirstOrDefault();
-            var hasPatternContentUnit = chain.Where(p => p.PatternContentUnits != SvgCoordinateUnits.Inherit).FirstOrDefault();
-            var hasViewBox = chain.Where(p => p.ViewBox != null && p.ViewBox != SvgViewBox.Empty).FirstOrDefault();
+            var firstPatternUnit = chain.Where(p => p.PatternUnits != SvgCoordinateUnits.Inherit).FirstOrDefault();
+            var firstPatternContentUnit = chain.Where(p => p.PatternContentUnits != SvgCoordinateUnits.Inherit).FirstOrDefault();
+            var firstViewBox = chain.Where(p => p.ViewBox != null && p.ViewBox != SvgViewBox.Empty).FirstOrDefault();
 
-            var xUnit = hasX == null ? new SvgUnit(0f) : hasX.X;
-            var yUnit = hasY == null ? new SvgUnit(0f) : hasY.Y;
-            var widthUnit = hasWidth.Width;
-            var heightUnit = hasHeight.Height;
+            var xUnit = firstX == null ? new SvgUnit(0f) : firstX.X;
+            var yUnit = firstY == null ? new SvgUnit(0f) : firstY.Y;
+            var widthUnit = firstWidth.Width;
+            var heightUnit = firstHeight.Height;
 
-            var patternUnits = hasPatternUnit == null ? SvgCoordinateUnits.ObjectBoundingBox : hasPatternUnit.PatternUnits;
-            var patternContentUnits = hasPatternContentUnit == null ? SvgCoordinateUnits.UserSpaceOnUse : hasPatternContentUnit.PatternContentUnits;
-            var viewBox = hasViewBox == null ? SvgViewBox.Empty : hasViewBox.ViewBox;
+            var patternUnits = firstPatternUnit == null ? SvgCoordinateUnits.ObjectBoundingBox : firstPatternUnit.PatternUnits;
+            var patternContentUnits = firstPatternContentUnit == null ? SvgCoordinateUnits.UserSpaceOnUse : firstPatternContentUnit.PatternContentUnits;
+            var viewBox = firstViewBox == null ? SvgViewBox.Empty : firstViewBox.ViewBox;
 
             var isPatternObjectBoundingBox = patternUnits == SvgCoordinateUnits.ObjectBoundingBox;
             try
@@ -221,7 +221,7 @@ namespace Svg
                         tileRenderer.ScaleTransform(bounds.Width, bounds.Height);
                     }
 
-                    foreach (var child in hasChildren.Children)
+                    foreach (var child in firstChildren.Children)
                         child.RenderElement(tileRenderer);
                 }
 
