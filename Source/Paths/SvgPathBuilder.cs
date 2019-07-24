@@ -14,7 +14,7 @@ namespace Svg
     {
         public static string ToSvgString(this PointF p)
         {
-            return p.X.ToString() + " " + p.Y.ToString();
+            return p.X.ToString(CultureInfo.InvariantCulture) + " " + p.Y.ToString(CultureInfo.InvariantCulture);
         }
     }
 
