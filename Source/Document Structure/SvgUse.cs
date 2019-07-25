@@ -167,12 +167,12 @@ namespace Svg
                     }
 
                     var origParent = element.Parent;
-                    element._parent = this;
+                    element.Parent = this;
                     // as the new parent may have other styles that are inherited,
                     // we have to redraw the paths for the children
                     element.InvalidateChildPaths();
                     element.RenderElement(renderer);
-                    element._parent = origParent;
+                    element.Parent = origParent;
                 }
 
                 this.ResetClip(renderer);

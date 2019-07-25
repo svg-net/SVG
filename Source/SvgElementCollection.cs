@@ -65,7 +65,7 @@ namespace Svg
         {
             AddToIdManager(item, this._elements[index], autoForceUniqueID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Insert(index, item);
-            item._parent.OnElementAdded(item, index);
+            item.Parent.OnElementAdded(item, index);
         }
 
         public void RemoveAt(int index)
@@ -93,7 +93,7 @@ namespace Svg
         {
             AddToIdManager(item, null, autoForceUniqueID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Add(item);
-            item._parent.OnElementAdded(item, this.Count - 1);
+            item.Parent.OnElementAdded(item, this.Count - 1);
         }
 
         private void AddToIdManager(SvgElement item, SvgElement sibling, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
@@ -114,7 +114,7 @@ namespace Svg
                 }
 
                 //if all checked, set parent
-                item._parent = this._owner;
+                item.Parent = this._owner;
             }
         }
 
@@ -157,7 +157,7 @@ namespace Svg
 
                 if (!this._mock)
                 {
-                    item._parent = null;
+                    item.Parent = null;
 
                     if (this._owner.OwnerDocument != null)
                     {

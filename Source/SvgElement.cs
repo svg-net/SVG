@@ -36,7 +36,7 @@ namespace Svg
         private IEnumerable<PropertyAttributeTuple> _svgPropertyAttributes;
         private IEnumerable<EventAttributeTuple> _svgEventAttributes;
 
-        internal SvgElement _parent;
+        private SvgElement _parent;
         private string _elementName;
         private SvgAttributeCollection _attributes;
         private EventHandlerList _eventHandlers;
@@ -230,6 +230,7 @@ namespace Svg
         public virtual SvgElement Parent
         {
             get { return this._parent; }
+            set { this._parent = value; }
         }
 
         public IEnumerable<SvgElement> Parents
@@ -1348,7 +1349,7 @@ namespace Svg
 
     internal interface ISvgElement
     {
-        SvgElement Parent { get; }
+        SvgElement Parent { get; set; }
         SvgElementCollection Children { get; }
         IList<ISvgNode> Nodes { get; }
 
