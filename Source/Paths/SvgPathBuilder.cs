@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using Svg.Pathing;
 
 namespace Svg
@@ -482,18 +481,8 @@ namespace Svg
 
                 if (paths != null)
                 {
-                    var curretCulture = CultureInfo.CurrentCulture;
-                    try
-                    {
-                        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-                        var s = string.Join(" ", paths.Select(p => p.ToString()).ToArray());
-                        return s;
-                    }
-                    finally
-                    {
-                        // Make sure to set back the old culture even an error occurred.
-                        Thread.CurrentThread.CurrentCulture = curretCulture;
-                    }
+                    var s = string.Join(" ", paths.Select(p => p.ToString()).ToArray());
+                    return s;
                 }
             }
 
