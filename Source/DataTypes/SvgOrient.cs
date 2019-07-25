@@ -1,6 +1,7 @@
 using Svg.DataTypes;
 using System.ComponentModel;
 using System;
+using System.Globalization;
 
 namespace Svg
 {
@@ -103,7 +104,7 @@ namespace Svg
             if (this.IsAuto)
                 return this.IsAutoStartReverse ? "auto-start-reverse" : "auto";
             else
-                return this.Angle.ToString();
+                return this.Angle.ToString(CultureInfo.InvariantCulture);
         }
 
         ///// <summary>
