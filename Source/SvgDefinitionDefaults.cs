@@ -14,7 +14,7 @@ namespace Svg
                 { "SvgRadialGradientServer", new Dictionary<string, string>
                 { { "cx", "50%" }, { "cy", "50%" }, { "r", "50%" } } },
                 { "SvgLinearGradientServer", new Dictionary<string, string>
-                { { "x1", "0%" }, { "x2", "100%" }, { "y1", "0%" }, { "y2", "100%" } } },
+                { { "x1", "0%" }, { "x2", "100%" }, { "y1", "0%" }, { "y2", "0%" } } },
 
                 { "SvgFragment", new Dictionary<string, string>
                 { { "space", "default" } } },

@@ -6,38 +6,32 @@ namespace Svg.DataTypes
 {
     public sealed class SvgOrientConverter : TypeConverter
     {
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value == null)
-            {
-                return new SvgUnit(SvgUnitType.User, 0.0f);
-            }
+                return new SvgOrient();
 
             if (!(value is string))
-            {
                 throw new ArgumentOutOfRangeException("value must be a string.");
-            }
 
             switch (value.ToString())
             {
                 case "auto":
-                    return (new SvgOrient(true));
+                    return new SvgOrient(true);
                 case "auto-start-reverse":
-                    return (new SvgOrient(true, true));
+                    return new SvgOrient(true, true);
                 default:
-                    float fTmp = float.MinValue;
+                    float fTmp;
                     if (!float.TryParse(value.ToString(), out fTmp))
                         throw new ArgumentOutOfRangeException("value must be a valid float.");
-                    return (new SvgOrient(fTmp));
+                    return new SvgOrient(fTmp);
             }
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
-            {
                 return true;
-            }
 
             return base.CanConvertFrom(context, sourceType);
         }
@@ -45,9 +39,7 @@ namespace Svg.DataTypes
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
-            {
                 return true;
-            }
 
             return base.CanConvertTo(context, destinationType);
         }
