@@ -1,8 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Svg
 {
     [SvgElement("font-face")]
@@ -34,56 +29,6 @@ namespace Svg
         {
             get { return GetAttribute("descent", Inherited, Parent is SvgFont ? ((SvgFont)Parent).VertOriginY : 0f); }
             set { Attributes["descent"] = value; }
-        }
-
-        /// <summary>
-        /// Indicates which font family is to be used to render the text.
-        /// </summary>
-        [SvgAttribute("font-family")]
-        public override string FontFamily
-        {
-            get { return GetAttribute<string>("font-family", Inherited); }
-            set { Attributes["font-family"] = value; }
-        }
-
-        /// <summary>
-        /// Refers to the size of the font from baseline to baseline when multiple lines of text are set solid in a multiline layout environment.
-        /// </summary>
-        [SvgAttribute("font-size")]
-        public override SvgUnit FontSize
-        {
-            get { return GetAttribute("font-size", Inherited, SvgUnit.Empty); }
-            set { Attributes["font-size"] = value; }
-        }
-
-        /// <summary>
-        /// Refers to the style of the font.
-        /// </summary>
-        [SvgAttribute("font-style")]
-        public override SvgFontStyle FontStyle
-        {
-            get { return GetAttribute("font-style", Inherited, SvgFontStyle.All); }
-            set { Attributes["font-style"] = value; }
-        }
-
-        /// <summary>
-        /// Refers to the varient of the font.
-        /// </summary>
-        [SvgAttribute("font-variant")]
-        public override SvgFontVariant FontVariant
-        {
-            get { return GetAttribute("font-variant", Inherited, SvgFontVariant.Inherit); }
-            set { Attributes["font-variant"] = value; }
-        }
-
-        /// <summary>
-        /// Refers to the boldness of the font.
-        /// </summary>
-        [SvgAttribute("font-weight")]
-        public override SvgFontWeight FontWeight
-        {
-            get { return GetAttribute("font-weight", Inherited, SvgFontWeight.Inherit); }
-            set { Attributes["font-weight"] = value; }
         }
 
         [SvgAttribute("panose-1")]
