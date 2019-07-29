@@ -695,7 +695,7 @@ namespace Svg
                             if (propertyValue != null)
                             {
                                 //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
-                                if (forceWrite || (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value)))
+                                if (forceWrite || !string.IsNullOrEmpty(value))
                                 {
                                     if (writeStyle)
                                     {
@@ -742,7 +742,7 @@ namespace Svg
                     {
                         opacity = (float)Math.Round(opacity, 2, MidpointRounding.AwayFromZero);
                         var value = (string)attr.Property.Converter.ConvertTo(opacity, typeof(string));
-                        if (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value))
+                        if (!string.IsNullOrEmpty(value))
                             writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
                     }
                 }
