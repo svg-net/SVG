@@ -927,7 +927,11 @@ namespace Svg
 
                         // Non-group element can have child element which we have to consider. i.e tspan in text element
                         if (child.Children.Count > 0)
-                            childPath.AddPath(GetPaths(child, renderer), false);
+                        {
+                            var descendantPath = GetPaths(child, renderer);
+                            if (descendantPath != null && descendantPath.PointCount > 0)
+                                childPath.AddPath(descendantPath, false);
+                        }
 
                         if (childPath.PointCount > 0)
                         {
