@@ -912,7 +912,7 @@ namespace Svg
                     if (child is SvgGroup)
                     {
                         var childPath = GetPaths(child, renderer);
-                        if (childPath != null && childPath.PointCount > 0)
+                        if (childPath.PointCount > 0)
                         {
                             if (child.Transforms != null)
                                 childPath.Transform(child.Transforms.GetMatrix());
@@ -929,7 +929,7 @@ namespace Svg
                         if (child.Children.Count > 0)
                         {
                             var descendantPath = GetPaths(child, renderer);
-                            if (descendantPath != null && descendantPath.PointCount > 0)
+                            if (descendantPath.PointCount > 0)
                                 childPath.AddPath(descendantPath, false);
                         }
 
