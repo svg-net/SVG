@@ -909,17 +909,11 @@ namespace Svg
             {
                 if (child is SvgVisualElement)
                 {
-                    if (!(child is SvgGroup))
+                    if (child is SvgGroup)
                     {
-                        var childPath = ((SvgVisualElement)child).Path(renderer);
-
-                        // Non-group element can have child element which we have to consider. i.e tspan in text element
-                        if (child.Children.Count > 0)
-                            childPath.AddPath(GetPaths(child, renderer), false);
-
-                        if (childPath != null && childPath.PointCount > 0)
+                        var childPath = GetPaths(child, renderer);
+                        if (childPath.PointCount > 0)
                         {
-                            childPath = (GraphicsPath)childPath.Clone();
                             if (child.Transforms != null)
                                 childPath.Transform(child.Transforms.GetMatrix());
 
@@ -928,8 +922,18 @@ namespace Svg
                     }
                     else
                     {
-                        var childPath = GetPaths(child, renderer);
-                        if (childPath != null && childPath.PointCount > 0)
+                        var childPath = ((SvgVisualElement)child).Path(renderer);
+                        childPath = childPath != null ? (GraphicsPath)childPath.Clone() : new GraphicsPath();
+
+                        // Non-group element can have child element which we have to consider. i.e tspan in text element
+                        if (child.Children.Count > 0)
+                        {
+                            var descendantPath = GetPaths(child, renderer);
+                            if (descendantPath.PointCount > 0)
+                                childPath.AddPath(descendantPath, false);
+                        }
+
+                        if (childPath.PointCount > 0)
                         {
                             if (child.Transforms != null)
                                 childPath.Transform(child.Transforms.GetMatrix());
@@ -938,7 +942,6 @@ namespace Svg
                         }
                     }
                 }
-
             }
 
             return ret;
