@@ -53,7 +53,8 @@ namespace Svg
             if (SystemFonts.TryGetValue(name.ToLower(), out ff)) return ff;
             if (FontLoaderCallback == null) return null;
             var ff2 = FontLoaderCallback(name);
-            SystemFonts.Add(name.ToLower(), ff2);
+            if (ff2 != null)
+                SystemFonts.Add(name.ToLower(), ff2);
             return ff2;
         }
     }
