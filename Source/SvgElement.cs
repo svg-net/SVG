@@ -327,12 +327,13 @@ namespace Svg
             // Return if there are no transforms
             if (transforms == null || transforms.Count == 0)
                 return true;
-            if (transforms.Count == 1 && transforms[0].Matrix.Equals(_zeroMatrix))
-                return false;
 
             var graphicsTransform = _graphicsTransform.Clone();
             foreach (var transform in transforms)
                 graphicsTransform.Multiply(transform.Matrix);
+
+            if (_zeroMatrix.Equals(graphicsTransform))
+                return false;
             renderer.Transform = graphicsTransform;
 
             return true;
