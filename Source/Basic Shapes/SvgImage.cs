@@ -132,97 +132,98 @@ namespace Svg
                 return;
             try
             {
-                RectangleF srcRect;
-                if (bmp != null)
-                    srcRect = new RectangleF(0f, 0f, bmp.Width, bmp.Height);
-                else
-                    srcRect = new RectangleF(new PointF(0f, 0f), svg.GetDimensions());
-
-                var destClip = new RectangleF(Location.ToDeviceValue(renderer, this),
-                                              new SizeF(Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                                        Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this)));
-                var destRect = destClip;
-
-                PushTransforms(renderer);
-                renderer.SetClip(new Region(destClip), CombineMode.Intersect);
-                SetClip(renderer);
-
-                var aspectRatio = AspectRatio;
-                if (aspectRatio.Align != SvgPreserveAspectRatio.none)
+                if (PushTransforms(renderer))
                 {
-                    var fScaleX = destClip.Width / srcRect.Width;
-                    var fScaleY = destClip.Height / srcRect.Height;
-                    var xOffset = 0f;
-                    var yOffset = 0f;
+                    RectangleF srcRect;
+                    if (bmp != null)
+                        srcRect = new RectangleF(0f, 0f, bmp.Width, bmp.Height);
+                    else
+                        srcRect = new RectangleF(new PointF(0f, 0f), svg.GetDimensions());
 
-                    if (aspectRatio.Slice)
+                    var destClip = new RectangleF(Location.ToDeviceValue(renderer, this),
+                                                  new SizeF(Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                                                            Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this)));
+                    var destRect = destClip;
+                    renderer.SetClip(new Region(destClip), CombineMode.Intersect);
+                    SetClip(renderer);
+
+                    var aspectRatio = AspectRatio;
+                    if (aspectRatio.Align != SvgPreserveAspectRatio.none)
                     {
-                        fScaleX = Math.Max(fScaleX, fScaleY);
-                        fScaleY = Math.Max(fScaleX, fScaleY);
+                        var fScaleX = destClip.Width / srcRect.Width;
+                        var fScaleY = destClip.Height / srcRect.Height;
+                        var xOffset = 0f;
+                        var yOffset = 0f;
+
+                        if (aspectRatio.Slice)
+                        {
+                            fScaleX = Math.Max(fScaleX, fScaleY);
+                            fScaleY = Math.Max(fScaleX, fScaleY);
+                        }
+                        else
+                        {
+                            fScaleX = Math.Min(fScaleX, fScaleY);
+                            fScaleY = Math.Min(fScaleX, fScaleY);
+                        }
+
+                        switch (aspectRatio.Align)
+                        {
+                            case SvgPreserveAspectRatio.xMinYMin:
+                                break;
+                            case SvgPreserveAspectRatio.xMidYMin:
+                                xOffset = (destClip.Width - srcRect.Width * fScaleX) / 2;
+                                break;
+                            case SvgPreserveAspectRatio.xMaxYMin:
+                                xOffset = (destClip.Width - srcRect.Width * fScaleX);
+                                break;
+                            case SvgPreserveAspectRatio.xMinYMid:
+                                yOffset = (destClip.Height - srcRect.Height * fScaleY) / 2;
+                                break;
+                            case SvgPreserveAspectRatio.xMidYMid:
+                                xOffset = (destClip.Width - srcRect.Width * fScaleX) / 2;
+                                yOffset = (destClip.Height - srcRect.Height * fScaleY) / 2;
+                                break;
+                            case SvgPreserveAspectRatio.xMaxYMid:
+                                xOffset = (destClip.Width - srcRect.Width * fScaleX);
+                                yOffset = (destClip.Height - srcRect.Height * fScaleY) / 2;
+                                break;
+                            case SvgPreserveAspectRatio.xMinYMax:
+                                yOffset = (destClip.Height - srcRect.Height * fScaleY);
+                                break;
+                            case SvgPreserveAspectRatio.xMidYMax:
+                                xOffset = (destClip.Width - srcRect.Width * fScaleX) / 2;
+                                yOffset = (destClip.Height - srcRect.Height * fScaleY);
+                                break;
+                            case SvgPreserveAspectRatio.xMaxYMax:
+                                xOffset = (destClip.Width - srcRect.Width * fScaleX);
+                                yOffset = (destClip.Height - srcRect.Height * fScaleY);
+                                break;
+                        }
+
+                        destRect = new RectangleF(destClip.X + xOffset, destClip.Y + yOffset,
+                                                  srcRect.Width * fScaleX, srcRect.Height * fScaleY);
+                    }
+
+                    if (bmp != null)
+                    {
+                        if (Opacity == 1f)
+                            renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel);
+                        else
+                            renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel, Opacity);
                     }
                     else
                     {
-                        fScaleX = Math.Min(fScaleX, fScaleY);
-                        fScaleY = Math.Min(fScaleX, fScaleY);
+                        var currOffset = new PointF(renderer.Transform.OffsetX, renderer.Transform.OffsetY);
+                        renderer.TranslateTransform(-currOffset.X, -currOffset.Y);
+                        renderer.ScaleTransform(destRect.Width / srcRect.Width, destRect.Height / srcRect.Height);
+                        renderer.TranslateTransform(currOffset.X + destRect.X, currOffset.Y + destRect.Y);
+                        renderer.SetBoundable(new GenericBoundable(srcRect));
+                        svg.RenderElement(renderer);
+                        renderer.PopBoundable();
                     }
 
-                    switch (aspectRatio.Align)
-                    {
-                        case SvgPreserveAspectRatio.xMinYMin:
-                            break;
-                        case SvgPreserveAspectRatio.xMidYMin:
-                            xOffset = (destClip.Width - srcRect.Width * fScaleX) / 2;
-                            break;
-                        case SvgPreserveAspectRatio.xMaxYMin:
-                            xOffset = (destClip.Width - srcRect.Width * fScaleX);
-                            break;
-                        case SvgPreserveAspectRatio.xMinYMid:
-                            yOffset = (destClip.Height - srcRect.Height * fScaleY) / 2;
-                            break;
-                        case SvgPreserveAspectRatio.xMidYMid:
-                            xOffset = (destClip.Width - srcRect.Width * fScaleX) / 2;
-                            yOffset = (destClip.Height - srcRect.Height * fScaleY) / 2;
-                            break;
-                        case SvgPreserveAspectRatio.xMaxYMid:
-                            xOffset = (destClip.Width - srcRect.Width * fScaleX);
-                            yOffset = (destClip.Height - srcRect.Height * fScaleY) / 2;
-                            break;
-                        case SvgPreserveAspectRatio.xMinYMax:
-                            yOffset = (destClip.Height - srcRect.Height * fScaleY);
-                            break;
-                        case SvgPreserveAspectRatio.xMidYMax:
-                            xOffset = (destClip.Width - srcRect.Width * fScaleX) / 2;
-                            yOffset = (destClip.Height - srcRect.Height * fScaleY);
-                            break;
-                        case SvgPreserveAspectRatio.xMaxYMax:
-                            xOffset = (destClip.Width - srcRect.Width * fScaleX);
-                            yOffset = (destClip.Height - srcRect.Height * fScaleY);
-                            break;
-                    }
-
-                    destRect = new RectangleF(destClip.X + xOffset, destClip.Y + yOffset,
-                                              srcRect.Width * fScaleX, srcRect.Height * fScaleY);
+                    ResetClip(renderer);
                 }
-
-                if (bmp != null)
-                {
-                    if (Opacity == 1f)
-                        renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel);
-                    else
-                        renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel, Opacity);
-                }
-                else
-                {
-                    var currOffset = new PointF(renderer.Transform.OffsetX, renderer.Transform.OffsetY);
-                    renderer.TranslateTransform(-currOffset.X, -currOffset.Y);
-                    renderer.ScaleTransform(destRect.Width / srcRect.Width, destRect.Height / srcRect.Height);
-                    renderer.TranslateTransform(currOffset.X + destRect.X, currOffset.Y + destRect.Y);
-                    renderer.SetBoundable(new GenericBoundable(srcRect));
-                    svg.RenderElement(renderer);
-                    renderer.PopBoundable();
-                }
-
-                ResetClip(renderer);
             }
             finally
             {

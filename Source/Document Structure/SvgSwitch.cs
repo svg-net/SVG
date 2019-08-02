@@ -63,10 +63,12 @@ namespace Svg
 
             try
             {
-                PushTransforms(renderer);
-                SetClip(renderer);
-                base.RenderChildren(renderer);
-                ResetClip(renderer);
+                if (PushTransforms(renderer))
+                {
+                    SetClip(renderer);
+                    base.RenderChildren(renderer);
+                    ResetClip(renderer);
+                }
             }
             finally
             {

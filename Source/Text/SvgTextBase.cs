@@ -268,37 +268,39 @@ namespace Svg
             {
                 try
                 {
-                    PushTransforms(renderer);
-                    SetClip(renderer);
-
-                    var opacity = Math.Min(Math.Max(Opacity, 0), 1);
-                    if (opacity == 1f)
+                    if (PushTransforms(renderer))
                     {
-                        RenderFillAndStroke(renderer);
-                        RenderChildren(renderer);
-                    }
-                    else
-                    {
-                        IsPathDirty = true;
-                        var bounds = Bounds;
-                        IsPathDirty = true;
+                        SetClip(renderer);
 
-                        using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                        var opacity = Math.Min(Math.Max(Opacity, 0), 1);
+                        if (opacity == 1f)
                         {
-                            using (var canvasRenderer = SvgRenderer.FromImage(canvas))
-                            {
-                                canvasRenderer.SetBoundable(renderer.GetBoundable());
-                                canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
-
-                                RenderFillAndStroke(canvasRenderer);
-                                RenderChildren(canvasRenderer);
-                            }
-                            var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
-                            renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                            RenderFillAndStroke(renderer);
+                            RenderChildren(renderer);
                         }
-                    }
+                        else
+                        {
+                            IsPathDirty = true;
+                            var bounds = Bounds;
+                            IsPathDirty = true;
 
-                    ResetClip(renderer);
+                            using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                            {
+                                using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                                {
+                                    canvasRenderer.SetBoundable(renderer.GetBoundable());
+                                    canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+
+                                    RenderFillAndStroke(canvasRenderer);
+                                    RenderChildren(canvasRenderer);
+                                }
+                                var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                                renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                            }
+                        }
+
+                        ResetClip(renderer);
+                    }
                 }
                 finally
                 {
