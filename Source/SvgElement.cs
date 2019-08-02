@@ -328,12 +328,14 @@ namespace Svg
             if (transforms == null || transforms.Count == 0)
                 return true;
 
-            var graphicsTransform = _graphicsTransform.Clone();
+            var transformMatrix = new Matrix();
             foreach (var transform in transforms)
-                graphicsTransform.Multiply(transform.Matrix);
-
-            if (_zeroMatrix.Equals(graphicsTransform))
+                transformMatrix.Multiply(transform.Matrix);
+            if (_zeroMatrix.Equals(transformMatrix))
                 return false;
+
+            var graphicsTransform = _graphicsTransform.Clone();
+            graphicsTransform.Multiply(transformMatrix);
             renderer.Transform = graphicsTransform;
 
             return true;
