@@ -42,11 +42,10 @@ namespace Svg
         private EventHandlerList _eventHandlers;
         private SvgElementCollection _children;
         private static readonly object _loadEventKey = new object();
+        private Matrix _graphicsTransform;
         private Region _graphicsClip;
-        private Matrix _graphicsMatrix;
         private SvgCustomAttributeCollection _customAttributes;
         private List<ISvgNode> _nodes = new List<ISvgNode>();
-
 
         private Dictionary<string, SortedDictionary<int, string>> _styles = new Dictionary<string, SortedDictionary<int, string>>();
 
@@ -321,24 +320,23 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
         protected internal virtual bool PushTransforms(ISvgRenderer renderer)
         {
-            _graphicsMatrix = renderer.Transform;
+            _graphicsTransform = renderer.Transform;
             _graphicsClip = renderer.GetClip();
 
+            var transforms = Transforms;
             // Return if there are no transforms
-            if (this.Transforms == null || this.Transforms.Count == 0)
-            {
+            if (transforms == null || transforms.Count == 0)
                 return true;
-            }
-            if (this.Transforms.Count == 1 && this.Transforms[0].Matrix.Equals(_zeroMatrix)) return false;
 
-            Matrix transformMatrix = renderer.Transform.Clone();
+            var transformMatrix = new Matrix();
+            foreach (var transform in transforms)
+                transformMatrix.Multiply(transform.Matrix);
+            if (_zeroMatrix.Equals(transformMatrix))
+                return false;
 
-            foreach (SvgTransform transformation in this.Transforms)
-            {
-                transformMatrix.Multiply(transformation.Matrix);
-            }
-
-            renderer.Transform = transformMatrix;
+            var graphicsTransform = _graphicsTransform.Clone();
+            graphicsTransform.Multiply(transformMatrix);
+            renderer.Transform = graphicsTransform;
 
             return true;
         }
@@ -349,8 +347,8 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> that should have transforms removed.</param>
         protected internal virtual void PopTransforms(ISvgRenderer renderer)
         {
-            renderer.Transform = _graphicsMatrix;
-            _graphicsMatrix = null;
+            renderer.Transform = _graphicsTransform;
+            _graphicsTransform = null;
             renderer.SetClip(_graphicsClip);
             _graphicsClip = null;
         }
@@ -361,7 +359,7 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
         void ISvgTransformable.PushTransforms(ISvgRenderer renderer)
         {
-            this.PushTransforms(renderer);
+            PushTransforms(renderer);
         }
 
         /// <summary>
@@ -370,7 +368,7 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> that should have transforms removed.</param>
         void ISvgTransformable.PopTransforms(ISvgRenderer renderer)
         {
-            this.PopTransforms(renderer);
+            PopTransforms(renderer);
         }
 
         /// <summary>
@@ -553,7 +551,6 @@ namespace Svg
         {
             throw new NotImplementedException();
         }
-
 
         /// <summary>
         /// Renders this element to the <see cref="ISvgRenderer"/>.
@@ -834,9 +831,15 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected virtual void Render(ISvgRenderer renderer)
         {
-            this.PushTransforms(renderer);
-            this.RenderChildren(renderer);
-            this.PopTransforms(renderer);
+            try
+            {
+                PushTransforms(renderer);
+                RenderChildren(renderer);
+            }
+            finally
+            {
+                PopTransforms(renderer);
+            }
         }
 
         /// <summary>
@@ -1203,7 +1206,6 @@ namespace Svg
             }
         }
 
-
         //scroll
         protected void OnMouseScroll(int scroll, bool ctrlKey, bool shiftKey, bool altKey, string sessionID)
         {
@@ -1226,7 +1228,6 @@ namespace Svg
     {
         public string SessionID;
     }
-
 
     /// <summary>
     /// Describes the Attribute which was set

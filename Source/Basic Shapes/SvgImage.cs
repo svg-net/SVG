@@ -126,26 +126,24 @@ namespace Svg
                 return;
 
             var img = GetImage(Href);
-            if (img != null)
+            var bmp = img as Image;
+            var svg = img as SvgFragment;
+            if (bmp == null && svg == null)
+                return;
+            try
             {
-                var bmp = img as Image;
-                var svg = img as SvgFragment;
-                try
+                if (PushTransforms(renderer))
                 {
                     RectangleF srcRect;
                     if (bmp != null)
                         srcRect = new RectangleF(0f, 0f, bmp.Width, bmp.Height);
-                    else if (svg != null)
-                        srcRect = new RectangleF(new PointF(0f, 0f), svg.GetDimensions());
                     else
-                        return;
+                        srcRect = new RectangleF(new PointF(0f, 0f), svg.GetDimensions());
 
                     var destClip = new RectangleF(Location.ToDeviceValue(renderer, this),
                                                   new SizeF(Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
                                                             Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this)));
                     var destRect = destClip;
-
-                    PushTransforms(renderer);
                     renderer.SetClip(new Region(destClip), CombineMode.Intersect);
                     SetClip(renderer);
 
@@ -225,13 +223,14 @@ namespace Svg
                     }
 
                     ResetClip(renderer);
-                    PopTransforms(renderer);
                 }
-                finally
-                {
-                    if (bmp != null)
-                        bmp.Dispose();
-                }
+            }
+            finally
+            {
+                PopTransforms(renderer);
+
+                if (bmp != null)
+                    bmp.Dispose();
             }
             // TODO: cache images... will need a shared context for this
         }

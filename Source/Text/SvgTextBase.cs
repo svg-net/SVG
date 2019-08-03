@@ -264,40 +264,48 @@ namespace Svg
         /// <remarks>Necessary to make sure that any internal tspan elements get rendered as well</remarks>
         protected override void Render(ISvgRenderer renderer)
         {
-            if ((this.Path(renderer) != null) && this.Visible && this.Displayable)
+            if ((Path(renderer) != null) && Visible && Displayable)
             {
-                this.PushTransforms(renderer);
-                this.SetClip(renderer);
-
-                var opacity = Math.Min(Math.Max(this.Opacity, 0), 1);
-                if (opacity == 1f)
+                try
                 {
-                    this.RenderFillAndStroke(renderer);
-                    this.RenderChildren(renderer);
-                }
-                else
-                {
-                    IsPathDirty = true;
-                    var bounds = this.Bounds;
-                    IsPathDirty = true;
-
-                    using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                    if (PushTransforms(renderer))
                     {
-                        using (var canvasRenderer = SvgRenderer.FromImage(canvas))
-                        {
-                            canvasRenderer.SetBoundable(renderer.GetBoundable());
-                            canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+                        SetClip(renderer);
 
-                            this.RenderFillAndStroke(canvasRenderer);
-                            this.RenderChildren(canvasRenderer);
+                        var opacity = Math.Min(Math.Max(Opacity, 0), 1);
+                        if (opacity == 1f)
+                        {
+                            RenderFillAndStroke(renderer);
+                            RenderChildren(renderer);
                         }
-                        var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
-                        renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                        else
+                        {
+                            IsPathDirty = true;
+                            var bounds = Bounds;
+                            IsPathDirty = true;
+
+                            using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                            {
+                                using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                                {
+                                    canvasRenderer.SetBoundable(renderer.GetBoundable());
+                                    canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+
+                                    RenderFillAndStroke(canvasRenderer);
+                                    RenderChildren(canvasRenderer);
+                                }
+                                var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                                renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                            }
+                        }
+
+                        ResetClip(renderer);
                     }
                 }
-
-                this.ResetClip(renderer);
-                this.PopTransforms(renderer);
+                finally
+                {
+                    PopTransforms(renderer);
+                }
             }
         }
 
