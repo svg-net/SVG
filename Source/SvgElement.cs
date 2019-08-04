@@ -283,7 +283,7 @@ namespace Svg
         /// <summary>
         /// Gets a collection of element attributes.
         /// </summary>
-        protected internal virtual SvgAttributeCollection Attributes
+        public virtual SvgAttributeCollection Attributes
         {
             get
             {
