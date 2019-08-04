@@ -156,8 +156,9 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
         protected internal override bool PushTransforms(ISvgRenderer renderer)
         {
-            if (!base.PushTransforms(renderer)) return false;
-            this.ViewBox.AddViewBoxTransform(this.AspectRatio, renderer, this);
+            if (!base.PushTransforms(renderer))
+                return false;
+            ViewBox.AddViewBoxTransform(AspectRatio, renderer, this);
             return true;
         }
 

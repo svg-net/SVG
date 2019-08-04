@@ -61,11 +61,19 @@ namespace Svg
             if (!Visible || !Displayable)
                 return;
 
-            this.PushTransforms(renderer);
-            this.SetClip(renderer);
-            base.RenderChildren(renderer);
-            this.ResetClip(renderer);
-            this.PopTransforms(renderer);
+            try
+            {
+                if (PushTransforms(renderer))
+                {
+                    SetClip(renderer);
+                    base.RenderChildren(renderer);
+                    ResetClip(renderer);
+                }
+            }
+            finally
+            {
+                PopTransforms(renderer);
+            }
         }
 
         public override SvgElement DeepCopy()

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="140">
+<switch transform="matrix(0 0 0 0 0 0)">
+<text x="10" y="20">Switch</text>
+</switch>
+<text x="10" y="40" transform="matrix(0 0 0 0 0 0)">Text</text>
+<image x="10" y="50" xlink:href="../images/smiley.png" width="80" height="80" transform="matrix(0 0 0 0 0 0)" />
+</svg>

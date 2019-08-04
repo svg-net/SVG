@@ -1,10 +1,10 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using Svg.FilterEffects;
-using System.Globalization;
 
 namespace Svg
 {
@@ -133,45 +133,53 @@ namespace Svg
 
         private void Render(ISvgRenderer renderer, bool renderFilter)
         {
-            if (this.Visible && this.Displayable && this.PushTransforms(renderer) &&
-                (!this.Renderable || this.Path(renderer) != null))
+            if (Visible && Displayable && (!Renderable || Path(renderer) != null))
             {
-                if (!(renderFilter && this.RenderFilter(renderer)))
+                if (!(renderFilter && RenderFilter(renderer)))
                 {
-                    this.SetClip(renderer);
-
-                    if (this.Renderable)
+                    try
                     {
-                        var opacity = Math.Min(Math.Max(this.Opacity, 0), 1);
-                        if (opacity == 1f)
-                            this.RenderFillAndStroke(renderer);
-                        else
+                        if (PushTransforms(renderer))
                         {
-                            IsPathDirty = true;
-                            var bounds = this.Bounds;
-                            IsPathDirty = true;
+                            SetClip(renderer);
 
-                            using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                            if (Renderable)
                             {
-                                using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                                var opacity = Math.Min(Math.Max(Opacity, 0), 1);
+                                if (opacity == 1f)
+                                    RenderFillAndStroke(renderer);
+                                else
                                 {
-                                    canvasRenderer.SetBoundable(renderer.GetBoundable());
-                                    canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+                                    IsPathDirty = true;
+                                    var bounds = Bounds;
+                                    IsPathDirty = true;
 
-                                    this.RenderFillAndStroke(canvasRenderer);
+                                    using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                                    {
+                                        using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                                        {
+                                            canvasRenderer.SetBoundable(renderer.GetBoundable());
+                                            canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+
+                                            RenderFillAndStroke(canvasRenderer);
+                                        }
+                                        var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                                        renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                                    }
                                 }
-                                var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
-                                renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
                             }
+                            else
+                            {
+                                base.RenderChildren(renderer);
+                            }
+
+                            ResetClip(renderer);
                         }
                     }
-                    else
+                    finally
                     {
-                        base.RenderChildren(renderer);
+                        PopTransforms(renderer);
                     }
-
-                    this.ResetClip(renderer);
-                    this.PopTransforms(renderer);
                 }
             }
         }
@@ -180,16 +188,15 @@ namespace Svg
         {
             var rendered = false;
 
-            var filterPath = this.Filter;
+            var filterPath = Filter;
             if (filterPath != null)
             {
-                var element = this.OwnerDocument.IdManager.GetElementById(filterPath);
+                var element = OwnerDocument.IdManager.GetElementById(filterPath);
                 if (element is SvgFilter)
                 {
-                    this.PopTransforms(renderer);
                     try
                     {
-                        ((SvgFilter)element).ApplyFilter(this, renderer, (r) => this.Render(r, false));
+                        ((SvgFilter)element).ApplyFilter(this, renderer, (r) => Render(r, false));
                     }
                     catch (Exception ex)
                     {
