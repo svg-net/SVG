@@ -60,15 +60,11 @@ namespace Svg
             var path = this.OwnerDocument.IdManager.GetElementById(this.ReferencedPath) as SvgVisualElement;
             if (path == null) return null;
             var pathData = (GraphicsPath)path.Path(renderer).Clone();
-            if (path.Transforms.Count > 0)
+            if (path.Transforms != null && path.Transforms.Count > 0)
             {
-                Matrix transformMatrix = new Matrix(1, 0, 0, 1, 0, 0);
-
+                var transformMatrix = new Matrix(1, 0, 0, 1, 0, 0);
                 foreach (var transformation in path.Transforms)
-                {
                     transformMatrix.Multiply(transformation.Matrix);
-                }
-
                 pathData.Transform(transformMatrix);
             }
             return pathData;
