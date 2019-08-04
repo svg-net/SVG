@@ -180,22 +180,12 @@ namespace Svg
                             element._parent = origParent;
                         }
 
-<<<<<<< HEAD
-                    var origParent = element.Parent;
-                    element.Parent = this;
-                    // as the new parent may have other styles that are inherited,
-                    // we have to redraw the paths for the children
-                    element.InvalidateChildPaths();
-                    element.RenderElement(renderer);
-                    element.Parent = origParent;
-=======
                         ResetClip(renderer);
                     }
                 }
                 finally
                 {
                     PopTransforms(renderer);
->>>>>>> 3247467b8342d1ec4305d147dd1a64789b528c72
                 }
             }
         }
