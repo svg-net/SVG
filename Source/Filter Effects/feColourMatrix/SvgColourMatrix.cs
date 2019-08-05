@@ -87,7 +87,7 @@ namespace Svg.FilterEffects
                     };
                     break;
                 default: // Matrix
-                    var parts = this.Values.Replace("  ", " ").Split(new char[] { ' ', '\t', '\n', '\r', ',' });
+                    var parts = this.Values.Split(new char[] { ' ', '\t', '\n', '\r', ',' }, StringSplitOptions.RemoveEmptyEntries);
                     colorMatrixElements = new float[5][];
                     for (int i = 0; i < 4; i++)
                     {
