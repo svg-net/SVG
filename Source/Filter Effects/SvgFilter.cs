@@ -78,10 +78,9 @@ namespace Svg.FilterEffects
         private Matrix GetTransform(SvgVisualElement element)
         {
             var transformMatrix = new Matrix();
-            foreach (var transformation in element.Transforms)
-            {
-                transformMatrix.Multiply(transformation.Matrix);
-            }
+            if (element.Transforms != null)
+                foreach (var transformation in element.Transforms)
+                    transformMatrix.Multiply(transformation.Matrix);
             return transformMatrix;
         }
 

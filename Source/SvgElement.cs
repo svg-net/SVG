@@ -523,8 +523,6 @@ namespace Svg
             this._elementName = string.Empty;
             this._customAttributes = new SvgCustomAttributeCollection(this);
 
-            Transforms = new SvgTransformCollection();
-
             //subscribe to attribute events
             Attributes.AttributeChanged += Attributes_AttributeChanged;
             CustomAttributes.AttributeChanged += Attributes_AttributeChanged;
