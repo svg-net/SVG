@@ -554,7 +554,7 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> that the element should use to render itself.</param>
         public void RenderElement(ISvgRenderer renderer)
         {
-            this.Render(renderer);
+            Render(renderer);
         }
 
         /// <summary>Derrived classes may decide that the element should not be written. For example, the text element shouldn't be written if it's empty.</summary>
@@ -844,10 +844,8 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to render the child <see cref="SvgElement"/>s to.</param>
         protected virtual void RenderChildren(ISvgRenderer renderer)
         {
-            foreach (SvgElement element in this.Children)
-            {
+            foreach (var element in Children)
                 element.Render(renderer);
-            }
         }
 
         /// <summary>
@@ -856,7 +854,7 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         void ISvgElement.Render(ISvgRenderer renderer)
         {
-            this.Render(renderer);
+            Render(renderer);
         }
 
         /// <summary>

@@ -85,7 +85,7 @@ namespace Svg.FilterEffects
 
         private RectangleF GetPathBounds(SvgVisualElement element, ISvgRenderer renderer, Matrix transform)
         {
-            var bounds = element.Path(renderer).GetBounds();
+            var bounds = element is SvgGroup ? element.Path(renderer).GetBounds() : element.Bounds;
             var pts = new PointF[] { bounds.Location, new PointF(bounds.Right, bounds.Bottom) };
             transform.TransformPoints(pts);
 
