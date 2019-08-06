@@ -74,8 +74,7 @@ namespace Svg
                     path.FillMode = graphicsElement.ClipRule == SvgClipRule.NonZero ? FillMode.Winding : FillMode.Alternate;
 
                     if (graphicsElement.Transforms != null)
-                        foreach (var transform in graphicsElement.Transforms)
-                            childPath.Transform(transform.Matrix);
+                        childPath.Transform(graphicsElement.Transforms.GetMatrix());
 
                     if (childPath.PointCount > 0)
                         path.AddPath(childPath, false);
