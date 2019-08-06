@@ -128,7 +128,7 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected override void Render(ISvgRenderer renderer)
         {
-            this.Render(renderer, true);
+            Render(renderer, true);
         }
 
         private void Render(ISvgRenderer renderer, bool renderFilter)
@@ -145,7 +145,7 @@ namespace Svg
 
                             if (Renderable)
                             {
-                                var opacity = Math.Min(Math.Max(Opacity, 0), 1);
+                                var opacity = Math.Min(Math.Max(Opacity, 0f), 1f);
                                 if (opacity == 1f)
                                     RenderFillAndStroke(renderer);
                                 else
@@ -169,9 +169,7 @@ namespace Svg
                                 }
                             }
                             else
-                            {
-                                base.RenderChildren(renderer);
-                            }
+                                RenderChildren(renderer);
 
                             ResetClip(renderer);
                         }
@@ -209,22 +207,18 @@ namespace Svg
             return rendered;
         }
 
-        protected void RenderFillAndStroke(ISvgRenderer renderer)
+        protected internal virtual void RenderFillAndStroke(ISvgRenderer renderer)
         {
             // If this element needs smoothing enabled turn anti-aliasing on
-            if (this.RequiresSmoothRendering)
-            {
+            if (RequiresSmoothRendering)
                 renderer.SmoothingMode = SmoothingMode.AntiAlias;
-            }
 
-            this.RenderFill(renderer);
-            this.RenderStroke(renderer);
+            RenderFill(renderer);
+            RenderStroke(renderer);
 
             // Reset the smoothing mode
-            if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
-            {
+            if (RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
                 renderer.SmoothingMode = SmoothingMode.Default;
-            }
         }
 
         /// <summary>
@@ -233,17 +227,16 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected internal virtual void RenderFill(ISvgRenderer renderer)
         {
-            if (this.Fill != null)
-            {
-                using (var brush = this.Fill.GetBrush(this, renderer, Math.Min(Math.Max(this.FillOpacity, 0), 1)))
+            if (Fill != null)
+                using (var brush = Fill.GetBrush(this, renderer, Math.Min(Math.Max(FillOpacity, 0f), 1f)))
                 {
                     if (brush != null)
                     {
-                        this.Path(renderer).FillMode = this.FillRule == SvgFillRule.NonZero ? FillMode.Winding : FillMode.Alternate;
-                        renderer.FillPath(brush, this.Path(renderer));
+                        var path = Path(renderer);
+                        path.FillMode = FillRule == SvgFillRule.NonZero ? FillMode.Winding : FillMode.Alternate;
+                        renderer.FillPath(brush, path);
                     }
                 }
-            }
         }
 
         /// <summary>
@@ -252,31 +245,31 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected internal virtual bool RenderStroke(ISvgRenderer renderer)
         {
-            if (Stroke != null && Stroke != SvgColourServer.None && StrokeWidth > 0)
+            if (Stroke != null && Stroke != SvgColourServer.None && StrokeWidth > 0f)
             {
                 var strokeWidth = StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
-                using (var brush = Stroke.GetBrush(this, renderer, Math.Min(Math.Max(StrokeOpacity, 0), 1), true))
+                using (var brush = Stroke.GetBrush(this, renderer, Math.Min(Math.Max(StrokeOpacity, 0f), 1f), true))
                 {
                     if (brush != null)
                     {
                         var path = Path(renderer);
                         var bounds = path.GetBounds();
                         if (path.PointCount < 1) return false;
-                        if (bounds.Width <= 0 && bounds.Height <= 0)
+                        if (bounds.Width <= 0f && bounds.Height <= 0f)
                         {
                             switch (StrokeLineCap)
                             {
                                 case SvgStrokeLineCap.Round:
                                     using (var capPath = new GraphicsPath())
                                     {
-                                        capPath.AddEllipse(path.PathPoints[0].X - strokeWidth / 2, path.PathPoints[0].Y - strokeWidth / 2, strokeWidth, strokeWidth);
+                                        capPath.AddEllipse(path.PathPoints[0].X - strokeWidth / 2f, path.PathPoints[0].Y - strokeWidth / 2f, strokeWidth, strokeWidth);
                                         renderer.FillPath(brush, capPath);
                                     }
                                     break;
                                 case SvgStrokeLineCap.Square:
                                     using (var capPath = new GraphicsPath())
                                     {
-                                        capPath.AddRectangle(new RectangleF(path.PathPoints[0].X - strokeWidth / 2, path.PathPoints[0].Y - strokeWidth / 2, strokeWidth, strokeWidth));
+                                        capPath.AddRectangle(new RectangleF(path.PathPoints[0].X - strokeWidth / 2f, path.PathPoints[0].Y - strokeWidth / 2f, strokeWidth, strokeWidth));
                                         renderer.FillPath(brush, capPath);
                                     }
                                     break;
@@ -288,19 +281,19 @@ namespace Svg
                             {
                                 if (StrokeDashArray != null && StrokeDashArray.Count > 0)
                                 {
-                                    strokeWidth = strokeWidth <= 0 ? 1 : strokeWidth;
+                                    strokeWidth = strokeWidth <= 0 ? 1f : strokeWidth;
                                     if (StrokeDashArray.Count % 2 != 0)
                                     {
                                         // handle odd dash arrays by repeating them once
                                         StrokeDashArray.AddRange(StrokeDashArray);
                                     }
 
-                                    var dashOffset = StrokeDashOffset != null ? StrokeDashOffset : 0;
+                                    var dashOffset = StrokeDashOffset;
 
                                     /* divide by stroke width - GDI uses stroke width as unit.*/
-                                    var dashPattern = StrokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : 
+                                    var dashPattern = StrokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
                                         u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth).ToArray();
-                                    int length = dashPattern.Length;
+                                    var length = dashPattern.Length;
 
                                     if (StrokeLineCap == SvgStrokeLineCap.Round)
                                     {
@@ -308,11 +301,11 @@ namespace Svg
                                         // by increasing the dash length by the stroke width - GDI draws the rounded 
                                         // edge inside the dash line, SVG draws it outside the line
                                         var pattern = new float[length];
-                                        int offset = 1; // the values are already normalized to dash width
-                                        for (int i = 0; i < length; i++)
+                                        var offset = 1; // the values are already normalized to dash width
+                                        for (var i = 0; i < length; i++)
                                         {
                                             pattern[i] = dashPattern[i] + offset;
-                                            if (pattern[i] <= 0)
+                                            if (pattern[i] <= 0f)
                                             {
                                                 // overlapping caps - remove the gap for simplicity, see #508
                                                 if (i < length - 1)
@@ -320,7 +313,7 @@ namespace Svg
                                                     // add the next dash segment to the current one
                                                     dashPattern[i - 1] += dashPattern[i] + dashPattern[i + 1];
                                                     length -= 2;
-                                                    for (int k = i; k < length; k++)
+                                                    for (var k = i; k < length; k++)
                                                         dashPattern[k] = dashPattern[k + 2];
 
                                                     // and handle the combined segment again
@@ -358,9 +351,9 @@ namespace Svg
                                     {
                                         pen.DashPattern = dashPattern;
 
-                                        if (dashOffset != 0)
+                                        if (dashOffset != 0f)
                                         {
-                                            pen.DashOffset = ((dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : 
+                                            pen.DashOffset = ((dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
                                                 dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth;
                                         }
                                     }

@@ -257,56 +257,10 @@ namespace Svg
             }
         }
 
-        /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
-        /// </summary>
-        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
-        /// <remarks>Necessary to make sure that any internal tspan elements get rendered as well</remarks>
-        protected override void Render(ISvgRenderer renderer)
+        protected internal override void RenderFillAndStroke(ISvgRenderer renderer)
         {
-            if ((Path(renderer) != null) && Visible && Displayable)
-            {
-                try
-                {
-                    if (PushTransforms(renderer))
-                    {
-                        SetClip(renderer);
-
-                        var opacity = Math.Min(Math.Max(Opacity, 0), 1);
-                        if (opacity == 1f)
-                        {
-                            RenderFillAndStroke(renderer);
-                            RenderChildren(renderer);
-                        }
-                        else
-                        {
-                            IsPathDirty = true;
-                            var bounds = Bounds;
-                            IsPathDirty = true;
-
-                            using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
-                            {
-                                using (var canvasRenderer = SvgRenderer.FromImage(canvas))
-                                {
-                                    canvasRenderer.SetBoundable(renderer.GetBoundable());
-                                    canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
-
-                                    RenderFillAndStroke(canvasRenderer);
-                                    RenderChildren(canvasRenderer);
-                                }
-                                var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
-                                renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
-                            }
-                        }
-
-                        ResetClip(renderer);
-                    }
-                }
-                finally
-                {
-                    PopTransforms(renderer);
-                }
-            }
+            base.RenderFillAndStroke(renderer);
+            RenderChildren(renderer);
         }
 
         internal virtual IEnumerable<ISvgNode> GetContentNodes()
