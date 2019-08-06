@@ -239,12 +239,7 @@ namespace Svg
                         }
 
                         if (MarkerElement != null && MarkerElement.Transforms != null)
-                        {
-                            foreach (var transformation in MarkerElement.Transforms)
-                            {
-                                transMatrix.Multiply(transformation.Matrix);
-                            }
-                        }
+                            transMatrix.Multiply(MarkerElement.Transforms.GetMatrix());
                         markerPath.Transform(transMatrix);
                         if (pRenderPen != null) pRenderer.DrawPath(pRenderPen, markerPath);
 

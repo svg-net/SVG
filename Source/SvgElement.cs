@@ -328,9 +328,7 @@ namespace Svg
             if (transforms == null || transforms.Count == 0)
                 return true;
 
-            var transformMatrix = new Matrix();
-            foreach (var transform in transforms)
-                transformMatrix.Multiply(transform.Matrix);
+            var transformMatrix = transforms.GetMatrix();
             if (_zeroMatrix.Equals(transformMatrix))
                 return false;
 
