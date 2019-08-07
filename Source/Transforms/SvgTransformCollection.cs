@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
 
 namespace Svg.Transforms
 {
@@ -47,23 +46,15 @@ namespace Svg.Transforms
         {
             var transformMatrix = new Matrix();
 
-            // Return if there are no transforms
-            if (this.Count == 0)
-            {
-                return transformMatrix;
-            }
-
-            foreach (SvgTransform transformation in this)
-            {
-                transformMatrix.Multiply(transformation.Matrix);
-            }
+            foreach (var transform in this)
+                transformMatrix.Multiply(transform.Matrix);
 
             return transformMatrix;
         }
 
         public override bool Equals(object obj)
         {
-            if (this.Count == 0 && this.Count == base.Count) //default will be an empty list 
+            if (Count == 0 && Count == base.Count) // default will be an empty list 
                 return true;
             return base.Equals(obj);
         }
@@ -94,25 +85,22 @@ namespace Svg.Transforms
         {
             var handler = TransformChanged;
             if (handler != null)
-            {
-                //make a copy of the current value to avoid collection changed exceptions
-                handler(this, new AttributeEventArgs { Attribute = "transform", Value = this.Clone() });
-            }
+                // make a copy of the current value to avoid collection changed exceptions
+                handler(this, new AttributeEventArgs { Attribute = "transform", Value = Clone() });
         }
 
         public object Clone()
         {
             var result = new SvgTransformCollection();
-            foreach (var trans in this)
-            {
-                result.AddItem(trans.Clone() as SvgTransform);
-            }
-            return result;
+            foreach (var transform in this)
+                 result.AddItem(transform.Clone() as SvgTransform);
+             return result;
         }
 
         public override string ToString()
         {
-            if (this.Count < 1) return string.Empty;
+            if (Count < 1)
+                return string.Empty;
             return (from t in this select t.ToString()).Aggregate((p, c) => p + " " + c);
         }
     }
