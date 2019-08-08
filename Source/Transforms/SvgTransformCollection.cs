@@ -47,7 +47,8 @@ namespace Svg.Transforms
             var transformMatrix = new Matrix();
 
             foreach (var transform in this)
-                transformMatrix.Multiply(transform.Matrix);
+                using (var matrix = transform.Matrix)
+                    transformMatrix.Multiply(matrix);
 
             return transformMatrix;
         }

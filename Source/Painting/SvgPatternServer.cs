@@ -133,7 +133,8 @@ namespace Svg
             {
                 var transform = new Matrix();
                 if (PatternTransform != null)
-                    transform.Multiply(PatternTransform.GetMatrix());
+                    using (var matrix = PatternTransform.GetMatrix())
+                        transform.Multiply(matrix);
 
                 return transform;
             }
@@ -225,12 +226,15 @@ namespace Svg
                         child.RenderElement(tileRenderer);
                 }
 
-                var textureBrush = new TextureBrush(tile, new RectangleF(0f, 0f, width, height))
+                using (var transform = EffectivePatternTransform)
                 {
-                    Transform = EffectivePatternTransform
-                };
-                textureBrush.TranslateTransform(x, y);
-                return textureBrush;
+                    var textureBrush = new TextureBrush(tile, new RectangleF(0f, 0f, width, height))
+                    {
+                        Transform = transform
+                    };
+                    textureBrush.TranslateTransform(x, y);
+                    return textureBrush;
+                }
             }
             finally
             {

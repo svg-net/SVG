@@ -239,7 +239,8 @@ namespace Svg
                         }
 
                         if (MarkerElement != null && MarkerElement.Transforms != null)
-                            transMatrix.Multiply(MarkerElement.Transforms.GetMatrix());
+                            using (var matrix = MarkerElement.Transforms.GetMatrix())
+                                transMatrix.Multiply(matrix);
                         markerPath.Transform(transMatrix);
                         if (pRenderPen != null) pRenderer.DrawPath(pRenderPen, markerPath);
 

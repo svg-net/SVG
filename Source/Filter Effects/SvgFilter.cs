@@ -79,7 +79,8 @@ namespace Svg.FilterEffects
         {
             var transformMatrix = new Matrix();
             if (element.Transforms != null)
-                transformMatrix.Multiply(element.Transforms.GetMatrix());
+                using (var matrix = element.Transforms.GetMatrix())
+                    transformMatrix.Multiply(matrix);
             return transformMatrix;
         }
 

@@ -61,7 +61,8 @@ namespace Svg
             if (path == null) return null;
             var pathData = (GraphicsPath)path.Path(renderer).Clone();
             if (path.Transforms != null && path.Transforms.Count > 0)
-                pathData.Transform(path.Transforms.GetMatrix());
+                using (var matrix = path.Transforms.GetMatrix())
+                    pathData.Transform(matrix);
             return pathData;
         }
         protected override float GetAuthorPathLength()

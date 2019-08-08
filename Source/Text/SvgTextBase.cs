@@ -251,7 +251,8 @@ namespace Svg
                 }
                 if (Transforms != null && Transforms.Count > 0)
                 {
-                    path.Transform(Transforms.GetMatrix());
+                    using (var matrix = Transforms.GetMatrix())
+                        path.Transform(matrix);
                 }
                 return path.GetBounds();
             }
