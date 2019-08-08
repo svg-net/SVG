@@ -101,12 +101,12 @@ namespace SVGViewer
 
         public Matrix Transform
         {
-            get { return _transform; }
+            get { return _transform?.Clone(); }
             set
             {
                 if (_transform != null)
                     _transform.Dispose();
-                _transform = value;
+                _transform = value?.Clone();
             }
         }
 
