@@ -213,10 +213,13 @@ namespace Svg
                     }
                     else
                     {
-                        var currOffset = new PointF(renderer.Transform.OffsetX, renderer.Transform.OffsetY);
-                        renderer.TranslateTransform(-currOffset.X, -currOffset.Y);
-                        renderer.ScaleTransform(destRect.Width / srcRect.Width, destRect.Height / srcRect.Height);
-                        renderer.TranslateTransform(currOffset.X + destRect.X, currOffset.Y + destRect.Y);
+                        using (var transform = renderer.Transform)
+                        {
+                            var currOffset = new PointF(transform.OffsetX, transform.OffsetY);
+                            renderer.TranslateTransform(-currOffset.X, -currOffset.Y);
+                            renderer.ScaleTransform(destRect.Width / srcRect.Width, destRect.Height / srcRect.Height);
+                            renderer.TranslateTransform(currOffset.X + destRect.X, currOffset.Y + destRect.Y);
+                        }
                         renderer.SetBoundable(new GenericBoundable(srcRect));
                         svg.RenderElement(renderer);
                         renderer.PopBoundable();
