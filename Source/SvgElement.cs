@@ -312,8 +312,6 @@ namespace Svg
             get { return this._customAttributes; }
         }
 
-        private static readonly Matrix _zeroMatrix = new Matrix(0, 0, 0, 0, 0, 0);
-
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
@@ -330,8 +328,9 @@ namespace Svg
 
             using (var transformMatrix = transforms.GetMatrix())
             {
-                if (_zeroMatrix.Equals(transformMatrix))
-                    return false;
+                using (var zeroMatrix = new Matrix(0f, 0f, 0f, 0f, 0f, 0f))
+                    if (zeroMatrix.Equals(transformMatrix))
+                        return false;
 
                 using (var graphicsTransform = _graphicsTransform.Clone())
                 {
