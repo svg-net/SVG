@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace Svg
@@ -11,7 +8,7 @@ namespace Svg
     /// <summary>
     /// Converts string representations of colours into <see cref="Color"/> objects.
     /// </summary>
-    public class SvgColourConverter : System.Drawing.ColorConverter
+    public class SvgColourConverter : ColorConverter
     {
         /// <summary>
         /// Converts the given object to the converter's native type.
@@ -35,7 +32,7 @@ namespace Svg
                 var oldCulture = Thread.CurrentThread.CurrentCulture;
                 try
                 {
-                    Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
                     colour = colour.Trim();
 
@@ -196,7 +193,7 @@ namespace Svg
             return base.CanConvertTo(context, destinationType);
         }
 
-        public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
@@ -274,6 +271,5 @@ namespace Svg
             Color rgb = Color.FromArgb((int)Math.Round(r * 255.0), (int)Math.Round(g * 255.0), (int)Math.Round(b * 255.0));
             return rgb;
         }
-
     }
 }
