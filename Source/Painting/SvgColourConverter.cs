@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Globalization;
+using System.Text;
 using System.Threading;
 
 namespace Svg
@@ -162,6 +163,10 @@ namespace Svg
                         // have to prevent this and ignore the color instead (see #342) 
                         return SvgColourServer.NotSet;
                     }
+
+                    var index = colour.LastIndexOf("grey", StringComparison.InvariantCultureIgnoreCase);
+                    if (index >= 0 && index + 4 == colour.Length)
+                        value = new StringBuilder(colour).Replace("grey", "gray", index, 4).Replace("Grey", "Gray", index, 4).ToString();
                 }
                 finally
                 {
@@ -197,7 +202,7 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
-                var colorString = ColorTranslator.ToHtml((Color)value);
+                var colorString = ColorTranslator.ToHtml((Color)value).Replace("LightGrey", "LightGray");
                 // color names are expected to be lower case in XML
                 return colorString.StartsWith("#") ? colorString : colorString.ToLower();
             }
