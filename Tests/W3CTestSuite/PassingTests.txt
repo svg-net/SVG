@@ -214,6 +214,7 @@ __issue-109-01.svg
 __issue-116-01.svg
 __issue-123-01.svg
 __issue-129-01.svg
+__issue-131-01.svg
 __issue-134-01.svg
 __issue-143-01.svg
 __issue-166-01.svg
@@ -238,9 +239,10 @@ __issue-338-01_stroke_width.svg
 __issue-342-01.svg
 __issue-345-01.svg
 __issue-354-01.svg
-__issue-385-01_Test_text-anchor-middle.svg
 __issue-363-01.svg
+__issue-385-01_Test_text-anchor-middle.svg
 __issue-391-01.svg
+__issue-398-01.svg
 __issue-419-01.svg
 __issue-436-01.svg
 __issue-437-01.svg
