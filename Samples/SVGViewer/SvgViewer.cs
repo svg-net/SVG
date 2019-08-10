@@ -74,8 +74,8 @@ namespace SVGViewer
             if (svgImage.Image != null)
                 svgImage.Image.Dispose();
 
-            //var render = new DebugRenderer();
-            //svgDoc.Draw(render);
+            //using (var render = new DebugRenderer())
+            //    svgDoc.Draw(render);
             svgImage.Image = svgDoc.Draw();
 
             var baseUri = svgDoc.BaseUri;

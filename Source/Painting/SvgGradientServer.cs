@@ -95,7 +95,8 @@ namespace Svg
                 var transform = new Matrix();
 
                 if (GradientTransform != null)
-                    transform.Multiply(GradientTransform.GetMatrix());
+                    using (var matrix = GradientTransform.GetMatrix())
+                        transform.Multiply(matrix);
 
                 return transform;
             }

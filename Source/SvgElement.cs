@@ -312,8 +312,6 @@ namespace Svg
             get { return this._customAttributes; }
         }
 
-        private readonly Matrix _zeroMatrix = new Matrix(0, 0, 0, 0, 0, 0);
-
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
@@ -328,13 +326,18 @@ namespace Svg
             if (transforms == null || transforms.Count == 0)
                 return true;
 
-            var transformMatrix = transforms.GetMatrix();
-            if (_zeroMatrix.Equals(transformMatrix))
-                return false;
+            using (var transformMatrix = transforms.GetMatrix())
+            {
+                using (var zeroMatrix = new Matrix(0f, 0f, 0f, 0f, 0f, 0f))
+                    if (zeroMatrix.Equals(transformMatrix))
+                        return false;
 
-            var graphicsTransform = _graphicsTransform.Clone();
-            graphicsTransform.Multiply(transformMatrix);
-            renderer.Transform = graphicsTransform;
+                using (var graphicsTransform = _graphicsTransform.Clone())
+                {
+                    graphicsTransform.Multiply(transformMatrix);
+                    renderer.Transform = graphicsTransform;
+                }
+            }
 
             return true;
         }
@@ -346,6 +349,7 @@ namespace Svg
         protected internal virtual void PopTransforms(ISvgRenderer renderer)
         {
             renderer.Transform = _graphicsTransform;
+            _graphicsTransform.Dispose();
             _graphicsTransform = null;
             renderer.SetClip(_graphicsClip);
             _graphicsClip = null;
@@ -397,10 +401,13 @@ namespace Svg
         {
             if (Transforms != null && Transforms.Count > 0)
             {
-                var path = new GraphicsPath();
-                path.AddRectangle(bounds);
-                path.Transform(Transforms.GetMatrix());
-                return path.GetBounds();
+                using (var path = new GraphicsPath())
+                using (var matrix = Transforms.GetMatrix())
+                {
+                    path.AddRectangle(bounds);
+                    path.Transform(matrix);
+                    return path.GetBounds();
+                }
             }
             return bounds;
         }
@@ -877,15 +884,16 @@ namespace Svg
                     if (!(child is SvgGroup))
                     {
                         var childPath = ((SvgVisualElement)child).Path(null);
-
                         if (childPath != null)
-                        {
-                            childPath = (GraphicsPath)childPath.Clone();
-                            if (child.Transforms != null)
-                                childPath.Transform(child.Transforms.GetMatrix());
+                            using (childPath = (GraphicsPath)childPath.Clone())
+                            {
+                                if (child.Transforms != null)
+                                    using (var matrix = child.Transforms.GetMatrix())
+                                        childPath.Transform(matrix);
 
-                            if (childPath.PointCount > 0) path.AddPath(childPath, false);
-                        }
+                                if (childPath.PointCount > 0)
+                                    path.AddPath(childPath, false);
+                            }
                     }
                 }
 
@@ -912,7 +920,8 @@ namespace Svg
                         if (childPath.PointCount > 0)
                         {
                             if (child.Transforms != null)
-                                childPath.Transform(child.Transforms.GetMatrix());
+                                using (var matrix = child.Transforms.GetMatrix())
+                                    childPath.Transform(matrix);
 
                             ret.AddPath(childPath, false);
                         }
@@ -933,7 +942,8 @@ namespace Svg
                         if (childPath.PointCount > 0)
                         {
                             if (child.Transforms != null)
-                                childPath.Transform(child.Transforms.GetMatrix());
+                                using (var matrix = child.Transforms.GetMatrix())
+                                    childPath.Transform(matrix);
 
                             ret.AddPath(childPath, false);
                         }
