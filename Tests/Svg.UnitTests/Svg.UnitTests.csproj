@@ -40,6 +40,9 @@
     <EmbeddedResource Include="Resources\Issue212_MakerEnd\OperatingPlan.svg" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Issue_Multirender\TestFile.svg" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Resources\Issue225_LargeUri\Speedometer.svg" />
   </ItemGroup>
   <ItemGroup>
