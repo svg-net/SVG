@@ -59,12 +59,16 @@ namespace Svg.UnitTests
         }
 
         /// <summary>
-        /// Retrieve the script content, this is not expected to be escaped
+        /// Retrieve the script content, this is not expected to be escaped. CDATA is handled by the SVG parser and should result in a "clean" script.
         /// </summary>
         [Test]
         public void SvgDocumentWithSvgScript_RetrieveScriptContent_ScriptContentIsNotEscaped()
         {
-            Assert.Inconclusive();
+            var doc = SvgDocument.Open(GetXMLDocFromResource(TestResource));
+            Assert.IsNotNull(doc);
+            
+            var tag = GetScriptElementFromDocument(doc);
+            Assert.IsTrue(tag.Script.IndexOf("[DATA") < 0, "CDATA should not be in the content of the script");
         }
 
         /// <summary>

@@ -5,10 +5,17 @@ namespace Svg
 {
     /// <summary>
     /// An element used to define scripts within SVG documents.
+    /// Use the Script property to get the script content (proxies the content)
     /// </summary>
     [SvgElement("script")]
     public class SvgScript : SvgElement
     {
+
+        public string Script 
+        {
+            get { return this.Content; }
+            set { this.Content = value; }
+        }
 
         private string _scriptType;
 
