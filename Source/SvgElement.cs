@@ -956,7 +956,7 @@ namespace Svg
         /// </returns>
         public virtual object Clone()
         {
-            return this.MemberwiseClone();
+            return DeepCopy();
         }
 
         public abstract SvgElement DeepCopy();
@@ -970,7 +970,6 @@ namespace Svg
         {
             var newObj = new T
             {
-                ID = ID,
                 Content = Content,
                 ElementName = ElementName
             };
@@ -978,8 +977,11 @@ namespace Svg
             //if (this.Parent != null)
             //    this.Parent.Children.Add(newObj);
 
-            if (Transforms != null)
-                newObj.Transforms = Transforms.Clone() as SvgTransformCollection;
+            foreach (var attribute in Attributes)
+            {
+                var value = attribute.Value is ICloneable ? ((ICloneable)attribute.Value).Clone() : attribute.Value;
+                newObj.Attributes.Add(attribute.Key, value);
+            }
 
             foreach (var child in Children)
                 newObj.Children.Add(child.DeepCopy());

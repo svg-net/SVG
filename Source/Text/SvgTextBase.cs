@@ -32,7 +32,7 @@ namespace Svg
         /// </summary>
         public virtual string Text
         {
-            get { return base.Content; }
+            get { return Content; }
             set
             {
                 Nodes.Clear();
@@ -41,15 +41,14 @@ namespace Svg
                 {
                     Nodes.Add(new SvgContentNode { Content = value });
                 }
-                this.IsPathDirty = true;
                 Content = value;
+                IsPathDirty = true;
             }
         }
 
         public override XmlSpaceHandling SpaceHandling
         {
-            get { return base.SpaceHandling; }
-            set { base.SpaceHandling = value; this.IsPathDirty = true; }
+            set { base.SpaceHandling = value; IsPathDirty = true; }
         }
 
         /// <summary>
@@ -508,6 +507,40 @@ namespace Svg
             caller.UnregisterAction(this.ID + "/onchange");
         }
 #endif
+
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgTextBase;
+
+            if (_x != null)
+            {
+                newObj._x = (SvgUnitCollection)_x.Clone();
+                newObj._x.CollectionChanged += newObj.OnXChanged;
+            }
+            if (_y != null)
+            {
+                newObj._y = (SvgUnitCollection)_y.Clone();
+                newObj._y.CollectionChanged += newObj.OnYChanged;
+            }
+            if (_dx != null)
+            {
+                newObj._dx = (SvgUnitCollection)_dx.Clone();
+                newObj._dx.CollectionChanged += newObj.OnDxChanged;
+            }
+            if (_dy != null)
+            {
+                newObj._dy = (SvgUnitCollection)_dy.Clone();
+                newObj._dy.CollectionChanged += newObj.OnDyChanged;
+            }
+            newObj._rotate = _rotate;
+            if (_rotations != null)
+            {
+                newObj._rotations = new List<float>();
+                foreach (var rotation in _rotations)
+                    newObj._rotations.Add(rotation);
+            }
+            return newObj;
+        }
 
         private class FontBoundable : ISvgBoundable
         {

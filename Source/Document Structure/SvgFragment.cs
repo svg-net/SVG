@@ -11,6 +11,9 @@ namespace Svg
     [SvgElement("svg")]
     public class SvgFragment : SvgElement, ISvgViewPort, ISvgBoundable
     {
+        private SvgUnit _x = 0f;
+        private SvgUnit _y = 0f;
+
         /// <summary>
         /// Gets the SVG namespace string.
         /// </summary>
@@ -39,9 +42,6 @@ namespace Svg
                 return new RectangleF(((ISvgBoundable)this).Location, ((ISvgBoundable)this).Size);
             }
         }
-
-        private SvgUnit _x = 0f;
-        private SvgUnit _y = 0f;
 
         /// <summary>
         /// Gets or sets the position where the left point of the svg should start.
@@ -292,11 +292,9 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgFragment;
-            newObj.Height = this.Height;
-            newObj.Width = this.Width;
-            newObj.Overflow = this.Overflow;
-            newObj.ViewBox = this.ViewBox;
-            newObj.AspectRatio = this.AspectRatio;
+
+            newObj._x = _x;
+            newObj._y = _y;
             return newObj;
         }
 

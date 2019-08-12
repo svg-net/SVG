@@ -94,6 +94,7 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgDeferredPaintServer;
+
             newObj.DeferredId = DeferredId;
             newObj.FallbackServer = FallbackServer?.DeepCopy() as SvgPaintServer;
             return newObj;

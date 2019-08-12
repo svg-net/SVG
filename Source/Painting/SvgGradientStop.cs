@@ -10,7 +10,7 @@ namespace Svg
     [SvgElement("stop")]
     public class SvgGradientStop : SvgElement
     {
-        private SvgUnit _offset = 0f;
+        private SvgUnit _offset;
 
         /// <summary>
         /// Gets or sets the offset, i.e. where the stop begins from the beginning, of the gradient stop.
@@ -21,30 +21,11 @@ namespace Svg
             get { return _offset; }
             set
             {
-                SvgUnit unit = value;
-
-                if (value.Type == SvgUnitType.Percentage)
-                {
-                    if (value.Value > 100f)
-                    {
-                        unit = new SvgUnit(value.Type, 100f);
-                    }
-                    else if (value.Value < 0f)
-                    {
-                        unit = new SvgUnit(value.Type, 0f);
-                    }
-                }
-                else if (value.Type == SvgUnitType.User)
-                {
-                    if (value.Value > 1f)
-                    {
-                        unit = new SvgUnit(value.Type, 1f);
-                    }
-                    else if (value.Value < 0f)
-                    {
-                        unit = new SvgUnit(value.Type, 0f);
-                    }
-                }
+                var unit = value;
+                if (unit.Type == SvgUnitType.Percentage)
+                    unit = new SvgUnit(unit.Type, Math.Min(Math.Max(unit.Value, 0f), 100f));
+                else if (unit.Type == SvgUnitType.User)
+                    unit = new SvgUnit(unit.Type, Math.Min(Math.Max(unit.Value, 0f), 1f));
 
                 _offset = unit.ToPercentage();
                 Attributes["offset"] = unit;
@@ -105,7 +86,8 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgGradientStop;
-            newObj.Offset = this.Offset;
+
+            newObj._offset = _offset;
             return newObj;
         }
     }

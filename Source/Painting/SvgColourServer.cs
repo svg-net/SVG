@@ -67,7 +67,8 @@ namespace Svg
                 return this;
 
             var newObj = base.DeepCopy<T>() as SvgColourServer;
-            newObj.Colour = this.Colour;
+
+            newObj.Colour = Colour;
             return newObj;
         }
 

@@ -251,13 +251,14 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgPatternServer;
-            newObj.X = X;
-            newObj.Y = Y;
-            newObj.Width = Width;
-            newObj.Height = Height;
-            newObj.ViewBox = ViewBox;
-            newObj.Overflow = Overflow;
-            newObj.AspectRatio = AspectRatio;
+
+            newObj._x = _x;
+            newObj._y = _y;
+            newObj._width = _width;
+            newObj._height = _height;
+            newObj._patternUnits = _patternUnits;
+            newObj._patternContentUnits = _patternContentUnits;
+            newObj._viewBox = _viewBox;
             return newObj;
         }
     }

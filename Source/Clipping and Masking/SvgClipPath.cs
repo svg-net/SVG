@@ -119,12 +119,5 @@ namespace Svg
         {
             return DeepCopy<SvgClipPath>();
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgClipPath;
-            newObj.ClipPathUnits = ClipPathUnits;
-            return newObj;
-        }
     }
 }

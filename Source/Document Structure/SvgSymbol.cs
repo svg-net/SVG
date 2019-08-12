@@ -101,13 +101,5 @@ namespace Svg.Document_Structure
         {
             return DeepCopy<SvgSymbol>();
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgSymbol;
-            if (this.Fill != null)
-                newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
-            return newObj;
-        }
     }
 }

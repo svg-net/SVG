@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel;
-
 namespace Svg
 {
     [SvgElement("title")]
@@ -17,12 +12,5 @@ namespace Svg
         {
             return DeepCopy<SvgTitle>();
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgTitle;
-            return newObj;
-        }
-
     }
 }

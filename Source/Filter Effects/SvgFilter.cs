@@ -142,16 +142,5 @@ namespace Svg.FilterEffects
         {
             return DeepCopy<SvgFilter>();
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgFilter;
-            newObj.Height = this.Height;
-            newObj.Width = this.Width;
-            newObj.X = this.X;
-            newObj.Y = this.Y;
-            newObj.ColorInterpolationFilters = this.ColorInterpolationFilters;
-            return newObj;
-        }
     }
 }

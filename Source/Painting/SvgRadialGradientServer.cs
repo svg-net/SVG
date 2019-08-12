@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
@@ -363,19 +362,6 @@ namespace Svg
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgRadialGradientServer>();
-        }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgRadialGradientServer;
-
-            newObj.CenterX = this.CenterX;
-            newObj.CenterY = this.CenterY;
-            newObj.Radius = this.Radius;
-            newObj.FocalX = this.FocalX;
-            newObj.FocalY = this.FocalY;
-
-            return newObj;
         }
     }
 }

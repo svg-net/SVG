@@ -85,7 +85,6 @@ namespace Svg
             }
         }
 
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgEllipse>();
@@ -94,10 +93,11 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgEllipse;
-            newObj.CenterX = this.CenterX;
-            newObj.CenterY = this.CenterY;
-            newObj.RadiusX = this.RadiusX;
-            newObj.RadiusY = this.RadiusY;
+
+            newObj._centerX = _centerX;
+            newObj._centerY = _centerY;
+            newObj._radiusX = _radiusX;
+            newObj._radiusY = _radiusY;
             return newObj;
         }
     }
