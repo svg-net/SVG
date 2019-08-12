@@ -206,7 +206,7 @@ namespace Svg
         {
             try
             {
-                var matrix = new Matrix(0, 0, 0, 0, 0, 0);
+                using (var matrix = new Matrix(0f, 0f, 0f, 0f, 0f, 0f)) { }
             }
             // GDI+ loading errors will result in TypeInitializationExceptions, 
             // for readability we will catch and wrap the error
