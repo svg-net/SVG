@@ -135,7 +135,7 @@ namespace Svg
         {
             if (Visible && Displayable && (!Renderable || Path(renderer) != null))
             {
-                if (!(renderFilter && RenderFilter(renderer)))
+                if (Bounds.Width > 0 && Bounds.Height > 0 && !(renderFilter && RenderFilter(renderer)))
                 {
                     try
                     {
@@ -291,7 +291,7 @@ namespace Svg
                                     var dashOffset = StrokeDashOffset;
 
                                     /* divide by stroke width - GDI uses stroke width as unit.*/
-                                    var dashPattern = StrokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
+                                    var dashPattern = StrokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f :
                                         u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth).ToArray();
                                     var length = dashPattern.Length;
 
@@ -353,7 +353,7 @@ namespace Svg
 
                                         if (dashOffset != 0f)
                                         {
-                                            pen.DashOffset = ((dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
+                                            pen.DashOffset = ((dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f :
                                                 dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth;
                                         }
                                     }
