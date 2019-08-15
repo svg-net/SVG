@@ -12,6 +12,7 @@ namespace Svg
     public class SvgPolyline : SvgPolygon
     {
         private GraphicsPath _Path;
+
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
             if ((_Path == null || this.IsPathDirty) && base.StrokeWidth > 0)
@@ -51,6 +52,11 @@ namespace Svg
                     this.IsPathDirty = false;
             }
             return _Path;
+        }
+
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgPolyline>();
         }
     }
 }
