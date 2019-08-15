@@ -108,7 +108,6 @@ namespace Svg.Document_Structure
     /// An element used to group SVG shapes.
     /// </summary>
     [Obsolete("Use Svg.DocumentStructure.SvgSymbol.")]
-    [SvgElement("symbol")]
     public partial class SvgSymbol : SvgVisualElement
     {
         /// <summary>
@@ -199,6 +198,14 @@ namespace Svg.Document_Structure
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgSymbol>();
+        }
+
+        public override void Write(System.Xml.XmlTextWriter writer)
+        {
+            var symbol = base.DeepCopy<Svg.DocumentStructure.SvgSymbol>() as Svg.DocumentStructure.SvgSymbol;
+            symbol.ViewBox = ViewBox;
+            symbol.AspectRatio = AspectRatio;
+            symbol.Write(writer);
         }
     }
 }
