@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="401" height="250" style="overflow: hidden;">
+   <defs>
+      <clipPath id="c3-1565592399856-clip">
+         <rect width="398" height="178" />
+      </clipPath>
+      <clipPath id="c3-1565592399856-clip-xaxis">
+         <rect x="-31" y="-20" width="460" height="88" />
+      </clipPath>
+      <clipPath id="c3-1565592399856-clip-yaxis">
+         <rect x="-29" y="-4" width="21" height="202" />
+      </clipPath>
+      <clipPath id="c3-1565592399856-clip-grid">
+         <rect width="398" height="178" />
+      </clipPath>
+      <clipPath id="c3-1565592399856-clip-subchart">
+         <rect width="398" height="0" />
+      </clipPath>
+   </defs>
+   <g transform="translate(1.5,4.5)">
+      <text class="c3-text c3-empty" text-anchor="middle" dominant-baseline="middle" x="199" y="89" style="opacity: 0;" />
+      <g clip-path="url(https://localhost:44367/DE/DashBoard/Index#c3-1565592399856-clip)" class="c3-regions" style="visibility: visible;" />
+      <g clip-path="url(https://localhost:44367/DE/DashBoard/Index#c3-1565592399856-clip-grid)" class="c3-grid" style="visibility: visible;">
+         <g class="c3-xgrid-focus">
+            <line class="c3-xgrid-focus" x1="-10" x2="-10" y1="0" y2="178" style="visibility: hidden;" />
+         </g>
+      </g>
+      <g clip-path="url(https://localhost:44367/DE/DashBoard/Index#c3-1565592399856-clip)" class="c3-chart">
+         <g class="c3-event-rects" style="fill-opacity: 0;">
+            <rect class="c3-event-rect" x="0" y="0" width="398" height="178" />
+         </g>
+         <g class="c3-chart-bars">
+            <g class="c3-chart-bar c3-target c3-target-Offen" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Offen c3-bars c3-bars-Offen" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 101.76136363636364,178 L101.76136363636364,115.23591812341252 L115.32954545454545,115.23591812341252 L115.32954545454545,178 z" style="stroke: rgb(1, 173, 238); fill: rgb(1, 173, 238); opacity: 1;" />
+               </g>
+            </g>
+            <g class="c3-chart-bar c3-target c3-target-Zugewiesen" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Zugewiesen c3-bars c3-bars-Zugewiesen" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 119.85227272727273,178 L119.85227272727273,162.30897953085312 L133.42045454545456,162.30897953085312 L133.42045454545456,178 z" style="stroke: rgb(68, 68, 68); fill: rgb(68, 68, 68); opacity: 1;" />
+               </g>
+            </g>
+            <g class="c3-chart-bar c3-target c3-target-Kontakt-nicht-erreicht" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Kontakt-nicht-erreicht c3-bars c3-bars-Kontakt-nicht-erreicht" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 137.9431818181818,178 L137.9431818181818,130.9269385925594 L151.51136363636365,130.9269385925594 L151.51136363636365,178 z" style="stroke: rgb(1, 173, 238); fill: rgb(1, 173, 238); opacity: 1;" />
+               </g>
+            </g>
+            <g class="c3-chart-bar c3-target c3-target-Kontakt-erreicht" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Kontakt-erreicht c3-bars c3-bars-Kontakt-erreicht" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 156.0340909090909,178 L156.0340909090909,83.85387718511878 L169.60227272727275,83.85387718511878 L169.60227272727275,178 z" style="stroke: rgb(68, 68, 68); fill: rgb(68, 68, 68); opacity: 1;" />
+               </g>
+            </g>
+            <g class="c3-chart-bar c3-target c3-target-Termin-vereinbart" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Termin-vereinbart c3-bars c3-bars-Termin-vereinbart" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 174.125,178 L174.125,68.16285671597191 L187.69318181818184,68.16285671597191 L187.69318181818184,178 z" style="stroke: rgb(1, 173, 238); fill: rgb(1, 173, 238); opacity: 1;" />
+               </g>
+            </g>
+            <g class="c3-chart-bar c3-target c3-target-Termin-durchgeführt" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Termin-durchgeführt c3-bars c3-bars-Termin-durchgeführt" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 192.2159090909091,178 L192.2159090909091,36.780815777678185 L205.78409090909093,36.780815777678185 L205.78409090909093,178 z" style="stroke: rgb(68, 68, 68); fill: rgb(68, 68, 68); opacity: 1;" />
+               </g>
+            </g>
+            <g class="c3-chart-bar c3-target c3-target-Probefahrt-durchgeführt" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Probefahrt-durchgeführt c3-bars c3-bars-Probefahrt-durchgeführt" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 210.30681818181816,178 L210.30681818181816,36.780815777678185 L223.875,36.780815777678185 L223.875,178 z" style="stroke: rgb(1, 173, 238); fill: rgb(1, 173, 238); opacity: 1;" />
+               </g>
+            </g>
+            <g class="c3-chart-bar c3-target c3-target-Offerte-erstellt" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Offerte-erstellt c3-bars c3-bars-Offerte-erstellt" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 228.39772727272725,178 L228.39772727272725,36.780815777678185 L241.9659090909091,36.780815777678185 L241.9659090909091,178 z" style="stroke: rgb(68, 68, 68); fill: rgb(68, 68, 68); opacity: 1;" />
+               </g>
+            </g>
+            <g class="c3-chart-bar c3-target c3-target-Erfolgreich" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Erfolgreich c3-bars c3-bars-Erfolgreich" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 246.48863636363635,178 L246.48863636363635,115.23591812341252 L260.0568181818182,115.23591812341252 L260.0568181818182,178 z" style="stroke: rgb(1, 173, 238); fill: rgb(1, 173, 238); opacity: 1;" />
+               </g>
+            </g>
+            <g class="c3-chart-bar c3-target c3-target-Nicht-erfolgreich" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Nicht-erfolgreich c3-bars c3-bars-Nicht-erfolgreich" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 264.57954545454544,178 L264.57954545454544,83.85387718511878 L278.14772727272725,83.85387718511878 L278.14772727272725,178 z" style="stroke: rgb(68, 68, 68); fill: rgb(68, 68, 68); opacity: 1;" />
+               </g>
+            </g>
+            <g class="c3-chart-bar c3-target c3-target-Abgelehnt" style="pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Abgelehnt c3-bars c3-bars-Abgelehnt" style="cursor: pointer;">
+                  <path class=" c3-shape c3-shape-0 c3-bar c3-bar-0" d="M 282.6704545454545,178 L282.6704545454545,146.61795906170627 L296.2386363636363,146.61795906170627 L296.2386363636363,178 z" style="stroke: rgb(1, 173, 238); fill: rgb(1, 173, 238); opacity: 1;" />
+               </g>
+            </g>
+         </g>
+         <g class="c3-chart-lines">
+            <g class="c3-chart-line c3-target c3-target-Offen" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Offen c3-lines c3-lines-Offen" />
+               <g class=" c3-shapes c3-shapes-Offen c3-areas c3-areas-Offen" />
+               <g class=" c3-selected-circles c3-selected-circles-Offen" />
+               <g class=" c3-shapes c3-shapes-Offen c3-circles c3-circles-Offen" style="cursor: pointer;" />
+            </g>
+            <g class="c3-chart-line c3-target c3-target-Zugewiesen" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Zugewiesen c3-lines c3-lines-Zugewiesen" />
+               <g class=" c3-shapes c3-shapes-Zugewiesen c3-areas c3-areas-Zugewiesen" />
+               <g class=" c3-selected-circles c3-selected-circles-Zugewiesen" />
+               <g class=" c3-shapes c3-shapes-Zugewiesen c3-circles c3-circles-Zugewiesen" style="cursor: pointer;" />
+            </g>
+            <g class="c3-chart-line c3-target c3-target-Kontakt-nicht-erreicht" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Kontakt-nicht-erreicht c3-lines c3-lines-Kontakt-nicht-erreicht" />
+               <g class=" c3-shapes c3-shapes-Kontakt-nicht-erreicht c3-areas c3-areas-Kontakt-nicht-erreicht" />
+               <g class=" c3-selected-circles c3-selected-circles-Kontakt-nicht-erreicht" />
+               <g class=" c3-shapes c3-shapes-Kontakt-nicht-erreicht c3-circles c3-circles-Kontakt-nicht-erreicht" style="cursor: pointer;" />
+            </g>
+            <g class="c3-chart-line c3-target c3-target-Kontakt-erreicht" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Kontakt-erreicht c3-lines c3-lines-Kontakt-erreicht" />
+               <g class=" c3-shapes c3-shapes-Kontakt-erreicht c3-areas c3-areas-Kontakt-erreicht" />
+               <g class=" c3-selected-circles c3-selected-circles-Kontakt-erreicht" />
+               <g class=" c3-shapes c3-shapes-Kontakt-erreicht c3-circles c3-circles-Kontakt-erreicht" style="cursor: pointer;" />
+            </g>
+            <g class="c3-chart-line c3-target c3-target-Termin-vereinbart" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Termin-vereinbart c3-lines c3-lines-Termin-vereinbart" />
+               <g class=" c3-shapes c3-shapes-Termin-vereinbart c3-areas c3-areas-Termin-vereinbart" />
+               <g class=" c3-selected-circles c3-selected-circles-Termin-vereinbart" />
+               <g class=" c3-shapes c3-shapes-Termin-vereinbart c3-circles c3-circles-Termin-vereinbart" style="cursor: pointer;" />
+            </g>
+            <g class="c3-chart-line c3-target c3-target-Termin-durchgeführt" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Termin-durchgeführt c3-lines c3-lines-Termin-durchgeführt" />
+               <g class=" c3-shapes c3-shapes-Termin-durchgeführt c3-areas c3-areas-Termin-durchgeführt" />
+               <g class=" c3-selected-circles c3-selected-circles-Termin-durchgeführt" />
+               <g class=" c3-shapes c3-shapes-Termin-durchgeführt c3-circles c3-circles-Termin-durchgeführt" style="cursor: pointer;" />
+            </g>
+            <g class="c3-chart-line c3-target c3-target-Probefahrt-durchgeführt" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Probefahrt-durchgeführt c3-lines c3-lines-Probefahrt-durchgeführt" />
+               <g class=" c3-shapes c3-shapes-Probefahrt-durchgeführt c3-areas c3-areas-Probefahrt-durchgeführt" />
+               <g class=" c3-selected-circles c3-selected-circles-Probefahrt-durchgeführt" />
+               <g class=" c3-shapes c3-shapes-Probefahrt-durchgeführt c3-circles c3-circles-Probefahrt-durchgeführt" style="cursor: pointer;" />
+            </g>
+            <g class="c3-chart-line c3-target c3-target-Offerte-erstellt" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Offerte-erstellt c3-lines c3-lines-Offerte-erstellt" />
+               <g class=" c3-shapes c3-shapes-Offerte-erstellt c3-areas c3-areas-Offerte-erstellt" />
+               <g class=" c3-selected-circles c3-selected-circles-Offerte-erstellt" />
+               <g class=" c3-shapes c3-shapes-Offerte-erstellt c3-circles c3-circles-Offerte-erstellt" style="cursor: pointer;" />
+            </g>
+            <g class="c3-chart-line c3-target c3-target-Erfolgreich" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Erfolgreich c3-lines c3-lines-Erfolgreich" />
+               <g class=" c3-shapes c3-shapes-Erfolgreich c3-areas c3-areas-Erfolgreich" />
+               <g class=" c3-selected-circles c3-selected-circles-Erfolgreich" />
+               <g class=" c3-shapes c3-shapes-Erfolgreich c3-circles c3-circles-Erfolgreich" style="cursor: pointer;" />
+            </g>
+            <g class="c3-chart-line c3-target c3-target-Nicht-erfolgreich" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Nicht-erfolgreich c3-lines c3-lines-Nicht-erfolgreich" />
+               <g class=" c3-shapes c3-shapes-Nicht-erfolgreich c3-areas c3-areas-Nicht-erfolgreich" />
+               <g class=" c3-selected-circles c3-selected-circles-Nicht-erfolgreich" />
+               <g class=" c3-shapes c3-shapes-Nicht-erfolgreich c3-circles c3-circles-Nicht-erfolgreich" style="cursor: pointer;" />
+            </g>
+            <g class="c3-chart-line c3-target c3-target-Abgelehnt" style="opacity: 1; pointer-events: none;">
+               <g class=" c3-shapes c3-shapes-Abgelehnt c3-lines c3-lines-Abgelehnt" />
+               <g class=" c3-shapes c3-shapes-Abgelehnt c3-areas c3-areas-Abgelehnt" />
+               <g class=" c3-selected-circles c3-selected-circles-Abgelehnt" />
+               <g class=" c3-shapes c3-shapes-Abgelehnt c3-circles c3-circles-Abgelehnt" style="cursor: pointer;" />
+            </g>
+         </g>
+         <g class="c3-chart-arcs" transform="translate(199,84)">
+            <text class="c3-chart-arcs-title" style="text-anchor: middle; opacity: 0;" />
+         </g>
+         <g class="c3-chart-texts">
+            <g class="c3-chart-text c3-target c3-target-Offen  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Offen">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(1, 173, 238); fill-opacity: 1;" x="108.54545454545455" y="112.23591812341252">4</text>
+               </g>
+            </g>
+            <g class="c3-chart-text c3-target c3-target-Zugewiesen  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Zugewiesen">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(68, 68, 68); fill-opacity: 1;" x="126.63636363636365" y="159.30897953085312">1</text>
+               </g>
+            </g>
+            <g class="c3-chart-text c3-target c3-target-Kontakt-nicht-erreicht  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Kontakt-nicht-erreicht">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(1, 173, 238); fill-opacity: 1;" x="144.72727272727275" y="127.9269385925594">3</text>
+               </g>
+            </g>
+            <g class="c3-chart-text c3-target c3-target-Kontakt-erreicht  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Kontakt-erreicht">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(68, 68, 68); fill-opacity: 1;" x="162.8181818181818" y="80.85387718511878">6</text>
+               </g>
+            </g>
+            <g class="c3-chart-text c3-target c3-target-Termin-vereinbart  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Termin-vereinbart">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(1, 173, 238); fill-opacity: 1;" x="180.90909090909093" y="65.16285671597191">7</text>
+               </g>
+            </g>
+            <g class="c3-chart-text c3-target c3-target-Termin-durchgeführt  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Termin-durchgeführt">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(68, 68, 68); fill-opacity: 1;" x="199" y="33.780815777678185">9</text>
+               </g>
+            </g>
+            <g class="c3-chart-text c3-target c3-target-Probefahrt-durchgeführt  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Probefahrt-durchgeführt">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(1, 173, 238); fill-opacity: 1;" x="217.09090909090907" y="33.780815777678185">9</text>
+               </g>
+            </g>
+            <g class="c3-chart-text c3-target c3-target-Offerte-erstellt  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Offerte-erstellt">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(68, 68, 68); fill-opacity: 1;" x="235.1818181818182" y="33.780815777678185">9</text>
+               </g>
+            </g>
+            <g class="c3-chart-text c3-target c3-target-Erfolgreich  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Erfolgreich">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(1, 173, 238); fill-opacity: 1;" x="253.27272727272725" y="112.23591812341252">4</text>
+               </g>
+            </g>
+            <g class="c3-chart-text c3-target c3-target-Nicht-erfolgreich  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Nicht-erfolgreich">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(68, 68, 68); fill-opacity: 1;" x="271.3636363636364" y="80.85387718511878">6</text>
+               </g>
+            </g>
+            <g class="c3-chart-text c3-target c3-target-Abgelehnt  " style="opacity: 1; pointer-events: none;">
+               <g class=" c3-texts c3-texts-Abgelehnt">
+                  <text class=" c3-text c3-text-0" text-anchor="middle" style="stroke: none; fill: rgb(1, 173, 238); fill-opacity: 1;" x="289.4545454545454" y="143.61795906170627">2</text>
+               </g>
+            </g>
+         </g>
+      </g>
+      <g clip-path="url(https://localhost:44367/DE/DashBoard/Index#c3-1565592399856-clip-grid)" class="c3-grid c3-grid-lines">
+         <g class="c3-xgrid-lines" />
+         <g class="c3-ygrid-lines" />
+      </g>
+      <g class="c3-axis c3-axis-x" clip-path="url(https://localhost:44367/DE/DashBoard/Index#c3-1565592399856-clip-xaxis)" transform="translate(0,178)" style="visibility: hidden; opacity: 1;">
+         <text class="c3-axis-x-label" transform="" style="text-anchor: end;" x="398" dx="-0.5em" dy="-0.5em" />
+         <g class="tick" transform="translate(199, 0)" style="opacity: 1;">
+            <line x1="0" x2="0" y2="6" />
+            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+               <tspan x="0" dy=".71em" dx="0">0</tspan>
+            </text>
+         </g>
+         <path class="domain" d="M0,6V0H398V6" />
+      </g>
+      <g class="c3-axis c3-axis-y" clip-path="url(https://localhost:44367/DE/DashBoard/Index#c3-1565592399856-clip-yaxis)" transform="translate(0,0)" style="visibility: hidden; opacity: 1;">
+         <text class="c3-axis-y-label" transform="rotate(-90)" style="text-anchor: end;" x="0" dx="-0.5em" dy="1.2em" />
+         <g class="tick" transform="translate(0,178)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">0</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,163)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">1</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,147)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">2</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,131)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">3</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,116)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">4</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,100)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">5</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,84)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">6</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,69)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">7</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,53)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">8</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,37)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">9</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,22)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">10</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,6)" style="opacity: 1;">
+            <line x2="-6" />
+            <text x="-9" y="0" style="text-anchor: end;">
+               <tspan x="-9" dy="3">11</tspan>
+            </text>
+         </g>
+         <path class="domain" d="M-6,1H0V178H-6" />
+      </g>
+      <g class="c3-axis c3-axis-y2" transform="translate(398,0)" style="visibility: hidden; opacity: 1;">
+         <text class="c3-axis-y2-label" transform="rotate(-90)" style="text-anchor: end;" x="0" dx="-0.5em" dy="-0.5em" />
+         <g class="tick" transform="translate(0,178)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">0</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,161)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">0.1</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,143)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">0.2</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,125)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">0.3</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,108)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">0.4</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,90)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">0.5</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,72)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">0.6</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,55)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">0.7</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,37)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">0.8</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,19)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">0.9</tspan>
+            </text>
+         </g>
+         <g class="tick" transform="translate(0,1)" style="opacity: 1;">
+            <line x2="6" />
+            <text x="9" y="0" style="text-anchor: start;">
+               <tspan x="9" dy="3">1</tspan>
+            </text>
+         </g>
+         <path class="domain" d="M6,1H0V178H6" />
+      </g>
+   </g>
+   <g transform="translate(1.5,250.5)" style="visibility: hidden;">
+      <g clip-path="url(https://localhost:44367/DE/DashBoard/Index#c3-1565592399856-clip-subchart)" class="c3-chart">
+         <g class="c3-chart-bars" />
+         <g class="c3-chart-lines" />
+      </g>
+      <g clip-path="url(https://localhost:44367/DE/DashBoard/Index#c3-1565592399856-clip)" class="c3-brush" fill="none" pointer-events="all" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+         <rect class="overlay" pointer-events="all" cursor="crosshair" x="0" y="0" width="398" height="0" />
+         <rect class="selection" cursor="move" fill="#777" fill-opacity="0.3" stroke="#fff" shape-rendering="crispEdges" style="display: none;" />
+         <rect class="handle handle--e" cursor="ew-resize" style="display: none;" />
+         <rect class="handle handle--w" cursor="ew-resize" style="display: none;" />
+      </g>
+      <g class="c3-axis-x" transform="translate(0,0)" clip-path="url(https://localhost:44367/DE/DashBoard/Index#c3-1565592399856-clip-xaxis)" style="opacity: 1;">
+         <g class="tick" transform="translate(199, 0)" style="opacity: 1;">
+            <line x1="0" x2="0" y2="6" />
+            <text x="0" y="9" transform="" style="text-anchor: middle; display: block;">
+               <tspan x="0" dy=".71em" dx="0">0</tspan>
+            </text>
+         </g>
+         <path class="domain" d="M0,6V0H398V6" />
+      </g>
+   </g>
+   <g transform="translate(0,190)">
+      <g class="c3-legend-item c3-legend-item-Offen" style="visibility: visible; cursor: pointer;">
+         <text x="46.5234375" y="9" style="pointer-events: none;">Offen</text>
+         <rect class="c3-legend-item-event" x="32.5234375" y="-5" width="49.28125" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="30.5234375" y1="4" x2="40.5234375" y2="4" stroke-width="10" style="stroke: rgb(1, 173, 238); pointer-events: none;" />
+      </g>
+      <g class="c3-legend-item c3-legend-item-Zugewiesen" style="visibility: visible; cursor: pointer;">
+         <text x="95.8046875" y="9" style="pointer-events: none;">Zugewiesen</text>
+         <rect class="c3-legend-item-event" x="81.8046875" y="-5" width="76.96875" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="79.8046875" y1="4" x2="89.8046875" y2="4" stroke-width="10" style="stroke: rgb(68, 68, 68); pointer-events: none;" />
+      </g>
+      <g class="c3-legend-item c3-legend-item-Kontakt-nicht-erreicht" style="visibility: visible; cursor: pointer;">
+         <text x="172.7734375" y="9" style="pointer-events: none;">Kontakt nicht erreicht</text>
+         <rect class="c3-legend-item-event" x="158.7734375" y="-5" width="116.609375" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="156.7734375" y1="4" x2="166.7734375" y2="4" stroke-width="10" style="stroke: rgb(1, 173, 238); pointer-events: none;" />
+      </g>
+      <g class="c3-legend-item c3-legend-item-Kontakt-erreicht" style="visibility: visible; cursor: pointer;">
+         <text x="289.3828125" y="9" style="pointer-events: none;">Kontakt erreicht</text>
+         <rect class="c3-legend-item-event" x="275.3828125" y="-5" width="93.09375" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="273.3828125" y1="4" x2="283.3828125" y2="4" stroke-width="10" style="stroke: rgb(68, 68, 68); pointer-events: none;" />
+      </g>
+      <g class="c3-legend-item c3-legend-item-Termin-vereinbart" style="visibility: visible; cursor: pointer;">
+         <text x="43.140625" y="25" style="pointer-events: none;">Termin vereinbart</text>
+         <rect class="c3-legend-item-event" x="29.140625" y="11" width="100.71875" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="27.140625" y1="20" x2="37.140625" y2="20" stroke-width="10" style="stroke: rgb(1, 173, 238); pointer-events: none;" />
+      </g>
+      <g class="c3-legend-item c3-legend-item-Termin-durchgeführt" style="visibility: visible; cursor: pointer;">
+         <text x="143.859375" y="25" style="pointer-events: none;">Termin durchgeführt</text>
+         <rect class="c3-legend-item-event" x="129.859375" y="11" width="113.28125" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="127.859375" y1="20" x2="137.859375" y2="20" stroke-width="10" style="stroke: rgb(68, 68, 68); pointer-events: none;" />
+      </g>
+      <g class="c3-legend-item c3-legend-item-Probefahrt-durchgeführt" style="visibility: visible; cursor: pointer;">
+         <text x="257.140625" y="25" style="pointer-events: none;">Probefahrt durchgeführt</text>
+         <rect class="c3-legend-item-event" x="243.140625" y="11" width="128.71875" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="241.140625" y1="20" x2="251.140625" y2="20" stroke-width="10" style="stroke: rgb(1, 173, 238); pointer-events: none;" />
+      </g>
+      <g class="c3-legend-item c3-legend-item-Offerte-erstellt" style="visibility: visible; cursor: pointer;">
+         <text x="57.0625" y="41" style="pointer-events: none;">Offerte erstellt</text>
+         <rect class="c3-legend-item-event" x="43.0625" y="27" width="86.875" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="41.0625" y1="36" x2="51.0625" y2="36" stroke-width="10" style="stroke: rgb(68, 68, 68); pointer-events: none;" />
+      </g>
+      <g class="c3-legend-item c3-legend-item-Erfolgreich" style="visibility: visible; cursor: pointer;">
+         <text x="143.9375" y="41" style="pointer-events: none;">Erfolgreich</text>
+         <rect class="c3-legend-item-event" x="129.9375" y="27" width="70.921875" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="127.9375" y1="36" x2="137.9375" y2="36" stroke-width="10" style="stroke: rgb(1, 173, 238); pointer-events: none;" />
+      </g>
+      <g class="c3-legend-item c3-legend-item-Nicht-erfolgreich" style="visibility: visible; cursor: pointer;">
+         <text x="214.859375" y="41" style="pointer-events: none;">Nicht erfolgreich</text>
+         <rect class="c3-legend-item-event" x="200.859375" y="27" width="96.34375" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="198.859375" y1="36" x2="208.859375" y2="36" stroke-width="10" style="stroke: rgb(68, 68, 68); pointer-events: none;" />
+      </g>
+      <g class="c3-legend-item c3-legend-item-Abgelehnt" style="visibility: visible; cursor: pointer;">
+         <text x="311.203125" y="41" style="pointer-events: none;">Abgelehnt</text>
+         <rect class="c3-legend-item-event" x="297.203125" y="27" width="60.734375" height="16" style="fill-opacity: 0;" />
+         <line class="c3-legend-item-tile" x1="295.203125" y1="36" x2="305.203125" y2="36" stroke-width="10" style="stroke: rgb(1, 173, 238); pointer-events: none;" />
+      </g>
+   </g>
+   <text class="c3-title" x="200.5" y="0" />
+</svg>
