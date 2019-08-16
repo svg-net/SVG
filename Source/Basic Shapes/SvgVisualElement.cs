@@ -154,18 +154,19 @@ namespace Svg
                                     var bounds = Bounds;
                                     IsPathDirty = true;
 
-                                    using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
-                                    {
-                                        using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                                    if (bounds.Width > 0f && bounds.Height > 0f)
+                                        using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
                                         {
-                                            canvasRenderer.SetBoundable(renderer.GetBoundable());
-                                            canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+                                            using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                                            {
+                                                canvasRenderer.SetBoundable(renderer.GetBoundable());
+                                                canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
 
-                                            RenderFillAndStroke(canvasRenderer);
+                                                RenderFillAndStroke(canvasRenderer);
+                                            }
+                                            var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                                            renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
                                         }
-                                        var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
-                                        renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
-                                    }
                                 }
                             }
                             else
