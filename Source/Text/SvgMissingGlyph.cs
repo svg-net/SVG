@@ -1,8 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Svg
 {
     [SvgElement("missing-glyph")]
@@ -13,6 +8,11 @@ namespace Svg
         {
             get { return GetAttribute("glyph-name", Inherited, "__MISSING_GLYPH__"); }
             set { Attributes["glyph-name"] = value; }
+        }
+
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgMissingGlyph>();
         }
     }
 }
