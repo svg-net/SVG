@@ -76,21 +76,21 @@ namespace Svg.UnitTests
         /// and escaped as expected.
         /// </summary>
         [Test]
-        public void SvgDocumentWithSvgScript_AddScript_EscapintIsAdded()
+        public void SvgDocumentWithSvgScript_AddScript_EscapeAndTypeAdded()
         {
             //Script is expected to be escaped
-            Assert.Inconclusive();
-        }
+            var doc = new SvgDocument();
+            var script = new SvgScript();
+            script.Script = "alert('test');";
+            script.ScriptType = "text/javascript";
+            doc.Children.Add(script);
+            var docStr = doc.GetXML();
 
-        /// <summary>
-        /// Test if altering a script (reading, changing and reinserting) does not yield odd results.
-        /// </summary>
-        [Test]
-        public void SvgDocumentWithSvgScript_AlterScriptTag_HandlesEscapingCorrectly()
-        {
-            //Expecting to get the script without CDATA
-            //After update expect the updated script with CDATA in the results
-            Assert.Inconclusive();
+            //Check if we found the type string and CDATA tags
+            Assert.IsFalse(string.IsNullOrWhiteSpace(docStr), "Expected document to be returned");
+            Assert.IsTrue(docStr.IndexOf("<script type=\"text/javascript\">") > -1, "Expected to find the script with type tag");
+            Assert.IsTrue(docStr.IndexOf("<![CDATA[") > -1, "Expected to find the CDATA start");
+            Assert.IsTrue(docStr.IndexOf("]]>") > -1, "Expected to find the CDATA ending");
         }
     }
 }
