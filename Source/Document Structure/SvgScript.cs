@@ -55,15 +55,15 @@ namespace Svg
 
         protected override void WriteAttributes(System.Xml.XmlTextWriter writer)
         {
-            if(!string.IsNullOrWhiteSpace(Href))
+            if(!string.IsNullOrEmpty(Href))
             {
                 writer.WriteAttributeString("href", Href);
             }
-            if(!string.IsNullOrWhiteSpace(CrossOrigin))
+            if(!string.IsNullOrEmpty(CrossOrigin))
             {
                 writer.WriteAttributeString("crossorigin", CrossOrigin);
             }
-            if(!string.IsNullOrWhiteSpace(ScriptType))
+            if(!string.IsNullOrEmpty(ScriptType))
             {
                 writer.WriteAttributeString("type", ScriptType);
             }
@@ -71,7 +71,7 @@ namespace Svg
 
         protected override void WriteChildren(System.Xml.XmlTextWriter writer)
         {
-            if(!string.IsNullOrWhiteSpace(Content))
+            if(!string.IsNullOrEmpty(Content))
             {
                 //Always put the script in a CDATA tag
                 writer.WriteCData(this.Content);
