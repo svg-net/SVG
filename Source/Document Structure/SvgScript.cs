@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Xml;
 
 namespace Svg
 {
@@ -48,12 +49,7 @@ namespace Svg
             return DeepCopy<SvgScript>();        
         }
 
-        public override bool ShouldWriteElement() 
-        { 
-            return true;    
-        }
-
-        protected override void WriteAttributes(System.Xml.XmlTextWriter writer)
+        protected override void WriteAttributes(XmlTextWriter writer)
         {
             if(!string.IsNullOrEmpty(Href))
             {
