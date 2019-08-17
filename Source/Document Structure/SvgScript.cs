@@ -18,51 +18,32 @@ namespace Svg
             set { this.Content = value; }
         }
 
-        private string _scriptType;
 
         [SvgAttribute("type")]
         public string ScriptType 
         { 
-            get { return _scriptType; } 
-            set { _scriptType = value; } 
+            get { return GetAttribute<string>("type", false); } 
+            set { Attributes["type"] = value; } 
         }
 
-        private string _crossOrigin;
 
         [SvgAttribute("crossorigin")]
         public string CrossOrigin 
         {
-            get { return _crossOrigin; }
-            set { _crossOrigin = value; }
+            get { return GetAttribute<string>("crossorigin",false); }
+            set { Attributes["crossorigin"] = value; }
         }
 
-        private string _href;
         [SvgAttribute("href")]
         public string Href
         {
-            get { return _href; }
-            set { _href = value; }
+            get { return GetAttribute<string>("href", false); }
+            set { Attributes["href"] = value; }
         }
     
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgScript>();        
-        }
-
-        protected override void WriteAttributes(XmlTextWriter writer)
-        {
-            if(!string.IsNullOrEmpty(Href))
-            {
-                writer.WriteAttributeString("href", Href);
-            }
-            if(!string.IsNullOrEmpty(CrossOrigin))
-            {
-                writer.WriteAttributeString("crossorigin", CrossOrigin);
-            }
-            if(!string.IsNullOrEmpty(ScriptType))
-            {
-                writer.WriteAttributeString("type", ScriptType);
-            }
         }
 
         protected override void WriteChildren(System.Xml.XmlTextWriter writer)
