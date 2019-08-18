@@ -46,7 +46,7 @@ namespace Svg
             return DeepCopy<SvgScript>();        
         }
 
-        protected override void WriteChildren(System.Xml.XmlTextWriter writer)
+        protected override void WriteChildren(XmlTextWriter writer)
         {
             if(!string.IsNullOrEmpty(Content))
             {
