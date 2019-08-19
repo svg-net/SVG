@@ -29,7 +29,7 @@ namespace Svg
             }
             else if (value == "currentColor")
             {
-                return new SvgDeferredPaintServer(document, value);
+                return new SvgDeferredPaintServer(value);
             }
             else
             {
@@ -62,7 +62,7 @@ namespace Svg
                                 value = value.Substring(7).Trim();
                                 break;
                             default:
-                                return new SvgDeferredPaintServer(document, value);
+                                return new SvgDeferredPaintServer(value);
                         }
                     }
                     else

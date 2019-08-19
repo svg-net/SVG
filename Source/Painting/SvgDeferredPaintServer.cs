@@ -1,45 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Drawing;
 
 namespace Svg
 {
     /// <summary>
-    /// A wrapper for a paint server which isn't defined currently in the parse process, but
-    /// should be defined by the time the image needs to render.
+    /// A wrapper for a paint server which isn't defined currently in the parse process,
+    /// but should be defined by the time the image needs to render.
     /// </summary>
     public class SvgDeferredPaintServer : SvgPaintServer
     {
         private bool _serverLoaded = false;
         private SvgPaintServer _concreteServer;
 
-        public SvgDocument Document { get; set; }
         public string DeferredId { get; set; }
 
         public SvgDeferredPaintServer() { }
-        public SvgDeferredPaintServer(SvgDocument document, string id)
+        public SvgDeferredPaintServer(string id)
         {
-            this.Document = document;
             this.DeferredId = id;
         }
 
         public void EnsureServer(SvgElement styleOwner)
         {
-            if (!_serverLoaded)
+            if (!_serverLoaded && styleOwner != null)
             {
-                if (this.DeferredId == "currentColor" && styleOwner != null)
+                if (this.DeferredId == "currentColor")
                 {
                     var colorElement = (from e in styleOwner.ParentsAndSelf.OfType<SvgElement>()
-                                        where e.Color != SvgPaintServer.None && e.Color != SvgColourServer.NotSet &&
-                                              e.Color != SvgColourServer.Inherit && e.Color != SvgColourServer.None
+                                        where e.Color != None && e.Color != SvgColourServer.NotSet &&
+                                              e.Color != SvgColourServer.Inherit
                                         select e).FirstOrDefault();
                     _concreteServer = (colorElement == null ? SvgColourServer.NotSet : colorElement.Color);
                 }
                 else
                 {
-                    _concreteServer = this.Document.IdManager.GetElementById(this.DeferredId) as SvgPaintServer;
+                    _concreteServer = styleOwner.OwnerDocument.IdManager.GetElementById(this.DeferredId) as SvgPaintServer;
                 }
                 _serverLoaded = true;
             }
@@ -59,7 +54,6 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgDeferredPaintServer;
-            newObj.Document = this.Document;
             newObj.DeferredId = this.DeferredId;
             return newObj;
         }
@@ -70,13 +64,13 @@ namespace Svg
             if (other == null)
                 return false;
 
-            return this.Document == other.Document && this.DeferredId == other.DeferredId;
+            return this.DeferredId == other.DeferredId;
         }
 
         public override int GetHashCode()
         {
-            if (this.Document == null || this.DeferredId == null) return 0;
-            return this.Document.GetHashCode() ^ this.DeferredId.GetHashCode();
+            if (this.DeferredId == null) return 0;
+            return this.DeferredId.GetHashCode();
         }
 
         public override string ToString()
