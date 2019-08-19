@@ -41,6 +41,9 @@ namespace Svg.UnitTests
             CheckDeepCopyInstance(new SvgMerge());
             CheckDeepCopyInstance(new SvgMergeNode());
             CheckDeepCopyInstance(new SvgOffset());
+            CheckDeepCopyInstance(new SvgColourServer());
+            CheckDeepCopyInstance(new SvgDeferredPaintServer());
+            CheckDeepCopyInstance(new SvgFallbackPaintServer());
             CheckDeepCopyInstance(new SvgGradientStop());
             CheckDeepCopyInstance(new SvgLinearGradientServer());
             CheckDeepCopyInstance(new SvgMarker());
