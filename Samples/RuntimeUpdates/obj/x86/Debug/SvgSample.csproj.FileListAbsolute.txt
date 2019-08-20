@@ -1,1 +1,0 @@
-C:\vvvv\PROJECTS\2011\svg\codeplex_svg\Samples\RuntimeUpdates\bin\Debug\SvgSample.exe.config
