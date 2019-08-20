@@ -2,9 +2,20 @@ version: '{build}'
 
 image: Visual Studio 2019
 
+environment:
+  access_token:
+    secure: OitFIZFJWjmB3sDhTYHjgYNXwxX0iWYxib1LfDFlGq/Cos8H1jtBgwgolpi/ek6f
+
 before_build:
 - ps: nuget restore Source\Svg.csproj
 - ps: nuget restore Tests\Svg.UnitTests\Svg.UnitTests.csproj
+- ps: nuget install NUnit.ConsoleRunner -Version 3.10.0 -OutputDirectory tools  
+- ps: |
+    if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
+    {
+        git checkout $env:APPVEYOR_REPO_BRANCH -q
+        choco install docfx -y
+    }
 
 branches:
   only:
@@ -22,6 +33,28 @@ configuration: Release
 
 build:
   project: Source\Svg.sln
+
+after_build:
+- ps: |
+    if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
+    {
+        docfx docfx.json
+        if ($lastexitcode -ne 0){
+          throw [System.Exception] "docfx build failed with exit code $lastexitcode."
+        }
+        
+        git config --global credential.helper store
+        git config --local core.autocrlf true
+        Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+        git config --global user.email $env:mrbean-bremen@noreply.com
+        git config --global user.name $env:mrbean-bremen
+        git clone https://github.com/mrbean-bremen/SVG.git -b gh-pages origin_site -q
+        Copy-Item origin_site/.git _site -recurse
+        CD _site
+        git add -A 2>&1 > $null
+        git commit -m "CI Updates" -q
+        git push origin gh-pages -q
+    }
 
 artifacts:
 - path: 'Source\bin\Release\*.nupkg'
