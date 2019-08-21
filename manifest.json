@@ -26,66 +26,6 @@
       },
       "is_incremental": false,
       "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/SVGViewer.SVGViewer.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/SVGViewer.SVGViewer.html",
-          "hash": "OPua0ynN8z8Db56rtTfJrw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/SVGViewer.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/SVGViewer.html",
-          "hash": "moGj2htUB4Hw6jgHMNpo/g=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/SvgW3CTestRunner.View.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/SvgW3CTestRunner.View.html",
-          "hash": "igLtKPOZxuFerrvGkBjomg=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/api/SvgW3CTestRunner.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/SvgW3CTestRunner.html",
-          "hash": "cZgYavJW3jF3dgG0Fsv2jA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Toc",
-      "source_relative_path": "obj/api/toc.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/toc.html",
-          "hash": "xpLZclgINooAi37Ri+yYtA=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
     }
   ],
   "incremental_info": [
@@ -99,23 +39,10 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build",
-          "total_file_count": 0,
-          "skipped_file_count": 0
-        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
           "total_file_count": 2,
-          "skipped_file_count": 0
-        },
-        "ManagedReferenceDocumentProcessor": {
-          "can_incremental": false,
-          "incrementalPhase": "build",
-          "total_file_count": 4,
           "skipped_file_count": 0
         }
       }
