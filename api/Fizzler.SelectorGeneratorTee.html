@@ -1,0 +1,827 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SelectorGeneratorTee
+   | SVG.NET API </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SelectorGeneratorTee
+   | SVG.NET API ">
+    <meta name="generator" content="docfx 2.44.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Fizzler.SelectorGeneratorTee">
+  
+  
+  <h1 id="Fizzler_SelectorGeneratorTee" data-uid="Fizzler.SelectorGeneratorTee" class="text-break">Class SelectorGeneratorTee
+  </h1>
+  <div class="markdown level0 summary"><p>An <a class="xref" href="Fizzler.ISelectorGenerator.html">ISelectorGenerator</a> implementation that delegates
+to two other <a class="xref" href="Fizzler.ISelectorGenerator.html">ISelectorGenerator</a> objects, which
+can be useful for doing work in a single pass.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><span class="xref">SelectorGeneratorTee</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Fizzler.ISelectorGenerator.html">ISelectorGenerator</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.tostring#System_Object_ToString">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_System_Object_">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.referenceequals#System_Object_ReferenceEquals_System_Object_System_Object_">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gethashcode#System_Object_GetHashCode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.gettype#System_Object_GetType">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.memberwiseclone#System_Object_MemberwiseClone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Fizzler.html">Fizzler</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Fizzler_SelectorGeneratorTee_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class SelectorGeneratorTee : ISelectorGenerator</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee__ctor_" data-uid="Fizzler.SelectorGeneratorTee.#ctor*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee__ctor_Fizzler_ISelectorGenerator_Fizzler_ISelectorGenerator_" data-uid="Fizzler.SelectorGeneratorTee.#ctor(Fizzler.ISelectorGenerator,Fizzler.ISelectorGenerator)">SelectorGeneratorTee(ISelectorGenerator, ISelectorGenerator)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="Fizzler.SelectorGeneratorTee.html">SelectorGeneratorTee</a>
+with the two other <a class="xref" href="Fizzler.ISelectorGenerator.html">ISelectorGenerator</a> objects
+it delegates to.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SelectorGeneratorTee(ISelectorGenerator primary, ISelectorGenerator secondary)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.ISelectorGenerator.html">ISelectorGenerator</a></td>
+        <td><span class="parametername">primary</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Fizzler.ISelectorGenerator.html">ISelectorGenerator</a></td>
+        <td><span class="parametername">secondary</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_Primary_" data-uid="Fizzler.SelectorGeneratorTee.Primary*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_Primary" data-uid="Fizzler.SelectorGeneratorTee.Primary">Primary</h4>
+  <div class="markdown level1 summary"><p>Gets the first generator used to initialize this generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISelectorGenerator Primary { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.ISelectorGenerator.html">ISelectorGenerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_Secondary_" data-uid="Fizzler.SelectorGeneratorTee.Secondary*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_Secondary" data-uid="Fizzler.SelectorGeneratorTee.Secondary">Secondary</h4>
+  <div class="markdown level1 summary"><p>Gets the second generator used to initialize this generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ISelectorGenerator Secondary { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.ISelectorGenerator.html">ISelectorGenerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_Adjacent_" data-uid="Fizzler.SelectorGeneratorTee.Adjacent*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_Adjacent" data-uid="Fizzler.SelectorGeneratorTee.Adjacent">Adjacent()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Adjacent()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_AttributeDashMatch_" data-uid="Fizzler.SelectorGeneratorTee.AttributeDashMatch*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_AttributeDashMatch_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.SelectorGeneratorTee.AttributeDashMatch(Fizzler.NamespacePrefix,System.String,System.String)">AttributeDashMatch(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AttributeDashMatch(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_AttributeExact_" data-uid="Fizzler.SelectorGeneratorTee.AttributeExact*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_AttributeExact_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.SelectorGeneratorTee.AttributeExact(Fizzler.NamespacePrefix,System.String,System.String)">AttributeExact(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AttributeExact(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_AttributeExists_" data-uid="Fizzler.SelectorGeneratorTee.AttributeExists*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_AttributeExists_Fizzler_NamespacePrefix_System_String_" data-uid="Fizzler.SelectorGeneratorTee.AttributeExists(Fizzler.NamespacePrefix,System.String)">AttributeExists(NamespacePrefix, String)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AttributeExists(NamespacePrefix prefix, string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_AttributeIncludes_" data-uid="Fizzler.SelectorGeneratorTee.AttributeIncludes*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_AttributeIncludes_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.SelectorGeneratorTee.AttributeIncludes(Fizzler.NamespacePrefix,System.String,System.String)">AttributeIncludes(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AttributeIncludes(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_AttributePrefixMatch_" data-uid="Fizzler.SelectorGeneratorTee.AttributePrefixMatch*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_AttributePrefixMatch_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.SelectorGeneratorTee.AttributePrefixMatch(Fizzler.NamespacePrefix,System.String,System.String)">AttributePrefixMatch(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AttributePrefixMatch(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_AttributeSubstring_" data-uid="Fizzler.SelectorGeneratorTee.AttributeSubstring*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_AttributeSubstring_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.SelectorGeneratorTee.AttributeSubstring(Fizzler.NamespacePrefix,System.String,System.String)">AttributeSubstring(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AttributeSubstring(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_AttributeSuffixMatch_" data-uid="Fizzler.SelectorGeneratorTee.AttributeSuffixMatch*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_AttributeSuffixMatch_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.SelectorGeneratorTee.AttributeSuffixMatch(Fizzler.NamespacePrefix,System.String,System.String)">AttributeSuffixMatch(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AttributeSuffixMatch(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_Child_" data-uid="Fizzler.SelectorGeneratorTee.Child*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_Child" data-uid="Fizzler.SelectorGeneratorTee.Child">Child()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Child()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_Class_" data-uid="Fizzler.SelectorGeneratorTee.Class*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_Class_System_String_" data-uid="Fizzler.SelectorGeneratorTee.Class(System.String)">Class(String)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Class(string clazz)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">clazz</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_Descendant_" data-uid="Fizzler.SelectorGeneratorTee.Descendant*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_Descendant" data-uid="Fizzler.SelectorGeneratorTee.Descendant">Descendant()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Descendant()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_Empty_" data-uid="Fizzler.SelectorGeneratorTee.Empty*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_Empty" data-uid="Fizzler.SelectorGeneratorTee.Empty">Empty()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Empty()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_FirstChild_" data-uid="Fizzler.SelectorGeneratorTee.FirstChild*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_FirstChild" data-uid="Fizzler.SelectorGeneratorTee.FirstChild">FirstChild()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void FirstChild()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_GeneralSibling_" data-uid="Fizzler.SelectorGeneratorTee.GeneralSibling*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_GeneralSibling" data-uid="Fizzler.SelectorGeneratorTee.GeneralSibling">GeneralSibling()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GeneralSibling()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_Id_" data-uid="Fizzler.SelectorGeneratorTee.Id*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_Id_System_String_" data-uid="Fizzler.SelectorGeneratorTee.Id(System.String)">Id(String)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Id(string id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_LastChild_" data-uid="Fizzler.SelectorGeneratorTee.LastChild*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_LastChild" data-uid="Fizzler.SelectorGeneratorTee.LastChild">LastChild()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LastChild()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_NthChild_" data-uid="Fizzler.SelectorGeneratorTee.NthChild*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_NthChild_System_Int32_System_Int32_" data-uid="Fizzler.SelectorGeneratorTee.NthChild(System.Int32,System.Int32)">NthChild(Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void NthChild(int a, int b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">a</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">b</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_NthLastChild_" data-uid="Fizzler.SelectorGeneratorTee.NthLastChild*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_NthLastChild_System_Int32_System_Int32_" data-uid="Fizzler.SelectorGeneratorTee.NthLastChild(System.Int32,System.Int32)">NthLastChild(Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void NthLastChild(int a, int b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">a</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">b</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_OnClose_" data-uid="Fizzler.SelectorGeneratorTee.OnClose*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_OnClose" data-uid="Fizzler.SelectorGeneratorTee.OnClose">OnClose()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnClose()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_OnInit_" data-uid="Fizzler.SelectorGeneratorTee.OnInit*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_OnInit" data-uid="Fizzler.SelectorGeneratorTee.OnInit">OnInit()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnInit()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_OnlyChild_" data-uid="Fizzler.SelectorGeneratorTee.OnlyChild*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_OnlyChild" data-uid="Fizzler.SelectorGeneratorTee.OnlyChild">OnlyChild()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnlyChild()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_OnSelector_" data-uid="Fizzler.SelectorGeneratorTee.OnSelector*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_OnSelector" data-uid="Fizzler.SelectorGeneratorTee.OnSelector">OnSelector()</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OnSelector()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_Type_" data-uid="Fizzler.SelectorGeneratorTee.Type*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_Type_Fizzler_NamespacePrefix_System_String_" data-uid="Fizzler.SelectorGeneratorTee.Type(Fizzler.NamespacePrefix,System.String)">Type(NamespacePrefix, String)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Type(NamespacePrefix prefix, string type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">type</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_SelectorGeneratorTee_Universal_" data-uid="Fizzler.SelectorGeneratorTee.Universal*"></a>
+  <h4 id="Fizzler_SelectorGeneratorTee_Universal_Fizzler_NamespacePrefix_" data-uid="Fizzler.SelectorGeneratorTee.Universal(Fizzler.NamespacePrefix)">Universal(NamespacePrefix)</h4>
+  <div class="markdown level1 summary"><p>Delegates to <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Primary">Primary</a> then <a class="xref" href="Fizzler.SelectorGeneratorTee.html#Fizzler_SelectorGeneratorTee_Secondary">Secondary</a> generator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Universal(NamespacePrefix prefix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Fizzler.ISelectorGenerator.html">ISelectorGenerator</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

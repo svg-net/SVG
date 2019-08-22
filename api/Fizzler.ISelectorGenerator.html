@@ -1,0 +1,738 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ISelectorGenerator
+   | SVG.NET API </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ISelectorGenerator
+   | SVG.NET API ">
+    <meta name="generator" content="docfx 2.44.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Fizzler.ISelectorGenerator">
+  
+  
+  <h1 id="Fizzler_ISelectorGenerator" data-uid="Fizzler.ISelectorGenerator" class="text-break">Interface ISelectorGenerator
+  </h1>
+  <div class="markdown level0 summary"><p>Represent an implementation that is responsible for generating
+an implementation for a selector.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Fizzler.html">Fizzler</a></h6>
+  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h5 id="Fizzler_ISelectorGenerator_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ISelectorGenerator</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_Adjacent_" data-uid="Fizzler.ISelectorGenerator.Adjacent*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_Adjacent" data-uid="Fizzler.ISelectorGenerator.Adjacent">Adjacent()</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#combinators">combinator</a>,
+which represents elements that share the same parent in the document tree and
+where the first element immediately precedes the second element.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Adjacent()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_AttributeDashMatch_" data-uid="Fizzler.ISelectorGenerator.AttributeDashMatch*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_AttributeDashMatch_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.ISelectorGenerator.AttributeDashMatch(Fizzler.NamespacePrefix,System.String,System.String)">AttributeDashMatch(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Generates an <a href="http://www.w3.org/TR/css3-selectors/#attribute-selectors">attribute selector</a>
+that represents an element with the given attribute <code data-dev-comment-type="paramref" class="paramref">name</code>,
+its value either being exactly <code data-dev-comment-type="paramref" class="paramref">value</code> or beginning
+with <code data-dev-comment-type="paramref" class="paramref">value</code> immediately followed by &quot;-&quot; (U+002D).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AttributeDashMatch(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_AttributeExact_" data-uid="Fizzler.ISelectorGenerator.AttributeExact*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_AttributeExact_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.ISelectorGenerator.AttributeExact(Fizzler.NamespacePrefix,System.String,System.String)">AttributeExact(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Generates an <a href="http://www.w3.org/TR/css3-selectors/#attribute-selectors">attribute selector</a>
+that represents an element with the given attribute <code data-dev-comment-type="paramref" class="paramref">name</code>
+and whose value is exactly <code data-dev-comment-type="paramref" class="paramref">value</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AttributeExact(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_AttributeExists_" data-uid="Fizzler.ISelectorGenerator.AttributeExists*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_AttributeExists_Fizzler_NamespacePrefix_System_String_" data-uid="Fizzler.ISelectorGenerator.AttributeExists(Fizzler.NamespacePrefix,System.String)">AttributeExists(NamespacePrefix, String)</h4>
+  <div class="markdown level1 summary"><p>Generates an <a href="http://www.w3.org/TR/css3-selectors/#attribute-selectors">attribute selector</a>
+that represents an element with the given attribute <code data-dev-comment-type="paramref" class="paramref">name</code>
+whatever the values of the attribute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AttributeExists(NamespacePrefix prefix, string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_AttributeIncludes_" data-uid="Fizzler.ISelectorGenerator.AttributeIncludes*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_AttributeIncludes_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.ISelectorGenerator.AttributeIncludes(Fizzler.NamespacePrefix,System.String,System.String)">AttributeIncludes(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Generates an <a href="http://www.w3.org/TR/css3-selectors/#attribute-selectors">attribute selector</a>
+that represents an element with the given attribute <code data-dev-comment-type="paramref" class="paramref">name</code>
+and whose value is a whitespace-separated list of words, one of
+which is exactly <code data-dev-comment-type="paramref" class="paramref">value</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AttributeIncludes(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_AttributePrefixMatch_" data-uid="Fizzler.ISelectorGenerator.AttributePrefixMatch*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_AttributePrefixMatch_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.ISelectorGenerator.AttributePrefixMatch(Fizzler.NamespacePrefix,System.String,System.String)">AttributePrefixMatch(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Generates an <a href="http://www.w3.org/TR/css3-selectors/#attribute-selectors">attribute selector</a>
+that represents an element with the attribute <code data-dev-comment-type="paramref" class="paramref">name</code>
+whose value begins with the prefix <code data-dev-comment-type="paramref" class="paramref">value</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AttributePrefixMatch(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_AttributeSubstring_" data-uid="Fizzler.ISelectorGenerator.AttributeSubstring*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_AttributeSubstring_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.ISelectorGenerator.AttributeSubstring(Fizzler.NamespacePrefix,System.String,System.String)">AttributeSubstring(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Generates an <a href="http://www.w3.org/TR/css3-selectors/#attribute-selectors">attribute selector</a>
+that represents an element with the attribute <code data-dev-comment-type="paramref" class="paramref">name</code>
+whose value contains at least one instance of the substring <code data-dev-comment-type="paramref" class="paramref">value</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AttributeSubstring(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_AttributeSuffixMatch_" data-uid="Fizzler.ISelectorGenerator.AttributeSuffixMatch*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_AttributeSuffixMatch_Fizzler_NamespacePrefix_System_String_System_String_" data-uid="Fizzler.ISelectorGenerator.AttributeSuffixMatch(Fizzler.NamespacePrefix,System.String,System.String)">AttributeSuffixMatch(NamespacePrefix, String, String)</h4>
+  <div class="markdown level1 summary"><p>Generates an <a href="http://www.w3.org/TR/css3-selectors/#attribute-selectors">attribute selector</a>
+that represents an element with the attribute <code data-dev-comment-type="paramref" class="paramref">name</code>
+whose value ends with the suffix <code data-dev-comment-type="paramref" class="paramref">value</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AttributeSuffixMatch(NamespacePrefix prefix, string name, string value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_Child_" data-uid="Fizzler.ISelectorGenerator.Child*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_Child" data-uid="Fizzler.ISelectorGenerator.Child">Child()</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#combinators">combinator</a>,
+which represents a childhood relationship between two elements.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Child()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_Class_" data-uid="Fizzler.ISelectorGenerator.Class*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_Class_System_String_" data-uid="Fizzler.ISelectorGenerator.Class(System.String)">Class(String)</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#class-html">class selector</a>,
+which is an alternative <a class="xref" href="Fizzler.ISelectorGenerator.html#Fizzler_ISelectorGenerator_AttributeIncludes_Fizzler_NamespacePrefix_System_String_System_String_">AttributeIncludes(NamespacePrefix, String, String)</a> when
+representing the <code>class</code> attribute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Class(string clazz)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">clazz</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_Descendant_" data-uid="Fizzler.ISelectorGenerator.Descendant*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_Descendant" data-uid="Fizzler.ISelectorGenerator.Descendant">Descendant()</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#combinators">combinator</a>,
+which represents a relationship between two elements where one element is an
+arbitrary descendant of some ancestor element.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Descendant()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_Empty_" data-uid="Fizzler.ISelectorGenerator.Empty*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_Empty" data-uid="Fizzler.ISelectorGenerator.Empty">Empty()</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#pseudo-classes">pseudo-class selector</a>,
+which represents an element that has no children at all.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Empty()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_FirstChild_" data-uid="Fizzler.ISelectorGenerator.FirstChild*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_FirstChild" data-uid="Fizzler.ISelectorGenerator.FirstChild">FirstChild()</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#pseudo-classes">pseudo-class selector</a>,
+which represents an element that is the first child of some other element.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void FirstChild()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_GeneralSibling_" data-uid="Fizzler.ISelectorGenerator.GeneralSibling*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_GeneralSibling" data-uid="Fizzler.ISelectorGenerator.GeneralSibling">GeneralSibling()</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#combinators">combinator</a>,
+which separates two sequences of simple selectors. The elements represented
+by the two sequences share the same parent in the document tree and the
+element represented by the first sequence precedes (not necessarily
+immediately) the element represented by the second one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void GeneralSibling()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_Id_" data-uid="Fizzler.ISelectorGenerator.Id*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_Id_System_String_" data-uid="Fizzler.ISelectorGenerator.Id(System.String)">Id(String)</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#Id-selectors">ID selector</a>,
+which represents an element instance that has an identifier that
+matches the identifier in the ID selector.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Id(string id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">id</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_LastChild_" data-uid="Fizzler.ISelectorGenerator.LastChild*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_LastChild" data-uid="Fizzler.ISelectorGenerator.LastChild">LastChild()</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#pseudo-classes">pseudo-class selector</a>,
+which represents an element that is the last child of some other element.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void LastChild()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_NthChild_" data-uid="Fizzler.ISelectorGenerator.NthChild*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_NthChild_System_Int32_System_Int32_" data-uid="Fizzler.ISelectorGenerator.NthChild(System.Int32,System.Int32)">NthChild(Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#pseudo-classes">pseudo-class selector</a>,
+which represents an element that is the N-th child of some other element.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void NthChild(int a, int b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">a</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">b</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_NthLastChild_" data-uid="Fizzler.ISelectorGenerator.NthLastChild*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_NthLastChild_System_Int32_System_Int32_" data-uid="Fizzler.ISelectorGenerator.NthLastChild(System.Int32,System.Int32)">NthLastChild(Int32, Int32)</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#pseudo-classes">pseudo-class selector</a>,
+which represents an element that is the N-th child from bottom up of some other element.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void NthLastChild(int a, int b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">a</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.int32">Int32</a></td>
+        <td><span class="parametername">b</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_OnClose_" data-uid="Fizzler.ISelectorGenerator.OnClose*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_OnClose" data-uid="Fizzler.ISelectorGenerator.OnClose">OnClose()</h4>
+  <div class="markdown level1 summary"><p>Delimits the closing/conclusion of a generation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void OnClose()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_OnInit_" data-uid="Fizzler.ISelectorGenerator.OnInit*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_OnInit" data-uid="Fizzler.ISelectorGenerator.OnInit">OnInit()</h4>
+  <div class="markdown level1 summary"><p>Delimits the initialization of a generation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void OnInit()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_OnlyChild_" data-uid="Fizzler.ISelectorGenerator.OnlyChild*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_OnlyChild" data-uid="Fizzler.ISelectorGenerator.OnlyChild">OnlyChild()</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#pseudo-classes">pseudo-class selector</a>,
+which represents an element that has a parent element and whose parent
+element has no other element children.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void OnlyChild()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_OnSelector_" data-uid="Fizzler.ISelectorGenerator.OnSelector*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_OnSelector" data-uid="Fizzler.ISelectorGenerator.OnSelector">OnSelector()</h4>
+  <div class="markdown level1 summary"><p>Delimits a selector generation in a group of selectors.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void OnSelector()</code></pre>
+  </div>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_Type_" data-uid="Fizzler.ISelectorGenerator.Type*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_Type_Fizzler_NamespacePrefix_System_String_" data-uid="Fizzler.ISelectorGenerator.Type(Fizzler.NamespacePrefix,System.String)">Type(NamespacePrefix, String)</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#type-selectors">type selector</a>,
+which represents an instance of the element type in the document tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Type(NamespacePrefix prefix, string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Fizzler_ISelectorGenerator_Universal_" data-uid="Fizzler.ISelectorGenerator.Universal*"></a>
+  <h4 id="Fizzler_ISelectorGenerator_Universal_Fizzler_NamespacePrefix_" data-uid="Fizzler.ISelectorGenerator.Universal(Fizzler.NamespacePrefix)">Universal(NamespacePrefix)</h4>
+  <div class="markdown level1 summary"><p>Generates a <a href="http://www.w3.org/TR/css3-selectors/#universal-selector">universal selector</a>,
+any single element in the document tree in any namespace
+(including those without a namespace) if no default namespace
+has been specified for selectors.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Universal(NamespacePrefix prefix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Fizzler.NamespacePrefix.html">NamespacePrefix</a></td>
+        <td><span class="parametername">prefix</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
