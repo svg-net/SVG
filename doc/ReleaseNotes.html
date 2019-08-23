@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>SVG.NET Release Notes | SVG.NET API </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="SVG.NET Release Notes | SVG.NET API ">
+    <meta name="generator" content="docfx 2.45.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="svgnet-release-notes">SVG.NET Release Notes</h1>
+
+<p>The release versions are NuGet releases.</p>
+<h2 id="unreleased-master">Unreleased (master)</h2>
+<p><strong>Note:</strong> this is the first version that supports .NET Core alongside .NET.
+To build it yourself, you need at least Visual Studio 2017 due to the added multi-platform support.</p>
+<h3 id="enhancements">Enhancements</h3>
+<ul>
+<li>added support for .NET Core 2.2 (see PR <a href="https://github.com/vvvv/SVG/pull/448">#448</a>)</li>
+<li>handle missing gdi+ library on MacOs or Linux by a descriptive exception (see <a href="https://github.com/vvvv/SVG/issues/501">#501</a>)</li>
+<li>allow ID start with a number (see <a href="https://github.com/vvvv/SVG/issues/138">#138</a>)</li>
+<li>added support for embedded SVG in data URIs (see <a href="https://github.com/vvvv/SVG/issues/71">#71</a>
+and <a href="https://github.com/vvvv/SVG/issues/220">#220</a>)</li>
+<li>support <code>auto-start-reverse</code> value for marker orientation (see PR <a href="https://github.com/vvvv/SVG/pull/458">#458</a>)</li>
+</ul>
+<h3 id="infrastructure">Infrastructure</h3>
+<ul>
+<li>use NUnit instead of MSTest for unit tests (see <a href="https://github.com/vvvv/SVG/issues/420">#420</a>)</li>
+<li>added automatic git versioning</li>
+</ul>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li>added &quot;Getting Started&quot; Wiki page</li>
+</ul>
+<h3 id="fixes">Fixes</h3>
+<ul>
+<li>avoid adding a null system font (see <a href="https://github.com/vvvv/SVG/issues/528">#528</a>)</li>
+<li>fixed missing text drawing (see <a href="https://github.com/vvvv/SVG/issues/84">#84</a>)</li>
+<li>fixed y2 default value for SvgLinearGradientServer (see <a href="https://github.com/vvvv/SVG/pull/530">PR #530</a>)</li>
+<li>fixed incorrect parsing of some float values for non-English cultures
+(see <a href="https://github.com/vvvv/SVG/pull/525">PR #525</a> and <a href="https://github.com/vvvv/SVG/pull/526">#526</a>)</li>
+<li>fixed pattern drawing (see <a href="https://github.com/vvvv/SVG/issues/280">#280</a>)</li>
+<li>prevent crash on reading entities (see <a href="https://github.com/vvvv/SVG/issues/518">#518</a>)</li>
+<li>fixed saving of attributes with default value (see <a href="https://github.com/vvvv/SVG/pull/520">PR #520</a>)</li>
+<li>fixed determination of OS type (see <a href="https://github.com/vvvv/SVG/pull/517">PR #517</a>)</li>
+<li>fixed writing of custom style attributes (see <a href="https://github.com/vvvv/SVG/issues/507">#507</a>)</li>
+<li>handle overlapping caps by joining the lines (see <a href="https://github.com/vvvv/SVG/issues/508">#508</a>)</li>
+<li>correctly handle style attributes in top level svg element (see <a href="https://github.com/vvvv/SVG/issues/391">#391</a>)</li>
+<li>fixed incorrect rendering if stroke-dasharray value is none (see <a href="https://github.com/vvvv/SVG/pull/504">PR #504</a>)</li>
+<li>prevent exception for zero bounds and opacity not one (see <a href="https://github.com/vvvv/SVG/issues/479">#479</a>)</li>
+<li>make sure mask elements are written back to svg (see <a href="https://github.com/vvvv/SVG/issues/271">#271</a>)</li>
+<li>fixed incorrect clip region (see <a href="https://github.com/vvvv/SVG/issues/363">#363</a>)</li>
+<li>fixed overflow error on 1 character text with tspan (see <a href="https://github.com/vvvv/SVG/issues/488">#488</a>)</li>
+<li>fixed crash with unsupported pseudo classes (see <a href="https://github.com/vvvv/SVG/issues/315">#315</a>)</li>
+<li>fixes wrong text position in some scenarios (see PR <a href="https://github.com/vvvv/SVG/pull/475">#475</a>)</li>
+<li>fixed handling of spaces for <code>xml:space=&quot;default&quot;</code> (see PR <a href="https://github.com/vvvv/SVG/pull/471">#471</a>)</li>
+<li>fixed crash if more than font have the same name (see <a href="https://github.com/vvvv/SVG/issues/452">#452</a>)</li>
+<li>fixed rendering bug for text on path using very large font
+(see PR <a href="https://github.com/vvvv/SVG/pull/468">#468</a>)</li>
+<li>avoid exception in nested SVGs without size (see <a href="https://github.com/vvvv/SVG/issues/460">#460</a>)</li>
+<li>fixed default input values for filter primitives</li>
+<li>fixed parsing of float values in color matrixes and colors on non-English systems</li>
+<li>fixed xlink:href value format (see PR <a href="https://github.com/vvvv/SVG/pull/455">#455</a>)</li>
+<li>support various formats of URL string (see PR <a href="https://github.com/vvvv/SVG/pull/454">#454</a>)</li>
+<li>fixed stack overflow crash on images with relative size
+(see <a href="https://github.com/vvvv/SVG/issues/436">#436</a>)</li>
+</ul>
+<h2 id="version-243"><a href="https://www.nuget.org/packages/Svg/2.4.3">Version 2.4.3</a></h2>
+<h3 id="fixes-1">Fixes</h3>
+<ul>
+<li>fixed boundary drawing with corner and stroke (see PR <a href="https://github.com/vvvv/SVG/pull/444">#444</a>)</li>
+<li>fixed rendering with fill opacity 0 (see <a href="https://github.com/vvvv/SVG/issues/437">#437</a>)</li>
+<li>fixed opacity attribute (see PR <a href="https://github.com/vvvv/SVG/pull/433">#433</a>)</li>
+<li>fixed bounds calculation with stroke (see PR <a href="https://github.com/vvvv/SVG/pull/433">#433</a>)</li>
+</ul>
+<h2 id="version-242"><a href="https://www.nuget.org/packages/Svg/2.4.2">Version 2.4.2</a></h2>
+<h3 id="enhancements-1">Enhancements</h3>
+<ul>
+<li>added font manager to allow user-defined font handling
+(see PR <a href="https://github.com/vvvv/SVG/pull/414">#414</a>)</li>
+</ul>
+<h3 id="fixes-2">Fixes</h3>
+<ul>
+<li>fixed handling of invalid hex color and whitespace after hex color (see <a href="https://github.com/vvvv/SVG/issues/399">#399</a>)</li>
+<li>fixed default font size (caused text not to be displayed, see <a href="https://github.com/vvvv/SVG/issues/419">#419</a>)</li>
+<li>fixed writing of RGBA colors (see <a href="https://github.com/vvvv/SVG/issues/129">#129</a>)</li>
+<li>fixed writing of custom styles (see <a href="https://github.com/vvvv/SVG/issues/129">#129</a>)</li>
+<li>fixed handling of default values for radial gradients (see <a href="https://github.com/vvvv/SVG/issues/397">#397</a>)</li>
+<li>allow empty value for style property (see <a href="https://github.com/vvvv/SVG/issues/318">#318</a>)</li>
+<li>added handling of referenced viewBox scaling in &quot;use&quot; elements</li>
+<li>handle special case where path consists of a single move command
+(see <a href="https://github.com/vvvv/SVG/issues/223">#223</a>)</li>
+<li>correctly write fill-rule, clip-rule and named color attributes as lower case
+(see <a href="https://github.com/vvvv/SVG/issues/272">#272</a>)</li>
+<li>several fixes for markers:
+<ul>
+<li>added support for marker attributes in groups</li>
+<li>partly fixed marker appearance (stroke and fill color, scaling, deafult orientation)</li>
+<li>apply transformations in the marker drawing element (see <a href="https://github.com/vvvv/SVG/issues/215">#215</a>)</li>
+<li>correctly show mid markers for paths with Bezier curves</li>
+<li>handle markers on paths with successive equal points</li>
+</ul>
+</li>
+</ul>
+<h2 id="version-241"><a href="https://www.nuget.org/packages/Svg/2.4.1">Version 2.4.1</a></h2>
+<h3 id="changes">Changes</h3>
+<ul>
+<li><code>ExCSS</code> lives now in the <code>Svg</code> namespace to avoid namespace collusions
+(see <a href="https://github.com/vvvv/SVG/issues/408">#408</a>)</li>
+</ul>
+<h3 id="fixes-3">Fixes</h3>
+<ul>
+<li>fixed handling of url IDs enclosed in apostrophes (see <a href="https://github.com/vvvv/SVG/issues/345">#345</a>)</li>
+<li>fixed calculation of percentage values (PR <a href="https://github.com/vvvv/SVG/pull/410">#410</a>)</li>
+<li>regression: missing scaling if rendering into a bitmap with defined size
+(see <a href="https://github.com/vvvv/SVG/issues/405">#405</a>)</li>
+<li>consider transformation for all svg element bounds (see <a href="https://github.com/vvvv/SVG/issues/331">#331</a>)</li>
+<li>prevent crash if <code>use</code> element has no reference (see <a href="https://github.com/vvvv/SVG/issues/323">#323</a>)</li>
+<li>fixed handling of <code>fill=currentColor</code> (see <a href="https://github.com/vvvv/SVG/issues/398">#398</a>)</li>
+</ul>
+<h2 id="version-240"><a href="https://www.nuget.org/packages/Svg/2.4.0">Version 2.4.0</a></h2>
+<h3 id="enhancements-2">Enhancements</h3>
+<ul>
+<li>added basic support for CSS text-transform</li>
+<li>added optional size parameter to <code>SvgDocument.Draw()</code></li>
+<li>allow relative paths for image URLs</li>
+<li>improved path drawing performance</li>
+<li>added XML Header to conform according to SVG spec (<a href="https://github.com/vvvv/SVG/pull/269">PR #269</a>)</li>
+<li>added support for removing Byte Order Mark (BOM) (<a href="https://github.com/vvvv/SVG/pull/269">PR #269</a>)</li>
+</ul>
+<h3 id="infrastructure-1">Infrastructure</h3>
+<ul>
+<li>added copy of license</li>
+<li>added automatic unit test execution after check-in in AppVeyor</li>
+</ul>
+<h3 id="fixes-4">Fixes</h3>
+<ul>
+<li>fixed display of rounded caps for dashed lines using dasharray (see <a href="https://github.com/vvvv/SVG/issues/191">#191</a>)</li>
+<li>fixed calculation of percentage units in 'y' (see <a href="https://github.com/vvvv/SVG/issues/329">#329</a>)</li>
+<li>fixed calculation of percentage units in <code>stroke-width</code> (see <a href="https://github.com/vvvv/SVG/issues/338">#338</a>)</li>
+<li>fixed display of <code>dasharray</code> with odd number (see <a href="https://github.com/vvvv/SVG/issues/58">#58</a>)</li>
+<li>fixed font alignment for &quot;middle&quot; and &quot;end&quot; (see <a href="https://github.com/vvvv/SVG/issues/385">#385</a>)</li>
+<li>fixed handling of <code>stroke-dashoffset</code> (see <a href="https://github.com/vvvv/SVG/issues/388">#388</a>)</li>
+<li>fixed font shorthand parsing</li>
+<li>fixed case insensitive enum parsing</li>
+<li>ignore cycles in <code>use</code> elements to prevent crash</li>
+<li>fixes bounds calculation for <code>use</code> elements</li>
+<li>corrected DPI calculation to fix text positioning for printing</li>
+<li>ignore <code>textLength</code> attribute if X attribute is list</li>
+<li>fixed drawing of SvgFont objects</li>
+<li>fixed adjustment if <code>lengthAdjust='spacingAndGlyphs'</code> (see <a href="https://github.com/vvvv/SVG/issues/373">#373</a>)</li>
+<li>fixed SvgAttribute reflection for .Net core</li>
+<li>fixed default value for <code>preserveAspectRatio</code> attribute</li>
+<li>fixed path parsing mistaking 'E' as a command instead of an exponent</li>
+<li>fixed image opacity</li>
+<li>fixed usage of <code>ms colortranslator</code> class</li>
+<li>fixed inproper use of UTF8Encoding</li>
+<li>fixed runtime error after accessing added <code>SvgText</code> element (see <a href="https://github.com/vvvv/SVG/issues/332">#332</a>)</li>
+<li>fixed rendering error due to invalid <code>ColorBlend</code> position</li>
+<li>fixed inheriting <code>text-anchor</code> and <code>baseline-shift</code> attributes</li>
+<li>prevent crashes on zero length segments or paths</li>
+<li>fixed handling of nested SVGs (see <a href="https://github.com/vvvv/SVG/issues/244">#244</a>)</li>
+<li>fixed crash in <code>use</code> elements with transformation (see <a href="https://github.com/vvvv/SVG/issues/64">#64</a>)</li>
+<li>fixed overflow handling for view boxes (see <a href="https://github.com/vvvv/SVG/issues/279">#279</a>)</li>
+<li>bounds in path based elements did not consider transformations (see <a href="https://github.com/vvvv/SVG/issues/281">#281</a>)</li>
+</ul>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/mrbean-bremen/SVG/blob/gen-doc/doc/ReleaseNotes.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

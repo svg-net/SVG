@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>How to get started | SVG.NET API </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="How to get started | SVG.NET API ">
+    <meta name="generator" content="docfx 2.45.0.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+
+<p>This is currently a collection of answered questions in issues that have been closed meanwhile.
+The format of the page is preliminary and maybe changed if more questions accumulate.</p>
+<h2 id="how-to-get-started">How to get started</h2>
+<p>Please use our getting started article on the wiki to get started with installation and implementation of the SVG library: <a href="https://github.com/vvvv/SVG/wiki/Getting-started">https://github.com/vvvv/SVG/wiki/Getting-started</a></p>
+<h2 id="how-to-re-render-an-svg-faster">How to re-render an SVG faster?</h2>
+<p>(from <a href="https://github.com/vvvv/SVG/issues/327">#327</a>, by @flemingtech)</p>
+<p>The rendering type plays a significant roll on rendering speeds. For example, it anti-aliasing is off for the SvgDocument render times are notably faster.</p>
+<p>Because of the huge reduction in image quality, this wasn't a viable solution for my needs. Instead what I've come up with so far seems to work since I can't figure out how to get clipping regions to work.</p>
+<p>After I load the SVG, I make new SVG with the same initial SvgDocument properties (basically a deep copy followed by deleting all children). As I walk the first document tree I'm looking for elements I know are going to be modified. For each one that I find, I remove it from the first SVG and put it into the 2nd SVG. When I'm doing this, I also apply any parent transforms to the new child since it doesn't need/have all of it's parents.</p>
+<p>Once I'm done, I render the first SVG to an Image. When any of the 'animating' elements are changed, the 2nd SVG is rendered on top of a copy of the first SVG's rendering to form a complete composite. This prevents all the non-moving elements for having to re-render, unless of course the target graphics width/height changes. This is giving huge performance gains.</p>
+<h2 id="can-i-use-svgnet-in-a-uwp-windows-10-app">Can I use SVG.NET in a UWP Windows 10 App?</h2>
+<p>(from <a href="https://github.com/vvvv/SVG/issues/219">#219</a>, by @jonthysell)</p>
+<p>SVG.NET requires the System.Drawing namespace, which is not available in UWP. See <a href="http://stackoverflow.com/questions/31545389/windows-universal-app-with-system-drawing-and-possible-alternative">http://stackoverflow.com/questions/31545389/windows-universal-app-with-system-drawing-and-possible-alternative</a>.</p>
+<h2 id="how-to-render-an-svg-image-to-a-single-color-bitmap-image">How to render an SVG image to a single-color bitmap image?</h2>
+<p>(from <a href="https://github.com/vvvv/SVG/issues/366">#366</a>, by @UweKeim)</p>
+<p>I was able to find a solution with the following fragment:</p>
+<pre><code class="lang-csharp">var svgDoc = SvgDocument.Open&lt;SvgDocument&gt;(svgFilePath, null);
+
+// Recursively change all nodes.
+processNodes(svgDoc.Descendants(), new SvgColourServer(Color.DarkGreen));
+
+var bitmap = svgDoc.Draw();
+</code></pre>
+<p>together with this function:</p>
+<pre><code class="lang-csharp">private void processNodes(IEnumerable&lt;SvgElement&gt; nodes, SvgPaintServer colorServer)
+{
+    foreach (var node in nodes)
+    {
+        if (node.Fill != SvgPaintServer.None) node.Fill = colorServer;
+        if (node.Color != SvgPaintServer.None) node.Color = colorServer;
+        if (node.StopColor != SvgPaintServer.None) node.StopColor = colorServer;
+        if (node.Stroke != SvgPaintServer.None) node.Stroke = colorServer;
+
+        processNodes(node.Descendants(), colorServer);
+    }
+}
+</code></pre>
+<h2 id="how-to-render-only-a-specific-svgelement">How to render only a specific SvgElement?</h2>
+<p>(from <a href="https://github.com/vvvv/SVG/issues/403">#403</a>, by @ievgennaida)</p>
+<p>Use <code>element.RenderElement();</code>.</p>
+<h2 id="how-to-render-an-svg-document-to-a-bitmap-in-another-size">How to render an SVG document to a bitmap in another size?</h2>
+<p>Use <code>SvgDocument.Draw(int rasterWidth, int rasterHeight)</code>. If one of the values is 0, it it set to preserve the aspect ratio, if both values are given, the aspect ratio is ignored.</p>
+<h2 id="is-this-code-server-safe">Is this code server-safe?</h2>
+<p>(from <a href="https://github.com/vvvv/SVG/issues/381">#381</a>, by @rangercej, answered by @gvheertum)</p>
+<p>I used it in server side code (ASP.NET MVC application and API's) and never had any problems with it. There is however be possible issues regarding use in services and API's, for example the System.Drawing might not always be available in certain situations (if I am not mistaken, some Azure service will not provide the System.Drawing since it relies on GDI calls) and will also be an issue when using it as &quot;portable&quot; code for example in .NET standard or .NET core (but I believe the library is already working on a migration/compatibility with .NET core/standard).</p>
+<p>So issues when using System.Drawing are indeed possible when using in a non interactive scenario, since most non-interactive code will often be functioning as service or API, meaning a lot of synchronous calls are possible, which opens a world of possible problems compared to an interactive app which you often only have a few instances loaded. System.Drawing can (and often will) be resource-heavy, so having a lot of synchronous processes will possibly have a huge impact on the performance. So I guess, that is why Microsoft warns about the usage. Rendering a large complex SVG to a big bitmap (eg 5000x5000px) will put a large load on the server, doing this in parallel might cause issues in performance and availability.</p>
+<p>System.Drawing was initially not really created for service usage, so you <em>can</em> use it, but really need to be aware of possible issues. For example, see this article: <a href="https://photosauce.net/blog/post/5-reasons-you-should-stop-using-systemdrawing-from-aspnet">https://photosauce.net/blog/post/5-reasons-you-should-stop-using-systemdrawing-from-aspnet</a></p>
+<p>I believe there are some parallelisation tests in the UnitTest suite, since the SVG component did have some concurrency issues in the past. The parallelisation tests show that some parallel work is possible, but upping the limit will show you that resource issues are to be expected under large loads. When failing, System.Drawing will often not fail gracefully, but will often crash with some meaningless error (which makes debugging pretty hard sometimes).</p>
+<h2 id="how-to-change-the-svgunit-dpi">How to change the SvgUnit DPI?</h2>
+<p>(from <a href="https://github.com/vvvv/SVG/issues/313">#313</a>, by @KieranSmartMP)</p>
+<p><code>SvgUnit</code> takes the DPI (which is called <code>Ppi</code> here) from the document. This is set to the system DPI at creation time, but can be set to another value afterwards, e.g.</p>
+<pre><code class="lang-c#">  doc = SvgDocument();
+  doc.Ppi = 200;
+  ...
+</code></pre>
+<h2 id="why-does-my-application-crash-with-cannot-allocate-the-required-memory">Why does my application crash with &quot;cannot allocate the required memory&quot;?</h2>
+<p>(from <a href="https://github.com/vvvv/SVG/issues/250">#250</a>, by @Radzhab)</p>
+<p>If you try to open a very large SVG file in your application, it may crash, because .NET refuses to allocate that much contiguous memory, even if it could do so in theory. This is done to avoid processes to consume too much memory and slow down the system. Nothing we can do about this - you may catch this exception in your application and inform the user, or try to resize your SVG document and retry.</p>
+<h2 id="how-to-add-a-custom-attribute-to-an-svg-element">How to add a custom attribute to an SVG element?</h2>
+<p>(from <a href="https://github.com/vvvv/SVG/issues/481">#481</a>, by @lroye)</p>
+<p>Custom attributes are publicly accessible as a collection, you can add an attribute like this:</p>
+<pre><code class="lang-C#">    element.CustomAttributes[attributeName] = attributeValue;
+</code></pre>
+<h2 id="im-getting-a-svggdipluscannotbeloadedexception-if-running-under-linux-or-macos">I'm getting a SvgGdiPlusCannotBeLoadedException if running under Linux or MacOs</h2>
+<p>(see <a href="https://github.com/vvvv/SVG/pull/495#issuecomment-505429874">#494</a>, by @ErlendSB)</p>
+<p>This happens if libgdiplus is not installed under Linux or MacOs - libgdiplus is need for the implementation of System.Drawing.Common. The system will validate gdi+ capabilities when calling SvgDocument.Open(), if the gdi+ capabilities are not available, you will receive a SvgGdiPlusCannotBeLoadedException.</p>
+<p>There is a <a href="https://github.com/CoreCompat/libgdiplus-packaging">packaging project on Github</a> that helps installing that, here are the installation instructions (copied here for convenience):</p>
+<p>Older versions of the package threw a NullReferenceException when calling the SvgDocument.Open function. The cause of these errors was the same. Newer releases (since version 3.0), will yield a more descriptive exception as described above.</p>
+<h3 id="using-libgdiplus-on-ubuntu-linux">Using libgdiplus on Ubuntu Linux</h3>
+<p>You can install libgdiplus on Ubuntu Linux using the Quamotion PPA. Follow these steps:</p>
+<pre><code>sudo add-apt-repository ppa:quamotion/ppa
+sudo apt-get update
+sudo apt-get install -y libgdiplus
+</code></pre>
+<h3 id="using-libgdiplus-on-macos">Using libgdiplus on macOS</h3>
+<p>On macOS, add a reference to the runtime.osx.10.10-x64.CoreCompat.System.Drawing package:</p>
+<p><code>dotnet add package runtime.osx.10.10-x64.CoreCompat.System.Drawing</code></p>
+<p>When building from source-code you can also uncomment the</p>
+<pre><code>&lt;!-- &lt;ItemGroup Condition=&quot;'$(TargetFramework)' == 'netcoreapp2.2'&quot;&gt;
+    &lt;PackageReference Include=&quot;runtime.osx.10.10-x64.CoreCompat.System.Drawing&quot; Version=&quot;5.6.20&quot; /&gt;
+  &lt;/ItemGroup&gt; --&gt;
+</code></pre>
+<p>block in the Svg.csproj file.</p>
+<h3 id="validating-gdi-capabilities">Validating GDI+ capabilities</h3>
+<p>If you want to make sure the executing system is capable of using the GDI+ features, you can use one of the functions available on the SvgDocument class.</p>
+<p>If you only want to get a boolean telling whether the capabilities are available, please use the following code:</p>
+<pre><code>bool hasGdiCapabilities = SvgDocument.SystemIsGdiPlusCapable();
+</code></pre>
+<p>If you want to ensure the capabilities and let an error be thrown when these are not available, please use the following code:</p>
+<pre><code>SvgDocument.EnsureSystemIsGdiPlusCapable();
+</code></pre>
+<p>This function will throw a SvgGdiPlusCannotBeLoadedException if the capabilities are not available.</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/mrbean-bremen/SVG/blob/gen-doc/doc/Q&amp;A.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
