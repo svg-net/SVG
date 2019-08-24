@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Drawing;
 
 namespace Svg
@@ -12,9 +13,19 @@ namespace Svg
         private bool _serverLoaded = false;
         private SvgPaintServer _concreteServer;
 
+        [Obsolete("Will be removed.")]
+        public SvgDocument Document { get; set; }
         public string DeferredId { get; set; }
 
         public SvgDeferredPaintServer() { }
+
+        [Obsolete("Will be removed.")]
+        public SvgDeferredPaintServer(SvgDocument document, string id)
+        {
+            this.Document = document;
+            this.DeferredId = id;
+        }
+
         public SvgDeferredPaintServer(string id)
         {
             this.DeferredId = id;
