@@ -46,9 +46,9 @@ after_build:
         git config --global credential.helper store
         git config --local core.autocrlf true
         Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-        git config --global user.email $env:mrbean-bremen@noreply.com
-        git config --global user.name $env:mrbean-bremen
-        git clone https://github.com/mrbean-bremen/SVG.git -b gh-pages origin_site -q
+        git config --global user.email $env:tebjan@noreply.com
+        git config --global user.name $env:tebjan
+        git clone https://github.com/vvvv/SVG.git -b gh-pages origin_site -q
         Copy-Item origin_site/.git _site -recurse
         CD _site
         git add -A 2>&1 > $null
