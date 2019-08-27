@@ -48,10 +48,14 @@ namespace Svg
                 var result = (TAttributeType)base[attributeName];
 
                 var deferred = result as SvgDeferredPaintServer;
-                if (deferred != null)
-                    deferred.EnsureServer(_owner);
-
-                return result;
+                if (deferred == null)
+                    return result;
+                else
+                {
+                    var server = SvgDeferredPaintServer.TryGet<SvgPaintServer>(deferred, _owner);
+                    if (server != SvgPaintServer.Inherit)
+                        return result;
+                }
             }
 
             var parentAttribute = _owner.Parent?.Attributes[attributeName];

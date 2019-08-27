@@ -15,6 +15,7 @@ namespace Svg
         private bool _serverLoaded;
 
         private SvgPaintServer _concreteServer;
+        private readonly SvgPaintServer _fallbackServer;
 
         [Obsolete("Will be removed.")]
         public SvgDocument Document { get; set; }
@@ -33,8 +34,14 @@ namespace Svg
         }
 
         public SvgDeferredPaintServer(string id)
+            : this(id, null)
+        {
+        }
+
+        public SvgDeferredPaintServer(string id, SvgPaintServer fallbackServer)
         {
             DeferredId = id;
+            _fallbackServer = fallbackServer;
         }
 
         public void EnsureServer(SvgElement styleOwner)
@@ -59,7 +66,7 @@ namespace Svg
         public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
             EnsureServer(styleOwner);
-            return _concreteServer.GetBrush(styleOwner, renderer, opacity, forStroke);
+            return (_concreteServer ?? _fallbackServer ?? NotSet).GetBrush(styleOwner, renderer, opacity, forStroke);
         }
 
         public override SvgElement DeepCopy()
@@ -100,7 +107,7 @@ namespace Svg
 
             var deferred = (SvgDeferredPaintServer)server;
             deferred.EnsureServer(parent);
-            return deferred._concreteServer as T;
+            return (deferred._concreteServer ?? deferred._fallbackServer) as T;
         }
     }
 }

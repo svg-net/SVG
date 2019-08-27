@@ -74,7 +74,7 @@ namespace Svg
         private static string GetUrlString(string url)
         {
             url = url.Trim();
-            if (url.StartsWith("url(") && url.EndsWith(")"))
+            if (url.StartsWith("url(", StringComparison.OrdinalIgnoreCase) && url.EndsWith(")"))
             {
                 url = new StringBuilder(url).Remove(url.Length - 1, 1).Remove(0, 4).ToString().Trim();
 

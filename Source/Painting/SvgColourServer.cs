@@ -56,7 +56,6 @@ namespace Svg
             return String.Format("#{0}", c.ToArgb().ToString("x").Substring(2));
         }
 
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgColourServer>();
