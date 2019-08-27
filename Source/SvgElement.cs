@@ -694,12 +694,6 @@ namespace Svg
 
                             if (propertyValue != null)
                             {
-                                if (!string.IsNullOrEmpty(value))
-                                {
-                                    if (attr.Attribute.NamespaceAndName == "xlink:href" && value.StartsWith("url("))
-                                        value = new StringBuilder(value).Remove(value.Length - 1, 1).Remove(0, 4).ToString();
-                                }
-
                                 //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
                                 if (forceWrite || (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value)))
                                 {

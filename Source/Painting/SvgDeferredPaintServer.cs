@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 
@@ -8,6 +9,7 @@ namespace Svg
     /// A wrapper for a paint server which isn't defined currently in the parse process,
     /// but should be defined by the time the image needs to render.
     /// </summary>
+    [TypeConverter(typeof(SvgDeferredPaintServerFactory))]
     public class SvgDeferredPaintServer : SvgPaintServer
     {
         private bool _serverLoaded;
@@ -88,10 +90,7 @@ namespace Svg
 
         public override string ToString()
         {
-            if (DeferredId == "currentColor")
-                return DeferredId;
-            else
-                return string.Format("url({0})", DeferredId);
+            return string.IsNullOrEmpty(DeferredId) ? string.Empty : DeferredId;
         }
 
         public static T TryGet<T>(SvgPaintServer server, SvgElement parent) where T : SvgPaintServer
