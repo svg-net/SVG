@@ -22,11 +22,11 @@ namespace Svg
             // If it's pointing to a paint server
             if (string.IsNullOrEmpty(value))
             {
-                return SvgColourServer.NotSet;
+                return SvgPaintServer.NotSet;
             }
             else if (value == "inherit")
             {
-                return SvgColourServer.Inherit;
+                return SvgPaintServer.Inherit;
             }
             else if (value == "currentColor")
             {
@@ -138,9 +138,9 @@ namespace Svg
             if (destinationType == typeof(string))
             {
                 // check for none
-                if (value == SvgPaintServer.None || value == SvgColourServer.None) return "none";
-                if (value == SvgColourServer.Inherit) return "inherit";
-                if (value == SvgColourServer.NotSet) return "";
+                if (value == SvgPaintServer.None) return "none";
+                if (value == SvgPaintServer.Inherit) return "inherit";
+                if (value == SvgPaintServer.NotSet) return string.Empty;
 #if !NETSTANDARD20
                 var colourServer = value as SvgColourServer;
                 if (colourServer != null)

@@ -144,7 +144,7 @@ namespace Svg
         [SvgAttribute("color")]
         public virtual SvgPaintServer Color
         {
-            get { return GetAttribute<SvgPaintServer>("color", Inherited, SvgColourServer.NotSet); }
+            get { return GetAttribute("color", Inherited, SvgPaintServer.NotSet); }
             set { Attributes["color"] = value; }
         }
 
@@ -658,7 +658,7 @@ namespace Svg
 
                             if (Parent != null)
                             {
-                                if (writeStyle && propertyValue == SvgColourServer.NotSet)
+                                if (writeStyle && propertyValue == SvgPaintServer.NotSet)
                                     continue;
 
                                 object parentValue;

@@ -51,7 +51,7 @@ namespace Svg
         [SvgAttribute("fill")]
         public virtual SvgPaintServer Fill
         {
-            get { return GetAttribute<SvgPaintServer>("fill", Inherited, SvgColourServer.NotSet); }
+            get { return GetAttribute("fill", Inherited, SvgPaintServer.NotSet); }
             set { Attributes["fill"] = value; }
         }
 
