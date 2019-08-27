@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Drawing;
+using System.Linq;
 
 namespace Svg
 {
@@ -10,32 +10,36 @@ namespace Svg
     /// </summary>
     public class SvgDeferredPaintServer : SvgPaintServer
     {
-        private bool _serverLoaded = false;
+        private bool _serverLoaded;
+
         private SvgPaintServer _concreteServer;
 
         [Obsolete("Will be removed.")]
         public SvgDocument Document { get; set; }
+
         public string DeferredId { get; set; }
 
-        public SvgDeferredPaintServer() { }
+        public SvgDeferredPaintServer()
+        {
+        }
 
         [Obsolete("Will be removed.")]
         public SvgDeferredPaintServer(SvgDocument document, string id)
         {
-            this.Document = document;
-            this.DeferredId = id;
+            Document = document;
+            DeferredId = id;
         }
 
         public SvgDeferredPaintServer(string id)
         {
-            this.DeferredId = id;
+            DeferredId = id;
         }
 
         public void EnsureServer(SvgElement styleOwner)
         {
             if (!_serverLoaded && styleOwner != null)
             {
-                if (this.DeferredId == "currentColor")
+                if (DeferredId == "currentColor")
                 {
                     var colorElement = (from e in styleOwner.ParentsAndSelf.OfType<SvgElement>()
                                         where e.Color != None && e.Color != NotSet && e.Color != Inherit
@@ -44,7 +48,7 @@ namespace Svg
                 }
                 else
                 {
-                    _concreteServer = styleOwner.OwnerDocument.IdManager.GetElementById(this.DeferredId) as SvgPaintServer;
+                    _concreteServer = styleOwner.OwnerDocument.IdManager.GetElementById(DeferredId) as SvgPaintServer;
                 }
                 _serverLoaded = true;
             }
@@ -64,7 +68,7 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgDeferredPaintServer;
-            newObj.DeferredId = this.DeferredId;
+            newObj.DeferredId = DeferredId;
             return newObj;
         }
 
@@ -74,39 +78,30 @@ namespace Svg
             if (other == null)
                 return false;
 
-            return this.DeferredId == other.DeferredId;
+            return DeferredId == other.DeferredId;
         }
 
         public override int GetHashCode()
         {
-            if (this.DeferredId == null) return 0;
-            return this.DeferredId.GetHashCode();
+            return DeferredId == null ? 0 : DeferredId.GetHashCode();
         }
 
         public override string ToString()
         {
-            if (this.DeferredId == "currentColor")
-            {
-                return this.DeferredId;
-            }
+            if (DeferredId == "currentColor")
+                return DeferredId;
             else
-            {
-                return string.Format("url({0})", this.DeferredId);
-            }
+                return string.Format("url({0})", DeferredId);
         }
 
         public static T TryGet<T>(SvgPaintServer server, SvgElement parent) where T : SvgPaintServer
         {
-            var deferred = server as SvgDeferredPaintServer;
-            if (deferred == null)
-            {
+            if (!(server is SvgDeferredPaintServer))
                 return server as T;
-            }
-            else
-            {
-                deferred.EnsureServer(parent);
-                return deferred._concreteServer as T;
-            }
+
+            var deferred = (SvgDeferredPaintServer)server;
+            deferred.EnsureServer(parent);
+            return deferred._concreteServer as T;
         }
     }
 }
