@@ -211,6 +211,7 @@ __issue-082-01.svg
 __issue-083-01.svg
 __issue-084-01.svg
 __issue-109-01.svg
+__issue-114-01.svg
 __issue-116-01.svg
 __issue-123-01.svg
 __issue-129-01.svg
