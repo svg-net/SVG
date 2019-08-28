@@ -71,6 +71,14 @@ namespace Svg.UnitTests
             Assert.IsInstanceOf<T>(dest);
         }
 
+        [Test]
+        public void TestDoNotDeepCopy()
+        {
+            Assert.AreSame(SvgPaintServer.None, SvgPaintServer.None.DeepCopy());
+            Assert.AreSame(SvgColourServer.Inherit, SvgColourServer.Inherit.DeepCopy());
+            Assert.AreSame(SvgColourServer.NotSet, SvgColourServer.NotSet.DeepCopy());
+        }
+
         /// <summary>
         /// Tests that the deep copy of a <see cref="SvgText"/> is done correctly where the
         /// text element has contains only text and now other elements like <see cref="SvgTextSpan"/>.
