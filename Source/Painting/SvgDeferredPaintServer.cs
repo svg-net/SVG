@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 
 namespace Svg
 {
@@ -15,12 +16,14 @@ namespace Svg
         private bool _serverLoaded;
 
         private SvgPaintServer _concreteServer;
-        private readonly SvgPaintServer _fallbackServer;
+        private SvgPaintServer _fallbackServer;
 
         [Obsolete("Will be removed.")]
         public SvgDocument Document { get; set; }
 
         public string DeferredId { get; set; }
+
+        public SvgPaintServer FallbackServer { get; private set; }
 
         public SvgDeferredPaintServer()
         {
@@ -41,7 +44,7 @@ namespace Svg
         public SvgDeferredPaintServer(string id, SvgPaintServer fallbackServer)
         {
             DeferredId = id;
-            _fallbackServer = fallbackServer;
+            FallbackServer = fallbackServer;
         }
 
         public void EnsureServer(SvgElement styleOwner)
@@ -53,11 +56,16 @@ namespace Svg
                     var colorElement = (from e in styleOwner.ParentsAndSelf.OfType<SvgElement>()
                                         where e.Color != None && e.Color != NotSet && e.Color != Inherit
                                         select e).FirstOrDefault();
-                    _concreteServer = (colorElement == null ? NotSet : colorElement.Color);
+                    _concreteServer = colorElement?.Color;
                 }
                 else
                 {
                     _concreteServer = styleOwner.OwnerDocument.IdManager.GetElementById(DeferredId) as SvgPaintServer;
+
+                    _fallbackServer = FallbackServer;
+                    if (!(_fallbackServer is SvgColourServer ||
+                        (_fallbackServer is SvgDeferredPaintServer && string.Equals(((SvgDeferredPaintServer)_fallbackServer).DeferredId, "currentColor"))))
+                        _fallbackServer = Inherit;
                 }
                 _serverLoaded = true;
             }
@@ -78,6 +86,7 @@ namespace Svg
         {
             var newObj = base.DeepCopy<T>() as SvgDeferredPaintServer;
             newObj.DeferredId = DeferredId;
+            newObj.FallbackServer = FallbackServer?.DeepCopy() as SvgPaintServer;
             return newObj;
         }
 
@@ -97,7 +106,11 @@ namespace Svg
 
         public override string ToString()
         {
-            return string.IsNullOrEmpty(DeferredId) ? string.Empty : DeferredId;
+            if (string.IsNullOrEmpty(DeferredId))
+                return string.Empty;
+            if (FallbackServer == null)
+                return DeferredId;
+            return new StringBuilder(DeferredId).Append(" ").Append(FallbackServer.ToString()).ToString();
         }
 
         public static T TryGet<T>(SvgPaintServer server, SvgElement parent) where T : SvgPaintServer

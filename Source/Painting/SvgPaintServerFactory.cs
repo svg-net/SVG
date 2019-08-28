@@ -39,10 +39,7 @@ namespace Svg
                 var id = colorValue.Substring(0, nextIndex);
 
                 colorValue = colorValue.Substring(nextIndex).Trim();
-                var fallbackServer = string.IsNullOrEmpty(colorValue) ? SvgPaintServer.None : Create(colorValue, document);
-                if (!(fallbackServer is SvgColourServer ||
-                    (fallbackServer is SvgDeferredPaintServer && string.Equals(((SvgDeferredPaintServer)fallbackServer).DeferredId, "currentColor"))))
-                    fallbackServer = SvgPaintServer.Inherit;
+                var fallbackServer = string.IsNullOrEmpty(colorValue) ? null : Create(colorValue, document);
 
                 return new SvgDeferredPaintServer(id, fallbackServer);
             }
