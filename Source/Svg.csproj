@@ -25,7 +25,7 @@
     <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
     <PackageTags>svg, vector graphics, rendering</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
