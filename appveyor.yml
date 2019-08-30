@@ -1,10 +1,28 @@
 version: '{build}'
 
-image: Visual Studio 2017
-configuration:
-- Release
+image: Visual Studio 2019
+
 before_build:
 - ps: nuget restore Source\Svg.csproj
 - ps: nuget restore Tests\Svg.UnitTests\Svg.UnitTests.csproj
+
+branches:
+  only:
+    - master
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# build platform, i.e. x86, x64, Any CPU. This setting is optional.
+platform: Any CPU
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration: Release
+
 build:
   project: Source\Svg.sln
+
+artifacts:
+- path: '**\*.nupkg'
+  type: NuGetPackage
