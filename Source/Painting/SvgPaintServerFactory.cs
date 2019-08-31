@@ -9,13 +9,14 @@ namespace Svg
 {
     internal class SvgPaintServerFactory : TypeConverter
     {
+#if !NETSTANDARD20
         private static readonly SvgColourConverter _colourConverter;
 
         static SvgPaintServerFactory()
         {
             _colourConverter = new SvgColourConverter();
         }
-
+#endif
         public static SvgPaintServer Create(string value, SvgDocument document)
         {
             // If it's pointing to a paint server
@@ -53,6 +54,7 @@ namespace Svg
                     {
                         switch (CountHexDigits(value, 1))
                         {
+#if !NETSTANDARD20
                             case 3:
                                 servers.Add(new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Substring(0, 4))));
                                 value = value.Substring(4).Trim();
@@ -61,14 +63,17 @@ namespace Svg
                                 servers.Add(new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Substring(0, 7))));
                                 value = value.Substring(7).Trim();
                                 break;
+#endif
                             default:
                                 return new SvgDeferredPaintServer(value);
                         }
                     }
+#if !NETSTANDARD20
                     else
                     {
                         return new SvgColourServer((Color)_colourConverter.ConvertFrom(value.Trim()));
                     }
+#endif
                 }
 
                 if (servers.Count > 1)
@@ -136,13 +141,13 @@ namespace Svg
                 if (value == SvgPaintServer.None || value == SvgColourServer.None) return "none";
                 if (value == SvgColourServer.Inherit) return "inherit";
                 if (value == SvgColourServer.NotSet) return "";
-
+#if !NETSTANDARD20
                 var colourServer = value as SvgColourServer;
                 if (colourServer != null)
                 {
                     return new SvgColourConverter().ConvertTo(colourServer.Colour, typeof(string));
                 }
-
+#endif
                 var deferred = value as SvgDeferredPaintServer;
                 if (deferred != null)
                 {

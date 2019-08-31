@@ -16,7 +16,7 @@ namespace Svg.UnitTests
     {
         public TestContext TestContext { get; set; }
 
-#if NETCORE
+#if NETSTANDARD || NETCORE
         /// <summary>
         /// Compares SVG images against reference PNG images from the W3C SVG 1.1 test suite.
         /// This tests 158 out of 179 passing tests - the rest will not pass
@@ -109,7 +109,7 @@ namespace Svg.UnitTests
         // [TestFixture]
         public void RecordDiffForAllSvgImagesWithReference()
         {
-#if NETCORE
+#if NETSTANDARD || NETCORE
             var basePath = Path.Combine(ImageTestDataSource.SuiteTestsFolder, "W3CTestSuite");
 #else
             var basePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDirectory))); //TODO: Tthe get dir name was parsed from the testparams -> Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestRunDirectory)));

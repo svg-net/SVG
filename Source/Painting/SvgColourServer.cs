@@ -56,11 +56,11 @@ namespace Svg
                 return "inherit";
 
             Color c = this.Colour;
-
+#if !NETSTANDARD20
             // Return the name if it exists
             if (c.IsKnownColor)
                 return c.Name;
-
+#endif
             // Return the hex value
             return String.Format("#{0}", c.ToArgb().ToString("x").Substring(2));
         }
