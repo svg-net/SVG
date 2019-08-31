@@ -73,6 +73,9 @@ namespace Svg
 
         public override SvgElement DeepCopy<T>()
         {
+            if (this == None || this == Inherit || this == NotSet)
+                return this;
+
             var newObj = base.DeepCopy<T>() as SvgColourServer;
             newObj.Colour = this.Colour;
             return newObj;
