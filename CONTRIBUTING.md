@@ -38,6 +38,7 @@ There are a few things to consider for contributing code:
   * Provide meaningful commit messages and/or PR comments
   * Check that the automatic tests on [AppVeyor](https://ci.appveyor.com/project/tebjan/svg) all pass for your pull request
   * Be ready to adapt your changes after a code review 
+  * When copying existing code from other sources or repositories, please keep licensing in mind
   
 ### Contributing Documentation
 
