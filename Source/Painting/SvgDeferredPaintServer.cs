@@ -36,11 +36,20 @@ namespace Svg
             DeferredId = id;
         }
 
+        /// <summary>
+        /// Initializes new instance of <see cref="SvgDeferredPaintServer"/> class.
+        /// </summary>
+        /// <param name="id">&lt;FuncIRI&gt;, &lt;IRI&gt; or &quot;currentColor&quot;.</param>
         public SvgDeferredPaintServer(string id)
             : this(id, null)
         {
         }
 
+        /// <summary>
+        /// Initializes new instance of <see cref="SvgDeferredPaintServer"/> class.
+        /// </summary>
+        /// <param name="id">&lt;FuncIRI&gt;, &lt;IRI&gt; or &quot;currentColor&quot;.</param>
+        /// <param name="fallbackServer">&quot;none&quot;, &quot;currentColor&quot; or <see cref="SvgColourServer"/> server.</param>
         public SvgDeferredPaintServer(string id, SvgPaintServer fallbackServer)
         {
             DeferredId = id;

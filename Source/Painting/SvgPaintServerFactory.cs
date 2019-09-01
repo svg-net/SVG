@@ -24,14 +24,11 @@ namespace Svg
             // If it's pointing to a paint server
             if (string.IsNullOrEmpty(colorValue))
                 return SvgPaintServer.NotSet;
-            else if (string.Equals(colorValue, "none", StringComparison.OrdinalIgnoreCase))
-                // none
+            else if (colorValue.Equals("none", StringComparison.OrdinalIgnoreCase))
                 return SvgPaintServer.None;
-            else if (string.Equals(colorValue, "currentColor", StringComparison.OrdinalIgnoreCase))
-                // currentColor
+            else if (colorValue.Equals("currentColor", StringComparison.OrdinalIgnoreCase))
                 return new SvgDeferredPaintServer("currentColor");
-            else if (string.Equals(colorValue, "inherit", StringComparison.OrdinalIgnoreCase))
-                // inherit
+            else if (colorValue.Equals("inherit", StringComparison.OrdinalIgnoreCase))
                 return SvgPaintServer.Inherit;
             else if (colorValue.StartsWith("url(", StringComparison.OrdinalIgnoreCase))
             {

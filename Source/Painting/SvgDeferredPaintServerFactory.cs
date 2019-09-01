@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace Svg
 {
+    /// <summary>
+    /// Factory class for &lt;IRI&gt;.
+    /// </summary>
     internal class SvgDeferredPaintServerFactory : SvgPaintServerFactory
     {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
