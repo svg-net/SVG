@@ -43,7 +43,6 @@ namespace Svg.UnitTests
             CheckDeepCopyInstance(new SvgOffset());
             CheckDeepCopyInstance(new SvgColourServer());
             CheckDeepCopyInstance(new SvgDeferredPaintServer());
-            CheckDeepCopyInstance(new SvgFallbackPaintServer());
             CheckDeepCopyInstance(new SvgGradientStop());
             CheckDeepCopyInstance(new SvgLinearGradientServer());
             CheckDeepCopyInstance(new SvgMarker());
@@ -75,8 +74,8 @@ namespace Svg.UnitTests
         public void TestDoNotDeepCopy()
         {
             Assert.AreSame(SvgPaintServer.None, SvgPaintServer.None.DeepCopy());
-            Assert.AreSame(SvgColourServer.Inherit, SvgColourServer.Inherit.DeepCopy());
-            Assert.AreSame(SvgColourServer.NotSet, SvgColourServer.NotSet.DeepCopy());
+            Assert.AreSame(SvgPaintServer.Inherit, SvgPaintServer.Inherit.DeepCopy());
+            Assert.AreSame(SvgPaintServer.NotSet, SvgPaintServer.NotSet.DeepCopy());
         }
 
         /// <summary>
