@@ -148,6 +148,7 @@ namespace Svg
         /// <param name="pRefPoint"></param>
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
+        /// <param name="isStartMarker"></param>
         public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2, bool isStartMarker)
         {
             float fAngle1 = 0f;
