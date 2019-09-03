@@ -40,7 +40,7 @@ namespace Svg.Css
                     // class, pseudo-class, attribute
                     return 1 << 8;
                 }
-                else if (selector == SimpleSelector.All)
+                else if (simpleCode.Equals("*"))
                 {
                     // all selector
                     return 0;
