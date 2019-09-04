@@ -62,6 +62,8 @@ namespace Svg.UnitTests
             CheckDeepCopyInstance(new SvgTextPath());
             CheckDeepCopyInstance(new SvgTextRef());
             CheckDeepCopyInstance(new SvgTextSpan());
+            CheckDeepCopyInstance(new NonSvgElement());
+            CheckDeepCopyInstance(new SvgUnknownElement());
         }
 
         private void CheckDeepCopyInstance<T>(T src)
