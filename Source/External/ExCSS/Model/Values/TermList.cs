@@ -52,6 +52,11 @@ namespace Svg.ExCSS
                         AddSeparator(GrammarSegment.Whitespace);
                         break;
                     }
+                case (TermSeparator.PlusSign):
+                    {
+                        AddSeparator(GrammarSegment.PlusSign);
+                        break;
+                    }
             }
         }
 
@@ -103,6 +108,10 @@ namespace Svg.ExCSS
                         builder.Append(",");
                         break;
 
+                    case GrammarSegment.PlusSign:
+                        builder.Append("+");
+                        break;
+
                     default:
                         throw new NotImplementedException();
                 }
@@ -117,7 +126,8 @@ namespace Svg.ExCSS
         public enum TermSeparator
         {
             Comma,
-            Space
+            Space,
+            PlusSign
         }
 
         internal void SetLastTerm(Term term)

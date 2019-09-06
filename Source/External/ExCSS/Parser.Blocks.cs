@@ -534,6 +534,11 @@ namespace Svg.ExCSS
                     _isFraction = true;
                     return true;
 
+                case Specification.PlusSign:
+                    _terms.AddSeparator(TermList.TermSeparator.PlusSign);
+                    SetParsingContext(ParsingContext.InValuePool);
+                    return true;
+
                 default:
                     return false;
             }

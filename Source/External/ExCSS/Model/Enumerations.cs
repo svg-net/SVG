@@ -124,7 +124,8 @@ namespace Svg.ExCSS
         Colon,
         Comma,
         Semicolon,
-        Whitespace
+        Whitespace,
+        PlusSign
     }
 
     public enum RuleType

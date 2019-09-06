@@ -152,7 +152,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fizzler" Version="1.1.0" />
+    <PackageReference Include="Fizzler" Version="1.1.0" Condition="'$(TargetFramework)'=='net35' Or '$(TargetFramework)'=='net452'"/>
+    <PackageReference Include="Fizzler" Version="1.2.0" Condition="'$(TargetFramework)'=='netstandard2.0' Or '$(TargetFramework)'=='netcoreapp2.2' Or '$(TargetFramework)'=='net472'"/>
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.3.167">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
