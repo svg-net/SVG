@@ -20,16 +20,16 @@ namespace Svg.UnitTests
         /// <summary>
         /// Compares SVG images against reference PNG images from the W3C SVG 1.1 test suite.
         /// This tests 158 out of 179 passing tests - the rest will not pass
-        /// the test for several reasons. 
+        /// the test for several reasons.
         /// Note that with the current test there are still a lot of false positives,
         /// so this is not a definitive test for image equality yet.
         /// </summary>
         [Test]
-        [TestCaseSource(typeof(ImageTestDataSource), nameof(ImageTestDataSource.PassingTests))]        
+        [TestCaseSource(typeof(ImageTestDataSource), nameof(ImageTestDataSource.PassingTests))]
         public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
         {
             string basePath = testData.BasePath;
-            string baseName = testData.BaseName;            
+            string baseName = testData.BaseName;
             bool testSaveLoad = !baseName.StartsWith("#");
             if (!testSaveLoad)
             {
@@ -41,7 +41,7 @@ namespace Svg.UnitTests
         }
 #else
         [Test]
-        [TestCaseSource(typeof(ImageTestDataSource), "PassingTests")]                
+        [TestCaseSource(typeof(ImageTestDataSource), "PassingTests")]
         public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
         {
             var basePath = testData.BasePath;
@@ -310,14 +310,14 @@ namespace Svg.UnitTests
         }
 
         public static IEnumerable<TestData> PassingTests()
-        {            
+        {
             var basePath = SuiteTestsFolder;
             var testSuite = Path.Combine(basePath, "W3CTestSuite");
             var rows = new ImageTestDataSource().LoadRowsFromResourceCsv().Skip(1); //Skip header row
             foreach (var row in rows)
                 yield return new TestData() { BasePath = testSuite, BaseName = row };
         }
-        
+
         private const string ResourceIdentifier = "PassingTests.csv";
         /// <summary>
         /// Read the rows from the resource

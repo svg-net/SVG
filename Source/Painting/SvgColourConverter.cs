@@ -162,7 +162,7 @@ namespace Svg
                     {
                         // numbers are handled as colors by System.Drawing.ColorConverter - we
                         // have to prevent this and ignore the color instead (see #342) 
-                        return SvgColourServer.NotSet;
+                        return SvgPaintServer.NotSet;
                     }
 
                     var index = colour.LastIndexOf("grey", StringComparison.InvariantCultureIgnoreCase);

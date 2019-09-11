@@ -46,9 +46,16 @@ namespace Svg
             if (ContainsKey(attributeName) && !IsInheritValue(base[attributeName]))
             {
                 var result = (TAttributeType)base[attributeName];
+
                 var deferred = result as SvgDeferredPaintServer;
-                if (deferred != null) deferred.EnsureServer(_owner);
-                return result;
+                if (deferred == null)
+                    return result;
+                else
+                {
+                    var server = SvgDeferredPaintServer.TryGet<SvgPaintServer>(deferred, _owner);
+                    if (server != SvgPaintServer.Inherit)
+                        return result;
+                }
             }
 
             var parentAttribute = _owner.Parent?.Attributes[attributeName];
@@ -64,7 +71,7 @@ namespace Svg
                     (value is SvgTextDecoration && (SvgTextDecoration)value == SvgTextDecoration.Inherit) ||
                     (value is XmlSpaceHandling && (XmlSpaceHandling)value == XmlSpaceHandling.inherit) ||
                     (value is SvgOverflow && (SvgOverflow)value == SvgOverflow.Inherit) ||
-                    (value is SvgColourServer && (SvgColourServer)value == SvgColourServer.Inherit) ||
+                    (value is SvgPaintServer && (SvgPaintServer)value == SvgPaintServer.Inherit) ||
                     (value is SvgShapeRendering && (SvgShapeRendering)value == SvgShapeRendering.Inherit) ||
                     (value is SvgTextRendering && (SvgTextRendering)value == SvgTextRendering.Inherit) ||
                     (value is SvgImageRendering && (SvgImageRendering)value == SvgImageRendering.Inherit) ||

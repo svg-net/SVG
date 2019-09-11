@@ -60,7 +60,7 @@ namespace Svg
         [TypeConverter(typeof(SvgPaintServerFactory))]
         public override SvgPaintServer StopColor
         {
-            get { return GetAttribute("stop-color", Inherited, SvgColourServer.NotSet); }
+            get { return GetAttribute("stop-color", Inherited, SvgPaintServer.NotSet); }
             set { Attributes["stop-color"] = value; }
         }
 

@@ -9,6 +9,7 @@ namespace Svg
     /// <summary>
     /// A wrapper for a paint server has a fallback if the primary server doesn't work.
     /// </summary>
+    [Obsolete("Will be removed.Use SvgDeferredPaintServer class instead.")]
     public class SvgFallbackPaintServer : SvgPaintServer
     {
         private IEnumerable<SvgPaintServer> _fallbacks;

@@ -75,9 +75,9 @@ namespace Svg
         /// Gets or sets another gradient fill from which to inherit the stops from.
         /// </summary>
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
-        public SvgPaintServer InheritGradient
+        public SvgDeferredPaintServer InheritGradient
         {
-            get { return GetAttribute<SvgPaintServer>("href", false); }
+            get { return GetAttribute<SvgDeferredPaintServer>("href", false); }
             set { Attributes["href"] = value; }
         }
 

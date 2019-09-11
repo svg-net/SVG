@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="default" width="80" height="80">
+<defs>
+<linearGradient id="mycolor" xlink:href="#ff0000" />
+<linearGradient id="ff0000">
+<stop stop-color="blue"/>
+</linearGradient>
+</defs>
+
+<rect x="10"  y="10" width="60" height="60" fill="url(#mycolor)" />
+</svg>
