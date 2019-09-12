@@ -138,18 +138,6 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets or sets the colour of the gradient stop.
-        /// </summary>
-        /// <remarks>Apparently this can be set on non-sensical elements.  Don't ask; just check the tests.</remarks>
-        [SvgAttribute("stop-color")]
-        [TypeConverter(typeof(SvgPaintServerFactory))]
-        public virtual SvgPaintServer StopColor
-        {
-            get { return GetAttribute<SvgPaintServer>("stop-color", Inherited); }
-            set { Attributes["stop-color"] = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the opacity of the element. 1.0 is fully opaque; 0.0 is transparent.
         /// </summary>
         [SvgAttribute("opacity")]

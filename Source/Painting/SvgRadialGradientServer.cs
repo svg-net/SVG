@@ -108,7 +108,7 @@ namespace Svg
                 {
                     var stop = Stops.Last();
                     var origColor = stop.GetColor(renderingElement);
-                    var renderColor = System.Drawing.Color.FromArgb((int)Math.Round(opacity * stop.Opacity * 255), origColor);
+                    var renderColor = System.Drawing.Color.FromArgb((int)Math.Round(opacity * stop.StopOpacity * 255), origColor);
 
                     var origClip = renderer.GetClip();
                     try
