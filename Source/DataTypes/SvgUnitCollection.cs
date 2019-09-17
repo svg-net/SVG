@@ -11,7 +11,7 @@ namespace Svg
     /// Represents a list of <see cref="SvgUnit"/>.
     /// </summary>
     [TypeConverter(typeof(SvgUnitCollectionConverter))]
-    public class SvgUnitCollection : ObservableCollection<SvgUnit>
+    public class SvgUnitCollection : ObservableCollection<SvgUnit>, ICloneable
     {
         public static string None = "none";
 
@@ -64,6 +64,16 @@ namespace Svg
         {
             return collection == null || collection.Count < 1 ||
                 (collection.Count == 1 && (collection[0] == SvgUnit.Empty || collection[0] == SvgUnit.None));
+        }
+
+        public object Clone()
+        {
+            var units = new SvgUnitCollection
+            {
+                StringForEmptyValue = StringForEmptyValue
+            };
+            units.AddRange(this);
+            return units;
         }
     }
 
