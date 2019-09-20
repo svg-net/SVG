@@ -64,19 +64,7 @@ namespace Svg
 
         private bool IsInheritValue(object value)
         {
-            return (value == null ||
-                    (value is SvgFontWeight && (SvgFontWeight)value == SvgFontWeight.Inherit) ||
-                    (value is SvgTextAnchor && (SvgTextAnchor)value == SvgTextAnchor.Inherit) ||
-                    (value is SvgFontVariant && (SvgFontVariant)value == SvgFontVariant.Inherit) ||
-                    (value is SvgTextDecoration && (SvgTextDecoration)value == SvgTextDecoration.Inherit) ||
-                    (value is XmlSpaceHandling && (XmlSpaceHandling)value == XmlSpaceHandling.inherit) ||
-                    (value is SvgOverflow && (SvgOverflow)value == SvgOverflow.Inherit) ||
-                    (value is SvgPaintServer && (SvgPaintServer)value == SvgPaintServer.Inherit) ||
-                    (value is SvgShapeRendering && (SvgShapeRendering)value == SvgShapeRendering.Inherit) ||
-                    (value is SvgTextRendering && (SvgTextRendering)value == SvgTextRendering.Inherit) ||
-                    (value is SvgImageRendering && (SvgImageRendering)value == SvgImageRendering.Inherit) ||
-                    (value is string && ((string)value).ToLower() == "inherit")
-                   );
+            return value == null || value.ToString().Equals("inherit", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
