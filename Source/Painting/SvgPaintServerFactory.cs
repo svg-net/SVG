@@ -81,10 +81,9 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
-                // check for none
-                if (value == SvgPaintServer.None) return "none";
-                if (value == SvgPaintServer.Inherit) return "inherit";
-                if (value == SvgPaintServer.NotSet) return string.Empty;
+                // check for constant
+                if (value == SvgPaintServer.None || value == SvgPaintServer.Inherit || value == SvgPaintServer.NotSet)
+                    return value.ToString();
 #if !NETSTANDARD20
                 var colourServer = value as SvgColourServer;
                 if (colourServer != null)
