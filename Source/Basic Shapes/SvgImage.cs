@@ -329,7 +329,8 @@ namespace Svg
                     return LoadSvg(stream, OwnerDocument.BaseUri);
                 }
             }
-            else if (mimeType.StartsWith("image/"))
+            // support nonstandard "img" spelling of mimetype
+            else if (mimeType.StartsWith("image/") || mimeType.StartsWith("img/"))
             {
                 var dataBytes = base64 ? Convert.FromBase64String(data) : Encoding.Default.GetBytes(data);
                 using (var stream = new MemoryStream(dataBytes))
