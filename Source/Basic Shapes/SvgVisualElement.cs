@@ -282,17 +282,20 @@ namespace Svg
                             {
                                 if (StrokeDashArray != null && StrokeDashArray.Count > 0)
                                 {
-                                    strokeWidth = strokeWidth <= 0 ? 1f : strokeWidth;
-                                    if (StrokeDashArray.Count % 2 != 0)
+                                    var strokeDashArray = StrokeDashArray;
+                                    if (strokeDashArray.Count % 2 != 0)
                                     {
                                         // handle odd dash arrays by repeating them once
-                                        StrokeDashArray.AddRange(StrokeDashArray);
+                                        strokeDashArray = new SvgUnitCollection();
+                                        strokeDashArray.AddRange(StrokeDashArray);
+                                        strokeDashArray.AddRange(StrokeDashArray);
                                     }
-
                                     var dashOffset = StrokeDashOffset;
 
+                                    strokeWidth = Math.Max(strokeWidth, 1f);
+
                                     /* divide by stroke width - GDI uses stroke width as unit.*/
-                                    var dashPattern = StrokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
+                                    var dashPattern = strokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
                                         u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth).ToArray();
                                     var length = dashPattern.Length;
 
