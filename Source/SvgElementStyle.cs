@@ -113,6 +113,7 @@ namespace Svg
             set { Attributes["stroke-miterlimit"] = value; }
         }
 
+        [TypeConverter(typeof(SvgStrokeDashArrayConverter))]
         [SvgAttribute("stroke-dasharray")]
         public virtual SvgUnitCollection StrokeDashArray
         {
