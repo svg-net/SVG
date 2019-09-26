@@ -13,6 +13,13 @@ namespace Svg
     [TypeConverter(typeof(SvgUnitCollectionConverter))]
     public class SvgUnitCollection : ObservableCollection<SvgUnit>
     {
+        public static string None = "none";
+
+        public static string Inherit = "inherit";
+
+        /// <summary>
+        /// Sets <see cref="None"/> or <see cref="Inherit"/> if needed.
+        /// </summary>
         public string StringIfEmpty { get; set; }
 
         public void AddRange(IEnumerable<SvgUnit> collection)
@@ -104,15 +111,15 @@ namespace Svg
             if (value is string)
             {
                 var s = ((string)value).Trim();
-                if (s.Equals("none", StringComparison.OrdinalIgnoreCase))
+                if (s.Equals(SvgUnitCollection.None, StringComparison.OrdinalIgnoreCase))
                     return new SvgUnitCollection
                     {
-                        StringIfEmpty = "none"
+                        StringIfEmpty = SvgUnitCollection.None
                     };
-                else if (s.Equals("inherit", StringComparison.OrdinalIgnoreCase))
+                else if (s.Equals(SvgUnitCollection.Inherit, StringComparison.OrdinalIgnoreCase))
                     return new SvgUnitCollection
                     {
-                        StringIfEmpty = "inherit"
+                        StringIfEmpty = SvgUnitCollection.Inherit
                     };
             }
 
