@@ -20,7 +20,7 @@ namespace Svg
         /// <summary>
         /// Sets <see cref="None"/> or <see cref="Inherit"/> if needed.
         /// </summary>
-        public string StringIfEmpty { get; set; }
+        public string StringForEmptyValue { get; set; }
 
         public void AddRange(IEnumerable<SvgUnit> collection)
         {
@@ -43,8 +43,8 @@ namespace Svg
 
         public override string ToString()
         {
-            if (Count <= 0 && !string.IsNullOrEmpty(StringIfEmpty))
-                return StringIfEmpty;
+            if (Count <= 0 && !string.IsNullOrEmpty(StringForEmptyValue))
+                return StringForEmptyValue;
 
             // The correct separator should be a single white space.
             // More see:
@@ -114,12 +114,12 @@ namespace Svg
                 if (s.Equals(SvgUnitCollection.None, StringComparison.OrdinalIgnoreCase))
                     return new SvgUnitCollection
                     {
-                        StringIfEmpty = SvgUnitCollection.None
+                        StringForEmptyValue = SvgUnitCollection.None
                     };
                 else if (s.Equals(SvgUnitCollection.Inherit, StringComparison.OrdinalIgnoreCase))
                     return new SvgUnitCollection
                     {
-                        StringIfEmpty = SvgUnitCollection.Inherit
+                        StringForEmptyValue = SvgUnitCollection.Inherit
                     };
             }
 
