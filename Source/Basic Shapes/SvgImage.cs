@@ -206,10 +206,11 @@ namespace Svg
 
                     if (bmp != null)
                     {
-                        if (Opacity == 1f)
+                        var opacity = FixOpacityValue(Opacity);
+                        if (opacity == 1f)
                             renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel);
                         else
-                            renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel, Opacity);
+                            renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel, opacity);
                     }
                     else
                     {
