@@ -145,7 +145,7 @@ namespace Svg
 
                             if (Renderable)
                             {
-                                var opacity = Math.Min(Math.Max(Opacity, 0f), 1f);
+                                var opacity = FixOpacityValue(Opacity);
                                 if (opacity == 1f)
                                     RenderFillAndStroke(renderer);
                                 else
@@ -229,7 +229,7 @@ namespace Svg
         protected internal virtual void RenderFill(ISvgRenderer renderer)
         {
             if (Fill != null)
-                using (var brush = Fill.GetBrush(this, renderer, Math.Min(Math.Max(FillOpacity, 0f), 1f)))
+                using (var brush = Fill.GetBrush(this, renderer, FixOpacityValue(FillOpacity)))
                 {
                     if (brush != null)
                     {
@@ -249,7 +249,7 @@ namespace Svg
             if (Stroke != null && Stroke != SvgPaintServer.None && StrokeWidth > 0f)
             {
                 var strokeWidth = StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
-                using (var brush = Stroke.GetBrush(this, renderer, Math.Min(Math.Max(StrokeOpacity, 0f), 1f), true))
+                using (var brush = Stroke.GetBrush(this, renderer, FixOpacityValue(StrokeOpacity), true))
                 {
                     if (brush != null)
                     {

@@ -246,11 +246,10 @@ namespace Svg
 
                         SvgPaintServer pFill = this.Children.First().Fill;
                         SvgFillRule pFillRule = FillRule;    // TODO: What do we use the fill rule for?
-                        float fOpacity = FillOpacity;
 
                         if (pFill != null)
                         {
-                            using (var pBrush = pFill.GetBrush(this, pRenderer, fOpacity))
+                            using (var pBrush = pFill.GetBrush(this, pRenderer, FixOpacityValue(FillOpacity)))
                             {
                                 pRenderer.FillPath(pBrush, markerPath);
                             }
@@ -267,7 +266,7 @@ namespace Svg
         private Pen CreatePen(SvgVisualElement pPath, ISvgRenderer renderer)
         {
             if (this.Stroke == null) return null;
-            Brush pBrush = this.Stroke.GetBrush(this, renderer, Opacity);
+            Brush pBrush = this.Stroke.GetBrush(this, renderer, FixOpacityValue(Opacity));
             switch (MarkerUnits)
             {
                 case SvgMarkerUnits.StrokeWidth:
