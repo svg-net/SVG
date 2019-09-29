@@ -58,7 +58,7 @@ namespace Svg
         [TypeConverter(typeof(SvgPaintServerFactory))]
         public SvgPaintServer StopColor
         {
-            get { return GetAttribute<SvgPaintServer>("stop-color", Inherited, new SvgColourServer(System.Drawing.Color.Black)); }
+            get { return GetAttribute<SvgPaintServer>("stop-color", true, new SvgColourServer(System.Drawing.Color.Black)); }
             set { Attributes["stop-color"] = value; }
         }
 
@@ -68,7 +68,7 @@ namespace Svg
         [SvgAttribute("stop-opacity")]
         public float StopOpacity
         {
-            get { return GetAttribute("stop-opacity", Inherited, 1f); }
+            get { return GetAttribute("stop-opacity", true, 1f); }
             set { Attributes["stop-opacity"] = FixOpacityValue(value); }
         }
 

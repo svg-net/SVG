@@ -12,7 +12,7 @@ namespace Svg
         [SvgAttribute("visibility")]
         public virtual bool Visible
         {
-            get { return GetAttribute("visibility", Inherited, true); }
+            get { return GetAttribute("visibility", true, true); }
             set { Attributes["visibility"] = value; }
         }
 
@@ -23,7 +23,7 @@ namespace Svg
         [SvgAttribute("display")]
         public virtual string Display
         {
-            get { return GetAttribute("display", Inherited, "inline"); }
+            get { return GetAttribute("display", true, "inline"); }
             set { Attributes["display"] = value; }
         }
 
@@ -39,7 +39,7 @@ namespace Svg
         [SvgAttribute("enable-background")]
         public virtual string EnableBackground
         {
-            get { return GetAttribute<string>("enable-background", Inherited); }
+            get { return GetAttribute<string>("enable-background", true); }
             set { Attributes["enable-background"] = value; }
         }
     }

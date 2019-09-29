@@ -37,14 +37,14 @@ namespace Svg
         [SvgAttribute("method")]
         public virtual SvgTextPathMethod Method
         {
-            get { return GetAttribute("method", Inherited, SvgTextPathMethod.Align); }
+            get { return GetAttribute("method", true, SvgTextPathMethod.Align); }
             set { Attributes["method"] = value; }
         }
 
         [SvgAttribute("spacing")]
         public virtual SvgTextPathSpacing Spacing
         {
-            get { return GetAttribute("spacing", Inherited, SvgTextPathSpacing.Exact); }
+            get { return GetAttribute("spacing", true, SvgTextPathSpacing.Exact); }
             set { Attributes["spacing"] = value; }
         }
 

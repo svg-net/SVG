@@ -29,42 +29,42 @@ namespace Svg
         [SvgAttribute("glyph-name")]
         public virtual string GlyphName
         {
-            get { return GetAttribute<string>("glyph-name", Inherited); }
+            get { return GetAttribute<string>("glyph-name", true); }
             set { Attributes["glyph-name"] = value; }
         }
 
         [SvgAttribute("horiz-adv-x")]
         public float HorizAdvX
         {
-            get { return GetAttribute("horiz-adv-x", Inherited, Parents.OfType<SvgFont>().First().HorizAdvX); }
+            get { return GetAttribute("horiz-adv-x", true, Parents.OfType<SvgFont>().First().HorizAdvX); }
             set { Attributes["horiz-adv-x"] = value; }
         }
 
         [SvgAttribute("unicode")]
         public string Unicode
         {
-            get { return GetAttribute<string>("unicode", Inherited); }
+            get { return GetAttribute<string>("unicode", true); }
             set { Attributes["unicode"] = value; }
         }
 
         [SvgAttribute("vert-adv-y")]
         public float VertAdvY
         {
-            get { return GetAttribute("vert-adv-y", Inherited, Parents.OfType<SvgFont>().First().VertAdvY); }
+            get { return GetAttribute("vert-adv-y", true, Parents.OfType<SvgFont>().First().VertAdvY); }
             set { Attributes["vert-adv-y"] = value; }
         }
 
         [SvgAttribute("vert-origin-x")]
         public float VertOriginX
         {
-            get { return GetAttribute("vert-origin-x", Inherited, Parents.OfType<SvgFont>().First().VertOriginX); }
+            get { return GetAttribute("vert-origin-x", true, Parents.OfType<SvgFont>().First().VertOriginX); }
             set { Attributes["vert-origin-x"] = value; }
         }
 
         [SvgAttribute("vert-origin-y")]
         public float VertOriginY
         {
-            get { return GetAttribute("vert-origin-y", Inherited, Parents.OfType<SvgFont>().First().VertOriginY); }
+            get { return GetAttribute("vert-origin-y", true, Parents.OfType<SvgFont>().First().VertOriginY); }
             set { Attributes["vert-origin-y"] = value; }
         }
 
