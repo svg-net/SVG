@@ -6,7 +6,7 @@ namespace Svg.UnitTests
     public class SvgAttributeCollectionTests
     {
         [Test]
-        public void TestGetAttribute()
+        public void TestGetInheritedAttribute()
         {
             var owner = new SvgCircle();
             var parent = new SvgFragment();
@@ -27,7 +27,7 @@ namespace Svg.UnitTests
         }
 
         [Test]
-        public void TestGetAttributeForWrite()
+        public void TestGetAttribute()
         {
             var owner = new SvgCircle();
             var parent = new SvgFragment();
