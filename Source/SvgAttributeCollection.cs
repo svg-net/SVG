@@ -39,7 +39,7 @@ namespace Svg
         /// </summary>
         /// <typeparam name="TAttributeType">The type of the attribute value.</typeparam>
         /// <param name="attributeName">A <see cref="string"/> containing the name of the attribute.</param>
-        /// <param name="inherited">The attribute is inherited or not.</param>
+        /// <param name="inherited">The attribute value if available and not set to "inherit"; the ancestors value for the same attribute if it exists and if either the attribute value is set to "inherit", or <paramref name="inherited"/> is true; the default value otherwise.</param>
         /// <param name="defaultValue">The value to return if a value hasn't already been specified.</param>
         /// <returns>The attribute value if available; otherwise the ancestors value for the same attribute; otherwise the default value of <typeparamref name="TAttributeType"/>.</returns>
         public TAttributeType GetInheritedAttribute<TAttributeType>(string attributeName, bool inherited, TAttributeType defaultValue = default(TAttributeType))
