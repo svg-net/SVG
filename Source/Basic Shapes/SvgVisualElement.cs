@@ -49,7 +49,7 @@ namespace Svg
         [SvgAttribute("clip")]
         public virtual string Clip
         {
-            get { return GetAttribute("clip", Inherited, "auto"); }
+            get { return GetAttribute("clip", true, "auto"); }
             set { Attributes["clip"] = value; }
         }
 
@@ -79,7 +79,7 @@ namespace Svg
         [SvgAttribute("filter")]
         public virtual Uri Filter
         {
-            get { return GetAttribute<Uri>("filter", Inherited); }
+            get { return GetAttribute<Uri>("filter", true); }
             set { Attributes["filter"] = value; }
         }
 

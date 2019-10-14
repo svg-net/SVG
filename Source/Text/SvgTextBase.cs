@@ -173,7 +173,7 @@ namespace Svg
         [SvgAttribute("textLength")]
         public virtual SvgUnit TextLength
         {
-            get { return GetAttribute("textLength", Inherited, SvgUnit.None); }
+            get { return GetAttribute("textLength", true, SvgUnit.None); }
             set { Attributes["textLength"] = value; IsPathDirty = true; }
         }
 
@@ -184,7 +184,7 @@ namespace Svg
         [SvgAttribute("lengthAdjust")]
         public virtual SvgTextLengthAdjust LengthAdjust
         {
-            get { return GetAttribute("lengthAdjust", Inherited, SvgTextLengthAdjust.Spacing); }
+            get { return GetAttribute("lengthAdjust", true, SvgTextLengthAdjust.Spacing); }
             set { Attributes["lengthAdjust"] = value; IsPathDirty = true; }
         }
 
@@ -194,7 +194,7 @@ namespace Svg
         [SvgAttribute("letter-spacing")]
         public virtual SvgUnit LetterSpacing
         {
-            get { return GetAttribute("letter-spacing", Inherited, SvgUnit.None); }
+            get { return GetAttribute("letter-spacing", true, SvgUnit.None); }
             set { Attributes["letter-spacing"] = value; IsPathDirty = true; }
         }
 
@@ -204,7 +204,7 @@ namespace Svg
         [SvgAttribute("word-spacing")]
         public virtual SvgUnit WordSpacing
         {
-            get { return GetAttribute("word-spacing", Inherited, SvgUnit.None); }
+            get { return GetAttribute("word-spacing", true, SvgUnit.None); }
             set { Attributes["word-spacing"] = value; IsPathDirty = true; }
         }
 
@@ -217,7 +217,7 @@ namespace Svg
         /// <value>The fill.</value>
         public override SvgPaintServer Fill
         {
-            get { return GetAttribute<SvgPaintServer>("fill", Inherited, new SvgColourServer(System.Drawing.Color.Black)); }
+            get { return GetAttribute<SvgPaintServer>("fill", true, new SvgColourServer(System.Drawing.Color.Black)); }
             set { Attributes["fill"] = value; }
         }
 

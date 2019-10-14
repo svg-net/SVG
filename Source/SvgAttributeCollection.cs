@@ -39,32 +39,48 @@ namespace Svg
         /// </summary>
         /// <typeparam name="TAttributeType">The type of the attribute value.</typeparam>
         /// <param name="attributeName">A <see cref="string"/> containing the name of the attribute.</param>
+        /// <param name="inherited">Used only if the attribute value is not available. If set to true, the inherited value is returned in this case, otherwise the default value.</param>
         /// <param name="defaultValue">The value to return if a value hasn't already been specified.</param>
-        /// <returns>The attribute value if available; otherwise the ancestors value for the same attribute; otherwise the default value of <typeparamref name="TAttributeType"/>.</returns>
-        public TAttributeType GetInheritedAttribute<TAttributeType>(string attributeName, TAttributeType defaultValue = default(TAttributeType))
+        /// <returns>The attribute value if available and not set to "inherit"; the ancestors value for the same attribute if it exists and if either the attribute value is set to "inherit", or <paramref name="inherited"/> is true; the default value otherwise.</returns>
+        public TAttributeType GetInheritedAttribute<TAttributeType>(string attributeName, bool inherited, TAttributeType defaultValue = default(TAttributeType))
         {
-            if (ContainsKey(attributeName) && !IsInheritValue(base[attributeName]))
+            var inherit = false;
+
+            if (ContainsKey(attributeName))
             {
                 var result = (TAttributeType)base[attributeName];
 
-                var deferred = result as SvgDeferredPaintServer;
-                if (deferred == null)
-                    return result;
+                if (IsInheritValue(result))
+                    inherit = true;
                 else
                 {
-                    var server = SvgDeferredPaintServer.TryGet<SvgPaintServer>(deferred, _owner);
-                    if (server != SvgPaintServer.Inherit)
+                    var deferred = result as SvgDeferredPaintServer;
+                    if (deferred == null)
                         return result;
+                    else
+                    {
+                        var server = SvgDeferredPaintServer.TryGet<SvgPaintServer>(deferred, _owner);
+                        if (server == SvgPaintServer.Inherit)
+                            inherit = true;
+                        else
+                            return result;
+                    }
                 }
             }
 
-            var parentAttribute = _owner.Parent?.Attributes[attributeName];
-            return parentAttribute != null ? (TAttributeType)parentAttribute : defaultValue;
+            if (inherited || inherit)
+            {
+                var parentAttribute = _owner.Parent?.Attributes.GetInheritedAttribute<object>(attributeName, inherited);
+                if (parentAttribute != null)
+                    return (TAttributeType)parentAttribute;
+            }
+
+            return defaultValue;
         }
 
         private bool IsInheritValue(object value)
         {
-            return value == null || value.ToString().Equals("inherit", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(value?.ToString(), "inherit", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -74,7 +90,7 @@ namespace Svg
         /// <returns>The attribute value associated with the specified name; If there is no attribute the parent's value will be inherited.</returns>
         public new object this[string attributeName]
         {
-            get { return GetInheritedAttribute<object>(attributeName); }
+            get { return GetInheritedAttribute<object>(attributeName, true); }
             set
             {
                 if (ContainsKey(attributeName))

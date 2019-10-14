@@ -144,7 +144,7 @@ namespace Svg
         [SvgAttribute("color")]
         public virtual SvgPaintServer Color
         {
-            get { return GetAttribute("color", Inherited, SvgPaintServer.NotSet); }
+            get { return GetAttribute("color", true, SvgPaintServer.NotSet); }
             set { Attributes["color"] = value; }
         }
 
@@ -294,14 +294,14 @@ namespace Svg
             }
         }
 
-        protected bool Inherited { get; set; } = true;
+        protected bool Writing { get; set; }
 
-        protected internal TAttributeType GetAttribute<TAttributeType>(string attributeName, bool inherit, TAttributeType defaultValue = default(TAttributeType))
+        protected internal TAttributeType GetAttribute<TAttributeType>(string attributeName, bool inherited, TAttributeType defaultValue = default(TAttributeType))
         {
-            if (inherit)
-                return Attributes.GetInheritedAttribute(attributeName, defaultValue);
-            else
+            if (Writing)
                 return Attributes.GetAttribute(attributeName, defaultValue);
+            else
+                return Attributes.GetInheritedAttribute(attributeName, inherited, defaultValue);
         }
 
         /// <summary>
@@ -430,7 +430,7 @@ namespace Svg
         [SvgAttribute("space", SvgAttributeAttribute.XmlNamespace)]
         public virtual XmlSpaceHandling SpaceHandling
         {
-            get { return GetAttribute("space", Inherited, XmlSpaceHandling.inherit); }
+            get { return GetAttribute("space", true, XmlSpaceHandling.inherit); }
             set { Attributes["space"] = value; }
         }
 
@@ -637,7 +637,7 @@ namespace Svg
 
             try
             {
-                Inherited = false;
+                Writing = true;
 
                 foreach (var attr in _svgPropertyAttributes)
                 {
@@ -749,7 +749,7 @@ namespace Svg
             }
             finally
             {
-                Inherited = true;
+                Writing = false;
             }
 
             return styles;
