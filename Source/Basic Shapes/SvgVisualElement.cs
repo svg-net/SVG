@@ -143,34 +143,35 @@ namespace Svg
                         {
                             SetClip(renderer);
 
-                            if (Renderable)
-                            {
-                                var opacity = FixOpacityValue(Opacity);
-                                if (opacity == 1f)
+                            var opacity = FixOpacityValue(Opacity);
+                            if (opacity == 1f)
+                                if (Renderable)
                                     RenderFillAndStroke(renderer);
                                 else
-                                {
-                                    IsPathDirty = true;
-                                    var bounds = Bounds;
-                                    IsPathDirty = true;
-
-                                    if (bounds.Width > 0f && bounds.Height > 0f)
-                                        using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
-                                        {
-                                            using (var canvasRenderer = SvgRenderer.FromImage(canvas))
-                                            {
-                                                canvasRenderer.SetBoundable(renderer.GetBoundable());
-                                                canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
-
-                                                RenderFillAndStroke(canvasRenderer);
-                                            }
-                                            var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
-                                            renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
-                                        }
-                                }
-                            }
+                                    RenderChildren(renderer);
                             else
-                                RenderChildren(renderer);
+                            {
+                                IsPathDirty = true;
+                                var bounds = Renderable ? Bounds : Path(null).GetBounds();
+                                IsPathDirty = true;
+
+                                if (bounds.Width > 0f && bounds.Height > 0f)
+                                    using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                                    {
+                                        using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                                        {
+                                            canvasRenderer.SetBoundable(renderer.GetBoundable());
+                                            canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+
+                                            if (Renderable)
+                                                RenderFillAndStroke(canvasRenderer);
+                                            else
+                                                RenderChildren(canvasRenderer);
+                                        }
+                                        var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                                        renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                                    }
+                            }
 
                             ResetClip(renderer);
                         }
