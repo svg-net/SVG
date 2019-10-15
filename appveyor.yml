@@ -53,7 +53,7 @@ after_build:
         CD _site
         git add -A 2>&1 > $null
         git commit -m "CI Updates" -q
-        git push origin gh-pages -q
+        # git push origin gh-pages -q
     }
 
 artifacts:
