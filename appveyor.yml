@@ -4,7 +4,7 @@ image: Visual Studio 2019
 
 environment:
   access_token:
-    secure: OitFIZFJWjmB3sDhTYHjgYNXwxX0iWYxib1LfDFlGq/Cos8H1jtBgwgolpi/ek6f
+    secure: XMbLDC3+c/MyXicj/h1j17YScPrEbIxAPzhyg9LBCJ/BOfRZHsA8znU3vwmfZbO8
 
 before_build:
 - ps: nuget restore Source\Svg.csproj
