@@ -43,5 +43,45 @@ namespace Svg.UnitTests
             Assert.AreNotEqual(origX, text.Bounds.X);
             Assert.AreNotEqual(origY, text.Bounds.Y);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Test]
+        public void TestWritesCoordinatesForCollectionSet()
+        {
+            SvgText text = new SvgText();
+            text.Text = "Test coordinates";
+            text.X = new SvgUnitCollection { 20 };
+            text.Y = new SvgUnitCollection { 30 };
+            text.Dx = new SvgUnitCollection { 40 };
+            text.Dy = new SvgUnitCollection { 50 };
+
+            var xml = text.GetXML();
+            Assert.IsTrue(xml.Contains("x=\"20\""));
+            Assert.IsTrue(xml.Contains("y=\"30\""));
+            Assert.IsTrue(xml.Contains("dx=\"40\""));
+            Assert.IsTrue(xml.Contains("dy=\"50\""));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Test]
+        public void TestWritesCoordinatesForCollectionChange()
+        {
+            SvgText text = new SvgText();
+            text.Text = "Test coordinates";
+            text.X.Add(20);
+            text.Y.Add(30);
+            text.Dx.Add(40);
+            text.Dy.Add(50);
+
+            var xml = text.GetXML();
+            Assert.IsTrue(xml.Contains("x=\"20\""));
+            Assert.IsTrue(xml.Contains("y=\"30\""));
+            Assert.IsTrue(xml.Contains("dx=\"40\""));
+            Assert.IsTrue(xml.Contains("dy=\"50\""));
+        }
     }
 }
