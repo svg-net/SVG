@@ -21,10 +21,10 @@ namespace Svg
 
         public SvgTextBase()
         {
-            _x.CollectionChanged += OnCoordinateChanged;
-            _dx.CollectionChanged += OnCoordinateChanged;
-            _y.CollectionChanged += OnCoordinateChanged;
-            _dy.CollectionChanged += OnCoordinateChanged;
+            _x.CollectionChanged += OnXChanged;
+            _dx.CollectionChanged += OnDxChanged;
+            _y.CollectionChanged += OnYChanged;
+            _dy.CollectionChanged += OnDyChanged;
         }
 
         /// <summary>
@@ -64,14 +64,20 @@ namespace Svg
             {
                 if (_x != value)
                 {
-                    if (_x != null) _x.CollectionChanged -= OnCoordinateChanged;
+                    if (_x != null) _x.CollectionChanged -= OnXChanged;
                     _x = value;
-                    if (_x != null) _x.CollectionChanged += OnCoordinateChanged;
+                    if (_x != null) _x.CollectionChanged += OnXChanged;
 
                     IsPathDirty = true;
                 }
                 Attributes["x"] = value;
             }
+        }
+
+        private void OnXChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            Attributes["x"] = X.FirstOrDefault();
+            this.IsPathDirty = true;
         }
 
         /// <summary>
@@ -86,15 +92,22 @@ namespace Svg
             {
                 if (_dx != value)
                 {
-                    if (_dx != null) _dx.CollectionChanged -= OnCoordinateChanged;
+                    if (_dx != null) _dx.CollectionChanged -= OnDxChanged;
                     _dx = value;
-                    if (_dx != null) _dx.CollectionChanged += OnCoordinateChanged;
+                    if (_dx != null) _dx.CollectionChanged += OnDxChanged;
 
                     IsPathDirty = true;
                 }
                 Attributes["dx"] = value;
             }
         }
+
+        private void OnDxChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            Attributes["dx"] = X.FirstOrDefault();
+            this.IsPathDirty = true;
+        }
+
 
         /// <summary>
         /// Gets or sets the Y.
@@ -108,14 +121,20 @@ namespace Svg
             {
                 if (_y != value)
                 {
-                    if (_y != null) _y.CollectionChanged -= OnCoordinateChanged;
+                    if (_y != null) _y.CollectionChanged -= OnYChanged;
                     _y = value;
-                    if (_y != null) _y.CollectionChanged += OnCoordinateChanged;
+                    if (_y != null) _y.CollectionChanged += OnYChanged;
 
                     IsPathDirty = true;
                 }
                 Attributes["y"] = value;
             }
+        }
+
+        private void OnYChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            Attributes["y"] = Y.FirstOrDefault();
+            this.IsPathDirty = true;
         }
 
         /// <summary>
@@ -130,9 +149,9 @@ namespace Svg
             {
                 if (_dy != value)
                 {
-                    if (_dy != null) _dy.CollectionChanged -= OnCoordinateChanged;
+                    if (_dy != null) _dy.CollectionChanged -= OnDyChanged;
                     _dy = value;
-                    if (_dy != null) _dy.CollectionChanged += OnCoordinateChanged;
+                    if (_dy != null) _dy.CollectionChanged += OnDyChanged;
 
                     IsPathDirty = true;
                 }
@@ -140,8 +159,9 @@ namespace Svg
             }
         }
 
-        private void OnCoordinateChanged(object sender, NotifyCollectionChangedEventArgs args)
+        private void OnDyChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            Attributes["dy"] = Y.FirstOrDefault();
             this.IsPathDirty = true;
         }
 
