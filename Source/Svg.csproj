@@ -33,6 +33,7 @@
       NetStandard does not fully support the Drawing2D package - so has been left out.
     </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/vvvv/SVG</PackageProjectUrl>
+    <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
