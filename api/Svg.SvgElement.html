@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class SvgElement
    | SVG.NET API ">
-    <meta name="generator" content="docfx 2.45.0.0">
+    <meta name="generator" content="docfx 2.46.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -697,31 +697,6 @@
   </table>
   
   
-  <a id="Svg_SvgElement_Inherited_" data-uid="Svg.SvgElement.Inherited*"></a>
-  <h4 id="Svg_SvgElement_Inherited" data-uid="Svg.SvgElement.Inherited">Inherited</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected bool Inherited { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
   <a id="Svg_SvgElement_IsPathDirty_" data-uid="Svg.SvgElement.IsPathDirty*"></a>
   <h4 id="Svg_SvgElement_IsPathDirty" data-uid="Svg.SvgElement.IsPathDirty">IsPathDirty</h4>
   <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this element's 'Path' is dirty.</p>
@@ -955,35 +930,6 @@ public virtual XmlSpaceHandling SpaceHandling { get; set; }</code></pre>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="Svg_SvgElement_StopColor_" data-uid="Svg.SvgElement.StopColor*"></a>
-  <h4 id="Svg_SvgElement_StopColor" data-uid="Svg.SvgElement.StopColor">StopColor</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the colour of the gradient stop.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual SvgPaintServer StopColor { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgPaintServer.html">SvgPaintServer</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Svg_SvgElement_StopColor_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Apparently this can be set on non-sensical elements.  Don't ask; just check the tests.</p>
-</div>
   
   
   <a id="Svg_SvgElement_Stroke_" data-uid="Svg.SvgElement.Stroke*"></a>
@@ -1289,6 +1235,31 @@ public virtual XmlSpaceHandling SpaceHandling { get; set; }</code></pre>
         <td><span class="xref">SvgTransformCollection</span></td>
         <td><p>The transforms.</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgElement_Writing_" data-uid="Svg.SvgElement.Writing*"></a>
+  <h4 id="Svg_SvgElement_Writing" data-uid="Svg.SvgElement.Writing">Writing</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool Writing { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -1643,7 +1614,7 @@ public virtual XmlSpaceHandling SpaceHandling { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected TAttributeType GetAttribute&lt;TAttributeType&gt;(string attributeName, bool inherit, TAttributeType defaultValue = null)</code></pre>
+    <pre><code class="lang-csharp hljs">protected TAttributeType GetAttribute&lt;TAttributeType&gt;(string attributeName, bool inherited, TAttributeType defaultValue = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -1662,7 +1633,7 @@ public virtual XmlSpaceHandling SpaceHandling { get; set; }</code></pre>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td><span class="parametername">inherit</span></td>
+        <td><span class="parametername">inherited</span></td>
         <td></td>
       </tr>
       <tr>

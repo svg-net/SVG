@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class SvgFallbackPaintServer
    | SVG.NET API ">
-    <meta name="generator" content="docfx 2.45.0.0">
+    <meta name="generator" content="docfx 2.46.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -108,6 +108,12 @@
       <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_None">SvgPaintServer.None</a>
     </div>
     <div>
+      <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_Inherit">SvgPaintServer.Inherit</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_NotSet">SvgPaintServer.NotSet</a>
+    </div>
+    <div>
       <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_Render_Svg_ISvgRenderer_">SvgPaintServer.Render(ISvgRenderer)</a>
     </div>
     <div>
@@ -168,7 +174,7 @@
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Attributes">SvgElement.Attributes</a>
     </div>
     <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Inherited">SvgElement.Inherited</a>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Writing">SvgElement.Writing</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_GetAttribute__1_System_String_System_Boolean___0_">SvgElement.GetAttribute&lt;TAttributeType&gt;(String, Boolean, TAttributeType)</a>
@@ -354,9 +360,6 @@
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_StrokeOpacity">SvgElement.StrokeOpacity</a>
     </div>
     <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_StopColor">SvgElement.StopColor</a>
-    </div>
-    <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Opacity">SvgElement.Opacity</a>
     </div>
     <div>
@@ -421,7 +424,8 @@
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Svg_SvgFallbackPaintServer_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class SvgFallbackPaintServer : SvgPaintServer, ISvgElement, ISvgTransformable, ICloneable, ISvgNode</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Will be removed.Use SvgDeferredPaintServer class instead.&quot;)]
+public class SvgFallbackPaintServer : SvgPaintServer, ISvgElement, ISvgTransformable, ICloneable, ISvgNode</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>

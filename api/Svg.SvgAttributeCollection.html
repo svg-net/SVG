@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class SvgAttributeCollection
    | SVG.NET API ">
-    <meta name="generator" content="docfx 2.45.0.0">
+    <meta name="generator" content="docfx 2.46.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -402,13 +402,13 @@
   
   
   <a id="Svg_SvgAttributeCollection_GetInheritedAttribute_" data-uid="Svg.SvgAttributeCollection.GetInheritedAttribute*"></a>
-  <h4 id="Svg_SvgAttributeCollection_GetInheritedAttribute__1_System_String___0_" data-uid="Svg.SvgAttributeCollection.GetInheritedAttribute``1(System.String,``0)">GetInheritedAttribute&lt;TAttributeType&gt;(String, TAttributeType)</h4>
+  <h4 id="Svg_SvgAttributeCollection_GetInheritedAttribute__1_System_String_System_Boolean___0_" data-uid="Svg.SvgAttributeCollection.GetInheritedAttribute``1(System.String,System.Boolean,``0)">GetInheritedAttribute&lt;TAttributeType&gt;(String, Boolean, TAttributeType)</h4>
   <div class="markdown level1 summary"><p>Gets the attribute with the specified name and inherits from ancestors if there is no attribute set.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TAttributeType GetInheritedAttribute&lt;TAttributeType&gt;(string attributeName, TAttributeType defaultValue = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public TAttributeType GetInheritedAttribute&lt;TAttributeType&gt;(string attributeName, bool inherited, TAttributeType defaultValue = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -424,6 +424,12 @@
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
         <td><span class="parametername">attributeName</span></td>
         <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> containing the name of the attribute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">inherited</span></td>
+        <td><p>Used only if the attribute value is not available. If set to true, the inherited value is returned in this case, otherwise the default value.</p>
 </td>
       </tr>
       <tr>
@@ -445,7 +451,7 @@
     <tbody>
       <tr>
         <td><span class="xref">TAttributeType</span></td>
-        <td><p>The attribute value if available; otherwise the ancestors value for the same attribute; otherwise the default value of <code data-dev-comment-type="typeparamref" class="typeparamref">TAttributeType</code>.</p>
+        <td><p>The attribute value if available and not set to &quot;inherit&quot;; the ancestors value for the same attribute if it exists and if either the attribute value is set to &quot;inherit&quot;, or <code data-dev-comment-type="paramref" class="paramref">inherited</code> is true; the default value otherwise.</p>
 </td>
       </tr>
     </tbody>

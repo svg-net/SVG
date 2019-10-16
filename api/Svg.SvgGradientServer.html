@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class SvgGradientServer
    | SVG.NET API ">
-    <meta name="generator" content="docfx 2.45.0.0">
+    <meta name="generator" content="docfx 2.46.0.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -110,6 +110,12 @@
       <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_None">SvgPaintServer.None</a>
     </div>
     <div>
+      <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_Inherit">SvgPaintServer.Inherit</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_NotSet">SvgPaintServer.NotSet</a>
+    </div>
+    <div>
       <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_Render_Svg_ISvgRenderer_">SvgPaintServer.Render(ISvgRenderer)</a>
     </div>
     <div>
@@ -173,7 +179,7 @@
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Attributes">SvgElement.Attributes</a>
     </div>
     <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Inherited">SvgElement.Inherited</a>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Writing">SvgElement.Writing</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_GetAttribute__1_System_String_System_Boolean___0_">SvgElement.GetAttribute&lt;TAttributeType&gt;(String, Boolean, TAttributeType)</a>
@@ -356,9 +362,6 @@
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_StrokeOpacity">SvgElement.StrokeOpacity</a>
     </div>
     <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_StopColor">SvgElement.StopColor</a>
-    </div>
-    <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Opacity">SvgElement.Opacity</a>
     </div>
     <div>
@@ -513,7 +516,7 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[SvgAttribute(&quot;href&quot;, &quot;http://www.w3.org/1999/xlink&quot;)]
-public SvgPaintServer InheritGradient { get; set; }</code></pre>
+public SvgDeferredPaintServer InheritGradient { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -525,7 +528,7 @@ public SvgPaintServer InheritGradient { get; set; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Svg.SvgPaintServer.html">SvgPaintServer</a></td>
+        <td><a class="xref" href="Svg.SvgDeferredPaintServer.html">SvgDeferredPaintServer</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -552,6 +555,58 @@ public SvgPaintServer InheritGradient { get; set; }</code></pre>
     <tbody>
       <tr>
         <td><a class="xref" href="Svg.SvgGradientSpreadMethod.html">SvgGradientSpreadMethod</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgGradientServer_StopColor_" data-uid="Svg.SvgGradientServer.StopColor*"></a>
+  <h4 id="Svg_SvgGradientServer_StopColor" data-uid="Svg.SvgGradientServer.StopColor">StopColor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the colour of the gradient stop.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SvgPaintServer StopColor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgPaintServer.html">SvgPaintServer</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgGradientServer_StopOpacity_" data-uid="Svg.SvgGradientServer.StopOpacity*"></a>
+  <h4 id="Svg_SvgGradientServer_StopOpacity" data-uid="Svg.SvgGradientServer.StopOpacity">StopOpacity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the opacity of the gradient stop (0-1).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float StopOpacity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
         <td></td>
       </tr>
     </tbody>

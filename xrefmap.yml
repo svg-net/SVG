@@ -3537,15 +3537,15 @@ references:
   isSpec: "True"
   fullName: Svg.SvgAttributeCollection.GetInheritedAttribute
   nameWithType: SvgAttributeCollection.GetInheritedAttribute
-- uid: Svg.SvgAttributeCollection.GetInheritedAttribute``1(System.String,``0)
-  name: GetInheritedAttribute<TAttributeType>(String, TAttributeType)
-  href: api/Svg.SvgAttributeCollection.html#Svg_SvgAttributeCollection_GetInheritedAttribute__1_System_String___0_
-  commentId: M:Svg.SvgAttributeCollection.GetInheritedAttribute``1(System.String,``0)
-  name.vb: GetInheritedAttribute(Of TAttributeType)(String, TAttributeType)
-  fullName: Svg.SvgAttributeCollection.GetInheritedAttribute<TAttributeType>(System.String, TAttributeType)
-  fullName.vb: Svg.SvgAttributeCollection.GetInheritedAttribute(Of TAttributeType)(System.String, TAttributeType)
-  nameWithType: SvgAttributeCollection.GetInheritedAttribute<TAttributeType>(String, TAttributeType)
-  nameWithType.vb: SvgAttributeCollection.GetInheritedAttribute(Of TAttributeType)(String, TAttributeType)
+- uid: Svg.SvgAttributeCollection.GetInheritedAttribute``1(System.String,System.Boolean,``0)
+  name: GetInheritedAttribute<TAttributeType>(String, Boolean, TAttributeType)
+  href: api/Svg.SvgAttributeCollection.html#Svg_SvgAttributeCollection_GetInheritedAttribute__1_System_String_System_Boolean___0_
+  commentId: M:Svg.SvgAttributeCollection.GetInheritedAttribute``1(System.String,System.Boolean,``0)
+  name.vb: GetInheritedAttribute(Of TAttributeType)(String, Boolean, TAttributeType)
+  fullName: Svg.SvgAttributeCollection.GetInheritedAttribute<TAttributeType>(System.String, System.Boolean, TAttributeType)
+  fullName.vb: Svg.SvgAttributeCollection.GetInheritedAttribute(Of TAttributeType)(System.String, System.Boolean, TAttributeType)
+  nameWithType: SvgAttributeCollection.GetInheritedAttribute<TAttributeType>(String, Boolean, TAttributeType)
+  nameWithType.vb: SvgAttributeCollection.GetInheritedAttribute(Of TAttributeType)(String, Boolean, TAttributeType)
 - uid: Svg.SvgAttributeCollection.Item(System.String)
   name: Item[String]
   href: api/Svg.SvgAttributeCollection.html#Svg_SvgAttributeCollection_Item_System_String_
@@ -4006,18 +4006,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgColourServer.GetHashCode
   nameWithType: SvgColourServer.GetHashCode
-- uid: Svg.SvgColourServer.Inherit
-  name: Inherit
-  href: api/Svg.SvgColourServer.html#Svg_SvgColourServer_Inherit
-  commentId: F:Svg.SvgColourServer.Inherit
-  fullName: Svg.SvgColourServer.Inherit
-  nameWithType: SvgColourServer.Inherit
-- uid: Svg.SvgColourServer.NotSet
-  name: NotSet
-  href: api/Svg.SvgColourServer.html#Svg_SvgColourServer_NotSet
-  commentId: F:Svg.SvgColourServer.NotSet
-  fullName: Svg.SvgColourServer.NotSet
-  nameWithType: SvgColourServer.NotSet
 - uid: Svg.SvgColourServer.ToString
   name: ToString()
   href: api/Svg.SvgColourServer.html#Svg_SvgColourServer_ToString
@@ -4147,25 +4135,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgCustomAttributeCollection.Item
   nameWithType: SvgCustomAttributeCollection.Item
-- uid: Svg.SvgDefaults
-  name: SvgDefaults
-  href: api/Svg.SvgDefaults.html
-  commentId: T:Svg.SvgDefaults
-  fullName: Svg.SvgDefaults
-  nameWithType: SvgDefaults
-- uid: Svg.SvgDefaults.IsDefault(System.String,System.String,System.String)
-  name: IsDefault(String, String, String)
-  href: api/Svg.SvgDefaults.html#Svg_SvgDefaults_IsDefault_System_String_System_String_System_String_
-  commentId: M:Svg.SvgDefaults.IsDefault(System.String,System.String,System.String)
-  fullName: Svg.SvgDefaults.IsDefault(System.String, System.String, System.String)
-  nameWithType: SvgDefaults.IsDefault(String, String, String)
-- uid: Svg.SvgDefaults.IsDefault*
-  name: IsDefault
-  href: api/Svg.SvgDefaults.html#Svg_SvgDefaults_IsDefault_
-  commentId: Overload:Svg.SvgDefaults.IsDefault
-  isSpec: "True"
-  fullName: Svg.SvgDefaults.IsDefault
-  nameWithType: SvgDefaults.IsDefault
 - uid: Svg.SvgDeferredPaintServer
   name: SvgDeferredPaintServer
   href: api/Svg.SvgDeferredPaintServer.html
@@ -4184,6 +4153,18 @@ references:
   commentId: M:Svg.SvgDeferredPaintServer.#ctor(Svg.SvgDocument,System.String)
   fullName: Svg.SvgDeferredPaintServer.SvgDeferredPaintServer(Svg.SvgDocument, System.String)
   nameWithType: SvgDeferredPaintServer.SvgDeferredPaintServer(SvgDocument, String)
+- uid: Svg.SvgDeferredPaintServer.#ctor(System.String)
+  name: SvgDeferredPaintServer(String)
+  href: api/Svg.SvgDeferredPaintServer.html#Svg_SvgDeferredPaintServer__ctor_System_String_
+  commentId: M:Svg.SvgDeferredPaintServer.#ctor(System.String)
+  fullName: Svg.SvgDeferredPaintServer.SvgDeferredPaintServer(System.String)
+  nameWithType: SvgDeferredPaintServer.SvgDeferredPaintServer(String)
+- uid: Svg.SvgDeferredPaintServer.#ctor(System.String,Svg.SvgPaintServer)
+  name: SvgDeferredPaintServer(String, SvgPaintServer)
+  href: api/Svg.SvgDeferredPaintServer.html#Svg_SvgDeferredPaintServer__ctor_System_String_Svg_SvgPaintServer_
+  commentId: M:Svg.SvgDeferredPaintServer.#ctor(System.String,Svg.SvgPaintServer)
+  fullName: Svg.SvgDeferredPaintServer.SvgDeferredPaintServer(System.String, Svg.SvgPaintServer)
+  nameWithType: SvgDeferredPaintServer.SvgDeferredPaintServer(String, SvgPaintServer)
 - uid: Svg.SvgDeferredPaintServer.#ctor*
   name: SvgDeferredPaintServer
   href: api/Svg.SvgDeferredPaintServer.html#Svg_SvgDeferredPaintServer__ctor_
@@ -4265,6 +4246,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDeferredPaintServer.Equals
   nameWithType: SvgDeferredPaintServer.Equals
+- uid: Svg.SvgDeferredPaintServer.FallbackServer
+  name: FallbackServer
+  href: api/Svg.SvgDeferredPaintServer.html#Svg_SvgDeferredPaintServer_FallbackServer
+  commentId: P:Svg.SvgDeferredPaintServer.FallbackServer
+  fullName: Svg.SvgDeferredPaintServer.FallbackServer
+  nameWithType: SvgDeferredPaintServer.FallbackServer
+- uid: Svg.SvgDeferredPaintServer.FallbackServer*
+  name: FallbackServer
+  href: api/Svg.SvgDeferredPaintServer.html#Svg_SvgDeferredPaintServer_FallbackServer_
+  commentId: Overload:Svg.SvgDeferredPaintServer.FallbackServer
+  isSpec: "True"
+  fullName: Svg.SvgDeferredPaintServer.FallbackServer
+  nameWithType: SvgDeferredPaintServer.FallbackServer
 - uid: Svg.SvgDeferredPaintServer.GetBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
   name: GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
   href: api/Svg.SvgDeferredPaintServer.html#Svg_SvgDeferredPaintServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_
@@ -5265,19 +5259,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.ID
   nameWithType: SvgElement.ID
-- uid: Svg.SvgElement.Inherited
-  name: Inherited
-  href: api/Svg.SvgElement.html#Svg_SvgElement_Inherited
-  commentId: P:Svg.SvgElement.Inherited
-  fullName: Svg.SvgElement.Inherited
-  nameWithType: SvgElement.Inherited
-- uid: Svg.SvgElement.Inherited*
-  name: Inherited
-  href: api/Svg.SvgElement.html#Svg_SvgElement_Inherited_
-  commentId: Overload:Svg.SvgElement.Inherited
-  isSpec: "True"
-  fullName: Svg.SvgElement.Inherited
-  nameWithType: SvgElement.Inherited
 - uid: Svg.SvgElement.InitialiseFromXML(XmlTextReader,Svg.SvgDocument)
   name: InitialiseFromXML(XmlTextReader, SvgDocument)
   href: api/Svg.SvgElement.html#Svg_SvgElement_InitialiseFromXML_XmlTextReader_Svg_SvgDocument_
@@ -5724,19 +5705,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.SpaceHandling
   nameWithType: SvgElement.SpaceHandling
-- uid: Svg.SvgElement.StopColor
-  name: StopColor
-  href: api/Svg.SvgElement.html#Svg_SvgElement_StopColor
-  commentId: P:Svg.SvgElement.StopColor
-  fullName: Svg.SvgElement.StopColor
-  nameWithType: SvgElement.StopColor
-- uid: Svg.SvgElement.StopColor*
-  name: StopColor
-  href: api/Svg.SvgElement.html#Svg_SvgElement_StopColor_
-  commentId: Overload:Svg.SvgElement.StopColor
-  isSpec: "True"
-  fullName: Svg.SvgElement.StopColor
-  nameWithType: SvgElement.StopColor
 - uid: Svg.SvgElement.Stroke
   name: Stroke
   href: api/Svg.SvgElement.html#Svg_SvgElement_Stroke
@@ -6051,6 +6019,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.WriteStartElement
   nameWithType: SvgElement.WriteStartElement
+- uid: Svg.SvgElement.Writing
+  name: Writing
+  href: api/Svg.SvgElement.html#Svg_SvgElement_Writing
+  commentId: P:Svg.SvgElement.Writing
+  fullName: Svg.SvgElement.Writing
+  nameWithType: SvgElement.Writing
+- uid: Svg.SvgElement.Writing*
+  name: Writing
+  href: api/Svg.SvgElement.html#Svg_SvgElement_Writing_
+  commentId: Overload:Svg.SvgElement.Writing
+  isSpec: "True"
+  fullName: Svg.SvgElement.Writing
+  nameWithType: SvgElement.Writing
 - uid: Svg.SvgElementAttribute
   name: SvgElementAttribute
   href: api/Svg.SvgElementAttribute.html
@@ -8250,6 +8231,32 @@ references:
   isSpec: "True"
   fullName: Svg.SvgGradientServer.SpreadMethod
   nameWithType: SvgGradientServer.SpreadMethod
+- uid: Svg.SvgGradientServer.StopColor
+  name: StopColor
+  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_StopColor
+  commentId: P:Svg.SvgGradientServer.StopColor
+  fullName: Svg.SvgGradientServer.StopColor
+  nameWithType: SvgGradientServer.StopColor
+- uid: Svg.SvgGradientServer.StopColor*
+  name: StopColor
+  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_StopColor_
+  commentId: Overload:Svg.SvgGradientServer.StopColor
+  isSpec: "True"
+  fullName: Svg.SvgGradientServer.StopColor
+  nameWithType: SvgGradientServer.StopColor
+- uid: Svg.SvgGradientServer.StopOpacity
+  name: StopOpacity
+  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_StopOpacity
+  commentId: P:Svg.SvgGradientServer.StopOpacity
+  fullName: Svg.SvgGradientServer.StopOpacity
+  nameWithType: SvgGradientServer.StopOpacity
+- uid: Svg.SvgGradientServer.StopOpacity*
+  name: StopOpacity
+  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_StopOpacity_
+  commentId: Overload:Svg.SvgGradientServer.StopOpacity
+  isSpec: "True"
+  fullName: Svg.SvgGradientServer.StopOpacity
+  nameWithType: SvgGradientServer.StopOpacity
 - uid: Svg.SvgGradientServer.Stops
   name: Stops
   href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_Stops
@@ -8379,19 +8386,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgGradientStop.Offset
   nameWithType: SvgGradientStop.Offset
-- uid: Svg.SvgGradientStop.Opacity
-  name: Opacity
-  href: api/Svg.SvgGradientStop.html#Svg_SvgGradientStop_Opacity
-  commentId: P:Svg.SvgGradientStop.Opacity
-  fullName: Svg.SvgGradientStop.Opacity
-  nameWithType: SvgGradientStop.Opacity
-- uid: Svg.SvgGradientStop.Opacity*
-  name: Opacity
-  href: api/Svg.SvgGradientStop.html#Svg_SvgGradientStop_Opacity_
-  commentId: Overload:Svg.SvgGradientStop.Opacity
-  isSpec: "True"
-  fullName: Svg.SvgGradientStop.Opacity
-  nameWithType: SvgGradientStop.Opacity
 - uid: Svg.SvgGradientStop.StopColor
   name: StopColor
   href: api/Svg.SvgGradientStop.html#Svg_SvgGradientStop_StopColor
@@ -8405,6 +8399,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgGradientStop.StopColor
   nameWithType: SvgGradientStop.StopColor
+- uid: Svg.SvgGradientStop.StopOpacity
+  name: StopOpacity
+  href: api/Svg.SvgGradientStop.html#Svg_SvgGradientStop_StopOpacity
+  commentId: P:Svg.SvgGradientStop.StopOpacity
+  fullName: Svg.SvgGradientStop.StopOpacity
+  nameWithType: SvgGradientStop.StopOpacity
+- uid: Svg.SvgGradientStop.StopOpacity*
+  name: StopOpacity
+  href: api/Svg.SvgGradientStop.html#Svg_SvgGradientStop_StopOpacity_
+  commentId: Overload:Svg.SvgGradientStop.StopOpacity
+  isSpec: "True"
+  fullName: Svg.SvgGradientStop.StopOpacity
+  nameWithType: SvgGradientStop.StopOpacity
 - uid: Svg.SvgGroup
   name: SvgGroup
   href: api/Svg.SvgGroup.html
@@ -9634,12 +9641,24 @@ references:
   isSpec: "True"
   fullName: Svg.SvgPaintServer.GetCallback
   nameWithType: SvgPaintServer.GetCallback
+- uid: Svg.SvgPaintServer.Inherit
+  name: Inherit
+  href: api/Svg.SvgPaintServer.html#Svg_SvgPaintServer_Inherit
+  commentId: F:Svg.SvgPaintServer.Inherit
+  fullName: Svg.SvgPaintServer.Inherit
+  nameWithType: SvgPaintServer.Inherit
 - uid: Svg.SvgPaintServer.None
   name: None
   href: api/Svg.SvgPaintServer.html#Svg_SvgPaintServer_None
   commentId: F:Svg.SvgPaintServer.None
   fullName: Svg.SvgPaintServer.None
   nameWithType: SvgPaintServer.None
+- uid: Svg.SvgPaintServer.NotSet
+  name: NotSet
+  href: api/Svg.SvgPaintServer.html#Svg_SvgPaintServer_NotSet
+  commentId: F:Svg.SvgPaintServer.NotSet
+  fullName: Svg.SvgPaintServer.NotSet
+  nameWithType: SvgPaintServer.NotSet
 - uid: Svg.SvgPaintServer.Render(Svg.ISvgRenderer)
   name: Render(ISvgRenderer)
   href: api/Svg.SvgPaintServer.html#Svg_SvgPaintServer_Render_Svg_ISvgRenderer_
@@ -12348,6 +12367,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUnitCollection.AddRange
   nameWithType: SvgUnitCollection.AddRange
+- uid: Svg.SvgUnitCollection.Inherit
+  name: Inherit
+  href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_Inherit
+  commentId: F:Svg.SvgUnitCollection.Inherit
+  fullName: Svg.SvgUnitCollection.Inherit
+  nameWithType: SvgUnitCollection.Inherit
 - uid: Svg.SvgUnitCollection.IsNullOrEmpty(Svg.SvgUnitCollection)
   name: IsNullOrEmpty(SvgUnitCollection)
   href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_IsNullOrEmpty_Svg_SvgUnitCollection_
@@ -12361,6 +12386,25 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUnitCollection.IsNullOrEmpty
   nameWithType: SvgUnitCollection.IsNullOrEmpty
+- uid: Svg.SvgUnitCollection.None
+  name: None
+  href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_None
+  commentId: F:Svg.SvgUnitCollection.None
+  fullName: Svg.SvgUnitCollection.None
+  nameWithType: SvgUnitCollection.None
+- uid: Svg.SvgUnitCollection.StringForEmptyValue
+  name: StringForEmptyValue
+  href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_StringForEmptyValue
+  commentId: P:Svg.SvgUnitCollection.StringForEmptyValue
+  fullName: Svg.SvgUnitCollection.StringForEmptyValue
+  nameWithType: SvgUnitCollection.StringForEmptyValue
+- uid: Svg.SvgUnitCollection.StringForEmptyValue*
+  name: StringForEmptyValue
+  href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_StringForEmptyValue_
+  commentId: Overload:Svg.SvgUnitCollection.StringForEmptyValue
+  isSpec: "True"
+  fullName: Svg.SvgUnitCollection.StringForEmptyValue
+  nameWithType: SvgUnitCollection.StringForEmptyValue
 - uid: Svg.SvgUnitCollection.ToString
   name: ToString()
   href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_ToString
@@ -12542,15 +12586,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUnknownElement.DeepCopy
   nameWithType: SvgUnknownElement.DeepCopy
-- uid: Svg.SvgUnknownElement.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgUnknownElement.html#Svg_SvgUnknownElement_DeepCopy__1
-  commentId: M:Svg.SvgUnknownElement.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgUnknownElement.DeepCopy<T>()
-  fullName.vb: Svg.SvgUnknownElement.DeepCopy(Of T)()
-  nameWithType: SvgUnknownElement.DeepCopy<T>()
-  nameWithType.vb: SvgUnknownElement.DeepCopy(Of T)()
 - uid: Svg.SvgUse
   name: SvgUse
   href: api/Svg.SvgUse.html
