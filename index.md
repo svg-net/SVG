@@ -1,3 +1,5 @@
+<img src="https://www.w3.org/Icons/SVG/svg-logo-v.png" alt="W3C SVG Logo">
+
 # SVG.NET Documentation
 
 Welcome to the documentation for the SVG.NET library!
