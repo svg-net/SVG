@@ -27,6 +27,8 @@ namespace Svg
         private SvgElementIdManager _idManager;
 
         private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;
+        private PrivateFontCollection _privateFonts = null;
+        private IList<FontFaceRule> _fontFaceDirectives = null;
 
         private static int GetSystemDpi()
         {
@@ -36,7 +38,7 @@ namespace Svg
             isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #else
             var platform = Environment.OSVersion.Platform;
-            isWindows = platform == PlatformID.Win32NT; 
+            isWindows = platform == PlatformID.Win32NT;
 #endif
 
             if (isWindows)
@@ -74,6 +76,33 @@ namespace Svg
             }
             return _fontDefns;
         }
+        internal FontFamily[] PrivateFontDefns()
+        {
+            if (_privateFonts == null)
+            {
+                _privateFonts = new PrivateFontCollection();
+                if (_fontFaceDirectives != null)
+                {
+                    foreach (var item in _fontFaceDirectives)
+                    {
+                        try
+                        {
+                            var bytes = downBytes(item.Src, this.BaseUri);
+
+                            IntPtr MeAdd = Marshal.AllocHGlobal(bytes.Length);
+                            Marshal.Copy(bytes, 0, MeAdd, bytes.Length);
+                            _privateFonts.AddMemoryFont(MeAdd, bytes.Length);
+                        }
+                        catch (Exception ex)
+                        {
+                            Trace.TraceWarning(ex.Message);
+                        }
+                    }
+                }
+            }
+            return _privateFonts.Families;
+        }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgDocument"/> class.
@@ -182,15 +211,15 @@ namespace Svg
         /// <returns>Boolean whether the system is capable of using GDI+</returns>
         public static bool SystemIsGdiPlusCapable()
         {
-            try 
+            try
             {
                 EnsureSystemIsGdiPlusCapable();
             }
-            catch(SvgGdiPlusCannotBeLoadedException)
+            catch (SvgGdiPlusCannotBeLoadedException)
             {
                 return false;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 //If somehow another type of exception is raised by the ensure function we will let it bubble up, since that might indicate other issues/problems
                 throw;
@@ -218,7 +247,7 @@ namespace Svg
                     throw new SvgGdiPlusCannotBeLoadedException(e);
                 }
                 //If the Matrix creation is causing another type of exception we should just raise that one
-                throw;   
+                throw;
             }
         }
 
@@ -482,12 +511,21 @@ namespace Svg
                         }
                     }
                 }
+
+                svgDocument._fontFaceDirectives = sheet.FontFaceDirectives;
             }
 
             svgDocument?.FlushStyles(true);
             return svgDocument;
         }
-
+        private static byte[] downBytes(string url, Uri baseUri)
+        {
+            var urlString = Utility.GetUrlString(url);
+            var uri = new Uri(urlString, UriKind.RelativeOrAbsolute);
+            if (!uri.IsAbsoluteUri && baseUri != null)
+                uri = new Uri(baseUri, uri);
+            return Utility.GetBytesFromUri(uri)?.DataBytes;
+        }
         /// <summary>
         /// Opens an SVG document from the specified <see cref="XmlDocument"/>.
         /// </summary>
