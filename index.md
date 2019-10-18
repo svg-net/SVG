@@ -7,7 +7,7 @@ Welcome to the documentation for the SVG.NET library!
 ### Usage documentation
 - [Getting Started](doc/GettingStarted.html)
 - [Q&A](doc/Q&A.html)
-- [Generated API documentation](api/SVG.html)
+- [Generated API documentation](api/Svg.html)
   
 ### Project documentation
 - [Release Notes](doc/ReleaseNotes.html)
