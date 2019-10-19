@@ -38,7 +38,7 @@ namespace Svg
             isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #else
             var platform = Environment.OSVersion.Platform;
-            isWindows = platform == PlatformID.Win32NT; 
+            isWindows = platform == PlatformID.Win32NT;
 #endif
 
             if (isWindows)
@@ -217,15 +217,15 @@ namespace Svg
         /// <returns>Boolean whether the system is capable of using GDI+</returns>
         public static bool SystemIsGdiPlusCapable()
         {
-            try 
+            try
             {
                 EnsureSystemIsGdiPlusCapable();
             }
-            catch(SvgGdiPlusCannotBeLoadedException)
+            catch (SvgGdiPlusCannotBeLoadedException)
             {
                 return false;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 //If somehow another type of exception is raised by the ensure function we will let it bubble up, since that might indicate other issues/problems
                 throw;
@@ -253,7 +253,7 @@ namespace Svg
                     throw new SvgGdiPlusCannotBeLoadedException(e);
                 }
                 //If the Matrix creation is causing another type of exception we should just raise that one
-                throw;   
+                throw;
             }
         }
 
@@ -517,8 +517,9 @@ namespace Svg
                         }
                     }
 
-                    svgDocument._fontFaceDirectives = sheet.FontFaceDirectives;
                 }
+
+                svgDocument._fontFaceDirectives = sheet.FontFaceDirectives;
             }
 
             svgDocument?.FlushStyles(true);
