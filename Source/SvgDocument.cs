@@ -27,6 +27,8 @@ namespace Svg
         private SvgElementIdManager _idManager;
 
         private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;
+        private PrivateFontCollection _privateFonts = null;
+        private IList<FontFaceRule> _fontFaceDirectives = null;
 
         private static int GetSystemDpi()
         {
@@ -74,7 +76,40 @@ namespace Svg
             }
             return _fontDefns;
         }
+        internal FontFamily[] PrivateFontDefns()
+        {
+            if (_privateFonts == null)
+            {
+                _privateFonts = new PrivateFontCollection();
+                if (_fontFaceDirectives != null)
+                {
+                    foreach (var item in _fontFaceDirectives)
+                    {
+                        try
+                        {
+                            var bytes = downBytes(item.Src, this.BaseUri);
 
+                            IntPtr MeAdd = Marshal.AllocHGlobal(bytes.Length);
+                            Marshal.Copy(bytes, 0, MeAdd, bytes.Length);
+                            _privateFonts.AddMemoryFont(MeAdd, bytes.Length);
+                        }
+                        catch (Exception ex)
+                        {
+                            Trace.TraceWarning(ex.Message);
+                        }
+                    }
+                }
+            }
+            return _privateFonts.Families;
+        }
+        private static byte[] downBytes(string url, Uri baseUri)
+        {
+            var urlString = Utility.GetUrlString(url);
+            var uri = new Uri(urlString, UriKind.RelativeOrAbsolute);
+            if (!uri.IsAbsoluteUri && baseUri != null)
+                uri = new Uri(baseUri, uri);
+            return Utility.GetBytesFromUri(uri)?.DataBytes;
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgDocument"/> class.
         /// </summary>
@@ -481,6 +516,8 @@ namespace Svg
                             Trace.TraceWarning(ex.Message);
                         }
                     }
+
+                    svgDocument._fontFaceDirectives = sheet.FontFaceDirectives;
                 }
             }
 

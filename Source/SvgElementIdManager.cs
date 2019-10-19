@@ -21,7 +21,7 @@ namespace Svg
         /// <returns>An <see cref="SvgElement"/> of one exists with the specified ID; otherwise false.</returns>
         public virtual SvgElement GetElementById(string id)
         {
-            id = GetUrlString(id);
+            id = Utility.GetUrlString(id);
             if (id.StartsWith("#"))
             {
                 id = id.Substring(1);
@@ -35,7 +35,7 @@ namespace Svg
 
         public virtual SvgElement GetElementById(Uri uri)
         {
-            var urlString = GetUrlString(uri.ToString());
+            var urlString = Utility.GetUrlString(uri.ToString());
 
             if (!urlString.StartsWith("#"))
             {
@@ -69,19 +69,6 @@ namespace Svg
             }
 
             return GetElementById(urlString);
-        }
-
-        private static string GetUrlString(string url)
-        {
-            url = url.Trim();
-            if (url.StartsWith("url(", StringComparison.OrdinalIgnoreCase) && url.EndsWith(")"))
-            {
-                url = new StringBuilder(url).Remove(url.Length - 1, 1).Remove(0, 4).ToString().Trim();
-
-                if ((url.StartsWith("\"") && url.EndsWith("\"")) || (url.StartsWith("'") && url.EndsWith("'")))
-                    url = new StringBuilder(url).Remove(url.Length - 1, 1).Remove(0, 1).ToString().Trim();
-            }
-            return url;
         }
 
         /// <summary>

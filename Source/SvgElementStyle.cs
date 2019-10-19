@@ -431,6 +431,8 @@ namespace Svg
             foreach (var f in fontParts)
             {
                 if (doc != null && doc.FontDefns().TryGetValue(f, out sFaces)) return sFaces;
+                family = doc?.PrivateFontDefns()?.FirstOrDefault(ff => string.Equals(ff.Name, f, StringComparison.OrdinalIgnoreCase));
+                if (family != null) return family;
                 family = SvgFontManager.FindFont(f);
                 if (family != null) return family;
                 family = PrivateFonts.Families.FirstOrDefault(ff => string.Equals(ff.Name, f, StringComparison.OrdinalIgnoreCase));
