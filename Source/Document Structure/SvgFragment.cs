@@ -130,7 +130,7 @@ namespace Svg
         [SvgAttribute("font-size")]
         public override SvgUnit FontSize
         {
-            get { return GetAttribute("font-size", Inherited, SvgUnit.Empty); }
+            get { return GetAttribute("font-size", true, SvgUnit.Empty); }
             set { Attributes["font-size"] = value; }
         }
 
@@ -140,13 +140,13 @@ namespace Svg
         [SvgAttribute("font-family")]
         public override string FontFamily
         {
-            get { return GetAttribute<string>("font-family", Inherited); }
+            get { return GetAttribute<string>("font-family", true); }
             set { Attributes["font-family"] = value; }
         }
 
         public override XmlSpaceHandling SpaceHandling
         {
-            get { return GetAttribute("space", Inherited, XmlSpaceHandling.@default); }
+            get { return GetAttribute("space", true, XmlSpaceHandling.@default); }
             set { base.SpaceHandling = value; IsPathDirty = true; }
         }
 

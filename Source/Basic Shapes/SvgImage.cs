@@ -206,10 +206,11 @@ namespace Svg
 
                     if (bmp != null)
                     {
-                        if (Opacity == 1f)
+                        var opacity = FixOpacityValue(Opacity);
+                        if (opacity == 1f)
                             renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel);
                         else
-                            renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel, Opacity);
+                            renderer.DrawImage(bmp, destRect, srcRect, GraphicsUnit.Pixel, opacity);
                     }
                     else
                     {
@@ -329,7 +330,8 @@ namespace Svg
                     return LoadSvg(stream, OwnerDocument.BaseUri);
                 }
             }
-            else if (mimeType.StartsWith("image/"))
+            // support nonstandard "img" spelling of mimetype
+            else if (mimeType.StartsWith("image/") || mimeType.StartsWith("img/"))
             {
                 var dataBytes = base64 ? Convert.FromBase64String(data) : Encoding.Default.GetBytes(data);
                 using (var stream = new MemoryStream(dataBytes))

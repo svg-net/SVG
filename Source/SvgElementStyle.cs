@@ -51,7 +51,7 @@ namespace Svg
         [SvgAttribute("fill")]
         public virtual SvgPaintServer Fill
         {
-            get { return GetAttribute<SvgPaintServer>("fill", Inherited, SvgColourServer.NotSet); }
+            get { return GetAttribute("fill", true, SvgPaintServer.NotSet); }
             set { Attributes["fill"] = value; }
         }
 
@@ -61,14 +61,14 @@ namespace Svg
         [SvgAttribute("stroke")]
         public virtual SvgPaintServer Stroke
         {
-            get { return GetAttribute<SvgPaintServer>("stroke", Inherited); }
+            get { return GetAttribute<SvgPaintServer>("stroke", true); }
             set { Attributes["stroke"] = value; }
         }
 
         [SvgAttribute("fill-rule")]
         public virtual SvgFillRule FillRule
         {
-            get { return GetAttribute("fill-rule", Inherited, SvgFillRule.NonZero); }
+            get { return GetAttribute("fill-rule", true, SvgFillRule.NonZero); }
             set { Attributes["fill-rule"] = value; }
         }
 
@@ -78,7 +78,7 @@ namespace Svg
         [SvgAttribute("fill-opacity")]
         public virtual float FillOpacity
         {
-            get { return GetAttribute("fill-opacity", Inherited, 1f); }
+            get { return GetAttribute("fill-opacity", true, 1f); }
             set { Attributes["fill-opacity"] = FixOpacityValue(value); }
         }
 
@@ -88,42 +88,43 @@ namespace Svg
         [SvgAttribute("stroke-width")]
         public virtual SvgUnit StrokeWidth
         {
-            get { return GetAttribute<SvgUnit>("stroke-width", Inherited, 1f); }
+            get { return GetAttribute<SvgUnit>("stroke-width", true, 1f); }
             set { Attributes["stroke-width"] = value; }
         }
 
         [SvgAttribute("stroke-linecap")]
         public virtual SvgStrokeLineCap StrokeLineCap
         {
-            get { return GetAttribute("stroke-linecap", Inherited, SvgStrokeLineCap.Butt); }
+            get { return GetAttribute("stroke-linecap", true, SvgStrokeLineCap.Butt); }
             set { Attributes["stroke-linecap"] = value; }
         }
 
         [SvgAttribute("stroke-linejoin")]
         public virtual SvgStrokeLineJoin StrokeLineJoin
         {
-            get { return GetAttribute("stroke-linejoin", Inherited, SvgStrokeLineJoin.Miter); }
+            get { return GetAttribute("stroke-linejoin", true, SvgStrokeLineJoin.Miter); }
             set { Attributes["stroke-linejoin"] = value; }
         }
 
         [SvgAttribute("stroke-miterlimit")]
         public virtual float StrokeMiterLimit
         {
-            get { return GetAttribute("stroke-miterlimit", Inherited, 4f); }
+            get { return GetAttribute("stroke-miterlimit", true, 4f); }
             set { Attributes["stroke-miterlimit"] = value; }
         }
 
+        [TypeConverter(typeof(SvgStrokeDashArrayConverter))]
         [SvgAttribute("stroke-dasharray")]
         public virtual SvgUnitCollection StrokeDashArray
         {
-            get { return GetAttribute<SvgUnitCollection>("stroke-dasharray", Inherited); }
+            get { return GetAttribute<SvgUnitCollection>("stroke-dasharray", true); }
             set { Attributes["stroke-dasharray"] = value; }
         }
 
         [SvgAttribute("stroke-dashoffset")]
         public virtual SvgUnit StrokeDashOffset
         {
-            get { return GetAttribute("stroke-dashoffset", Inherited, SvgUnit.Empty); }
+            get { return GetAttribute("stroke-dashoffset", true, SvgUnit.Empty); }
             set { Attributes["stroke-dashoffset"] = value; }
         }
 
@@ -133,20 +134,8 @@ namespace Svg
         [SvgAttribute("stroke-opacity")]
         public virtual float StrokeOpacity
         {
-            get { return GetAttribute("stroke-opacity", Inherited, 1f); }
+            get { return GetAttribute("stroke-opacity", true, 1f); }
             set { Attributes["stroke-opacity"] = FixOpacityValue(value); }
-        }
-
-        /// <summary>
-        /// Gets or sets the colour of the gradient stop.
-        /// </summary>
-        /// <remarks>Apparently this can be set on non-sensical elements.  Don't ask; just check the tests.</remarks>
-        [SvgAttribute("stop-color")]
-        [TypeConverter(typeof(SvgPaintServerFactory))]
-        public virtual SvgPaintServer StopColor
-        {
-            get { return GetAttribute<SvgPaintServer>("stop-color", Inherited); }
-            set { Attributes["stop-color"] = value; }
         }
 
         /// <summary>
@@ -155,7 +144,7 @@ namespace Svg
         [SvgAttribute("opacity")]
         public virtual float Opacity
         {
-            get { return GetAttribute("opacity", Inherited, 1f); }
+            get { return GetAttribute("opacity", true, 1f); }
             set { Attributes["opacity"] = FixOpacityValue(value); }
         }
 
@@ -165,7 +154,7 @@ namespace Svg
         [SvgAttribute("shape-rendering")]
         public virtual SvgShapeRendering ShapeRendering
         {
-            get { return GetAttribute<SvgShapeRendering>("shape-rendering", Inherited); }
+            get { return GetAttribute<SvgShapeRendering>("shape-rendering", true); }
             set { Attributes["shape-rendering"] = value; }
         }
 
@@ -175,7 +164,7 @@ namespace Svg
         [SvgAttribute("text-anchor")]
         public virtual SvgTextAnchor TextAnchor
         {
-            get { return GetAttribute<SvgTextAnchor>("text-anchor", Inherited); }
+            get { return GetAttribute<SvgTextAnchor>("text-anchor", true); }
             set { Attributes["text-anchor"] = value; IsPathDirty = true; }
         }
 
@@ -185,7 +174,7 @@ namespace Svg
         [SvgAttribute("baseline-shift")]
         public virtual string BaselineShift
         {
-            get { return GetAttribute<string>("baseline-shift", Inherited); }
+            get { return GetAttribute<string>("baseline-shift", true); }
             set { Attributes["baseline-shift"] = value; IsPathDirty = true; }
         }
 
@@ -195,7 +184,7 @@ namespace Svg
         [SvgAttribute("font-family")]
         public virtual string FontFamily
         {
-            get { return GetAttribute<string>("font-family", Inherited); }
+            get { return GetAttribute<string>("font-family", true); }
             set { Attributes["font-family"] = value; IsPathDirty = true; }
         }
 
@@ -205,7 +194,7 @@ namespace Svg
         [SvgAttribute("font-size")]
         public virtual SvgUnit FontSize
         {
-            get { return GetAttribute("font-size", Inherited, SvgUnit.Empty); }
+            get { return GetAttribute("font-size", true, SvgUnit.Empty); }
             set { Attributes["font-size"] = value; IsPathDirty = true; }
         }
 
@@ -215,7 +204,7 @@ namespace Svg
         [SvgAttribute("font-style")]
         public virtual SvgFontStyle FontStyle
         {
-            get { return GetAttribute("font-style", Inherited, SvgFontStyle.All); }
+            get { return GetAttribute("font-style", true, SvgFontStyle.All); }
             set { Attributes["font-style"] = value; IsPathDirty = true; }
         }
 
@@ -225,7 +214,7 @@ namespace Svg
         [SvgAttribute("font-variant")]
         public virtual SvgFontVariant FontVariant
         {
-            get { return GetAttribute("font-variant", Inherited, SvgFontVariant.Inherit); }
+            get { return GetAttribute("font-variant", true, SvgFontVariant.Inherit); }
             set { Attributes["font-variant"] = value; IsPathDirty = true; }
         }
 
@@ -235,7 +224,7 @@ namespace Svg
         [SvgAttribute("text-decoration")]
         public virtual SvgTextDecoration TextDecoration
         {
-            get { return GetAttribute("text-decoration", Inherited, SvgTextDecoration.Inherit); }
+            get { return GetAttribute("text-decoration", true, SvgTextDecoration.Inherit); }
             set { Attributes["text-decoration"] = value; IsPathDirty = true; }
         }
 
@@ -245,7 +234,7 @@ namespace Svg
         [SvgAttribute("font-weight")]
         public virtual SvgFontWeight FontWeight
         {
-            get { return GetAttribute("font-weight", Inherited, SvgFontWeight.Inherit); }
+            get { return GetAttribute("font-weight", true, SvgFontWeight.Inherit); }
             set { Attributes["font-weight"] = value; IsPathDirty = true; }
         }
 
@@ -255,7 +244,7 @@ namespace Svg
         [SvgAttribute("text-transform")]
         public virtual SvgTextTransformation TextTransformation
         {
-            get { return GetAttribute("text-transform", Inherited, SvgTextTransformation.Inherit); }
+            get { return GetAttribute("text-transform", true, SvgTextTransformation.Inherit); }
             set { Attributes["text-transform"] = value; IsPathDirty = true; }
         }
 
@@ -275,7 +264,7 @@ namespace Svg
         [SvgAttribute("font")]
         public virtual string Font
         {
-            get { return GetAttribute("font", Inherited, string.Empty); }
+            get { return GetAttribute("font", true, string.Empty); }
             set
             {
                 var state = FontParseState.fontStyle;

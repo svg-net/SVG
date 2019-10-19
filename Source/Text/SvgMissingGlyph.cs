@@ -6,7 +6,7 @@ namespace Svg
         [SvgAttribute("glyph-name")]
         public override string GlyphName
         {
-            get { return GetAttribute("glyph-name", Inherited, "__MISSING_GLYPH__"); }
+            get { return GetAttribute("glyph-name", true, "__MISSING_GLYPH__"); }
             set { Attributes["glyph-name"] = value; }
         }
 

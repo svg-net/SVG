@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Text;
 
 namespace Svg
 {
@@ -35,13 +33,10 @@ namespace Svg
     }
 
     /// <summary>
-    /// A class to convert string into <see cref="SvgUnitCollection"/> instances.
+    /// A class to convert string into <see cref="SvgPointCollection"/> instances.
     /// </summary>
     internal class SvgPointCollectionConverter : TypeConverter
     {
-        //private static readonly SvgUnitConverter _unitConverter = new SvgUnitConverter();
-
-
         /// <summary>
         /// Converts the given object to the type of this converter, using the specified context and culture information.
         /// </summary>
@@ -52,14 +47,11 @@ namespace Svg
         /// An <see cref="T:System.Object"/> that represents the converted value.
         /// </returns>
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string)
             {
-                var strValue = ((string)value).Trim();
-                if (string.Compare(strValue, "none", StringComparison.InvariantCultureIgnoreCase) == 0) return null;
-
-                var parser = new CoordinateParser(strValue);
+                var parser = new CoordinateParser(((string)value).Trim());
                 var pointValue = 0.0f;
                 var result = new SvgPointCollection();
                 while (parser.TryGetFloat(out pointValue))
@@ -71,25 +63,6 @@ namespace Svg
             }
 
             return base.ConvertFrom(context, culture, value);
-        }
-
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-        {
-            if (destinationType == typeof(string))
-            {
-                return true;
-            }
-            return base.CanConvertTo(context, destinationType);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(string))
-            {
-                return ((SvgPointCollection)value).ToString();
-            }
-
-            return base.ConvertTo(context, culture, value, destinationType);
         }
     }
 }

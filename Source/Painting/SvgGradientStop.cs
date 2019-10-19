@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace Svg
 {
@@ -58,9 +56,9 @@ namespace Svg
         /// </summary>
         [SvgAttribute("stop-color")]
         [TypeConverter(typeof(SvgPaintServerFactory))]
-        public override SvgPaintServer StopColor
+        public SvgPaintServer StopColor
         {
-            get { return GetAttribute("stop-color", Inherited, SvgColourServer.NotSet); }
+            get { return GetAttribute<SvgPaintServer>("stop-color", true, new SvgColourServer(System.Drawing.Color.Black)); }
             set { Attributes["stop-color"] = value; }
         }
 
@@ -68,9 +66,9 @@ namespace Svg
         /// Gets or sets the opacity of the gradient stop (0-1).
         /// </summary>
         [SvgAttribute("stop-opacity")]
-        public override float Opacity
+        public float StopOpacity
         {
-            get { return GetAttribute("stop-opacity", Inherited, 1f); }
+            get { return GetAttribute("stop-opacity", true, 1f); }
             set { Attributes["stop-opacity"] = FixOpacityValue(value); }
         }
 

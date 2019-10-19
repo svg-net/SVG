@@ -144,7 +144,7 @@ namespace Svg
         [SvgAttribute("color")]
         public virtual SvgPaintServer Color
         {
-            get { return GetAttribute<SvgPaintServer>("color", Inherited, SvgColourServer.NotSet); }
+            get { return GetAttribute("color", true, SvgPaintServer.NotSet); }
             set { Attributes["color"] = value; }
         }
 
@@ -294,14 +294,14 @@ namespace Svg
             }
         }
 
-        protected bool Inherited { get; set; } = true;
+        protected bool Writing { get; set; }
 
-        protected internal TAttributeType GetAttribute<TAttributeType>(string attributeName, bool inherit, TAttributeType defaultValue = default(TAttributeType))
+        protected internal TAttributeType GetAttribute<TAttributeType>(string attributeName, bool inherited, TAttributeType defaultValue = default(TAttributeType))
         {
-            if (inherit)
-                return Attributes.GetInheritedAttribute(attributeName, defaultValue);
-            else
+            if (Writing)
                 return Attributes.GetAttribute(attributeName, defaultValue);
+            else
+                return Attributes.GetInheritedAttribute(attributeName, inherited, defaultValue);
         }
 
         /// <summary>
@@ -430,7 +430,7 @@ namespace Svg
         [SvgAttribute("space", SvgAttributeAttribute.XmlNamespace)]
         public virtual XmlSpaceHandling SpaceHandling
         {
-            get { return GetAttribute("space", Inherited, XmlSpaceHandling.inherit); }
+            get { return GetAttribute("space", true, XmlSpaceHandling.inherit); }
             set { Attributes["space"] = value; }
         }
 
@@ -637,7 +637,7 @@ namespace Svg
 
             try
             {
-                Inherited = false;
+                Writing = true;
 
                 foreach (var attr in _svgPropertyAttributes)
                 {
@@ -658,7 +658,7 @@ namespace Svg
 
                             if (Parent != null)
                             {
-                                if (writeStyle && propertyValue == SvgColourServer.NotSet)
+                                if (writeStyle && propertyValue == SvgPaintServer.NotSet)
                                     continue;
 
                                 object parentValue;
@@ -694,14 +694,8 @@ namespace Svg
 
                             if (propertyValue != null)
                             {
-                                if (!string.IsNullOrEmpty(value))
-                                {
-                                    if (attr.Attribute.NamespaceAndName == "xlink:href" && value.StartsWith("url("))
-                                        value = new StringBuilder(value).Remove(value.Length - 1, 1).Remove(0, 4).ToString();
-                                }
-
                                 //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
-                                if (forceWrite || (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value)))
+                                if (forceWrite || !string.IsNullOrEmpty(value))
                                 {
                                     if (writeStyle)
                                     {
@@ -748,14 +742,14 @@ namespace Svg
                     {
                         opacity = (float)Math.Round(opacity, 2, MidpointRounding.AwayFromZero);
                         var value = (string)attr.Property.Converter.ConvertTo(opacity, typeof(string));
-                        if (!string.IsNullOrEmpty(value) && !SvgDefaults.IsDefault(attr.Attribute.Name, attr.Property.ComponentType.Name, value))
+                        if (!string.IsNullOrEmpty(value))
                             writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
                     }
                 }
             }
             finally
             {
-                Inherited = true;
+                Writing = false;
             }
 
             return styles;

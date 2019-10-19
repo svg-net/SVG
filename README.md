@@ -1,4 +1,5 @@
-# SVG.NET [![NuGet version](https://badge.fury.io/nu/svg.svg)](https://badge.fury.io/nu/svg)
+![W3C SVG Logo](https://www.w3.org/Icons/SVG/svg-logo-v.png)
+# SVG.NET[![NuGet version](https://badge.fury.io/nu/svg.svg)](https://badge.fury.io/nu/svg) [![Gitter](https://badges.gitter.im/vvvv/SVG.svg)](https://gitter.im/vvvv/SVG?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Public fork of the C# SVG rendering library on codeplex: https://svg.codeplex.com/
 
@@ -7,10 +8,7 @@ This started out as a minor modification to enable the writing of proper SVG str
 So please feel free to fork it and open pull requests for any fix, improvement or feature you add. 
 You may check the [contributing guide](https://github.com/vvvv/SVG/blob/master/CONTRIBUTING.md) for more information on how to do this. 
 
-For instructions on how to install and use the library, please check the [Getting Started](https://github.com/vvvv/SVG/wiki/Getting-started) guide.
-
-Changes in the latest released versions and in master you can find in the 
-[Release notes](https://github.com/vvvv/SVG/wiki/Release-Notes).
+For information on installation and usage of the library, and for release notes please check the [documentation pages](http://vvvv.github.io/SVG/).
 
 ## Projects using the library
 

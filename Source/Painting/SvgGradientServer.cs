@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Svg.Transforms;
@@ -75,9 +76,9 @@ namespace Svg
         /// Gets or sets another gradient fill from which to inherit the stops from.
         /// </summary>
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
-        public SvgPaintServer InheritGradient
+        public SvgDeferredPaintServer InheritGradient
         {
-            get { return GetAttribute<SvgPaintServer>("href", false); }
+            get { return GetAttribute<SvgDeferredPaintServer>("href", false); }
             set { Attributes["href"] = value; }
         }
 
@@ -86,6 +87,27 @@ namespace Svg
         {
             get { return GetAttribute<SvgTransformCollection>("gradientTransform", false); }
             set { Attributes["gradientTransform"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the colour of the gradient stop.
+        /// </summary>
+        [SvgAttribute("stop-color")]
+        [TypeConverter(typeof(SvgPaintServerFactory))]
+        public SvgPaintServer StopColor
+        {
+            get { return GetAttribute<SvgPaintServer>("stop-color", false, new SvgColourServer(System.Drawing.Color.Black)); }
+            set { Attributes["stop-color"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the opacity of the gradient stop (0-1).
+        /// </summary>
+        [SvgAttribute("stop-opacity")]
+        public float StopOpacity
+        {
+            get { return GetAttribute("stop-opacity", false, 1f); }
+            set { Attributes["stop-opacity"] = FixOpacityValue(value); }
         }
 
         protected Matrix EffectiveGradientTransform
@@ -153,7 +175,7 @@ namespace Svg
                 var currentStop = Stops[radial ? Stops.Count - 1 - actualStops : actualStops];
                 var boundWidth = renderer.GetBoundable().Bounds.Width;
 
-                var mergedOpacity = opacity * currentStop.Opacity;
+                var mergedOpacity = opacity * currentStop.StopOpacity;
                 var position =
                     radial
                     ? 1 - (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth)

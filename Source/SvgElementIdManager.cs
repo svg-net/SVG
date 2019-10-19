@@ -70,6 +70,7 @@ namespace Svg
 
             return GetElementById(urlString);
         }
+
         /// <summary>
         /// Adds the specified <see cref="SvgElement"/> for ID management.
         /// </summary>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp2.2;net35;net452;net472</TargetFrameworks>
     <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
@@ -33,6 +33,7 @@
       NetStandard does not fully support the Drawing2D package - so has been left out.
     </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/vvvv/SVG</PackageProjectUrl>
+    <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -77,12 +78,12 @@
     <Title>Svg for .Net Core 2.2</Title>
     <DefineConstants>$(DefineConstants);NETCORE;NETCORE22</DefineConstants>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
     <Title>Svg for .Net Standard 2.0</Title>
     <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
   </PropertyGroup>
-  
+
   <ItemGroup Condition="'$(TargetFramework)'=='net35'">
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -139,12 +140,12 @@
   </ItemGroup>
 
   <!-- Mac specific include -->
-  
+
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
   </ItemGroup>
- 
-  
+
+
   <ItemGroup>
     <Compile Remove=".\External\ExCSS\Parser.generated.cs" />
     <Compile Remove=".\External\ExCSS\ParserX.cs" />
@@ -152,8 +153,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fizzler" Version="1.1.0" Condition="'$(TargetFramework)'=='net35' Or '$(TargetFramework)'=='net452'"/>
-    <PackageReference Include="Fizzler" Version="1.2.0" Condition="'$(TargetFramework)'=='netstandard2.0' Or '$(TargetFramework)'=='netcoreapp2.2' Or '$(TargetFramework)'=='net472'"/>
+    <PackageReference Include="Fizzler" Version="1.1.0" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.3.167">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

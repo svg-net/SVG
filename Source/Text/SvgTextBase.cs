@@ -21,10 +21,10 @@ namespace Svg
 
         public SvgTextBase()
         {
-            _x.CollectionChanged += OnCoordinateChanged;
-            _dx.CollectionChanged += OnCoordinateChanged;
-            _y.CollectionChanged += OnCoordinateChanged;
-            _dy.CollectionChanged += OnCoordinateChanged;
+            _x.CollectionChanged += OnXChanged;
+            _dx.CollectionChanged += OnDxChanged;
+            _y.CollectionChanged += OnYChanged;
+            _dy.CollectionChanged += OnDyChanged;
         }
 
         /// <summary>
@@ -64,14 +64,20 @@ namespace Svg
             {
                 if (_x != value)
                 {
-                    if (_x != null) _x.CollectionChanged -= OnCoordinateChanged;
+                    if (_x != null) _x.CollectionChanged -= OnXChanged;
                     _x = value;
-                    if (_x != null) _x.CollectionChanged += OnCoordinateChanged;
+                    if (_x != null) _x.CollectionChanged += OnXChanged;
 
                     IsPathDirty = true;
                 }
                 Attributes["x"] = value;
             }
+        }
+
+        private void OnXChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            Attributes["x"] = X.FirstOrDefault();
+            this.IsPathDirty = true;
         }
 
         /// <summary>
@@ -86,15 +92,22 @@ namespace Svg
             {
                 if (_dx != value)
                 {
-                    if (_dx != null) _dx.CollectionChanged -= OnCoordinateChanged;
+                    if (_dx != null) _dx.CollectionChanged -= OnDxChanged;
                     _dx = value;
-                    if (_dx != null) _dx.CollectionChanged += OnCoordinateChanged;
+                    if (_dx != null) _dx.CollectionChanged += OnDxChanged;
 
                     IsPathDirty = true;
                 }
                 Attributes["dx"] = value;
             }
         }
+
+        private void OnDxChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            Attributes["dx"] = X.FirstOrDefault();
+            this.IsPathDirty = true;
+        }
+
 
         /// <summary>
         /// Gets or sets the Y.
@@ -108,14 +121,20 @@ namespace Svg
             {
                 if (_y != value)
                 {
-                    if (_y != null) _y.CollectionChanged -= OnCoordinateChanged;
+                    if (_y != null) _y.CollectionChanged -= OnYChanged;
                     _y = value;
-                    if (_y != null) _y.CollectionChanged += OnCoordinateChanged;
+                    if (_y != null) _y.CollectionChanged += OnYChanged;
 
                     IsPathDirty = true;
                 }
                 Attributes["y"] = value;
             }
+        }
+
+        private void OnYChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            Attributes["y"] = Y.FirstOrDefault();
+            this.IsPathDirty = true;
         }
 
         /// <summary>
@@ -130,9 +149,9 @@ namespace Svg
             {
                 if (_dy != value)
                 {
-                    if (_dy != null) _dy.CollectionChanged -= OnCoordinateChanged;
+                    if (_dy != null) _dy.CollectionChanged -= OnDyChanged;
                     _dy = value;
-                    if (_dy != null) _dy.CollectionChanged += OnCoordinateChanged;
+                    if (_dy != null) _dy.CollectionChanged += OnDyChanged;
 
                     IsPathDirty = true;
                 }
@@ -140,8 +159,9 @@ namespace Svg
             }
         }
 
-        private void OnCoordinateChanged(object sender, NotifyCollectionChangedEventArgs args)
+        private void OnDyChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            Attributes["dy"] = Y.FirstOrDefault();
             this.IsPathDirty = true;
         }
 
@@ -173,7 +193,7 @@ namespace Svg
         [SvgAttribute("textLength")]
         public virtual SvgUnit TextLength
         {
-            get { return GetAttribute("textLength", Inherited, SvgUnit.None); }
+            get { return GetAttribute("textLength", true, SvgUnit.None); }
             set { Attributes["textLength"] = value; IsPathDirty = true; }
         }
 
@@ -184,7 +204,7 @@ namespace Svg
         [SvgAttribute("lengthAdjust")]
         public virtual SvgTextLengthAdjust LengthAdjust
         {
-            get { return GetAttribute("lengthAdjust", Inherited, SvgTextLengthAdjust.Spacing); }
+            get { return GetAttribute("lengthAdjust", true, SvgTextLengthAdjust.Spacing); }
             set { Attributes["lengthAdjust"] = value; IsPathDirty = true; }
         }
 
@@ -194,7 +214,7 @@ namespace Svg
         [SvgAttribute("letter-spacing")]
         public virtual SvgUnit LetterSpacing
         {
-            get { return GetAttribute("letter-spacing", Inherited, SvgUnit.None); }
+            get { return GetAttribute("letter-spacing", true, SvgUnit.None); }
             set { Attributes["letter-spacing"] = value; IsPathDirty = true; }
         }
 
@@ -204,7 +224,7 @@ namespace Svg
         [SvgAttribute("word-spacing")]
         public virtual SvgUnit WordSpacing
         {
-            get { return GetAttribute("word-spacing", Inherited, SvgUnit.None); }
+            get { return GetAttribute("word-spacing", true, SvgUnit.None); }
             set { Attributes["word-spacing"] = value; IsPathDirty = true; }
         }
 
@@ -217,7 +237,7 @@ namespace Svg
         /// <value>The fill.</value>
         public override SvgPaintServer Fill
         {
-            get { return GetAttribute<SvgPaintServer>("fill", Inherited, new SvgColourServer(System.Drawing.Color.Black)); }
+            get { return GetAttribute<SvgPaintServer>("fill", true, new SvgColourServer(System.Drawing.Color.Black)); }
             set { Attributes["fill"] = value; }
         }
 

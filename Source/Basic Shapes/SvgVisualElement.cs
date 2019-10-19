@@ -49,7 +49,7 @@ namespace Svg
         [SvgAttribute("clip")]
         public virtual string Clip
         {
-            get { return GetAttribute("clip", Inherited, "auto"); }
+            get { return GetAttribute("clip", true, "auto"); }
             set { Attributes["clip"] = value; }
         }
 
@@ -79,7 +79,7 @@ namespace Svg
         [SvgAttribute("filter")]
         public virtual Uri Filter
         {
-            get { return GetAttribute<Uri>("filter", Inherited); }
+            get { return GetAttribute<Uri>("filter", true); }
             set { Attributes["filter"] = value; }
         }
 
@@ -145,7 +145,7 @@ namespace Svg
 
                             if (Renderable)
                             {
-                                var opacity = Math.Min(Math.Max(Opacity, 0f), 1f);
+                                var opacity = FixOpacityValue(Opacity);
                                 if (opacity == 1f)
                                     RenderFillAndStroke(renderer);
                                 else
@@ -229,7 +229,7 @@ namespace Svg
         protected internal virtual void RenderFill(ISvgRenderer renderer)
         {
             if (Fill != null)
-                using (var brush = Fill.GetBrush(this, renderer, Math.Min(Math.Max(FillOpacity, 0f), 1f)))
+                using (var brush = Fill.GetBrush(this, renderer, FixOpacityValue(FillOpacity)))
                 {
                     if (brush != null)
                     {
@@ -246,10 +246,10 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected internal virtual bool RenderStroke(ISvgRenderer renderer)
         {
-            if (Stroke != null && Stroke != SvgColourServer.None && StrokeWidth > 0f)
+            if (Stroke != null && Stroke != SvgPaintServer.None && StrokeWidth > 0f)
             {
                 var strokeWidth = StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
-                using (var brush = Stroke.GetBrush(this, renderer, Math.Min(Math.Max(StrokeOpacity, 0f), 1f), true))
+                using (var brush = Stroke.GetBrush(this, renderer, FixOpacityValue(StrokeOpacity), true))
                 {
                     if (brush != null)
                     {
@@ -282,17 +282,20 @@ namespace Svg
                             {
                                 if (StrokeDashArray != null && StrokeDashArray.Count > 0)
                                 {
-                                    strokeWidth = strokeWidth <= 0 ? 1f : strokeWidth;
-                                    if (StrokeDashArray.Count % 2 != 0)
+                                    var strokeDashArray = StrokeDashArray;
+                                    if (strokeDashArray.Count % 2 != 0)
                                     {
                                         // handle odd dash arrays by repeating them once
-                                        StrokeDashArray.AddRange(StrokeDashArray);
+                                        strokeDashArray = new SvgUnitCollection();
+                                        strokeDashArray.AddRange(StrokeDashArray);
+                                        strokeDashArray.AddRange(StrokeDashArray);
                                     }
-
                                     var dashOffset = StrokeDashOffset;
 
+                                    strokeWidth = Math.Max(strokeWidth, 1f);
+
                                     /* divide by stroke width - GDI uses stroke width as unit.*/
-                                    var dashPattern = StrokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
+                                    var dashPattern = strokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
                                         u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth).ToArray();
                                     var length = dashPattern.Length;
 

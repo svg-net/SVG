@@ -13,7 +13,14 @@ namespace Svg
     [TypeConverter(typeof(SvgUnitCollectionConverter))]
     public class SvgUnitCollection : ObservableCollection<SvgUnit>
     {
-        internal bool IsNull { get; set; }
+        public static string None = "none";
+
+        public static string Inherit = "inherit";
+
+        /// <summary>
+        /// Sets <see cref="None"/> or <see cref="Inherit"/> if needed.
+        /// </summary>
+        public string StringForEmptyValue { get; set; }
 
         public void AddRange(IEnumerable<SvgUnit> collection)
         {
@@ -36,6 +43,9 @@ namespace Svg
 
         public override string ToString()
         {
+            if (Count <= 0 && !string.IsNullOrEmpty(StringForEmptyValue))
+                return StringForEmptyValue;
+
             // The correct separator should be a single white space.
             // More see:
             // http://www.w3.org/TR/SVG/coords.html
@@ -77,45 +87,43 @@ namespace Svg
         {
             if (value is string)
             {
-                var s = ((string)value).Trim();
-
-                if (s.Equals("inherit", StringComparison.OrdinalIgnoreCase))
-                    return null;
-
+                var points = ((string)value).Trim().Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 var units = new SvgUnitCollection();
-                units.IsNull = s.Equals("none", StringComparison.OrdinalIgnoreCase);
-                if (!units.IsNull)
-                    foreach (var point in s.Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        var newUnit = (SvgUnit)_unitConverter.ConvertFrom(point.Trim());
-                        if (!newUnit.IsNone)
-                            units.Add(newUnit);
-                    }
+
+                foreach (var point in points)
+                {
+                    var newUnit = (SvgUnit)_unitConverter.ConvertFrom(point.Trim());
+                    if (!newUnit.IsNone)
+                        units.Add(newUnit);
+                }
 
                 return units;
             }
 
             return base.ConvertFrom(context, culture, value);
         }
+    }
 
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+    internal class SvgStrokeDashArrayConverter : SvgUnitCollectionConverter
+    {
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (destinationType == typeof(string))
-                return true;
-
-            return base.CanConvertTo(context, destinationType);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (value != null && destinationType == typeof(string))
+            if (value is string)
             {
-                if (((SvgUnitCollection)value).IsNull)
-                    return "none";
-                return ((SvgUnitCollection)value).ToString();
+                var s = ((string)value).Trim();
+                if (s.Equals(SvgUnitCollection.None, StringComparison.OrdinalIgnoreCase))
+                    return new SvgUnitCollection
+                    {
+                        StringForEmptyValue = SvgUnitCollection.None
+                    };
+                else if (s.Equals(SvgUnitCollection.Inherit, StringComparison.OrdinalIgnoreCase))
+                    return new SvgUnitCollection
+                    {
+                        StringForEmptyValue = SvgUnitCollection.Inherit
+                    };
             }
 
-            return base.ConvertTo(context, culture, value, destinationType);
+            return base.ConvertFrom(context, culture, value);
         }
     }
 }
