@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -13,56 +15,62 @@ namespace Svg.UnitTests
     {
         private const string PureTextElementSvg = "Issue_TextElement.Text.svg";
 
+        private static readonly List<Type> ElementTypeList = new List<Type>()
+        {
+            typeof(SvgCircle),
+            typeof(SvgEllipse),
+            typeof(SvgImage),
+            typeof(SvgLine),
+            typeof(SvgPolygon),
+            typeof(SvgPolyline),
+            typeof(SvgRectangle),
+            typeof(SvgClipPath),
+            typeof(SvgMask),
+            typeof(SvgDefinitionList),
+            typeof(SvgDescription),
+            typeof(SvgDocumentMetadata),
+            typeof(SvgFragment),
+            typeof(SvgGroup),
+            typeof(SvgSwitch),
+            typeof(SvgSymbol),
+            typeof(SvgTitle),
+            typeof(SvgUse),
+            typeof(SvgForeignObject),
+            typeof(SvgFilter),
+            typeof(SvgColourMatrix),
+            typeof(SvgGaussianBlur),
+            typeof(SvgMerge),
+            typeof(SvgMergeNode),
+            typeof(SvgOffset),
+            typeof(SvgColourServer),
+            typeof(SvgDeferredPaintServer),
+            typeof(SvgGradientStop),
+            typeof(SvgLinearGradientServer),
+            typeof(SvgMarker),
+            typeof(SvgPatternServer),
+            typeof(SvgRadialGradientServer),
+            typeof(SvgPath),
+            typeof(SvgFont),
+            typeof(SvgFontFace),
+            typeof(SvgFontFaceSrc),
+            typeof(SvgFontFaceUri),
+            typeof(SvgGlyph),
+            typeof(SvgVerticalKern),
+            typeof(SvgHorizontalKern),
+            typeof(SvgMissingGlyph),
+            typeof(SvgText),
+            typeof(SvgTextPath),
+            typeof(SvgTextRef),
+            typeof(SvgTextSpan),
+            typeof(NonSvgElement),
+            typeof(SvgUnknownElement),
+        };
+
         [Test]
         public void TestSvgElementDeepCopy()
         {
-            CheckDeepCopyInstance(new SvgCircle());
-            CheckDeepCopyInstance(new SvgEllipse());
-            CheckDeepCopyInstance(new SvgImage());
-            CheckDeepCopyInstance(new SvgLine());
-            CheckDeepCopyInstance(new SvgPolygon());
-            CheckDeepCopyInstance(new SvgPolyline());
-            CheckDeepCopyInstance(new SvgRectangle());
-            CheckDeepCopyInstance(new SvgClipPath());
-            CheckDeepCopyInstance(new SvgMask());
-            CheckDeepCopyInstance(new SvgDefinitionList());
-            CheckDeepCopyInstance(new SvgDescription());
-            CheckDeepCopyInstance(new SvgDocumentMetadata());
-            CheckDeepCopyInstance(new SvgFragment());
-            CheckDeepCopyInstance(new SvgGroup());
-            CheckDeepCopyInstance(new SvgSwitch());
-            CheckDeepCopyInstance(new SvgSymbol());
-            CheckDeepCopyInstance(new SvgTitle());
-            CheckDeepCopyInstance(new SvgUse());
-            CheckDeepCopyInstance(new SvgForeignObject());
-            CheckDeepCopyInstance(new SvgFilter());
-            CheckDeepCopyInstance(new SvgColourMatrix());
-            CheckDeepCopyInstance(new SvgGaussianBlur());
-            CheckDeepCopyInstance(new SvgMerge());
-            CheckDeepCopyInstance(new SvgMergeNode());
-            CheckDeepCopyInstance(new SvgOffset());
-            CheckDeepCopyInstance(new SvgColourServer());
-            CheckDeepCopyInstance(new SvgDeferredPaintServer());
-            CheckDeepCopyInstance(new SvgGradientStop());
-            CheckDeepCopyInstance(new SvgLinearGradientServer());
-            CheckDeepCopyInstance(new SvgMarker());
-            CheckDeepCopyInstance(new SvgPatternServer());
-            CheckDeepCopyInstance(new SvgRadialGradientServer());
-            CheckDeepCopyInstance(new SvgPath());
-            CheckDeepCopyInstance(new SvgFont());
-            CheckDeepCopyInstance(new SvgFontFace());
-            CheckDeepCopyInstance(new SvgFontFaceSrc());
-            CheckDeepCopyInstance(new SvgFontFaceUri());
-            CheckDeepCopyInstance(new SvgGlyph());
-            CheckDeepCopyInstance(new SvgVerticalKern());
-            CheckDeepCopyInstance(new SvgHorizontalKern());
-            CheckDeepCopyInstance(new SvgMissingGlyph());
-            CheckDeepCopyInstance(new SvgText());
-            CheckDeepCopyInstance(new SvgTextPath());
-            CheckDeepCopyInstance(new SvgTextRef());
-            CheckDeepCopyInstance(new SvgTextSpan());
-            CheckDeepCopyInstance(new NonSvgElement());
-            CheckDeepCopyInstance(new SvgUnknownElement());
+            foreach (var type in ElementTypeList)
+                CheckDeepCopyInstance(Activator.CreateInstance(type) as SvgElement);
         }
 
         private void CheckDeepCopyInstance<T>(T src)
@@ -78,6 +86,39 @@ namespace Svg.UnitTests
             Assert.AreSame(SvgPaintServer.None, SvgPaintServer.None.DeepCopy());
             Assert.AreSame(SvgPaintServer.Inherit, SvgPaintServer.Inherit.DeepCopy());
             Assert.AreSame(SvgPaintServer.NotSet, SvgPaintServer.NotSet.DeepCopy());
+        }
+
+        [Test]
+        public void TestDeepCopyAttribute()
+        {
+            foreach (var type in ElementTypeList)
+            {
+                var src = Activator.CreateInstance(type) as SvgElement;
+                var dest = src.DeepCopy();
+
+                Assert.Zero(src.Attributes.Count);
+                CheckDeepCopyAttribute(src, dest);
+            }
+
+            {
+                var src = OpenSvg(GetResourceXmlDoc(GetFullResourceString(PureTextElementSvg)));
+                var dest = (SvgDocument)src.DeepCopy<SvgDocument>();
+
+                CheckDeepCopyAttribute(src, dest);
+                CheckDeepCopyAttribute(src.Children[0], dest.Children[0]);
+                CheckDeepCopyAttribute(src.Children[1], dest.Children[1]);
+            }
+        }
+
+        private void CheckDeepCopyAttribute(SvgElement src, SvgElement dest)
+        {
+            Assert.AreEqual(src.Attributes.Count, dest.Attributes.Count);
+
+            foreach (var attribute in src.Attributes)
+            {
+                Assert.IsTrue(dest.Attributes.ContainsKey(attribute.Key));
+                Assert.AreEqual(attribute.Value, dest.Attributes.GetAttribute<object>(attribute.Key));
+            }
         }
 
         /// <summary>
