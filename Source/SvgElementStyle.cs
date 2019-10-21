@@ -144,7 +144,7 @@ namespace Svg
         [SvgAttribute("opacity")]
         public virtual float Opacity
         {
-            get { return GetAttribute("opacity", true, 1f); }
+            get { return GetAttribute("opacity", false, 1f); }
             set { Attributes["opacity"] = FixOpacityValue(value); }
         }
 
