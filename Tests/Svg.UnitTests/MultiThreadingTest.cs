@@ -1,5 +1,3 @@
-#if NET35
-#else 
 using NUnit.Framework;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -34,4 +32,3 @@ namespace Svg.UnitTests
         }
     }
 }
-#endif
