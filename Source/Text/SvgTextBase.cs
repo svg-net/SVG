@@ -661,27 +661,26 @@ namespace Svg
 
                         rotations = GetValues(value.Length, e => e._rotations);
 
-                        // Calculate Y-offset due to baseline shift.  Don't inherit the value so that it is not accumulated multiple times.               
-                        var baselineShiftText = this.Element.Attributes.GetAttribute<string>("baseline-shift");
+                        // Calculate Y-offset due to baseline shift. Don't inherit the value so that it is not accumulated multiple times.
+                        var baselineShiftText = Element.BaselineShift.Trim().ToLower();
+                        if (string.IsNullOrEmpty(baselineShiftText))
+                            baselineShiftText = "baseline";
 
                         switch (baselineShiftText)
                         {
-                            case null:
-                            case "":
                             case "baseline":
-                            case "inherit":
                                 // do nothing
                                 break;
                             case "sub":
                                 baselineShift = new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
                                 break;
                             case "super":
-                                baselineShift = -1 * new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
+                                baselineShift = -1f * new SvgUnit(SvgUnitType.Ex, 1).ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
                                 break;
                             default:
                                 var convert = new SvgUnitConverter();
                                 var shiftUnit = (SvgUnit)convert.ConvertFromInvariantString(baselineShiftText);
-                                baselineShift = -1 * shiftUnit.ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
+                                baselineShift = -1f * shiftUnit.ToDeviceValue(this.Renderer, UnitRenderingType.Vertical, this.Element);
                                 break;
                         }
 
