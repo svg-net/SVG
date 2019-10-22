@@ -174,7 +174,7 @@ namespace Svg
         [SvgAttribute("baseline-shift")]
         public virtual string BaselineShift
         {
-            get { return GetAttribute<string>("baseline-shift", true); }
+            get { return GetAttribute("baseline-shift", false, "baseline"); }
             set { Attributes["baseline-shift"] = value; IsPathDirty = true; }
         }
 
