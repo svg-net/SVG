@@ -512,33 +512,37 @@ namespace Svg
         {
             var newObj = base.DeepCopy<T>() as SvgTextBase;
 
-            if (_x != null)
+            if (_x == null)
+                newObj._x = null;
+            else
             {
                 newObj._x = (SvgUnitCollection)_x.Clone();
                 newObj._x.CollectionChanged += newObj.OnXChanged;
             }
-            if (_y != null)
+            if (_y == null)
+                newObj._y = null;
+            else
             {
                 newObj._y = (SvgUnitCollection)_y.Clone();
                 newObj._y.CollectionChanged += newObj.OnYChanged;
             }
-            if (_dx != null)
+            if (_dx == null)
+                newObj._dx = null;
+            else
             {
                 newObj._dx = (SvgUnitCollection)_dx.Clone();
                 newObj._dx.CollectionChanged += newObj.OnDxChanged;
             }
-            if (_dy != null)
+            if (_dy == null)
+                newObj._dy = null;
+            else
             {
                 newObj._dy = (SvgUnitCollection)_dy.Clone();
                 newObj._dy.CollectionChanged += newObj.OnDyChanged;
             }
             newObj._rotate = _rotate;
-            if (_rotations != null)
-            {
-                newObj._rotations = new List<float>();
-                foreach (var rotation in _rotations)
-                    newObj._rotations.Add(rotation);
-            }
+            foreach (var rotation in _rotations)
+                newObj._rotations.Add(rotation);
             return newObj;
         }
 
