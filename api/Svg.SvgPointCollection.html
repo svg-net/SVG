@@ -102,6 +102,7 @@
     <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="Svg.SvgUnit.html">SvgUnit</a>&gt;</div>
     <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Svg.SvgUnit.html">SvgUnit</a>&gt;</div>
     <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.icloneable">ICloneable</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -323,10 +324,35 @@
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Svg_SvgPointCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class SvgPointCollection : List&lt;SvgUnit&gt;, IList&lt;SvgUnit&gt;, ICollection&lt;SvgUnit&gt;, IList, ICollection, IReadOnlyList&lt;SvgUnit&gt;, IReadOnlyCollection&lt;SvgUnit&gt;, IEnumerable&lt;SvgUnit&gt;, IEnumerable</code></pre>
+    <pre><code class="lang-csharp hljs">public class SvgPointCollection : List&lt;SvgUnit&gt;, IList&lt;SvgUnit&gt;, ICollection&lt;SvgUnit&gt;, IList, ICollection, IReadOnlyList&lt;SvgUnit&gt;, IReadOnlyCollection&lt;SvgUnit&gt;, IEnumerable&lt;SvgUnit&gt;, IEnumerable, ICloneable</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
+  
+  
+  <a id="Svg_SvgPointCollection_Clone_" data-uid="Svg.SvgPointCollection.Clone*"></a>
+  <h4 id="Svg_SvgPointCollection_Clone" data-uid="Svg.SvgPointCollection.Clone">Clone()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object Clone()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   
   
   <a id="Svg_SvgPointCollection_ToString_" data-uid="Svg.SvgPointCollection.ToString*"></a>
@@ -378,6 +404,9 @@
   </div>
   <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.collections.ienumerable">System.Collections.IEnumerable</a>
+  </div>
+  <div>
+      <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.icloneable">System.ICloneable</a>
   </div>
 </article>
           </div>

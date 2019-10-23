@@ -308,15 +308,6 @@ references:
   isSpec: "True"
   fullName: Svg.Document_Structure.SvgSymbol.DeepCopy
   nameWithType: SvgSymbol.DeepCopy
-- uid: Svg.Document_Structure.SvgSymbol.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.Document_Structure.SvgSymbol.html#Svg_Document_Structure_SvgSymbol_DeepCopy__1
-  commentId: M:Svg.Document_Structure.SvgSymbol.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.Document_Structure.SvgSymbol.DeepCopy<T>()
-  fullName.vb: Svg.Document_Structure.SvgSymbol.DeepCopy(Of T)()
-  nameWithType: SvgSymbol.DeepCopy<T>()
-  nameWithType.vb: SvgSymbol.DeepCopy(Of T)()
 - uid: Svg.Document_Structure.SvgSymbol.Path(Svg.ISvgRenderer)
   name: Path(ISvgRenderer)
   href: api/Svg.Document_Structure.SvgSymbol.html#Svg_Document_Structure_SvgSymbol_Path_Svg_ISvgRenderer_
@@ -1124,15 +1115,6 @@ references:
   isSpec: "True"
   fullName: Svg.FilterEffects.SvgFilter.DeepCopy
   nameWithType: SvgFilter.DeepCopy
-- uid: Svg.FilterEffects.SvgFilter.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.FilterEffects.SvgFilter.html#Svg_FilterEffects_SvgFilter_DeepCopy__1
-  commentId: M:Svg.FilterEffects.SvgFilter.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.FilterEffects.SvgFilter.DeepCopy<T>()
-  fullName.vb: Svg.FilterEffects.SvgFilter.DeepCopy(Of T)()
-  nameWithType: SvgFilter.DeepCopy<T>()
-  nameWithType.vb: SvgFilter.DeepCopy(Of T)()
 - uid: Svg.FilterEffects.SvgFilter.Height
   name: Height
   href: api/Svg.FilterEffects.SvgFilter.html#Svg_FilterEffects_SvgFilter_Height
@@ -1480,15 +1462,6 @@ references:
   isSpec: "True"
   fullName: Svg.FilterEffects.SvgOffset.DeepCopy
   nameWithType: SvgOffset.DeepCopy
-- uid: Svg.FilterEffects.SvgOffset.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.FilterEffects.SvgOffset.html#Svg_FilterEffects_SvgOffset_DeepCopy__1
-  commentId: M:Svg.FilterEffects.SvgOffset.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.FilterEffects.SvgOffset.DeepCopy<T>()
-  fullName.vb: Svg.FilterEffects.SvgOffset.DeepCopy(Of T)()
-  nameWithType: SvgOffset.DeepCopy<T>()
-  nameWithType.vb: SvgOffset.DeepCopy(Of T)()
 - uid: Svg.FilterEffects.SvgOffset.Dx
   name: Dx
   href: api/Svg.FilterEffects.SvgOffset.html#Svg_FilterEffects_SvgOffset_Dx
@@ -2956,6 +2929,19 @@ references:
   isSpec: "True"
   fullName: Svg.Pathing.SvgPathSegmentList.Clear
   nameWithType: SvgPathSegmentList.Clear
+- uid: Svg.Pathing.SvgPathSegmentList.Clone
+  name: Clone()
+  href: api/Svg.Pathing.SvgPathSegmentList.html#Svg_Pathing_SvgPathSegmentList_Clone
+  commentId: M:Svg.Pathing.SvgPathSegmentList.Clone
+  fullName: Svg.Pathing.SvgPathSegmentList.Clone()
+  nameWithType: SvgPathSegmentList.Clone()
+- uid: Svg.Pathing.SvgPathSegmentList.Clone*
+  name: Clone
+  href: api/Svg.Pathing.SvgPathSegmentList.html#Svg_Pathing_SvgPathSegmentList_Clone_
+  commentId: Overload:Svg.Pathing.SvgPathSegmentList.Clone
+  isSpec: "True"
+  fullName: Svg.Pathing.SvgPathSegmentList.Clone
+  nameWithType: SvgPathSegmentList.Clone
 - uid: Svg.Pathing.SvgPathSegmentList.Contains(Svg.Pathing.SvgPathSegment)
   name: Contains(SvgPathSegment)
   href: api/Svg.Pathing.SvgPathSegmentList.html#Svg_Pathing_SvgPathSegmentList_Contains_Svg_Pathing_SvgPathSegment_
@@ -3330,6 +3316,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgAspectRatio.Align
   nameWithType: SvgAspectRatio.Align
+- uid: Svg.SvgAspectRatio.Clone
+  name: Clone()
+  href: api/Svg.SvgAspectRatio.html#Svg_SvgAspectRatio_Clone
+  commentId: M:Svg.SvgAspectRatio.Clone
+  fullName: Svg.SvgAspectRatio.Clone()
+  nameWithType: SvgAspectRatio.Clone()
+- uid: Svg.SvgAspectRatio.Clone*
+  name: Clone
+  href: api/Svg.SvgAspectRatio.html#Svg_SvgAspectRatio_Clone_
+  commentId: Overload:Svg.SvgAspectRatio.Clone
+  isSpec: "True"
+  fullName: Svg.SvgAspectRatio.Clone
+  nameWithType: SvgAspectRatio.Clone
 - uid: Svg.SvgAspectRatio.Defer
   name: Defer
   href: api/Svg.SvgAspectRatio.html#Svg_SvgAspectRatio_Defer
@@ -3745,15 +3744,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgClipPath.DeepCopy
   nameWithType: SvgClipPath.DeepCopy
-- uid: Svg.SvgClipPath.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgClipPath.html#Svg_SvgClipPath_DeepCopy__1
-  commentId: M:Svg.SvgClipPath.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgClipPath.DeepCopy<T>()
-  fullName.vb: Svg.SvgClipPath.DeepCopy(Of T)()
-  nameWithType: SvgClipPath.DeepCopy<T>()
-  nameWithType.vb: SvgClipPath.DeepCopy(Of T)()
 - uid: Svg.SvgClipPath.GetClipRegion(Svg.SvgVisualElement,Svg.ISvgRenderer)
   name: GetClipRegion(SvgVisualElement, ISvgRenderer)
   href: api/Svg.SvgClipPath.html#Svg_SvgClipPath_GetClipRegion_Svg_SvgVisualElement_Svg_ISvgRenderer_
@@ -4365,15 +4355,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDescription.DeepCopy
   nameWithType: SvgDescription.DeepCopy
-- uid: Svg.SvgDescription.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgDescription.html#Svg_SvgDescription_DeepCopy__1
-  commentId: M:Svg.SvgDescription.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgDescription.DeepCopy<T>()
-  fullName.vb: Svg.SvgDescription.DeepCopy(Of T)()
-  nameWithType: SvgDescription.DeepCopy<T>()
-  nameWithType.vb: SvgDescription.DeepCopy(Of T)()
 - uid: Svg.SvgDescription.ToString
   name: ToString()
   href: api/Svg.SvgDescription.html#Svg_SvgDescription_ToString
@@ -7223,15 +7204,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgFontFaceUri.DeepCopy
   nameWithType: SvgFontFaceUri.DeepCopy
-- uid: Svg.SvgFontFaceUri.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgFontFaceUri.html#Svg_SvgFontFaceUri_DeepCopy__1
-  commentId: M:Svg.SvgFontFaceUri.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgFontFaceUri.DeepCopy<T>()
-  fullName.vb: Svg.SvgFontFaceUri.DeepCopy(Of T)()
-  nameWithType: SvgFontFaceUri.DeepCopy<T>()
-  nameWithType.vb: SvgFontFaceUri.DeepCopy(Of T)()
 - uid: Svg.SvgFontFaceUri.ReferencedElement
   name: ReferencedElement
   href: api/Svg.SvgFontFaceUri.html#Svg_SvgFontFaceUri_ReferencedElement
@@ -7574,15 +7546,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgForeignObject.DeepCopy
   nameWithType: SvgForeignObject.DeepCopy
-- uid: Svg.SvgForeignObject.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgForeignObject.html#Svg_SvgForeignObject_DeepCopy__1
-  commentId: M:Svg.SvgForeignObject.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgForeignObject.DeepCopy<T>()
-  fullName.vb: Svg.SvgForeignObject.DeepCopy(Of T)()
-  nameWithType: SvgForeignObject.DeepCopy<T>()
-  nameWithType.vb: SvgForeignObject.DeepCopy(Of T)()
 - uid: Svg.SvgForeignObject.Path(Svg.ISvgRenderer)
   name: Path(ISvgRenderer)
   href: api/Svg.SvgForeignObject.html#Svg_SvgForeignObject_Path_Svg_ISvgRenderer_
@@ -8111,22 +8074,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgGradientServer.CalculateLength
   nameWithType: SvgGradientServer.CalculateLength
-- uid: Svg.SvgGradientServer.DeepCopy*
-  name: DeepCopy
-  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_DeepCopy_
-  commentId: Overload:Svg.SvgGradientServer.DeepCopy
-  isSpec: "True"
-  fullName: Svg.SvgGradientServer.DeepCopy
-  nameWithType: SvgGradientServer.DeepCopy
-- uid: Svg.SvgGradientServer.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_DeepCopy__1
-  commentId: M:Svg.SvgGradientServer.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgGradientServer.DeepCopy<T>()
-  fullName.vb: Svg.SvgGradientServer.DeepCopy(Of T)()
-  nameWithType: SvgGradientServer.DeepCopy<T>()
-  nameWithType.vb: SvgGradientServer.DeepCopy(Of T)()
 - uid: Svg.SvgGradientServer.EffectiveGradientTransform
   name: EffectiveGradientTransform
   href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_EffectiveGradientTransform
@@ -8444,15 +8391,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgGroup.DeepCopy
   nameWithType: SvgGroup.DeepCopy
-- uid: Svg.SvgGroup.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgGroup.html#Svg_SvgGroup_DeepCopy__1
-  commentId: M:Svg.SvgGroup.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgGroup.DeepCopy<T>()
-  fullName.vb: Svg.SvgGroup.DeepCopy(Of T)()
-  nameWithType: SvgGroup.DeepCopy<T>()
-  nameWithType.vb: SvgGroup.DeepCopy(Of T)()
 - uid: Svg.SvgGroup.Path(Svg.ISvgRenderer)
   name: Path(ISvgRenderer)
   href: api/Svg.SvgGroup.html#Svg_SvgGroup_Path_Svg_ISvgRenderer_
@@ -8613,15 +8551,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgImage.DeepCopy
   nameWithType: SvgImage.DeepCopy
-- uid: Svg.SvgImage.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgImage.html#Svg_SvgImage_DeepCopy__1
-  commentId: M:Svg.SvgImage.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgImage.DeepCopy<T>()
-  fullName.vb: Svg.SvgImage.DeepCopy(Of T)()
-  nameWithType: SvgImage.DeepCopy<T>()
-  nameWithType.vb: SvgImage.DeepCopy(Of T)()
 - uid: Svg.SvgImage.GetImage(System.String)
   name: GetImage(String)
   href: api/Svg.SvgImage.html#Svg_SvgImage_GetImage_System_String_
@@ -8984,15 +8913,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgLinearGradientServer.DeepCopy
   nameWithType: SvgLinearGradientServer.DeepCopy
-- uid: Svg.SvgLinearGradientServer.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgLinearGradientServer.html#Svg_SvgLinearGradientServer_DeepCopy__1
-  commentId: M:Svg.SvgLinearGradientServer.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgLinearGradientServer.DeepCopy<T>()
-  fullName.vb: Svg.SvgLinearGradientServer.DeepCopy(Of T)()
-  nameWithType: SvgLinearGradientServer.DeepCopy<T>()
-  nameWithType.vb: SvgLinearGradientServer.DeepCopy(Of T)()
 - uid: Svg.SvgLinearGradientServer.GetBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
   name: GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
   href: api/Svg.SvgLinearGradientServer.html#Svg_SvgLinearGradientServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_
@@ -9121,15 +9041,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgMarker.DeepCopy
   nameWithType: SvgMarker.DeepCopy
-- uid: Svg.SvgMarker.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgMarker.html#Svg_SvgMarker_DeepCopy__1
-  commentId: M:Svg.SvgMarker.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgMarker.DeepCopy<T>()
-  fullName.vb: Svg.SvgMarker.DeepCopy(Of T)()
-  nameWithType: SvgMarker.DeepCopy<T>()
-  nameWithType.vb: SvgMarker.DeepCopy(Of T)()
 - uid: Svg.SvgMarker.Fill
   name: Fill
   href: api/Svg.SvgMarker.html#Svg_SvgMarker_Fill
@@ -10148,6 +10059,19 @@ references:
   commentId: T:Svg.SvgPointCollection
   fullName: Svg.SvgPointCollection
   nameWithType: SvgPointCollection
+- uid: Svg.SvgPointCollection.Clone
+  name: Clone()
+  href: api/Svg.SvgPointCollection.html#Svg_SvgPointCollection_Clone
+  commentId: M:Svg.SvgPointCollection.Clone
+  fullName: Svg.SvgPointCollection.Clone()
+  nameWithType: SvgPointCollection.Clone()
+- uid: Svg.SvgPointCollection.Clone*
+  name: Clone
+  href: api/Svg.SvgPointCollection.html#Svg_SvgPointCollection_Clone_
+  commentId: Overload:Svg.SvgPointCollection.Clone
+  isSpec: "True"
+  fullName: Svg.SvgPointCollection.Clone
+  nameWithType: SvgPointCollection.Clone
 - uid: Svg.SvgPointCollection.ToString
   name: ToString()
   href: api/Svg.SvgPointCollection.html#Svg_SvgPointCollection_ToString
@@ -10180,15 +10104,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgPolygon.DeepCopy
   nameWithType: SvgPolygon.DeepCopy
-- uid: Svg.SvgPolygon.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgPolygon.html#Svg_SvgPolygon_DeepCopy__1
-  commentId: M:Svg.SvgPolygon.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgPolygon.DeepCopy<T>()
-  fullName.vb: Svg.SvgPolygon.DeepCopy(Of T)()
-  nameWithType: SvgPolygon.DeepCopy<T>()
-  nameWithType.vb: SvgPolygon.DeepCopy(Of T)()
 - uid: Svg.SvgPolygon.Path(Svg.ISvgRenderer)
   name: Path(ISvgRenderer)
   href: api/Svg.SvgPolygon.html#Svg_SvgPolygon_Path_Svg_ISvgRenderer_
@@ -10358,15 +10273,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgRadialGradientServer.DeepCopy
   nameWithType: SvgRadialGradientServer.DeepCopy
-- uid: Svg.SvgRadialGradientServer.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_DeepCopy__1
-  commentId: M:Svg.SvgRadialGradientServer.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgRadialGradientServer.DeepCopy<T>()
-  fullName.vb: Svg.SvgRadialGradientServer.DeepCopy(Of T)()
-  nameWithType: SvgRadialGradientServer.DeepCopy<T>()
-  nameWithType.vb: SvgRadialGradientServer.DeepCopy(Of T)()
 - uid: Svg.SvgRadialGradientServer.FocalX
   name: FocalX
   href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_FocalX
@@ -11122,15 +11028,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgSwitch.DeepCopy
   nameWithType: SvgSwitch.DeepCopy
-- uid: Svg.SvgSwitch.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgSwitch.html#Svg_SvgSwitch_DeepCopy__1
-  commentId: M:Svg.SvgSwitch.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgSwitch.DeepCopy<T>()
-  fullName.vb: Svg.SvgSwitch.DeepCopy(Of T)()
-  nameWithType: SvgSwitch.DeepCopy<T>()
-  nameWithType.vb: SvgSwitch.DeepCopy(Of T)()
 - uid: Svg.SvgSwitch.Path(Svg.ISvgRenderer)
   name: Path(ISvgRenderer)
   href: api/Svg.SvgSwitch.html#Svg_SvgSwitch_Path_Svg_ISvgRenderer_
@@ -11195,15 +11092,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgText.DeepCopy
   nameWithType: SvgText.DeepCopy
-- uid: Svg.SvgText.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgText.html#Svg_SvgText_DeepCopy__1
-  commentId: M:Svg.SvgText.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgText.DeepCopy<T>()
-  fullName.vb: Svg.SvgText.DeepCopy(Of T)()
-  nameWithType: SvgText.DeepCopy<T>()
-  nameWithType.vb: SvgText.DeepCopy(Of T)()
 - uid: Svg.SvgTextAnchor
   name: SvgTextAnchor
   href: api/Svg.SvgTextAnchor.html
@@ -11291,6 +11179,22 @@ references:
   commentId: E:Svg.SvgTextBase.Change
   fullName: Svg.SvgTextBase.Change
   nameWithType: SvgTextBase.Change
+- uid: Svg.SvgTextBase.DeepCopy*
+  name: DeepCopy
+  href: api/Svg.SvgTextBase.html#Svg_SvgTextBase_DeepCopy_
+  commentId: Overload:Svg.SvgTextBase.DeepCopy
+  isSpec: "True"
+  fullName: Svg.SvgTextBase.DeepCopy
+  nameWithType: SvgTextBase.DeepCopy
+- uid: Svg.SvgTextBase.DeepCopy``1
+  name: DeepCopy<T>()
+  href: api/Svg.SvgTextBase.html#Svg_SvgTextBase_DeepCopy__1
+  commentId: M:Svg.SvgTextBase.DeepCopy``1
+  name.vb: DeepCopy(Of T)()
+  fullName: Svg.SvgTextBase.DeepCopy<T>()
+  fullName.vb: Svg.SvgTextBase.DeepCopy(Of T)()
+  nameWithType: SvgTextBase.DeepCopy<T>()
+  nameWithType.vb: SvgTextBase.DeepCopy(Of T)()
 - uid: Svg.SvgTextBase.Dx
   name: Dx
   href: api/Svg.SvgTextBase.html#Svg_SvgTextBase_Dx
@@ -11891,15 +11795,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgTextRef.DeepCopy
   nameWithType: SvgTextRef.DeepCopy
-- uid: Svg.SvgTextRef.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgTextRef.html#Svg_SvgTextRef_DeepCopy__1
-  commentId: M:Svg.SvgTextRef.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgTextRef.DeepCopy<T>()
-  fullName.vb: Svg.SvgTextRef.DeepCopy(Of T)()
-  nameWithType: SvgTextRef.DeepCopy<T>()
-  nameWithType.vb: SvgTextRef.DeepCopy(Of T)()
 - uid: Svg.SvgTextRef.ReferencedElement
   name: ReferencedElement
   href: api/Svg.SvgTextRef.html#Svg_SvgTextRef_ReferencedElement
@@ -11987,15 +11882,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgTextSpan.DeepCopy
   nameWithType: SvgTextSpan.DeepCopy
-- uid: Svg.SvgTextSpan.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgTextSpan.html#Svg_SvgTextSpan_DeepCopy__1
-  commentId: M:Svg.SvgTextSpan.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgTextSpan.DeepCopy<T>()
-  fullName.vb: Svg.SvgTextSpan.DeepCopy(Of T)()
-  nameWithType: SvgTextSpan.DeepCopy<T>()
-  nameWithType.vb: SvgTextSpan.DeepCopy(Of T)()
 - uid: Svg.SvgTextTransformation
   name: SvgTextTransformation
   href: api/Svg.SvgTextTransformation.html
@@ -12070,15 +11956,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgTitle.DeepCopy
   nameWithType: SvgTitle.DeepCopy
-- uid: Svg.SvgTitle.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgTitle.html#Svg_SvgTitle_DeepCopy__1
-  commentId: M:Svg.SvgTitle.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgTitle.DeepCopy<T>()
-  fullName.vb: Svg.SvgTitle.DeepCopy(Of T)()
-  nameWithType: SvgTitle.DeepCopy<T>()
-  nameWithType.vb: SvgTitle.DeepCopy(Of T)()
 - uid: Svg.SvgTitle.ToString
   name: ToString()
   href: api/Svg.SvgTitle.html#Svg_SvgTitle_ToString
@@ -12367,6 +12244,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUnitCollection.AddRange
   nameWithType: SvgUnitCollection.AddRange
+- uid: Svg.SvgUnitCollection.Clone
+  name: Clone()
+  href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_Clone
+  commentId: M:Svg.SvgUnitCollection.Clone
+  fullName: Svg.SvgUnitCollection.Clone()
+  nameWithType: SvgUnitCollection.Clone()
+- uid: Svg.SvgUnitCollection.Clone*
+  name: Clone
+  href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_Clone_
+  commentId: Overload:Svg.SvgUnitCollection.Clone
+  isSpec: "True"
+  fullName: Svg.SvgUnitCollection.Clone
+  nameWithType: SvgUnitCollection.Clone
 - uid: Svg.SvgUnitCollection.Inherit
   name: Inherit
   href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_Inherit
@@ -12618,15 +12508,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUse.DeepCopy
   nameWithType: SvgUse.DeepCopy
-- uid: Svg.SvgUse.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgUse.html#Svg_SvgUse_DeepCopy__1
-  commentId: M:Svg.SvgUse.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgUse.DeepCopy<T>()
-  fullName.vb: Svg.SvgUse.DeepCopy(Of T)()
-  nameWithType: SvgUse.DeepCopy<T>()
-  nameWithType.vb: SvgUse.DeepCopy(Of T)()
 - uid: Svg.SvgUse.Height
   name: Height
   href: api/Svg.SvgUse.html#Svg_SvgUse_Height
@@ -13047,22 +12928,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgVisualElement.ClipRule
   nameWithType: SvgVisualElement.ClipRule
-- uid: Svg.SvgVisualElement.DeepCopy*
-  name: DeepCopy
-  href: api/Svg.SvgVisualElement.html#Svg_SvgVisualElement_DeepCopy_
-  commentId: Overload:Svg.SvgVisualElement.DeepCopy
-  isSpec: "True"
-  fullName: Svg.SvgVisualElement.DeepCopy
-  nameWithType: SvgVisualElement.DeepCopy
-- uid: Svg.SvgVisualElement.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.SvgVisualElement.html#Svg_SvgVisualElement_DeepCopy__1
-  commentId: M:Svg.SvgVisualElement.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.SvgVisualElement.DeepCopy<T>()
-  fullName.vb: Svg.SvgVisualElement.DeepCopy(Of T)()
-  nameWithType: SvgVisualElement.DeepCopy<T>()
-  nameWithType.vb: SvgVisualElement.DeepCopy(Of T)()
 - uid: Svg.SvgVisualElement.Display
   name: Display
   href: api/Svg.SvgVisualElement.html#Svg_SvgVisualElement_Display
