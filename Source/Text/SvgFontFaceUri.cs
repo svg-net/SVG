@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Svg
 {
@@ -18,14 +15,6 @@ namespace Svg
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgFontFaceUri>();
-        }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgFontFaceUri;
-            newObj.ReferencedElement = this.ReferencedElement;
-
-            return newObj;
         }
     }
 }

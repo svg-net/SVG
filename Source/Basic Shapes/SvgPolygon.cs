@@ -71,17 +71,5 @@ namespace Svg
         {
             return DeepCopy<SvgPolygon>();
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgPolygon;
-            if (Points != null)
-            {
-                newObj.Points = new SvgPointCollection();
-                foreach (var pt in this.Points)
-                    newObj.Points.Add(pt);
-            }
-            return newObj;
-        }
     }
 }

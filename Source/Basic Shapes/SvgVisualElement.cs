@@ -461,31 +461,5 @@ namespace Svg
         {
             this.ResetClip(renderer);
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgVisualElement;
-            newObj.ClipPath = this.ClipPath;
-            newObj.ClipRule = this.ClipRule;
-            newObj.Filter = this.Filter;
-
-            newObj.Visible = this.Visible;
-            if (this.Fill != null)
-                newObj.Fill = this.Fill;
-            if (this.Stroke != null)
-                newObj.Stroke = this.Stroke;
-            newObj.FillRule = this.FillRule;
-            newObj.FillOpacity = this.FillOpacity;
-            newObj.StrokeWidth = this.StrokeWidth;
-            newObj.StrokeLineCap = this.StrokeLineCap;
-            newObj.StrokeLineJoin = this.StrokeLineJoin;
-            newObj.StrokeMiterLimit = this.StrokeMiterLimit;
-            newObj.StrokeDashArray = this.StrokeDashArray;
-            newObj.StrokeDashOffset = this.StrokeDashOffset;
-            newObj.StrokeOpacity = this.StrokeOpacity;
-            newObj.Opacity = this.Opacity;
-
-            return newObj;
-        }
     }
 }

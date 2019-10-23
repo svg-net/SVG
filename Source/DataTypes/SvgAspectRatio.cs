@@ -1,5 +1,6 @@
-﻿using Svg.DataTypes;
+using System;
 using System.ComponentModel;
+using Svg.DataTypes;
 
 namespace Svg
 {
@@ -7,7 +8,7 @@ namespace Svg
     /// Description of SvgAspectRatio.
     /// </summary>
     [TypeConverter(typeof(SvgPreserveAspectRatioConverter))]
-    public class SvgAspectRatio
+    public class SvgAspectRatio : ICloneable
     {
         public SvgAspectRatio() : this(SvgPreserveAspectRatio.none)
         {
@@ -48,11 +49,15 @@ namespace Svg
             set;
         }
 
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
         public override string ToString()
         {
             return TypeDescriptor.GetConverter(typeof(SvgPreserveAspectRatio)).ConvertToString(this.Align) + (Slice ? " slice" : "");
         }
-
     }
 
     [TypeConverter(typeof(SvgPreserveAspectRatioConverter))]

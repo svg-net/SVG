@@ -1,6 +1,4 @@
-using System;
 using System.Drawing;
-using System.Collections.Generic;
 
 namespace Svg.FilterEffects
 {
@@ -59,15 +57,6 @@ namespace Svg.FilterEffects
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgOffset>();
-        }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgOffset;
-            newObj.Dx = this.Dx;
-            newObj.Dy = this.Dy;
-
-            return newObj;
         }
     }
 }

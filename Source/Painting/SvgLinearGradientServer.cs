@@ -412,17 +412,6 @@ namespace Svg
             return DeepCopy<SvgLinearGradientServer>();
         }
 
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgLinearGradientServer;
-            newObj.X1 = this.X1;
-            newObj.Y1 = this.Y1;
-            newObj.X2 = this.X2;
-            newObj.Y2 = this.Y2;
-            return newObj;
-
-        }
-
         private sealed class LineF
         {
             private float X1

@@ -105,16 +105,12 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgPath;
-            if (PathData != null)
+
+            if (newObj.PathData != null)
             {
-                var pathData = new SvgPathSegmentList();
-                foreach (var segment in PathData)
-                    pathData.Add(segment.Clone());
-                newObj.PathData = pathData;
+                newObj.PathData.Owner = newObj;
+                newObj.IsPathDirty = true;
             }
-            newObj.PathLength = PathLength;
-            newObj.MarkerStart = MarkerStart;
-            newObj.MarkerEnd = MarkerEnd;
             return newObj;
         }
     }

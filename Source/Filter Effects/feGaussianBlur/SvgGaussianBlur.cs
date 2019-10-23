@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using System.Collections.Generic;
 
 namespace Svg.FilterEffects
 {
@@ -15,14 +14,12 @@ namespace Svg.FilterEffects
     public class SvgGaussianBlur : SvgFilterPrimitive
     {
         private float _stdDeviation;
-        private BlurType _blurType;
-
         private int[] _kernel;
         private int _kernelSum;
         private int[,] _multable;
 
         public SvgGaussianBlur()
-            : this(1, BlurType.Both)
+            : this(1f, BlurType.Both)
         {
         }
 
@@ -35,11 +32,9 @@ namespace Svg.FilterEffects
             : base()
         {
             _stdDeviation = stdDeviation;
-            _blurType = blurType;
+            BlurType = blurType;
             PreCalculate();
         }
-
-
 
         private void PreCalculate()
         {
@@ -103,7 +98,7 @@ namespace Svg.FilterEffects
 
                     int start = 0;
                     int index = 0;
-                    if (_blurType != BlurType.VerticalOnly)
+                    if (BlurType != BlurType.VerticalOnly)
                     {
                         for (int i = 0; i < pixelCount; i++)
                         {
@@ -135,7 +130,7 @@ namespace Svg.FilterEffects
                             r2[i] = (rsum / _kernelSum);
                             a2[i] = (asum / _kernelSum);
 
-                            if (_blurType == BlurType.HorizontalOnly)
+                            if (BlurType == BlurType.HorizontalOnly)
                             {
                                 dest.ArgbValues[index] = (byte)(bsum / _kernelSum);
                                 dest.ArgbValues[++index] = (byte)(gsum / _kernelSum);
@@ -151,7 +146,7 @@ namespace Svg.FilterEffects
                         }
                     }
 
-                    if (_blurType == BlurType.HorizontalOnly)
+                    if (BlurType == BlurType.HorizontalOnly)
                     {
                         return dest.Bitmap;
                     }
@@ -169,7 +164,7 @@ namespace Svg.FilterEffects
                             tempy = y;
                             for (int z = 0; z < _kernel.Length; z++)
                             {
-                                if (_blurType == BlurType.VerticalOnly)
+                                if (BlurType == BlurType.VerticalOnly)
                                 {
                                     if (tempy < 0)
                                     {
@@ -232,7 +227,7 @@ namespace Svg.FilterEffects
             get { return _stdDeviation; }
             set
             {
-                if (value <= 0)
+                if (value <= 0f)
                 {
                     throw new InvalidOperationException("Radius must be greater then 0");
                 }
@@ -242,17 +237,7 @@ namespace Svg.FilterEffects
             }
         }
 
-
-        public BlurType BlurType
-        {
-            get { return _blurType; }
-            set
-            {
-                _blurType = value;
-            }
-        }
-
-
+        public BlurType BlurType { get; set; }
 
         public override void Process(ImageBuffer buffer)
         {
@@ -260,8 +245,6 @@ namespace Svg.FilterEffects
             var result = Apply(inputImage);
             buffer[this.Result] = result;
         }
-
-
 
         public override SvgElement DeepCopy()
         {
@@ -271,8 +254,10 @@ namespace Svg.FilterEffects
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgGaussianBlur;
-            newObj.StdDeviation = this.StdDeviation;
-            newObj.BlurType = this.BlurType;
+
+            newObj._stdDeviation = _stdDeviation;
+            newObj.BlurType = BlurType;
+            PreCalculate();
             return newObj;
         }
     }

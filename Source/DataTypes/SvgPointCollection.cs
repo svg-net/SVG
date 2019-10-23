@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text;
@@ -9,8 +10,16 @@ namespace Svg
     /// Represents a list of <see cref="SvgUnit"/> used with the <see cref="SvgPolyline"/> and <see cref="SvgPolygon"/>.
     /// </summary>
     [TypeConverter(typeof(SvgPointCollectionConverter))]
-    public class SvgPointCollection : List<SvgUnit>
+    public class SvgPointCollection : List<SvgUnit>, ICloneable
     {
+        public object Clone()
+        {
+            var points = new SvgPointCollection();
+            foreach (var point in this)
+                points.Add(point);
+            return points;
+        }
+
         public override string ToString()
         {
             var builder = new StringBuilder();

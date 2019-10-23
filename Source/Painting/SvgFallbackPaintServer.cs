@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Drawing;
 
 namespace Svg
@@ -39,11 +38,19 @@ namespace Svg
         {
             return base.DeepCopy<SvgFallbackPaintServer>();
         }
+
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgFallbackPaintServer;
-            newObj._fallbacks = this._fallbacks;
-            newObj._primary = this._primary;
+
+            newObj._primary = _primary?.DeepCopy() as SvgPaintServer;
+            if (_fallbacks != null)
+            {
+                var fallbacks = new List<SvgPaintServer>();
+                foreach (var server in _fallbacks)
+                    fallbacks.Add(server.DeepCopy() as SvgPaintServer);
+                newObj._fallbacks = fallbacks;
+            }
             return newObj;
         }
     }

@@ -1,9 +1,8 @@
 using System;
 using System.Drawing;
-using System.Collections.Generic;
-using System.Linq;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.Linq;
 
 namespace Svg.FilterEffects
 {
@@ -123,12 +122,10 @@ namespace Svg.FilterEffects
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgColourMatrix;
-            newObj.Type = this.Type;
-            newObj.Values = this.Values;
 
+            newObj._type = _type;
+            newObj._values = _values;
             return newObj;
         }
-
-
     }
 }

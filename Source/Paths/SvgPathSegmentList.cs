@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -5,7 +6,7 @@ using System.ComponentModel;
 namespace Svg.Pathing
 {
     [TypeConverter(typeof(SvgPathBuilder))]
-    public sealed class SvgPathSegmentList : IList<SvgPathSegment>
+    public sealed class SvgPathSegmentList : IList<SvgPathSegment>, ICloneable
     {
         private readonly List<SvgPathSegment> _segments = new List<SvgPathSegment>();
 
@@ -96,6 +97,14 @@ namespace Svg.Pathing
         IEnumerator IEnumerable.GetEnumerator()
         {
             return _segments.GetEnumerator();
+        }
+
+        public object Clone()
+        {
+            var segments = new SvgPathSegmentList();
+            foreach (var segment in this)
+                segments.Add(segment.Clone());
+            return segments;
         }
     }
 

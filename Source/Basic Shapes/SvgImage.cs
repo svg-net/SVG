@@ -354,17 +354,5 @@ namespace Svg
         {
             return DeepCopy<SvgImage>();
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgImage;
-            newObj.Height = Height;
-            newObj.Width = Width;
-            newObj.X = X;
-            newObj.Y = Y;
-            newObj.Href = Href;
-            newObj.AspectRatio = new SvgAspectRatio(AspectRatio.Align, AspectRatio.Slice, AspectRatio.Defer);
-            return newObj;
-        }
     }
 }

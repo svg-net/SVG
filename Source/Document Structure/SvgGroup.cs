@@ -103,13 +103,5 @@ namespace Svg
         {
             return DeepCopy<SvgGroup>();
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgGroup;
-            if (this.Fill != null)
-                newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
-            return newObj;
-        }
     }
 }

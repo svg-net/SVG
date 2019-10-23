@@ -106,7 +106,7 @@ namespace Svg
             return true;
         }
 
-        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
             return (element != null && !this.HasRecursiveReference()) ? element.Path(renderer) : null;
@@ -124,7 +124,7 @@ namespace Svg
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {
@@ -139,7 +139,7 @@ namespace Svg
                     return element.Bounds;
                 }
 
-                return new System.Drawing.RectangleF();
+                return new RectangleF();
             }
         }
 
@@ -193,16 +193,6 @@ namespace Svg
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgUse>();
-        }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgUse;
-            newObj.ReferencedElement = this.ReferencedElement;
-            newObj.X = this.X;
-            newObj.Y = this.Y;
-
-            return newObj;
         }
     }
 }

@@ -127,19 +127,6 @@ namespace Svg
             return DeepCopy<SvgMarker>();
         }
 
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgMarker;
-            newObj.RefX = this.RefX;
-            newObj.RefY = this.RefY;
-            newObj.Orient = this.Orient;
-            newObj.ViewBox = this.ViewBox;
-            newObj.Overflow = this.Overflow;
-            newObj.AspectRatio = this.AspectRatio;
-
-            return newObj;
-        }
-
         /// <summary>
         /// Render this marker using the slope of the given line segment
         /// </summary>

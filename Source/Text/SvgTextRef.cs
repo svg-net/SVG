@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Svg
 {
@@ -38,20 +37,5 @@ namespace Svg
         {
             return DeepCopy<SvgTextRef>();
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgTextRef;
-            newObj.X = this.X;
-            newObj.Y = this.Y;
-            newObj.Dx = this.Dx;
-            newObj.Dy = this.Dy;
-            newObj.Text = this.Text;
-            newObj.ReferencedElement = this.ReferencedElement;
-
-            return newObj;
-        }
-
-
     }
 }

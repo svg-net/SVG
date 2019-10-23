@@ -226,17 +226,5 @@ namespace Svg
         {
             return (float)Math.Sqrt(Math.Pow(vector.X, 2) + Math.Pow(vector.Y, 2));
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgGradientServer;
-
-            newObj.SpreadMethod = SpreadMethod;
-            newObj.GradientUnits = GradientUnits;
-            newObj.InheritGradient = InheritGradient;
-            newObj.GradientTransform = GradientTransform;
-
-            return newObj;
-        }
     }
 }

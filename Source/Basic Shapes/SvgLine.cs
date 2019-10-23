@@ -123,13 +123,11 @@ namespace Svg
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgLine;
-            newObj.StartX = this.StartX;
-            newObj.EndX = this.EndX;
-            newObj.StartY = this.StartY;
-            newObj.EndY = this.EndY;
-            if (this.Fill != null)
-                newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
 
+            newObj._startX = _startX;
+            newObj._startY = _startY;
+            newObj._endX = _endX;
+            newObj._endY = _endY;
             return newObj;
         }
     }

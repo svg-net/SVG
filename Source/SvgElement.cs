@@ -956,7 +956,7 @@ namespace Svg
         /// </returns>
         public virtual object Clone()
         {
-            return this.MemberwiseClone();
+            return DeepCopy();
         }
 
         public abstract SvgElement DeepCopy();
@@ -968,29 +968,29 @@ namespace Svg
 
         public virtual SvgElement DeepCopy<T>() where T : SvgElement, new()
         {
-            var newObj = new T();
-            newObj.ID = this.ID;
-            newObj.Content = this.Content;
-            newObj.ElementName = this.ElementName;
+            var newObj = new T
+            {
+                Content = Content,
+                ElementName = ElementName
+            };
 
             //if (this.Parent != null)
             //    this.Parent.Children.Add(newObj);
 
-            if (this.Transforms != null)
+            foreach (var attribute in Attributes)
             {
-                newObj.Transforms = this.Transforms.Clone() as SvgTransformCollection;
+                var value = attribute.Value is ICloneable ? ((ICloneable)attribute.Value).Clone() : attribute.Value;
+                newObj.Attributes.Add(attribute.Key, value);
             }
 
-            foreach (var child in this.Children)
-            {
+            foreach (var child in Children)
                 newObj.Children.Add(child.DeepCopy());
-            }
 
-            foreach (var attr in this._svgEventAttributes)
+            foreach (var attr in _svgEventAttributes)
             {
                 var evt = attr.Event.GetValue(this);
 
-                //if someone has registered also register here
+                // if someone has registered also register here
                 if (evt != null)
                 {
                     if (attr.Event.Name == "MouseDown")
@@ -1007,26 +1007,17 @@ namespace Svg
                         newObj.MouseScroll += delegate { };
                     else if (attr.Event.Name == "Click")
                         newObj.Click += delegate { };
-                    else if (attr.Event.Name == "Change") //text element
+                    else if (attr.Event.Name == "Change") // text element
                         (newObj as SvgText).Change += delegate { };
                 }
             }
 
-            if (this._customAttributes.Count > 0)
-            {
-                foreach (var element in _customAttributes)
-                {
-                    newObj.CustomAttributes.Add(element.Key, element.Value);
-                }
-            }
+            foreach (var attribute in CustomAttributes)
+                newObj.CustomAttributes.Add(attribute.Key, attribute.Value);
 
-            if (this._nodes.Count > 0)
-            {
-                foreach (var node in this._nodes)
-                {
-                    newObj.Nodes.Add(node.DeepCopy());
-                }
-            }
+            foreach (var node in Nodes)
+                newObj.Nodes.Add(node.DeepCopy());
+
             return newObj;
         }
 

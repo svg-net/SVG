@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace Svg
 {
@@ -14,30 +11,35 @@ namespace Svg
             get { return GetAttribute("horiz-adv-x", true, 0f); }
             set { Attributes["horiz-adv-x"] = value; }
         }
+
         [SvgAttribute("horiz-origin-x")]
         public float HorizOriginX
         {
             get { return GetAttribute("horiz-origin-x", true, 0f); }
             set { Attributes["horiz-origin-x"] = value; }
         }
+
         [SvgAttribute("horiz-origin-y")]
         public float HorizOriginY
         {
             get { return GetAttribute("horiz-origin-y", true, 0f); }
             set { Attributes["horiz-origin-y"] = value; }
         }
+
         [SvgAttribute("vert-adv-y")]
         public float VertAdvY
         {
             get { return GetAttribute("vert-adv-y", true, Children.OfType<SvgFontFace>().First().UnitsPerEm); }
             set { Attributes["vert-adv-y"] = value; }
         }
+
         [SvgAttribute("vert-origin-x")]
         public float VertOriginX
         {
             get { return GetAttribute("vert-origin-x", true, HorizAdvX / 2); }
             set { Attributes["vert-origin-x"] = value; }
         }
+
         [SvgAttribute("vert-origin-y")]
         public float VertOriginY
         {
@@ -55,6 +57,7 @@ namespace Svg
         }
 
         protected override void Render(ISvgRenderer renderer)
-        { }
+        {
+        }
     }
 }

@@ -7,6 +7,5 @@ namespace Svg
         {
             return DeepCopy<SvgMask>();
         }
-
     }
 }
