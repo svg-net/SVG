@@ -239,7 +239,12 @@ namespace Svg
             // TODO: cache images... will need a shared context for this
         }
 
-        protected object GetImage(string uriString)
+        public object GetImage()
+        {
+            return GetImage(Href);
+        }
+
+        public object GetImage(string uriString)
         {
             // Uri MaxLength is 65519 (https://msdn.microsoft.com/en-us/library/z6c2z492.aspx)
             // if using data URI scheme, very long URI may happen.
