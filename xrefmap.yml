@@ -8551,6 +8551,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgImage.DeepCopy
   nameWithType: SvgImage.DeepCopy
+- uid: Svg.SvgImage.GetImage
+  name: GetImage()
+  href: api/Svg.SvgImage.html#Svg_SvgImage_GetImage
+  commentId: M:Svg.SvgImage.GetImage
+  fullName: Svg.SvgImage.GetImage()
+  nameWithType: SvgImage.GetImage()
 - uid: Svg.SvgImage.GetImage(System.String)
   name: GetImage(String)
   href: api/Svg.SvgImage.html#Svg_SvgImage_GetImage_System_String_
