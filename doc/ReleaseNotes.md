@@ -3,6 +3,10 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+### Changes
+* removed support for .NET 3.5
+* upgraded the used Fizzler libary to 1.2.0 (supports Netstandard 1.0 and 2.0)
+
 ## [Version 3.0.84](https://www.nuget.org/packages/Svg/3.0.84)
 
 _**Note:**_

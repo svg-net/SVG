@@ -107,7 +107,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fizzler" Version="1.1.0" />
+    <PackageReference Include="Fizzler" Version="1.2.0" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="2.3.167">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
