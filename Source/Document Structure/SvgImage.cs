@@ -214,16 +214,17 @@ namespace Svg
                     }
                     else
                     {
-                        using (var transform = renderer.Transform)
+                        renderer.TranslateTransform(destRect.X, destRect.Y, MatrixOrder.Prepend);
+                        renderer.ScaleTransform(destRect.Width / srcRect.Width, destRect.Height / srcRect.Height, MatrixOrder.Prepend);
+                        try
                         {
-                            var currOffset = new PointF(transform.OffsetX, transform.OffsetY);
-                            renderer.TranslateTransform(-currOffset.X, -currOffset.Y);
-                            renderer.ScaleTransform(destRect.Width / srcRect.Width, destRect.Height / srcRect.Height);
-                            renderer.TranslateTransform(currOffset.X + destRect.X, currOffset.Y + destRect.Y);
+                            renderer.SetBoundable(new GenericBoundable(srcRect));
+                            svg.RenderElement(renderer);
                         }
-                        renderer.SetBoundable(new GenericBoundable(srcRect));
-                        svg.RenderElement(renderer);
-                        renderer.PopBoundable();
+                        finally
+                        {
+                            renderer.PopBoundable();
+                        }
                     }
 
                     ResetClip(renderer);
