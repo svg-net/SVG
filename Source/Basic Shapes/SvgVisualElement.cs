@@ -287,8 +287,7 @@ namespace Svg
                                     if (strokeDashArray.Count % 2 != 0)
                                     {
                                         // handle odd dash arrays by repeating them once
-                                        strokeDashArray = new SvgUnitCollection();
-                                        strokeDashArray.AddRange(StrokeDashArray);
+                                        strokeDashArray = (SvgUnitCollection)StrokeDashArray.Clone();
                                         strokeDashArray.AddRange(StrokeDashArray);
                                     }
                                     var dashOffset = StrokeDashOffset;

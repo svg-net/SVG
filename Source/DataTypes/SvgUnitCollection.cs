@@ -13,9 +13,9 @@ namespace Svg
     [TypeConverter(typeof(SvgUnitCollectionConverter))]
     public class SvgUnitCollection : ObservableCollection<SvgUnit>, ICloneable
     {
-        public static string None = "none";
+        public const string None = "none";
 
-        public static string Inherit = "inherit";
+        public const string Inherit = "inherit";
 
         /// <summary>
         /// Sets <see cref="None"/> or <see cref="Inherit"/> if needed.
