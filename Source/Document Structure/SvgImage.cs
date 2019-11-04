@@ -337,7 +337,7 @@ namespace Svg
                 }
             }
             // support nonstandard "img" spelling of mimetype
-            else if (mimeType.StartsWith("image/") || mimeType.StartsWith("img/"))
+            else if (mimeType.StartsWith("image/", StringComparison.InvariantCultureIgnoreCase) || mimeType.StartsWith("img/", StringComparison.InvariantCultureIgnoreCase))
             {
                 var dataBytes = base64 ? Convert.FromBase64String(data) : Encoding.Default.GetBytes(data);
                 using (var stream = new MemoryStream(dataBytes))
