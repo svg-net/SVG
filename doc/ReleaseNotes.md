@@ -3,6 +3,35 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+**Notes** 
+* this is the last release version that still supports .NET version 3.5
+* the support for .NET Standard introduced in this version is preliminary and incomplete
+* a compatibility warning from the Fizzler library is shown during build;
+  this can be safely ignored and will be gone in the next version
+ 
+### Enhancements
+* added preliminary support for .NET Standard 2.0 (see [#346](https://github.com/vvvv/SVG/issues/346));
+  Drawing2D is not fully supported
+* added support for href namespace (see [PR #579](https://github.com/vvvv/SVG/pull/579)) 
+* support non-standard mime types for embedded images (see [#578](https://github.com/vvvv/SVG/issues/578))
+
+### Infrastructure
+* the Fizzler library is now included via NuGet instead of copying the sources
+* added Gitter chat room for SVG.NET
+
+### Documentation
+* moved documentation to GitHub pages
+* added auto-generated API documentation
+
+### Fixes
+* fixed scaling of embedded images (see [#592](https://github.com/vvvv/SVG/issues/592))
+* fixed issue for stroke dasharray with odd number of values (see [PR #584](https://github.com/vvvv/SVG/pull/584)) 
+* fixed parsing of some color attributes (see [PR #580](https://github.com/vvvv/SVG/pull/580)) 
+* fixed behavior of 'Inherit' value for several attributes (see [#541](https://github.com/vvvv/SVG/issues/541))
+
+
+## [Version 3.0.49](https://www.nuget.org/packages/Svg/3.0.49)
+
 **Note:** this is the first version that supports .NET Core alongside .NET.
 To build it yourself, you need at least Visual Studio 2017 due to the added multi-platform support.
 
@@ -13,15 +42,23 @@ To build it yourself, you need at least Visual Studio 2017 due to the added mult
 * added support for embedded SVG in data URIs (see [#71](https://github.com/vvvv/SVG/issues/71)
   and [#220](https://github.com/vvvv/SVG/issues/220))
 * support `auto-start-reverse` value for marker orientation (see PR [#458](https://github.com/vvvv/SVG/pull/458)) 
+* added support for the SvgScript tag (see [PR #558](https://github.com/vvvv/SVG/pull/558)) 
 
 ### Infrastructure
 * use NUnit instead of MSTest for unit tests (see [#420](https://github.com/vvvv/SVG/issues/420))
 * added automatic git versioning
+* xml documentation is included in the nuget package
 
 ### Documentation
 * added "Getting Started" Wiki page
 
 ### Fixes
+
+* added check for invalid bounds (see [#554](https://github.com/vvvv/SVG/issues/554))
+* added support for "Grey" color (see [PR #551](https://github.com/vvvv/SVG/pull/551)) 
+* updated core compat package to resolve font issues on Mac (see [#548](https://github.com/vvvv/SVG/issues/548))
+* fixed parsing of white spaces in color matrix (see [PR #540](https://github.com/vvvv/SVG/pull/540))
+* fixed zero matrix transformation issues (see [PR #537](https://github.com/vvvv/SVG/pull/537))
 * avoid adding a null system font (see [#528](https://github.com/vvvv/SVG/issues/528))
 * fixed missing text drawing (see [#84](https://github.com/vvvv/SVG/issues/84))
 * fixed y2 default value for SvgLinearGradientServer (see [PR #530](https://github.com/vvvv/SVG/pull/530))
