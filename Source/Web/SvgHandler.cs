@@ -1,4 +1,4 @@
-#if NET35 || NET40 || NET452 || NET472
+#if NETFULL
 using System;
 using System.Collections;
 using System.Collections.Generic;
