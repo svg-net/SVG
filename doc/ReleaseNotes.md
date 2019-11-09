@@ -3,7 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
-**Notes** 
+## [Version 3.0.84](https://www.nuget.org/packages/Svg/3.0.84)
+
+_**Note:**_
 * this is the last release version that still supports .NET version 3.5
 * the support for .NET Standard introduced in this version is preliminary and incomplete
 * a compatibility warning from the Fizzler library is shown during build;
