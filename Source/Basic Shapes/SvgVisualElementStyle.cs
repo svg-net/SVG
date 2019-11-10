@@ -23,7 +23,7 @@ namespace Svg
         [SvgAttribute("display")]
         public virtual string Display
         {
-            get { return GetAttribute("display", true, "inline"); }
+            get { return GetAttribute("display", false, "inline"); }
             set { Attributes["display"] = value; }
         }
 
@@ -39,7 +39,7 @@ namespace Svg
         [SvgAttribute("enable-background")]
         public virtual string EnableBackground
         {
-            get { return GetAttribute<string>("enable-background", true); }
+            get { return GetAttribute("enable-background", false, "accumulate"); }
             set { Attributes["enable-background"] = value; }
         }
     }
