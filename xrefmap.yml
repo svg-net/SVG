@@ -2984,6 +2984,19 @@ references:
   isSpec: "True"
   fullName: Svg.Pathing.SvgPathSegmentList.Count
   nameWithType: SvgPathSegmentList.Count
+- uid: Svg.Pathing.SvgPathSegmentList.First
+  name: First
+  href: api/Svg.Pathing.SvgPathSegmentList.html#Svg_Pathing_SvgPathSegmentList_First
+  commentId: P:Svg.Pathing.SvgPathSegmentList.First
+  fullName: Svg.Pathing.SvgPathSegmentList.First
+  nameWithType: SvgPathSegmentList.First
+- uid: Svg.Pathing.SvgPathSegmentList.First*
+  name: First
+  href: api/Svg.Pathing.SvgPathSegmentList.html#Svg_Pathing_SvgPathSegmentList_First_
+  commentId: Overload:Svg.Pathing.SvgPathSegmentList.First
+  isSpec: "True"
+  fullName: Svg.Pathing.SvgPathSegmentList.First
+  nameWithType: SvgPathSegmentList.First
 - uid: Svg.Pathing.SvgPathSegmentList.GetEnumerator
   name: GetEnumerator()
   href: api/Svg.Pathing.SvgPathSegmentList.html#Svg_Pathing_SvgPathSegmentList_GetEnumerator
