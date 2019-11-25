@@ -49,7 +49,7 @@ namespace Svg
             {
                 _path = new GraphicsPath();
 
-                if (PathData != null)
+                if (PathData != null && PathData.Count > 0 && PathData.First is SvgMoveToSegment)
                 {
                     foreach (var segment in PathData)
                         segment.AddToPath(_path);

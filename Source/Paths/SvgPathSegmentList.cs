@@ -12,6 +12,11 @@ namespace Svg.Pathing
 
         public ISvgPathElement Owner { get; set; }
 
+        public SvgPathSegment First
+        {
+            get { return _segments[0]; }
+        }
+
         public SvgPathSegment Last
         {
             get { return _segments[_segments.Count - 1]; }
