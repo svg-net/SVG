@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svg.UnitTests", "..\Tests\S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A417AF1E-BEDB-4715-B4FD-D795579217F9}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		Local.testsettings = Local.testsettings
 		Svg.vsmdi = Svg.vsmdi
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
