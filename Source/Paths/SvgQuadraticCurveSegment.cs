@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace Svg.Pathing
@@ -30,10 +30,9 @@ namespace Svg.Pathing
         }
 
         public SvgQuadraticCurveSegment(PointF start, PointF controlPoint, PointF end)
+            : base(start, end)
         {
-            Start = start;
             ControlPoint = controlPoint;
-            End = end;
         }
 
         public override void AddToPath(GraphicsPath graphicsPath)

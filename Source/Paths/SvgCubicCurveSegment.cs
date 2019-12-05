@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace Svg.Pathing
@@ -9,9 +9,8 @@ namespace Svg.Pathing
         public PointF SecondControlPoint { get; set; }
 
         public SvgCubicCurveSegment(PointF start, PointF firstControlPoint, PointF secondControlPoint, PointF end)
+            : base(start, end)
         {
-            Start = start;
-            End = end;
             FirstControlPoint = firstControlPoint;
             SecondControlPoint = secondControlPoint;
         }
