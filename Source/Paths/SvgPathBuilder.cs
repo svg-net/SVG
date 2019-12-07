@@ -55,8 +55,8 @@ namespace Svg
 
             switch (command)
             {
-                case 'm': // relative moveto
                 case 'M': // moveto
+                case 'm': // relative moveto
                     if (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                         segments.Add(new SvgMoveToSegment(ToAbsolute(coords[0], coords[1], segments, isRelative)));
 
@@ -66,8 +66,8 @@ namespace Svg
                             ToAbsolute(coords[0], coords[1], segments, isRelative)));
                     }
                     break;
-                case 'a':
-                case 'A':
+                case 'A': // elliptical arc
+                case 'a': // relative elliptical arc
                     bool size;
                     bool sweep;
 
@@ -83,8 +83,8 @@ namespace Svg
                             ToAbsolute(coords[3], coords[4], segments, isRelative)));
                     }
                     break;
-                case 'l': // relative lineto
                 case 'L': // lineto
+                case 'l': // relative lineto
                     while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                     {
                         segments.Add(new SvgLineSegment(segments.Last.End,
@@ -107,8 +107,8 @@ namespace Svg
                             ToAbsolute(segments.Last.End.X, coords[0], segments, false, isRelative)));
                     }
                     break;
-                case 'Q': // curveto
-                case 'q': // relative curveto
+                case 'Q': // quadratic bézier curveto
+                case 'q': // relative quadratic bézier curveto
                     while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
                            parser.TryGetFloat(out coords[2]) && parser.TryGetFloat(out coords[3]))
                     {
@@ -117,8 +117,8 @@ namespace Svg
                             ToAbsolute(coords[2], coords[3], segments, isRelative)));
                     }
                     break;
-                case 'T': // shorthand/smooth curveto
-                case 't': // relative shorthand/smooth curveto
+                case 'T': // shorthand/smooth quadratic bézier curveto
+                case 't': // relative shorthand/smooth quadratic bézier curveto
                     while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                     {
                         var lastQuadCurve = segments.Last as SvgQuadraticCurveSegment;
