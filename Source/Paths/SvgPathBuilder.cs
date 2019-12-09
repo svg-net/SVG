@@ -33,13 +33,7 @@ namespace Svg
             try
             {
                 foreach (var commandSet in SplitCommands(path.TrimEnd(null)))
-                {
-                    var command = commandSet[0];
-                    var isRelative = char.IsLower(command);
-                    // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
-
-                    CreatePathSegment(command, segments, new CoordinateParser(commandSet.Trim()), isRelative);
-                }
+                    CreatePathSegment(commandSet[0], segments, new CoordinateParser(commandSet.Trim()));
             }
             catch (Exception exc)
             {
@@ -49,9 +43,11 @@ namespace Svg
             return segments;
         }
 
-        private static void CreatePathSegment(char command, SvgPathSegmentList segments, CoordinateParser parser, bool isRelative)
+        private static void CreatePathSegment(char command, SvgPathSegmentList segments, CoordinateParser parser)
         {
+            var isRelative = char.IsLower(command);
             var coords = new float[6];
+            // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
 
             switch (command)
             {
