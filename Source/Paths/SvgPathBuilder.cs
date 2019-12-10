@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -33,13 +33,7 @@ namespace Svg
             try
             {
                 foreach (var commandSet in SplitCommands(path.TrimEnd(null)))
-                {
-                    var command = commandSet[0];
-                    var isRelative = char.IsLower(command);
-                    // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
-
-                    CreatePathSegment(command, segments, new CoordinateParser(commandSet.Trim()), isRelative);
-                }
+                    CreatePathSegment(commandSet[0], segments, new CoordinateParser(commandSet.Trim()));
             }
             catch (Exception exc)
             {
@@ -49,14 +43,16 @@ namespace Svg
             return segments;
         }
 
-        private static void CreatePathSegment(char command, SvgPathSegmentList segments, CoordinateParser parser, bool isRelative)
+        private static void CreatePathSegment(char command, SvgPathSegmentList segments, CoordinateParser parser)
         {
+            var isRelative = char.IsLower(command);
             var coords = new float[6];
+            // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
 
             switch (command)
             {
-                case 'm': // relative moveto
                 case 'M': // moveto
+                case 'm': // relative moveto
                     if (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                         segments.Add(new SvgMoveToSegment(ToAbsolute(coords[0], coords[1], segments, isRelative)));
 
@@ -66,8 +62,8 @@ namespace Svg
                             ToAbsolute(coords[0], coords[1], segments, isRelative)));
                     }
                     break;
-                case 'a':
-                case 'A':
+                case 'A': // elliptical arc
+                case 'a': // relative elliptical arc
                     bool size;
                     bool sweep;
 
@@ -83,8 +79,8 @@ namespace Svg
                             ToAbsolute(coords[3], coords[4], segments, isRelative)));
                     }
                     break;
-                case 'l': // relative lineto
                 case 'L': // lineto
+                case 'l': // relative lineto
                     while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                     {
                         segments.Add(new SvgLineSegment(segments.Last.End,
@@ -107,8 +103,8 @@ namespace Svg
                             ToAbsolute(segments.Last.End.X, coords[0], segments, false, isRelative)));
                     }
                     break;
-                case 'Q': // curveto
-                case 'q': // relative curveto
+                case 'Q': // quadratic bézier curveto
+                case 'q': // relative quadratic bézier curveto
                     while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
                            parser.TryGetFloat(out coords[2]) && parser.TryGetFloat(out coords[3]))
                     {
@@ -117,8 +113,8 @@ namespace Svg
                             ToAbsolute(coords[2], coords[3], segments, isRelative)));
                     }
                     break;
-                case 'T': // shorthand/smooth curveto
-                case 't': // relative shorthand/smooth curveto
+                case 'T': // shorthand/smooth quadratic bézier curveto
+                case 't': // relative shorthand/smooth quadratic bézier curveto
                     while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                     {
                         var lastQuadCurve = segments.Last as SvgQuadraticCurveSegment;
@@ -248,253 +244,12 @@ namespace Svg
             }
         }
 
-        //private static IEnumerable<float> ParseCoordinates(string coords)
-        //{
-        //    if (string.IsNullOrEmpty(coords) || coords.Length < 2) yield break;
-
-        //    var pos = 0;
-        //    var currState = NumState.separator;
-        //    var newState = NumState.separator;
-
-        //    for (int i = 1; i < coords.Length; ++i)
-        //    {
-        //        switch (currState)
-        //        {
-        //            case NumState.separator:
-        //                if (char.IsNumber(coords[i]))
-        //                {
-        //                    newState = NumState.integer;
-        //                }
-        //                else if (IsCoordSeparator(coords[i]))
-        //                {
-        //                    newState = NumState.separator;
-        //                }
-        //                else
-        //                {
-        //                    switch (coords[i])
-        //                    {
-        //                        case '.':
-        //                            newState = NumState.decPlace;
-        //                            break;
-        //                        case '+':
-        //                        case '-':
-        //                            newState = NumState.prefix;
-        //                            break;
-        //                        default:
-        //                            newState = NumState.invalid;
-        //                            break;
-        //                    }
-        //                }
-        //                break;
-        //            case NumState.prefix:
-        //                if (char.IsNumber(coords[i]))
-        //                {
-        //                    newState = NumState.integer;
-        //                }
-        //                else if (coords[i] == '.')
-        //                {
-        //                    newState = NumState.decPlace;
-        //                }
-        //                else
-        //                {
-        //                    newState = NumState.invalid;
-        //                }
-        //                break;
-        //            case NumState.integer:
-        //                if (char.IsNumber(coords[i]))
-        //                {
-        //                    newState = NumState.integer;
-        //                }
-        //                else if (IsCoordSeparator(coords[i]))
-        //                {
-        //                    newState = NumState.separator;
-        //                }
-        //                else
-        //                {
-        //                    switch (coords[i])
-        //                    {
-        //                        case '.':
-        //                            newState = NumState.decPlace;
-        //                            break;
-        //                        case 'e':
-        //                            newState = NumState.exponent;
-        //                            break;
-        //                        case '+':
-        //                        case '-':
-        //                            newState = NumState.prefix;
-        //                            break;
-        //                        default:
-        //                            newState = NumState.invalid;
-        //                            break;
-        //                    }
-        //                }
-        //                break;
-        //            case NumState.decPlace:
-        //                if (char.IsNumber(coords[i]))
-        //                {
-        //                    newState = NumState.fraction;
-        //                }
-        //                else if (IsCoordSeparator(coords[i]))
-        //                {
-        //                    newState = NumState.separator;
-        //                }
-        //                else
-        //                {
-        //                    switch (coords[i])
-        //                    {
-        //                        case 'e':
-        //                            newState = NumState.exponent;
-        //                            break;
-        //                        case '+':
-        //                        case '-':
-        //                            newState = NumState.prefix;
-        //                            break;
-        //                        default:
-        //                            newState = NumState.invalid;
-        //                            break;
-        //                    }
-        //                }
-        //                break;
-        //            case NumState.fraction:
-        //                if (char.IsNumber(coords[i]))
-        //                {
-        //                    newState = NumState.fraction;
-        //                }
-        //                else if (IsCoordSeparator(coords[i]))
-        //                {
-        //                    newState = NumState.separator;
-        //                }
-        //                else
-        //                {
-        //                    switch (coords[i])
-        //                    {
-        //                        case '.':
-        //                            newState = NumState.decPlace;
-        //                            break;
-        //                        case 'e':
-        //                            newState = NumState.exponent;
-        //                            break;
-        //                        case '+':
-        //                        case '-':
-        //                            newState = NumState.prefix;
-        //                            break;
-        //                        default:
-        //                            newState = NumState.invalid;
-        //                            break;
-        //                    }
-        //                }
-        //                break;
-        //            case NumState.exponent:
-        //                if (char.IsNumber(coords[i]))
-        //                {
-        //                    newState = NumState.expValue;
-        //                }
-        //                else if (IsCoordSeparator(coords[i]))
-        //                {
-        //                    newState = NumState.invalid;
-        //                }
-        //                else
-        //                {
-        //                    switch (coords[i])
-        //                    {
-        //                        case '+':
-        //                        case '-':
-        //                            newState = NumState.expPrefix;
-        //                            break;
-        //                        default:
-        //                            newState = NumState.invalid;
-        //                            break;
-        //                    }
-        //                }
-        //                break;
-        //            case NumState.expPrefix:
-        //                if (char.IsNumber(coords[i]))
-        //                {
-        //                    newState = NumState.expValue;
-        //                }
-        //                else
-        //                {
-        //                    newState = NumState.invalid;
-        //                }
-        //                break;
-        //            case NumState.expValue:
-        //                if (char.IsNumber(coords[i]))
-        //                {
-        //                    newState = NumState.expValue;
-        //                }
-        //                else if (IsCoordSeparator(coords[i]))
-        //                {
-        //                    newState = NumState.separator;
-        //                }
-        //                else
-        //                {
-        //                    switch (coords[i])
-        //                    {
-        //                        case '.':
-        //                            newState = NumState.decPlace;
-        //                            break;
-        //                        case '+':
-        //                        case '-':
-        //                            newState = NumState.prefix;
-        //                            break;
-        //                        default:
-        //                            newState = NumState.invalid;
-        //                            break;
-        //                    }
-        //                }
-        //                break;
-        //        }
-
-        //        if (newState < currState)
-        //        {
-        //            yield return float.Parse(coords.Substring(pos, i - pos), NumberStyles.Float, CultureInfo.InvariantCulture);
-        //            pos = i;
-        //        }
-        //        else if (newState != currState && currState == NumState.separator)
-        //        {
-        //            pos = i;
-        //        }
-
-        //        if (newState == NumState.invalid) yield break;
-        //        currState = newState;
-        //    }
-
-        //    if (currState != NumState.separator)
-        //    {
-        //        yield return float.Parse(coords.Substring(pos, coords.Length - pos), NumberStyles.Float, CultureInfo.InvariantCulture);
-        //    }
-        //}
-
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string)
                 return Parse((string)value);
 
             return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(string))
-            {
-                var paths = value as SvgPathSegmentList;
-
-                if (paths != null)
-                {
-                    var s = string.Join(" ", paths.Select(p => p.ToString()).ToArray());
-                    return s;
-                }
-            }
-
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
-
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-        {
-            if (destinationType == typeof(string))
-                return true;
-
-            return base.CanConvertTo(context, destinationType);
         }
     }
 }

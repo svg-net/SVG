@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Svg.Pathing
 {
@@ -110,6 +111,11 @@ namespace Svg.Pathing
             foreach (var segment in this)
                 segments.Add(segment.Clone());
             return segments;
+        }
+
+        public override string ToString()
+        {
+            return string.Join(" ", this.Select(p => p.ToString()).ToArray());
         }
     }
 
