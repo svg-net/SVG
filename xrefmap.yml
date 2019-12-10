@@ -3117,6 +3117,19 @@ references:
   isSpec: "True"
   fullName: Svg.Pathing.SvgPathSegmentList.RemoveAt
   nameWithType: SvgPathSegmentList.RemoveAt
+- uid: Svg.Pathing.SvgPathSegmentList.ToString
+  name: ToString()
+  href: api/Svg.Pathing.SvgPathSegmentList.html#Svg_Pathing_SvgPathSegmentList_ToString
+  commentId: M:Svg.Pathing.SvgPathSegmentList.ToString
+  fullName: Svg.Pathing.SvgPathSegmentList.ToString()
+  nameWithType: SvgPathSegmentList.ToString()
+- uid: Svg.Pathing.SvgPathSegmentList.ToString*
+  name: ToString
+  href: api/Svg.Pathing.SvgPathSegmentList.html#Svg_Pathing_SvgPathSegmentList_ToString_
+  commentId: Overload:Svg.Pathing.SvgPathSegmentList.ToString
+  isSpec: "True"
+  fullName: Svg.Pathing.SvgPathSegmentList.ToString
+  nameWithType: SvgPathSegmentList.ToString
 - uid: Svg.Pathing.SvgQuadraticCurveSegment
   name: SvgQuadraticCurveSegment
   href: api/Svg.Pathing.SvgQuadraticCurveSegment.html
@@ -9733,19 +9746,6 @@ references:
   commentId: T:Svg.SvgPathBuilder
   fullName: Svg.SvgPathBuilder
   nameWithType: SvgPathBuilder
-- uid: Svg.SvgPathBuilder.CanConvertTo(ITypeDescriptorContext,System.Type)
-  name: CanConvertTo(ITypeDescriptorContext, Type)
-  href: api/Svg.SvgPathBuilder.html#Svg_SvgPathBuilder_CanConvertTo_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.SvgPathBuilder.CanConvertTo(ITypeDescriptorContext,System.Type)
-  fullName: Svg.SvgPathBuilder.CanConvertTo(ITypeDescriptorContext, System.Type)
-  nameWithType: SvgPathBuilder.CanConvertTo(ITypeDescriptorContext, Type)
-- uid: Svg.SvgPathBuilder.CanConvertTo*
-  name: CanConvertTo
-  href: api/Svg.SvgPathBuilder.html#Svg_SvgPathBuilder_CanConvertTo_
-  commentId: Overload:Svg.SvgPathBuilder.CanConvertTo
-  isSpec: "True"
-  fullName: Svg.SvgPathBuilder.CanConvertTo
-  nameWithType: SvgPathBuilder.CanConvertTo
 - uid: Svg.SvgPathBuilder.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
   name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
   href: api/Svg.SvgPathBuilder.html#Svg_SvgPathBuilder_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
@@ -9759,19 +9759,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgPathBuilder.ConvertFrom
   nameWithType: SvgPathBuilder.ConvertFrom
-- uid: Svg.SvgPathBuilder.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.SvgPathBuilder.html#Svg_SvgPathBuilder_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.SvgPathBuilder.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.SvgPathBuilder.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
-  nameWithType: SvgPathBuilder.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-- uid: Svg.SvgPathBuilder.ConvertTo*
-  name: ConvertTo
-  href: api/Svg.SvgPathBuilder.html#Svg_SvgPathBuilder_ConvertTo_
-  commentId: Overload:Svg.SvgPathBuilder.ConvertTo
-  isSpec: "True"
-  fullName: Svg.SvgPathBuilder.ConvertTo
-  nameWithType: SvgPathBuilder.ConvertTo
 - uid: Svg.SvgPathBuilder.Parse(System.String)
   name: Parse(String)
   href: api/Svg.SvgPathBuilder.html#Svg_SvgPathBuilder_Parse_System_String_
