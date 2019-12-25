@@ -171,7 +171,15 @@ namespace Svg
                                                   this.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
                                                   size.Width, size.Height);
                         renderer.SetClip(new Region(clip), CombineMode.Intersect);
-                        base.Render(renderer);
+                        try
+                        {
+                            renderer.SetBoundable(new GenericBoundable(clip));
+                            base.Render(renderer);
+                        }
+                        finally
+                        {
+                            renderer.PopBoundable();
+                        }
                     }
                     finally
                     {
