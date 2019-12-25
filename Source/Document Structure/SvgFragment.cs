@@ -17,30 +17,21 @@ namespace Svg
         /// <summary>
         /// Gets the SVG namespace string.
         /// </summary>
-        public static readonly Uri Namespace = new Uri("http://www.w3.org/2000/svg");
+        public static readonly Uri Namespace = new Uri(SvgAttributeAttribute.SvgNamespace);
 
         PointF ISvgBoundable.Location
         {
-            get
-            {
-                return PointF.Empty;
-            }
+            get { return PointF.Empty; }
         }
 
         SizeF ISvgBoundable.Size
         {
-            get
-            {
-                return GetDimensions();
-            }
+            get { return GetDimensions(); }
         }
 
         RectangleF ISvgBoundable.Bounds
         {
-            get
-            {
-                return new RectangleF(((ISvgBoundable)this).Location, ((ISvgBoundable)this).Size);
-            }
+            get { return new RectangleF(((ISvgBoundable)this).Location, ((ISvgBoundable)this).Size); }
         }
 
         /// <summary>
@@ -175,7 +166,7 @@ namespace Svg
                     var prevClip = renderer.GetClip();
                     try
                     {
-                        var size = (this.Parent == null ? renderer.GetBoundable().Bounds.Size : GetDimensions());
+                        var size = this.Parent == null ? renderer.GetBoundable().Bounds.Size : GetDimensions();
                         var clip = new RectangleF(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
                                                   this.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
                                                   size.Width, size.Height);
@@ -251,7 +242,7 @@ namespace Svg
             var isWidthperc = Width.Type == SvgUnitType.Percentage;
             var isHeightperc = Height.Type == SvgUnitType.Percentage;
 
-            RectangleF bounds = new RectangleF();
+            var bounds = new RectangleF();
             if (isWidthperc || isHeightperc)
             {
                 if (ViewBox.Width > 0 && ViewBox.Height > 0)
@@ -260,7 +251,7 @@ namespace Svg
                 }
                 else
                 {
-                    bounds = this.Bounds; //do just one call to the recursive bounds property
+                    bounds = this.Bounds; // do just one call to the recursive bounds property
                 }
             }
 
@@ -298,7 +289,7 @@ namespace Svg
             return newObj;
         }
 
-        //Override the default behavior, writing out the namespaces.
+        // Override the default behavior, writing out the namespaces.
         protected override void WriteStartElement(XmlTextWriter writer)
         {
             base.WriteStartElement(writer);
