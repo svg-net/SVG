@@ -42,6 +42,7 @@ namespace Svg.UnitTests
             typeof(SvgMerge),
             typeof(SvgMergeNode),
             typeof(SvgOffset),
+            typeof(SvgAnchor),
             typeof(SvgColourServer),
             typeof(SvgDeferredPaintServer),
             typeof(SvgGradientStop),
