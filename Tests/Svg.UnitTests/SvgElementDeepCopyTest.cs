@@ -19,7 +19,6 @@ namespace Svg.UnitTests
         {
             typeof(SvgCircle),
             typeof(SvgEllipse),
-            typeof(SvgImage),
             typeof(SvgLine),
             typeof(SvgPolygon),
             typeof(SvgPolyline),
@@ -31,6 +30,7 @@ namespace Svg.UnitTests
             typeof(SvgDocumentMetadata),
             typeof(SvgFragment),
             typeof(SvgGroup),
+            typeof(SvgImage),
             typeof(SvgSwitch),
             typeof(SvgSymbol),
             typeof(SvgTitle),
@@ -50,6 +50,7 @@ namespace Svg.UnitTests
             typeof(SvgPatternServer),
             typeof(SvgRadialGradientServer),
             typeof(SvgPath),
+            typeof(SvgScript),
             typeof(SvgFont),
             typeof(SvgFontFace),
             typeof(SvgFontFaceSrc),
