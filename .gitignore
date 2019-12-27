@@ -18,3 +18,8 @@ Source/TestResults/
 Source/.vs
 /Source/Svg.sln.DotSettings.user
 /Source/Svg.XML
+*.nupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
