@@ -9,6 +9,7 @@ The release versions are NuGet releases.
 
 ### Enhancements
 * check that there is moveto command at beginning (see [PR #616](https://github.com/vvvv/SVG/pull/616))
+* add support for a element. (see [#626](https://github.com/vvvv/SVG/issues/626) and [PR #628](https://github.com/vvvv/SVG/pull/628)))
 
 ## [Version 3.0.84](https://www.nuget.org/packages/Svg/3.0.84)
 
