@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" view-box="0 0 350 300" width="350" height="300">
+  <g transform="translate(10,25)">
+    <rect fill="yellow" stroke="black" stroke-width="3" width="150" height="100" rx="10" ry="10" x="0" y="0" />
+    <svg id="xxx" width="150" height="100">
+      <text x="50%" y="50%" text-anchor="middle" style="dominant-baseline:central" font-size="14">desc</text>
+    </svg>
+  </g>
+</svg>
