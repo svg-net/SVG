@@ -10,6 +10,9 @@ The release versions are NuGet releases.
 ### Enhancements
 * check that there is moveto command at beginning (see [PR #616](https://github.com/vvvv/SVG/pull/616))
 
+### Fixes
+* fixed Nested svg tags not rendered properly (see [#622](https://github.com/vvvv/SVG/issues/622))
+
 ## [Version 3.0.84](https://www.nuget.org/packages/Svg/3.0.84)
 
 _**Note:**_
