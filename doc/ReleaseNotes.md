@@ -8,11 +8,11 @@ The release versions are NuGet releases.
 * upgraded the used Fizzler libary to 1.2.0 (supports Netstandard 1.0 and 2.0)
 
 ### Enhancements
-* check that there is moveto command at beginning (see [PR #616](https://github.com/vvvv/SVG/pull/616))
-* add support for a element. (see [#626](https://github.com/vvvv/SVG/issues/626) and [PR #628](https://github.com/vvvv/SVG/pull/628)))
+* check that there is a `moveto` command at the beginning of a path (see [PR #616](https://github.com/vvvv/SVG/pull/616))
+* add support for `<a>` element (see [#626](https://github.com/vvvv/SVG/issues/626) and [PR #628](https://github.com/vvvv/SVG/pull/628)))
 
 ### Fixes
-* fixed Nested svg tags not rendered properly (see [#622](https://github.com/vvvv/SVG/issues/622))
+* fixed nested svg tags not rendered properly (see [#622](https://github.com/vvvv/SVG/issues/622))
 
 ## [Version 3.0.84](https://www.nuget.org/packages/Svg/3.0.84)
 
