@@ -6,7 +6,6 @@ using System.Threading;
 
 namespace Svg
 {
-#if !NETSTANDARD20
     /// <summary>
     /// Converts string representations of colours into <see cref="Color"/> objects.
     /// </summary>
@@ -278,5 +277,4 @@ namespace Svg
             return rgb;
         }
     }
-#endif
 }
