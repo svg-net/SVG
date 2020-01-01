@@ -10,6 +10,7 @@ The release versions are NuGet releases.
 ### Enhancements
 * check that there is a `moveto` command at the beginning of a path (see [PR #616](https://github.com/vvvv/SVG/pull/616))
 * add support for `<a>` element (see [#626](https://github.com/vvvv/SVG/issues/626) and [PR #628](https://github.com/vvvv/SVG/pull/628)))
+* added ColorConverter from dotnet runtime codebase to make Netstandard 2.0 target more complete (see [PR #630](https://github.com/vvvv/SVG/pull/630))
 
 ### Fixes
 * fixed nested svg tags not rendered properly (see [#622](https://github.com/vvvv/SVG/issues/622))

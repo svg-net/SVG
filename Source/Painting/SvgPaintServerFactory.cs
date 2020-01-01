@@ -7,14 +7,13 @@ namespace Svg
 {
     internal class SvgPaintServerFactory : TypeConverter
     {
-#if !NETSTANDARD20
         private static readonly SvgColourConverter _colourConverter;
 
         static SvgPaintServerFactory()
         {
             _colourConverter = new SvgColourConverter();
         }
-#endif
+
         public static SvgPaintServer Create(string value, SvgDocument document)
         {
             if (value == null)
@@ -41,12 +40,8 @@ namespace Svg
                 return new SvgDeferredPaintServer(id, fallbackServer);
             }
 
-#if NETSTANDARD20
-            return SvgPaintServer.NotSet;
-#else
             // Otherwise try and parse as colour
             return new SvgColourServer((Color)_colourConverter.ConvertFrom(colorValue));
-#endif
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -84,13 +79,13 @@ namespace Svg
                 // check for constant
                 if (value == SvgPaintServer.None || value == SvgPaintServer.Inherit || value == SvgPaintServer.NotSet)
                     return value.ToString();
-#if !NETSTANDARD20
+
                 var colourServer = value as SvgColourServer;
                 if (colourServer != null)
                 {
                     return new SvgColourConverter().ConvertTo(colourServer.Colour, typeof(string));
                 }
-#endif
+
                 var deferred = value as SvgDeferredPaintServer;
                 if (deferred != null)
                 {
