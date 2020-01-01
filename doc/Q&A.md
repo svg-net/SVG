@@ -2,7 +2,7 @@ This is currently a collection of answered questions in issues that have been cl
 The format of the page is preliminary and maybe changed if more questions accumulate.
 
 ## How to get started
-Please use our getting started article on the wiki to get started with installation and implementation of the SVG library: https://github.com/vvvv/SVG/wiki/Getting-started
+Please use our [getting started article](http://vvvv.github.io/SVG/doc/GettingStarted.html) to get started with installation and implementation of the SVG library.
 
 ## How to re-render an SVG faster?
 
