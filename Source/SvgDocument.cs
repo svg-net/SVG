@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -206,7 +206,9 @@ namespace Svg
         {
             try
             {
+#if !NETSTANDARD20
                 using (var matrix = new Matrix(0f, 0f, 0f, 0f, 0f, 0f)) { }
+#endif
             }
             // GDI+ loading errors will result in TypeInitializationExceptions, 
             // for readability we will catch and wrap the error
