@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -206,9 +206,7 @@ namespace Svg
         {
             try
             {
-#if !NETSTANDARD20
                 using (var matrix = new Matrix(0f, 0f, 0f, 0f, 0f, 0f)) { }
-#endif
             }
             // GDI+ loading errors will result in TypeInitializationExceptions, 
             // for readability we will catch and wrap the error
@@ -351,7 +349,9 @@ namespace Svg
 
         private static T Open<T>(XmlReader reader) where T : SvgDocument, new()
         {
+#if !NETSTANDARD20
             EnsureSystemIsGdiPlusCapable(); //Validate whether the GDI+ can be loaded, this will yield an exception if not
+#endif
             var elementStack = new Stack<SvgElement>();
             bool elementEmpty;
             SvgElement element = null;
