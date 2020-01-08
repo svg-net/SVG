@@ -2,6 +2,7 @@
 // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Drawing.Common/src/System/Drawing/ColorConverter.cs
 // 6a988c7d0389bf9e9aa20d23baa353e9393b2ea5
 #if NETSTANDARD20
+#pragma warning disable CS1589 // Unable to include XML fragment
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
@@ -410,6 +411,8 @@ namespace System.Drawing {
             return values;
         }
 
+
+
         /// <include file='doc\ColorConverter.uex' path='docs/doc[@for="ColorConverter.GetStandardValuesSupported"]/*' />
         /// <devdoc>
         ///      Determines if this object supports a standard set of values
@@ -434,4 +437,5 @@ namespace System.Drawing {
         }
     }
 }
+#pragma warning restore CS1589 // Unable to include XML fragment
 #endif
