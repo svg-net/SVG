@@ -117,6 +117,7 @@ namespace System.Drawing {
                 return color;
             }
             // Ok, how about a system color?
+            //
 #if !NETSTANDARD20
             color = SystemColors[name];
 #endif
