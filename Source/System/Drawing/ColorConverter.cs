@@ -1,4 +1,6 @@
-﻿// https://github.com/dotnet/runtime/blob/master/src/libraries/System.Drawing.Common/src/System/Drawing/ColorConverter.cs
+﻿// This file is based on
+// https://github.com/dotnet/runtime/blob/master/src/libraries/System.Drawing.Common/src/System/Drawing/ColorConverter.cs
+// 6a988c7d0389bf9e9aa20d23baa353e9393b2ea5
 #if NETSTANDARD20
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
@@ -70,7 +72,9 @@ namespace System.Drawing {
                     lock (SystemColorConstantsLock) {
                         if (systemColorConstants == null) {
                             Hashtable tempHash = new Hashtable(StringComparer.OrdinalIgnoreCase);
+#if !NETSTANDARD20
                             FillConstants(tempHash, typeof(System.Drawing.SystemColors));
+#endif
                             systemColorConstants = tempHash;
                         }
                     }
