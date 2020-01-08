@@ -51,9 +51,7 @@ namespace System.Drawing {
                     lock(ColorConstantsLock) {
                         if (colorConstants == null) {
                             Hashtable tempHash = new Hashtable(StringComparer.OrdinalIgnoreCase);
-#if !NETSTANDARD20
                             FillConstants(tempHash, typeof(Color));
-#endif
                             colorConstants = tempHash;
                         }
                     }
@@ -74,7 +72,9 @@ namespace System.Drawing {
                     lock (SystemColorConstantsLock) {
                         if (systemColorConstants == null) {
                             Hashtable tempHash = new Hashtable(StringComparer.OrdinalIgnoreCase);
+#if !NETSTANDARD20
                             FillConstants(tempHash, typeof(System.Drawing.SystemColors));
+#endif
                             systemColorConstants = tempHash;
                         }
                     }
@@ -118,9 +118,7 @@ namespace System.Drawing {
             }
             // Ok, how about a system color?
             //
-#if !NETSTANDARD20
             color = SystemColors[name];
-#endif
             return color;
         }
 
