@@ -24,7 +24,7 @@ namespace Svg
     public class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
         /// <summary>
-        /// Skip check  whether the GDI+ can be loaded.
+        /// Skip check whether the GDI+ can be loaded.
         /// </summary>
         /// <remarks>
         /// Set to true on systems that do not support GDI+ like UWP.
