@@ -29,7 +29,7 @@ namespace Svg
         /// <remarks>
         /// Set to true on systems that do not support GDI+ like UWP.
         /// </remarks>
-        public static bool SkipGDIPlusCapabilityCheck = false;
+        public static bool SkipGdiPlusCapabilityCheck = false;
         public static readonly int PointsPerInch = GetSystemDpi();
         private SvgElementIdManager _idManager;
 
@@ -356,7 +356,7 @@ namespace Svg
 
         private static T Open<T>(XmlReader reader) where T : SvgDocument, new()
         {
-            if (!SkipGDIPlusCapabilityCheck)
+            if (!SkipGdiPlusCapabilityCheck)
             {
                 EnsureSystemIsGdiPlusCapable(); //Validate whether the GDI+ can be loaded, this will yield an exception if not
             }
