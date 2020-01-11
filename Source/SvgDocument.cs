@@ -29,7 +29,8 @@ namespace Svg
         /// <remarks>
         /// Set to true on systems that do not support GDI+ like UWP.
         /// </remarks>
-        public static bool SkipGdiPlusCapabilityCheck = false;
+        public static bool SkipGdiPlusCapabilityCheck { get; set; }
+
         public static readonly int PointsPerInch = GetSystemDpi();
         private SvgElementIdManager _idManager;
 
