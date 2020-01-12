@@ -23,6 +23,14 @@ namespace Svg
     /// </summary>
     public class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
+        /// <summary>
+        /// Skip check whether the GDI+ can be loaded.
+        /// </summary>
+        /// <remarks>
+        /// Set to true on systems that do not support GDI+ like UWP.
+        /// </remarks>
+        public static bool SkipGdiPlusCapabilityCheck { get; set; }
+
         public static readonly int PointsPerInch = GetSystemDpi();
         private SvgElementIdManager _idManager;
 
@@ -349,9 +357,10 @@ namespace Svg
 
         private static T Open<T>(XmlReader reader) where T : SvgDocument, new()
         {
-#if !NETSTANDARD20
-            EnsureSystemIsGdiPlusCapable(); //Validate whether the GDI+ can be loaded, this will yield an exception if not
-#endif
+            if (!SkipGdiPlusCapabilityCheck)
+            {
+                EnsureSystemIsGdiPlusCapable(); //Validate whether the GDI+ can be loaded, this will yield an exception if not
+            }
             var elementStack = new Stack<SvgElement>();
             bool elementEmpty;
             SvgElement element = null;
