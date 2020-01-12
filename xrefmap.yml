@@ -4742,6 +4742,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocument.RasterizeDimensions
   nameWithType: SvgDocument.RasterizeDimensions
+- uid: Svg.SvgDocument.SkipGdiPlusCapabilityCheck
+  name: SkipGdiPlusCapabilityCheck
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_SkipGdiPlusCapabilityCheck
+  commentId: P:Svg.SvgDocument.SkipGdiPlusCapabilityCheck
+  fullName: Svg.SvgDocument.SkipGdiPlusCapabilityCheck
+  nameWithType: SvgDocument.SkipGdiPlusCapabilityCheck
+- uid: Svg.SvgDocument.SkipGdiPlusCapabilityCheck*
+  name: SkipGdiPlusCapabilityCheck
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_SkipGdiPlusCapabilityCheck_
+  commentId: Overload:Svg.SvgDocument.SkipGdiPlusCapabilityCheck
+  isSpec: "True"
+  fullName: Svg.SvgDocument.SkipGdiPlusCapabilityCheck
+  nameWithType: SvgDocument.SkipGdiPlusCapabilityCheck
 - uid: Svg.SvgDocument.System#IServiceProvider#GetService(System.Type)
   name: IServiceProvider.GetService(Type)
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_System_IServiceProvider_GetService_System_Type_
