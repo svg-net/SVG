@@ -170,6 +170,10 @@ namespace Svg.ExCSS
                 {
                     _property.Term = _terms;
                 }
+                else if (_terms.Length == 0)
+                {
+                    RemoveCurrentProperty();
+                }
                 else
                 {
                     _property.Term = _terms[0];
