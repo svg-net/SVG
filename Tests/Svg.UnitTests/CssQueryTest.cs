@@ -1,4 +1,5 @@
-﻿using Svg.Css;
+﻿using System.Text;
+using Svg.Css;
 using NUnit.Framework;
 
 namespace Svg.UnitTests
@@ -82,6 +83,24 @@ namespace Svg.UnitTests
         public void RunSpecificityTests(string selector, int specifity)
         {
             TestSelectorSpecificity(selector, specifity);
+        }
+
+        [Test]
+        [TestCase("font-size:13;", "font-size:13;")]
+        [TestCase("font-size:13;font-style:normal;", "font-size:13;font-style:normal;")]
+        [TestCase("font-size:13;font-style:normal;font-weight:bold;", "font-size:13;font-style:normal;font-weight:bold;")]
+        [TestCase("font-family:Nimbus Sans L,'Arial Narrow',sans-serif;Sans L',sans-serif;", "font-family:Nimbus Sans L,'Arial Narrow',sans-serif;")]
+        public void TestStyleDeclarations(string style, string expected)
+        {
+            var actual = new StringBuilder();
+
+            var cssParser = new ExCSS.Parser();
+            var inlineSheet = cssParser.Parse("#a{" + style + "}");
+            foreach (var rule in inlineSheet.StyleRules)
+                foreach (var decl in rule.Declarations)
+                    actual.Append(decl.Name).Append(":").Append(decl.Term.ToString()).Append(";");
+
+            Assert.AreEqual(expected, actual.ToString());
         }
     }
 }
