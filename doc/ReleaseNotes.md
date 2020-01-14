@@ -15,6 +15,7 @@ The release versions are NuGet releases.
 ### Fixes
 * fixed nested svg tags not rendered properly (see [#622](https://github.com/vvvv/SVG/issues/622))
 * added handling of invalid property in parser (see [#632](https://github.com/vvvv/SVG/issues/632))
+* fixed CoordinateParser handling of invalid state (see [PR #640](https://github.com/vvvv/SVG/pull/640))
 
 ## [Version 3.0.84](https://www.nuget.org/packages/Svg/3.0.84)
 
