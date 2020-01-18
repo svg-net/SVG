@@ -6,7 +6,7 @@
         private SvgBlendMode _mode = SvgBlendMode.Normal;
 
         [SvgAttribute("mode")]
-        public SvgBlendMode BlendMode
+        public SvgBlendMode Mode
         {
             get { return _mode; }
             set { _mode = value; Attributes["mode"] = value; }
