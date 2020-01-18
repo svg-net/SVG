@@ -21,7 +21,7 @@ namespace Svg.FilterEffects
         [SvgAttribute("x")]
         public SvgUnit X
         {
-            get { return GetAttribute<SvgUnit>("x", false); }
+            get { return GetAttribute<SvgUnit>("x", false, new SvgUnit(SvgUnitType.Percentage, -10f)); }
             set { Attributes["x"] = value; }
         }
 
@@ -31,7 +31,7 @@ namespace Svg.FilterEffects
         [SvgAttribute("y")]
         public SvgUnit Y
         {
-            get { return GetAttribute<SvgUnit>("y", false); }
+            get { return GetAttribute<SvgUnit>("y", false, new SvgUnit(SvgUnitType.Percentage, -10f)); }
             set { Attributes["y"] = value; }
         }
 
@@ -41,7 +41,7 @@ namespace Svg.FilterEffects
         [SvgAttribute("width")]
         public SvgUnit Width
         {
-            get { return GetAttribute<SvgUnit>("width", false); }
+            get { return GetAttribute<SvgUnit>("width", false, new SvgUnit(SvgUnitType.Percentage, 120f)); }
             set { Attributes["width"] = value; }
         }
 
@@ -51,7 +51,7 @@ namespace Svg.FilterEffects
         [SvgAttribute("height")]
         public SvgUnit Height
         {
-            get { return GetAttribute<SvgUnit>("height", false); }
+            get { return GetAttribute<SvgUnit>("height", false, new SvgUnit(SvgUnitType.Percentage, 120f)); }
             set { Attributes["height"] = value; }
         }
 
