@@ -15,6 +15,20 @@ namespace Svg.FilterEffects
         private Bitmap sourceGraphic;
         private Bitmap sourceAlpha;
 
+        [SvgAttribute("filterUnits")]
+        public SvgCoordinateUnits FilterUnits
+        {
+            get { return GetAttribute("filterUnits", false, SvgCoordinateUnits.ObjectBoundingBox); }
+            set { Attributes["filterUnits"] = value; }
+        }
+
+        [SvgAttribute("primitiveUnits")]
+        public SvgCoordinateUnits PrimitiveUnits
+        {
+            get { return GetAttribute("primitiveUnits", false, SvgCoordinateUnits.UserSpaceOnUse); }
+            set { Attributes["primitiveUnits"] = value; }
+        }
+
         /// <summary>
         /// Gets or sets the position where the left point of the filter.
         /// </summary>
