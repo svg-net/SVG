@@ -15,6 +15,34 @@ namespace Svg.FilterEffects
         public const string FillPaint = "FillPaint";
         public const string StrokePaint = "StrokePaint";
 
+        [SvgAttribute("x")]
+        public SvgUnit X
+        {
+            get { return GetAttribute<SvgUnit>("x", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            set { Attributes["x"] = value; }
+        }
+
+        [SvgAttribute("y")]
+        public SvgUnit Y
+        {
+            get { return GetAttribute<SvgUnit>("y", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            set { Attributes["y"] = value; }
+        }
+
+        [SvgAttribute("width")]
+        public SvgUnit Width
+        {
+            get { return GetAttribute<SvgUnit>("width", false, new SvgUnit(SvgUnitType.Percentage, 100f)); }
+            set { Attributes["width"] = value; }
+        }
+
+        [SvgAttribute("height")]
+        public SvgUnit Height
+        {
+            get { return GetAttribute<SvgUnit>("height", false, new SvgUnit(SvgUnitType.Percentage, 100f)); }
+            set { Attributes["height"] = value; }
+        }
+
         [SvgAttribute("in")]
         public string Input
         {
