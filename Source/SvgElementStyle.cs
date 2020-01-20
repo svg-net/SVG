@@ -154,7 +154,7 @@ namespace Svg
         [SvgAttribute("shape-rendering")]
         public virtual SvgShapeRendering ShapeRendering
         {
-            get { return GetAttribute<SvgShapeRendering>("shape-rendering", true); }
+            get { return GetAttribute<SvgShapeRendering>("shape-rendering", true, SvgShapeRendering.Auto); }
             set { Attributes["shape-rendering"] = value; }
         }
 
