@@ -1,0 +1,11 @@
+<svg id="svg-root" width="100%" height="100%" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="test-body-content">
+    <g fill="gold">
+      <rect x="220" y="280" width="160" height="8"/>
+    </g>
+    <g transform="translate(60,-30) scale(8,2)">
+      <path d="M 20 160 H 40" stroke-width="2" stroke="red" />
+      <path d="M 20 160 H 40#90" stroke-width="4" stroke="black" />
+    </g>
+  </g>
+</svg>

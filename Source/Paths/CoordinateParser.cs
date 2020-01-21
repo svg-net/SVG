@@ -274,13 +274,7 @@ namespace Svg
                         break;
                 }
 
-                if (_newState == NumState.invalid)
-                {
-                    result = float.MinValue;
-                    return MarkState(false);
-                }
-
-                if (_newState < _currState)
+                if (_currState != NumState.separator && _newState < _currState)
                 {
                     result = float.Parse(_coords.Substring(Position, i - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
                     Position = i;
@@ -292,6 +286,11 @@ namespace Svg
                     Position = i;
                 }
 
+                if (_newState == NumState.invalid)
+                {
+                    result = float.MinValue;
+                    return MarkState(false);
+                }
                 _currState = _newState;
                 ++i;
             }
