@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feFuncG")]
-    public class SvgFuncG : SvgComponentTransferFunctionElement
+    public class SvgFuncG : SvgComponentTransferFunction
     {
         public override void Process(ImageBuffer buffer)
         {
