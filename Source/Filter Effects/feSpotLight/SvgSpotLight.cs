@@ -1,13 +1,8 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feSpotLight")]
-    public class SvgSpotLight : SvgFilterPrimitive
+    public class SvgSpotLight : SvgElement
     {
-        public override void Process(ImageBuffer buffer)
-        {
-            // TODO: Implement feSpotLight filter Process().
-        }
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgSpotLight>();
