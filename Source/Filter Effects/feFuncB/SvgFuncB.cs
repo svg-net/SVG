@@ -1,13 +1,8 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feFuncB")]
-    public class SvgFuncB : SvgFilterPrimitive
+    public class SvgFuncB : SvgComponentTransferFunctionElement
     {
-        public override void Process(ImageBuffer buffer)
-        {
-            // TODO: Implement feFuncB filter Process().
-        }
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgFuncB>();
