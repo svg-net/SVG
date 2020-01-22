@@ -3,13 +3,11 @@
     [SvgElement("feBlend")]
     public class SvgBlend : SvgFilterPrimitive
     {
-        private SvgBlendMode _mode = SvgBlendMode.Normal;
-
         [SvgAttribute("mode")]
         public SvgBlendMode Mode
         {
-            get { return _mode; }
-            set { _mode = value; Attributes["mode"] = value; }
+            get { return GetAttribute("mode", false, SvgBlendMode.Normal); }
+            set { Attributes["mode"] = value; }
         }
 
         [SvgAttribute("in2")]
