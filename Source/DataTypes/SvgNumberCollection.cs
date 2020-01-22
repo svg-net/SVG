@@ -65,6 +65,7 @@ namespace Svg
                     var result = float.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture);
                     collection.Add(result);
                 }
+                return collection;
             }
 
             return base.ConvertFrom(context, culture, value);
