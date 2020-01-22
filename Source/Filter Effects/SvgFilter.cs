@@ -96,27 +96,29 @@ namespace Svg.FilterEffects
 
         public void ApplyFilter(SvgVisualElement element, ISvgRenderer renderer, Action<ISvgRenderer> renderMethod)
         {
-            var inflate = 0.5f;
-            var transform = GetTransform(element);
-            var bounds = GetPathBounds(element, renderer, transform);
-
-            if (bounds.Width == 0 || bounds.Height == 0)
-                return;
-
-            var buffer = new ImageBuffer(bounds, inflate, renderer, renderMethod) { Transform = transform };
-
-            foreach (var primitive in this.Children.OfType<SvgFilterPrimitive>())
+            using (var transform = GetTransform(element))
             {
-                primitive.Process(buffer);
-            }
+                var bounds = GetPathBounds(element, renderer, transform);
 
-            // Render the final filtered image
-            var bufferImg = buffer.Buffer;
-            var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
-            var prevClip = renderer.GetClip();
-            renderer.SetClip(new Region(imgDraw));
-            renderer.DrawImage(bufferImg, imgDraw, new RectangleF(bounds.X, bounds.Y, imgDraw.Width, imgDraw.Height), GraphicsUnit.Pixel);
-            renderer.SetClip(prevClip);
+                if (bounds.Width == 0 || bounds.Height == 0)
+                    return;
+
+                var inflate = 0.5f;
+                var buffer = new ImageBuffer(bounds, inflate, renderer, renderMethod) { Transform = transform };
+
+                foreach (var primitive in this.Children.OfType<SvgFilterPrimitive>())
+                {
+                    primitive.Process(buffer);
+                }
+
+                // Render the final filtered image
+                var bufferImg = buffer.Buffer;
+                var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
+                var prevClip = renderer.GetClip();
+                renderer.SetClip(new Region(imgDraw));
+                renderer.DrawImage(bufferImg, imgDraw, new RectangleF(bounds.X, bounds.Y, imgDraw.Width, imgDraw.Height), GraphicsUnit.Pixel);
+                renderer.SetClip(prevClip);
+            }
         }
 
         #region Defaults
