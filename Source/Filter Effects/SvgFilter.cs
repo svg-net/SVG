@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -114,26 +114,25 @@ namespace Svg.FilterEffects
                     return;
 
                 var inflate = 0.5f;
-                var buffer = new ImageBuffer(bounds, inflate, renderer, renderMethod) { Transform = transform };
-
-                foreach (var primitive in Children.OfType<SvgFilterPrimitive>())
+                using (var buffer = new ImageBuffer(bounds, inflate, renderer, renderMethod) { Transform = transform })
                 {
-                    primitive.Process(buffer);
-                }
+                    foreach (var primitive in Children.OfType<SvgFilterPrimitive>())
+                        primitive.Process(buffer);
 
-                // Render the final filtered image
-                var bufferImg = buffer.Buffer;
-                var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
+                    // Render the final filtered image
+                    var bufferImg = buffer.Buffer;
+                    var imgDraw = RectangleF.Inflate(bounds, inflate * bounds.Width, inflate * bounds.Height);
 
-                var prevClip = renderer.GetClip();
-                try
-                {
-                    renderer.SetClip(new Region(imgDraw));
-                    renderer.DrawImage(bufferImg, imgDraw, new RectangleF(bounds.X, bounds.Y, imgDraw.Width, imgDraw.Height), GraphicsUnit.Pixel);
-                }
-                finally
-                {
-                    renderer.SetClip(prevClip);
+                    var prevClip = renderer.GetClip();
+                    try
+                    {
+                        renderer.SetClip(new Region(imgDraw));
+                        renderer.DrawImage(bufferImg, imgDraw, new RectangleF(bounds.X, bounds.Y, imgDraw.Width, imgDraw.Height), GraphicsUnit.Pixel);
+                    }
+                    finally
+                    {
+                        renderer.SetClip(prevClip);
+                    }
                 }
             }
         }

@@ -8,7 +8,7 @@ using System.Drawing.Drawing2D;
 
 namespace Svg.FilterEffects
 {
-    public class ImageBuffer : IDictionary<string, Bitmap>
+    public class ImageBuffer : IDictionary<string, Bitmap>, IDisposable
     {
         private const string BufferKey = "__!!BUFFER";
 
@@ -18,7 +18,17 @@ namespace Svg.FilterEffects
         private Action<ISvgRenderer> _renderMethod;
         private float _inflate;
 
-        public Matrix Transform { get; set; }
+        private Matrix _transform;
+
+        public Matrix Transform
+        {
+            get { return _transform?.Clone(); }
+            set
+            {
+                _transform?.Dispose();
+                _transform = value?.Clone();
+            }
+        }
 
         public Bitmap Buffer
         {
@@ -67,7 +77,7 @@ namespace Svg.FilterEffects
         }
         public void Clear()
         {
-            _images.Clear();
+            _images.Clear(i => i?.Dispose());
         }
         public IEnumerator<KeyValuePair<string, Bitmap>> GetEnumerator()
         {
@@ -85,7 +95,7 @@ namespace Svg.FilterEffects
                 case SvgFilterPrimitive.StrokePaint:
                     return false;
                 default:
-                    return _images.Remove(ProcessKey(key));
+                    return _images.Remove(ProcessKey(key), i => i?.Dispose());
             }
         }
         public bool TryGetValue(string key, out Bitmap value)
@@ -207,11 +217,35 @@ namespace Svg.FilterEffects
         }
         bool ICollection<KeyValuePair<string, Bitmap>>.Remove(KeyValuePair<string, Bitmap> item)
         {
-            return _images.Remove(item.Key);
+            return _images.Remove(item.Key, i => i?.Dispose());
         }
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return _images.GetEnumerator();
+        }
+
+        public void Dispose()
+        {
+            Clear();
+            _transform?.Dispose();
+        }
+    }
+
+    static class DictionaryExtensions
+    {
+        public static void Clear<TKey, TValue>(this Dictionary<TKey, TValue> self, Action<TValue> action)
+        {
+            foreach (var kvp in self)
+                action(kvp.Value);
+            self.Clear();
+        }
+
+        public static bool Remove<TKey, TValue>(this Dictionary<TKey, TValue> self, TKey key, Action<TValue> action)
+        {
+            if (!self.ContainsKey(key))
+                return false;
+            action(self[key]);
+            return self.Remove(key);
         }
     }
 }
