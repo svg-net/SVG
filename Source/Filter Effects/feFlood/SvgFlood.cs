@@ -26,15 +26,5 @@
         {
             return DeepCopy<SvgFlood>();
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgFlood;
-
-            newObj.FloodColor = FloodColor;
-            newObj.FloodOpacity = FloodOpacity;
-
-            return newObj;
-        }
     }
 }

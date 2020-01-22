@@ -28,15 +28,5 @@
         {
             return DeepCopy<SvgGaussianBlur>();
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgBlend;
-
-            newObj._mode = _mode;
-            newObj.Input2 = Input2;
-
-            return newObj;
-        }
     }
 }
