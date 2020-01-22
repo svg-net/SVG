@@ -10,9 +10,9 @@
         }
 
         [SvgAttribute("tableValues")]
-        public string TableValues
+        public SvgNumberCollection TableValues
         {
-            get { return GetAttribute("tableValues", false, string.Empty); }
+            get { return GetAttribute("tableValues", false, new SvgNumberCollection()); }
             set { Attributes["tableValues"] = value; }
         }
 
