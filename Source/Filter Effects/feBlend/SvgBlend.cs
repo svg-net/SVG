@@ -24,7 +24,7 @@
 
         public override SvgElement DeepCopy()
         {
-            return DeepCopy<SvgGaussianBlur>();
+            return DeepCopy<SvgBlend>();
         }
     }
 }
