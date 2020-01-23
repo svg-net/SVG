@@ -15,5 +15,21 @@ namespace Svg.UnitTests
             };
             Assert.AreEqual("1.6 3.2 1.2 5", collection.ToString());
         }
+
+        [Test]
+        public void ConvertFromStringSpaceSeparatedReturnsValidCollection()
+        {
+            var value = "1.6 3.2 1.2 5";
+            var collection = (SvgNumberCollection)new SvgNumberCollectionConverter().ConvertFrom(value);
+            Assert.AreEqual("1.6 3.2 1.2 5", collection.ToString());
+        }
+
+        [Test]
+        public void ConvertFromStringComaSeparatedReturnsValidCollection()
+        {
+            var value = "1.6,3.2,1.2,5";
+            var collection = (SvgNumberCollection)new SvgNumberCollectionConverter().ConvertFrom(value);
+            Assert.AreEqual("1.6 3.2 1.2 5", collection.ToString());
+        }
     }
 }
