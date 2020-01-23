@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Svg
@@ -22,16 +23,7 @@ namespace Svg
 
         public override string ToString()
         {
-            var builder = new StringBuilder();
-            for (var i = 0; i < Count; i ++)
-            {
-                builder.Append(this[i].ToString(CultureInfo.InvariantCulture));
-                if (i + 1 < Count)
-                {
-                    builder.Append(" ");
-                }
-            }
-            return builder.ToString();
+            return string.Join(" ", this.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray());
         }
     }
 
