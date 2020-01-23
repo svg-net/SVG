@@ -8,7 +8,18 @@ namespace Svg.FilterEffects
         Normal,
         Multiply,
         Screen,
+        Overlay,
         Darken,
-        Lighten
+        Lighten,
+        ColorDodge,
+        ColorBurn,
+        HardLight,
+        SoftLight,
+        Difference,
+        Exclusion,
+        Hue,
+        Saturation,
+        Color,
+        Luminosity
     }
 }
