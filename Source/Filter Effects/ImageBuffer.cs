@@ -149,9 +149,9 @@ namespace Svg.FilterEffects
             var graphic = new Bitmap((int)(_bounds.Width + 2 * _inflate * _bounds.Width + _bounds.X),
                                      (int)(_bounds.Height + 2 * _inflate * _bounds.Height + _bounds.Y));
             using (var renderer = SvgRenderer.FromImage(graphic))
+            using (var transform = new Matrix())
             {
                 renderer.SetBoundable(_renderer.GetBoundable());
-                var transform = new Matrix();
                 transform.Translate(_bounds.Width * _inflate, _bounds.Height * _inflate);
                 renderer.Transform = transform;
                 //renderer.Transform = _renderer.Transform;
