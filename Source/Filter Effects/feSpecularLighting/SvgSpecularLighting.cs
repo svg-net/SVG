@@ -43,7 +43,22 @@ namespace Svg.FilterEffects
 
         public SvgElement LightSource
         {
-            get { return this.Children.Count == 1 ? this.Children[0] : null; }
+            get
+            {
+                foreach (var child in this.Children)
+                {
+                    switch (child)
+                    {
+                        case SvgDistantLight svgDistantLight:
+                            return svgDistantLight;
+                        case SvgPointLight svgPointLight:
+                            return svgPointLight;
+                        case SvgSpotLight svgSpotLight:
+                            return svgSpotLight;
+                    }
+                }
+                return null;
+            }
         }
 
         public override void Process(ImageBuffer buffer)
