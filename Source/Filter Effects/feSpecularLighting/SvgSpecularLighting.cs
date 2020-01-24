@@ -47,15 +47,8 @@ namespace Svg.FilterEffects
             {
                 foreach (var child in this.Children)
                 {
-                    switch (child)
-                    {
-                        case SvgDistantLight svgDistantLight:
-                            return svgDistantLight;
-                        case SvgPointLight svgPointLight:
-                            return svgPointLight;
-                        case SvgSpotLight svgSpotLight:
-                            return svgSpotLight;
-                    }
+                    if (child is SvgDistantLight || child is SvgPointLight || child is SvgSpotLight)
+                        return child;
                 }
                 return null;
             }
