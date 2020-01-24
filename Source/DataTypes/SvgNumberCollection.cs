@@ -47,10 +47,6 @@ namespace Svg
             if (value is string str)
             {
                 var collection = new SvgNumberCollection();
-                if (string.IsNullOrEmpty(str))
-                {
-                    return collection;
-                }
                 var values = str.Split(new char[] { ' ', '\t', '\n', '\r', ',' }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var v in values)
                 {
