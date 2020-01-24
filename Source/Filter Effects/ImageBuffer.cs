@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace Svg.FilterEffects
 {
@@ -12,11 +10,11 @@ namespace Svg.FilterEffects
     {
         private const string BufferKey = "__!!BUFFER";
 
-        private Dictionary<string, Bitmap> _images;
-        private RectangleF _bounds;
-        private ISvgRenderer _renderer;
-        private Action<ISvgRenderer> _renderMethod;
-        private float _inflate;
+        private readonly Dictionary<string, Bitmap> _images;
+        private readonly RectangleF _bounds;
+        private readonly ISvgRenderer _renderer;
+        private readonly Action<ISvgRenderer> _renderMethod;
+        private readonly float _inflate;
 
         private Matrix _transform;
 
@@ -34,22 +32,16 @@ namespace Svg.FilterEffects
         {
             get { return _images[BufferKey]; }
         }
+
         public int Count
         {
             get { return _images.Count; }
         }
+
         public Bitmap this[string key]
         {
-            get
-            {
-                return ProcessResult(key, _images[ProcessKey(key)]);
-            }
-            set
-            {
-                if (!string.IsNullOrEmpty(key))
-                    _images[key] = value;
-                _images[BufferKey] = value;
-            }
+            get { return ProcessResult(key, _images[ProcessKey(key)]); }
+            set { _images[string.IsNullOrEmpty(key) ? BufferKey : key] = value; }
         }
 
         public ImageBuffer(RectangleF bounds, float inflate, ISvgRenderer renderer, Action<ISvgRenderer> renderMethod)
@@ -58,12 +50,13 @@ namespace Svg.FilterEffects
             _inflate = inflate;
             _renderer = renderer;
             _renderMethod = renderMethod;
+
             _images = new Dictionary<string, Bitmap>();
-            _images[SvgFilterPrimitive.BackgroundAlpha] = null;
-            _images[SvgFilterPrimitive.BackgroundImage] = null;
-            _images[SvgFilterPrimitive.FillPaint] = null;
-            _images[SvgFilterPrimitive.SourceAlpha] = null;
             _images[SvgFilterPrimitive.SourceGraphic] = null;
+            _images[SvgFilterPrimitive.SourceAlpha] = null;
+            _images[SvgFilterPrimitive.BackgroundImage] = null;
+            _images[SvgFilterPrimitive.BackgroundAlpha] = null;
+            _images[SvgFilterPrimitive.FillPaint] = null;
             _images[SvgFilterPrimitive.StrokePaint] = null;
         }
 
@@ -71,33 +64,38 @@ namespace Svg.FilterEffects
         {
             _images.Add(ProcessKey(key), value);
         }
+
         public bool ContainsKey(string key)
         {
             return _images.ContainsKey(ProcessKey(key));
         }
+
         public void Clear()
         {
             _images.Clear(i => i?.Dispose());
         }
+
         public IEnumerator<KeyValuePair<string, Bitmap>> GetEnumerator()
         {
             return _images.GetEnumerator();
         }
+
         public bool Remove(string key)
         {
             switch (key)
             {
-                case SvgFilterPrimitive.BackgroundAlpha:
-                case SvgFilterPrimitive.BackgroundImage:
-                case SvgFilterPrimitive.FillPaint:
-                case SvgFilterPrimitive.SourceAlpha:
                 case SvgFilterPrimitive.SourceGraphic:
+                case SvgFilterPrimitive.SourceAlpha:
+                case SvgFilterPrimitive.BackgroundImage:
+                case SvgFilterPrimitive.BackgroundAlpha:
+                case SvgFilterPrimitive.FillPaint:
                 case SvgFilterPrimitive.StrokePaint:
                     return false;
                 default:
                     return _images.Remove(ProcessKey(key), i => i?.Dispose());
             }
         }
+
         public bool TryGetValue(string key, out Bitmap value)
         {
             if (_images.TryGetValue(ProcessKey(key), out value))
@@ -105,10 +103,7 @@ namespace Svg.FilterEffects
                 value = ProcessResult(key, value);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         private Bitmap ProcessResult(string key, Bitmap curr)
@@ -120,29 +115,29 @@ namespace Svg.FilterEffects
 
                 switch (key)
                 {
-                    case SvgFilterPrimitive.BackgroundAlpha:
+                    case SvgFilterPrimitive.SourceGraphic:
+                        _images[key] = CreateSourceGraphic();
+                        return _images[key];
+                    case SvgFilterPrimitive.SourceAlpha:
+                        _images[key] = CreateSourceAlpha();
+                        return _images[key];
                     case SvgFilterPrimitive.BackgroundImage:
+                    case SvgFilterPrimitive.BackgroundAlpha:
                     case SvgFilterPrimitive.FillPaint:
                     case SvgFilterPrimitive.StrokePaint:
                         // Do nothing
                         return null;
-                    case SvgFilterPrimitive.SourceAlpha:
-                        _images[key] = CreateSourceAlpha();
-                        return _images[key];
-                    case SvgFilterPrimitive.SourceGraphic:
-                        _images[key] = CreateSourceGraphic();
-                        return _images[key];
                 }
             }
             return curr;
         }
+
         private string ProcessKey(string key)
         {
-            if (string.IsNullOrEmpty(key)) return _images.ContainsKey(BufferKey) ? BufferKey : SvgFilterPrimitive.SourceGraphic;
+            if (string.IsNullOrEmpty(key))
+                return _images.ContainsKey(BufferKey) ? BufferKey : SvgFilterPrimitive.SourceGraphic;
             return key;
         }
-
-
 
         private Bitmap CreateSourceGraphic()
         {
@@ -163,14 +158,15 @@ namespace Svg.FilterEffects
 
         private Bitmap CreateSourceAlpha()
         {
-            Bitmap source = this[SvgFilterPrimitive.SourceGraphic];
+            var source = this[SvgFilterPrimitive.SourceGraphic];
 
             float[][] colorMatrixElements = {
-                   new float[] {0, 0, 0, 0, 0},        // red
-                   new float[] {0, 0, 0, 0, 0},        // green
-                   new float[] {0, 0, 0, 0, 0},        // blue
-                   new float[] {0, 0, 0, 1, 1},        // alpha
-                   new float[] {0, 0, 0, 0, 0} };    // translations
+                new float[] {0, 0, 0, 0, 0},    // red
+                new float[] {0, 0, 0, 0, 0},    // green
+                new float[] {0, 0, 0, 0, 0},    // blue
+                new float[] {0, 0, 0, 1, 1},    // alpha
+                new float[] {0, 0, 0, 0, 0},    // translations
+            };
 
             var matrix = new ColorMatrix(colorMatrixElements);
 
@@ -180,24 +176,23 @@ namespace Svg.FilterEffects
             using (var attributes = new ImageAttributes())
             {
                 attributes.SetColorMatrix(matrix);
-                graphics.DrawImage(source, new Rectangle(0, 0, source.Width, source.Height), 0, 0,
-                      source.Width, source.Height, GraphicsUnit.Pixel, attributes);
+                graphics.DrawImage(source, new Rectangle(0, 0, source.Width, source.Height), 0, 0, source.Width, source.Height, GraphicsUnit.Pixel, attributes);
                 graphics.Save();
             }
 
             return sourceAlpha;
         }
 
-
-
         bool ICollection<KeyValuePair<string, Bitmap>>.IsReadOnly
         {
             get { return false; }
         }
+
         ICollection<string> IDictionary<string, Bitmap>.Keys
         {
             get { return _images.Keys; }
         }
+
         ICollection<Bitmap> IDictionary<string, Bitmap>.Values
         {
             get { return _images.Values; }
@@ -207,18 +202,22 @@ namespace Svg.FilterEffects
         {
             _images.Add(item.Key, item.Value);
         }
+
         bool ICollection<KeyValuePair<string, Bitmap>>.Contains(KeyValuePair<string, Bitmap> item)
         {
             return ((IDictionary<string, Bitmap>)_images).Contains(item);
         }
+
         void ICollection<KeyValuePair<string, Bitmap>>.CopyTo(KeyValuePair<string, Bitmap>[] array, int arrayIndex)
         {
             ((IDictionary<string, Bitmap>)_images).CopyTo(array, arrayIndex);
         }
+
         bool ICollection<KeyValuePair<string, Bitmap>>.Remove(KeyValuePair<string, Bitmap> item)
         {
             return _images.Remove(item.Key, i => i?.Dispose());
         }
+
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return _images.GetEnumerator();
