@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class SvgFilter
+    <title>Class SvgFuncB
    | SVG.NET API </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class SvgFilter
+    <meta name="title" content="Class SvgFuncB
    | SVG.NET API ">
     <meta name="generator" content="docfx 2.48.1.0">
     
@@ -78,19 +78,19 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Svg.FilterEffects.SvgFilter">
+            <article class="content wrap" id="_content" data-uid="Svg.FilterEffects.SvgFuncB">
   
   
-  <h1 id="Svg_FilterEffects_SvgFilter" data-uid="Svg.FilterEffects.SvgFilter" class="text-break">Class SvgFilter
+  <h1 id="Svg_FilterEffects_SvgFuncB" data-uid="Svg.FilterEffects.SvgFuncB" class="text-break">Class SvgFuncB
   </h1>
-  <div class="markdown level0 summary"><p>A filter effect consists of a series of graphics operations that are applied to a given source graphic to produce a modified graphical result.</p>
-</div>
+  <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><a class="xref" href="Svg.SvgElement.html">SvgElement</a></div>
-    <div class="level2"><span class="xref">SvgFilter</span></div>
+    <div class="level2"><a class="xref" href="Svg.FilterEffects.SvgComponentTransferFunction.html">SvgComponentTransferFunction</a></div>
+    <div class="level3"><span class="xref">SvgFuncB</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -100,6 +100,27 @@
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Svg.FilterEffects.SvgComponentTransferFunction.html#Svg_FilterEffects_SvgComponentTransferFunction_Type">SvgComponentTransferFunction.Type</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.FilterEffects.SvgComponentTransferFunction.html#Svg_FilterEffects_SvgComponentTransferFunction_TableValues">SvgComponentTransferFunction.TableValues</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.FilterEffects.SvgComponentTransferFunction.html#Svg_FilterEffects_SvgComponentTransferFunction_Slope">SvgComponentTransferFunction.Slope</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.FilterEffects.SvgComponentTransferFunction.html#Svg_FilterEffects_SvgComponentTransferFunction_Intercept">SvgComponentTransferFunction.Intercept</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.FilterEffects.SvgComponentTransferFunction.html#Svg_FilterEffects_SvgComponentTransferFunction_Amplitude">SvgComponentTransferFunction.Amplitude</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.FilterEffects.SvgComponentTransferFunction.html#Svg_FilterEffects_SvgComponentTransferFunction_Exponent">SvgComponentTransferFunction.Exponent</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.FilterEffects.SvgComponentTransferFunction.html#Svg_FilterEffects_SvgComponentTransferFunction_Offset">SvgComponentTransferFunction.Offset</a>
+    </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_AddStyle_System_String_System_String_System_Int32_">SvgElement.AddStyle(String, String, Int32)</a>
     </div>
@@ -225,6 +246,9 @@
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_WriteChildren_XmlTextWriter_">SvgElement.WriteChildren(XmlTextWriter)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Render_Svg_ISvgRenderer_">SvgElement.Render(ISvgRenderer)</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_RenderChildren_Svg_ISvgRenderer_">SvgElement.RenderChildren(ISvgRenderer)</a>
@@ -409,237 +433,17 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Svg.FilterEffects.html">Svg.FilterEffects</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Svg_FilterEffects_SvgFilter_syntax">Syntax</h5>
+  <h5 id="Svg_FilterEffects_SvgFuncB_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[SvgElement(&quot;filter&quot;)]
-public sealed class SvgFilter : SvgElement, ISvgElement, ISvgTransformable, ICloneable, ISvgNode</code></pre>
+    <pre><code class="lang-csharp hljs">[SvgElement(&quot;feFuncB&quot;)]
+public class SvgFuncB : SvgComponentTransferFunction, ISvgElement, ISvgTransformable, ICloneable, ISvgNode</code></pre>
   </div>
-  <h3 id="properties">Properties
-  </h3>
-  
-  
-  <a id="Svg_FilterEffects_SvgFilter_ColorInterpolationFilters_" data-uid="Svg.FilterEffects.SvgFilter.ColorInterpolationFilters*"></a>
-  <h4 id="Svg_FilterEffects_SvgFilter_ColorInterpolationFilters" data-uid="Svg.FilterEffects.SvgFilter.ColorInterpolationFilters">ColorInterpolationFilters</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the color-interpolation-filters of the resulting filter graphic.
-NOT currently mapped through to bitmap</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgColourInterpolation ColorInterpolationFilters { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">SvgColourInterpolation</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Svg_FilterEffects_SvgFilter_FilterUnits_" data-uid="Svg.FilterEffects.SvgFilter.FilterUnits*"></a>
-  <h4 id="Svg_FilterEffects_SvgFilter_FilterUnits" data-uid="Svg.FilterEffects.SvgFilter.FilterUnits">FilterUnits</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgCoordinateUnits FilterUnits { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgCoordinateUnits.html">SvgCoordinateUnits</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Svg_FilterEffects_SvgFilter_Height_" data-uid="Svg.FilterEffects.SvgFilter.Height*"></a>
-  <h4 id="Svg_FilterEffects_SvgFilter_Height" data-uid="Svg.FilterEffects.SvgFilter.Height">Height</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the height of the resulting filter graphic.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgUnit Height { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Svg_FilterEffects_SvgFilter_PrimitiveUnits_" data-uid="Svg.FilterEffects.SvgFilter.PrimitiveUnits*"></a>
-  <h4 id="Svg_FilterEffects_SvgFilter_PrimitiveUnits" data-uid="Svg.FilterEffects.SvgFilter.PrimitiveUnits">PrimitiveUnits</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgCoordinateUnits PrimitiveUnits { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgCoordinateUnits.html">SvgCoordinateUnits</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Svg_FilterEffects_SvgFilter_Width_" data-uid="Svg.FilterEffects.SvgFilter.Width*"></a>
-  <h4 id="Svg_FilterEffects_SvgFilter_Width" data-uid="Svg.FilterEffects.SvgFilter.Width">Width</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the width of the resulting filter graphic.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgUnit Width { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Svg_FilterEffects_SvgFilter_X_" data-uid="Svg.FilterEffects.SvgFilter.X*"></a>
-  <h4 id="Svg_FilterEffects_SvgFilter_X" data-uid="Svg.FilterEffects.SvgFilter.X">X</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the position where the left point of the filter.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgUnit X { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Svg_FilterEffects_SvgFilter_Y_" data-uid="Svg.FilterEffects.SvgFilter.Y*"></a>
-  <h4 id="Svg_FilterEffects_SvgFilter_Y" data-uid="Svg.FilterEffects.SvgFilter.Y">Y</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the position where the top point of the filter.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgUnit Y { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
   <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Svg_FilterEffects_SvgFilter_ApplyFilter_" data-uid="Svg.FilterEffects.SvgFilter.ApplyFilter*"></a>
-  <h4 id="Svg_FilterEffects_SvgFilter_ApplyFilter_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Action_Svg_ISvgRenderer__" data-uid="Svg.FilterEffects.SvgFilter.ApplyFilter(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Action{Svg.ISvgRenderer})">ApplyFilter(SvgVisualElement, ISvgRenderer, Action&lt;ISvgRenderer&gt;)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ApplyFilter(SvgVisualElement element, ISvgRenderer renderer, Action&lt;ISvgRenderer&gt; renderMethod)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgVisualElement.html">SvgVisualElement</a></td>
-        <td><span class="parametername">element</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a></td>
-        <td><span class="parametername">renderer</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a>&gt;</td>
-        <td><span class="parametername">renderMethod</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Svg_FilterEffects_SvgFilter_DeepCopy_" data-uid="Svg.FilterEffects.SvgFilter.DeepCopy*"></a>
-  <h4 id="Svg_FilterEffects_SvgFilter_DeepCopy" data-uid="Svg.FilterEffects.SvgFilter.DeepCopy">DeepCopy()</h4>
+  <a id="Svg_FilterEffects_SvgFuncB_DeepCopy_" data-uid="Svg.FilterEffects.SvgFuncB.DeepCopy*"></a>
+  <h4 id="Svg_FilterEffects_SvgFuncB_DeepCopy" data-uid="Svg.FilterEffects.SvgFuncB.DeepCopy">DeepCopy()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -663,37 +467,6 @@ NOT currently mapped through to bitmap</p>
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_DeepCopy">SvgElement.DeepCopy()</a></div>
-  
-  
-  <a id="Svg_FilterEffects_SvgFilter_Render_" data-uid="Svg.FilterEffects.SvgFilter.Render*"></a>
-  <h4 id="Svg_FilterEffects_SvgFilter_Render_Svg_ISvgRenderer_" data-uid="Svg.FilterEffects.SvgFilter.Render(Svg.ISvgRenderer)">Render(ISvgRenderer)</h4>
-  <div class="markdown level1 summary"><p>Renders the <a class="xref" href="Svg.SvgElement.html">SvgElement</a> and contents to the specified <a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a> object.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void Render(ISvgRenderer renderer)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a></td>
-        <td><span class="parametername">renderer</span></td>
-        <td><p>The <a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a> object to render to.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Render_Svg_ISvgRenderer_">SvgElement.Render(ISvgRenderer)</a></div>
   <h3 id="implements">Implements</h3>
   <div>
       <a class="xref" href="Svg.ISvgTransformable.html">ISvgTransformable</a>
