@@ -34,7 +34,7 @@ namespace Svg.FilterEffects
 
         public new Bitmap this[string key]
         {
-            get { return ProcessResult(key, base[ProcessKey(key)]); }
+            get { return ProcessResult(ProcessKey(key), base[ProcessKey(key)]); }
             set { base[string.IsNullOrEmpty(key) ? BufferKey : key] = value; }
         }
 
@@ -70,7 +70,7 @@ namespace Svg.FilterEffects
 
         public new bool Remove(string key)
         {
-            switch (key)
+            switch (ProcessKey(key))
             {
                 case SvgFilterPrimitive.SourceGraphic:
                 case SvgFilterPrimitive.SourceAlpha:
@@ -88,7 +88,7 @@ namespace Svg.FilterEffects
         {
             if (base.TryGetValue(ProcessKey(key), out value))
             {
-                value = ProcessResult(key, value);
+                value = ProcessResult(ProcessKey(key), value);
                 return true;
             }
             return false;
@@ -98,9 +98,6 @@ namespace Svg.FilterEffects
         {
             if (curr == null)
             {
-                if (string.IsNullOrEmpty(key))
-                    key = SvgFilterPrimitive.SourceGraphic;
-
                 switch (key)
                 {
                     case SvgFilterPrimitive.SourceGraphic:
@@ -122,9 +119,7 @@ namespace Svg.FilterEffects
 
         private string ProcessKey(string key)
         {
-            if (string.IsNullOrEmpty(key))
-                return ContainsKey(BufferKey) ? BufferKey : SvgFilterPrimitive.SourceGraphic;
-            return key;
+            return string.IsNullOrEmpty(key) ? ContainsKey(BufferKey) ? BufferKey : SvgFilterPrimitive.SourceGraphic : key;
         }
 
         private Bitmap CreateSourceGraphic()
