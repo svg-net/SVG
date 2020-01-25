@@ -3,6 +3,21 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+### Enhancements
+* added new filter effects classes (see [PR #641](https://github.com/vvvv/SVG/pull/641))
+* added FilterUnits and PrimitiveUnits properties to SvgFilter class (see [PR #641](https://github.com/vvvv/SVG/pull/641))
+* added X, Y, Width and Height properties to SvgFilterPrimitive class (see [PR #641](https://github.com/vvvv/SVG/pull/641))
+* added SvgNumberCollection data type similar to SvgPointCollection (see [PR #641](https://github.com/vvvv/SVG/pull/641))
+
+### Fixes
+* fixed CoordinateParser handling of invalid state (see [PR #640](https://github.com/vvvv/SVG/pull/640))
+* fixed CoordinateParser handling of invalid state (see [PR #642](https://github.com/vvvv/SVG/pull/642))
+* set correct default values for SvgFilter properties (see [PR #641](https://github.com/vvvv/SVG/pull/641))
+* dispose Matrix in SvgFilter (see [PR #644](https://github.com/vvvv/SVG/pull/644))
+* dispose resources in ImageBuffer (see [PR #646](https://github.com/vvvv/SVG/pull/646))
+
+## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102)
+
 ### Changes
 * removed support for .NET 3.5
 * upgraded the used Fizzler libary to 1.2.0 (supports Netstandard 1.0 and 2.0)
@@ -11,19 +26,10 @@ The release versions are NuGet releases.
 * check that there is a `moveto` command at the beginning of a path (see [PR #616](https://github.com/vvvv/SVG/pull/616))
 * add support for `<a>` element (see [#626](https://github.com/vvvv/SVG/issues/626) and [PR #628](https://github.com/vvvv/SVG/pull/628)))
 * added ColorConverter from dotnet runtime codebase to make Netstandard 2.0 target more complete (see [PR #630](https://github.com/vvvv/SVG/pull/630))
-* added new filter effects classes (see [PR #641](https://github.com/vvvv/SVG/pull/641))
-* added FilterUnits and PrimitiveUnits properties to SvgFilter class (see [PR #641](https://github.com/vvvv/SVG/pull/641))
-* added X, Y, Width and Height properties to SvgFilterPrimitive class (see [PR #641](https://github.com/vvvv/SVG/pull/641))
-* added SvgNumberCollection data type similar to SvgPointCollection (see [PR #641](https://github.com/vvvv/SVG/pull/641))
 
 ### Fixes
 * fixed nested svg tags not rendered properly (see [#622](https://github.com/vvvv/SVG/issues/622))
 * added handling of invalid property in parser (see [#632](https://github.com/vvvv/SVG/issues/632))
-* fixed CoordinateParser handling of invalid state (see [PR #640](https://github.com/vvvv/SVG/pull/640))
-* fixed CoordinateParser handling of invalid state (see [PR #642](https://github.com/vvvv/SVG/pull/642))
-* set correct default values for SvgFilter properties (see [PR #641](https://github.com/vvvv/SVG/pull/641))
-* dispose Matrix in SvgFilter (see [PR #644](https://github.com/vvvv/SVG/pull/644))
-* dispose resources in ImageBuffer (see [PR #646](https://github.com/vvvv/SVG/pull/646))
 
 ## [Version 3.0.84](https://www.nuget.org/packages/Svg/3.0.84)
 
