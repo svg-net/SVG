@@ -717,32 +717,19 @@ references:
   isSpec: "True"
   fullName: Svg.FilterEffects.ImageBuffer.ContainsKey
   nameWithType: ImageBuffer.ContainsKey
-- uid: Svg.FilterEffects.ImageBuffer.Count
-  name: Count
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_Count
-  commentId: P:Svg.FilterEffects.ImageBuffer.Count
-  fullName: Svg.FilterEffects.ImageBuffer.Count
-  nameWithType: ImageBuffer.Count
-- uid: Svg.FilterEffects.ImageBuffer.Count*
-  name: Count
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_Count_
-  commentId: Overload:Svg.FilterEffects.ImageBuffer.Count
+- uid: Svg.FilterEffects.ImageBuffer.Dispose
+  name: Dispose()
+  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_Dispose
+  commentId: M:Svg.FilterEffects.ImageBuffer.Dispose
+  fullName: Svg.FilterEffects.ImageBuffer.Dispose()
+  nameWithType: ImageBuffer.Dispose()
+- uid: Svg.FilterEffects.ImageBuffer.Dispose*
+  name: Dispose
+  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_Dispose_
+  commentId: Overload:Svg.FilterEffects.ImageBuffer.Dispose
   isSpec: "True"
-  fullName: Svg.FilterEffects.ImageBuffer.Count
-  nameWithType: ImageBuffer.Count
-- uid: Svg.FilterEffects.ImageBuffer.GetEnumerator
-  name: GetEnumerator()
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_GetEnumerator
-  commentId: M:Svg.FilterEffects.ImageBuffer.GetEnumerator
-  fullName: Svg.FilterEffects.ImageBuffer.GetEnumerator()
-  nameWithType: ImageBuffer.GetEnumerator()
-- uid: Svg.FilterEffects.ImageBuffer.GetEnumerator*
-  name: GetEnumerator
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_GetEnumerator_
-  commentId: Overload:Svg.FilterEffects.ImageBuffer.GetEnumerator
-  isSpec: "True"
-  fullName: Svg.FilterEffects.ImageBuffer.GetEnumerator
-  nameWithType: ImageBuffer.GetEnumerator
+  fullName: Svg.FilterEffects.ImageBuffer.Dispose
+  nameWithType: ImageBuffer.Dispose
 - uid: Svg.FilterEffects.ImageBuffer.Item(System.String)
   name: Item[String]
   href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_Item_System_String_
@@ -772,156 +759,6 @@ references:
   isSpec: "True"
   fullName: Svg.FilterEffects.ImageBuffer.Remove
   nameWithType: ImageBuffer.Remove
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Add(System.Collections.Generic.KeyValuePair{System.String,Bitmap})
-  name: ICollection<KeyValuePair<String, Bitmap>>.Add(KeyValuePair<String, Bitmap>)
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Bitmap___Add_System_Collections_Generic_KeyValuePair_System_String_Bitmap__
-  commentId: M:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Add(System.Collections.Generic.KeyValuePair{System.String,Bitmap})
-  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Add(KeyValuePair(Of String, Bitmap))
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String, Bitmap>>.Add(System.Collections.Generic.KeyValuePair<System.String, Bitmap>)
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Add(System.Collections.Generic.KeyValuePair(Of System.String, Bitmap))
-  nameWithType: ImageBuffer.ICollection<KeyValuePair<String, Bitmap>>.Add(KeyValuePair<String, Bitmap>)
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Add(KeyValuePair(Of String, Bitmap))
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Add*
-  name: ICollection<KeyValuePair<String, Bitmap>>.Add
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Bitmap___Add_
-  commentId: Overload:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Add
-  isSpec: "True"
-  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Add
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String, Bitmap>>.Add
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Add
-  nameWithType: ImageBuffer.ICollection<KeyValuePair<String, Bitmap>>.Add
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Add
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Contains(System.Collections.Generic.KeyValuePair{System.String,Bitmap})
-  name: ICollection<KeyValuePair<String, Bitmap>>.Contains(KeyValuePair<String, Bitmap>)
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Bitmap___Contains_System_Collections_Generic_KeyValuePair_System_String_Bitmap__
-  commentId: M:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Contains(System.Collections.Generic.KeyValuePair{System.String,Bitmap})
-  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Contains(KeyValuePair(Of String, Bitmap))
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String, Bitmap>>.Contains(System.Collections.Generic.KeyValuePair<System.String, Bitmap>)
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Contains(System.Collections.Generic.KeyValuePair(Of System.String, Bitmap))
-  nameWithType: ImageBuffer.ICollection<KeyValuePair<String, Bitmap>>.Contains(KeyValuePair<String, Bitmap>)
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Contains(KeyValuePair(Of String, Bitmap))
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Contains*
-  name: ICollection<KeyValuePair<String, Bitmap>>.Contains
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Bitmap___Contains_
-  commentId: Overload:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Contains
-  isSpec: "True"
-  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Contains
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String, Bitmap>>.Contains
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Contains
-  nameWithType: ImageBuffer.ICollection<KeyValuePair<String, Bitmap>>.Contains
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Contains
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#CopyTo(System.Collections.Generic.KeyValuePair{System.String,Bitmap}[],System.Int32)
-  name: ICollection<KeyValuePair<String, Bitmap>>.CopyTo(KeyValuePair<String, Bitmap>[], Int32)
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Bitmap___CopyTo_System_Collections_Generic_KeyValuePair_System_String_Bitmap____System_Int32_
-  commentId: M:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#CopyTo(System.Collections.Generic.KeyValuePair{System.String,Bitmap}[],System.Int32)
-  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.CopyTo(KeyValuePair(Of String, Bitmap)(), Int32)
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String, Bitmap>>.CopyTo(System.Collections.Generic.KeyValuePair<System.String, Bitmap>[], System.Int32)
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.CopyTo(System.Collections.Generic.KeyValuePair(Of System.String, Bitmap)(), System.Int32)
-  nameWithType: ImageBuffer.ICollection<KeyValuePair<String, Bitmap>>.CopyTo(KeyValuePair<String, Bitmap>[], Int32)
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.CopyTo(KeyValuePair(Of String, Bitmap)(), Int32)
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#CopyTo*
-  name: ICollection<KeyValuePair<String, Bitmap>>.CopyTo
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Bitmap___CopyTo_
-  commentId: Overload:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#CopyTo
-  isSpec: "True"
-  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.CopyTo
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String, Bitmap>>.CopyTo
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.CopyTo
-  nameWithType: ImageBuffer.ICollection<KeyValuePair<String, Bitmap>>.CopyTo
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.CopyTo
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#IsReadOnly
-  name: ICollection<KeyValuePair<String, Bitmap>>.IsReadOnly
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Bitmap___IsReadOnly
-  commentId: P:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#IsReadOnly
-  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.IsReadOnly
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String, Bitmap>>.IsReadOnly
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.IsReadOnly
-  nameWithType: ImageBuffer.ICollection<KeyValuePair<String, Bitmap>>.IsReadOnly
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.IsReadOnly
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#IsReadOnly*
-  name: ICollection<KeyValuePair<String, Bitmap>>.IsReadOnly
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Bitmap___IsReadOnly_
-  commentId: Overload:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#IsReadOnly
-  isSpec: "True"
-  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.IsReadOnly
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String, Bitmap>>.IsReadOnly
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.IsReadOnly
-  nameWithType: ImageBuffer.ICollection<KeyValuePair<String, Bitmap>>.IsReadOnly
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.IsReadOnly
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Remove(System.Collections.Generic.KeyValuePair{System.String,Bitmap})
-  name: ICollection<KeyValuePair<String, Bitmap>>.Remove(KeyValuePair<String, Bitmap>)
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Bitmap___Remove_System_Collections_Generic_KeyValuePair_System_String_Bitmap__
-  commentId: M:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Remove(System.Collections.Generic.KeyValuePair{System.String,Bitmap})
-  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Remove(KeyValuePair(Of String, Bitmap))
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String, Bitmap>>.Remove(System.Collections.Generic.KeyValuePair<System.String, Bitmap>)
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Remove(System.Collections.Generic.KeyValuePair(Of System.String, Bitmap))
-  nameWithType: ImageBuffer.ICollection<KeyValuePair<String, Bitmap>>.Remove(KeyValuePair<String, Bitmap>)
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Remove(KeyValuePair(Of String, Bitmap))
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Remove*
-  name: ICollection<KeyValuePair<String, Bitmap>>.Remove
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_ICollection_System_Collections_Generic_KeyValuePair_System_String_Bitmap___Remove_
-  commentId: Overload:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,Bitmap}}#Remove
-  isSpec: "True"
-  name.vb: System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Remove
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String, Bitmap>>.Remove
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Remove
-  nameWithType: ImageBuffer.ICollection<KeyValuePair<String, Bitmap>>.Remove
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.ICollection<System.Collections.Generic.KeyValuePair<System.String,Bitmap>>.Remove
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#IDictionary{System#String,Bitmap}#Keys
-  name: IDictionary<String, Bitmap>.Keys
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_IDictionary_System_String_Bitmap__Keys
-  commentId: P:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#IDictionary{System#String,Bitmap}#Keys
-  name.vb: System.Collections.Generic.IDictionary<System.String,Bitmap>.Keys
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.IDictionary<System.String, Bitmap>.Keys
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.IDictionary<System.String,Bitmap>.Keys
-  nameWithType: ImageBuffer.IDictionary<String, Bitmap>.Keys
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.IDictionary<System.String,Bitmap>.Keys
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#IDictionary{System#String,Bitmap}#Keys*
-  name: IDictionary<String, Bitmap>.Keys
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_IDictionary_System_String_Bitmap__Keys_
-  commentId: Overload:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#IDictionary{System#String,Bitmap}#Keys
-  isSpec: "True"
-  name.vb: System.Collections.Generic.IDictionary<System.String,Bitmap>.Keys
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.IDictionary<System.String, Bitmap>.Keys
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.IDictionary<System.String,Bitmap>.Keys
-  nameWithType: ImageBuffer.IDictionary<String, Bitmap>.Keys
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.IDictionary<System.String,Bitmap>.Keys
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#IDictionary{System#String,Bitmap}#Values
-  name: IDictionary<String, Bitmap>.Values
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_IDictionary_System_String_Bitmap__Values
-  commentId: P:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#IDictionary{System#String,Bitmap}#Values
-  name.vb: System.Collections.Generic.IDictionary<System.String,Bitmap>.Values
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.IDictionary<System.String, Bitmap>.Values
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.IDictionary<System.String,Bitmap>.Values
-  nameWithType: ImageBuffer.IDictionary<String, Bitmap>.Values
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.IDictionary<System.String,Bitmap>.Values
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#Generic#IDictionary{System#String,Bitmap}#Values*
-  name: IDictionary<String, Bitmap>.Values
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_Generic_IDictionary_System_String_Bitmap__Values_
-  commentId: Overload:Svg.FilterEffects.ImageBuffer.System#Collections#Generic#IDictionary{System#String,Bitmap}#Values
-  isSpec: "True"
-  name.vb: System.Collections.Generic.IDictionary<System.String,Bitmap>.Values
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.IDictionary<System.String, Bitmap>.Values
-  fullName.vb: Svg.FilterEffects.ImageBuffer.System.Collections.Generic.IDictionary<System.String,Bitmap>.Values
-  nameWithType: ImageBuffer.IDictionary<String, Bitmap>.Values
-  nameWithType.vb: ImageBuffer.System.Collections.Generic.IDictionary<System.String,Bitmap>.Values
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#IEnumerable#GetEnumerator
-  name: IEnumerable.GetEnumerator()
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_IEnumerable_GetEnumerator
-  commentId: M:Svg.FilterEffects.ImageBuffer.System#Collections#IEnumerable#GetEnumerator
-  name.vb: System.Collections.IEnumerable.GetEnumerator()
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.IEnumerable.GetEnumerator()
-  nameWithType: ImageBuffer.IEnumerable.GetEnumerator()
-  nameWithType.vb: ImageBuffer.System.Collections.IEnumerable.GetEnumerator()
-- uid: Svg.FilterEffects.ImageBuffer.System#Collections#IEnumerable#GetEnumerator*
-  name: IEnumerable.GetEnumerator
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_System_Collections_IEnumerable_GetEnumerator_
-  commentId: Overload:Svg.FilterEffects.ImageBuffer.System#Collections#IEnumerable#GetEnumerator
-  isSpec: "True"
-  name.vb: System.Collections.IEnumerable.GetEnumerator
-  fullName: Svg.FilterEffects.ImageBuffer.System.Collections.IEnumerable.GetEnumerator
-  nameWithType: ImageBuffer.IEnumerable.GetEnumerator
-  nameWithType.vb: ImageBuffer.System.Collections.IEnumerable.GetEnumerator
 - uid: Svg.FilterEffects.ImageBuffer.Transform
   name: Transform
   href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer_Transform
