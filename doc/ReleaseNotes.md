@@ -22,6 +22,8 @@ The release versions are NuGet releases.
 * fixed CoordinateParser handling of invalid state (see [PR #640](https://github.com/vvvv/SVG/pull/640))
 * fixed CoordinateParser handling of invalid state (see [PR #642](https://github.com/vvvv/SVG/pull/642))
 * set correct default values for SvgFilter properties (see [PR #641](https://github.com/vvvv/SVG/pull/641))
+* dispose Matrix in SvgFilter (see [PR #644](https://github.com/vvvv/SVG/pull/644))
+* dispose resources in ImageBuffer (see [PR #646](https://github.com/vvvv/SVG/pull/646))
 
 ## [Version 3.0.84](https://www.nuget.org/packages/Svg/3.0.84)
 
