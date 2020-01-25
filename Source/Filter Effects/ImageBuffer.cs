@@ -6,11 +6,10 @@ using System.Drawing.Imaging;
 
 namespace Svg.FilterEffects
 {
-    public class ImageBuffer : IDictionary<string, Bitmap>, IDisposable
+    public class ImageBuffer : Dictionary<string, Bitmap>, IDisposable
     {
         private const string BufferKey = "__!!BUFFER";
 
-        private readonly Dictionary<string, Bitmap> _images;
         private readonly RectangleF _bounds;
         private readonly ISvgRenderer _renderer;
         private readonly Action<ISvgRenderer> _renderMethod;
@@ -30,18 +29,13 @@ namespace Svg.FilterEffects
 
         public Bitmap Buffer
         {
-            get { return _images[BufferKey]; }
+            get { return this[BufferKey]; }
         }
 
-        public int Count
+        public new Bitmap this[string key]
         {
-            get { return _images.Count; }
-        }
-
-        public Bitmap this[string key]
-        {
-            get { return ProcessResult(key, _images[ProcessKey(key)]); }
-            set { _images[string.IsNullOrEmpty(key) ? BufferKey : key] = value; }
+            get { return ProcessResult(key, base[ProcessKey(key)]); }
+            set { base[string.IsNullOrEmpty(key) ? BufferKey : key] = value; }
         }
 
         public ImageBuffer(RectangleF bounds, float inflate, ISvgRenderer renderer, Action<ISvgRenderer> renderMethod)
@@ -51,36 +45,30 @@ namespace Svg.FilterEffects
             _renderer = renderer;
             _renderMethod = renderMethod;
 
-            _images = new Dictionary<string, Bitmap>();
-            _images[SvgFilterPrimitive.SourceGraphic] = null;
-            _images[SvgFilterPrimitive.SourceAlpha] = null;
-            _images[SvgFilterPrimitive.BackgroundImage] = null;
-            _images[SvgFilterPrimitive.BackgroundAlpha] = null;
-            _images[SvgFilterPrimitive.FillPaint] = null;
-            _images[SvgFilterPrimitive.StrokePaint] = null;
+            this[SvgFilterPrimitive.SourceGraphic] = null;
+            this[SvgFilterPrimitive.SourceAlpha] = null;
+            this[SvgFilterPrimitive.BackgroundImage] = null;
+            this[SvgFilterPrimitive.BackgroundAlpha] = null;
+            this[SvgFilterPrimitive.FillPaint] = null;
+            this[SvgFilterPrimitive.StrokePaint] = null;
         }
 
-        public void Add(string key, Bitmap value)
+        public new void Add(string key, Bitmap value)
         {
-            _images.Add(ProcessKey(key), value);
+            base.Add(ProcessKey(key), value);
         }
 
-        public bool ContainsKey(string key)
+        public new bool ContainsKey(string key)
         {
-            return _images.ContainsKey(ProcessKey(key));
+            return base.ContainsKey(ProcessKey(key));
         }
 
-        public void Clear()
+        public new void Clear()
         {
-            _images.Clear(i => i?.Dispose());
+            this.Clear(i => i?.Dispose());
         }
 
-        public IEnumerator<KeyValuePair<string, Bitmap>> GetEnumerator()
-        {
-            return _images.GetEnumerator();
-        }
-
-        public bool Remove(string key)
+        public new bool Remove(string key)
         {
             switch (key)
             {
@@ -92,13 +80,13 @@ namespace Svg.FilterEffects
                 case SvgFilterPrimitive.StrokePaint:
                     return false;
                 default:
-                    return _images.Remove(ProcessKey(key), i => i?.Dispose());
+                    return this.Remove(ProcessKey(key), i => i?.Dispose());
             }
         }
 
-        public bool TryGetValue(string key, out Bitmap value)
+        public new bool TryGetValue(string key, out Bitmap value)
         {
-            if (_images.TryGetValue(ProcessKey(key), out value))
+            if (base.TryGetValue(ProcessKey(key), out value))
             {
                 value = ProcessResult(key, value);
                 return true;
@@ -116,11 +104,11 @@ namespace Svg.FilterEffects
                 switch (key)
                 {
                     case SvgFilterPrimitive.SourceGraphic:
-                        _images[key] = CreateSourceGraphic();
-                        return _images[key];
+                        this[key] = CreateSourceGraphic();
+                        return this[key];
                     case SvgFilterPrimitive.SourceAlpha:
-                        _images[key] = CreateSourceAlpha();
-                        return _images[key];
+                        this[key] = CreateSourceAlpha();
+                        return this[key];
                     case SvgFilterPrimitive.BackgroundImage:
                     case SvgFilterPrimitive.BackgroundAlpha:
                     case SvgFilterPrimitive.FillPaint:
@@ -135,7 +123,7 @@ namespace Svg.FilterEffects
         private string ProcessKey(string key)
         {
             if (string.IsNullOrEmpty(key))
-                return _images.ContainsKey(BufferKey) ? BufferKey : SvgFilterPrimitive.SourceGraphic;
+                return ContainsKey(BufferKey) ? BufferKey : SvgFilterPrimitive.SourceGraphic;
             return key;
         }
 
@@ -181,46 +169,6 @@ namespace Svg.FilterEffects
             }
 
             return sourceAlpha;
-        }
-
-        bool ICollection<KeyValuePair<string, Bitmap>>.IsReadOnly
-        {
-            get { return false; }
-        }
-
-        ICollection<string> IDictionary<string, Bitmap>.Keys
-        {
-            get { return _images.Keys; }
-        }
-
-        ICollection<Bitmap> IDictionary<string, Bitmap>.Values
-        {
-            get { return _images.Values; }
-        }
-
-        void ICollection<KeyValuePair<string, Bitmap>>.Add(KeyValuePair<string, Bitmap> item)
-        {
-            _images.Add(item.Key, item.Value);
-        }
-
-        bool ICollection<KeyValuePair<string, Bitmap>>.Contains(KeyValuePair<string, Bitmap> item)
-        {
-            return ((IDictionary<string, Bitmap>)_images).Contains(item);
-        }
-
-        void ICollection<KeyValuePair<string, Bitmap>>.CopyTo(KeyValuePair<string, Bitmap>[] array, int arrayIndex)
-        {
-            ((IDictionary<string, Bitmap>)_images).CopyTo(array, arrayIndex);
-        }
-
-        bool ICollection<KeyValuePair<string, Bitmap>>.Remove(KeyValuePair<string, Bitmap> item)
-        {
-            return _images.Remove(item.Key, i => i?.Dispose());
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return _images.GetEnumerator();
         }
 
         public void Dispose()
