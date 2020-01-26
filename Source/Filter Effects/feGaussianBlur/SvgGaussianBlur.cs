@@ -13,38 +13,48 @@ namespace Svg.FilterEffects
     [SvgElement("feGaussianBlur")]
     public class SvgGaussianBlur : SvgFilterPrimitive
     {
-        private float _stdDeviation;
+        private float _stdDeviationX = float.NaN;
+        private float _stdDeviationY = float.NaN;
+        private bool _isPrecalculated = false;
         private int[] _kernel;
         private int _kernelSum;
         private int[,] _multable;
 
-        public SvgGaussianBlur()
-            : this(1f, BlurType.Both)
-        {
-        }
-
-        public SvgGaussianBlur(float stdDeviation)
-            : this(stdDeviation, BlurType.Both)
-        {
-        }
-
-        public SvgGaussianBlur(float stdDeviation, BlurType blurType)
-            : base()
-        {
-            _stdDeviation = stdDeviation;
-            BlurType = blurType;
-            PreCalculate();
-        }
-
         private void PreCalculate()
         {
-            int sz = (int)(_stdDeviation * 2 + 1);
+            float stdDeviationX = 0f;
+            float stdDeviationY = 0f;
+            if (StdDeviation == null)
+            {
+                return;
+            }
+            if (StdDeviation.Count == 1)
+            {
+                stdDeviationX = StdDeviation[0];
+                stdDeviationY = stdDeviationX;
+            }
+            else if (StdDeviation.Count == 2)
+            {
+                stdDeviationX = StdDeviation[0];
+                stdDeviationY = StdDeviation[1];
+            }
+
+            if (_stdDeviationX == stdDeviationX && _stdDeviationY == stdDeviationY)
+            {
+                _isPrecalculated = true;
+                return;
+            }
+
+            _stdDeviationX = stdDeviationX;
+            _stdDeviationY = stdDeviationY;
+
+            int sz = (int)(_stdDeviationX * 2 + 1);
             _kernel = new int[sz];
             _multable = new int[sz, 256];
-            for (int i = 1; i <= _stdDeviation; i++)
+            for (int i = 1; i <= _stdDeviationX; i++)
             {
-                int szi = (int)(_stdDeviation - i);
-                int szj = (int)(_stdDeviation + i);
+                int szi = (int)(_stdDeviationX - i);
+                int szj = (int)(_stdDeviationX + i);
                 _kernel[szj] = _kernel[szi] = (szi + 1) * (szi + 1);
                 _kernelSum += (_kernel[szj] + _kernel[szi]);
                 for (int j = 0; j < 256; j++)
@@ -52,16 +62,25 @@ namespace Svg.FilterEffects
                     _multable[szj, j] = _multable[szi, j] = _kernel[szj] * j;
                 }
             }
-            _kernel[(int)_stdDeviation] = (int)((_stdDeviation + 1) * (_stdDeviation + 1));
-            _kernelSum += _kernel[(int)_stdDeviation];
+            _kernel[(int)_stdDeviationX] = (int)((_stdDeviationX + 1) * (_stdDeviationX + 1));
+            _kernelSum += _kernel[(int)_stdDeviationX];
             for (int j = 0; j < 256; j++)
             {
-                _multable[(int)_stdDeviation, j] = _kernel[(int)_stdDeviation] * j;
+                _multable[(int)_stdDeviationX, j] = _kernel[(int)_stdDeviationX] * j;
             }
+
+            _isPrecalculated = true;
         }
 
         public Bitmap Apply(Image inputImage)
         {
+            PreCalculate();
+
+            if (_isPrecalculated == false)
+            {
+                return null;
+            }
+
             var bitmapSrc = inputImage as Bitmap;
             if (bitmapSrc == null) bitmapSrc = new Bitmap(inputImage);
 
@@ -98,12 +117,12 @@ namespace Svg.FilterEffects
 
                     int start = 0;
                     int index = 0;
-                    if (BlurType != BlurType.VerticalOnly)
+                    if (_stdDeviationX > 0f)
                     {
                         for (int i = 0; i < pixelCount; i++)
                         {
                             bsum = gsum = rsum = asum = 0;
-                            read = (int)(i - _stdDeviation);
+                            read = (int)(i - _stdDeviationX);
                             for (int z = 0; z < _kernel.Length; z++)
                             {
                                 if (read < start)
@@ -130,7 +149,7 @@ namespace Svg.FilterEffects
                             r2[i] = (rsum / _kernelSum);
                             a2[i] = (asum / _kernelSum);
 
-                            if (BlurType == BlurType.HorizontalOnly)
+                            if (_stdDeviationX > 0f && _stdDeviationY <= 0f)
                             {
                                 dest.ArgbValues[index] = (byte)(bsum / _kernelSum);
                                 dest.ArgbValues[++index] = (byte)(gsum / _kernelSum);
@@ -146,7 +165,7 @@ namespace Svg.FilterEffects
                         }
                     }
 
-                    if (BlurType == BlurType.HorizontalOnly)
+                    if (_stdDeviationX > 0f && _stdDeviationY <= 0f)
                     {
                         return dest.Bitmap;
                     }
@@ -155,7 +174,7 @@ namespace Svg.FilterEffects
                     index = 0;
                     for (int i = 0; i < src.Height; i++)
                     {
-                        int y = (int)(i - _stdDeviation);
+                        int y = (int)(i - _stdDeviationY);
                         start = y * src.Width;
                         for (int j = 0; j < src.Width; j++)
                         {
@@ -164,7 +183,7 @@ namespace Svg.FilterEffects
                             tempy = y;
                             for (int z = 0; z < _kernel.Length; z++)
                             {
-                                if (BlurType == BlurType.VerticalOnly)
+                                if (_stdDeviationX <= 0f && _stdDeviationY > 0f)
                                 {
                                     if (tempy < 0)
                                     {
@@ -222,22 +241,11 @@ namespace Svg.FilterEffects
         /// Gets or sets the radius of the blur (only allows for one value - not the two specified in the SVG Spec)
         /// </summary>
         [SvgAttribute("stdDeviation")]
-        public float StdDeviation
+        public SvgNumberCollection StdDeviation
         {
-            get { return _stdDeviation; }
-            set
-            {
-                if (value <= 0f)
-                {
-                    throw new InvalidOperationException("Radius must be greater then 0");
-                }
-                _stdDeviation = value;
-                Attributes["stdDeviation"] = value;
-                PreCalculate();
-            }
+            get { return GetAttribute("stdDeviation", false, new SvgNumberCollection() { 0f, 0f }); }
+            set { Attributes["stdDeviation"] = value; }
         }
-
-        public BlurType BlurType { get; set; }
 
         public override void Process(ImageBuffer buffer)
         {
@@ -249,16 +257,6 @@ namespace Svg.FilterEffects
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgGaussianBlur>();
-        }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgGaussianBlur;
-
-            newObj._stdDeviation = _stdDeviation;
-            newObj.BlurType = BlurType;
-            PreCalculate();
-            return newObj;
         }
     }
 }
