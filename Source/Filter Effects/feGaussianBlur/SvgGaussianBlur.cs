@@ -13,8 +13,8 @@ namespace Svg.FilterEffects
     [SvgElement("feGaussianBlur")]
     public class SvgGaussianBlur : SvgFilterPrimitive
     {
-        private float _stdDeviationX = float.NaN;
-        private float _stdDeviationY = float.NaN;
+        private float _stdDeviationX = 0f;
+        private float _stdDeviationY = 0f;
         private bool _isPrecalculated = false;
         private int[] _kernel;
         private int _kernelSum;
@@ -22,28 +22,16 @@ namespace Svg.FilterEffects
 
         private void PreCalculate()
         {
-            float stdDeviationX = 0f;
-            float stdDeviationY = 0f;
-
             if (StdDeviation.Count == 1)
             {
-                stdDeviationX = StdDeviation[0];
-                stdDeviationY = stdDeviationX;
+                _stdDeviationX = StdDeviation[0];
+                _stdDeviationY = _stdDeviationX;
             }
             else if (StdDeviation.Count == 2)
             {
-                stdDeviationX = StdDeviation[0];
-                stdDeviationY = StdDeviation[1];
+                _stdDeviationX = StdDeviation[0];
+                _stdDeviationY = StdDeviation[1];
             }
-
-            if (_stdDeviationX == stdDeviationX && _stdDeviationY == stdDeviationY)
-            {
-                _isPrecalculated = true;
-                return;
-            }
-
-            _stdDeviationX = stdDeviationX;
-            _stdDeviationY = stdDeviationY;
 
             int sz = (int)(_stdDeviationX * 2 + 1);
             _kernel = new int[sz];
@@ -72,11 +60,8 @@ namespace Svg.FilterEffects
         public Bitmap Apply(Image inputImage)
         {
             PreCalculate();
-
-            if (_isPrecalculated == false)
-            {
+            if (!_isPrecalculated)
                 return null;
-            }
 
             var bitmapSrc = inputImage as Bitmap;
             if (bitmapSrc == null) bitmapSrc = new Bitmap(inputImage);
