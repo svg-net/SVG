@@ -13,8 +13,8 @@ namespace Svg.FilterEffects
     [SvgElement("feGaussianBlur")]
     public class SvgGaussianBlur : SvgFilterPrimitive
     {
-        private float _stdDeviationX = 0f;
-        private float _stdDeviationY = 0f;
+        private float _stdDeviationX = float.NaN;
+        private float _stdDeviationY = float.NaN;
         private bool _isPrecalculated = false;
         private int[] _kernel;
         private int _kernelSum;
@@ -22,24 +22,30 @@ namespace Svg.FilterEffects
 
         private void PreCalculate()
         {
+            float stdDeviationX = 0f;
+            float stdDeviationY = 0f;
+
             if (StdDeviation.Count == 1)
             {
-                _stdDeviationX = StdDeviation[0];
-                _stdDeviationY = _stdDeviationX;
+                stdDeviationX = StdDeviation[0];
+                stdDeviationY = stdDeviationX;
             }
             else if (StdDeviation.Count == 2)
             {
-                _stdDeviationX = StdDeviation[0];
-                _stdDeviationY = StdDeviation[1];
+                stdDeviationX = StdDeviation[0];
+                stdDeviationY = StdDeviation[1];
             }
 
-            int sz = (int)(_stdDeviationX * 2 + 1);
+            if (_isPrecalculated && _stdDeviationX == stdDeviationX && _stdDeviationY == stdDeviationY)
+                return;
+
+            int sz = (int)(stdDeviationX * 2 + 1);
             _kernel = new int[sz];
             _multable = new int[sz, 256];
-            for (int i = 1; i <= _stdDeviationX; i++)
+            for (int i = 1; i <= stdDeviationX; i++)
             {
-                int szi = (int)(_stdDeviationX - i);
-                int szj = (int)(_stdDeviationX + i);
+                int szi = (int)(stdDeviationX - i);
+                int szj = (int)(stdDeviationX + i);
                 _kernel[szj] = _kernel[szi] = (szi + 1) * (szi + 1);
                 _kernelSum += (_kernel[szj] + _kernel[szi]);
                 for (int j = 0; j < 256; j++)
@@ -47,13 +53,15 @@ namespace Svg.FilterEffects
                     _multable[szj, j] = _multable[szi, j] = _kernel[szj] * j;
                 }
             }
-            _kernel[(int)_stdDeviationX] = (int)((_stdDeviationX + 1) * (_stdDeviationX + 1));
-            _kernelSum += _kernel[(int)_stdDeviationX];
+            _kernel[(int)stdDeviationX] = (int)((stdDeviationX + 1) * (stdDeviationX + 1));
+            _kernelSum += _kernel[(int)stdDeviationX];
             for (int j = 0; j < 256; j++)
             {
-                _multable[(int)_stdDeviationX, j] = _kernel[(int)_stdDeviationX] * j;
+                _multable[(int)stdDeviationX, j] = _kernel[(int)stdDeviationX] * j;
             }
 
+            _stdDeviationX = stdDeviationX;
+            _stdDeviationY = stdDeviationY;
             _isPrecalculated = true;
         }
 
