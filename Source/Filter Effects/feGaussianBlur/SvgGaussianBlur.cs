@@ -243,7 +243,7 @@ namespace Svg.FilterEffects
         [SvgAttribute("stdDeviation")]
         public SvgNumberCollection StdDeviation
         {
-            get { return GetAttribute("stdDeviation", false, new SvgNumberCollection() { 0f, 0f }); }
+            get { return GetAttribute("stdDeviation", false, new SvgNumberCollection() { 0f }); }
             set { Attributes["stdDeviation"] = value; }
         }
 
