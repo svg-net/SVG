@@ -24,10 +24,7 @@ namespace Svg.FilterEffects
         {
             float stdDeviationX = 0f;
             float stdDeviationY = 0f;
-            if (StdDeviation == null)
-            {
-                return;
-            }
+
             if (StdDeviation.Count == 1)
             {
                 stdDeviationX = StdDeviation[0];
