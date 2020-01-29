@@ -9,6 +9,7 @@ The release versions are NuGet releases.
 * added X, Y, Width and Height properties to SvgFilterPrimitive class (see [PR #641](https://github.com/vvvv/SVG/pull/641))
 * added SvgNumberCollection data type similar to SvgPointCollection (see [PR #641](https://github.com/vvvv/SVG/pull/641))
 * added MaskUnits, MaskContentUnits, X, Y, Width and Height properties to SvgMask (see [PR #654](https://github.com/vvvv/SVG/pull/654))
+* added FontStretch property to SvgElement (see [PR #654](https://github.com/vvvv/SVG/pull/654))
 
 ### Fixes
 * fixed CoordinateParser handling of invalid state (see [PR #640](https://github.com/vvvv/SVG/pull/640))
