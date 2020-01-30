@@ -36,7 +36,7 @@ namespace Svg.FilterEffects
                 stdDeviationY = StdDeviation[1];
             }
 
-            if (_isPrecalculated && _stdDeviationX == stdDeviationX && _stdDeviationY == stdDeviationY)
+            if (_stdDeviationX == stdDeviationX && _stdDeviationY == stdDeviationY)
                 return;
 
             int sz = (int)(stdDeviationX * 2 + 1);
