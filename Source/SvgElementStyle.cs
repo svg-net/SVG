@@ -239,6 +239,16 @@ namespace Svg
         }
 
         /// <summary>
+        /// Indicates the desired amount of condensing or expansion in the glyphs used to render the text.
+        /// </summary>
+        [SvgAttribute("font-stretch")]
+        public virtual SvgFontStretch FontStretch
+        {
+            get { return GetAttribute("font-stretch", true, SvgFontStretch.Inherit); }
+            set { Attributes["font-stretch"] = value; IsPathDirty = true; }
+        }
+
+        /// <summary>
         /// Refers to the text transformation.
         /// </summary>
         [SvgAttribute("text-transform")]
