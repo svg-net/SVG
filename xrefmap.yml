@@ -6801,6 +6801,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.FontSize
   nameWithType: SvgElement.FontSize
+- uid: Svg.SvgElement.FontStretch
+  name: FontStretch
+  href: api/Svg.SvgElement.html#Svg_SvgElement_FontStretch
+  commentId: P:Svg.SvgElement.FontStretch
+  fullName: Svg.SvgElement.FontStretch
+  nameWithType: SvgElement.FontStretch
+- uid: Svg.SvgElement.FontStretch*
+  name: FontStretch
+  href: api/Svg.SvgElement.html#Svg_SvgElement_FontStretch_
+  commentId: Overload:Svg.SvgElement.FontStretch
+  isSpec: "True"
+  fullName: Svg.SvgElement.FontStretch
+  nameWithType: SvgElement.FontStretch
 - uid: Svg.SvgElement.FontStyle
   name: FontStyle
   href: api/Svg.SvgElement.html#Svg_SvgElement_FontStyle
@@ -8910,6 +8923,129 @@ references:
   isSpec: "True"
   fullName: Svg.SvgFontManager.LoadFontFamily
   nameWithType: SvgFontManager.LoadFontFamily
+- uid: Svg.SvgFontStretch
+  name: SvgFontStretch
+  href: api/Svg.SvgFontStretch.html
+  commentId: T:Svg.SvgFontStretch
+  fullName: Svg.SvgFontStretch
+  nameWithType: SvgFontStretch
+- uid: Svg.SvgFontStretch.Condensed
+  name: Condensed
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_Condensed
+  commentId: F:Svg.SvgFontStretch.Condensed
+  fullName: Svg.SvgFontStretch.Condensed
+  nameWithType: SvgFontStretch.Condensed
+- uid: Svg.SvgFontStretch.Expanded
+  name: Expanded
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_Expanded
+  commentId: F:Svg.SvgFontStretch.Expanded
+  fullName: Svg.SvgFontStretch.Expanded
+  nameWithType: SvgFontStretch.Expanded
+- uid: Svg.SvgFontStretch.ExtraCondensed
+  name: ExtraCondensed
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_ExtraCondensed
+  commentId: F:Svg.SvgFontStretch.ExtraCondensed
+  fullName: Svg.SvgFontStretch.ExtraCondensed
+  nameWithType: SvgFontStretch.ExtraCondensed
+- uid: Svg.SvgFontStretch.ExtraExpanded
+  name: ExtraExpanded
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_ExtraExpanded
+  commentId: F:Svg.SvgFontStretch.ExtraExpanded
+  fullName: Svg.SvgFontStretch.ExtraExpanded
+  nameWithType: SvgFontStretch.ExtraExpanded
+- uid: Svg.SvgFontStretch.Inherit
+  name: Inherit
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_Inherit
+  commentId: F:Svg.SvgFontStretch.Inherit
+  fullName: Svg.SvgFontStretch.Inherit
+  nameWithType: SvgFontStretch.Inherit
+- uid: Svg.SvgFontStretch.Narrower
+  name: Narrower
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_Narrower
+  commentId: F:Svg.SvgFontStretch.Narrower
+  fullName: Svg.SvgFontStretch.Narrower
+  nameWithType: SvgFontStretch.Narrower
+- uid: Svg.SvgFontStretch.Normal
+  name: Normal
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_Normal
+  commentId: F:Svg.SvgFontStretch.Normal
+  fullName: Svg.SvgFontStretch.Normal
+  nameWithType: SvgFontStretch.Normal
+- uid: Svg.SvgFontStretch.SemiCondensed
+  name: SemiCondensed
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_SemiCondensed
+  commentId: F:Svg.SvgFontStretch.SemiCondensed
+  fullName: Svg.SvgFontStretch.SemiCondensed
+  nameWithType: SvgFontStretch.SemiCondensed
+- uid: Svg.SvgFontStretch.SemiExpanded
+  name: SemiExpanded
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_SemiExpanded
+  commentId: F:Svg.SvgFontStretch.SemiExpanded
+  fullName: Svg.SvgFontStretch.SemiExpanded
+  nameWithType: SvgFontStretch.SemiExpanded
+- uid: Svg.SvgFontStretch.UltraCondensed
+  name: UltraCondensed
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_UltraCondensed
+  commentId: F:Svg.SvgFontStretch.UltraCondensed
+  fullName: Svg.SvgFontStretch.UltraCondensed
+  nameWithType: SvgFontStretch.UltraCondensed
+- uid: Svg.SvgFontStretch.UltraExpanded
+  name: UltraExpanded
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_UltraExpanded
+  commentId: F:Svg.SvgFontStretch.UltraExpanded
+  fullName: Svg.SvgFontStretch.UltraExpanded
+  nameWithType: SvgFontStretch.UltraExpanded
+- uid: Svg.SvgFontStretch.Wider
+  name: Wider
+  href: api/Svg.SvgFontStretch.html#Svg_SvgFontStretch_Wider
+  commentId: F:Svg.SvgFontStretch.Wider
+  fullName: Svg.SvgFontStretch.Wider
+  nameWithType: SvgFontStretch.Wider
+- uid: Svg.SvgFontStretchConverter
+  name: SvgFontStretchConverter
+  href: api/Svg.SvgFontStretchConverter.html
+  commentId: T:Svg.SvgFontStretchConverter
+  fullName: Svg.SvgFontStretchConverter
+  nameWithType: SvgFontStretchConverter
+- uid: Svg.SvgFontStretchConverter.#ctor
+  name: SvgFontStretchConverter()
+  href: api/Svg.SvgFontStretchConverter.html#Svg_SvgFontStretchConverter__ctor
+  commentId: M:Svg.SvgFontStretchConverter.#ctor
+  fullName: Svg.SvgFontStretchConverter.SvgFontStretchConverter()
+  nameWithType: SvgFontStretchConverter.SvgFontStretchConverter()
+- uid: Svg.SvgFontStretchConverter.#ctor*
+  name: SvgFontStretchConverter
+  href: api/Svg.SvgFontStretchConverter.html#Svg_SvgFontStretchConverter__ctor_
+  commentId: Overload:Svg.SvgFontStretchConverter.#ctor
+  isSpec: "True"
+  fullName: Svg.SvgFontStretchConverter.SvgFontStretchConverter
+  nameWithType: SvgFontStretchConverter.SvgFontStretchConverter
+- uid: Svg.SvgFontStretchConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+  href: api/Svg.SvgFontStretchConverter.html#Svg_SvgFontStretchConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
+  commentId: M:Svg.SvgFontStretchConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  fullName: Svg.SvgFontStretchConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, System.Object)
+  nameWithType: SvgFontStretchConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+- uid: Svg.SvgFontStretchConverter.ConvertFrom*
+  name: ConvertFrom
+  href: api/Svg.SvgFontStretchConverter.html#Svg_SvgFontStretchConverter_ConvertFrom_
+  commentId: Overload:Svg.SvgFontStretchConverter.ConvertFrom
+  isSpec: "True"
+  fullName: Svg.SvgFontStretchConverter.ConvertFrom
+  nameWithType: SvgFontStretchConverter.ConvertFrom
+- uid: Svg.SvgFontStretchConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+  name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
+  href: api/Svg.SvgFontStretchConverter.html#Svg_SvgFontStretchConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
+  commentId: M:Svg.SvgFontStretchConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+  fullName: Svg.SvgFontStretchConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
+  nameWithType: SvgFontStretchConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
+- uid: Svg.SvgFontStretchConverter.ConvertTo*
+  name: ConvertTo
+  href: api/Svg.SvgFontStretchConverter.html#Svg_SvgFontStretchConverter_ConvertTo_
+  commentId: Overload:Svg.SvgFontStretchConverter.ConvertTo
+  isSpec: "True"
+  fullName: Svg.SvgFontStretchConverter.ConvertTo
+  nameWithType: SvgFontStretchConverter.ConvertTo
 - uid: Svg.SvgFontStyle
   name: SvgFontStyle
   href: api/Svg.SvgFontStyle.html
@@ -10960,6 +11096,84 @@ references:
   isSpec: "True"
   fullName: Svg.SvgMask.DeepCopy
   nameWithType: SvgMask.DeepCopy
+- uid: Svg.SvgMask.Height
+  name: Height
+  href: api/Svg.SvgMask.html#Svg_SvgMask_Height
+  commentId: P:Svg.SvgMask.Height
+  fullName: Svg.SvgMask.Height
+  nameWithType: SvgMask.Height
+- uid: Svg.SvgMask.Height*
+  name: Height
+  href: api/Svg.SvgMask.html#Svg_SvgMask_Height_
+  commentId: Overload:Svg.SvgMask.Height
+  isSpec: "True"
+  fullName: Svg.SvgMask.Height
+  nameWithType: SvgMask.Height
+- uid: Svg.SvgMask.MaskContentUnits
+  name: MaskContentUnits
+  href: api/Svg.SvgMask.html#Svg_SvgMask_MaskContentUnits
+  commentId: P:Svg.SvgMask.MaskContentUnits
+  fullName: Svg.SvgMask.MaskContentUnits
+  nameWithType: SvgMask.MaskContentUnits
+- uid: Svg.SvgMask.MaskContentUnits*
+  name: MaskContentUnits
+  href: api/Svg.SvgMask.html#Svg_SvgMask_MaskContentUnits_
+  commentId: Overload:Svg.SvgMask.MaskContentUnits
+  isSpec: "True"
+  fullName: Svg.SvgMask.MaskContentUnits
+  nameWithType: SvgMask.MaskContentUnits
+- uid: Svg.SvgMask.MaskUnits
+  name: MaskUnits
+  href: api/Svg.SvgMask.html#Svg_SvgMask_MaskUnits
+  commentId: P:Svg.SvgMask.MaskUnits
+  fullName: Svg.SvgMask.MaskUnits
+  nameWithType: SvgMask.MaskUnits
+- uid: Svg.SvgMask.MaskUnits*
+  name: MaskUnits
+  href: api/Svg.SvgMask.html#Svg_SvgMask_MaskUnits_
+  commentId: Overload:Svg.SvgMask.MaskUnits
+  isSpec: "True"
+  fullName: Svg.SvgMask.MaskUnits
+  nameWithType: SvgMask.MaskUnits
+- uid: Svg.SvgMask.Width
+  name: Width
+  href: api/Svg.SvgMask.html#Svg_SvgMask_Width
+  commentId: P:Svg.SvgMask.Width
+  fullName: Svg.SvgMask.Width
+  nameWithType: SvgMask.Width
+- uid: Svg.SvgMask.Width*
+  name: Width
+  href: api/Svg.SvgMask.html#Svg_SvgMask_Width_
+  commentId: Overload:Svg.SvgMask.Width
+  isSpec: "True"
+  fullName: Svg.SvgMask.Width
+  nameWithType: SvgMask.Width
+- uid: Svg.SvgMask.X
+  name: X
+  href: api/Svg.SvgMask.html#Svg_SvgMask_X
+  commentId: P:Svg.SvgMask.X
+  fullName: Svg.SvgMask.X
+  nameWithType: SvgMask.X
+- uid: Svg.SvgMask.X*
+  name: X
+  href: api/Svg.SvgMask.html#Svg_SvgMask_X_
+  commentId: Overload:Svg.SvgMask.X
+  isSpec: "True"
+  fullName: Svg.SvgMask.X
+  nameWithType: SvgMask.X
+- uid: Svg.SvgMask.Y
+  name: Y
+  href: api/Svg.SvgMask.html#Svg_SvgMask_Y
+  commentId: P:Svg.SvgMask.Y
+  fullName: Svg.SvgMask.Y
+  nameWithType: SvgMask.Y
+- uid: Svg.SvgMask.Y*
+  name: Y
+  href: api/Svg.SvgMask.html#Svg_SvgMask_Y_
+  commentId: Overload:Svg.SvgMask.Y
+  isSpec: "True"
+  fullName: Svg.SvgMask.Y
+  nameWithType: SvgMask.Y
 - uid: Svg.SvgMissingGlyph
   name: SvgMissingGlyph
   href: api/Svg.SvgMissingGlyph.html

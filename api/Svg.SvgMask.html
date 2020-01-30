@@ -83,7 +83,8 @@
   
   <h1 id="Svg_SvgMask" data-uid="Svg.SvgMask" class="text-break">Class SvgMask
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Defines an alpha mask for compositing the current object into the background.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -376,6 +377,9 @@
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_FontWeight">SvgElement.FontWeight</a>
     </div>
     <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_FontStretch">SvgElement.FontStretch</a>
+    </div>
+    <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_TextTransformation">SvgElement.TextTransformation</a>
     </div>
     <div>
@@ -416,6 +420,164 @@
     <pre><code class="lang-csharp hljs">[SvgElement(&quot;mask&quot;)]
 public class SvgMask : SvgElement, ISvgElement, ISvgTransformable, ICloneable, ISvgNode</code></pre>
   </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  
+  <a id="Svg_SvgMask_Height_" data-uid="Svg.SvgMask.Height*"></a>
+  <h4 id="Svg_SvgMask_Height" data-uid="Svg.SvgMask.Height">Height</h4>
+  <div class="markdown level1 summary"><p>The height of the largest possible offscreen buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SvgUnit Height { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgMask_MaskContentUnits_" data-uid="Svg.SvgMask.MaskContentUnits*"></a>
+  <h4 id="Svg_SvgMask_MaskContentUnits" data-uid="Svg.SvgMask.MaskContentUnits">MaskContentUnits</h4>
+  <div class="markdown level1 summary"><p>Defines the coordinate system for the contents of the mask.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SvgCoordinateUnits MaskContentUnits { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgCoordinateUnits.html">SvgCoordinateUnits</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgMask_MaskUnits_" data-uid="Svg.SvgMask.MaskUnits*"></a>
+  <h4 id="Svg_SvgMask_MaskUnits" data-uid="Svg.SvgMask.MaskUnits">MaskUnits</h4>
+  <div class="markdown level1 summary"><p>Defines the coordinate system for attributes <a class="xref" href="Svg.SvgMask.html#Svg_SvgMask_X">X</a>, <a class="xref" href="Svg.SvgMask.html#Svg_SvgMask_Y">Y</a>, <a class="xref" href="Svg.SvgMask.html#Svg_SvgMask_Width">Width</a> and <a class="xref" href="Svg.SvgMask.html#Svg_SvgMask_Height">Height</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SvgCoordinateUnits MaskUnits { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgCoordinateUnits.html">SvgCoordinateUnits</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgMask_Width_" data-uid="Svg.SvgMask.Width*"></a>
+  <h4 id="Svg_SvgMask_Width" data-uid="Svg.SvgMask.Width">Width</h4>
+  <div class="markdown level1 summary"><p>The width of the largest possible offscreen buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SvgUnit Width { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgMask_X_" data-uid="Svg.SvgMask.X*"></a>
+  <h4 id="Svg_SvgMask_X" data-uid="Svg.SvgMask.X">X</h4>
+  <div class="markdown level1 summary"><p>The x-axis coordinate of one corner of the rectangle for the largest possible offscreen buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SvgUnit X { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgMask_Y_" data-uid="Svg.SvgMask.Y*"></a>
+  <h4 id="Svg_SvgMask_Y" data-uid="Svg.SvgMask.Y">Y</h4>
+  <div class="markdown level1 summary"><p>The y-axis coordinate of one corner of the rectangle for the largest possible offscreen buffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SvgUnit Y { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
   </h3>
   
