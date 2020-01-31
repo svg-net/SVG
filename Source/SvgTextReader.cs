@@ -18,14 +18,16 @@ namespace Svg
         public SvgTextReader(Stream stream, Dictionary<string, string> entities)
             : base(stream)
         {
-            this.EntityHandling = EntityHandling.ExpandEntities;
+            if (entities == null)
+                this.EntityHandling = EntityHandling.ExpandEntities;
             this._entities = entities;
         }
 
         public SvgTextReader(TextReader reader, Dictionary<string, string> entities)
             : base(reader)
         {
-            this.EntityHandling = EntityHandling.ExpandEntities;
+            if (entities == null)
+                this.EntityHandling = EntityHandling.ExpandEntities;
             this._entities = entities;
         }
 

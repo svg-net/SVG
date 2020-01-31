@@ -164,7 +164,7 @@ namespace Svg
         [SvgAttribute("text-anchor")]
         public virtual SvgTextAnchor TextAnchor
         {
-            get { return GetAttribute<SvgTextAnchor>("text-anchor", true); }
+            get { return GetAttribute("text-anchor", true, SvgTextAnchor.Start); }
             set { Attributes["text-anchor"] = value; IsPathDirty = true; }
         }
 
@@ -214,7 +214,7 @@ namespace Svg
         [SvgAttribute("font-variant")]
         public virtual SvgFontVariant FontVariant
         {
-            get { return GetAttribute("font-variant", true, SvgFontVariant.Inherit); }
+            get { return GetAttribute("font-variant", true, SvgFontVariant.Normal); }
             set { Attributes["font-variant"] = value; IsPathDirty = true; }
         }
 
@@ -224,7 +224,7 @@ namespace Svg
         [SvgAttribute("text-decoration")]
         public virtual SvgTextDecoration TextDecoration
         {
-            get { return GetAttribute("text-decoration", true, SvgTextDecoration.Inherit); }
+            get { return GetAttribute("text-decoration", true, SvgTextDecoration.None); }
             set { Attributes["text-decoration"] = value; IsPathDirty = true; }
         }
 
@@ -234,8 +234,18 @@ namespace Svg
         [SvgAttribute("font-weight")]
         public virtual SvgFontWeight FontWeight
         {
-            get { return GetAttribute("font-weight", true, SvgFontWeight.Inherit); }
+            get { return GetAttribute("font-weight", true, SvgFontWeight.Normal); }
             set { Attributes["font-weight"] = value; IsPathDirty = true; }
+        }
+
+        /// <summary>
+        /// Indicates the desired amount of condensing or expansion in the glyphs used to render the text.
+        /// </summary>
+        [SvgAttribute("font-stretch")]
+        public virtual SvgFontStretch FontStretch
+        {
+            get { return GetAttribute("font-stretch", true, SvgFontStretch.Normal); }
+            set { Attributes["font-stretch"] = value; IsPathDirty = true; }
         }
 
         /// <summary>

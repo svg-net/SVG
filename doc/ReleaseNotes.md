@@ -8,6 +8,8 @@ The release versions are NuGet releases.
 * added FilterUnits and PrimitiveUnits properties to SvgFilter class (see [PR #641](https://github.com/vvvv/SVG/pull/641))
 * added X, Y, Width and Height properties to SvgFilterPrimitive class (see [PR #641](https://github.com/vvvv/SVG/pull/641))
 * added SvgNumberCollection data type similar to SvgPointCollection (see [PR #641](https://github.com/vvvv/SVG/pull/641))
+* added MaskUnits, MaskContentUnits, X, Y, Width and Height properties to SvgMask (see [PR #654](https://github.com/vvvv/SVG/pull/654))
+* added FontStretch property to SvgElement (see [PR #654](https://github.com/vvvv/SVG/pull/654))
 
 ### Fixes
 * fixed CoordinateParser handling of invalid state (see [PR #640](https://github.com/vvvv/SVG/pull/640))
@@ -16,6 +18,8 @@ The release versions are NuGet releases.
 * dispose Matrix in SvgFilter (see [PR #644](https://github.com/vvvv/SVG/pull/644))
 * dispose resources in ImageBuffer (see [PR #646](https://github.com/vvvv/SVG/pull/646))
 * fixed StdDeviation property type of the SvgGaussianBlur class (see [PR #648](https://github.com/vvvv/SVG/pull/648))
+* fixed Providing entities in SvgDocument.Open does not work (see [#651](https://github.com/vvvv/SVG/issues/651))
+* fixed initial values of attributes related to text (see [PR #655](https://github.com/vvvv/SVG/pull/655))
 
 ## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102)
 
