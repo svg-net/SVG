@@ -46,7 +46,7 @@ namespace Svg.UnitTests
                 if (!string.IsNullOrEmpty(_testsRootPath))
                     return _testsRootPath;
 
-                var path = Environment.CurrentDirectory;
+                var path = TestContext.CurrentContext.TestDirectory;
                 while (!Path.GetFileName(path).Equals("Tests"))
                     path = Path.GetDirectoryName(path);
 
