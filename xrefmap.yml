@@ -2235,31 +2235,6 @@ references:
   commentId: T:Svg.FilterEffects.SvgGaussianBlur
   fullName: Svg.FilterEffects.SvgGaussianBlur
   nameWithType: SvgGaussianBlur
-- uid: Svg.FilterEffects.SvgGaussianBlur.#ctor
-  name: SvgGaussianBlur()
-  href: api/Svg.FilterEffects.SvgGaussianBlur.html#Svg_FilterEffects_SvgGaussianBlur__ctor
-  commentId: M:Svg.FilterEffects.SvgGaussianBlur.#ctor
-  fullName: Svg.FilterEffects.SvgGaussianBlur.SvgGaussianBlur()
-  nameWithType: SvgGaussianBlur.SvgGaussianBlur()
-- uid: Svg.FilterEffects.SvgGaussianBlur.#ctor(System.Single)
-  name: SvgGaussianBlur(Single)
-  href: api/Svg.FilterEffects.SvgGaussianBlur.html#Svg_FilterEffects_SvgGaussianBlur__ctor_System_Single_
-  commentId: M:Svg.FilterEffects.SvgGaussianBlur.#ctor(System.Single)
-  fullName: Svg.FilterEffects.SvgGaussianBlur.SvgGaussianBlur(System.Single)
-  nameWithType: SvgGaussianBlur.SvgGaussianBlur(Single)
-- uid: Svg.FilterEffects.SvgGaussianBlur.#ctor(System.Single,Svg.FilterEffects.BlurType)
-  name: SvgGaussianBlur(Single, BlurType)
-  href: api/Svg.FilterEffects.SvgGaussianBlur.html#Svg_FilterEffects_SvgGaussianBlur__ctor_System_Single_Svg_FilterEffects_BlurType_
-  commentId: M:Svg.FilterEffects.SvgGaussianBlur.#ctor(System.Single,Svg.FilterEffects.BlurType)
-  fullName: Svg.FilterEffects.SvgGaussianBlur.SvgGaussianBlur(System.Single, Svg.FilterEffects.BlurType)
-  nameWithType: SvgGaussianBlur.SvgGaussianBlur(Single, BlurType)
-- uid: Svg.FilterEffects.SvgGaussianBlur.#ctor*
-  name: SvgGaussianBlur
-  href: api/Svg.FilterEffects.SvgGaussianBlur.html#Svg_FilterEffects_SvgGaussianBlur__ctor_
-  commentId: Overload:Svg.FilterEffects.SvgGaussianBlur.#ctor
-  isSpec: "True"
-  fullName: Svg.FilterEffects.SvgGaussianBlur.SvgGaussianBlur
-  nameWithType: SvgGaussianBlur.SvgGaussianBlur
 - uid: Svg.FilterEffects.SvgGaussianBlur.Apply(Image)
   name: Apply(Image)
   href: api/Svg.FilterEffects.SvgGaussianBlur.html#Svg_FilterEffects_SvgGaussianBlur_Apply_Image_
@@ -2273,19 +2248,6 @@ references:
   isSpec: "True"
   fullName: Svg.FilterEffects.SvgGaussianBlur.Apply
   nameWithType: SvgGaussianBlur.Apply
-- uid: Svg.FilterEffects.SvgGaussianBlur.BlurType
-  name: BlurType
-  href: api/Svg.FilterEffects.SvgGaussianBlur.html#Svg_FilterEffects_SvgGaussianBlur_BlurType
-  commentId: P:Svg.FilterEffects.SvgGaussianBlur.BlurType
-  fullName: Svg.FilterEffects.SvgGaussianBlur.BlurType
-  nameWithType: SvgGaussianBlur.BlurType
-- uid: Svg.FilterEffects.SvgGaussianBlur.BlurType*
-  name: BlurType
-  href: api/Svg.FilterEffects.SvgGaussianBlur.html#Svg_FilterEffects_SvgGaussianBlur_BlurType_
-  commentId: Overload:Svg.FilterEffects.SvgGaussianBlur.BlurType
-  isSpec: "True"
-  fullName: Svg.FilterEffects.SvgGaussianBlur.BlurType
-  nameWithType: SvgGaussianBlur.BlurType
 - uid: Svg.FilterEffects.SvgGaussianBlur.DeepCopy
   name: DeepCopy()
   href: api/Svg.FilterEffects.SvgGaussianBlur.html#Svg_FilterEffects_SvgGaussianBlur_DeepCopy
@@ -2299,15 +2261,6 @@ references:
   isSpec: "True"
   fullName: Svg.FilterEffects.SvgGaussianBlur.DeepCopy
   nameWithType: SvgGaussianBlur.DeepCopy
-- uid: Svg.FilterEffects.SvgGaussianBlur.DeepCopy``1
-  name: DeepCopy<T>()
-  href: api/Svg.FilterEffects.SvgGaussianBlur.html#Svg_FilterEffects_SvgGaussianBlur_DeepCopy__1
-  commentId: M:Svg.FilterEffects.SvgGaussianBlur.DeepCopy``1
-  name.vb: DeepCopy(Of T)()
-  fullName: Svg.FilterEffects.SvgGaussianBlur.DeepCopy<T>()
-  fullName.vb: Svg.FilterEffects.SvgGaussianBlur.DeepCopy(Of T)()
-  nameWithType: SvgGaussianBlur.DeepCopy<T>()
-  nameWithType.vb: SvgGaussianBlur.DeepCopy(Of T)()
 - uid: Svg.FilterEffects.SvgGaussianBlur.Process(Svg.FilterEffects.ImageBuffer)
   name: Process(ImageBuffer)
   href: api/Svg.FilterEffects.SvgGaussianBlur.html#Svg_FilterEffects_SvgGaussianBlur_Process_Svg_FilterEffects_ImageBuffer_
