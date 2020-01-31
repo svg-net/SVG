@@ -17,6 +17,7 @@ The release versions are NuGet releases.
 * set correct default values for SvgFilter properties (see [PR #641](https://github.com/vvvv/SVG/pull/641))
 * dispose Matrix in SvgFilter (see [PR #644](https://github.com/vvvv/SVG/pull/644))
 * dispose resources in ImageBuffer (see [PR #646](https://github.com/vvvv/SVG/pull/646))
+* fixed initial values of attributes related to text (see [PR #655](https://github.com/vvvv/SVG/pull/655))
 
 ## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102)
 
