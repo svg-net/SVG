@@ -19,6 +19,7 @@ The release versions are NuGet releases.
 * dispose resources in ImageBuffer (see [PR #646](https://github.com/vvvv/SVG/pull/646))
 * fixed Providing entities in SvgDocument.Open does not work (see [#651](https://github.com/vvvv/SVG/issues/651))
 * fixed initial values of attributes related to text (see [PR #655](https://github.com/vvvv/SVG/pull/655))
+* fixed 'inherit' does not work at visibility and display (see [PR #656](https://github.com/vvvv/SVG/pull/656))
 
 ## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102)
 
