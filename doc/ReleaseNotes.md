@@ -17,6 +17,7 @@ The release versions are NuGet releases.
 * set correct default values for SvgFilter properties (see [PR #641](https://github.com/vvvv/SVG/pull/641))
 * dispose Matrix in SvgFilter (see [PR #644](https://github.com/vvvv/SVG/pull/644))
 * dispose resources in ImageBuffer (see [PR #646](https://github.com/vvvv/SVG/pull/646))
+* fixed StdDeviation property type of the SvgGaussianBlur class (see [PR #648](https://github.com/vvvv/SVG/pull/648))
 * fixed Providing entities in SvgDocument.Open does not work (see [#651](https://github.com/vvvv/SVG/issues/651))
 * fixed initial values of attributes related to text (see [PR #655](https://github.com/vvvv/SVG/pull/655))
 
