@@ -30,40 +30,6 @@ namespace Svg
         }
     }
 
-    public sealed class SvgBoolConverter : BaseConverter
-    {
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            if (value == null)
-            {
-                return true;
-            }
-
-            if (!(value is string))
-            {
-                throw new ArgumentOutOfRangeException("value must be a string.");
-            }
-
-            // Note: currently only used by SvgVisualElement.Visible but if
-            // conversion is used elsewhere these checks below will need to change
-            string visibility = (string)value;
-            if ((visibility == "hidden") || (visibility == "collapse"))
-                return false;
-            else
-                return true;
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(string))
-            {
-                return ((bool)value) ? "visible" : "hidden";
-            }
-
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
-    }
-
     //converts enums to lower case strings
     public class EnumBaseConverter<T> : BaseConverter
         where T : struct

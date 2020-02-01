@@ -159,6 +159,27 @@ namespace Svg
         }
 
         /// <summary>
+        /// Gets or sets a value to determine whether the element will be rendered.
+        /// </summary>
+        [SvgAttribute("visibility")]
+        public virtual string Visibility
+        {
+            get { return GetAttribute("visibility", true, "visible"); }
+            set { Attributes["visibility"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a value to determine whether the element will be rendered.
+        /// Needed to support SVG attribute display="none"
+        /// </summary>
+        [SvgAttribute("display")]
+        public virtual string Display
+        {
+            get { return GetAttribute("display", false, "inline"); }
+            set { Attributes["display"] = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the text anchor.
         /// </summary>
         [SvgAttribute("text-anchor")]

@@ -283,6 +283,8 @@ __pull_request-575-01.svg
 __pull_request-640-01.svg
 __pull_request-640-02.svg
 __pull_request-642-01.svg
+__pull_request-656-01.svg
+__pull_request-656-02.svg
 __pull_request-658-01.svg
 __AJ_Digital_Camera.svg
 __Telefunken_FuBK_test_pattern.svg
