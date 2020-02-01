@@ -20,6 +20,7 @@ The release versions are NuGet releases.
 * fixed StdDeviation property type of the SvgGaussianBlur class (see [PR #648](https://github.com/vvvv/SVG/pull/648))
 * fixed Providing entities in SvgDocument.Open does not work (see [#651](https://github.com/vvvv/SVG/issues/651))
 * fixed initial values of attributes related to text (see [PR #655](https://github.com/vvvv/SVG/pull/655))
+* fixed Won't display gradients if they're wider than 698 px (see [#252](https://github.com/vvvv/SVG/issues/252) and [PR #658](https://github.com/vvvv/SVG/pull/658))
 
 ## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102)
 
