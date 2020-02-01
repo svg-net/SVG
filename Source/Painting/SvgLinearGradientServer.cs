@@ -38,15 +38,6 @@ namespace Svg
             set { Attributes["y2"] = value; }
         }
 
-        private bool IsInvalid
-        {
-            get
-            {
-                // Need at least 2 colours to do the gradient fill
-                return this.Stops.Count < 2;
-            }
-        }
-
         public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
             LoadStops(renderingElement);
@@ -55,8 +46,8 @@ namespace Svg
             if (this.Stops.Count == 1)
             {
                 var stopColor = this.Stops[0].GetColor(renderingElement);
-                int alpha = (int)Math.Round((opacity * (stopColor.A / 255.0f)) * 255);
-                Color colour = System.Drawing.Color.FromArgb(alpha, stopColor);
+                var alpha = (int)Math.Round((opacity * (stopColor.A / 255.0f)) * 255);
+                var colour = System.Drawing.Color.FromArgb(alpha, stopColor);
                 return new SolidBrush(colour);
             }
 
@@ -97,8 +88,8 @@ namespace Svg
                     // Transform the normal line back to a line such that the gradient still starts in the correct corners, but
                     // has the proper normal vector based on the transforms.  If you work out the geometry, these formulas should work.
                     var midPoint = new PointF((points[0].X + points[1].X) / 2, (points[0].Y + points[1].Y) / 2);
-                    var dy = (points[1].Y - points[0].Y);
-                    var dx = (points[1].X - points[0].X);
+                    var dy = points[1].Y - points[0].Y;
+                    var dx = points[1].X - points[0].X;
                     var x1 = points[0].X;
                     var y2 = points[1].Y;
 
@@ -407,29 +398,13 @@ namespace Svg
 
         private sealed class LineF
         {
-            private float X1
-            {
-                get;
-                set;
-            }
+            private float X1 { get; set; }
 
-            private float Y1
-            {
-                get;
-                set;
-            }
+            private float Y1 { get; set; }
 
-            private float X2
-            {
-                get;
-                set;
-            }
+            private float X2 { get; set; }
 
-            private float Y2
-            {
-                get;
-                set;
-            }
+            private float Y2 { get; set; }
 
             public LineF(float x1, float y1, float x2, float y2)
             {
