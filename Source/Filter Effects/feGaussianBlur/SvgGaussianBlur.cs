@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 
 namespace Svg.FilterEffects
@@ -34,6 +34,12 @@ namespace Svg.FilterEffects
             {
                 stdDeviationX = StdDeviation[0];
                 stdDeviationY = StdDeviation[1];
+            }
+
+            if (_stdDeviationX < 0f || _stdDeviationY < 0f)
+            {
+                _isPrecalculated = false;
+                return;
             }
 
             if (_stdDeviationX == stdDeviationX && _stdDeviationY == stdDeviationY)
