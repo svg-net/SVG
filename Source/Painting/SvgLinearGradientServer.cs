@@ -78,16 +78,19 @@ namespace Svg
 
                 using (var transform = EffectiveGradientTransform)
                 {
-                    var midPoint = new PointF((points[0].X + points[1].X) / 2, (points[0].Y + points[1].Y) / 2);
                     transform.Translate(bounds.X, bounds.Y, MatrixOrder.Prepend);
                     if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox)
                     {
                         // Transform a normal (i.e. perpendicular line) according to the transform
                         transform.Scale(bounds.Width, bounds.Height, MatrixOrder.Prepend);
-                        transform.RotateAt(-90.0f, midPoint, MatrixOrder.Prepend);
                     }
                     transform.TransformPoints(points);
                 }
+
+                points[0].X = (float)Math.Round(points[0].X, 4);
+                points[0].Y = (float)Math.Round(points[0].Y, 4);
+                points[1].X = (float)Math.Round(points[1].X, 4);
+                points[1].Y = (float)Math.Round(points[1].Y, 4);
 
                 if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox)
                 {
@@ -96,26 +99,16 @@ namespace Svg
                     var midPoint = new PointF((points[0].X + points[1].X) / 2, (points[0].Y + points[1].Y) / 2);
                     var dy = (points[1].Y - points[0].Y);
                     var dx = (points[1].X - points[0].X);
-                    var x2 = points[0].X;
+                    var x1 = points[0].X;
                     var y2 = points[1].Y;
 
-                    if (Math.Round(dx, 4) == 0)
+                    if (dx != 0f && dy != 0f)
                     {
-                        points[0] = new PointF(midPoint.X + dy / 2 * bounds.Width / bounds.Height, midPoint.Y);
-                        points[1] = new PointF(midPoint.X - dy / 2 * bounds.Width / bounds.Height, midPoint.Y);
-                    }
-                    else if (Math.Round(dy, 4) == 0)
-                    {
-                        points[0] = new PointF(midPoint.X, midPoint.Y - dx / 2 * bounds.Height / bounds.Width);
-                        points[1] = new PointF(midPoint.X, midPoint.Y + dx / 2 * bounds.Height / bounds.Width); ;
-                    }
-                    else
-                    {
-                        var startX = (float)((dy * dx * (midPoint.Y - y2) + Math.Pow(dx, 2) * midPoint.X + Math.Pow(dy, 2) * x2) /
+                        var startX = (float)((dy * dx * (midPoint.Y - y2) + Math.Pow(dx, 2) * midPoint.X + Math.Pow(dy, 2) * x1) /
                         (Math.Pow(dx, 2) + Math.Pow(dy, 2)));
-                        var startY = dy * (startX - x2) / dx + y2;
-                        points[0] = new PointF(startX, startY);
-                        points[1] = new PointF(midPoint.X + (midPoint.X - startX), midPoint.Y + (midPoint.Y - startY));
+                        var endY = dy * (startX - x1) / dx + y2;
+                        points[0] = new PointF(startX, midPoint.Y + (midPoint.Y - endY));
+                        points[1] = new PointF(midPoint.X + (midPoint.X - startX), endY);
                     }
                 }
 
