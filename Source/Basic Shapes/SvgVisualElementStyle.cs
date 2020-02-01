@@ -5,26 +5,9 @@ namespace Svg
 {
     public abstract partial class SvgVisualElement
     {
-        /// <summary>
-        /// Gets or sets a value to determine whether the element will be rendered.
-        /// </summary>
-        [TypeConverter(typeof(SvgBoolConverter))]
-        [SvgAttribute("visibility")]
         public virtual bool Visible
         {
-            get { return GetAttribute("visibility", true, true); }
-            set { Attributes["visibility"] = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets a value to determine whether the element will be rendered.
-        /// Needed to support SVG attribute display="none"
-        /// </summary>
-        [SvgAttribute("display")]
-        public virtual string Display
-        {
-            get { return GetAttribute("display", false, "inline"); }
-            set { Attributes["display"] = value; }
+            get { return string.Equals(Visibility, "visible", StringComparison.OrdinalIgnoreCase); }
         }
 
         // Displayable - false if attribute display="none", true otherwise
