@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+  <defs>
+    <filter id="f1" x="0" y="0">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="-1" />
+    </filter>
+  </defs>
+  <rect x="10" y="10" width="90" height="90" stroke="green" stroke-width="2" fill="yellow" filter="url(#f1)" />
+</svg>
