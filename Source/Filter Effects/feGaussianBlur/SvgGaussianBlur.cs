@@ -73,12 +73,14 @@ namespace Svg.FilterEffects
 
         public Bitmap Apply(Image inputImage)
         {
-            PreCalculate();
-            if (!_isPrecalculated)
-                return null;
-
             var bitmapSrc = inputImage as Bitmap;
             if (bitmapSrc == null) bitmapSrc = new Bitmap(inputImage);
+
+            PreCalculate();
+            if (!_isPrecalculated)
+            {
+                return bitmapSrc;
+            }
 
             using (RawBitmap src = new RawBitmap(bitmapSrc))
             {
