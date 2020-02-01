@@ -5156,38 +5156,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgAttributeCollection.Item
   nameWithType: SvgAttributeCollection.Item
-- uid: Svg.SvgBoolConverter
-  name: SvgBoolConverter
-  href: api/Svg.SvgBoolConverter.html
-  commentId: T:Svg.SvgBoolConverter
-  fullName: Svg.SvgBoolConverter
-  nameWithType: SvgBoolConverter
-- uid: Svg.SvgBoolConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
-  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
-  href: api/Svg.SvgBoolConverter.html#Svg_SvgBoolConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
-  commentId: M:Svg.SvgBoolConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
-  fullName: Svg.SvgBoolConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, System.Object)
-  nameWithType: SvgBoolConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
-- uid: Svg.SvgBoolConverter.ConvertFrom*
-  name: ConvertFrom
-  href: api/Svg.SvgBoolConverter.html#Svg_SvgBoolConverter_ConvertFrom_
-  commentId: Overload:Svg.SvgBoolConverter.ConvertFrom
-  isSpec: "True"
-  fullName: Svg.SvgBoolConverter.ConvertFrom
-  nameWithType: SvgBoolConverter.ConvertFrom
-- uid: Svg.SvgBoolConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.SvgBoolConverter.html#Svg_SvgBoolConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.SvgBoolConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.SvgBoolConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
-  nameWithType: SvgBoolConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-- uid: Svg.SvgBoolConverter.ConvertTo*
-  name: ConvertTo
-  href: api/Svg.SvgBoolConverter.html#Svg_SvgBoolConverter_ConvertTo_
-  commentId: Overload:Svg.SvgBoolConverter.ConvertTo
-  isSpec: "True"
-  fullName: Svg.SvgBoolConverter.ConvertTo
-  nameWithType: SvgBoolConverter.ConvertTo
 - uid: Svg.SvgCircle
   name: SvgCircle
   href: api/Svg.SvgCircle.html
@@ -6606,6 +6574,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.Descendants
   nameWithType: SvgElement.Descendants
+- uid: Svg.SvgElement.Display
+  name: Display
+  href: api/Svg.SvgElement.html#Svg_SvgElement_Display
+  commentId: P:Svg.SvgElement.Display
+  fullName: Svg.SvgElement.Display
+  nameWithType: SvgElement.Display
+- uid: Svg.SvgElement.Display*
+  name: Display
+  href: api/Svg.SvgElement.html#Svg_SvgElement_Display_
+  commentId: Overload:Svg.SvgElement.Display
+  isSpec: "True"
+  fullName: Svg.SvgElement.Display
+  nameWithType: SvgElement.Display
 - uid: Svg.SvgElement.ElementName
   name: ElementName
   href: api/Svg.SvgElement.html#Svg_SvgElement_ElementName
@@ -7556,6 +7537,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.ValidateFontFamily
   nameWithType: SvgElement.ValidateFontFamily
+- uid: Svg.SvgElement.Visibility
+  name: Visibility
+  href: api/Svg.SvgElement.html#Svg_SvgElement_Visibility
+  commentId: P:Svg.SvgElement.Visibility
+  fullName: Svg.SvgElement.Visibility
+  nameWithType: SvgElement.Visibility
+- uid: Svg.SvgElement.Visibility*
+  name: Visibility
+  href: api/Svg.SvgElement.html#Svg_SvgElement_Visibility_
+  commentId: Overload:Svg.SvgElement.Visibility
+  isSpec: "True"
+  fullName: Svg.SvgElement.Visibility
+  nameWithType: SvgElement.Visibility
 - uid: Svg.SvgElement.Write(XmlTextWriter)
   name: Write(XmlTextWriter)
   href: api/Svg.SvgElement.html#Svg_SvgElement_Write_XmlTextWriter_
@@ -14762,19 +14756,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgVisualElement.ClipRule
   nameWithType: SvgVisualElement.ClipRule
-- uid: Svg.SvgVisualElement.Display
-  name: Display
-  href: api/Svg.SvgVisualElement.html#Svg_SvgVisualElement_Display
-  commentId: P:Svg.SvgVisualElement.Display
-  fullName: Svg.SvgVisualElement.Display
-  nameWithType: SvgVisualElement.Display
-- uid: Svg.SvgVisualElement.Display*
-  name: Display
-  href: api/Svg.SvgVisualElement.html#Svg_SvgVisualElement_Display_
-  commentId: Overload:Svg.SvgVisualElement.Display
-  isSpec: "True"
-  fullName: Svg.SvgVisualElement.Display
-  nameWithType: SvgVisualElement.Display
 - uid: Svg.SvgVisualElement.Displayable
   name: Displayable
   href: api/Svg.SvgVisualElement.html#Svg_SvgVisualElement_Displayable
