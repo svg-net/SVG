@@ -73,6 +73,18 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "doc/Samples.md",
+      "output": {
+        ".html": {
+          "relative_path": "doc/Samples.html",
+          "hash": "S6HGEFLceHTaBCrFZzdFbg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "log_codes": [
         "InvalidFileLink"
       ],
@@ -81,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "LPOyAp20cHYfvgqr7mFb3A=="
+          "hash": "05cfBuUKQ0TpafrJ4T4DTg=="
         }
       },
       "is_incremental": false,
@@ -2946,7 +2958,7 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6,
+          "total_file_count": 7,
           "skipped_file_count": 0
         },
         "ManagedReferenceDocumentProcessor": {
