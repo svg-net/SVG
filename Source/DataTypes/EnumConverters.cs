@@ -1,38 +1,25 @@
-﻿using Svg.DataTypes;
-using System;
+﻿﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Svg.DataTypes;
 
 namespace Svg
 {
-    //just overrides canconvert and returns true
+    // just overrides canconvert and returns true
     public class BaseConverter : TypeConverter
     {
-
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
-            {
                 return true;
-            }
 
             return base.CanConvertFrom(context, sourceType);
         }
-
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-        {
-            if (destinationType == typeof(string))
-            {
-                return true;
-            }
-
-            return base.CanConvertTo(context, destinationType);
-        }
     }
 
-    //converts enums to lower case strings
-    public class EnumBaseConverter<T> : BaseConverter
+    // converts enums to lower case strings
+    public abstract class EnumBaseConverter<T> : BaseConverter
         where T : struct
     {
         public enum CaseHandling
@@ -41,22 +28,20 @@ namespace Svg
             LowerCase,
             KebabCase,
         }
-        /// <summary> Defines if the enum literal shall be converted to camelCase, lowercase or kebab-case.</summary>
+
+        /// <summary>Defines if the enum literal shall be converted to camelCase, lowercase or kebab-case.</summary>
         public CaseHandling CaseHandlingMode { get; }
 
         /// <summary>If specified, upon conversion, the default value will result in 'null'.</summary>
         public T? DefaultValue { get; protected set; }
 
         /// <summary>Creates a new instance.</summary>
-        public EnumBaseConverter() { }
-
-        /// <summary>Creates a new instance.</summary>
         /// <param name="defaultValue">Specified the default value of the enum.</param>
         /// <param name="caseHandling">Defines if the value shall be converted to camelCase, lowercase or kebab-case.</param>
         public EnumBaseConverter(T defaultValue, CaseHandling caseHandling = CaseHandling.CamelCase)
         {
-            this.DefaultValue = defaultValue;
-            this.CaseHandlingMode = caseHandling;
+            DefaultValue = defaultValue;
+            CaseHandlingMode = caseHandling;
         }
 
         /// <summary>Attempts to convert the provided value to <typeparamref name="T"/>.</summary>
@@ -64,8 +49,8 @@ namespace Svg
         {
             if (value == null)
             {
-                if (this.DefaultValue.HasValue)
-                    return this.DefaultValue.Value;
+                if (DefaultValue.HasValue)
+                    return DefaultValue.Value;
 
                 return Activator.CreateInstance(typeof(T));
             }
@@ -87,12 +72,12 @@ namespace Svg
         {
             if (destinationType == typeof(string) && value is T)
             {
-                //If the value id the default value, no need to write the attribute.
-                if (this.DefaultValue.HasValue && Enum.Equals(value, this.DefaultValue.Value))
+                // If the value id the default value, no need to write the attribute.
+                if (DefaultValue.HasValue && Equals(value, DefaultValue.Value))
                     return null;
                 else
                 {
-                    string stringValue = ((T)value).ToString();
+                    var stringValue = ((T)value).ToString();
                     if (CaseHandlingMode == CaseHandling.LowerCase)
                     {
                         return stringValue.ToLower();
@@ -103,7 +88,7 @@ namespace Svg
                         return stringValue.ToLower();
                     }
 
-                    //most SVG attributes should be camelCase.
+                    // most SVG attributes should be camelCase.
                     stringValue = string.Format("{0}{1}", stringValue[0].ToString().ToLower(), stringValue.Substring(1));
 
                     return stringValue;
@@ -214,7 +199,7 @@ namespace Svg
 
     public sealed class SvgCoordinateUnitsConverter : EnumBaseConverter<SvgCoordinateUnits>
     {
-        //TODO Inherit is not actually valid. See TODO on SvgCoordinateUnits enum.
+        // TODO Inherit is not actually valid. See TODO on SvgCoordinateUnits enum.
         public SvgCoordinateUnitsConverter() : base(SvgCoordinateUnits.Inherit) { }
     }
 
@@ -287,7 +272,7 @@ namespace Svg
 
     public sealed class SvgFontWeightConverter : EnumBaseConverter<SvgFontWeight>
     {
-        //TODO Defaulting to Normal although it should be All if this is used on a font face.
+        // TODO Defaulting to Normal although it should be All if this is used on a font face.
         public SvgFontWeightConverter() : base(SvgFontWeight.Normal) { }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
