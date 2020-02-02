@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 
 namespace Svg.FilterEffects
@@ -36,6 +36,12 @@ namespace Svg.FilterEffects
                 stdDeviationY = StdDeviation[1];
             }
 
+            if (stdDeviationX < 0f || stdDeviationY < 0f)
+            {
+                _isPrecalculated = false;
+                return;
+            }
+
             if (_stdDeviationX == stdDeviationX && _stdDeviationY == stdDeviationY)
                 return;
 
@@ -67,12 +73,14 @@ namespace Svg.FilterEffects
 
         public Bitmap Apply(Image inputImage)
         {
-            PreCalculate();
-            if (!_isPrecalculated)
-                return null;
-
             var bitmapSrc = inputImage as Bitmap;
             if (bitmapSrc == null) bitmapSrc = new Bitmap(inputImage);
+
+            PreCalculate();
+            if (!_isPrecalculated)
+            {
+                return bitmapSrc;
+            }
 
             using (RawBitmap src = new RawBitmap(bitmapSrc))
             {
