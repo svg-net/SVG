@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Svg
 {
@@ -37,9 +38,10 @@ namespace Svg
         public enum CaseHandling
         {
             CamelCase,
-            LowerCase
+            LowerCase,
+            KebabCase,
         }
-        /// <summary> Defines if the enum literal shall be converted to lower camel case or lower case.</summary>
+        /// <summary> Defines if the enum literal shall be converted to camelCase, lowercase or kebab-case.</summary>
         public CaseHandling CaseHandlingMode { get; }
 
         /// <summary>If specified, upon conversion, the default value will result in 'null'.</summary>
@@ -50,7 +52,7 @@ namespace Svg
 
         /// <summary>Creates a new instance.</summary>
         /// <param name="defaultValue">Specified the default value of the enum.</param>
-        /// <param name="caseHandling">Defines if the value shall be converted to lower camel case or lower case</param>
+        /// <param name="caseHandling">Defines if the value shall be converted to camelCase, lowercase or kebab-case.</param>
         public EnumBaseConverter(T defaultValue, CaseHandling caseHandling = CaseHandling.CamelCase)
         {
             this.DefaultValue = defaultValue;
@@ -73,7 +75,11 @@ namespace Svg
                 throw new ArgumentOutOfRangeException("value must be a string.");
             }
 
-            return (T)Enum.Parse(typeof(T), (string)value, true);
+            var stringValue = (string)value;
+            if (CaseHandlingMode == CaseHandling.KebabCase)
+                stringValue = stringValue.Replace("-", string.Empty);
+
+            return (T)Enum.Parse(typeof(T), stringValue, true);
         }
 
         /// <summary>Attempts to convert the value to the destination type.</summary>
@@ -89,6 +95,11 @@ namespace Svg
                     string stringValue = ((T)value).ToString();
                     if (CaseHandlingMode == CaseHandling.LowerCase)
                     {
+                        return stringValue.ToLower();
+                    }
+                    else if (CaseHandlingMode == CaseHandling.KebabCase)
+                    {
+                        stringValue = Regex.Replace(stringValue, @"(\w)([A-Z])", "$1-$2", RegexOptions.CultureInvariant);
                         return stringValue.ToLower();
                     }
 
