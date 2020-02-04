@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" version="1.1">
+<defs>
+<linearGradient id="horizontal" x1="0" y1="0.5" x2="1" y2="0.5">
+<stop offset="0"    stop-color="yellow" />
+<stop offset="0.25" stop-color="red" />
+<stop offset="0.75" stop-color="blue" />
+<stop offset="1"    stop-color="limegreen" />
+</linearGradient>
+<linearGradient id="horizontal1" x1="1" y1="0.5" x2="0" y2="0.5">
+<stop offset="0"    stop-color="yellow" />
+<stop offset="0.25" stop-color="red" />
+<stop offset="0.75" stop-color="blue" />
+<stop offset="1"    stop-color="limegreen" />
+</linearGradient>
+<linearGradient id="vertical" x1="0.5" y1="0" x2="0.5" y2="1">
+<stop offset="0"    stop-color="yellow" />
+<stop offset="0.25" stop-color="red" />
+<stop offset="0.75" stop-color="blue" />
+<stop offset="1"    stop-color="limegreen" />
+</linearGradient>
+<linearGradient id="vertical1" x1="0.5" y1="1" x2="0.5" y2="0">
+<stop offset="0"    stop-color="yellow" />
+<stop offset="0.25" stop-color="red" />
+<stop offset="0.75" stop-color="blue" />
+<stop offset="1"    stop-color="limegreen" />
+</linearGradient>
+<linearGradient id="diagonal" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0"    stop-color="yellow" />
+<stop offset="0.25" stop-color="red" />
+<stop offset="0.75" stop-color="blue" />
+<stop offset="1"    stop-color="limegreen" />
+</linearGradient>
+<linearGradient id="diagonal1" x1="1" y1="1" x2="0" y2="0">
+<stop offset="0"    stop-color="yellow" />
+<stop offset="0.25" stop-color="red" />
+<stop offset="0.75" stop-color="blue" />
+<stop offset="1"    stop-color="limegreen" />
+</linearGradient>
+<linearGradient id="diagonal2" x1="0" y1="1" x2="1" y2="0">
+<stop offset="0"    stop-color="yellow" />
+<stop offset="0.25" stop-color="red" />
+<stop offset="0.75" stop-color="blue" />
+<stop offset="1"    stop-color="limegreen" />
+</linearGradient>
+<linearGradient id="diagonal3" x1="1" y1="0" x2="0" y2="1">
+<stop offset="0"    stop-color="yellow" />
+<stop offset="0.25" stop-color="red" />
+<stop offset="0.75" stop-color="blue" />
+<stop offset="1"    stop-color="limegreen" />
+</linearGradient>
+</defs>
+
+<rect fill="url(#horizontal)"  x="10"  y="10"  width="200" height="100" />
+<rect fill="url(#horizontal1)" x="220" y="10"  width="200" height="100" />
+<rect fill="url(#vertical)"    x="430" y="10"  width="200" height="100" />
+<rect fill="url(#vertical1)"   x="640" y="10"  width="200" height="100" />
+<rect fill="url(#diagonal)"    x="10"  y="120" width="200" height="100" />
+<rect fill="url(#diagonal1)"   x="220" y="120" width="200" height="100" />
+<rect fill="url(#diagonal2)"   x="430" y="120" width="200" height="100" />
+<rect fill="url(#diagonal3)"   x="640" y="120" width="200" height="100" />
+
+<rect fill="url(#horizontal)"  x="10"  y="230" width="100" height="200" />
+<rect fill="url(#horizontal1)" x="120" y="230" width="100" height="200" />
+<rect fill="url(#vertical)"    x="230" y="230" width="100" height="200" />
+<rect fill="url(#vertical1)"   x="340" y="230" width="100" height="200" />
+<rect fill="url(#diagonal)"    x="450" y="230" width="100" height="200" />
+<rect fill="url(#diagonal1)"   x="560" y="230" width="100" height="200" />
+<rect fill="url(#diagonal2)"   x="670" y="230" width="100" height="200" />
+<rect fill="url(#diagonal3)"   x="780" y="230" width="100" height="200" />
+
+<rect fill="url(#horizontal)"  x="10"  y="440" width="200" height="200" />
+<rect fill="url(#horizontal1)" x="220" y="440" width="200" height="200" />
+<rect fill="url(#vertical)"    x="430" y="440" width="200" height="200" />
+<rect fill="url(#vertical1)"   x="640" y="440" width="200" height="200" />
+
+<rect fill="url(#diagonal)"    x="10"  y="650" width="200" height="200" />
+<rect fill="url(#diagonal1)"   x="220" y="650" width="200" height="200" />
+<rect fill="url(#diagonal2)"   x="430" y="650" width="200" height="200" />
+<rect fill="url(#diagonal3)"   x="640" y="650" width="200" height="200" />
+
+</svg>
