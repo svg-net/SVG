@@ -5358,6 +5358,12 @@ references:
   commentId: F:Svg.SvgClipRule.EvenOdd
   fullName: Svg.SvgClipRule.EvenOdd
   nameWithType: SvgClipRule.EvenOdd
+- uid: Svg.SvgClipRule.Inherit
+  name: Inherit
+  href: api/Svg.SvgClipRule.html#Svg_SvgClipRule_Inherit
+  commentId: F:Svg.SvgClipRule.Inherit
+  fullName: Svg.SvgClipRule.Inherit
+  nameWithType: SvgClipRule.Inherit
 - uid: Svg.SvgClipRule.NonZero
   name: NonZero
   href: api/Svg.SvgClipRule.html#Svg_SvgClipRule_NonZero
