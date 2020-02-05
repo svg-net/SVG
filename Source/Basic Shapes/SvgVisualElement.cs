@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -69,7 +69,7 @@ namespace Svg
         [SvgAttribute("clip-rule")]
         public SvgClipRule ClipRule
         {
-            get { return GetAttribute("clip-rule", false, SvgClipRule.NonZero); }
+            get { return GetAttribute("clip-rule", true, SvgClipRule.NonZero); }
             set { Attributes["clip-rule"] = value; }
         }
 
