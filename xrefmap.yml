@@ -9005,6 +9005,12 @@ references:
   commentId: F:Svg.SvgFontStyle.All
   fullName: Svg.SvgFontStyle.All
   nameWithType: SvgFontStyle.All
+- uid: Svg.SvgFontStyle.Inherit
+  name: Inherit
+  href: api/Svg.SvgFontStyle.html#Svg_SvgFontStyle_Inherit
+  commentId: F:Svg.SvgFontStyle.Inherit
+  fullName: Svg.SvgFontStyle.Inherit
+  nameWithType: SvgFontStyle.Inherit
 - uid: Svg.SvgFontStyle.Italic
   name: Italic
   href: api/Svg.SvgFontStyle.html#Svg_SvgFontStyle_Italic
