@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace Svg
 {
@@ -20,6 +20,11 @@ namespace Svg
         /// <summary>
         /// This rule determines the "insideness" of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside; if even, the point is outside.
         /// </summary>
-        EvenOdd
+        EvenOdd,
+
+        /// <summary>
+        /// The value is inherited from the parent element.
+        /// </summary>
+        Inherit,
     }
 }
