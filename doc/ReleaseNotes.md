@@ -23,6 +23,7 @@ The release versions are NuGet releases.
 * fixed 'inherit' does not work at visibility and display (see [PR #656](https://github.com/vvvv/SVG/pull/656))
 * fixed Won't display gradients if they're wider than 698 px (see [#252](https://github.com/vvvv/SVG/issues/252) and [PR #658](https://github.com/vvvv/SVG/pull/658))
 * fixed 'clip-rule' attribute. (see [PR #662](https://github.com/vvvv/SVG/pull/662))
+* fixed SvgFontStyle values (see [PR #661](https://github.com/vvvv/SVG/pull/661))
 
 ## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102)
 
