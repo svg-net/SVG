@@ -225,7 +225,7 @@ namespace Svg
         [SvgAttribute("font-style")]
         public virtual SvgFontStyle FontStyle
         {
-            get { return GetAttribute("font-style", true, SvgFontStyle.All); }
+            get { return GetAttribute("font-style", true, SvgFontStyle.Normal); }
             set { Attributes["font-style"] = value; IsPathDirty = true; }
         }
 

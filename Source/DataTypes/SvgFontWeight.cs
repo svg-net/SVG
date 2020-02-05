@@ -1,24 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 
 namespace Svg
 {
-    //TODO This should be split out to define an enum for the font face element and text element.
     /// <summary>The weight of a face relative to others in the same font family.</summary>
     [TypeConverter(typeof(SvgFontWeightConverter))]
     [Flags]
     public enum SvgFontWeight
     {
-        //TODO All Is not valid for text elements, but is is for font face elements.
-        /// <summary>All font weights.</summary>
-        All = (W100 | W200 | W300 | W400 | W500 | W600 | W700 | W800 | W900),
-
-        //TODO Inherit Is not valid for font face elements, but is is for text elements.
         /// <summary>The value is inherited from the parent element.</summary>
-        Inherit = 0,
+        Inherit,
 
         /// <summary>Same as <see cref="W400"/>.</summary>
         Normal = W400,
@@ -57,6 +48,9 @@ namespace Svg
         W800 = 128,
 
         /// <summary></summary>
-        W900 = 256
+        W900 = 256,
+
+        /// <summary>All font weights.</summary>
+        All = W100 | W200 | W300 | W400 | W500 | W600 | W700 | W800 | W900,
     }
 }

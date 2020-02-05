@@ -140,7 +140,7 @@ namespace Svg
 
     public sealed class SvgFontStyleConverter : EnumBaseConverter<SvgFontStyle>
     {
-        public SvgFontStyleConverter() : base(SvgFontStyle.All) { }
+        public SvgFontStyleConverter() : base(SvgFontStyle.Normal) { }
     }
 
     public sealed class SvgOverflowConverter : EnumBaseConverter<SvgOverflow>

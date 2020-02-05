@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
 namespace Svg
 {
@@ -11,8 +8,8 @@ namespace Svg
     [Flags]
     public enum SvgFontStyle
     {
-        /// <summary>Indicates that the font-face supplies all styles (normal, oblique and italic).</summary>
-        All = (Normal | Oblique | Italic),
+        /// <summary>The value is inherited from the parent element.</summary>
+        Inherit,
 
         /// <summary>Specifies a font that is classified as 'normal' in the UA's font database.</summary>
         Normal = 1,
@@ -21,6 +18,9 @@ namespace Svg
         Oblique = 2,
 
         /// <summary>Specifies a font that is classified as 'italic' in the UA's font database, or, if that is not available, one labeled 'oblique'. Fonts with Italic, Cursive, or Kursiv in their names will typically be labeled 'italic'</summary>
-        Italic = 4
+        Italic = 4,
+
+        /// <summary>Indicates that the font-face supplies all styles (normal, oblique and italic).</summary>
+        All = Normal | Oblique | Italic,
     }
 }
