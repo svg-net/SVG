@@ -55,16 +55,16 @@ namespace Svg
                 return Activator.CreateInstance(typeof(T));
             }
 
-            if (!(value is string))
+            if (value is string stringValue)
             {
-                throw new ArgumentOutOfRangeException("value must be a string.");
+                if (CaseHandlingMode == CaseHandling.KebabCase)
+                    stringValue = stringValue.Replace("-", string.Empty);
+
+                if (Enum.TryParse<T>(stringValue, true, out T result))
+                    return result;
             }
 
-            var stringValue = (string)value;
-            if (CaseHandlingMode == CaseHandling.KebabCase)
-                stringValue = stringValue.Replace("-", string.Empty);
-
-            return (T)Enum.Parse(typeof(T), stringValue, true);
+            return base.ConvertFrom(context, culture, value);
         }
 
         /// <summary>Attempts to convert the value to the destination type.</summary>
@@ -75,24 +75,15 @@ namespace Svg
                 // If the value id the default value, no need to write the attribute.
                 if (DefaultValue.HasValue && Equals(value, DefaultValue.Value))
                     return null;
-                else
-                {
-                    var stringValue = ((T)value).ToString();
-                    if (CaseHandlingMode == CaseHandling.LowerCase)
-                    {
-                        return stringValue.ToLower();
-                    }
-                    else if (CaseHandlingMode == CaseHandling.KebabCase)
-                    {
-                        stringValue = Regex.Replace(stringValue, @"(\w)([A-Z])", "$1-$2", RegexOptions.CultureInvariant);
-                        return stringValue.ToLower();
-                    }
 
-                    // most SVG attributes should be camelCase.
-                    stringValue = string.Format("{0}{1}", stringValue[0].ToString().ToLower(), stringValue.Substring(1));
+                var stringValue = ((T)value).ToString();
+                if (CaseHandlingMode == CaseHandling.CamelCase)
+                    return string.Format("{0}{1}", stringValue[0].ToString().ToLower(), stringValue.Substring(1));
 
-                    return stringValue;
-                }
+                if (CaseHandlingMode == CaseHandling.KebabCase)
+                    stringValue = Regex.Replace(stringValue, @"(\w)([A-Z])", "$1-$2", RegexOptions.CultureInvariant);
+
+                return stringValue.ToLower();
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
