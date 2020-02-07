@@ -168,14 +168,6 @@ namespace Svg
     public sealed class SvgFontVariantConverter : EnumBaseConverter<SvgFontVariant>
     {
         public SvgFontVariantConverter() : base(SvgFontVariant.Normal, CaseHandling.KebabCase) { }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(string) && value is SvgFontVariant && (SvgFontVariant)value == SvgFontVariant.Smallcaps)
-                return "small-caps";
-
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
     }
 
     public sealed class SvgCoordinateUnitsConverter : EnumBaseConverter<SvgCoordinateUnits>
