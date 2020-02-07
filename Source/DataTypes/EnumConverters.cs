@@ -167,22 +167,12 @@ namespace Svg
 
     public sealed class SvgFontVariantConverter : EnumBaseConverter<SvgFontVariant>
     {
-        public SvgFontVariantConverter() : base(SvgFontVariant.Normal) { }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            if (value?.ToString() == "small-caps")
-                return SvgFontVariant.Smallcaps;
-
-            return base.ConvertFrom(context, culture, value);
-        }
+        public SvgFontVariantConverter() : base(SvgFontVariant.Normal, CaseHandling.KebabCase) { }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string) && value is SvgFontVariant && (SvgFontVariant)value == SvgFontVariant.Smallcaps)
-            {
                 return "small-caps";
-            }
 
             return base.ConvertTo(context, culture, value, destinationType);
         }
@@ -201,64 +191,12 @@ namespace Svg
 
     public sealed class SvgTextDecorationConverter : EnumBaseConverter<SvgTextDecoration>
     {
-        public SvgTextDecorationConverter() : base(SvgTextDecoration.None) { }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            if (value?.ToString() == "line-through")
-                return SvgTextDecoration.LineThrough;
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(string) && value is SvgTextDecoration && (SvgTextDecoration)value == SvgTextDecoration.LineThrough)
-            {
-                return "line-through";
-            }
-
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
+        public SvgTextDecorationConverter() : base(SvgTextDecoration.None, CaseHandling.KebabCase) { }
     }
 
     public sealed class SvgFontStretchConverter : EnumBaseConverter<SvgFontStretch>
     {
-        public SvgFontStretchConverter() : base(SvgFontStretch.Normal) { }
-
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            if (value is string)
-            {
-                switch ((string)value)
-                {
-                    case "ultra-condensed": return SvgFontStretch.UltraCondensed;
-                    case "extra-condensed": return SvgFontStretch.ExtraCondensed;
-                    case "semi-condensed": return SvgFontStretch.SemiCondensed;
-                    case "semi-expanded": return SvgFontStretch.SemiExpanded;
-                    case "extra-expanded": return SvgFontStretch.ExtraExpanded;
-                    case "ultra-expanded": return SvgFontStretch.UltraExpanded;
-                }
-            }
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(string) && value is SvgFontStretch)
-            {
-                switch ((SvgFontStretch)value)
-                {
-                    case SvgFontStretch.UltraCondensed: return "ultra-condensed";
-                    case SvgFontStretch.ExtraCondensed: return "extra-condensed";
-                    case SvgFontStretch.SemiCondensed: return "semi-condensed";
-                    case SvgFontStretch.SemiExpanded: return "semi-expanded";
-                    case SvgFontStretch.ExtraExpanded: return "extra-expanded";
-                    case SvgFontStretch.UltraExpanded: return "ultra-expanded";
-                }
-            }
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
+        public SvgFontStretchConverter() : base(SvgFontStretch.Normal, CaseHandling.KebabCase) { }
     }
 
     public sealed class SvgFontWeightConverter : EnumBaseConverter<SvgFontWeight>
