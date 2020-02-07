@@ -398,7 +398,7 @@ namespace Svg
                 // Get the font-weight
                 switch (this.FontWeight)
                 {
-                    //Note: Bold is not listed because it is = W700.
+                    case SvgFontWeight.Bold:
                     case SvgFontWeight.Bolder:
                     case SvgFontWeight.W600:
                     case SvgFontWeight.W700:

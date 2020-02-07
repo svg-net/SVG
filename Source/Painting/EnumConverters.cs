@@ -184,7 +184,7 @@ namespace Svg
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value.ToString() == "small-caps")
+            if (value?.ToString() == "small-caps")
                 return SvgFontVariant.Smallcaps;
 
             return base.ConvertFrom(context, culture, value);
@@ -218,7 +218,7 @@ namespace Svg
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value.ToString() == "line-through")
+            if (value?.ToString() == "line-through")
                 return SvgTextDecoration.LineThrough;
 
             return base.ConvertFrom(context, culture, value);
@@ -248,7 +248,7 @@ namespace Svg
                     case "ultra-condensed": return SvgFontStretch.UltraCondensed;
                     case "extra-condensed": return SvgFontStretch.ExtraCondensed;
                     case "semi-condensed": return SvgFontStretch.SemiCondensed;
-                    case "semi-expanded ": return SvgFontStretch.SemiExpanded;
+                    case "semi-expanded": return SvgFontStretch.SemiExpanded;
                     case "extra-expanded": return SvgFontStretch.ExtraExpanded;
                     case "ultra-expanded": return SvgFontStretch.UltraExpanded;
                 }

@@ -12,45 +12,45 @@ namespace Svg
         Inherit,
 
         /// <summary>Same as <see cref="W400"/>.</summary>
-        Normal = W400,
+        Normal = 1,
 
         /// <summary>Same as <see cref="W700"/>.</summary>
-        Bold = W700,
+        Bold = 2,
 
-        /// <summary>One font weight darker than the parent element.</summary>
-        Bolder = 512,
+        /// <summary>One font weight darker than the parent element.(do not use font-face.)</summary>
+        Bolder = 4,
 
-        /// <summary>One font weight lighter than the parent element.</summary>
-        Lighter = 1024,
-
-        /// <summary></summary>
-        W100 = 1,
+        /// <summary>One font weight lighter than the parent element.(do not use font-face.)</summary>
+        Lighter = 8,
 
         /// <summary></summary>
-        W200 = 2,
+        W100 = 1 << 8,
 
         /// <summary></summary>
-        W300 = 4,
+        W200 = 2 << 8,
+
+        /// <summary></summary>
+        W300 = 4 << 8,
 
         /// <summary>Same as <see cref="Normal"/>.</summary>
-        W400 = 8,
+        W400 = 8 << 8,
 
         /// <summary></summary>
-        W500 = 16,
+        W500 = 16 << 8,
 
         /// <summary></summary>
-        W600 = 32,
+        W600 = 32 << 8,
 
         /// <summary>Same as <see cref="Bold"/>.</summary>
-        W700 = 64,
+        W700 = 64 << 8,
 
         /// <summary></summary>
-        W800 = 128,
+        W800 = 128 << 8,
 
         /// <summary></summary>
-        W900 = 256,
+        W900 = 256 << 8,
 
         /// <summary>All font weights.</summary>
-        All = W100 | W200 | W300 | W400 | W500 | W600 | W700 | W800 | W900,
+        All = Normal | Bold | W100 | W200 | W300 | W400 | W500 | W600 | W700 | W800 | W900,
     }
 }
