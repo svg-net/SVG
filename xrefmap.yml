@@ -44,19 +44,6 @@ references:
   isSpec: "True"
   fullName: Svg.BaseConverter.CanConvertFrom
   nameWithType: BaseConverter.CanConvertFrom
-- uid: Svg.BaseConverter.CanConvertTo(ITypeDescriptorContext,System.Type)
-  name: CanConvertTo(ITypeDescriptorContext, Type)
-  href: api/Svg.BaseConverter.html#Svg_BaseConverter_CanConvertTo_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.BaseConverter.CanConvertTo(ITypeDescriptorContext,System.Type)
-  fullName: Svg.BaseConverter.CanConvertTo(ITypeDescriptorContext, System.Type)
-  nameWithType: BaseConverter.CanConvertTo(ITypeDescriptorContext, Type)
-- uid: Svg.BaseConverter.CanConvertTo*
-  name: CanConvertTo
-  href: api/Svg.BaseConverter.html#Svg_BaseConverter_CanConvertTo_
-  commentId: Overload:Svg.BaseConverter.CanConvertTo
-  isSpec: "True"
-  fullName: Svg.BaseConverter.CanConvertTo
-  nameWithType: BaseConverter.CanConvertTo
 - uid: Svg.ChildAddedEventArgs
   name: ChildAddedEventArgs
   href: api/Svg.ChildAddedEventArgs.html
@@ -382,14 +369,6 @@ references:
   fullName.vb: Svg.EnumBaseConverter(Of T)
   nameWithType: EnumBaseConverter<T>
   nameWithType.vb: EnumBaseConverter(Of T)
-- uid: Svg.EnumBaseConverter`1.#ctor
-  name: EnumBaseConverter()
-  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1__ctor
-  commentId: M:Svg.EnumBaseConverter`1.#ctor
-  fullName: Svg.EnumBaseConverter<T>.EnumBaseConverter()
-  fullName.vb: Svg.EnumBaseConverter(Of T).EnumBaseConverter()
-  nameWithType: EnumBaseConverter<T>.EnumBaseConverter()
-  nameWithType.vb: EnumBaseConverter(Of T).EnumBaseConverter()
 - uid: Svg.EnumBaseConverter`1.#ctor(`0,Svg.EnumBaseConverter{`0}.CaseHandling)
   name: EnumBaseConverter(T, EnumBaseConverter<T>.CaseHandling)
   href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1__ctor__0_Svg_EnumBaseConverter__0__CaseHandling_
@@ -425,6 +404,14 @@ references:
   fullName.vb: Svg.EnumBaseConverter(Of T).CaseHandling.CamelCase
   nameWithType: EnumBaseConverter<T>.CaseHandling.CamelCase
   nameWithType.vb: EnumBaseConverter(Of T).CaseHandling.CamelCase
+- uid: Svg.EnumBaseConverter`1.CaseHandling.KebabCase
+  name: KebabCase
+  href: api/Svg.EnumBaseConverter-1.CaseHandling.html#Svg_EnumBaseConverter_1_CaseHandling_KebabCase
+  commentId: F:Svg.EnumBaseConverter`1.CaseHandling.KebabCase
+  fullName: Svg.EnumBaseConverter<T>.CaseHandling.KebabCase
+  fullName.vb: Svg.EnumBaseConverter(Of T).CaseHandling.KebabCase
+  nameWithType: EnumBaseConverter<T>.CaseHandling.KebabCase
+  nameWithType.vb: EnumBaseConverter(Of T).CaseHandling.KebabCase
 - uid: Svg.EnumBaseConverter`1.CaseHandling.LowerCase
   name: LowerCase
   href: api/Svg.EnumBaseConverter-1.CaseHandling.html#Svg_EnumBaseConverter_1_CaseHandling_LowerCase
@@ -8973,32 +8960,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgFontStretchConverter.SvgFontStretchConverter
   nameWithType: SvgFontStretchConverter.SvgFontStretchConverter
-- uid: Svg.SvgFontStretchConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
-  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
-  href: api/Svg.SvgFontStretchConverter.html#Svg_SvgFontStretchConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
-  commentId: M:Svg.SvgFontStretchConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
-  fullName: Svg.SvgFontStretchConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, System.Object)
-  nameWithType: SvgFontStretchConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
-- uid: Svg.SvgFontStretchConverter.ConvertFrom*
-  name: ConvertFrom
-  href: api/Svg.SvgFontStretchConverter.html#Svg_SvgFontStretchConverter_ConvertFrom_
-  commentId: Overload:Svg.SvgFontStretchConverter.ConvertFrom
-  isSpec: "True"
-  fullName: Svg.SvgFontStretchConverter.ConvertFrom
-  nameWithType: SvgFontStretchConverter.ConvertFrom
-- uid: Svg.SvgFontStretchConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.SvgFontStretchConverter.html#Svg_SvgFontStretchConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.SvgFontStretchConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.SvgFontStretchConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
-  nameWithType: SvgFontStretchConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-- uid: Svg.SvgFontStretchConverter.ConvertTo*
-  name: ConvertTo
-  href: api/Svg.SvgFontStretchConverter.html#Svg_SvgFontStretchConverter_ConvertTo_
-  commentId: Overload:Svg.SvgFontStretchConverter.ConvertTo
-  isSpec: "True"
-  fullName: Svg.SvgFontStretchConverter.ConvertTo
-  nameWithType: SvgFontStretchConverter.ConvertTo
 - uid: Svg.SvgFontStyle
   name: SvgFontStyle
   href: api/Svg.SvgFontStyle.html
@@ -9072,12 +9033,12 @@ references:
   commentId: F:Svg.SvgFontVariant.Normal
   fullName: Svg.SvgFontVariant.Normal
   nameWithType: SvgFontVariant.Normal
-- uid: Svg.SvgFontVariant.Smallcaps
-  name: Smallcaps
-  href: api/Svg.SvgFontVariant.html#Svg_SvgFontVariant_Smallcaps
-  commentId: F:Svg.SvgFontVariant.Smallcaps
-  fullName: Svg.SvgFontVariant.Smallcaps
-  nameWithType: SvgFontVariant.Smallcaps
+- uid: Svg.SvgFontVariant.SmallCaps
+  name: SmallCaps
+  href: api/Svg.SvgFontVariant.html#Svg_SvgFontVariant_SmallCaps
+  commentId: F:Svg.SvgFontVariant.SmallCaps
+  fullName: Svg.SvgFontVariant.SmallCaps
+  nameWithType: SvgFontVariant.SmallCaps
 - uid: Svg.SvgFontVariantConverter
   name: SvgFontVariantConverter
   href: api/Svg.SvgFontVariantConverter.html
@@ -9097,32 +9058,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgFontVariantConverter.SvgFontVariantConverter
   nameWithType: SvgFontVariantConverter.SvgFontVariantConverter
-- uid: Svg.SvgFontVariantConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
-  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
-  href: api/Svg.SvgFontVariantConverter.html#Svg_SvgFontVariantConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
-  commentId: M:Svg.SvgFontVariantConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
-  fullName: Svg.SvgFontVariantConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, System.Object)
-  nameWithType: SvgFontVariantConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
-- uid: Svg.SvgFontVariantConverter.ConvertFrom*
-  name: ConvertFrom
-  href: api/Svg.SvgFontVariantConverter.html#Svg_SvgFontVariantConverter_ConvertFrom_
-  commentId: Overload:Svg.SvgFontVariantConverter.ConvertFrom
-  isSpec: "True"
-  fullName: Svg.SvgFontVariantConverter.ConvertFrom
-  nameWithType: SvgFontVariantConverter.ConvertFrom
-- uid: Svg.SvgFontVariantConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.SvgFontVariantConverter.html#Svg_SvgFontVariantConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.SvgFontVariantConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.SvgFontVariantConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
-  nameWithType: SvgFontVariantConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-- uid: Svg.SvgFontVariantConverter.ConvertTo*
-  name: ConvertTo
-  href: api/Svg.SvgFontVariantConverter.html#Svg_SvgFontVariantConverter_ConvertTo_
-  commentId: Overload:Svg.SvgFontVariantConverter.ConvertTo
-  isSpec: "True"
-  fullName: Svg.SvgFontVariantConverter.ConvertTo
-  nameWithType: SvgFontVariantConverter.ConvertTo
 - uid: Svg.SvgFontWeight
   name: SvgFontWeight
   href: api/Svg.SvgFontWeight.html
@@ -13369,32 +13304,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgTextDecorationConverter.SvgTextDecorationConverter
   nameWithType: SvgTextDecorationConverter.SvgTextDecorationConverter
-- uid: Svg.SvgTextDecorationConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
-  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
-  href: api/Svg.SvgTextDecorationConverter.html#Svg_SvgTextDecorationConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
-  commentId: M:Svg.SvgTextDecorationConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
-  fullName: Svg.SvgTextDecorationConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, System.Object)
-  nameWithType: SvgTextDecorationConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
-- uid: Svg.SvgTextDecorationConverter.ConvertFrom*
-  name: ConvertFrom
-  href: api/Svg.SvgTextDecorationConverter.html#Svg_SvgTextDecorationConverter_ConvertFrom_
-  commentId: Overload:Svg.SvgTextDecorationConverter.ConvertFrom
-  isSpec: "True"
-  fullName: Svg.SvgTextDecorationConverter.ConvertFrom
-  nameWithType: SvgTextDecorationConverter.ConvertFrom
-- uid: Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.SvgTextDecorationConverter.html#Svg_SvgTextDecorationConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
-  nameWithType: SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-- uid: Svg.SvgTextDecorationConverter.ConvertTo*
-  name: ConvertTo
-  href: api/Svg.SvgTextDecorationConverter.html#Svg_SvgTextDecorationConverter_ConvertTo_
-  commentId: Overload:Svg.SvgTextDecorationConverter.ConvertTo
-  isSpec: "True"
-  fullName: Svg.SvgTextDecorationConverter.ConvertTo
-  nameWithType: SvgTextDecorationConverter.ConvertTo
 - uid: Svg.SvgTextLengthAdjust
   name: SvgTextLengthAdjust
   href: api/Svg.SvgTextLengthAdjust.html
