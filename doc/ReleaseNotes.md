@@ -25,6 +25,7 @@ The release versions are NuGet releases.
 * fixed 'clip-rule' attribute. (see [PR #662](https://github.com/vvvv/SVG/pull/662))
 * fixed SvgFontStyle values (see [PR #661](https://github.com/vvvv/SVG/pull/661))
 * fixed EnumConverters (see [PR #663](https://github.com/vvvv/SVG/pull/663))
+* fixed Parameter is not valid (see [#664](https://github.com/vvvv/SVG/issues/664) and [PR #665](https://github.com/vvvv/SVG/pull/665))
 
 ## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102)
 

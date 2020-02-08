@@ -47,7 +47,7 @@ namespace Svg
         {
             var result = base.RenderStroke(renderer);
             var path = this.Path(renderer);
-            var pathLength = path.PathPoints.Length;
+            var pathLength = path.PointCount;
 
             if (this.MarkerStart != null)
             {
