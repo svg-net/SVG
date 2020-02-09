@@ -67,17 +67,6 @@ namespace Svg.FilterEffects
         }
 
         /// <summary>
-        /// Gets or sets the color-interpolation-filters of the resulting filter graphic.
-        /// NOT currently mapped through to bitmap
-        /// </summary>
-        [SvgAttribute("color-interpolation-filters")]
-        public SvgColourInterpolation ColorInterpolationFilters
-        {
-            get { return GetAttribute<SvgColourInterpolation>("color-interpolation-filters", false); }
-            set { Attributes["color-interpolation-filters"] = value; }
-        }
-
-        /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
