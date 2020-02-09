@@ -38,17 +38,12 @@ namespace Svg.UnitTests
             var convertFrom = enumConverter.GetMethod("ConvertFrom", new Type[] { typeof(object) });
             var convertTo = enumConverter.GetMethod("ConvertTo", new Type[] { typeof(object), typeof(Type) });
 
-            var defaultValue = convertFrom.Invoke(converter, new object[] { null });
-
             foreach (var expected in expectedList)
             {
                 var converted = convertFrom.Invoke(converter, new object[] { expected });
                 var result = convertTo.Invoke(converter, new object[] { converted, typeof(string) });
 
-                if (result != null)
-                    Assert.AreEqual(expected, result);
-                else
-                    Assert.AreEqual(defaultValue, converted);
+                Assert.AreEqual(expected, result);
             }
         }
     }
