@@ -17,8 +17,8 @@ namespace Svg
         private SvgUnit _y = SvgUnit.None;
         private SvgUnit _width = SvgUnit.None;
         private SvgUnit _height = SvgUnit.None;
-        private SvgCoordinateUnits _patternUnits = SvgCoordinateUnits.Inherit;
-        private SvgCoordinateUnits _patternContentUnits = SvgCoordinateUnits.Inherit;
+        private SvgCoordinateUnits? _patternUnits;
+        private SvgCoordinateUnits? _patternContentUnits;
         private SvgViewBox _viewBox;
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Svg
         [SvgAttribute("patternUnits")]
         public SvgCoordinateUnits PatternUnits
         {
-            get { return _patternUnits; }
+            get { return _patternUnits ?? SvgCoordinateUnits.ObjectBoundingBox; }
             set { _patternUnits = value; Attributes["patternUnits"] = value; }
         }
 
@@ -77,7 +77,7 @@ namespace Svg
         [SvgAttribute("patternContentUnits")]
         public SvgCoordinateUnits PatternContentUnits
         {
-            get { return _patternContentUnits; }
+            get { return _patternContentUnits ?? SvgCoordinateUnits.UserSpaceOnUse; }
             set { _patternContentUnits = value; Attributes["patternContentUnits"] = value; }
         }
 
@@ -167,8 +167,8 @@ namespace Svg
             var firstHeight = chain.Where(p => p.Height != null && p.Height != SvgUnit.None).FirstOrDefault();
             if (firstWidth == null || firstHeight == null)
                 return null;
-            var firstPatternUnit = chain.Where(p => p.PatternUnits != SvgCoordinateUnits.Inherit).FirstOrDefault();
-            var firstPatternContentUnit = chain.Where(p => p.PatternContentUnits != SvgCoordinateUnits.Inherit).FirstOrDefault();
+            var firstPatternUnit = chain.Where(p => p._patternUnits.HasValue).FirstOrDefault();
+            var firstPatternContentUnit = chain.Where(p => p._patternContentUnits.HasValue).FirstOrDefault();
             var firstViewBox = chain.Where(p => p.ViewBox != null && p.ViewBox != SvgViewBox.Empty).FirstOrDefault();
 
             var xUnit = firstX == null ? new SvgUnit(0f) : firstX.X;
