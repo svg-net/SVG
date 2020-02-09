@@ -1819,19 +1819,6 @@ references:
   isSpec: "True"
   fullName: Svg.FilterEffects.SvgFilter.ApplyFilter
   nameWithType: SvgFilter.ApplyFilter
-- uid: Svg.FilterEffects.SvgFilter.ColorInterpolationFilters
-  name: ColorInterpolationFilters
-  href: api/Svg.FilterEffects.SvgFilter.html#Svg_FilterEffects_SvgFilter_ColorInterpolationFilters
-  commentId: P:Svg.FilterEffects.SvgFilter.ColorInterpolationFilters
-  fullName: Svg.FilterEffects.SvgFilter.ColorInterpolationFilters
-  nameWithType: SvgFilter.ColorInterpolationFilters
-- uid: Svg.FilterEffects.SvgFilter.ColorInterpolationFilters*
-  name: ColorInterpolationFilters
-  href: api/Svg.FilterEffects.SvgFilter.html#Svg_FilterEffects_SvgFilter_ColorInterpolationFilters_
-  commentId: Overload:Svg.FilterEffects.SvgFilter.ColorInterpolationFilters
-  isSpec: "True"
-  fullName: Svg.FilterEffects.SvgFilter.ColorInterpolationFilters
-  nameWithType: SvgFilter.ColorInterpolationFilters
 - uid: Svg.FilterEffects.SvgFilter.DeepCopy
   name: DeepCopy()
   href: api/Svg.FilterEffects.SvgFilter.html#Svg_FilterEffects_SvgFilter_DeepCopy
@@ -6487,6 +6474,32 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.Color
   nameWithType: SvgElement.Color
+- uid: Svg.SvgElement.ColorInterpolation
+  name: ColorInterpolation
+  href: api/Svg.SvgElement.html#Svg_SvgElement_ColorInterpolation
+  commentId: P:Svg.SvgElement.ColorInterpolation
+  fullName: Svg.SvgElement.ColorInterpolation
+  nameWithType: SvgElement.ColorInterpolation
+- uid: Svg.SvgElement.ColorInterpolation*
+  name: ColorInterpolation
+  href: api/Svg.SvgElement.html#Svg_SvgElement_ColorInterpolation_
+  commentId: Overload:Svg.SvgElement.ColorInterpolation
+  isSpec: "True"
+  fullName: Svg.SvgElement.ColorInterpolation
+  nameWithType: SvgElement.ColorInterpolation
+- uid: Svg.SvgElement.ColorInterpolationFilters
+  name: ColorInterpolationFilters
+  href: api/Svg.SvgElement.html#Svg_SvgElement_ColorInterpolationFilters
+  commentId: P:Svg.SvgElement.ColorInterpolationFilters
+  fullName: Svg.SvgElement.ColorInterpolationFilters
+  nameWithType: SvgElement.ColorInterpolationFilters
+- uid: Svg.SvgElement.ColorInterpolationFilters*
+  name: ColorInterpolationFilters
+  href: api/Svg.SvgElement.html#Svg_SvgElement_ColorInterpolationFilters_
+  commentId: Overload:Svg.SvgElement.ColorInterpolationFilters
+  isSpec: "True"
+  fullName: Svg.SvgElement.ColorInterpolationFilters
+  nameWithType: SvgElement.ColorInterpolationFilters
 - uid: Svg.SvgElement.ContainsAttribute(System.String)
   name: ContainsAttribute(String)
   href: api/Svg.SvgElement.html#Svg_SvgElement_ContainsAttribute_System_String_
