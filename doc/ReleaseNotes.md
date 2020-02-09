@@ -10,6 +10,8 @@ The release versions are NuGet releases.
 * added SvgNumberCollection data type similar to SvgPointCollection (see [PR #641](https://github.com/vvvv/SVG/pull/641))
 * added MaskUnits, MaskContentUnits, X, Y, Width and Height properties to SvgMask (see [PR #654](https://github.com/vvvv/SVG/pull/654))
 * added FontStretch property to SvgElement (see [PR #654](https://github.com/vvvv/SVG/pull/654))
+* moved ColorInterpolationFilters property to SvgElement because its a presentation attribute (see [PR #667](https://github.com/vvvv/SVG/pull/667))
+* added ColorInterpolation property to SvgElement (see [PR #667](https://github.com/vvvv/SVG/pull/667))
 
 ### Fixes
 * fixed CoordinateParser handling of invalid state (see [PR #640](https://github.com/vvvv/SVG/pull/640))

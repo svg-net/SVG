@@ -159,6 +159,27 @@ namespace Svg
         }
 
         /// <summary>
+        /// Gets or sets the color space for gradient interpolations, color animations and alpha compositing.
+        /// </summary>
+        [SvgAttribute("color-interpolation")]
+        public SvgColourInterpolation ColorInterpolation
+        {
+            get { return GetAttribute("color-interpolation", true, SvgColourInterpolation.SRGB); }
+            set { Attributes["color-interpolation"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the color space for imaging operations performed via filter effects.
+        /// NOT currently mapped through to bitmap
+        /// </summary>
+        [SvgAttribute("color-interpolation-filters")]
+        public SvgColourInterpolation ColorInterpolationFilters
+        {
+            get { return GetAttribute("color-interpolation-filters", true, SvgColourInterpolation.LinearRGB); }
+            set { Attributes["color-interpolation-filters"] = value; }
+        }
+
+        /// <summary>
         /// Gets or sets a value to determine whether the element will be rendered.
         /// </summary>
         [SvgAttribute("visibility")]
