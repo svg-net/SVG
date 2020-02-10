@@ -369,15 +369,15 @@ references:
   fullName.vb: Svg.EnumBaseConverter(Of T)
   nameWithType: EnumBaseConverter<T>
   nameWithType.vb: EnumBaseConverter(Of T)
-- uid: Svg.EnumBaseConverter`1.#ctor(`0,Svg.EnumBaseConverter{`0}.CaseHandling)
-  name: EnumBaseConverter(T, EnumBaseConverter<T>.CaseHandling)
-  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1__ctor__0_Svg_EnumBaseConverter__0__CaseHandling_
-  commentId: M:Svg.EnumBaseConverter`1.#ctor(`0,Svg.EnumBaseConverter{`0}.CaseHandling)
-  name.vb: EnumBaseConverter(T, EnumBaseConverter(Of T).CaseHandling)
-  fullName: Svg.EnumBaseConverter<T>.EnumBaseConverter(T, Svg.EnumBaseConverter<T>.CaseHandling)
-  fullName.vb: Svg.EnumBaseConverter(Of T).EnumBaseConverter(T, Svg.EnumBaseConverter(Of T).CaseHandling)
-  nameWithType: EnumBaseConverter<T>.EnumBaseConverter(T, EnumBaseConverter<T>.CaseHandling)
-  nameWithType.vb: EnumBaseConverter(Of T).EnumBaseConverter(T, EnumBaseConverter(Of T).CaseHandling)
+- uid: Svg.EnumBaseConverter`1.#ctor(Svg.EnumBaseConverter{`0}.CaseHandling)
+  name: EnumBaseConverter(EnumBaseConverter<T>.CaseHandling)
+  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1__ctor_Svg_EnumBaseConverter__0__CaseHandling_
+  commentId: M:Svg.EnumBaseConverter`1.#ctor(Svg.EnumBaseConverter{`0}.CaseHandling)
+  name.vb: EnumBaseConverter(EnumBaseConverter(Of T).CaseHandling)
+  fullName: Svg.EnumBaseConverter<T>.EnumBaseConverter(Svg.EnumBaseConverter<T>.CaseHandling)
+  fullName.vb: Svg.EnumBaseConverter(Of T).EnumBaseConverter(Svg.EnumBaseConverter(Of T).CaseHandling)
+  nameWithType: EnumBaseConverter<T>.EnumBaseConverter(EnumBaseConverter<T>.CaseHandling)
+  nameWithType.vb: EnumBaseConverter(Of T).EnumBaseConverter(EnumBaseConverter(Of T).CaseHandling)
 - uid: Svg.EnumBaseConverter`1.#ctor*
   name: EnumBaseConverter
   href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1__ctor_
@@ -471,23 +471,6 @@ references:
   fullName.vb: Svg.EnumBaseConverter(Of T).ConvertTo
   nameWithType: EnumBaseConverter<T>.ConvertTo
   nameWithType.vb: EnumBaseConverter(Of T).ConvertTo
-- uid: Svg.EnumBaseConverter`1.DefaultValue
-  name: DefaultValue
-  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1_DefaultValue
-  commentId: P:Svg.EnumBaseConverter`1.DefaultValue
-  fullName: Svg.EnumBaseConverter<T>.DefaultValue
-  fullName.vb: Svg.EnumBaseConverter(Of T).DefaultValue
-  nameWithType: EnumBaseConverter<T>.DefaultValue
-  nameWithType.vb: EnumBaseConverter(Of T).DefaultValue
-- uid: Svg.EnumBaseConverter`1.DefaultValue*
-  name: DefaultValue
-  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1_DefaultValue_
-  commentId: Overload:Svg.EnumBaseConverter`1.DefaultValue
-  isSpec: "True"
-  fullName: Svg.EnumBaseConverter<T>.DefaultValue
-  fullName.vb: Svg.EnumBaseConverter(Of T).DefaultValue
-  nameWithType: EnumBaseConverter<T>.DefaultValue
-  nameWithType.vb: EnumBaseConverter(Of T).DefaultValue
 - uid: Svg.Enums
   name: Enums
   href: api/Svg.Enums.html
@@ -5427,19 +5410,6 @@ references:
   commentId: T:Svg.SvgColourInterpolationConverter
   fullName: Svg.SvgColourInterpolationConverter
   nameWithType: SvgColourInterpolationConverter
-- uid: Svg.SvgColourInterpolationConverter.#ctor
-  name: SvgColourInterpolationConverter()
-  href: api/Svg.SvgColourInterpolationConverter.html#Svg_SvgColourInterpolationConverter__ctor
-  commentId: M:Svg.SvgColourInterpolationConverter.#ctor
-  fullName: Svg.SvgColourInterpolationConverter.SvgColourInterpolationConverter()
-  nameWithType: SvgColourInterpolationConverter.SvgColourInterpolationConverter()
-- uid: Svg.SvgColourInterpolationConverter.#ctor*
-  name: SvgColourInterpolationConverter
-  href: api/Svg.SvgColourInterpolationConverter.html#Svg_SvgColourInterpolationConverter__ctor_
-  commentId: Overload:Svg.SvgColourInterpolationConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgColourInterpolationConverter.SvgColourInterpolationConverter
-  nameWithType: SvgColourInterpolationConverter.SvgColourInterpolationConverter
 - uid: Svg.SvgColourServer
   name: SvgColourServer
   href: api/Svg.SvgColourServer.html
@@ -5590,12 +5560,6 @@ references:
   commentId: T:Svg.SvgCoordinateUnits
   fullName: Svg.SvgCoordinateUnits
   nameWithType: SvgCoordinateUnits
-- uid: Svg.SvgCoordinateUnits.Inherit
-  name: Inherit
-  href: api/Svg.SvgCoordinateUnits.html#Svg_SvgCoordinateUnits_Inherit
-  commentId: F:Svg.SvgCoordinateUnits.Inherit
-  fullName: Svg.SvgCoordinateUnits.Inherit
-  nameWithType: SvgCoordinateUnits.Inherit
 - uid: Svg.SvgCoordinateUnits.ObjectBoundingBox
   name: ObjectBoundingBox
   href: api/Svg.SvgCoordinateUnits.html#Svg_SvgCoordinateUnits_ObjectBoundingBox
@@ -5614,19 +5578,6 @@ references:
   commentId: T:Svg.SvgCoordinateUnitsConverter
   fullName: Svg.SvgCoordinateUnitsConverter
   nameWithType: SvgCoordinateUnitsConverter
-- uid: Svg.SvgCoordinateUnitsConverter.#ctor
-  name: SvgCoordinateUnitsConverter()
-  href: api/Svg.SvgCoordinateUnitsConverter.html#Svg_SvgCoordinateUnitsConverter__ctor
-  commentId: M:Svg.SvgCoordinateUnitsConverter.#ctor
-  fullName: Svg.SvgCoordinateUnitsConverter.SvgCoordinateUnitsConverter()
-  nameWithType: SvgCoordinateUnitsConverter.SvgCoordinateUnitsConverter()
-- uid: Svg.SvgCoordinateUnitsConverter.#ctor*
-  name: SvgCoordinateUnitsConverter
-  href: api/Svg.SvgCoordinateUnitsConverter.html#Svg_SvgCoordinateUnitsConverter__ctor_
-  commentId: Overload:Svg.SvgCoordinateUnitsConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgCoordinateUnitsConverter.SvgCoordinateUnitsConverter
-  nameWithType: SvgCoordinateUnitsConverter.SvgCoordinateUnitsConverter
 - uid: Svg.SvgCustomAttributeCollection
   name: SvgCustomAttributeCollection
   href: api/Svg.SvgCustomAttributeCollection.html
@@ -9015,19 +8966,6 @@ references:
   commentId: T:Svg.SvgFontStyleConverter
   fullName: Svg.SvgFontStyleConverter
   nameWithType: SvgFontStyleConverter
-- uid: Svg.SvgFontStyleConverter.#ctor
-  name: SvgFontStyleConverter()
-  href: api/Svg.SvgFontStyleConverter.html#Svg_SvgFontStyleConverter__ctor
-  commentId: M:Svg.SvgFontStyleConverter.#ctor
-  fullName: Svg.SvgFontStyleConverter.SvgFontStyleConverter()
-  nameWithType: SvgFontStyleConverter.SvgFontStyleConverter()
-- uid: Svg.SvgFontStyleConverter.#ctor*
-  name: SvgFontStyleConverter
-  href: api/Svg.SvgFontStyleConverter.html#Svg_SvgFontStyleConverter__ctor_
-  commentId: Overload:Svg.SvgFontStyleConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgFontStyleConverter.SvgFontStyleConverter
-  nameWithType: SvgFontStyleConverter.SvgFontStyleConverter
 - uid: Svg.SvgFontVariant
   name: SvgFontVariant
   href: api/Svg.SvgFontVariant.html
@@ -9173,19 +9111,6 @@ references:
   commentId: T:Svg.SvgFontWeightConverter
   fullName: Svg.SvgFontWeightConverter
   nameWithType: SvgFontWeightConverter
-- uid: Svg.SvgFontWeightConverter.#ctor
-  name: SvgFontWeightConverter()
-  href: api/Svg.SvgFontWeightConverter.html#Svg_SvgFontWeightConverter__ctor
-  commentId: M:Svg.SvgFontWeightConverter.#ctor
-  fullName: Svg.SvgFontWeightConverter.SvgFontWeightConverter()
-  nameWithType: SvgFontWeightConverter.SvgFontWeightConverter()
-- uid: Svg.SvgFontWeightConverter.#ctor*
-  name: SvgFontWeightConverter
-  href: api/Svg.SvgFontWeightConverter.html#Svg_SvgFontWeightConverter__ctor_
-  commentId: Overload:Svg.SvgFontWeightConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgFontWeightConverter.SvgFontWeightConverter
-  nameWithType: SvgFontWeightConverter.SvgFontWeightConverter
 - uid: Svg.SvgFontWeightConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
   name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
   href: api/Svg.SvgFontWeightConverter.html#Svg_SvgFontWeightConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
@@ -9945,19 +9870,6 @@ references:
   commentId: T:Svg.SvgGradientSpreadMethodConverter
   fullName: Svg.SvgGradientSpreadMethodConverter
   nameWithType: SvgGradientSpreadMethodConverter
-- uid: Svg.SvgGradientSpreadMethodConverter.#ctor
-  name: SvgGradientSpreadMethodConverter()
-  href: api/Svg.SvgGradientSpreadMethodConverter.html#Svg_SvgGradientSpreadMethodConverter__ctor
-  commentId: M:Svg.SvgGradientSpreadMethodConverter.#ctor
-  fullName: Svg.SvgGradientSpreadMethodConverter.SvgGradientSpreadMethodConverter()
-  nameWithType: SvgGradientSpreadMethodConverter.SvgGradientSpreadMethodConverter()
-- uid: Svg.SvgGradientSpreadMethodConverter.#ctor*
-  name: SvgGradientSpreadMethodConverter
-  href: api/Svg.SvgGradientSpreadMethodConverter.html#Svg_SvgGradientSpreadMethodConverter__ctor_
-  commentId: Overload:Svg.SvgGradientSpreadMethodConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgGradientSpreadMethodConverter.SvgGradientSpreadMethodConverter
-  nameWithType: SvgGradientSpreadMethodConverter.SvgGradientSpreadMethodConverter
 - uid: Svg.SvgGradientStop
   name: SvgGradientStop
   href: api/Svg.SvgGradientStop.html
@@ -10408,19 +10320,6 @@ references:
   commentId: T:Svg.SvgImageRenderingConverter
   fullName: Svg.SvgImageRenderingConverter
   nameWithType: SvgImageRenderingConverter
-- uid: Svg.SvgImageRenderingConverter.#ctor
-  name: SvgImageRenderingConverter()
-  href: api/Svg.SvgImageRenderingConverter.html#Svg_SvgImageRenderingConverter__ctor
-  commentId: M:Svg.SvgImageRenderingConverter.#ctor
-  fullName: Svg.SvgImageRenderingConverter.SvgImageRenderingConverter()
-  nameWithType: SvgImageRenderingConverter.SvgImageRenderingConverter()
-- uid: Svg.SvgImageRenderingConverter.#ctor*
-  name: SvgImageRenderingConverter
-  href: api/Svg.SvgImageRenderingConverter.html#Svg_SvgImageRenderingConverter__ctor_
-  commentId: Overload:Svg.SvgImageRenderingConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgImageRenderingConverter.SvgImageRenderingConverter
-  nameWithType: SvgImageRenderingConverter.SvgImageRenderingConverter
 - uid: Svg.SvgKern
   name: SvgKern
   href: api/Svg.SvgKern.html
@@ -10971,19 +10870,6 @@ references:
   commentId: T:Svg.SvgMarkerUnitsConverter
   fullName: Svg.SvgMarkerUnitsConverter
   nameWithType: SvgMarkerUnitsConverter
-- uid: Svg.SvgMarkerUnitsConverter.#ctor
-  name: SvgMarkerUnitsConverter()
-  href: api/Svg.SvgMarkerUnitsConverter.html#Svg_SvgMarkerUnitsConverter__ctor
-  commentId: M:Svg.SvgMarkerUnitsConverter.#ctor
-  fullName: Svg.SvgMarkerUnitsConverter.SvgMarkerUnitsConverter()
-  nameWithType: SvgMarkerUnitsConverter.SvgMarkerUnitsConverter()
-- uid: Svg.SvgMarkerUnitsConverter.#ctor*
-  name: SvgMarkerUnitsConverter
-  href: api/Svg.SvgMarkerUnitsConverter.html#Svg_SvgMarkerUnitsConverter__ctor_
-  commentId: Overload:Svg.SvgMarkerUnitsConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgMarkerUnitsConverter.SvgMarkerUnitsConverter
-  nameWithType: SvgMarkerUnitsConverter.SvgMarkerUnitsConverter
 - uid: Svg.SvgMask
   name: SvgMask
   href: api/Svg.SvgMask.html
@@ -11321,19 +11207,6 @@ references:
   commentId: T:Svg.SvgOverflowConverter
   fullName: Svg.SvgOverflowConverter
   nameWithType: SvgOverflowConverter
-- uid: Svg.SvgOverflowConverter.#ctor
-  name: SvgOverflowConverter()
-  href: api/Svg.SvgOverflowConverter.html#Svg_SvgOverflowConverter__ctor
-  commentId: M:Svg.SvgOverflowConverter.#ctor
-  fullName: Svg.SvgOverflowConverter.SvgOverflowConverter()
-  nameWithType: SvgOverflowConverter.SvgOverflowConverter()
-- uid: Svg.SvgOverflowConverter.#ctor*
-  name: SvgOverflowConverter
-  href: api/Svg.SvgOverflowConverter.html#Svg_SvgOverflowConverter__ctor_
-  commentId: Overload:Svg.SvgOverflowConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgOverflowConverter.SvgOverflowConverter
-  nameWithType: SvgOverflowConverter.SvgOverflowConverter
 - uid: Svg.SvgPaintServer
   name: SvgPaintServer
   href: api/Svg.SvgPaintServer.html
@@ -12673,19 +12546,6 @@ references:
   commentId: T:Svg.SvgShapeRenderingConverter
   fullName: Svg.SvgShapeRenderingConverter
   nameWithType: SvgShapeRenderingConverter
-- uid: Svg.SvgShapeRenderingConverter.#ctor
-  name: SvgShapeRenderingConverter()
-  href: api/Svg.SvgShapeRenderingConverter.html#Svg_SvgShapeRenderingConverter__ctor
-  commentId: M:Svg.SvgShapeRenderingConverter.#ctor
-  fullName: Svg.SvgShapeRenderingConverter.SvgShapeRenderingConverter()
-  nameWithType: SvgShapeRenderingConverter.SvgShapeRenderingConverter()
-- uid: Svg.SvgShapeRenderingConverter.#ctor*
-  name: SvgShapeRenderingConverter
-  href: api/Svg.SvgShapeRenderingConverter.html#Svg_SvgShapeRenderingConverter__ctor_
-  commentId: Overload:Svg.SvgShapeRenderingConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgShapeRenderingConverter.SvgShapeRenderingConverter
-  nameWithType: SvgShapeRenderingConverter.SvgShapeRenderingConverter
 - uid: Svg.SvgStrokeLineCap
   name: SvgStrokeLineCap
   href: api/Svg.SvgStrokeLineCap.html
@@ -12722,19 +12582,6 @@ references:
   commentId: T:Svg.SvgStrokeLineCapConverter
   fullName: Svg.SvgStrokeLineCapConverter
   nameWithType: SvgStrokeLineCapConverter
-- uid: Svg.SvgStrokeLineCapConverter.#ctor
-  name: SvgStrokeLineCapConverter()
-  href: api/Svg.SvgStrokeLineCapConverter.html#Svg_SvgStrokeLineCapConverter__ctor
-  commentId: M:Svg.SvgStrokeLineCapConverter.#ctor
-  fullName: Svg.SvgStrokeLineCapConverter.SvgStrokeLineCapConverter()
-  nameWithType: SvgStrokeLineCapConverter.SvgStrokeLineCapConverter()
-- uid: Svg.SvgStrokeLineCapConverter.#ctor*
-  name: SvgStrokeLineCapConverter
-  href: api/Svg.SvgStrokeLineCapConverter.html#Svg_SvgStrokeLineCapConverter__ctor_
-  commentId: Overload:Svg.SvgStrokeLineCapConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgStrokeLineCapConverter.SvgStrokeLineCapConverter
-  nameWithType: SvgStrokeLineCapConverter.SvgStrokeLineCapConverter
 - uid: Svg.SvgStrokeLineJoin
   name: SvgStrokeLineJoin
   href: api/Svg.SvgStrokeLineJoin.html
@@ -12771,19 +12618,6 @@ references:
   commentId: T:Svg.SvgStrokeLineJoinConverter
   fullName: Svg.SvgStrokeLineJoinConverter
   nameWithType: SvgStrokeLineJoinConverter
-- uid: Svg.SvgStrokeLineJoinConverter.#ctor
-  name: SvgStrokeLineJoinConverter()
-  href: api/Svg.SvgStrokeLineJoinConverter.html#Svg_SvgStrokeLineJoinConverter__ctor
-  commentId: M:Svg.SvgStrokeLineJoinConverter.#ctor
-  fullName: Svg.SvgStrokeLineJoinConverter.SvgStrokeLineJoinConverter()
-  nameWithType: SvgStrokeLineJoinConverter.SvgStrokeLineJoinConverter()
-- uid: Svg.SvgStrokeLineJoinConverter.#ctor*
-  name: SvgStrokeLineJoinConverter
-  href: api/Svg.SvgStrokeLineJoinConverter.html#Svg_SvgStrokeLineJoinConverter__ctor_
-  commentId: Overload:Svg.SvgStrokeLineJoinConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgStrokeLineJoinConverter.SvgStrokeLineJoinConverter
-  nameWithType: SvgStrokeLineJoinConverter.SvgStrokeLineJoinConverter
 - uid: Svg.SvgSwitch
   name: SvgSwitch
   href: api/Svg.SvgSwitch.html
@@ -12916,19 +12750,6 @@ references:
   commentId: T:Svg.SvgTextAnchorConverter
   fullName: Svg.SvgTextAnchorConverter
   nameWithType: SvgTextAnchorConverter
-- uid: Svg.SvgTextAnchorConverter.#ctor
-  name: SvgTextAnchorConverter()
-  href: api/Svg.SvgTextAnchorConverter.html#Svg_SvgTextAnchorConverter__ctor
-  commentId: M:Svg.SvgTextAnchorConverter.#ctor
-  fullName: Svg.SvgTextAnchorConverter.SvgTextAnchorConverter()
-  nameWithType: SvgTextAnchorConverter.SvgTextAnchorConverter()
-- uid: Svg.SvgTextAnchorConverter.#ctor*
-  name: SvgTextAnchorConverter
-  href: api/Svg.SvgTextAnchorConverter.html#Svg_SvgTextAnchorConverter__ctor_
-  commentId: Overload:Svg.SvgTextAnchorConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgTextAnchorConverter.SvgTextAnchorConverter
-  nameWithType: SvgTextAnchorConverter.SvgTextAnchorConverter
 - uid: Svg.SvgTextBase
   name: SvgTextBase
   href: api/Svg.SvgTextBase.html
@@ -13341,19 +13162,6 @@ references:
   commentId: T:Svg.SvgTextLengthAdjustConverter
   fullName: Svg.SvgTextLengthAdjustConverter
   nameWithType: SvgTextLengthAdjustConverter
-- uid: Svg.SvgTextLengthAdjustConverter.#ctor
-  name: SvgTextLengthAdjustConverter()
-  href: api/Svg.SvgTextLengthAdjustConverter.html#Svg_SvgTextLengthAdjustConverter__ctor
-  commentId: M:Svg.SvgTextLengthAdjustConverter.#ctor
-  fullName: Svg.SvgTextLengthAdjustConverter.SvgTextLengthAdjustConverter()
-  nameWithType: SvgTextLengthAdjustConverter.SvgTextLengthAdjustConverter()
-- uid: Svg.SvgTextLengthAdjustConverter.#ctor*
-  name: SvgTextLengthAdjustConverter
-  href: api/Svg.SvgTextLengthAdjustConverter.html#Svg_SvgTextLengthAdjustConverter__ctor_
-  commentId: Overload:Svg.SvgTextLengthAdjustConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgTextLengthAdjustConverter.SvgTextLengthAdjustConverter
-  nameWithType: SvgTextLengthAdjustConverter.SvgTextLengthAdjustConverter
 - uid: Svg.SvgTextPath
   name: SvgTextPath
   href: api/Svg.SvgTextPath.html
@@ -13488,19 +13296,6 @@ references:
   commentId: T:Svg.SvgTextPathMethodConverter
   fullName: Svg.SvgTextPathMethodConverter
   nameWithType: SvgTextPathMethodConverter
-- uid: Svg.SvgTextPathMethodConverter.#ctor
-  name: SvgTextPathMethodConverter()
-  href: api/Svg.SvgTextPathMethodConverter.html#Svg_SvgTextPathMethodConverter__ctor
-  commentId: M:Svg.SvgTextPathMethodConverter.#ctor
-  fullName: Svg.SvgTextPathMethodConverter.SvgTextPathMethodConverter()
-  nameWithType: SvgTextPathMethodConverter.SvgTextPathMethodConverter()
-- uid: Svg.SvgTextPathMethodConverter.#ctor*
-  name: SvgTextPathMethodConverter
-  href: api/Svg.SvgTextPathMethodConverter.html#Svg_SvgTextPathMethodConverter__ctor_
-  commentId: Overload:Svg.SvgTextPathMethodConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgTextPathMethodConverter.SvgTextPathMethodConverter
-  nameWithType: SvgTextPathMethodConverter.SvgTextPathMethodConverter
 - uid: Svg.SvgTextPathSpacing
   name: SvgTextPathSpacing
   href: api/Svg.SvgTextPathSpacing.html
@@ -13525,19 +13320,6 @@ references:
   commentId: T:Svg.SvgTextPathSpacingConverter
   fullName: Svg.SvgTextPathSpacingConverter
   nameWithType: SvgTextPathSpacingConverter
-- uid: Svg.SvgTextPathSpacingConverter.#ctor
-  name: SvgTextPathSpacingConverter()
-  href: api/Svg.SvgTextPathSpacingConverter.html#Svg_SvgTextPathSpacingConverter__ctor
-  commentId: M:Svg.SvgTextPathSpacingConverter.#ctor
-  fullName: Svg.SvgTextPathSpacingConverter.SvgTextPathSpacingConverter()
-  nameWithType: SvgTextPathSpacingConverter.SvgTextPathSpacingConverter()
-- uid: Svg.SvgTextPathSpacingConverter.#ctor*
-  name: SvgTextPathSpacingConverter
-  href: api/Svg.SvgTextPathSpacingConverter.html#Svg_SvgTextPathSpacingConverter__ctor_
-  commentId: Overload:Svg.SvgTextPathSpacingConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgTextPathSpacingConverter.SvgTextPathSpacingConverter
-  nameWithType: SvgTextPathSpacingConverter.SvgTextPathSpacingConverter
 - uid: Svg.SvgTextRef
   name: SvgTextRef
   href: api/Svg.SvgTextRef.html
@@ -13612,19 +13394,6 @@ references:
   commentId: T:Svg.SvgTextRenderingConverter
   fullName: Svg.SvgTextRenderingConverter
   nameWithType: SvgTextRenderingConverter
-- uid: Svg.SvgTextRenderingConverter.#ctor
-  name: SvgTextRenderingConverter()
-  href: api/Svg.SvgTextRenderingConverter.html#Svg_SvgTextRenderingConverter__ctor
-  commentId: M:Svg.SvgTextRenderingConverter.#ctor
-  fullName: Svg.SvgTextRenderingConverter.SvgTextRenderingConverter()
-  nameWithType: SvgTextRenderingConverter.SvgTextRenderingConverter()
-- uid: Svg.SvgTextRenderingConverter.#ctor*
-  name: SvgTextRenderingConverter
-  href: api/Svg.SvgTextRenderingConverter.html#Svg_SvgTextRenderingConverter__ctor_
-  commentId: Overload:Svg.SvgTextRenderingConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgTextRenderingConverter.SvgTextRenderingConverter
-  nameWithType: SvgTextRenderingConverter.SvgTextRenderingConverter
 - uid: Svg.SvgTextSpan
   name: SvgTextSpan
   href: api/Svg.SvgTextSpan.html
@@ -13686,19 +13455,6 @@ references:
   commentId: T:Svg.SvgTextTransformationConverter
   fullName: Svg.SvgTextTransformationConverter
   nameWithType: SvgTextTransformationConverter
-- uid: Svg.SvgTextTransformationConverter.#ctor
-  name: SvgTextTransformationConverter()
-  href: api/Svg.SvgTextTransformationConverter.html#Svg_SvgTextTransformationConverter__ctor
-  commentId: M:Svg.SvgTextTransformationConverter.#ctor
-  fullName: Svg.SvgTextTransformationConverter.SvgTextTransformationConverter()
-  nameWithType: SvgTextTransformationConverter.SvgTextTransformationConverter()
-- uid: Svg.SvgTextTransformationConverter.#ctor*
-  name: SvgTextTransformationConverter
-  href: api/Svg.SvgTextTransformationConverter.html#Svg_SvgTextTransformationConverter__ctor_
-  commentId: Overload:Svg.SvgTextTransformationConverter.#ctor
-  isSpec: "True"
-  fullName: Svg.SvgTextTransformationConverter.SvgTextTransformationConverter
-  nameWithType: SvgTextTransformationConverter.SvgTextTransformationConverter
 - uid: Svg.SvgTitle
   name: SvgTitle
   href: api/Svg.SvgTitle.html
