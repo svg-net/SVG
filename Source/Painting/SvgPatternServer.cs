@@ -141,6 +141,24 @@ namespace Svg
         }
 
         /// <summary>
+        /// Check if <see cref="PatternUnits"/> property value was set.
+        /// </summary>
+        /// <returns>True if <see cref="PatternUnits"/> has value.</returns>
+        public bool HasPatternUnits()
+        {
+            return _patternUnits.HasValue;
+        }
+
+        /// <summary>
+        /// Check if <see cref="PatternContentUnits"/> property value was set.
+        /// </summary>
+        /// <returns>True if <see cref="PatternContentUnits"/> has value.</returns>
+        public bool HasPatternContentUnits()
+        {
+            return _patternContentUnits.HasValue;
+        }
+
+        /// <summary>
         /// Gets a <see cref="Brush"/> representing the current paint server.
         /// </summary>
         /// <param name="renderingElement">The owner <see cref="SvgVisualElement"/>.</param>
