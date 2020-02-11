@@ -19,7 +19,7 @@ namespace Svg
     }
 
     // converts enums to lower case strings
-    public abstract class EnumBaseConverter<T> : BaseConverter
+    public class EnumBaseConverter<T> : BaseConverter
         where T : struct
     {
         public enum CaseHandling
@@ -33,8 +33,13 @@ namespace Svg
         public CaseHandling CaseHandlingMode { get; }
 
         /// <summary>Creates a new instance.</summary>
+        public EnumBaseConverter() : this(CaseHandling.CamelCase)
+        {
+        }
+
+        /// <summary>Creates a new instance.</summary>
         /// <param name="caseHandling">Defines if the value shall be converted to camelCase, lowercase or kebab-case.</param>
-        public EnumBaseConverter(CaseHandling caseHandling = CaseHandling.CamelCase)
+        public EnumBaseConverter(CaseHandling caseHandling)
         {
             CaseHandlingMode = caseHandling;
         }
