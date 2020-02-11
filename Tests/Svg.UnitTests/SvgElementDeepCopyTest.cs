@@ -162,10 +162,9 @@ namespace Svg.UnitTests
         /// <param name="svgDocument">The SVG document to check.</param>
         private static void CheckDocument(SvgDocument svgDocument)
         {
-            //TODO: check if the assignablefrom indeed is the correct replacement
             Assert.AreEqual(2, svgDocument.Children.Count);
-            Assert.IsAssignableFrom(typeof(SvgDefinitionList), svgDocument.Children[0]);
-            Assert.IsAssignableFrom(typeof(SvgText), svgDocument.Children[1]);
+            Assert.IsInstanceOf<SvgDefinitionList>(svgDocument.Children[0]);
+            Assert.IsInstanceOf<SvgText>(svgDocument.Children[1]);
 
             var textElement = (SvgText)svgDocument.Children[1];
             Assert.AreEqual("IP", textElement.Content);
