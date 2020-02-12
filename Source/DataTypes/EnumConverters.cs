@@ -199,7 +199,7 @@ namespace Svg
 
     public sealed class SvgChannelSelectorConverter : EnumBaseConverter<SvgChannelSelector>
     {
-        public SvgChannelSelectorConverter() : base(CaseHandling.LowerCase) { }
+        public SvgChannelSelectorConverter() : base(CaseHandling.NoneCase) { }
     }
 
     public sealed class SvgMorphologyOperatorConverter : EnumBaseConverter<SvgMorphologyOperator> { }
