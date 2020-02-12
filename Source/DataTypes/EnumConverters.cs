@@ -25,6 +25,7 @@ namespace Svg
     {
         public enum CaseHandling
         {
+            NoneCase,
             CamelCase,
             LowerCase,
             KebabCase,
@@ -66,6 +67,10 @@ namespace Svg
             if (destinationType == typeof(string) && value is T)
             {
                 var stringValue = ((T)value).ToString();
+
+                if (CaseHandlingMode == CaseHandling.NoneCase)
+                    return stringValue;
+
                 if (CaseHandlingMode == CaseHandling.CamelCase)
                     return string.Format("{0}{1}", stringValue[0].ToString().ToLower(), stringValue.Substring(1));
 
@@ -192,7 +197,10 @@ namespace Svg
 
     public sealed class SvgEdgeModeConverter : EnumBaseConverter<SvgEdgeMode> { }
 
-    public sealed class SvgChannelSelectorConverter : EnumBaseConverter<SvgChannelSelector> { }
+    public sealed class SvgChannelSelectorConverter : EnumBaseConverter<SvgChannelSelector>
+    {
+        public SvgChannelSelectorConverter() : base(CaseHandling.LowerCase) { }
+    }
 
     public sealed class SvgMorphologyOperatorConverter : EnumBaseConverter<SvgMorphologyOperator> { }
 
