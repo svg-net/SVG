@@ -62,7 +62,6 @@ namespace Svg
             if (destinationType == typeof(string) && value is T)
             {
                 var stringValue = ((T)value).ToString();
-
                 if (CaseHandlingMode == CaseHandling.CamelCase)
                     return string.Format("{0}{1}", stringValue[0].ToString().ToLower(), stringValue.Substring(1));
 
