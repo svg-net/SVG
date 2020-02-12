@@ -35,7 +35,7 @@ namespace Svg
         public CaseHandling CaseHandlingMode { get; }
 
         /// <summary>Creates a new instance.</summary>
-        /// <param name="caseHandling">Defines if the value shall be converted to camelCase, lowercase or kebab-case.</param>
+        /// <param name="caseHandling">Defines if the value shall be converted to camelCase, PascalCase, lowercase or kebab-case.</param>
         public EnumBaseConverter(CaseHandling caseHandling = CaseHandling.CamelCase)
         {
             CaseHandlingMode = caseHandling;
