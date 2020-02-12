@@ -2,7 +2,7 @@
 
 namespace Svg.FilterEffects
 {
-    [TypeConverter(typeof(EnumBaseConverter<SvgStitchType>))]
+    [TypeConverter(typeof(SvgStitchTypeConverter))]
     public enum SvgStitchType
     {
         Stitch,

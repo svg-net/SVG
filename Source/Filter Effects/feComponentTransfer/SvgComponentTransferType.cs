@@ -2,7 +2,7 @@
 
 namespace Svg.FilterEffects
 {
-    [TypeConverter(typeof(EnumBaseConverter<SvgComponentTransferType>))]
+    [TypeConverter(typeof(SvgComponentTransferTypeConverter))]
     public enum SvgComponentTransferType
     {
         Identity,

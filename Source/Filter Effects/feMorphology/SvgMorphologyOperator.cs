@@ -2,7 +2,7 @@
 
 namespace Svg.FilterEffects
 {
-    [TypeConverter(typeof(EnumBaseConverter<SvgMorphologyOperator>))]
+    [TypeConverter(typeof(SvgMorphologyOperatorConverter))]
     public enum SvgMorphologyOperator
     {
         Erode,

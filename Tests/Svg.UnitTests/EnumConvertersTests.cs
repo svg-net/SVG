@@ -32,6 +32,15 @@ namespace Svg.UnitTests
         [TestCase(typeof(SvgFontStretchConverter), "normal", "wider", "narrower", "ultra-condensed", "extra-condensed", "condensed", "semi-condensed", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded", "inherit")]
         [TestCase(typeof(SvgFontWeightConverter), "normal", "bold", "bolder", "lighter", "100", "200", "300", "400", "500", "600", "700", "800", "900", "inherit")]
         [TestCase(typeof(SvgTextTransformationConverter), "none", "capitalize", "uppercase", "lowercase", "inherit")]
+        [TestCase(typeof(SvgBlendModeConverter), "normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity")]
+        [TestCase(typeof(SvgColourMatrixTypeConverter), "matrix", "saturate", "hueRotate", "luminanceToAlpha")]
+        [TestCase(typeof(SvgComponentTransferTypeConverter), "identity", "table", "discrete", "linear", "gamma")]
+        [TestCase(typeof(SvgCompositeOperatorConverter), "over", "in", "out", "atop", "xor", "arithmetic")]
+        [TestCase(typeof(SvgEdgeModeConverter), "duplicate", "wrap", "none")]
+        [TestCase(typeof(SvgChannelSelectorConverter), "R", "G", "B", "A")]
+        [TestCase(typeof(SvgMorphologyOperatorConverter), "erode", "dilate")]
+        [TestCase(typeof(SvgStitchTypeConverter), "stitch", "noStitch")]
+        [TestCase(typeof(SvgTurbulenceTypeConverter), "fractalNoise", "turbulence")]
         public void TestConvert(Type enumConverter, params string[] expectedList)
         {
             var converter = Activator.CreateInstance(enumConverter);

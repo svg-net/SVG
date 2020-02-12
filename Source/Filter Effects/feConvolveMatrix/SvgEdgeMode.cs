@@ -2,7 +2,7 @@
 
 namespace Svg.FilterEffects
 {
-    [TypeConverter(typeof(EnumBaseConverter<SvgEdgeMode>))]
+    [TypeConverter(typeof(SvgEdgeModeConverter))]
     public enum SvgEdgeMode
     {
         Duplicate,
