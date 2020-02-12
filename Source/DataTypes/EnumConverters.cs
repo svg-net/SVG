@@ -25,8 +25,8 @@ namespace Svg
     {
         public enum CaseHandling
         {
-            NoneCase,
             CamelCase,
+            PascalCase,
             LowerCase,
             KebabCase,
         }
@@ -63,11 +63,11 @@ namespace Svg
             {
                 var stringValue = ((T)value).ToString();
 
-                if (CaseHandlingMode == CaseHandling.NoneCase)
-                    return stringValue;
-
                 if (CaseHandlingMode == CaseHandling.CamelCase)
                     return string.Format("{0}{1}", stringValue[0].ToString().ToLower(), stringValue.Substring(1));
+
+                if (CaseHandlingMode == CaseHandling.PascalCase)
+                    return stringValue;
 
                 if (CaseHandlingMode == CaseHandling.KebabCase)
                     stringValue = Regex.Replace(stringValue, @"(\w)([A-Z])", "$1-$2", RegexOptions.CultureInvariant);
@@ -194,7 +194,7 @@ namespace Svg
 
     public sealed class SvgChannelSelectorConverter : EnumBaseConverter<SvgChannelSelector>
     {
-        public SvgChannelSelectorConverter() : base(CaseHandling.NoneCase) { }
+        public SvgChannelSelectorConverter() : base(CaseHandling.PascalCase) { }
     }
 
     public sealed class SvgMorphologyOperatorConverter : EnumBaseConverter<SvgMorphologyOperator> { }
