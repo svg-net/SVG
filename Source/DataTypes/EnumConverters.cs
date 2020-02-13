@@ -6,20 +6,7 @@ using Svg.DataTypes;
 
 namespace Svg
 {
-    // just overrides canconvert and returns true
-    public class BaseConverter : TypeConverter
-    {
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            if (sourceType == typeof(string))
-                return true;
-
-            return base.CanConvertFrom(context, sourceType);
-        }
-    }
-
-    // converts enums to lower case strings
-    public abstract class EnumBaseConverter<T> : BaseConverter
+    public abstract class EnumBaseConverter<T> : TypeConverter
         where T : struct
     {
         public enum CaseHandling
@@ -37,6 +24,14 @@ namespace Svg
         public EnumBaseConverter(CaseHandling caseHandling = CaseHandling.CamelCase)
         {
             CaseHandlingMode = caseHandling;
+        }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            if (sourceType == typeof(string))
+                return true;
+
+            return base.CanConvertFrom(context, sourceType);
         }
 
         /// <summary>Attempts to convert the provided value to <typeparamref name="T"/>.</summary>
