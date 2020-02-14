@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -31,7 +31,7 @@ namespace Svg
             KebabCase,
         }
 
-        /// <summary>Defines if the enum literal shall be converted to camelCase, lowercase or kebab-case.</summary>
+        /// <summary>Defines if the enum literal shall be converted to camelCase, PascalCase or kebab-case.</summary>
         public CaseHandling CaseHandlingMode { get; }
 
         /// <summary>Creates a new instance.</summary>
