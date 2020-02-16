@@ -25,25 +25,6 @@ references:
   commentId: F:Svg.AttributeEventArgs.Value
   fullName: Svg.AttributeEventArgs.Value
   nameWithType: AttributeEventArgs.Value
-- uid: Svg.BaseConverter
-  name: BaseConverter
-  href: api/Svg.BaseConverter.html
-  commentId: T:Svg.BaseConverter
-  fullName: Svg.BaseConverter
-  nameWithType: BaseConverter
-- uid: Svg.BaseConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)
-  name: CanConvertFrom(ITypeDescriptorContext, Type)
-  href: api/Svg.BaseConverter.html#Svg_BaseConverter_CanConvertFrom_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.BaseConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)
-  fullName: Svg.BaseConverter.CanConvertFrom(ITypeDescriptorContext, System.Type)
-  nameWithType: BaseConverter.CanConvertFrom(ITypeDescriptorContext, Type)
-- uid: Svg.BaseConverter.CanConvertFrom*
-  name: CanConvertFrom
-  href: api/Svg.BaseConverter.html#Svg_BaseConverter_CanConvertFrom_
-  commentId: Overload:Svg.BaseConverter.CanConvertFrom
-  isSpec: "True"
-  fullName: Svg.BaseConverter.CanConvertFrom
-  nameWithType: BaseConverter.CanConvertFrom
 - uid: Svg.ChildAddedEventArgs
   name: ChildAddedEventArgs
   href: api/Svg.ChildAddedEventArgs.html
@@ -387,6 +368,23 @@ references:
   fullName.vb: Svg.EnumBaseConverter(Of T).EnumBaseConverter
   nameWithType: EnumBaseConverter<T>.EnumBaseConverter
   nameWithType.vb: EnumBaseConverter(Of T).EnumBaseConverter
+- uid: Svg.EnumBaseConverter`1.CanConvertFrom(ITypeDescriptorContext,System.Type)
+  name: CanConvertFrom(ITypeDescriptorContext, Type)
+  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1_CanConvertFrom_ITypeDescriptorContext_System_Type_
+  commentId: M:Svg.EnumBaseConverter`1.CanConvertFrom(ITypeDescriptorContext,System.Type)
+  fullName: Svg.EnumBaseConverter<T>.CanConvertFrom(ITypeDescriptorContext, System.Type)
+  fullName.vb: Svg.EnumBaseConverter(Of T).CanConvertFrom(ITypeDescriptorContext, System.Type)
+  nameWithType: EnumBaseConverter<T>.CanConvertFrom(ITypeDescriptorContext, Type)
+  nameWithType.vb: EnumBaseConverter(Of T).CanConvertFrom(ITypeDescriptorContext, Type)
+- uid: Svg.EnumBaseConverter`1.CanConvertFrom*
+  name: CanConvertFrom
+  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1_CanConvertFrom_
+  commentId: Overload:Svg.EnumBaseConverter`1.CanConvertFrom
+  isSpec: "True"
+  fullName: Svg.EnumBaseConverter<T>.CanConvertFrom
+  fullName.vb: Svg.EnumBaseConverter(Of T).CanConvertFrom
+  nameWithType: EnumBaseConverter<T>.CanConvertFrom
+  nameWithType.vb: EnumBaseConverter(Of T).CanConvertFrom
 - uid: Svg.EnumBaseConverter`1.CaseHandling
   name: EnumBaseConverter<T>.CaseHandling
   href: api/Svg.EnumBaseConverter-1.CaseHandling.html
