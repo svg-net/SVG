@@ -420,6 +420,14 @@ references:
   fullName.vb: Svg.EnumBaseConverter(Of T).CaseHandling.LowerCase
   nameWithType: EnumBaseConverter<T>.CaseHandling.LowerCase
   nameWithType.vb: EnumBaseConverter(Of T).CaseHandling.LowerCase
+- uid: Svg.EnumBaseConverter`1.CaseHandling.PascalCase
+  name: PascalCase
+  href: api/Svg.EnumBaseConverter-1.CaseHandling.html#Svg_EnumBaseConverter_1_CaseHandling_PascalCase
+  commentId: F:Svg.EnumBaseConverter`1.CaseHandling.PascalCase
+  fullName: Svg.EnumBaseConverter<T>.CaseHandling.PascalCase
+  fullName.vb: Svg.EnumBaseConverter(Of T).CaseHandling.PascalCase
+  nameWithType: EnumBaseConverter<T>.CaseHandling.PascalCase
+  nameWithType.vb: EnumBaseConverter(Of T).CaseHandling.PascalCase
 - uid: Svg.EnumBaseConverter`1.CaseHandlingMode
   name: CaseHandlingMode
   href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1_CaseHandlingMode
@@ -5113,6 +5121,44 @@ references:
   isSpec: "True"
   fullName: Svg.SvgAttributeCollection.Item
   nameWithType: SvgAttributeCollection.Item
+- uid: Svg.SvgBlendModeConverter
+  name: SvgBlendModeConverter
+  href: api/Svg.SvgBlendModeConverter.html
+  commentId: T:Svg.SvgBlendModeConverter
+  fullName: Svg.SvgBlendModeConverter
+  nameWithType: SvgBlendModeConverter
+- uid: Svg.SvgBlendModeConverter.#ctor
+  name: SvgBlendModeConverter()
+  href: api/Svg.SvgBlendModeConverter.html#Svg_SvgBlendModeConverter__ctor
+  commentId: M:Svg.SvgBlendModeConverter.#ctor
+  fullName: Svg.SvgBlendModeConverter.SvgBlendModeConverter()
+  nameWithType: SvgBlendModeConverter.SvgBlendModeConverter()
+- uid: Svg.SvgBlendModeConverter.#ctor*
+  name: SvgBlendModeConverter
+  href: api/Svg.SvgBlendModeConverter.html#Svg_SvgBlendModeConverter__ctor_
+  commentId: Overload:Svg.SvgBlendModeConverter.#ctor
+  isSpec: "True"
+  fullName: Svg.SvgBlendModeConverter.SvgBlendModeConverter
+  nameWithType: SvgBlendModeConverter.SvgBlendModeConverter
+- uid: Svg.SvgChannelSelectorConverter
+  name: SvgChannelSelectorConverter
+  href: api/Svg.SvgChannelSelectorConverter.html
+  commentId: T:Svg.SvgChannelSelectorConverter
+  fullName: Svg.SvgChannelSelectorConverter
+  nameWithType: SvgChannelSelectorConverter
+- uid: Svg.SvgChannelSelectorConverter.#ctor
+  name: SvgChannelSelectorConverter()
+  href: api/Svg.SvgChannelSelectorConverter.html#Svg_SvgChannelSelectorConverter__ctor
+  commentId: M:Svg.SvgChannelSelectorConverter.#ctor
+  fullName: Svg.SvgChannelSelectorConverter.SvgChannelSelectorConverter()
+  nameWithType: SvgChannelSelectorConverter.SvgChannelSelectorConverter()
+- uid: Svg.SvgChannelSelectorConverter.#ctor*
+  name: SvgChannelSelectorConverter
+  href: api/Svg.SvgChannelSelectorConverter.html#Svg_SvgChannelSelectorConverter__ctor_
+  commentId: Overload:Svg.SvgChannelSelectorConverter.#ctor
+  isSpec: "True"
+  fullName: Svg.SvgChannelSelectorConverter.SvgChannelSelectorConverter
+  nameWithType: SvgChannelSelectorConverter.SvgChannelSelectorConverter
 - uid: Svg.SvgCircle
   name: SvgCircle
   href: api/Svg.SvgCircle.html
@@ -5410,6 +5456,12 @@ references:
   commentId: T:Svg.SvgColourInterpolationConverter
   fullName: Svg.SvgColourInterpolationConverter
   nameWithType: SvgColourInterpolationConverter
+- uid: Svg.SvgColourMatrixTypeConverter
+  name: SvgColourMatrixTypeConverter
+  href: api/Svg.SvgColourMatrixTypeConverter.html
+  commentId: T:Svg.SvgColourMatrixTypeConverter
+  fullName: Svg.SvgColourMatrixTypeConverter
+  nameWithType: SvgColourMatrixTypeConverter
 - uid: Svg.SvgColourServer
   name: SvgColourServer
   href: api/Svg.SvgColourServer.html
@@ -5522,6 +5574,18 @@ references:
   isSpec: "True"
   fullName: Svg.SvgColourServer.ToString
   nameWithType: SvgColourServer.ToString
+- uid: Svg.SvgComponentTransferTypeConverter
+  name: SvgComponentTransferTypeConverter
+  href: api/Svg.SvgComponentTransferTypeConverter.html
+  commentId: T:Svg.SvgComponentTransferTypeConverter
+  fullName: Svg.SvgComponentTransferTypeConverter
+  nameWithType: SvgComponentTransferTypeConverter
+- uid: Svg.SvgCompositeOperatorConverter
+  name: SvgCompositeOperatorConverter
+  href: api/Svg.SvgCompositeOperatorConverter.html
+  commentId: T:Svg.SvgCompositeOperatorConverter
+  fullName: Svg.SvgCompositeOperatorConverter
+  nameWithType: SvgCompositeOperatorConverter
 - uid: Svg.SvgContentNode
   name: SvgContentNode
   href: api/Svg.SvgContentNode.html
@@ -6278,6 +6342,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocumentMetadata.WriteChildren
   nameWithType: SvgDocumentMetadata.WriteChildren
+- uid: Svg.SvgEdgeModeConverter
+  name: SvgEdgeModeConverter
+  href: api/Svg.SvgEdgeModeConverter.html
+  commentId: T:Svg.SvgEdgeModeConverter
+  fullName: Svg.SvgEdgeModeConverter
+  nameWithType: SvgEdgeModeConverter
 - uid: Svg.SvgElement
   name: SvgElement
   href: api/Svg.SvgElement.html
@@ -10999,6 +11069,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgMissingGlyph.GlyphName
   nameWithType: SvgMissingGlyph.GlyphName
+- uid: Svg.SvgMorphologyOperatorConverter
+  name: SvgMorphologyOperatorConverter
+  href: api/Svg.SvgMorphologyOperatorConverter.html
+  commentId: T:Svg.SvgMorphologyOperatorConverter
+  fullName: Svg.SvgMorphologyOperatorConverter
+  nameWithType: SvgMorphologyOperatorConverter
 - uid: Svg.SvgNumberCollection
   name: SvgNumberCollection
   href: api/Svg.SvgNumberCollection.html
@@ -12572,6 +12648,12 @@ references:
   commentId: T:Svg.SvgShapeRenderingConverter
   fullName: Svg.SvgShapeRenderingConverter
   nameWithType: SvgShapeRenderingConverter
+- uid: Svg.SvgStitchTypeConverter
+  name: SvgStitchTypeConverter
+  href: api/Svg.SvgStitchTypeConverter.html
+  commentId: T:Svg.SvgStitchTypeConverter
+  fullName: Svg.SvgStitchTypeConverter
+  nameWithType: SvgStitchTypeConverter
 - uid: Svg.SvgStrokeLineCap
   name: SvgStrokeLineCap
   href: api/Svg.SvgStrokeLineCap.html
@@ -13513,6 +13595,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgTitle.ToString
   nameWithType: SvgTitle.ToString
+- uid: Svg.SvgTurbulenceTypeConverter
+  name: SvgTurbulenceTypeConverter
+  href: api/Svg.SvgTurbulenceTypeConverter.html
+  commentId: T:Svg.SvgTurbulenceTypeConverter
+  fullName: Svg.SvgTurbulenceTypeConverter
+  nameWithType: SvgTurbulenceTypeConverter
 - uid: Svg.SvgUnit
   name: SvgUnit
   href: api/Svg.SvgUnit.html

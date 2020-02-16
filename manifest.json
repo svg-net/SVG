@@ -237,7 +237,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.EnumBaseConverter-1.CaseHandling.html",
-          "hash": "5fc+gFmuG6iHmbf/mdw1Hw=="
+          "hash": "Pxy+xBAIGZa5SmfLdfhvPA=="
         }
       },
       "is_incremental": false,
@@ -249,7 +249,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.EnumBaseConverter-1.html",
-          "hash": "F7sxb1dTVue/P1Oz5XnYvg=="
+          "hash": "G32ewWZNnRaUxyvucX4NXQ=="
         }
       },
       "is_incremental": false,
@@ -1217,6 +1217,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgBlendModeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgBlendModeConverter.html",
+          "hash": "bmMIpfKadtpnJH/EvKNr+Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgChannelSelectorConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgChannelSelectorConverter.html",
+          "hash": "AOC/5CKPSwAaimk5d2V5Xw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Svg.SvgCircle.yml",
       "output": {
         ".html": {
@@ -1289,11 +1313,47 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgColourMatrixTypeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgColourMatrixTypeConverter.html",
+          "hash": "v1ucXBfXWkSQ7aFt+I3R8g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Svg.SvgColourServer.yml",
       "output": {
         ".html": {
           "relative_path": "api/Svg.SvgColourServer.html",
           "hash": "E8oiLws3SRMdRO6LnZg3OA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgComponentTransferTypeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgComponentTransferTypeConverter.html",
+          "hash": "hkvssjEUpkpCW4dBGGOyJA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgCompositeOperatorConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgCompositeOperatorConverter.html",
+          "hash": "ycTkPFr9z6vZQjzrsF9Log=="
         }
       },
       "is_incremental": false,
@@ -1402,6 +1462,18 @@
         ".html": {
           "relative_path": "api/Svg.SvgDocumentMetadata.html",
           "hash": "E+LdI365fPJoG43YNUxKUA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgEdgeModeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgEdgeModeConverter.html",
+          "hash": "ZWo/28CSvNCfmde6NQwb2A=="
         }
       },
       "is_incremental": false,
@@ -2045,6 +2117,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgMorphologyOperatorConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgMorphologyOperatorConverter.html",
+          "hash": "cajGZ8tnAzgBAVJAZZtA/g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Svg.SvgNumberCollection.yml",
       "output": {
         ".html": {
@@ -2278,6 +2362,18 @@
         ".html": {
           "relative_path": "api/Svg.SvgShapeRenderingConverter.html",
           "hash": "j7iZb3XVstaLvvlRB4UKeQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgStitchTypeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgStitchTypeConverter.html",
+          "hash": "90xorRusRgKIy3BU+cDxNQ=="
         }
       },
       "is_incremental": false,
@@ -2578,6 +2674,18 @@
         ".html": {
           "relative_path": "api/Svg.SvgTitle.html",
           "hash": "V661+0PVA/ZS2H3C6l44zA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgTurbulenceTypeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgTurbulenceTypeConverter.html",
+          "hash": "zNwpUgk+Q5+tyzq8f3cytw=="
         }
       },
       "is_incremental": false,
@@ -2925,7 +3033,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.html",
-          "hash": "l2HaRFfsJBvvld/h11IYWA=="
+          "hash": "Zc2LnHIBlsA8+sG/08zw4A=="
         }
       },
       "is_incremental": false,
@@ -2937,7 +3045,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "gEbB94nvgV4fX8LvhjUgsw=="
+          "hash": "z6RaH+NnrERbigKAOPREmg=="
         }
       },
       "is_incremental": false,
@@ -2955,6 +3063,13 @@
         "full_build_reason_code": "NoAvailableBuildCache"
       },
       "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
@@ -2964,14 +3079,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 236,
-          "skipped_file_count": 0
-        },
-        "TocDocumentProcessor": {
-          "can_incremental": false,
-          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
-          "incrementalPhase": "build",
-          "total_file_count": 0,
+          "total_file_count": 245,
           "skipped_file_count": 0
         }
       }
