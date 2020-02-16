@@ -2,7 +2,7 @@
 
 namespace Svg.FilterEffects
 {
-    [TypeConverter(typeof(EnumBaseConverter<SvgTurbulenceType>))]
+    [TypeConverter(typeof(SvgTurbulenceTypeConverter))]
     public enum SvgTurbulenceType
     {
         FractalNoise,

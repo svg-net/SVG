@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Svg.DataTypes;
+using Svg.FilterEffects;
 
 namespace Svg
 {
@@ -25,15 +26,16 @@ namespace Svg
         public enum CaseHandling
         {
             CamelCase,
+            PascalCase,
             LowerCase,
             KebabCase,
         }
 
-        /// <summary>Defines if the enum literal shall be converted to camelCase, lowercase or kebab-case.</summary>
+        /// <summary>Defines if the enum literal shall be converted to camelCase, PascalCase or kebab-case.</summary>
         public CaseHandling CaseHandlingMode { get; }
 
         /// <summary>Creates a new instance.</summary>
-        /// <param name="caseHandling">Defines if the value shall be converted to camelCase, lowercase or kebab-case.</param>
+        /// <param name="caseHandling">Defines if the value shall be converted to camelCase, PascalCase, lowercase or kebab-case.</param>
         public EnumBaseConverter(CaseHandling caseHandling = CaseHandling.CamelCase)
         {
             CaseHandlingMode = caseHandling;
@@ -62,6 +64,9 @@ namespace Svg
                 var stringValue = ((T)value).ToString();
                 if (CaseHandlingMode == CaseHandling.CamelCase)
                     return string.Format("{0}{1}", stringValue[0].ToString().ToLower(), stringValue.Substring(1));
+
+                if (CaseHandlingMode == CaseHandling.PascalCase)
+                    return stringValue;
 
                 if (CaseHandlingMode == CaseHandling.KebabCase)
                     stringValue = Regex.Replace(stringValue, @"(\w)([A-Z])", "$1-$2", RegexOptions.CultureInvariant);
@@ -172,6 +177,30 @@ namespace Svg
     }
 
     public sealed class SvgTextTransformationConverter : EnumBaseConverter<SvgTextTransformation> { }
+
+    public sealed class SvgBlendModeConverter : EnumBaseConverter<SvgBlendMode>
+    {
+        public SvgBlendModeConverter() : base(CaseHandling.KebabCase) { }
+    }
+
+    public sealed class SvgColourMatrixTypeConverter : EnumBaseConverter<SvgColourMatrixType> { }
+
+    public sealed class SvgComponentTransferTypeConverter : EnumBaseConverter<SvgComponentTransferType> { }
+
+    public sealed class SvgCompositeOperatorConverter : EnumBaseConverter<SvgCompositeOperator> { }
+
+    public sealed class SvgEdgeModeConverter : EnumBaseConverter<SvgEdgeMode> { }
+
+    public sealed class SvgChannelSelectorConverter : EnumBaseConverter<SvgChannelSelector>
+    {
+        public SvgChannelSelectorConverter() : base(CaseHandling.PascalCase) { }
+    }
+
+    public sealed class SvgMorphologyOperatorConverter : EnumBaseConverter<SvgMorphologyOperator> { }
+
+    public sealed class SvgStitchTypeConverter : EnumBaseConverter<SvgStitchType> { }
+
+    public sealed class SvgTurbulenceTypeConverter : EnumBaseConverter<SvgTurbulenceType> { }
 
     public static class Enums
     {

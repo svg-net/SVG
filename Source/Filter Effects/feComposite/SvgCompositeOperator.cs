@@ -2,7 +2,7 @@
 
 namespace Svg.FilterEffects
 {
-    [TypeConverter(typeof(EnumBaseConverter<SvgCompositeOperator>))]
+    [TypeConverter(typeof(SvgCompositeOperatorConverter))]
     public enum SvgCompositeOperator
     {
         Over,

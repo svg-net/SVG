@@ -2,7 +2,7 @@
 
 namespace Svg.FilterEffects
 {
-    [TypeConverter(typeof(EnumBaseConverter<SvgBlendMode>))]
+    [TypeConverter(typeof(SvgBlendModeConverter))]
     public enum SvgBlendMode
     {
         Normal,

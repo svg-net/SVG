@@ -2,7 +2,7 @@
 
 namespace Svg.FilterEffects
 {
-    [TypeConverter(typeof(EnumBaseConverter<SvgChannelSelector>))]
+    [TypeConverter(typeof(SvgChannelSelectorConverter))]
     public enum SvgChannelSelector
     {
         R,
