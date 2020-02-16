@@ -11481,6 +11481,32 @@ references:
   isSpec: "True"
   fullName: Svg.SvgPatternServer.GetBrush
   nameWithType: SvgPatternServer.GetBrush
+- uid: Svg.SvgPatternServer.HasPatternContentUnits
+  name: HasPatternContentUnits()
+  href: api/Svg.SvgPatternServer.html#Svg_SvgPatternServer_HasPatternContentUnits
+  commentId: M:Svg.SvgPatternServer.HasPatternContentUnits
+  fullName: Svg.SvgPatternServer.HasPatternContentUnits()
+  nameWithType: SvgPatternServer.HasPatternContentUnits()
+- uid: Svg.SvgPatternServer.HasPatternContentUnits*
+  name: HasPatternContentUnits
+  href: api/Svg.SvgPatternServer.html#Svg_SvgPatternServer_HasPatternContentUnits_
+  commentId: Overload:Svg.SvgPatternServer.HasPatternContentUnits
+  isSpec: "True"
+  fullName: Svg.SvgPatternServer.HasPatternContentUnits
+  nameWithType: SvgPatternServer.HasPatternContentUnits
+- uid: Svg.SvgPatternServer.HasPatternUnits
+  name: HasPatternUnits()
+  href: api/Svg.SvgPatternServer.html#Svg_SvgPatternServer_HasPatternUnits
+  commentId: M:Svg.SvgPatternServer.HasPatternUnits
+  fullName: Svg.SvgPatternServer.HasPatternUnits()
+  nameWithType: SvgPatternServer.HasPatternUnits()
+- uid: Svg.SvgPatternServer.HasPatternUnits*
+  name: HasPatternUnits
+  href: api/Svg.SvgPatternServer.html#Svg_SvgPatternServer_HasPatternUnits_
+  commentId: Overload:Svg.SvgPatternServer.HasPatternUnits
+  isSpec: "True"
+  fullName: Svg.SvgPatternServer.HasPatternUnits
+  nameWithType: SvgPatternServer.HasPatternUnits
 - uid: Svg.SvgPatternServer.Height
   name: Height
   href: api/Svg.SvgPatternServer.html#Svg_SvgPatternServer_Height
