@@ -10,8 +10,8 @@ namespace SvgConsole
 {
     class Settings
     {
-        public FileInfo[] Files { get; set; }
-        public DirectoryInfo[] Directories { get; set; }
+        public FileInfo[] InputFiles { get; set; }
+        public DirectoryInfo[] InputDirectories { get; set; }
         public FileInfo OutputFile { get; set; }
         public DirectoryInfo OutputDirectory { get; set; }
         public float? Width { get; set; }
@@ -22,22 +22,22 @@ namespace SvgConsole
     {
         static async Task<int> Main(string[] args)
         {
-            var optionInputFiles = new Option(new[] { "--inputFiles", "-if" }, "The relative or absolute path to the input files")
+            var optionInputFiles = new Option(new[] { "--inputFiles", "-f" }, "The relative or absolute path to the input files")
             {
                 Argument = new Argument<FileInfo[]>(getDefaultValue: () => null)
             };
 
-            var optionInputDirectories = new Option(new[] { "--inputDirectories", "-id" }, "The relative or absolute path to the input directories")
+            var optionInputDirectories = new Option(new[] { "--inputDirectories", "-d" }, "The relative or absolute path to the input directories")
             {
                 Argument = new Argument<DirectoryInfo[]>(getDefaultValue: () => null)
             };
 
-            var optionOutputFile = new Option(new[] { "--outputFile", "-of" }, "The relative or absolute path to the output file")
+            var optionOutputDirectory = new Option(new[] { "--outputDirectory", "-o" }, "The relative or absolute path to the output directory")
             {
                 Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
             };
 
-            var optionOutputDirectory = new Option(new[] { "--outputDirectory", "-od" }, "The relative or absolute path to the output directory")
+            var optionOutputFile = new Option(new[] { "--outputFile" }, "The relative or absolute path to the output file")
             {
                 Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
             };
@@ -59,8 +59,8 @@ namespace SvgConsole
 
             rootCommand.AddOption(optionInputFiles);
             rootCommand.AddOption(optionInputDirectories);
-            rootCommand.AddOption(optionOutputFile);
             rootCommand.AddOption(optionOutputDirectory);
+            rootCommand.AddOption(optionOutputFile);
             rootCommand.AddOption(optionWidth);
             rootCommand.AddOption(optionHeight);
 
@@ -116,17 +116,17 @@ namespace SvgConsole
         {
             var paths = new List<FileInfo>();
 
-            if (settings.Files != null)
+            if (settings.InputFiles != null)
             {
-                foreach (var file in settings.Files)
+                foreach (var file in settings.InputFiles)
                 {
                     paths.Add(file);
                 }
             }
 
-            if (settings.Directories != null)
+            if (settings.InputDirectories != null)
             {
-                foreach (var directory in settings.Directories)
+                foreach (var directory in settings.InputDirectories)
                 {
                     GetFiles(directory, "*.svg", paths);
                     GetFiles(directory, "*.svgz", paths);
@@ -146,8 +146,6 @@ namespace SvgConsole
                 var inputPath = paths[i];
                 try
                 {
-                    Directory.SetCurrentDirectory(Path.GetDirectoryName(inputPath.FullName));
-
                     string outputPath = string.Empty;
 
                     if (settings.OutputFile != null)
@@ -163,6 +161,8 @@ namespace SvgConsole
                             outputPath = Path.Combine(settings.OutputDirectory.FullName, Path.GetFileName(outputPath));
                         }
                     }
+
+                    Directory.SetCurrentDirectory(Path.GetDirectoryName(inputPath.FullName));
 
                     Save(inputPath, outputPath, settings.Width, settings.Height);
                 }
