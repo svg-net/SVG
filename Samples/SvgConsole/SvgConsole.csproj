@@ -7,8 +7,7 @@
     <IsTool>True</IsTool>
     <PackAsTool>True</PackAsTool>
     <ToolCommandName>SvgConsole</ToolCommandName>
-    <Nullable>enable</Nullable>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>

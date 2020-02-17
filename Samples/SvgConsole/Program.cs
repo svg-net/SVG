@@ -10,9 +10,9 @@ namespace SvgConsole
 {
     class Settings
     {
-        public FileInfo[]? Files { get; set; }
-        public DirectoryInfo[]? Directories { get; set; }
-        public DirectoryInfo? Output { get; set; }
+        public FileInfo[] Files { get; set; }
+        public DirectoryInfo[] Directories { get; set; }
+        public DirectoryInfo Output { get; set; }
         public float? Width { get; set; }
         public float? Height { get; set; }
     }
@@ -23,17 +23,17 @@ namespace SvgConsole
         {
             var optionFile = new Option(new[] { "--files", "-f" }, "The relative or absolute path to the input files")
             {
-                Argument = new Argument<FileInfo[]?>(defaultValue: () => null)
+                Argument = new Argument<FileInfo[]>(defaultValue: () => null)
             };
 
             var optionDirectory = new Option(new[] { "--directories", "-d" }, "The relative or absolute path to the input directories")
             {
-                Argument = new Argument<DirectoryInfo[]?>(defaultValue: () => null)
+                Argument = new Argument<DirectoryInfo[]>(defaultValue: () => null)
             };
 
             var optionOutput = new Option(new[] { "--output", "-o" }, "The relative or absolute path to the output directory")
             {
-                Argument = new Argument<DirectoryInfo?>(defaultValue: () => null)
+                Argument = new Argument<DirectoryInfo>(defaultValue: () => null)
             };
 
             var optionWidth = new Option(new[] { "--width", "-w" }, "The output image width override")
@@ -99,9 +99,10 @@ namespace SvgConsole
                 svgDocument.Height = height.Value;
             }
 
-            using var bitmap = svgDocument.Draw();
-
-            bitmap.Save(outputPath);
+            using (var bitmap = svgDocument.Draw())
+            {
+                bitmap.Save(outputPath);
+            }
         }
 
         static void Run(Settings settings)
