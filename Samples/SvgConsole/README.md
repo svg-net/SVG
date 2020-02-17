@@ -38,25 +38,33 @@ cd SvgConsole-osx-x64-netcoreapp2.2
 ## Usage
 
 ```
-Usage: SvgConsole <input.svg|directory> [<output.png|directory>]
+SvgConsole:
+  Converts a svg file to an encoded png image.
+
+Usage:
+  SvgConsole [options]
+
+Options:
+  -f, --files <files>                The relative or absolute path to the input files
+  -d, --directories <directories>    The relative or absolute path to the input directories
+  -o, --output <output>              The relative or absolute path to the output directory
+  -w, --width <width>                The output image width override
+  -h, --height <height>              The output image height override
+  --version                          Display version information
 ```
 
 ```
-./SvgConsole ~/svg/Example.svg
+./SvgConsole -f ~/svg/Example.svg
 ```
 
 ```
-./SvgConsole ~/svg/Example.svg ~/png/Example.png
+./SvgConsole -f ~/svg/Example.svg -o ~/png
 ```
 
 ```
-./SvgConsole ~/svg/Example.svg ~/png
+./SvgConsole -d ~/svg/
 ```
 
 ```
-./SvgConsole ~/svg/
-```
-
-```
-./SvgConsole ~/svg ~/png
+./SvgConsole -d ~/svg -o ~/png
 ```
