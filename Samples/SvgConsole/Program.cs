@@ -1,46 +1,97 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Svg;
 
 namespace SvgConsole
 {
     class Program
     {
+        static IEnumerable<string> GetFiles(string inputPath)
+        {
+            foreach (var file in Directory.EnumerateFiles(inputPath, "*.svg"))
+            {
+                yield return file;
+            }
+
+            foreach (var directory in Directory.EnumerateDirectories(inputPath))
+            {
+                foreach (var file in GetFiles(directory))
+                {
+                    yield return file;
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             if (args.Length != 1 && args.Length != 2)
             {
-                Console.WriteLine($"Usage: {nameof(SvgConsole)} <input.svg> [<output.png>|<directory>]");
+                Console.WriteLine($"Usage: {nameof(SvgConsole)} <input.svg|directory> [<output.png|directory>]");
                 return;
             }
 
             try
             {
                 var inputPath = args[0];
+                var isInputPathDirectory = File.GetAttributes(inputPath).HasFlag(FileAttributes.Directory);
+                var inputPaths = default(List<string>);
                 var outputPath = string.Empty;
 
-                if (args.Length == 1)
+                if (isInputPathDirectory)
                 {
-                    outputPath = Path.Combine(Path.GetDirectoryName(inputPath), Path.GetFileNameWithoutExtension(inputPath) + ".png");
+                    inputPaths = GetFiles(inputPath).ToList();
                 }
                 else
                 {
-                    outputPath = args[1];
-                    if (outputPath.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase) == false)
-                    {
-                        outputPath = Path.Combine(outputPath, Path.GetFileNameWithoutExtension(inputPath) + ".png");
-                    }
+                    inputPaths = new List<string>();
+                    inputPaths.Add(inputPath);
                 }
 
-                var svgDocument = SvgDocument.Open(inputPath);
-                if (svgDocument != null)
+                if (args.Length == 2)
                 {
-                    var bitmap = svgDocument.Draw();
-                    bitmap.Save(outputPath);
+                    outputPath = args[1];
                 }
-                else
+
+                var useInputPathForOutput = args.Length == 1;
+                var isOutputDirectory = outputPath.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase) == false;
+
+                foreach (var path in inputPaths)
                 {
-                    Console.WriteLine("Failed to open svg document.");
+                    try
+                    {
+                        var output = string.Empty;
+
+                        if (useInputPathForOutput)
+                        {
+                            output = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + ".png");
+                        }
+                        else
+                        {
+                            if (isOutputDirectory)
+                            {
+                                output = Path.Combine(outputPath, Path.GetFileNameWithoutExtension(path) + ".png");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Please provide output directory.");
+                            }
+                        }
+
+                        var svgDocument = SvgDocument.Open(path);
+
+                        using (var bitmap = svgDocument.Draw())
+                        {
+                            bitmap.Save(output);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"{path}");
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine(ex.StackTrace);
+                    }
                 }
             }
             catch (Exception ex)

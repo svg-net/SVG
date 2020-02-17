@@ -19,7 +19,7 @@ cd SvgConsole-win-x64-netcoreapp2.2
 ```
 cd Samples/SvgConsole
 dotnet publish -f netcoreapp2.2 -c Release -r linux-x64 -o SvgConsole-linux-x64-netcoreapp2.2
-cd SvgConsole-netcoreapp2.2-linux-x64
+cd SvgConsole-linux-x64-netcoreapp2.2
 ```
 
 ### macOS
@@ -38,7 +38,7 @@ cd SvgConsole-osx-x64-netcoreapp2.2
 ## Usage
 
 ```
-Usage: SvgConsole <input.svg> [<output.png>|<directory>]
+Usage: SvgConsole <input.svg|directory> [<output.png|directory>]
 ```
 
 ```
@@ -51,4 +51,12 @@ Usage: SvgConsole <input.svg> [<output.png>|<directory>]
 
 ```
 ./SvgConsole ~/svg/Example.svg  ~/png
+```
+
+```
+./SvgConsole ~/svg/
+```
+
+```
+./SvgConsole ~/svg  ~/png
 ```
