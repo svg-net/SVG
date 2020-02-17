@@ -41,7 +41,7 @@ namespace SvgConsole
 
                 if (isInputPathDirectory)
                 {
-                    inputPaths = GetFiles(inputPath).ToList();
+                    inputPaths = GetFiles(inputPath).OrderBy(s => s).ToList();
                 }
                 else
                 {
