@@ -50,7 +50,7 @@ Usage: SvgConsole <input.svg|directory> [<output.png|directory>]
 ```
 
 ```
-./SvgConsole ~/svg/Example.svg  ~/png
+./SvgConsole ~/svg/Example.svg ~/png
 ```
 
 ```
@@ -58,5 +58,5 @@ Usage: SvgConsole <input.svg|directory> [<output.png|directory>]
 ```
 
 ```
-./SvgConsole ~/svg  ~/png
+./SvgConsole ~/svg ~/png
 ```
