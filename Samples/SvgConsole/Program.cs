@@ -23,27 +23,27 @@ namespace SvgConsole
         {
             var optionFile = new Option(new[] { "--files", "-f" }, "The relative or absolute path to the input files")
             {
-                Argument = new Argument<FileInfo[]>(defaultValue: () => null)
+                Argument = new Argument<FileInfo[]>(getDefaultValue: () => null)
             };
 
             var optionDirectory = new Option(new[] { "--directories", "-d" }, "The relative or absolute path to the input directories")
             {
-                Argument = new Argument<DirectoryInfo[]>(defaultValue: () => null)
+                Argument = new Argument<DirectoryInfo[]>(getDefaultValue: () => null)
             };
 
             var optionOutput = new Option(new[] { "--output", "-o" }, "The relative or absolute path to the output directory")
             {
-                Argument = new Argument<DirectoryInfo>(defaultValue: () => null)
+                Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
             };
 
-            var optionWidth = new Option(new[] { "--width", "-w" }, "The output image width override")
+            var optionWidth = new Option(new[] { "--width" }, "The output image width override")
             {
-                Argument = new Argument<float?>(defaultValue: () => null)
+                Argument = new Argument<float?>(getDefaultValue: () => null)
             };
 
-            var optionHeight = new Option(new[] { "--height", "-h" }, "The output image height override")
+            var optionHeight = new Option(new[] { "--height" }, "The output image height override")
             {
-                Argument = new Argument<float?>(defaultValue: () => null)
+                Argument = new Argument<float?>(getDefaultValue: () => null)
             };
 
             var rootCommand = new RootCommand()

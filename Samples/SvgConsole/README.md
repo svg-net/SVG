@@ -48,9 +48,10 @@ Options:
   -f, --files <files>                The relative or absolute path to the input files
   -d, --directories <directories>    The relative or absolute path to the input directories
   -o, --output <output>              The relative or absolute path to the output directory
-  -w, --width <width>                The output image width override
-  -h, --height <height>              The output image height override
-  --version                          Display version information
+  --width <width>                    The output image width override
+  --height <height>                  The output image height override
+  --version                          Show version information
+  -?, -h, --help                     Show help and usage information
 ```
 
 ```
