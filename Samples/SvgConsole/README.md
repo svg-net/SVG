@@ -45,27 +45,28 @@ Usage:
   SvgConsole [options]
 
 Options:
-  -f, --files <files>                The relative or absolute path to the input files
-  -d, --directories <directories>    The relative or absolute path to the input directories
-  -o, --output <output>              The relative or absolute path to the output directory
-  --width <width>                    The output image width override
-  --height <height>                  The output image height override
-  --version                          Show version information
-  -?, -h, --help                     Show help and usage information
+  -if, --inputFiles <inputfiles>                The relative or absolute path to the input files
+  -id, --inputDirectories <inputdirectories>    The relative or absolute path to the input directories
+  -of, --outputFile <outputfile>                The relative or absolute path to the output file
+  -od, --outputDirectory <outputdirectory>      The relative or absolute path to the output directory
+  --width <width>                               The output image width override
+  --height <height>                             The output image height override
+  --version                                     Show version information
+  -?, -h, --help                                Show help and usage information
 ```
 
 ```
-./SvgConsole -f ~/svg/Example.svg
+./SvgConsole -if ~/svg/Example.svg
 ```
 
 ```
-./SvgConsole -f ~/svg/Example.svg -o ~/png
+./SvgConsole -if ~/svg/Example.svg -od ~/png
 ```
 
 ```
-./SvgConsole -d ~/svg/
+./SvgConsole -id ~/svg/
 ```
 
 ```
-./SvgConsole -d ~/svg -o ~/png
+./SvgConsole -id ~/svg -od ~/png
 ```

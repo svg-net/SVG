@@ -12,7 +12,8 @@ namespace SvgConsole
     {
         public FileInfo[] Files { get; set; }
         public DirectoryInfo[] Directories { get; set; }
-        public DirectoryInfo Output { get; set; }
+        public FileInfo OutputFile { get; set; }
+        public DirectoryInfo OutputDirectory { get; set; }
         public float? Width { get; set; }
         public float? Height { get; set; }
     }
@@ -21,17 +22,22 @@ namespace SvgConsole
     {
         static async Task<int> Main(string[] args)
         {
-            var optionFile = new Option(new[] { "--files", "-f" }, "The relative or absolute path to the input files")
+            var optionInputFiles = new Option(new[] { "--inputFiles", "-if" }, "The relative or absolute path to the input files")
             {
                 Argument = new Argument<FileInfo[]>(getDefaultValue: () => null)
             };
 
-            var optionDirectory = new Option(new[] { "--directories", "-d" }, "The relative or absolute path to the input directories")
+            var optionInputDirectories = new Option(new[] { "--inputDirectories", "-id" }, "The relative or absolute path to the input directories")
             {
                 Argument = new Argument<DirectoryInfo[]>(getDefaultValue: () => null)
             };
 
-            var optionOutput = new Option(new[] { "--output", "-o" }, "The relative or absolute path to the output directory")
+            var optionOutputFile = new Option(new[] { "--outputFile", "-of" }, "The relative or absolute path to the output file")
+            {
+                Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
+            };
+
+            var optionOutputDirectory = new Option(new[] { "--outputDirectory", "-od" }, "The relative or absolute path to the output directory")
             {
                 Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
             };
@@ -51,9 +57,10 @@ namespace SvgConsole
                 Description = "Converts a svg file to an encoded png image."
             };
 
-            rootCommand.AddOption(optionFile);
-            rootCommand.AddOption(optionDirectory);
-            rootCommand.AddOption(optionOutput);
+            rootCommand.AddOption(optionInputFiles);
+            rootCommand.AddOption(optionInputDirectories);
+            rootCommand.AddOption(optionOutputFile);
+            rootCommand.AddOption(optionOutputDirectory);
             rootCommand.AddOption(optionWidth);
             rootCommand.AddOption(optionHeight);
 
@@ -126,11 +133,11 @@ namespace SvgConsole
                 }
             }
 
-            if (settings.Output != null && !string.IsNullOrEmpty(settings.Output.FullName))
+            if (settings.OutputDirectory != null && !string.IsNullOrEmpty(settings.OutputDirectory.FullName))
             {
-                if (!Directory.Exists(settings.Output.FullName))
+                if (!Directory.Exists(settings.OutputDirectory.FullName))
                 {
-                    Directory.CreateDirectory(settings.Output.FullName);
+                    Directory.CreateDirectory(settings.OutputDirectory.FullName);
                 }
             }
 
@@ -139,14 +146,23 @@ namespace SvgConsole
                 var inputPath = paths[i];
                 try
                 {
-                    var extension = inputPath.Extension;
-                    string outputPath = inputPath.FullName.Remove(inputPath.FullName.Length - extension.Length) + ".png";
-                    if (settings.Output != null && !string.IsNullOrEmpty(settings.Output.FullName))
-                    {
-                        outputPath = Path.Combine(settings.Output.FullName, Path.GetFileName(outputPath));
-                    }
-
                     Directory.SetCurrentDirectory(Path.GetDirectoryName(inputPath.FullName));
+
+                    string outputPath = string.Empty;
+
+                    if (settings.OutputFile != null)
+                    {
+                        outputPath = settings.OutputFile.FullName;
+                    }
+                    else
+                    {
+                        var inputExtension = inputPath.Extension;
+                        outputPath = inputPath.FullName.Remove(inputPath.FullName.Length - inputExtension.Length) + ".png";
+                        if (settings.OutputDirectory != null && !string.IsNullOrEmpty(settings.OutputDirectory.FullName))
+                        {
+                            outputPath = Path.Combine(settings.OutputDirectory.FullName, Path.GetFileName(outputPath));
+                        }
+                    }
 
                     Save(inputPath, outputPath, settings.Width, settings.Height);
                 }
