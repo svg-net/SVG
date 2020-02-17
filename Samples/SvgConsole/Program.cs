@@ -20,66 +20,6 @@ namespace SvgConsole
 
     class Program
     {
-        static async Task<int> Main(string[] args)
-        {
-            var optionInputFiles = new Option(new[] { "--inputFiles", "-f" }, "The relative or absolute path to the input files")
-            {
-                Argument = new Argument<FileInfo[]>(getDefaultValue: () => null)
-            };
-
-            var optionInputDirectories = new Option(new[] { "--inputDirectories", "-d" }, "The relative or absolute path to the input directories")
-            {
-                Argument = new Argument<DirectoryInfo[]>(getDefaultValue: () => null)
-            };
-
-            var optionOutputDirectory = new Option(new[] { "--outputDirectory", "-o" }, "The relative or absolute path to the output directory")
-            {
-                Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
-            };
-
-            var optionOutputFile = new Option(new[] { "--outputFile" }, "The relative or absolute path to the output file")
-            {
-                Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
-            };
-
-            var optionWidth = new Option(new[] { "--width" }, "The output image width override")
-            {
-                Argument = new Argument<float?>(getDefaultValue: () => null)
-            };
-
-            var optionHeight = new Option(new[] { "--height" }, "The output image height override")
-            {
-                Argument = new Argument<float?>(getDefaultValue: () => null)
-            };
-
-            var rootCommand = new RootCommand()
-            {
-                Description = "Converts a svg file to an encoded png image."
-            };
-
-            rootCommand.AddOption(optionInputFiles);
-            rootCommand.AddOption(optionInputDirectories);
-            rootCommand.AddOption(optionOutputDirectory);
-            rootCommand.AddOption(optionOutputFile);
-            rootCommand.AddOption(optionWidth);
-            rootCommand.AddOption(optionHeight);
-
-            rootCommand.Handler = CommandHandler.Create((Settings settings) =>
-            {
-                try
-                {
-                    Run(settings);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
-                }
-            });
-
-            return await rootCommand.InvokeAsync(args);
-        }
-
         static void GetFiles(DirectoryInfo directory, string pattern, List<FileInfo> paths)
         {
             var files = Directory.EnumerateFiles(directory.FullName, pattern);
@@ -173,6 +113,66 @@ namespace SvgConsole
                     Console.WriteLine(ex.StackTrace);
                 }
             }
+        }
+
+        static async Task<int> Main(string[] args)
+        {
+            var optionInputFiles = new Option(new[] { "--inputFiles", "-f" }, "The relative or absolute path to the input files")
+            {
+                Argument = new Argument<FileInfo[]>(getDefaultValue: () => null)
+            };
+
+            var optionInputDirectories = new Option(new[] { "--inputDirectories", "-d" }, "The relative or absolute path to the input directories")
+            {
+                Argument = new Argument<DirectoryInfo[]>(getDefaultValue: () => null)
+            };
+
+            var optionOutputDirectory = new Option(new[] { "--outputDirectory", "-o" }, "The relative or absolute path to the output directory")
+            {
+                Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
+            };
+
+            var optionOutputFile = new Option(new[] { "--outputFile" }, "The relative or absolute path to the output file")
+            {
+                Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
+            };
+
+            var optionWidth = new Option(new[] { "--width" }, "The output image width override")
+            {
+                Argument = new Argument<float?>(getDefaultValue: () => null)
+            };
+
+            var optionHeight = new Option(new[] { "--height" }, "The output image height override")
+            {
+                Argument = new Argument<float?>(getDefaultValue: () => null)
+            };
+
+            var rootCommand = new RootCommand()
+            {
+                Description = "Converts a svg file to an encoded png image."
+            };
+
+            rootCommand.AddOption(optionInputFiles);
+            rootCommand.AddOption(optionInputDirectories);
+            rootCommand.AddOption(optionOutputDirectory);
+            rootCommand.AddOption(optionOutputFile);
+            rootCommand.AddOption(optionWidth);
+            rootCommand.AddOption(optionHeight);
+
+            rootCommand.Handler = CommandHandler.Create((Settings settings) =>
+            {
+                try
+                {
+                    Run(settings);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                }
+            });
+
+            return await rootCommand.InvokeAsync(args);
         }
     }
 }
