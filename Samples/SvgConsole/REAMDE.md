@@ -32,8 +32,8 @@ cd SvgConsole-osx-x64-netcoreapp2.2
 
 ### Other
 
-https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
-https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish
+* [.NET Core RID Catalog](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog)
+* [dotnet publish](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish)
 
 ## Usage
 
