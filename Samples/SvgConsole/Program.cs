@@ -164,7 +164,7 @@ namespace SvgConsole
 
             var optionOutputFiles = new Option(new[] { "--outputFiles" }, "The relative or absolute path to the output files")
             {
-                Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
+                Argument = new Argument<FileInfo[]>(getDefaultValue: () => null)
             };
 
             var optionWidth = new Option(new[] { "--width" }, "The output image width override")
