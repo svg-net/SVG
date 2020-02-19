@@ -31,6 +31,10 @@ Entities
 Another small command line application that loads an example file that references entities not present
 in the file, and provides these entities with matching styles dynamically in the `SvgDocument.Open` call.
 
+SvgConsole
+----------
+This is a simple command-line application to convert one or many input SVG files to PNG images. It shows how to open a SVG document and create bitmap, and how to save resulting bitmap to a PNG file.
+
 ---
 As you can see, there are currently very few code samples. We encourage you to add your own sample code
 in pull requests, or provide code snippets that can be made into samples.
