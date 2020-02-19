@@ -12,7 +12,7 @@ namespace SvgConsole
     {
         public FileInfo[] InputFiles { get; set; }
         public DirectoryInfo[] InputDirectories { get; set; }
-        public FileInfo OutputFile { get; set; }
+        public FileInfo[] OutputFiles { get; set; }
         public DirectoryInfo OutputDirectory { get; set; }
         public float? Width { get; set; }
         public float? Height { get; set; }
@@ -50,6 +50,12 @@ namespace SvgConsole
         static void Save(FileInfo inputPath, string outputPath, float? width, float? height)
         {
             var svgDocument = SvgDocument.Open(inputPath.FullName);
+
+            if (svgDocument == null)
+            {
+                Log($"Error: Failed to load input file: {inputPath.FullName}");
+                return;
+            }
 
             if (width.HasValue)
             {
@@ -96,16 +102,26 @@ namespace SvgConsole
                 }
             }
 
+            if (settings.OutputFiles != null)
+            {
+                if (paths.Count > 0 && paths.Count != settings.OutputFiles.Length)
+                {
+                    Log($"Error: Number of the output files must match number of the input files.");
+                    return;
+                }
+            }
+
             for (int i = 0; i < paths.Count; i++)
             {
                 var inputPath = paths[i];
+                var outputFile = settings.OutputFiles != null ? settings.OutputFiles[i] : null;
                 try
                 {
                     string outputPath = string.Empty;
 
-                    if (settings.OutputFile != null)
+                    if (outputFile != null)
                     {
-                        outputPath = settings.OutputFile.FullName;
+                        outputPath = outputFile.FullName;
                     }
                     else
                     {
@@ -146,7 +162,7 @@ namespace SvgConsole
                 Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
             };
 
-            var optionOutputFile = new Option(new[] { "--outputFile" }, "The relative or absolute path to the output file")
+            var optionOutputFiles = new Option(new[] { "--outputFiles" }, "The relative or absolute path to the output files")
             {
                 Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
             };
@@ -169,7 +185,7 @@ namespace SvgConsole
             rootCommand.AddOption(optionInputFiles);
             rootCommand.AddOption(optionInputDirectories);
             rootCommand.AddOption(optionOutputDirectory);
-            rootCommand.AddOption(optionOutputFile);
+            rootCommand.AddOption(optionOutputFiles);
             rootCommand.AddOption(optionWidth);
             rootCommand.AddOption(optionHeight);
 
