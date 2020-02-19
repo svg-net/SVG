@@ -20,6 +20,21 @@ namespace SvgConsole
 
     class Program
     {
+        static void Log(string message)
+        {
+            Console.WriteLine(message);
+        }
+
+        static void Error(Exception ex)
+        {
+            Log($"{ex.Message}");
+            Log($"{ex.StackTrace}");
+            if (ex.InnerException != null)
+            {
+                Error(ex.InnerException);
+            }
+        }
+
         static void GetFiles(DirectoryInfo directory, string pattern, List<FileInfo> paths)
         {
             var files = Directory.EnumerateFiles(directory.FullName, pattern);
@@ -108,9 +123,8 @@ namespace SvgConsole
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"{inputPath.FullName}");
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
+                    Log($"Error: {inputPath.FullName}");
+                    Error(ex);
                 }
             }
         }
@@ -167,8 +181,7 @@ namespace SvgConsole
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
+                    Error(ex);
                 }
             });
 
