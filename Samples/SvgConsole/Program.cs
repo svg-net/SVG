@@ -115,7 +115,7 @@ namespace SvgConsole
                 var outputFile = settings.OutputFiles != null ? settings.OutputFiles[i] : null;
                 try
                 {
-                    string outputPath = string.Empty;
+                    var outputPath = string.Empty;
 
                     if (outputFile != null)
                     {
