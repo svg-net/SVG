@@ -89,7 +89,7 @@ namespace Svg
         [SvgAttribute("overflow")]
         public virtual SvgOverflow Overflow
         {
-            get { return GetAttribute<SvgOverflow>("overflow", false); }
+            get { return GetAttribute("overflow", false, SvgOverflow.Hidden); }
             set { Attributes["overflow"] = value; }
         }
 

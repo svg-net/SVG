@@ -36,6 +36,11 @@ namespace Svg
 
         private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;
 
+        public override SvgOverflow Overflow
+        {
+            get { return GetAttribute("overflow", false, SvgOverflow.Visible); }
+        }
+
         private static int GetSystemDpi()
         {
             bool isWindows;
@@ -622,9 +627,6 @@ namespace Svg
 
             using (var renderer = SvgRenderer.FromImage(bitmap))
             {
-                // EO, 2014-12-05: Requested to ensure proper zooming out (reduce size). Otherwise it clip the image.
-                this.Overflow = SvgOverflow.Auto;
-
                 var boundable = new GenericBoundable(0, 0, bitmap.Width, bitmap.Height);
                 this.Draw(renderer, boundable);
             }
