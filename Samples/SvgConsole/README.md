@@ -39,7 +39,7 @@ cd SvgConsole-osx-x64-netcoreapp2.2
 
 ```
 SvgConsole:
-  Converts a svg file to an encoded png image.
+  Converts svg files to encoded png images.
 
 Usage:
   SvgConsole [options]
