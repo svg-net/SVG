@@ -124,7 +124,7 @@ namespace SvgConsole
                     else
                     {
                         var inputExtension = inputPath.Extension;
-                        outputPath = inputPath.FullName.Remove(inputPath.FullName.Length - inputExtension.Length) + ".png";
+                        outputPath = Path.ChangeExtension(inputPath.FullName, ".png");
                         if (settings.OutputDirectory != null && !string.IsNullOrEmpty(settings.OutputDirectory.FullName))
                         {
                             outputPath = Path.Combine(settings.OutputDirectory.FullName, Path.GetFileName(outputPath));
