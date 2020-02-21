@@ -11,7 +11,7 @@ namespace SvgConsole
     class Settings
     {
         public FileInfo[] InputFiles { get; set; }
-        public DirectoryInfo[] InputDirectories { get; set; }
+        public DirectoryInfo InputDirectory { get; set; }
         public FileInfo[] OutputFiles { get; set; }
         public DirectoryInfo OutputDirectory { get; set; }
         public float? Width { get; set; }
@@ -85,13 +85,11 @@ namespace SvgConsole
                 }
             }
 
-            if (settings.InputDirectories != null)
+            if (settings.InputDirectory != null)
             {
-                foreach (var directory in settings.InputDirectories)
-                {
-                    GetFiles(directory, "*.svg", paths);
-                    GetFiles(directory, "*.svgz", paths);
-                }
+                var directory = settings.InputDirectory;
+                GetFiles(directory, "*.svg", paths);
+                GetFiles(directory, "*.svgz", paths);
             }
 
             if (settings.OutputDirectory != null && !string.IsNullOrEmpty(settings.OutputDirectory.FullName))
@@ -152,9 +150,9 @@ namespace SvgConsole
                 Argument = new Argument<FileInfo[]>(getDefaultValue: () => null)
             };
 
-            var optionInputDirectories = new Option(new[] { "--inputDirectories", "-d" }, "The relative or absolute path to the input directories")
+            var optionInputDirectory = new Option(new[] { "--inputDirectory", "-d" }, "The relative or absolute path to the input directory")
             {
-                Argument = new Argument<DirectoryInfo[]>(getDefaultValue: () => null)
+                Argument = new Argument<DirectoryInfo>(getDefaultValue: () => null)
             };
 
             var optionOutputDirectory = new Option(new[] { "--outputDirectory", "-o" }, "The relative or absolute path to the output directory")
@@ -183,7 +181,7 @@ namespace SvgConsole
             };
 
             rootCommand.AddOption(optionInputFiles);
-            rootCommand.AddOption(optionInputDirectories);
+            rootCommand.AddOption(optionInputDirectory);
             rootCommand.AddOption(optionOutputDirectory);
             rootCommand.AddOption(optionOutputFiles);
             rootCommand.AddOption(optionWidth);
