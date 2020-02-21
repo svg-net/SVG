@@ -177,7 +177,7 @@ namespace SvgConsole
 
             var rootCommand = new RootCommand()
             {
-                Description = "Converts a svg file to an encoded png image."
+                Description = "Converts svg files to encoded png images."
             };
 
             rootCommand.AddOption(optionInputFiles);
