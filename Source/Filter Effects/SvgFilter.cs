@@ -67,6 +67,16 @@ namespace Svg.FilterEffects
         }
 
         /// <summary>
+        /// Gets or sets reference to another filter element within the current document fragment.
+        /// </summary>
+        [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
+        public Uri Href
+        {
+            get { return GetAttribute<Uri>("href", false); }
+            set { Attributes["href"] = value; }
+        }
+
+        /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
