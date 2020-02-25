@@ -12,6 +12,7 @@ The release versions are NuGet releases.
 * added FontStretch property to SvgElement (see [PR #654](https://github.com/vvvv/SVG/pull/654))
 * moved ColorInterpolationFilters property to SvgElement because its a presentation attribute (see [PR #667](https://github.com/vvvv/SVG/pull/667))
 * added ColorInterpolation property to SvgElement (see [PR #667](https://github.com/vvvv/SVG/pull/667))
+* added Href property to SvgFilter (see [PR #679](https://github.com/vvvv/SVG/pull/679))
 
 ### Fixes
 * fixed CoordinateParser handling of invalid state (see [PR #640](https://github.com/vvvv/SVG/pull/640))
