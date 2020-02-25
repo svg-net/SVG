@@ -1847,6 +1847,19 @@ references:
   isSpec: "True"
   fullName: Svg.FilterEffects.SvgFilter.Height
   nameWithType: SvgFilter.Height
+- uid: Svg.FilterEffects.SvgFilter.Href
+  name: Href
+  href: api/Svg.FilterEffects.SvgFilter.html#Svg_FilterEffects_SvgFilter_Href
+  commentId: P:Svg.FilterEffects.SvgFilter.Href
+  fullName: Svg.FilterEffects.SvgFilter.Href
+  nameWithType: SvgFilter.Href
+- uid: Svg.FilterEffects.SvgFilter.Href*
+  name: Href
+  href: api/Svg.FilterEffects.SvgFilter.html#Svg_FilterEffects_SvgFilter_Href_
+  commentId: Overload:Svg.FilterEffects.SvgFilter.Href
+  isSpec: "True"
+  fullName: Svg.FilterEffects.SvgFilter.Href
+  nameWithType: SvgFilter.Href
 - uid: Svg.FilterEffects.SvgFilter.PrimitiveUnits
   name: PrimitiveUnits
   href: api/Svg.FilterEffects.SvgFilter.html#Svg_FilterEffects_SvgFilter_PrimitiveUnits
