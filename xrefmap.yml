@@ -6153,6 +6153,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocument.OpenAsBitmap
   nameWithType: SvgDocument.OpenAsBitmap
+- uid: Svg.SvgDocument.Overflow
+  name: Overflow
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Overflow
+  commentId: P:Svg.SvgDocument.Overflow
+  fullName: Svg.SvgDocument.Overflow
+  nameWithType: SvgDocument.Overflow
+- uid: Svg.SvgDocument.Overflow*
+  name: Overflow
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Overflow_
+  commentId: Overload:Svg.SvgDocument.Overflow
+  isSpec: "True"
+  fullName: Svg.SvgDocument.Overflow
+  nameWithType: SvgDocument.Overflow
 - uid: Svg.SvgDocument.OverwriteIdManager(Svg.SvgElementIdManager)
   name: OverwriteIdManager(SvgElementIdManager)
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_OverwriteIdManager_Svg_SvgElementIdManager_
