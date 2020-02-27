@@ -264,6 +264,7 @@ __issue-592-02.svg
 __issue-622-01.svg
 __issue-626-01.svg
 __issue-664-01.svg
+__issue-675-01.svg
 __pull_request-373-01.svg
 __pull_request-374-01.svg
 __pull_request-414-01.svg
