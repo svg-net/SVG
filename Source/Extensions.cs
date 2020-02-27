@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
 
 namespace Svg
 {
@@ -11,8 +8,10 @@ namespace Svg
         public static IEnumerable<SvgElement> Descendants<T>(this IEnumerable<T> source) where T : SvgElement
         {
             if (source == null) throw new ArgumentNullException("source");
+
             return GetDescendants<T>(source, false);
         }
+
         private static IEnumerable<SvgElement> GetAncestors<T>(IEnumerable<T> source, bool self) where T : SvgElement
         {
             foreach (var start in source)
@@ -27,6 +26,7 @@ namespace Svg
             }
             yield break;
         }
+
         private static IEnumerable<SvgElement> GetDescendants<T>(IEnumerable<T> source, bool self) where T : SvgElement
         {
             var positons = new Stack<int>();
