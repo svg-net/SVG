@@ -2706,19 +2706,19 @@ references:
   isSpec: "True"
   fullName: Svg.FilterEffects.SvgSpotLight.DeepCopy
   nameWithType: SvgSpotLight.DeepCopy
-- uid: Svg.FilterEffects.SvgSpotLight.LlimitingConeAngle
-  name: LlimitingConeAngle
-  href: api/Svg.FilterEffects.SvgSpotLight.html#Svg_FilterEffects_SvgSpotLight_LlimitingConeAngle
-  commentId: P:Svg.FilterEffects.SvgSpotLight.LlimitingConeAngle
-  fullName: Svg.FilterEffects.SvgSpotLight.LlimitingConeAngle
-  nameWithType: SvgSpotLight.LlimitingConeAngle
-- uid: Svg.FilterEffects.SvgSpotLight.LlimitingConeAngle*
-  name: LlimitingConeAngle
-  href: api/Svg.FilterEffects.SvgSpotLight.html#Svg_FilterEffects_SvgSpotLight_LlimitingConeAngle_
-  commentId: Overload:Svg.FilterEffects.SvgSpotLight.LlimitingConeAngle
+- uid: Svg.FilterEffects.SvgSpotLight.LimitingConeAngle
+  name: LimitingConeAngle
+  href: api/Svg.FilterEffects.SvgSpotLight.html#Svg_FilterEffects_SvgSpotLight_LimitingConeAngle
+  commentId: P:Svg.FilterEffects.SvgSpotLight.LimitingConeAngle
+  fullName: Svg.FilterEffects.SvgSpotLight.LimitingConeAngle
+  nameWithType: SvgSpotLight.LimitingConeAngle
+- uid: Svg.FilterEffects.SvgSpotLight.LimitingConeAngle*
+  name: LimitingConeAngle
+  href: api/Svg.FilterEffects.SvgSpotLight.html#Svg_FilterEffects_SvgSpotLight_LimitingConeAngle_
+  commentId: Overload:Svg.FilterEffects.SvgSpotLight.LimitingConeAngle
   isSpec: "True"
-  fullName: Svg.FilterEffects.SvgSpotLight.LlimitingConeAngle
-  nameWithType: SvgSpotLight.LlimitingConeAngle
+  fullName: Svg.FilterEffects.SvgSpotLight.LimitingConeAngle
+  nameWithType: SvgSpotLight.LimitingConeAngle
 - uid: Svg.FilterEffects.SvgSpotLight.PointsAtX
   name: PointsAtX
   href: api/Svg.FilterEffects.SvgSpotLight.html#Svg_FilterEffects_SvgSpotLight_PointsAtX
