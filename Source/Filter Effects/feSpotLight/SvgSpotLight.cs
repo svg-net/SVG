@@ -53,7 +53,7 @@
         }
 
         [SvgAttribute("limitingConeAngle")]
-        public float LlimitingConeAngle
+        public float LimitingConeAngle
         {
             get { return GetAttribute("limitingConeAngle", false, float.NaN); }
             set { Attributes["limitingConeAngle"] = value; }
