@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -14,7 +13,7 @@ using Svg.Css;
 using System.Threading;
 using System.Globalization;
 using Svg.Exceptions;
-using System.Runtime.InteropServices;
+using Svg.Platforms;
 
 namespace Svg
 {
@@ -31,7 +30,7 @@ namespace Svg
         /// </remarks>
         public static bool SkipGdiPlusCapabilityCheck { get; set; }
 
-        public static readonly int PointsPerInch = GetSystemDpi();
+        public static readonly int PointsPerInch = PlatformSupport.Instance.GetSystemDpi();
         private SvgElementIdManager _idManager;
 
         private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;
@@ -40,42 +39,6 @@ namespace Svg
         {
             get { return GetAttribute("overflow", false, SvgOverflow.Visible); }
         }
-
-        private static int GetSystemDpi()
-        {
-            bool isWindows;
-
-#if NETCORE
-            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-#else
-            var platform = Environment.OSVersion.Platform;
-            isWindows = platform == PlatformID.Win32NT; 
-#endif
-
-            if (isWindows)
-            {
-                // NOTE: starting with Windows 8.1, the DPI is no longer system-wide but screen-specific
-                IntPtr hDC = GetDC(IntPtr.Zero);
-                const int LOGPIXELSY = 90;
-                int result = GetDeviceCaps(hDC, LOGPIXELSY);
-                ReleaseDC(IntPtr.Zero, hDC);
-                return result;
-            }
-            else
-            {
-                // hack for macOS and Linux
-                return 96;
-            }
-        }
-
-        [DllImport("gdi32.dll")]
-        private static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetDC(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
         internal Dictionary<string, IEnumerable<SvgFontFace>> FontDefns()
         {
