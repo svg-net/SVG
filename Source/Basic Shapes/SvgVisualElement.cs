@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
+using Svg.ExtensionMethods;
 using Svg.FilterEffects;
 
 namespace Svg
@@ -188,7 +189,7 @@ namespace Svg
         {
             var rendered = false;
 
-            var filterPath = Filter;
+            var filterPath = Filter.ReplaceWithNullIfNone();
             if (filterPath != null)
             {
                 var element = OwnerDocument.IdManager.GetElementById(filterPath);
@@ -405,17 +406,19 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region set.</param>
         protected internal virtual void SetClip(ISvgRenderer renderer)
         {
-            if (this.ClipPath != null || !string.IsNullOrEmpty(this.Clip))
+            var clipPath = this.ClipPath.ReplaceWithNullIfNone();
+            var clip = this.Clip;
+            if (clipPath != null || !string.IsNullOrEmpty(clip))
             {
                 this._previousClip = renderer.GetClip();
 
-                if (this.ClipPath != null)
+                if (clipPath != null)
                 {
-                    SvgClipPath clipPath = this.OwnerDocument.GetElementById<SvgClipPath>(this.ClipPath.ToString());
-                    if (clipPath != null) renderer.SetClip(clipPath.GetClipRegion(this, renderer), CombineMode.Intersect);
+                    var element = this.OwnerDocument.GetElementById<SvgClipPath>(clipPath.ToString());
+                    if (element != null)
+                        renderer.SetClip(element.GetClipRegion(this, renderer), CombineMode.Intersect);
                 }
 
-                var clip = this.Clip;
                 if (!string.IsNullOrEmpty(clip) && clip.StartsWith("rect("))
                 {
                     clip = clip.Trim();
