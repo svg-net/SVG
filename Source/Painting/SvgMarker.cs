@@ -188,7 +188,7 @@ namespace Svg
         {
             using (var pRenderPen = CreatePen(pOwner, pRenderer))
             {
-                using (var markerPath = GetClone(pOwner))
+                using (var markerPath = GetClone(pOwner, pRenderer))
                 {
                     using (var transMatrix = new Matrix())
                     {
@@ -270,9 +270,9 @@ namespace Svg
         /// Get a clone of the current path, scaled for the stroke width
         /// </summary>
         /// <returns></returns>
-        private GraphicsPath GetClone(SvgVisualElement pPath)
+        private GraphicsPath GetClone(SvgVisualElement pPath, ISvgRenderer renderer)
         {
-            GraphicsPath pRet = Path(null).Clone() as GraphicsPath;
+            GraphicsPath pRet = Path(renderer).Clone() as GraphicsPath;
             switch (MarkerUnits)
             {
                 case SvgMarkerUnits.StrokeWidth:
