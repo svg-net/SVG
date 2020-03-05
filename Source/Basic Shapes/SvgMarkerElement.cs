@@ -14,7 +14,7 @@ namespace Svg
         [SvgAttribute("marker-end")]
         public Uri MarkerEnd
         {
-            get { return GetAttribute<Uri>("marker-end", false).ReplaceWithNullIfNone(); }
+            get { return GetAttribute<Uri>("marker-end", true).ReplaceWithNullIfNone(); }
             set { Attributes["marker-end"] = value; }
         }
 
@@ -24,7 +24,7 @@ namespace Svg
         [SvgAttribute("marker-mid")]
         public Uri MarkerMid
         {
-            get { return GetAttribute<Uri>("marker-mid", false).ReplaceWithNullIfNone(); }
+            get { return GetAttribute<Uri>("marker-mid", true).ReplaceWithNullIfNone(); }
             set { Attributes["marker-mid"] = value; }
         }
 
@@ -34,7 +34,7 @@ namespace Svg
         [SvgAttribute("marker-start")]
         public Uri MarkerStart
         {
-            get { return GetAttribute<Uri>("marker-start", false).ReplaceWithNullIfNone(); }
+            get { return GetAttribute<Uri>("marker-start", true).ReplaceWithNullIfNone(); }
             set { Attributes["marker-start"] = value; }
         }
 
