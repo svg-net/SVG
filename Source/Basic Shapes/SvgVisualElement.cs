@@ -80,7 +80,7 @@ namespace Svg
         [SvgAttribute("filter")]
         public virtual Uri Filter
         {
-            get { return GetAttribute<Uri>("filter", true); }
+            get { return GetAttribute<Uri>("filter", false); }
             set { Attributes["filter"] = value; }
         }
 
