@@ -32,7 +32,7 @@ namespace Svg
                                    select new ElementInfo { ElementName = ((SvgElementAttribute)t.GetCustomAttributes(typeof(SvgElementAttribute), true)[0]).ElementName, ElementType = t };
 
                     availableElements = (from t in svgTypes
-                                         where t.ElementName != "svg" || t.ElementType != typeof(SvgDocument)
+                                         where t.ElementType != typeof(SvgDocument)
                                          group t by t.ElementName into types
                                          select types).ToDictionary(e => e.Key, e => e.SingleOrDefault());
                 }
