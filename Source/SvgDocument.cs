@@ -29,8 +29,9 @@ namespace Svg
         /// Set to true on systems that do not support GDI+ like UWP.
         /// </remarks>
         public static bool SkipGdiPlusCapabilityCheck { get; set; }
+ 
+        public static int PointsPerInch => PlatformSupport.PointsPerInch;
 
-        public static readonly int PointsPerInch = PlatformSupport.Instance.GetSystemDpi();
         private SvgElementIdManager _idManager;
 
         private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;

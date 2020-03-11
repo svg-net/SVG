@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Svg.Platforms
 {
-    internal class SvgDefaultPlatformSupport : ISvgPlatformSupport
+    internal partial class SvgDefaultPlatformSupport : ISvgPlatformSupport
     {
         public int GetSystemDpi()
         {
