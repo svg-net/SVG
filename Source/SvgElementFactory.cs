@@ -14,13 +14,13 @@ namespace Svg
     /// </summary>
     internal class SvgElementFactory
     {
-        private Dictionary<string, ElementInfo> availableElements;
+        private List<ElementInfo> availableElements;
         private Parser cssParser = new Parser();
 
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
         /// </summary>
-        public Dictionary<string, ElementInfo> AvailableElements
+        public List<ElementInfo> AvailableElements
         {
             get
             {
@@ -31,10 +31,7 @@ namespace Svg
                                    && t.IsSubclassOf(typeof(SvgElement))
                                    select new ElementInfo { ElementName = ((SvgElementAttribute)t.GetCustomAttributes(typeof(SvgElementAttribute), true)[0]).ElementName, ElementType = t };
 
-                    availableElements = (from t in svgTypes
-                                         where t.ElementType != typeof(SvgDocument)
-                                         group t by t.ElementName into types
-                                         select types).ToDictionary(e => e.Key, e => e.SingleOrDefault());
+                    availableElements = svgTypes.ToList();
                 }
 
                 return availableElements;
@@ -94,8 +91,9 @@ namespace Svg
                 }
                 else
                 {
-                    ElementInfo validType = null;
-                    if (AvailableElements.TryGetValue(elementName, out validType))
+                    ElementInfo validType;
+                    if (AvailableElements.Where(e => !e.ElementName.Equals("svg", StringComparison.OrdinalIgnoreCase))
+                        .ToDictionary(e => e.ElementName, e => e).TryGetValue(elementName, out validType))
                     {
                         createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
                     }
