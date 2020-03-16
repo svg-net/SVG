@@ -12,8 +12,8 @@ using Svg.ExCSS;
 using Svg.Css;
 using System.Threading;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using Svg.Exceptions;
-using Svg.Platforms;
 
 namespace Svg
 {
@@ -22,6 +22,9 @@ namespace Svg
     /// </summary>
     public class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
+        private static int? pointsPerInch;
+        private static Func<int> getSystemDpi;
+
         /// <summary>
         /// Skip check whether the GDI+ can be loaded.
         /// </summary>
@@ -29,8 +32,8 @@ namespace Svg
         /// Set to true on systems that do not support GDI+ like UWP.
         /// </remarks>
         public static bool SkipGdiPlusCapabilityCheck { get; set; }
- 
-        public static int PointsPerInch => PlatformSupport.PointsPerInch;
+
+        public static int PointsPerInch => pointsPerInch ?? (int)(pointsPerInch = GetSystemDpi());
 
         private SvgElementIdManager _idManager;
 
@@ -40,6 +43,64 @@ namespace Svg
         {
             get { return GetAttribute("overflow", false, SvgOverflow.Visible); }
         }
+
+        /// <summary> Get System Dpi Function </summary>
+        public static Func<int> GetSystemDpi
+        {
+            get => getSystemDpi ?? (getSystemDpi = GetSystemDpiDefault);
+            set
+            {
+                pointsPerInch = null;
+                getSystemDpi = value;
+            } 
+        }
+
+        private static int GetSystemDpiDefault()
+        {
+#if WINDOWS_UWP
+            var di = Windows.Graphics.Display.DisplayInformation.GetForCurrentView();
+            return Convert.ToInt32(di.LogicalDpi); 
+#elif __ANDROID__
+            using(var displayMetrics = new Android.Util.DisplayMetrics())
+            {
+                return Convert.ToInt32(displayMetrics.Density * 96);
+            }
+#elif __IOS__
+            return Convert.ToInt32(UIKit.UIScreen.MainScreen.Scale * 96);
+#else
+            bool isWindows;
+
+#if NETCORE
+            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+#else
+            var platform = Environment.OSVersion.Platform;
+            isWindows = platform == PlatformID.Win32NT; 
+#endif
+            if (isWindows)
+            {
+                // NOTE: starting with Windows 8.1, the DPI is no longer system-wide but screen-specific
+                IntPtr hDC = GetDC(IntPtr.Zero);
+                const int LOGPIXELSY = 90;
+                int result = GetDeviceCaps(hDC, LOGPIXELSY);
+                ReleaseDC(IntPtr.Zero, hDC);
+                return result;
+            }
+            else
+            {
+                // hack for macOS and Linux
+                return 96;
+            }
+#endif
+        }
+
+        [DllImport("gdi32.dll")]
+        private static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetDC(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
         internal Dictionary<string, IEnumerable<SvgFontFace>> FontDefns()
         {

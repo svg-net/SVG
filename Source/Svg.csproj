@@ -96,11 +96,7 @@
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup Condition ="'$(TargetFramework)' == 'Xamarin.iOS10' OR '$(TargetFramework)' == 'MonoAndroid10.0' OR '$(TargetFramework)' == 'uap10.0.16299'">
-      <PackageReference Include="Xamarin.Essentials" Version="1.4.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
+    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
     <PackageReference Include="System.Drawing.Common">
       <Version>4.7.0</Version>
     </PackageReference>
@@ -122,14 +118,6 @@
   
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
-  </ItemGroup>
-    
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2' OR '$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'net452'">
-      <Compile Remove="Platforms\SvgDefaultPlatformSupport.xamarin.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'Xamarin.iOS10' OR '$(TargetFramework)' == 'MonoAndroid10.0' OR '$(TargetFramework)' == 'uap10.0.16299'">
-      <Compile Remove="Platforms\SvgDefaultPlatformSupport.cs" />
   </ItemGroup>
     
   <ItemGroup>
