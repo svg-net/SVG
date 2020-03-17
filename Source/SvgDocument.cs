@@ -23,7 +23,7 @@ namespace Svg
     public class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
         private static int? pointsPerInch;
-        private static Func<int> getSystemDpi;
+        private static Func<int> getSystemDpi = GetSystemDpiDefault;
 
         /// <summary>
         /// Skip check whether the GDI+ can be loaded.
@@ -47,11 +47,11 @@ namespace Svg
         /// <summary> Get System Dpi Function </summary>
         public static Func<int> GetSystemDpi
         {
-            get => getSystemDpi ?? (getSystemDpi = GetSystemDpiDefault);
+            get => getSystemDpi;
             set
             {
                 pointsPerInch = null;
-                getSystemDpi = value;
+                getSystemDpi = value ?? GetSystemDpiDefault;
             } 
         }
 
