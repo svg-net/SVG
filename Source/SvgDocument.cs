@@ -14,6 +14,7 @@ using System.Threading;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using Svg.Exceptions;
+using SizeF = System.Drawing.SizeF;
 
 namespace Svg
 {
@@ -61,9 +62,25 @@ namespace Svg
             var di = Windows.Graphics.Display.DisplayInformation.GetForCurrentView();
             return Convert.ToInt32(di.LogicalDpi); 
 #elif __ANDROID__
-            using(var displayMetrics = new Android.Util.DisplayMetrics())
+            using (var displayMetrics = new Android.Util.DisplayMetrics())
             {
-                return Convert.ToInt32(displayMetrics.Density * 96);
+                using (var display = GetDefaultDisplay())
+                {
+                    display?.GetRealMetrics(displayMetrics);
+                    var dpi = Math.Min(displayMetrics.Xdpi, displayMetrics.Ydpi);
+                    return Convert.ToInt32(dpi);
+                }
+            }
+
+            Android.Views.Display GetDefaultDisplay()
+            {
+                using (var service = Android.App.Application.Context.GetSystemService(Android.Content.Context.WindowService))
+                {
+                    using (var windowManager = Android.Runtime.Extensions.JavaCast<Android.Views.IWindowManager>(service))
+                    {
+                        return windowManager?.DefaultDisplay;
+                    }
+                }
             }
 #elif __IOS__
             return Convert.ToInt32(UIKit.UIScreen.MainScreen.Scale * 96);
@@ -78,12 +95,20 @@ namespace Svg
 #endif
             if (isWindows)
             {
-                // NOTE: starting with Windows 8.1, the DPI is no longer system-wide but screen-specific
-                IntPtr hDC = GetDC(IntPtr.Zero);
-                const int LOGPIXELSY = 90;
-                int result = GetDeviceCaps(hDC, LOGPIXELSY);
-                ReleaseDC(IntPtr.Zero, hDC);
-                return result;
+                try
+                {
+                    // NOTE: starting with Windows 8.1, the DPI is no longer system-wide but screen-specific
+                    IntPtr hDC = GetDC(IntPtr.Zero);
+                    const int LOGPIXELSY = 90;
+                    int result = GetDeviceCaps(hDC, LOGPIXELSY);
+                    ReleaseDC(IntPtr.Zero, hDC);
+                    return result;
+                }
+                catch (TypeLoadException)
+                {
+                    // for UWP Release mode when standard is referenced
+                    return 96;
+                }
             }
             else
             {
@@ -590,7 +615,7 @@ namespace Svg
         /// Renders the <see cref="SvgDocument"/> to the specified <see cref="Graphics"/>.
         /// </summary>
         /// <param name="graphics">The <see cref="Graphics"/> to be rendered to.</param>
-        /// <param name="size">The <see cref="SizeF"/> to render the document. If <c>null</c> document is rendered at the default document size.</param>
+        /// <param name="size">The <see cref="System.Drawing.SizeF"/> to render the document. If <c>null</c> document is rendered at the default document size.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
         public void Draw(Graphics graphics, SizeF? size)
         {
