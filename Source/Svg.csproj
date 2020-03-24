@@ -53,7 +53,7 @@
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net452'">
     <Title>Svg for .Net Framework 4.5.2</Title>
-    <DefineConstants>$(DefineConstants);NETFULL;NET452</DefineConstants>
+    <DefineConstants>$(DefineConstants);NETFULL;NET452;Net4</DefineConstants>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
