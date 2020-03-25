@@ -34,6 +34,7 @@
     </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/vvvv/SVG</PackageProjectUrl>
     <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
+    <PackageIcon>svg-logo-v.png</PackageIcon>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
@@ -42,6 +43,7 @@
     <Folder Include="Web\Resources\" />
     <None Include="Basic Shapes\DOM.cd" />
     <None Include="svgkey.snk" />
+    <None Include="svg-logo-v.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
