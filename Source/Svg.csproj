@@ -1,7 +1,6 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp2.2;net452;Xamarin.iOS10;MonoAndroid90</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp2.2;net452</TargetFrameworks>
     <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
@@ -67,22 +66,7 @@
     <Title>Svg for .Net Standard 2.0</Title>
     <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='Xamarin.iOS10'">
-      <Title>Svg for Xamarin iOS 10</Title>
-      <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='MonoAndroid10.0'">
-      <Title>Svg for Mono Android 10.0</Title>
-      <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='uap10.0.16299'">
-      <Title>Svg for Uwp</Title>
-      <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
-  </PropertyGroup>
-
+  
   <ItemGroup Condition="'$(TargetFramework)'=='net452'">
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -96,7 +80,7 @@
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
     <PackageReference Include="System.Drawing.Common">
       <Version>4.7.0</Version>
     </PackageReference>
@@ -105,7 +89,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0' OR '$(TargetFramework)'=='uap10.0.16299'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Drawing.Common">
       <Version>4.7.0</Version>
     </PackageReference>
@@ -114,12 +98,13 @@
     </PackageReference>
   </ItemGroup>
 
-    <!-- Mac specific include -->
+  <!-- Mac specific include -->
   
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
   </ItemGroup>
-    
+ 
+  
   <ItemGroup>
     <Compile Remove=".\External\ExCSS\Parser.generated.cs" />
     <Compile Remove=".\External\ExCSS\ParserX.cs" />
