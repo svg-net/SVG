@@ -170,6 +170,7 @@ styling-css-02-b.svg
 styling-css-03-b.svg
 styling-css-04-f.svg
 styling-css-07-f.svg
+styling-css-08-f.svg
 styling-inherit-01-b.svg
 styling-pres-01-t.svg
 text-align-01-b.svg
