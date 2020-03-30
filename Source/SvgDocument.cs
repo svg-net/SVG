@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -711,7 +710,7 @@ namespace Svg
         public void Write(Stream stream, bool useBom = true)
         {
 
-            var xmlWriter = new XmlTextWriter(stream, useBom ? Encoding.UTF8 : new System.Text.UTF8Encoding(false))
+            var xmlWriter = new XmlTextWriter(stream, useBom ? Encoding.UTF8 : new UTF8Encoding(false))
             {
                 Formatting = Formatting.Indented
             };
@@ -732,6 +731,21 @@ namespace Svg
             {
                 this.Write(fs, useBom);
             }
+        }
+
+        protected override void WriteStartElement(XmlTextWriter writer)
+        {
+            base.WriteStartElement(writer);
+
+            foreach (var ns in SvgAttributeAttribute.Namespaces)
+            {
+                if (string.IsNullOrEmpty(ns.Key))
+                    writer.WriteAttributeString("xmlns", ns.Value);
+                else
+                    writer.WriteAttributeString("xmlns", ns.Key, null, ns.Value);
+            }
+
+            writer.WriteAttributeString("version", "1.1");
         }
     }
 }
