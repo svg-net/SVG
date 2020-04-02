@@ -36,6 +36,17 @@ namespace Svg.UnitTests
         }
 
         [Test]
+        public void TestTextBounds()
+        {
+            // x="10" y="30" font-family="Tahoma" font-size="15pt"  content="VVVV-svg"
+            AssertEqualBounds("text", 9.92f, 15.46f, 83.69f, 18.67f);
+            // additional translation(10, 10)
+            AssertEqualBounds("text-xlate", 19.92f, 24.8f, 133.95f, 19.33f);
+            // additional rotation(30)
+            AssertEqualBounds("text-rot", -2.08f, 18.34f, 102.46f, 71.01f);
+        }
+
+        [Test]
         public void TestGroupBounds()
         {
             // all lines from TestLineBounds()
@@ -60,6 +71,23 @@ namespace Svg.UnitTests
         public void TestRotatedGroupBounds()
         {
             AssertEqualBounds("lines-rotated", -45.5f, 9.5f, 86, 31);
+        }
+
+        [Test]
+        public void TestBoundsIndempotent()
+        {
+            // ensure that accessing the Bounds property returns the same value when called repeatedly.
+            AssertEqualBounds("lines-rotated", -45.5f, 9.5f, 86, 31);
+            AssertEqualBounds("lines-rotated", -45.5f, 9.5f, 86, 31);
+
+            AssertEqualBounds("text-rot", -2.08f, 18.34f, 102.46f, 71.01f);
+            AssertEqualBounds("text-rot", -2.08f, 18.34f, 102.46f, 71.01f);
+
+            AssertEqualBounds("rect-rot", -50.5f, 9.5f, 21f, 11f);
+            AssertEqualBounds("rect-rot", -50.5f, 9.5f, 21f, 11f);
+
+            AssertEqualBounds("line-xform", 19.5f, -40.5f, 21, 21);
+            AssertEqualBounds("line-xform", 19.5f, -40.5f, 21, 21);
         }
 
         private void AssertEqualBounds(string elementId, float x, float y, float width, float height)

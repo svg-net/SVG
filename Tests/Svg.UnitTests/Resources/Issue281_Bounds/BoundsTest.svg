@@ -26,4 +26,9 @@
     <rect id="rect-xlate" x="10" y="30" width="10" height="20" transform="translate(10, 10)" />
     <rect id="rect-rot" x="10" y="30" width="10" height="20" transform="rotate(90)" />
   </g>
+  <g id="texts">
+    <text id="text" x="10" y="30" font-family="Tahoma" font-size="15pt">VVVV-svg</text>
+    <text id="text-xlate" x="10" y="30" font-family="Tahoma" font-size="15pt" transform="translate(10, 10)">VVVV-svg-xlate</text>
+    <text id="text-rot" x="10" y="30" font-family="Tahoma" font-size="15pt" transform="rotate(30)" >VVVV-svg-rot</text>
+  </g>
 </svg>
