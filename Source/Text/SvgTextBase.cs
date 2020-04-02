@@ -270,6 +270,7 @@ namespace Svg
                 }
                 if (Transforms != null && Transforms.Count > 0)
                 {
+                    path = path.Clone() as GraphicsPath;    // fix issue #704
                     using (var matrix = Transforms.GetMatrix())
                         path.Transform(matrix);
                 }
