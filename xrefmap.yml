@@ -6295,6 +6295,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocument.Write
   nameWithType: SvgDocument.Write
+- uid: Svg.SvgDocument.WriteStartElement(XmlTextWriter)
+  name: WriteStartElement(XmlTextWriter)
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_WriteStartElement_XmlTextWriter_
+  commentId: M:Svg.SvgDocument.WriteStartElement(XmlTextWriter)
+  fullName: Svg.SvgDocument.WriteStartElement(XmlTextWriter)
+  nameWithType: SvgDocument.WriteStartElement(XmlTextWriter)
+- uid: Svg.SvgDocument.WriteStartElement*
+  name: WriteStartElement
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_WriteStartElement_
+  commentId: Overload:Svg.SvgDocument.WriteStartElement
+  isSpec: "True"
+  fullName: Svg.SvgDocument.WriteStartElement
+  nameWithType: SvgDocument.WriteStartElement
 - uid: Svg.SvgDocumentMetadata
   name: SvgDocumentMetadata
   href: api/Svg.SvgDocumentMetadata.html
@@ -9543,19 +9556,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgFragment.Width
   nameWithType: SvgFragment.Width
-- uid: Svg.SvgFragment.WriteStartElement(XmlTextWriter)
-  name: WriteStartElement(XmlTextWriter)
-  href: api/Svg.SvgFragment.html#Svg_SvgFragment_WriteStartElement_XmlTextWriter_
-  commentId: M:Svg.SvgFragment.WriteStartElement(XmlTextWriter)
-  fullName: Svg.SvgFragment.WriteStartElement(XmlTextWriter)
-  nameWithType: SvgFragment.WriteStartElement(XmlTextWriter)
-- uid: Svg.SvgFragment.WriteStartElement*
-  name: WriteStartElement
-  href: api/Svg.SvgFragment.html#Svg_SvgFragment_WriteStartElement_
-  commentId: Overload:Svg.SvgFragment.WriteStartElement
-  isSpec: "True"
-  fullName: Svg.SvgFragment.WriteStartElement
-  nameWithType: SvgFragment.WriteStartElement
 - uid: Svg.SvgFragment.X
   name: X
   href: api/Svg.SvgFragment.html#Svg_SvgFragment_X
