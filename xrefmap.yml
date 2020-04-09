@@ -10108,19 +10108,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgGroup.Path
   nameWithType: SvgGroup.Path
-- uid: Svg.SvgGroup.Render(Svg.ISvgRenderer)
-  name: Render(ISvgRenderer)
-  href: api/Svg.SvgGroup.html#Svg_SvgGroup_Render_Svg_ISvgRenderer_
-  commentId: M:Svg.SvgGroup.Render(Svg.ISvgRenderer)
-  fullName: Svg.SvgGroup.Render(Svg.ISvgRenderer)
-  nameWithType: SvgGroup.Render(ISvgRenderer)
-- uid: Svg.SvgGroup.Render*
-  name: Render
-  href: api/Svg.SvgGroup.html#Svg_SvgGroup_Render_
-  commentId: Overload:Svg.SvgGroup.Render
-  isSpec: "True"
-  fullName: Svg.SvgGroup.Render
-  nameWithType: SvgGroup.Render
 - uid: Svg.SvgGroup.Renderable
   name: Renderable
   href: api/Svg.SvgGroup.html#Svg_SvgGroup_Renderable

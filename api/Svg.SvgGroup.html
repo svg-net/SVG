@@ -140,6 +140,9 @@
       <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_RequiresSmoothRendering">SvgVisualElement.RequiresSmoothRendering</a>
     </div>
     <div>
+      <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Render_Svg_ISvgRenderer_">SvgVisualElement.Render(ISvgRenderer)</a>
+    </div>
+    <div>
       <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_RenderFillAndStroke_Svg_ISvgRenderer_">SvgVisualElement.RenderFillAndStroke(ISvgRenderer)</a>
     </div>
     <div>
@@ -586,7 +589,7 @@ public class SvgGroup : SvgMarkerElement, ISvgElement, ISvgTransformable, IClone
   
   <a id="Svg_SvgGroup_Path_" data-uid="Svg.SvgGroup.Path*"></a>
   <h4 id="Svg_SvgGroup_Path_Svg_ISvgRenderer_" data-uid="Svg.SvgGroup.Path(Svg.ISvgRenderer)">Path(ISvgRenderer)</h4>
-  <div class="markdown level1 summary"><p>Gets the <see cref="!:System.Drawing.Drawing2D.GraphicsPath"></see> for this element.</p>
+  <div class="markdown level1 summary"><p>Gets the <see cref="!:GraphicsPath"></see> for this element.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -627,38 +630,6 @@ public class SvgGroup : SvgMarkerElement, ISvgElement, ISvgTransformable, IClone
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Path_Svg_ISvgRenderer_">SvgVisualElement.Path(ISvgRenderer)</a></div>
-  
-  
-  <a id="Svg_SvgGroup_Render_" data-uid="Svg.SvgGroup.Render*"></a>
-  <h4 id="Svg_SvgGroup_Render_Svg_ISvgRenderer_" data-uid="Svg.SvgGroup.Render(Svg.ISvgRenderer)">Render(ISvgRenderer)</h4>
-  <div class="markdown level1 summary"><p>Add group markers to children before rendering them.
-This is only done on first rendering.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void Render(ISvgRenderer renderer)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a></td>
-        <td><span class="parametername">renderer</span></td>
-        <td><p>The <a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a> to render the child <a class="xref" href="Svg.SvgElement.html">SvgElement</a>s to.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Render_Svg_ISvgRenderer_">SvgVisualElement.Render(ISvgRenderer)</a></div>
   <h3 id="implements">Implements</h3>
   <div>
       <a class="xref" href="Svg.ISvgTransformable.html">ISvgTransformable</a>
