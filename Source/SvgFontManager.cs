@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
@@ -12,11 +12,19 @@ namespace Svg
     /// When a font is requested in the render process, if the font is not found as an embedded SvgFont, the render
     /// process will SvgFontManager.FindFont method.
     /// </summary>
-
     public static class SvgFontManager
     {
+        private static readonly string[][] LocalizedFamilyNames = new string[][]
+        {
+            // Japanese
+            new string[]{ "Meiryo", "メイリオ", },
+            new string[]{ "MS Mincho", "ＭＳ 明朝", },
+        };
+
         private static readonly Dictionary<string, FontFamily> SystemFonts;
+
         public static Func<string, FontFamily> FontLoaderCallback;
+
         static SvgFontManager()
         {
             // ff.Name is not necessarily unique, see https://github.com/vvvv/SVG/issues/452
@@ -48,10 +56,21 @@ namespace Svg
         /// <returns>An <see cref="FontFamily"/> of the loaded font or null is not located.</returns>
         public static FontFamily FindFont(string name)
         {
-            if (name == null) return null;
-            FontFamily ff = null;
-            if (SystemFonts.TryGetValue(name.ToLower(), out ff)) return ff;
-            if (FontLoaderCallback == null) return null;
+            if (name == null)
+                return null;
+
+            var familyNames = LocalizedFamilyNames
+                .Where(f => f.Contains(name, StringComparer.CurrentCultureIgnoreCase)).FirstOrDefault()
+                ?? Enumerable.Repeat(name, 1);
+            foreach (var familyName in familyNames)
+            {
+                FontFamily ff;
+                if (SystemFonts.TryGetValue(familyName.ToLower(), out ff))
+                    return ff;
+            }
+
+            if (FontLoaderCallback == null)
+                return null;
             var ff2 = FontLoaderCallback(name);
             if (ff2 != null)
                 SystemFonts.Add(name.ToLower(), ff2);
