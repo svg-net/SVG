@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿#if !NETSTANDARD20
+using NUnit.Framework;
 using System.Drawing.Text;
 using System.Runtime.InteropServices;
 
@@ -38,3 +39,4 @@ namespace Svg.UnitTests
         }
     }
 }
+#endif
