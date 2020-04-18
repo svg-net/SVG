@@ -1,54 +1,70 @@
-using Svg.DataTypes;
 using System.ComponentModel;
-using System;
+using System.Globalization;
+using Svg.DataTypes;
 
 namespace Svg
 {
     /// <summary>
-    /// Represents an orientation in an Scalable Vector Graphics document.
+    /// Represents an orientation in a Scalable Vector Graphics document.
     /// </summary>
-	[TypeConverter(typeof(SvgOrientConverter))]
-	public class SvgOrient
+    [TypeConverter(typeof(SvgOrientConverter))]
+    public class SvgOrient
     {
-        private bool _isAuto = true;
+        private bool _isAuto;
         private float _angle;
-  
-		public SvgOrient()
-		{
-			IsAuto = true;
-		}
 
-		public SvgOrient(float angle)
-		{
-			Angle = angle;
-		}
+        public SvgOrient()
+            : this(0f)
+        {
+        }
+
+        public SvgOrient(bool isAuto)
+        {
+            IsAuto = isAuto;
+        }
+
+        public SvgOrient(bool isAuto, bool isAutoStartReverse)
+        {
+            IsAuto = isAuto;
+            IsAutoStartReverse = isAutoStartReverse;
+        }
+
+        public SvgOrient(float angle)
+        {
+            Angle = angle;
+        }
 
         /// <summary>
         /// Gets the value of the unit.
         /// </summary>
         public float Angle
         {
-            get { return this._angle; }
+            get { return _angle; }
             set
             {
-            	this._angle = value;
-            	this._isAuto = false;
+                _angle = value;
+                _isAuto = false;
             }
         }
 
-		
         /// <summary>
         /// Gets the value of the unit.
         /// </summary>
         public bool IsAuto
         {
-            get { return this._isAuto; }
-            set { 
-				this._isAuto = value;
-            	this._angle = 0f;
-			}
+            get { return _isAuto; }
+            set
+            {
+                _isAuto = value;
+                _angle = 0f;
+            }
         }
 
+        /// <summary>
+        /// If IsAuto is true, indicates if the orientation of a 'marker-start' must be rotated of 180° from the original orientation
+        /// </summary>
+        /// This allows a single arrowhead marker to be defined that can be used for both the start and end of a path, point in the right directions.
+        public bool IsAutoStartReverse { get; set; }
 
         /// <summary>
         /// Indicates whether this instance and a specified object are equal.
@@ -59,11 +75,11 @@ namespace Svg
         /// </returns>
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (!(obj.GetType() == typeof (SvgOrient))) return false;
+            if (!(obj is SvgOrient))
+                return false;
 
-            var unit = (SvgOrient)obj;
-            return (unit.IsAuto == this.IsAuto && unit.Angle == this.Angle);
+            var orient = (SvgOrient)obj;
+            return (orient.IsAuto == IsAuto && orient.Angle == Angle);
         }
 
         public override int GetHashCode()
@@ -73,23 +89,11 @@ namespace Svg
 
         public override string ToString()
         {
-            string type = string.Empty;
-
-			if (this.IsAuto)
-				return "auto";
-			else
-				return this.Angle.ToString();
+            if (IsAuto)
+                return IsAutoStartReverse ? "auto-start-reverse" : "auto";
+            else
+                return Angle.ToString(CultureInfo.InvariantCulture);
         }
-
-		///// <summary>
-		///// Performs an implicit conversion from <see cref="Svg.SvgUnit"/> to <see cref="System.Single"/>.
-		///// </summary>
-		///// <param name="value">The value.</param>
-		///// <returns>The result of the conversion.</returns>
-		//public static implicit operator float(SvgOrient value)
-		//{
-		//    return this.Angle;
-		//}
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="System.Single"/> to <see cref="Svg.SvgOrient"/>.
@@ -100,7 +104,5 @@ namespace Svg
         {
             return new SvgOrient(value);
         }
-
     }
-
 }

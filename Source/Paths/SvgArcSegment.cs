@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing.Drawing2D;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Globalization;
 
 namespace Svg.Pathing
 {
@@ -11,87 +10,67 @@ namespace Svg.Pathing
         private const double RadiansPerDegree = Math.PI / 180.0;
         private const double DoublePI = Math.PI * 2;
 
-        public float RadiusX
-        {
-            get;
-            set;
-        }
+        public float RadiusX { get; set; }
 
-        public float RadiusY
-        {
-            get;
-            set;
-        }
+        public float RadiusY { get; set; }
 
-        public float Angle
-        {
-            get;
-            set;
-        }
+        public float Angle { get; set; }
 
-        public SvgArcSweep Sweep
-        {
-            get;
-            set;
-        }
+        public SvgArcSweep Sweep { get; set; }
 
-        public SvgArcSize Size
-        {
-            get;
-            set;
-        }
+        public SvgArcSize Size { get; set; }
 
         public SvgArcSegment(PointF start, float radiusX, float radiusY, float angle, SvgArcSize size, SvgArcSweep sweep, PointF end)
             : base(start, end)
         {
-            this.RadiusX = Math.Abs(radiusX);
-            this.RadiusY = Math.Abs(radiusY);
-            this.Angle = angle;
-            this.Sweep = sweep;
-            this.Size = size;
+            RadiusX = Math.Abs(radiusX);
+            RadiusY = Math.Abs(radiusY);
+            Angle = angle;
+            Sweep = sweep;
+            Size = size;
         }
 
         private static double CalculateVectorAngle(double ux, double uy, double vx, double vy)
         {
-            double ta = Math.Atan2(uy, ux);
-            double tb = Math.Atan2(vy, vx);
+            var ta = Math.Atan2(uy, ux);
+            var tb = Math.Atan2(vy, vx);
 
             if (tb >= ta)
             {
                 return tb - ta;
             }
 
-            return SvgArcSegment.DoublePI - (ta - tb);
+            return DoublePI - (ta - tb);
         }
 
         public override void AddToPath(GraphicsPath graphicsPath)
         {
-            if (this.Start == this.End)
+            if (Start == End)
             {
                 return;
             }
 
-            if (this.RadiusX == 0.0f && this.RadiusY == 0.0f)
+            if (RadiusX == 0.0f && RadiusY == 0.0f)
             {
-                graphicsPath.AddLine(this.Start, this.End);
+                graphicsPath.AddLine(Start, End);
                 return;
             }
 
-            double sinPhi = Math.Sin(this.Angle * SvgArcSegment.RadiansPerDegree);
-            double cosPhi = Math.Cos(this.Angle * SvgArcSegment.RadiansPerDegree);
+            var sinPhi = Math.Sin(Angle * RadiansPerDegree);
+            var cosPhi = Math.Cos(Angle * RadiansPerDegree);
 
-            double x1dash = cosPhi * (this.Start.X - this.End.X) / 2.0 + sinPhi * (this.Start.Y - this.End.Y) / 2.0;
-            double y1dash = -sinPhi * (this.Start.X - this.End.X) / 2.0 + cosPhi * (this.Start.Y - this.End.Y) / 2.0;
+            var x1dash = cosPhi * (Start.X - End.X) / 2.0 + sinPhi * (Start.Y - End.Y) / 2.0;
+            var y1dash = -sinPhi * (Start.X - End.X) / 2.0 + cosPhi * (Start.Y - End.Y) / 2.0;
 
             double root;
-            double numerator = this.RadiusX * this.RadiusX * this.RadiusY * this.RadiusY - this.RadiusX * this.RadiusX * y1dash * y1dash - this.RadiusY * this.RadiusY * x1dash * x1dash;
+            var numerator = RadiusX * RadiusX * RadiusY * RadiusY - RadiusX * RadiusX * y1dash * y1dash - RadiusY * RadiusY * x1dash * x1dash;
 
-            float rx = this.RadiusX;
-            float ry = this.RadiusY;
+            var rx = RadiusX;
+            var ry = RadiusY;
 
             if (numerator < 0.0)
             {
-                float s = (float)Math.Sqrt(1.0 - numerator / (this.RadiusX * this.RadiusX * this.RadiusY * this.RadiusY));
+                var s = (float)Math.Sqrt(1.0 - numerator / (RadiusX * RadiusX * RadiusY * RadiusY));
 
                 rx *= s;
                 ry *= s;
@@ -99,52 +78,52 @@ namespace Svg.Pathing
             }
             else
             {
-                root = ((this.Size == SvgArcSize.Large && this.Sweep == SvgArcSweep.Positive) || (this.Size == SvgArcSize.Small && this.Sweep == SvgArcSweep.Negative) ? -1.0 : 1.0) * Math.Sqrt(numerator / (this.RadiusX * this.RadiusX * y1dash * y1dash + this.RadiusY * this.RadiusY * x1dash * x1dash));
+                root = ((Size == SvgArcSize.Large && Sweep == SvgArcSweep.Positive) || (Size == SvgArcSize.Small && Sweep == SvgArcSweep.Negative) ? -1.0 : 1.0) * Math.Sqrt(numerator / (RadiusX * RadiusX * y1dash * y1dash + RadiusY * RadiusY * x1dash * x1dash));
             }
 
-            double cxdash = root * rx * y1dash / ry;
-            double cydash = -root * ry * x1dash / rx;
+            var cxdash = root * rx * y1dash / ry;
+            var cydash = -root * ry * x1dash / rx;
 
-            double cx = cosPhi * cxdash - sinPhi * cydash + (this.Start.X + this.End.X) / 2.0;
-            double cy = sinPhi * cxdash + cosPhi * cydash + (this.Start.Y + this.End.Y) / 2.0;
+            var cx = cosPhi * cxdash - sinPhi * cydash + (Start.X + End.X) / 2.0;
+            var cy = sinPhi * cxdash + cosPhi * cydash + (Start.Y + End.Y) / 2.0;
 
-            double theta1 = SvgArcSegment.CalculateVectorAngle(1.0, 0.0, (x1dash - cxdash) / rx, (y1dash - cydash) / ry);
-            double dtheta = SvgArcSegment.CalculateVectorAngle((x1dash - cxdash) / rx, (y1dash - cydash) / ry, (-x1dash - cxdash) / rx, (-y1dash - cydash) / ry);
+            var theta1 = CalculateVectorAngle(1.0, 0.0, (x1dash - cxdash) / rx, (y1dash - cydash) / ry);
+            var dtheta = CalculateVectorAngle((x1dash - cxdash) / rx, (y1dash - cydash) / ry, (-x1dash - cxdash) / rx, (-y1dash - cydash) / ry);
 
-            if (this.Sweep == SvgArcSweep.Negative && dtheta > 0)
+            if (Sweep == SvgArcSweep.Negative && dtheta > 0)
             {
                 dtheta -= 2.0 * Math.PI;
             }
-            else if (this.Sweep == SvgArcSweep.Positive && dtheta < 0)
+            else if (Sweep == SvgArcSweep.Positive && dtheta < 0)
             {
                 dtheta += 2.0 * Math.PI;
             }
 
-            int segments = (int)Math.Ceiling((double)Math.Abs(dtheta / (Math.PI / 2.0)));
-            double delta = dtheta / segments;
-            double t = 8.0 / 3.0 * Math.Sin(delta / 4.0) * Math.Sin(delta / 4.0) / Math.Sin(delta / 2.0);
+            var segments = (int)Math.Ceiling((double)Math.Abs(dtheta / (Math.PI / 2.0)));
+            var delta = dtheta / segments;
+            var t = 8.0 / 3.0 * Math.Sin(delta / 4.0) * Math.Sin(delta / 4.0) / Math.Sin(delta / 2.0);
 
-            double startX = this.Start.X;
-            double startY = this.Start.Y;
+            var startX = Start.X;
+            var startY = Start.Y;
 
-            for (int i = 0; i < segments; ++i)
+            for (var i = 0; i < segments; ++i)
             {
-                double cosTheta1 = Math.Cos(theta1);
-                double sinTheta1 = Math.Sin(theta1);
-                double theta2 = theta1 + delta;
-                double cosTheta2 = Math.Cos(theta2);
-                double sinTheta2 = Math.Sin(theta2);
+                var cosTheta1 = Math.Cos(theta1);
+                var sinTheta1 = Math.Sin(theta1);
+                var theta2 = theta1 + delta;
+                var cosTheta2 = Math.Cos(theta2);
+                var sinTheta2 = Math.Sin(theta2);
 
-                double endpointX = cosPhi * rx * cosTheta2 - sinPhi * ry * sinTheta2 + cx;
-                double endpointY = sinPhi * rx * cosTheta2 + cosPhi * ry * sinTheta2 + cy;
+                var endpointX = cosPhi * rx * cosTheta2 - sinPhi * ry * sinTheta2 + cx;
+                var endpointY = sinPhi * rx * cosTheta2 + cosPhi * ry * sinTheta2 + cy;
 
-                double dx1 = t * (-cosPhi * rx * sinTheta1 - sinPhi * ry * cosTheta1);
-                double dy1 = t * (-sinPhi * rx * sinTheta1 + cosPhi * ry * cosTheta1);
+                var dx1 = t * (-cosPhi * rx * sinTheta1 - sinPhi * ry * cosTheta1);
+                var dy1 = t * (-sinPhi * rx * sinTheta1 + cosPhi * ry * cosTheta1);
 
-                double dxe = t * (cosPhi * rx * sinTheta2 + sinPhi * ry * cosTheta2);
-                double dye = t * (sinPhi * rx * sinTheta2 - cosPhi * ry * cosTheta2);
+                var dxe = t * (cosPhi * rx * sinTheta2 + sinPhi * ry * cosTheta2);
+                var dye = t * (sinPhi * rx * sinTheta2 - cosPhi * ry * cosTheta2);
 
-                graphicsPath.AddBezier((float)startX, (float)startY, (float)(startX + dx1), (float)(startY + dy1),
+                graphicsPath.AddBezier(startX, startY, (float)(startX + dx1), (float)(startY + dy1),
                     (float)(endpointX + dxe), (float)(endpointY + dye), (float)endpointX, (float)endpointY);
 
                 theta1 = theta2;
@@ -152,12 +131,12 @@ namespace Svg.Pathing
                 startY = (float)endpointY;
             }
         }
-        
+
         public override string ToString()
         {
-        	var arcFlag = this.Size == SvgArcSize.Large ? "1" : "0";
-        	var sweepFlag = this.Sweep == SvgArcSweep.Positive ? "1" : "0";
-        	return "A" + this.RadiusX.ToString() + " " + this.RadiusY.ToString() + " " + this.Angle.ToString() + " " + arcFlag + " " + sweepFlag + " " + this.End.ToSvgString();
+            var arcFlag = Size == SvgArcSize.Large ? "1" : "0";
+            var sweepFlag = Sweep == SvgArcSweep.Positive ? "1" : "0";
+            return "A" + RadiusX.ToString(CultureInfo.InvariantCulture) + " " + RadiusY.ToString(CultureInfo.InvariantCulture) + " " + Angle.ToString(CultureInfo.InvariantCulture) + " " + arcFlag + " " + sweepFlag + " " + End.ToSvgString();
         }
     }
 

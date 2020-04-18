@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class TermList : Term
     {
@@ -18,10 +18,10 @@ namespace ExCSS
 
         public TermList(params Term[] terms)
         {
-            for(var i = 0; i < terms.Length; ++i)
+            for (var i = 0; i < terms.Length; ++i)
             {
                 AddTerm(terms[i]);
-                if(i != terms.Length-1)
+                if (i != terms.Length - 1)
                 {
                     AddSeparator(DefaultSeparator);
                 }
@@ -40,29 +40,29 @@ namespace ExCSS
 
         public void AddSeparator(TermSeparator termSeparator)
         {
-            switch(termSeparator)
+            switch (termSeparator)
             {
-                case(TermSeparator.Comma):
-                {
-                    AddSeparator(GrammarSegment.Comma);
-                    break;
-                }
-	             case(TermSeparator.Space):
-                {
-                    AddSeparator(GrammarSegment.Whitespace);
-                    break;
-                }
+                case (TermSeparator.Comma):
+                    {
+                        AddSeparator(GrammarSegment.Comma);
+                        break;
+                    }
+                case (TermSeparator.Space):
+                    {
+                        AddSeparator(GrammarSegment.Whitespace);
+                        break;
+                    }
             }
         }
 
-        internal void AddSeparator(GrammarSegment termSepertor)
+        internal void AddSeparator(GrammarSegment termSeparator)
         {
             if (_items.Count != _separator.Count + 1)
             {
                 throw new NotSupportedException("Must call AddTerm AddSeparator in that order");
             }
 
-            _separator.Add(termSepertor);
+            _separator.Add(termSeparator);
         }
 
         public int Length
@@ -71,7 +71,7 @@ namespace ExCSS
         }
 
         [IndexerName("ListItems")]
-        public Term this [int index]
+        public Term this[int index]
         {
             //return index >= 0 && index < _items.Count ? _items[index] : null; 
             get { return _items[index]; }
@@ -118,6 +118,14 @@ namespace ExCSS
         {
             Comma,
             Space
+        }
+
+        internal void SetLastTerm(Term term)
+        {
+            if (Length == 0)
+                AddTerm(term);
+            else
+                _items[Length - 1] = term;
         }
     }
 }

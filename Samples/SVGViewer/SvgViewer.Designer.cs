@@ -55,7 +55,7 @@
             this.open.Name = "open";
             this.open.Size = new System.Drawing.Size(56, 22);
             this.open.Text = "Open";
-            this.open.Click += new System.EventHandler(this.open_Click);
+            this.open.Click += new System.EventHandler(this.Open_Click);
             // 
             // svgImage
             // 
@@ -83,7 +83,8 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(307, 446);
             this.textBox1.TabIndex = 2;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox1_KeyDown);
             // 
             // SVGViewer
             // 

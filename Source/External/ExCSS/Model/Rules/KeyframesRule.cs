@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExCSS.Model.Extensions;
+using Svg.ExCSS.Model.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class KeyframesRule : RuleSet, IRuleContainer
     {
         private readonly List<RuleSet> _ruleSets;
         private string _identifier;
 
-        public KeyframesRule() 
+        public KeyframesRule()
         {
             _ruleSets = new List<RuleSet>();
             RuleType = RuleType.Keyframes;
         }
-       
+
         public string Identifier
         {
             get { return _identifier; }

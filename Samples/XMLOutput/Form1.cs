@@ -1,37 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using Svg;
-using System.Xml;
-using Svg.Transforms;
 
 namespace XMLOutputTester
 {
     public partial class Form1 : Form
     {
-        private SvgDocument FSvgDoc;
+        private SvgDocument svgDoc;
 
         public Form1()
         {
             InitializeComponent();
+        }
 
-
-            FSvgDoc = new SvgDocument
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            svgDoc = new SvgDocument
             {
                 Width = 500,
-                Height = 500
+                Height = 500,
+                ViewBox = new SvgViewBox(-250, -250, 500, 500),
             };
 
-            FSvgDoc.ViewBox = new SvgViewBox(-250, -250, 500, 500);
-
             var group = new SvgGroup();
-            FSvgDoc.Children.Add(group);
+            svgDoc.Children.Add(group);
 
             group.Children.Add(new SvgCircle
             {
@@ -42,18 +37,17 @@ namespace XMLOutputTester
             });
 
             var stream = new MemoryStream();
-            FSvgDoc.Write(stream);
+            svgDoc.Write(stream);
             textBox1.Text = Encoding.UTF8.GetString(stream.GetBuffer());
 
-            pictureBox1.Image = FSvgDoc.Draw();
+            pictureBox1.Image = svgDoc.Draw();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.Filter = "(SVG)|*.svg";
             if(saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                FSvgDoc.Write(saveFileDialog1.FileName);
+                svgDoc.Write(saveFileDialog1.FileName);
             }
         }
     }

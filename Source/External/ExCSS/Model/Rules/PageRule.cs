@@ -1,8 +1,8 @@
-﻿using ExCSS.Model;
-using ExCSS.Model.Extensions;
+﻿using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class PageRule : RuleSet, ISupportsSelector, ISupportsDeclarations
     {
@@ -10,7 +10,7 @@ namespace ExCSS
         private BaseSelector _selector;
         private string _selectorText;
 
-        public PageRule() 
+        public PageRule()
         {
             _declarations = new StyleDeclaration();
             RuleType = RuleType.Page;

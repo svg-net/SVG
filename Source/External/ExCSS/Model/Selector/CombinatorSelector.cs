@@ -1,8 +1,8 @@
 ﻿using System;
-using ExCSS.Model;
+using Svg.ExCSS.Model;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public struct CombinatorSelector
     {
@@ -17,7 +17,8 @@ namespace ExCSS
 
         public char Character
         {
-            get{
+            get
+            {
                 switch (Delimiter)
                 {
                     case Combinator.Child:

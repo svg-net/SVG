@@ -1,27 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Svg.Pathing
 {
     public class SvgMoveToSegment : SvgPathSegment
     {
         public SvgMoveToSegment(PointF moveTo)
+            : base(moveTo, moveTo)
         {
-            this.Start = moveTo;
-            this.End = moveTo;
         }
 
-        public override void AddToPath(System.Drawing.Drawing2D.GraphicsPath graphicsPath)
+        public override void AddToPath(GraphicsPath graphicsPath)
         {
             graphicsPath.StartFigure();
         }
-        
-        public override string ToString()
-		{
-        	return "M" + this.Start.ToSvgString();
-		}
 
+        public override string ToString()
+        {
+            return "M" + Start.ToSvgString();
+        }
     }
 }

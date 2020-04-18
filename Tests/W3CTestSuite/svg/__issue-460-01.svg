@@ -1,0 +1,12 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="148mm" height="210mm" viewBox="0 0 148 210">
+  <style>
+        .caption { font-family: Arial; font-size: 7px; font-weight: normal; fill: black; }
+    </style>
+    <svg x="0" y="55">
+        <text class="caption" x="50%" y="20" text-anchor="middle">
+            <tspan id="patient-age">x</tspan>
+            <tspan> year old </tspan>
+            <tspan id="patient-gender">(gender)</tspan>
+        </text>
+    </svg>
+</svg>

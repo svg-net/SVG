@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Fizzler;
-using ExCSS;
+using Svg.ExCSS;
 
 namespace Svg.Css
 {
@@ -42,7 +40,7 @@ namespace Svg.Css
                     // class, pseudo-class, attribute
                     return 1 << 8;
                 }
-                else if (selector == SimpleSelector.All)
+                else if (simpleCode.Equals("*"))
                 {
                     // all selector
                     return 0;

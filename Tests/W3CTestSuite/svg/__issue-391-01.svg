@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		width="100" height="60" xml:space="preserve" color-interpolation-filters="sRGB"
+		class="st3" transform="scale(4)">
+	<title>Enkelpolige schakelaar met signalisatielamp</title>
+	
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:none}
+		.st2 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.24}
+		.st3 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g>
+		<title>Enkelpolige schakelaar met signalisatielamp</title>
+		<g id="1" transform="translate(0.12,-0.12)">
+			<title>Enkelpolige schakelaar met signalisatielamp</title>
+			<g id="2">
+				<title>Enkelpolige schakelaar met signalisatielamp</title>
+				<path d="M14.17 10.53 A2.83465 2.83465 0 1 1 8.5 10.53 A2.83465 2.83465 0 1 1 14.17 10.53 Z" class="st1"/>
+				<path d="M17.06 0.96 L15.08 0.24 L14.3 2.39 L12.31 7.87" class="st2"/>
+				<path d="M14.17 10.53 A2.83465 2.83465 0 1 1 8.5 10.53 A2.83465 2.83465 0 1 1 14.17 10.53" class="st2"/>
+				<path d="M5.67 10.53 A2.83465 2.83465 -180 1 0 0 10.53 A2.83465 2.83465 -180 1 0 5.67 10.53" class="st2"/>
+				<path d="M8.5 10.53 L5.67 10.53" class="st2"/>
+				<path d="M4.9 12.47 L0.77 8.59" class="st2"/>
+				<path d="M4.9 8.59 L0.77 12.47" class="st2"/>
+			</g>
+		</g>
+	</g>
+</svg>

@@ -7,103 +7,119 @@ using Svg.DataTypes;
 namespace Svg
 {
     [SvgElement("marker")]
-    public class SvgMarker : SvgVisualElement, ISvgViewPort
+    public class SvgMarker : SvgPathBasedElement, ISvgViewPort
     {
-        private SvgOrient _svgOrient = new SvgOrient();
+        private SvgVisualElement _markerElement = null;
+
+        /// <summary>
+        /// Return the child element that represent the marker
+        /// </summary>
+        private SvgVisualElement MarkerElement
+        {
+            get
+            {
+                if (_markerElement == null)
+                {
+                    _markerElement = (SvgVisualElement)this.Children.FirstOrDefault(x => x is SvgVisualElement);
+                }
+                return _markerElement;
+            }
+        }
 
         [SvgAttribute("refX")]
         public virtual SvgUnit RefX
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("refX"); }
-            set { this.Attributes["refX"] = value; }
+            get { return GetAttribute<SvgUnit>("refX", false, 0f); }
+            set { Attributes["refX"] = value; }
         }
 
         [SvgAttribute("refY")]
         public virtual SvgUnit RefY
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("refY"); }
-            set { this.Attributes["refY"] = value; }
+            get { return GetAttribute<SvgUnit>("refY", false, 0f); }
+            set { Attributes["refY"] = value; }
         }
-
 
         [SvgAttribute("orient")]
         public virtual SvgOrient Orient
         {
-            get { return _svgOrient; }
-            set { _svgOrient = value; }
+            get { return GetAttribute<SvgOrient>("orient", false, 0f); }
+            set { Attributes["orient"] = value; }
         }
-
 
         [SvgAttribute("overflow")]
         public virtual SvgOverflow Overflow
         {
-            get { return this.Attributes.GetAttribute<SvgOverflow>("overflow"); }
-            set { this.Attributes["overflow"] = value; }
+            get { return GetAttribute("overflow", false, SvgOverflow.Hidden); }
+            set { Attributes["overflow"] = value; }
         }
-
 
         [SvgAttribute("viewBox")]
         public virtual SvgViewBox ViewBox
         {
-            get { return this.Attributes.GetAttribute<SvgViewBox>("viewBox"); }
-            set { this.Attributes["viewBox"] = value; }
+            get { return GetAttribute<SvgViewBox>("viewBox", false); }
+            set { Attributes["viewBox"] = value; }
         }
-
 
         [SvgAttribute("preserveAspectRatio")]
         public virtual SvgAspectRatio AspectRatio
         {
-            get { return this.Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio"); }
-            set { this.Attributes["preserveAspectRatio"] = value; }
+            get { return GetAttribute<SvgAspectRatio>("preserveAspectRatio", false); }
+            set { Attributes["preserveAspectRatio"] = value; }
         }
-
 
         [SvgAttribute("markerWidth")]
         public virtual SvgUnit MarkerWidth
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("markerWidth"); }
-            set { this.Attributes["markerWidth"] = value; }
+            get { return GetAttribute<SvgUnit>("markerWidth", false, 3f); }
+            set { Attributes["markerWidth"] = value; }
         }
 
         [SvgAttribute("markerHeight")]
         public virtual SvgUnit MarkerHeight
         {
-            get { return this.Attributes.GetAttribute<SvgUnit>("markerHeight"); }
-            set { this.Attributes["markerHeight"] = value; }
+            get { return GetAttribute<SvgUnit>("markerHeight", false, 3f); }
+            set { Attributes["markerHeight"] = value; }
         }
 
         [SvgAttribute("markerUnits")]
         public virtual SvgMarkerUnits MarkerUnits
         {
-            get { return this.Attributes.GetAttribute<SvgMarkerUnits>("markerUnits"); }
-            set { this.Attributes["markerUnits"] = value; }
+            get { return GetAttribute("markerUnits", false, SvgMarkerUnits.StrokeWidth); }
+            set { Attributes["markerUnits"] = value; }
         }
 
-        public SvgMarker()
+        /// <summary>
+        /// If not set set in the marker, consider the attribute in the drawing element.
+        /// </summary>
+        public override SvgPaintServer Fill
         {
-            MarkerUnits = SvgMarkerUnits.StrokeWidth;
-            MarkerHeight = 3;
-            MarkerWidth = 3;
-            Overflow = SvgOverflow.Hidden;
+            get
+            {
+                if (MarkerElement != null)
+                    return MarkerElement.Fill;
+                return base.Fill;
+            }
+        }
+
+        /// <summary>
+        /// If not set set in the marker, consider the attribute in the drawing element.
+        /// </summary>
+        public override SvgPaintServer Stroke
+        {
+            get
+            {
+                if (MarkerElement != null)
+                    return MarkerElement.Stroke;
+                return base.Stroke;
+            }
         }
 
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
-            var path = this.Children.FirstOrDefault(x => x is SvgVisualElement);
-            if (path != null)
-                return (path as SvgVisualElement).Path(renderer);
+            if (MarkerElement != null)
+                return MarkerElement.Path(renderer);
             return null;
-        }
-
-        public override System.Drawing.RectangleF Bounds
-        {
-            get
-            {
-                var path = this.Path(null);
-                if (path != null)
-                    return path.GetBounds();
-                return new System.Drawing.RectangleF();
-            }
         }
 
         public override SvgElement DeepCopy()
@@ -111,27 +127,16 @@ namespace Svg
             return DeepCopy<SvgMarker>();
         }
 
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgMarker;
-            newObj.RefX = this.RefX;
-            newObj.RefY = this.RefY;
-            newObj.Orient = this.Orient;
-            newObj.ViewBox = this.ViewBox;
-            newObj.Overflow = this.Overflow;
-            newObj.AspectRatio = this.AspectRatio;
-
-            return newObj;
-        }
-
         /// <summary>
         /// Render this marker using the slope of the given line segment
         /// </summary>
         /// <param name="pRenderer"></param>
         /// <param name="pOwner"></param>
+        /// <param name="pRefPoint"></param>
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
-        public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2)
+        /// <param name="isStartMarker"></param>
+        public void RenderMarker(ISvgRenderer pRenderer, SvgVisualElement pOwner, PointF pRefPoint, PointF pMarkerPoint1, PointF pMarkerPoint2, bool isStartMarker)
         {
             float fAngle1 = 0f;
             if (Orient.IsAuto)
@@ -140,6 +145,11 @@ namespace Svg
                 float xDiff = pMarkerPoint2.X - pMarkerPoint1.X;
                 float yDiff = pMarkerPoint2.Y - pMarkerPoint1.Y;
                 fAngle1 = (float)(Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI);
+
+                if (isStartMarker && Orient.IsAutoStartReverse)
+                {
+                    fAngle1 += 180;
+                }
             }
 
             RenderPart2(fAngle1, pRenderer, pOwner, pRefPoint);
@@ -150,6 +160,7 @@ namespace Svg
         /// </summary>
         /// <param name="pRenderer"></param>
         /// <param name="pOwner"></param>
+        /// <param name="pRefPoint"></param>
         /// <param name="pMarkerPoint1"></param>
         /// <param name="pMarkerPoint2"></param>
         /// <param name="pMarkerPoint3"></param>
@@ -177,7 +188,7 @@ namespace Svg
         {
             using (var pRenderPen = CreatePen(pOwner, pRenderer))
             {
-                using (var markerPath = GetClone(pOwner))
+                using (var markerPath = GetClone(pOwner, pRenderer))
                 {
                     using (var transMatrix = new Matrix())
                     {
@@ -191,15 +202,17 @@ namespace Svg
                             case SvgMarkerUnits.StrokeWidth:
                                 if (ViewBox.Width > 0 && ViewBox.Height > 0)
                                 {
+                                    transMatrix.Scale(MarkerWidth, MarkerHeight);
+                                    var strokeWidth = pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this);
                                     transMatrix.Translate(AdjustForViewBoxWidth(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this) *
-                                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)),
+                                                            strokeWidth),
                                                           AdjustForViewBoxHeight(-RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this) *
-                                                            pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this)));
+                                                            strokeWidth));
                                 }
                                 else
                                 {
                                     // SvgMarkerUnits.UserSpaceOnUse
-                                    //	TODO: We know this isn't correct.
+                                    // TODO: We know this isn't correct.
                                     //        But use this until the TODOs from AdjustForViewBoxWidth and AdjustForViewBoxHeight are done.
                                     //  MORE see Unit Test "MakerEndTest.TestArrowCodeCreation()"
                                     transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
@@ -211,16 +224,19 @@ namespace Svg
                                                       -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
                                 break;
                         }
+
+                        if (MarkerElement != null && MarkerElement.Transforms != null)
+                            using (var matrix = MarkerElement.Transforms.GetMatrix())
+                                transMatrix.Multiply(matrix);
                         markerPath.Transform(transMatrix);
                         if (pRenderPen != null) pRenderer.DrawPath(pRenderPen, markerPath);
 
                         SvgPaintServer pFill = this.Children.First().Fill;
-                        SvgFillRule pFillRule = FillRule;								// TODO: What do we use the fill rule for?
-                        float fOpacity = FillOpacity;
+                        SvgFillRule pFillRule = FillRule;    // TODO: What do we use the fill rule for?
 
                         if (pFill != null)
                         {
-                            using (var pBrush = pFill.GetBrush(this, pRenderer, fOpacity))
+                            using (var pBrush = pFill.GetBrush(this, pRenderer, FixOpacityValue(FillOpacity)))
                             {
                                 pRenderer.FillPath(pBrush, markerPath);
                             }
@@ -233,17 +249,17 @@ namespace Svg
         /// <summary>
         /// Create a pen that can be used to render this marker
         /// </summary>
-        /// <param name="pStroke"></param>
         /// <returns></returns>
         private Pen CreatePen(SvgVisualElement pPath, ISvgRenderer renderer)
         {
-            if (pPath.Stroke == null) return null;
-            Brush pBrush = pPath.Stroke.GetBrush(this, renderer, Opacity);
+            if (this.Stroke == null) return null;
+            Brush pBrush = this.Stroke.GetBrush(this, renderer, FixOpacityValue(Opacity));
             switch (MarkerUnits)
             {
                 case SvgMarkerUnits.StrokeWidth:
-                    return (new Pen(pBrush, StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this) * 
-                                            pPath.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
+                    // TODO: have to multiply with marker stroke width if it is not inherted from the
+                    // same ancestor as owner path stroke width
+                    return (new Pen(pBrush, pPath.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
                 case SvgMarkerUnits.UserSpaceOnUse:
                     return (new Pen(pBrush, StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this)));
             }
@@ -254,9 +270,9 @@ namespace Svg
         /// Get a clone of the current path, scaled for the stroke width
         /// </summary>
         /// <returns></returns>
-        private GraphicsPath GetClone(SvgVisualElement pPath)
+        private GraphicsPath GetClone(SvgVisualElement pPath, ISvgRenderer renderer)
         {
-            GraphicsPath pRet = Path(null).Clone() as GraphicsPath;
+            GraphicsPath pRet = Path(renderer).Clone() as GraphicsPath;
             switch (MarkerUnits)
             {
                 case SvgMarkerUnits.StrokeWidth:
@@ -279,18 +295,18 @@ namespace Svg
         /// <returns></returns>
         private float AdjustForViewBoxWidth(float fWidth)
         {
-            //	TODO: We know this isn't correct
+            // TODO: We know this isn't correct
             return (ViewBox.Width <= 0 ? 1 : fWidth / ViewBox.Width);
         }
 
         /// <summary>
         /// Adjust the given value to account for the height of the viewbox in the viewport
         /// </summary>
-        /// <param name="fWidth"></param>
+        /// <param name="fHeight"></param>
         /// <returns></returns>
         private float AdjustForViewBoxHeight(float fHeight)
         {
-            //	TODO: We know this isn't correct
+            // TODO: We know this isn't correct
             return (ViewBox.Height <= 0 ? 1 : fHeight / ViewBox.Height);
         }
     }

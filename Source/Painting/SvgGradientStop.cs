@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
 using System.ComponentModel;
+using System.Drawing;
 
 namespace Svg
 {
@@ -13,42 +11,24 @@ namespace Svg
     public class SvgGradientStop : SvgElement
     {
         private SvgUnit _offset;
-        
+
         /// <summary>
         /// Gets or sets the offset, i.e. where the stop begins from the beginning, of the gradient stop.
         /// </summary>
         [SvgAttribute("offset")]
         public SvgUnit Offset
         {
-            get { return this._offset; }
+            get { return _offset; }
             set
             {
-                SvgUnit unit = value;
+                var unit = value;
+                if (unit.Type == SvgUnitType.Percentage)
+                    unit = new SvgUnit(unit.Type, Math.Min(Math.Max(unit.Value, 0f), 100f));
+                else if (unit.Type == SvgUnitType.User)
+                    unit = new SvgUnit(unit.Type, Math.Min(Math.Max(unit.Value, 0f), 1f));
 
-                if (value.Type == SvgUnitType.Percentage)
-                {
-                    if (value.Value > 100)
-                    {
-                        unit = new SvgUnit(value.Type, 100);
-                    }
-                    else if (value.Value < 0)
-                    {
-                        unit = new SvgUnit(value.Type, 0);
-                    }
-                }
-                else if (value.Type == SvgUnitType.User)
-                {
-                    if (value.Value > 1)
-                    {
-                        unit = new SvgUnit(value.Type, 1);
-                    }
-                    else if (value.Value < 0)
-                    {
-                        unit = new SvgUnit(value.Type, 0);
-                    }
-                }
-
-                this._offset = unit.ToPercentage();
+                _offset = unit.ToPercentage();
+                Attributes["offset"] = unit;
             }
         }
 
@@ -57,25 +37,20 @@ namespace Svg
         /// </summary>
         [SvgAttribute("stop-color")]
         [TypeConverter(typeof(SvgPaintServerFactory))]
-        public override SvgPaintServer StopColor
+        public SvgPaintServer StopColor
         {
-            get 
-            {
-                var direct = this.Attributes.GetAttribute<SvgPaintServer>("stop-color", SvgColourServer.NotSet);
-                if (direct == SvgColourServer.Inherit) return this.Attributes["stop-color"] as SvgPaintServer ?? SvgColourServer.NotSet;
-                return direct;
-            }
-            set { this.Attributes["stop-color"] = value; }
+            get { return GetAttribute<SvgPaintServer>("stop-color", true, new SvgColourServer(System.Drawing.Color.Black)); }
+            set { Attributes["stop-color"] = value; }
         }
 
         /// <summary>
         /// Gets or sets the opacity of the gradient stop (0-1).
         /// </summary>
         [SvgAttribute("stop-opacity")]
-        public override float Opacity
+        public float StopOpacity
         {
-            get { return (this.Attributes["stop-opacity"] == null) ? 1.0f : (float)this.Attributes["stop-opacity"]; }
-            set { this.Attributes["stop-opacity"] = FixOpacityValue(value); }
+            get { return GetAttribute("stop-opacity", true, 1f); }
+            set { Attributes["stop-opacity"] = FixOpacityValue(value); }
         }
 
         /// <summary>
@@ -103,16 +78,17 @@ namespace Svg
             return core.Colour;
         }
 
-		public override SvgElement DeepCopy()
-		{
-			return DeepCopy<SvgGradientStop>();
-		}
+        public override SvgElement DeepCopy()
+        {
+            return DeepCopy<SvgGradientStop>();
+        }
 
-		public override SvgElement DeepCopy<T>()
-		{
-			var newObj = base.DeepCopy<T>() as SvgGradientStop;
-			newObj.Offset = this.Offset;
-			return newObj;
-		}
+        public override SvgElement DeepCopy<T>()
+        {
+            var newObj = base.DeepCopy<T>() as SvgGradientStop;
+
+            newObj._offset = _offset;
+            return newObj;
+        }
     }
 }

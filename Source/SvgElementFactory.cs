@@ -5,7 +5,7 @@ using System.Xml;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using ExCSS;
+using Svg.ExCSS;
 
 namespace Svg
 {
@@ -14,13 +14,13 @@ namespace Svg
     /// </summary>
     internal class SvgElementFactory
     {
-        private Dictionary<string, ElementInfo> availableElements;
+        private List<ElementInfo> availableElements;
         private Parser cssParser = new Parser();
 
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
         /// </summary>
-        public Dictionary<string, ElementInfo> AvailableElements
+        public List<ElementInfo> AvailableElements
         {
             get
             {
@@ -31,10 +31,7 @@ namespace Svg
                                    && t.IsSubclassOf(typeof(SvgElement))
                                    select new ElementInfo { ElementName = ((SvgElementAttribute)t.GetCustomAttributes(typeof(SvgElementAttribute), true)[0]).ElementName, ElementType = t };
 
-                    availableElements = (from t in svgTypes
-                                         where t.ElementName != "svg"
-                                         group t by t.ElementName into types
-                                         select types).ToDictionary(e => e.Key, e => e.SingleOrDefault());
+                    availableElements = svgTypes.ToList();
                 }
 
                 return availableElements;
@@ -94,10 +91,11 @@ namespace Svg
                 }
                 else
                 {
-                    ElementInfo validType = null;
-                    if (AvailableElements.TryGetValue(elementName, out validType))
+                    ElementInfo validType;
+                    if (AvailableElements.Where(e => !e.ElementName.Equals("svg", StringComparison.OrdinalIgnoreCase))
+                        .ToDictionary(e => e.ElementName, e => e).TryGetValue(elementName, out validType))
                     {
-                        createdElement = (SvgElement) Activator.CreateInstance(validType.ElementType);
+                        createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
                     }
                     else
                     {
@@ -132,7 +130,7 @@ namespace Svg
 
             while (reader.MoveToNextAttribute())
             {
-                if (reader.LocalName.Equals("style") && !(element is NonSvgElement)) 
+                if (reader.LocalName.Equals("style") && !(element is NonSvgElement))
                 {
                     var inlineSheet = cssParser.Parse("#a{" + reader.Value + "}");
                     foreach (var rule in inlineSheet.StyleRules)
@@ -217,6 +215,7 @@ namespace Svg
                 case "text-anchor":
                 case "text-decoration":
                 case "text-rendering":
+                case "text-transform":
                 case "unicode-bidi":
                 case "visibility":
                 case "word-spacing":
@@ -229,7 +228,7 @@ namespace Svg
         private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
         private static object syncLock = new object();
 
-        internal static void SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document)
+        internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle = false)
         {
             var elementType = element.GetType();
 
@@ -254,7 +253,7 @@ namespace Svg
                     _propertyDescriptors.Add(elementType, new Dictionary<string, PropertyDescriptorCollection>());
 
                     _propertyDescriptors[elementType].Add(attributeName, properties);
-                } 
+                }
             }
 
             if (properties.Count > 0)
@@ -263,14 +262,11 @@ namespace Svg
 
                 try
                 {
-					if (attributeName == "opacity" && attributeValue == "undefined")
-					{
-						attributeValue = "1";
-					}
-
-					descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
-					
-
+                    if (attributeName == "opacity" && attributeValue == "undefined")
+                    {
+                        attributeValue = "1";
+                    }
+                    descriptor.SetValue(element, descriptor.Converter.ConvertFrom(document, CultureInfo.InvariantCulture, attributeValue));
                 }
                 catch
                 {
@@ -297,10 +293,16 @@ namespace Svg
                 }
                 else
                 {
+                    if (isStyle)
+                    {
+                        // custom styles shall remain as style
+                        return false;
+                    }
                     //attribute is not a svg attribute, store it in custom attributes
                     element.CustomAttributes[attributeName] = attributeValue;
                 }
             }
+            return true;
         }
 
         /// <summary>

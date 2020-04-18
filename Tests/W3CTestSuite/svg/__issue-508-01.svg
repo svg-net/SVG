@@ -1,0 +1,9 @@
+<svg height="500" width="500" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="black" stroke-width="4">
+    <path stroke-dasharray="20,10" d="M5 40 l340 0" stroke-width="20" stroke-linecap="round"  />
+    <path stroke-dasharray="20,60,20,10" d="M5 80 l340 0" style="stroke-width: 20; stroke-linecap: round" />
+    <path stroke-dasharray="20,40,20,10,20,50" d="M5 120 l340 0" style="stroke-width: 20; stroke-linecap: round" />
+    <path stroke-dasharray="20,30,20,5,20,30,20,25" d="M5 160 l340 0" style="stroke-width: 20; stroke-linecap: round" />
+    <path stroke-dasharray="20,10,20,5,20,10" d="M5 200 l340 0" style="stroke-width: 20; stroke-linecap: round" />
+  </g>
+</svg>

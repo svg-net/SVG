@@ -1,7 +1,7 @@
 ﻿using System.Text;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class MultipleSelectorList : SelectorList, IToString
     {

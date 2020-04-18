@@ -2,7 +2,7 @@
 using System.Globalization;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class PrimitiveTerm : Term
     {
@@ -23,7 +23,7 @@ namespace ExCSS
 
         public PrimitiveTerm(string unit, Single value)
         {
-            PrimitiveType = ConvertStringToUnitType(unit);;
+            PrimitiveType = ConvertStringToUnitType(unit); ;
             Value = value;
         }
 

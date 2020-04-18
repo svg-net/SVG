@@ -1,4 +1,4 @@
-﻿namespace ExCSS.Model
+﻿namespace Svg.ExCSS.Model
 {
     interface ISupportsSelector
     {

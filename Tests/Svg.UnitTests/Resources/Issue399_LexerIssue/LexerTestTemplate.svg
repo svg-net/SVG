@@ -1,0 +1,17 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1092" height="453">
+  <style type="text/css">
+    .plot-zero {
+      /*[REPLACE]*/ 
+    }
+  </style>
+  <g transform="translate(40,20)" style="opacity: 1;">
+    <path class="plot-zero" id="path1" d="M0,0 H1042"></path>
+    <path class="plot-now" d="" style="opacity: 0;"></path>
+  </g>
+  <clipPath id="clip-view-2">
+    <rect width="1042" height="408"></rect>
+  </clipPath>
+  <g style="opacity: 0;"></g>
+  <text class="plot-warning" y="9" x="521" style="opacity: 0;">data loading - 75%</text>
+  <text class="plot-caption" y="14" x="521" style="opacity: 0;"></text>
+</svg>

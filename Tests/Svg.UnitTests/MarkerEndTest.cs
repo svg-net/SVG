@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using Svg.DataTypes;
 using System;
 using System.Diagnostics;
@@ -7,7 +7,6 @@ using System.IO;
 
 namespace Svg.UnitTests
 {
-
     /// <summary>
     /// Test Class of rendering SVGs with marker-end elements.
     /// Based on Issue 212.
@@ -16,22 +15,19 @@ namespace Svg.UnitTests
     /// Test use the following embedded resources:
     ///   - Issue212_MakerEnd\OperatingPlan.svg
     /// </remarks>
-    [TestClass]
+    [TestFixture]
     public class MarkerEndTest : SvgTestHelper
     {
-
         protected override string TestResource { get { return GetFullResourceString("Issue212_MakerEnd.OperatingPlan.svg"); } }
-        protected override int ExpectedSize { get { return 5000; } } //5321 //5410
+        protected override int ExpectedSize { get { return 4300; } } // original image has 4314 bytes
 
-
-        [TestMethod]
+        [Test]
         public void TestOperatingPlanRendering()
         {
             LoadSvg(GetXMLDocFromResource());
         }
 
-
-        [TestMethod]
+        [Test]
         public void TestArrowCodeCreation()
         {
             // Sample code from Issue 212. Thanks to podostro.
@@ -93,14 +89,11 @@ namespace Svg.UnitTests
             img.Save(file + ".png");
             Debug.WriteLine(string.Format("Svg saved to '{0}'", file));
 
-            Debugger.Break();
-
             // Remove
             var svg = new FileInfo(file + ".svg");
             if (svg.Exists) svg.Delete();
             var png = new FileInfo(file + ".png");
             if (png.Exists) png.Delete();
         }
-
     }
 }

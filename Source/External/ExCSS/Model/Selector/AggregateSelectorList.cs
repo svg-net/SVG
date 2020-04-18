@@ -2,7 +2,7 @@
 using System.Text;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class AggregateSelectorList : SelectorList
     {
@@ -14,7 +14,7 @@ namespace ExCSS
             {
                 throw new ArgumentException("Expected single character delimiter or empty string", "delimiter");
             }
-            
+
             Delimiter = delimiter;
         }
 
@@ -24,15 +24,15 @@ namespace ExCSS
 
             foreach (var selector in Selectors)
             {
-                builder.Append(selector.ToString(friendlyFormat, indentation + 1));                    
+                builder.Append(selector.ToString(friendlyFormat, indentation + 1));
                 builder.Append(Delimiter);
             }
-           
+
             if (Delimiter.Length <= 0)
             {
                 return builder.ToString();
             }
-           
+
             if (builder.Length > 0)
             {
                 builder.Remove(builder.Length - 1, 1);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace ExCSS.Model.TextBlocks
+namespace Svg.ExCSS.Model.TextBlocks
 {
     internal class NumericBlock : Block
     {
@@ -17,7 +17,7 @@ namespace ExCSS.Model.TextBlocks
         {
             get { return Single.Parse(_data, CultureInfo.InvariantCulture); }
         }
-        
+
         public override string ToString()
         {
             return _data;

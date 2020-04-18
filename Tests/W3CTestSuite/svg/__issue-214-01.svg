@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="500"
+   height="500"
+   id="svg2">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-552.36217)"
+     id="layer1">
+    <rect
+       width="248.01022"
+       height="148.01021"
+       x="0.9948951"
+       y="553.35706"
+       id="rect2985"
+       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:1.9897902;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="247.71696"
+       height="147.71696"
+       x="1.1415159"
+       y="728.50366"
+       id="rect2987"
+       style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:2.2830317;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <rect
+       width="247.87672"
+       height="147.87672"
+       x="1.0616374"
+       y="903.42383"
+       id="rect2989"
+       style="fill:#0000ff;fill-opacity:1;stroke:#000000;stroke-width:2.1232748;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       x="271.06934"
+       y="642.36218"
+       id="text2991"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="271.06934"
+         y="642.36218"
+         id="tspan2993"
+         style="font-size:50px">RED</tspan></text>
+    <text
+       x="272.33887"
+       y="816.75183"
+       id="text2995"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="272.33887"
+         y="816.75183"
+         id="tspan2997"
+         style="font-size:50px">GREEN</tspan></text>
+    <text
+       x="271.33789"
+       y="991.75183"
+       id="text2999"
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><tspan
+         x="271.33789"
+         y="991.75183"
+         id="tspan3001"
+         style="font-size:50px">BLUE</tspan></text>
+  </g>
+</svg>

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
@@ -13,40 +12,22 @@ namespace Svg
         [SvgAttribute("cx")]
         public SvgUnit CenterX
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("cx");
-            }
-            set
-            {
-                this.Attributes["cx"] = value;
-            }
+            get { return GetAttribute("cx", false, new SvgUnit(SvgUnitType.Percentage, 50f)); }
+            set { Attributes["cx"] = value; }
         }
 
         [SvgAttribute("cy")]
         public SvgUnit CenterY
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("cy");
-            }
-            set
-            {
-                this.Attributes["cy"] = value;
-            }
+            get { return GetAttribute("cy", false, new SvgUnit(SvgUnitType.Percentage, 50f)); }
+            set { Attributes["cy"] = value; }
         }
 
         [SvgAttribute("r")]
         public SvgUnit Radius
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("r");
-            }
-            set
-            {
-                this.Attributes["r"] = value;
-            }
+            get { return GetAttribute("r", false, new SvgUnit(SvgUnitType.Percentage, 50f)); }
+            set { Attributes["r"] = value; }
         }
 
         [SvgAttribute("fx")]
@@ -54,19 +35,12 @@ namespace Svg
         {
             get
             {
-                var value = this.Attributes.GetAttribute<SvgUnit>("fx");
-
+                var value = GetAttribute("fx", false, SvgUnit.None);
                 if (value.IsEmpty || value.IsNone)
-                {
-                    value = this.CenterX;
-                }
-
+                    value = CenterX;
                 return value;
             }
-            set
-            {
-                this.Attributes["fx"] = value;
-            }
+            set { Attributes["fx"] = value; }
         }
 
         [SvgAttribute("fy")]
@@ -74,26 +48,12 @@ namespace Svg
         {
             get
             {
-                var value = this.Attributes.GetAttribute<SvgUnit>("fy");
-
+                var value = GetAttribute("fy", false, SvgUnit.None);
                 if (value.IsEmpty || value.IsNone)
-                {
-                    value = this.CenterY;
-                }
-
+                    value = CenterY;
                 return value;
             }
-            set
-            {
-                this.Attributes["fy"] = value;
-            }
-        }
-
-        public SvgRadialGradientServer()
-        {
-            CenterX = new SvgUnit(SvgUnitType.Percentage, 50F);
-            CenterY = new SvgUnit(SvgUnitType.Percentage, 50F);
-            Radius = new SvgUnit(SvgUnitType.Percentage, 50F);
+            set { Attributes["fy"] = value; }
         }
 
         private object _lockObj = new Object();
@@ -101,7 +61,7 @@ namespace Svg
         private SvgUnit NormalizeUnit(SvgUnit orig)
         {
             return (orig.Type == SvgUnitType.Percentage && this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox ?
-                    new SvgUnit(SvgUnitType.User, orig.Value / 100) :
+                    new SvgUnit(SvgUnitType.User, orig.Value / 100f) :
                     orig);
         }
 
@@ -140,14 +100,14 @@ namespace Svg
 
                 // Calculate any required scaling
                 var scaleBounds = RectangleF.Inflate(renderingElement.Bounds, renderingElement.StrokeWidth, renderingElement.StrokeWidth);
-								var scale = CalcScale(scaleBounds, path);
+                var scale = CalcScale(scaleBounds, path);
 
                 // Not ideal, but this makes sure that the rest of the shape gets properly filled or drawn
                 if (scale > 1.0f && SpreadMethod == SvgGradientSpreadMethod.Pad)
                 {
                     var stop = Stops.Last();
                     var origColor = stop.GetColor(renderingElement);
-                    var renderColor = System.Drawing.Color.FromArgb((int)Math.Round(opacity * stop.Opacity * 255), origColor);
+                    var renderColor = System.Drawing.Color.FromArgb((int)Math.Round(opacity * stop.StopOpacity * 255), origColor);
 
                     var origClip = renderer.GetClip();
                     try
@@ -210,6 +170,7 @@ namespace Svg
         /// </summary>
         /// <param name="bounds">Bounds that the path must contain</param>
         /// <param name="path">Path of the gradient</param>
+        /// <param name="graphics">Not used</param>
         /// <returns>Scale factor</returns>
         /// <remarks>
         /// This method continually transforms the rectangle (fewer points) until it is contained by the path
@@ -218,10 +179,10 @@ namespace Svg
         private float CalcScale(RectangleF bounds, GraphicsPath path, Graphics graphics = null)
         {
             var points = new PointF[] {
-                new PointF(bounds.Left, bounds.Top), 
-                new PointF(bounds.Right, bounds.Top), 
-                new PointF(bounds.Right, bounds.Bottom), 
-                new PointF(bounds.Left, bounds.Bottom) 
+                new PointF(bounds.Left, bounds.Top),
+                new PointF(bounds.Right, bounds.Top),
+                new PointF(bounds.Right, bounds.Bottom),
+                new PointF(bounds.Left, bounds.Bottom)
             };
             var pathBounds = path.GetBounds();
             var pathCenter = new PointF(pathBounds.X + pathBounds.Width / 2, pathBounds.Y + pathBounds.Height / 2);
@@ -234,20 +195,20 @@ namespace Svg
                 while (!(path.IsVisible(points[0]) && path.IsVisible(points[1]) &&
                          path.IsVisible(points[2]) && path.IsVisible(points[3])))
                 {
-										var previousPoints = new PointF[] 
-										{
-												new PointF(points[0].X, points[0].Y), 
-												new PointF(points[1].X, points[1].Y), 
-												new PointF(points[2].X, points[2].Y), 
-												new PointF(points[3].X, points[3].Y) 
-										};
+                    var previousPoints = new PointF[]
+                    {
+                                                new PointF(points[0].X, points[0].Y),
+                                                new PointF(points[1].X, points[1].Y),
+                                                new PointF(points[2].X, points[2].Y),
+                                                new PointF(points[3].X, points[3].Y)
+                    };
 
                     transform.TransformPoints(points);
 
-										if (Enumerable.SequenceEqual(previousPoints, points))
-										{
-											break;
-										}
+                    if (Enumerable.SequenceEqual(previousPoints, points))
+                    {
+                        break;
+                    }
                 }
             }
             return bounds.Height / (points[2].Y - points[1].Y);
@@ -401,19 +362,6 @@ namespace Svg
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgRadialGradientServer>();
-        }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgRadialGradientServer;
-
-            newObj.CenterX = this.CenterX;
-            newObj.CenterY = this.CenterY;
-            newObj.Radius = this.Radius;
-            newObj.FocalX = this.FocalX;
-            newObj.FocalY = this.FocalY;
-
-            return newObj;
         }
     }
 }

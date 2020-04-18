@@ -1,39 +1,30 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
 
 namespace Svg.UnitTests
 {
-
     /// <summary>
-    /// Test Class of rendering SVGs as meterfile.
+    /// Test Class of rendering SVGs as metafile.
     /// Based on Issue 210.
     /// </summary>
     /// <remarks>
     /// Test use the following embedded resources:
     ///   - Issue210_Metafile\3DSceneSnapshotBIG.svg
     /// </remarks>
-    [TestClass]
+    [TestFixture]
     public class MetafileRenderingTest : SvgTestHelper
     {
         protected override string TestResource { get { return GetFullResourceString("Issue210_Metafile.3DSceneSnapshotBIG.svg"); } }
         protected override int ExpectedSize { get { return 12500; } } //12896
 
-
-        [TestMethod]
-        [TestProperty(name: "speed", value: "slow")]
+        [Test]
         public void TestMetafileRendering()
         {
             LoadSvg(GetXMLDocFromResource());
         }
-
 
         protected override Image DrawSvg(SvgDocument svgDoc)
         {

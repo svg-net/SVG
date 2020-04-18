@@ -1,9 +1,9 @@
 ﻿using System;
-using ExCSS.Model;
-using ExCSS.Model.Extensions;
+using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class StyleRule : RuleSet, ISupportsSelector, ISupportsDeclarations
     {
@@ -11,10 +11,10 @@ namespace ExCSS
         private BaseSelector _selector;
         private readonly StyleDeclaration _declarations;
 
-        public StyleRule() : this( new StyleDeclaration())
-        {}
+        public StyleRule() : this(new StyleDeclaration())
+        { }
 
-        public StyleRule(StyleDeclaration declarations) 
+        public StyleRule(StyleDeclaration declarations)
         {
             RuleType = RuleType.Style;
             _declarations = declarations;

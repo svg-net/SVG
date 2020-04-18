@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class StyleDeclaration : IList<Property>
     {
@@ -79,7 +79,7 @@ namespace ExCSS
         }
 
         public string ToString(bool friendlyFormat, int indentation = 0)
-        { 
+        {
             var builder = new StringBuilder();
 
             foreach (var property in _properties)
@@ -89,7 +89,7 @@ namespace ExCSS
                     builder.Append(Environment.NewLine);
                 }
 
-                builder.Append(property.ToString(friendlyFormat, indentation+1)).Append(';');
+                builder.Append(property.ToString(friendlyFormat, indentation + 1)).Append(';');
             }
 
             return builder.ToString();

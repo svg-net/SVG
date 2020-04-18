@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Drawing.Drawing2D;
 using System.Drawing;
-using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 
 namespace Svg
 {
@@ -22,5 +21,6 @@ namespace Svg
         SmoothingMode SmoothingMode { get; set; }
         Matrix Transform { get; set; }
         void TranslateTransform(float dx, float dy, MatrixOrder order = MatrixOrder.Append);
+        void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit, float opacity);
     }
 }

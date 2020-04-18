@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace Svg
@@ -7,17 +8,22 @@ namespace Svg
     /// </summary>
     public abstract class SvgPathBasedElement : SvgVisualElement
     {
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {
-                var path = this.Path(null);
-                if (Transforms != null && Transforms.Count > 0)
+                var path = Path(null);
+                if (path == null)
+                    return new RectangleF();
+                if (Transforms == null || Transforms.Count == 0)
+                    return path.GetBounds();
+
+                using (path = (GraphicsPath)path.Clone())
+                using (var matrix = Transforms.GetMatrix())
                 {
-                    path = (GraphicsPath)path.Clone();
-                    path.Transform(Transforms.GetMatrix());
+                    path.Transform(matrix);
+                    return path.GetBounds();
                 }
-                return path.GetBounds();
             }
         }
     }

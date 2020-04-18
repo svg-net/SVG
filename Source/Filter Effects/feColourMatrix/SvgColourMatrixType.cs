@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Svg.FilterEffects
 {
-    [TypeConverter(typeof(EnumBaseConverter<SvgColourMatrixType>))]
-	public enum SvgColourMatrixType
-	{
-		Matrix,
-		Saturate,
-		HueRotate,
-		LuminanceToAlpha
-	}
+    [TypeConverter(typeof(SvgColourMatrixTypeConverter))]
+    public enum SvgColourMatrixType
+    {
+        Matrix,
+        Saturate,
+        HueRotate,
+        LuminanceToAlpha
+    }
 }

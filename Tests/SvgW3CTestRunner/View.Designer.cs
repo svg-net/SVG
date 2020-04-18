@@ -48,12 +48,14 @@ namespace SvgW3CTestRunner
             this.descriptionTab = new System.Windows.Forms.TabPage();
             this.boxDescription = new System.Windows.Forms.RichTextBox();
             this.fileTabBox = new System.Windows.Forms.TabControl();
-            this.passTabPage = new System.Windows.Forms.TabPage();
-            this.lstFilesPassing = new System.Windows.Forms.ListBox();
-            this.failTabPage = new System.Windows.Forms.TabPage();
-            this.lstFilesFailing = new System.Windows.Forms.ListBox();
-            this.otherTabPage = new System.Windows.Forms.TabPage();
-            this.lstFilesOther = new System.Windows.Forms.ListBox();
+            this.passW3CTabPage = new System.Windows.Forms.TabPage();
+            this.lstW3CFilesPassing = new System.Windows.Forms.ListBox();
+            this.failW3CTabPage = new System.Windows.Forms.TabPage();
+            this.lstW3CFilesFailing = new System.Windows.Forms.ListBox();
+            this.passOtherTabPage = new System.Windows.Forms.TabPage();
+            this.lstFilesOtherPassing = new System.Windows.Forms.ListBox();
+            this.failOtherTabPage = new System.Windows.Forms.TabPage();
+            this.lstFilesOtherFailing = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,9 +70,10 @@ namespace SvgW3CTestRunner
             this.outputTab.SuspendLayout();
             this.descriptionTab.SuspendLayout();
             this.fileTabBox.SuspendLayout();
-            this.passTabPage.SuspendLayout();
-            this.failTabPage.SuspendLayout();
-            this.otherTabPage.SuspendLayout();
+            this.passW3CTabPage.SuspendLayout();
+            this.failW3CTabPage.SuspendLayout();
+            this.passOtherTabPage.SuspendLayout();
+            this.failOtherTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -186,7 +189,7 @@ namespace SvgW3CTestRunner
             // 
             // picSVGPNG
             // 
-            this.picSVGPNG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.picSVGPNG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picSVGPNG.BackColor = System.Drawing.Color.White;
             this.picSVGPNG.Location = new System.Drawing.Point(0, 407);
@@ -228,7 +231,7 @@ namespace SvgW3CTestRunner
             // bottomTabBox
             // 
             this.bottomTabBox.Alignment = System.Windows.Forms.TabAlignment.Left;
-            this.bottomTabBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.bottomTabBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bottomTabBox.Controls.Add(this.outputTab);
             this.bottomTabBox.Controls.Add(this.descriptionTab);
@@ -286,82 +289,105 @@ namespace SvgW3CTestRunner
             // 
             // fileTabBox
             // 
-            this.fileTabBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.fileTabBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.fileTabBox.Controls.Add(this.passTabPage);
-            this.fileTabBox.Controls.Add(this.failTabPage);
-            this.fileTabBox.Controls.Add(this.otherTabPage);
+            this.fileTabBox.Controls.Add(this.passW3CTabPage);
+            this.fileTabBox.Controls.Add(this.failW3CTabPage);
+            this.fileTabBox.Controls.Add(this.passOtherTabPage);
+            this.fileTabBox.Controls.Add(this.failOtherTabPage);
             this.fileTabBox.Location = new System.Drawing.Point(0, 24);
             this.fileTabBox.Name = "fileTabBox";
             this.fileTabBox.SelectedIndex = 0;
             this.fileTabBox.Size = new System.Drawing.Size(180, 841);
             this.fileTabBox.TabIndex = 3;
+            this.fileTabBox.ItemSize = new System.Drawing.Size(40, 40);
             this.fileTabBox.SelectedIndexChanged += new System.EventHandler(this.fileTabBox_TabIndexChanged);
             // 
-            // passTabPage
+            // passW3CTabPage
             // 
-            this.passTabPage.Controls.Add(this.lstFilesPassing);
-            this.passTabPage.Location = new System.Drawing.Point(4, 22);
-            this.passTabPage.Name = "passTabPage";
-            this.passTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.passTabPage.Size = new System.Drawing.Size(172, 815);
-            this.passTabPage.TabIndex = 0;
-            this.passTabPage.Text = "Pass";
-            this.passTabPage.UseVisualStyleBackColor = true;
+            this.passW3CTabPage.Controls.Add(this.lstW3CFilesPassing);
+            this.passW3CTabPage.Location = new System.Drawing.Point(4, 22);
+            this.passW3CTabPage.Name = "passW3CTabPage";
+            this.passW3CTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.passW3CTabPage.Size = new System.Drawing.Size(172, 815);
+            this.passW3CTabPage.TabIndex = 0;
+            this.passW3CTabPage.Text = "Pass\nW3C";
+            this.passW3CTabPage.UseVisualStyleBackColor = true;
             // 
-            // lstFilesPassing
+            // lstW3CFilesPassing
             // 
-            this.lstFilesPassing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstW3CFilesPassing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.lstFilesPassing.FormattingEnabled = true;
-            this.lstFilesPassing.Location = new System.Drawing.Point(3, 3);
-            this.lstFilesPassing.Name = "lstFilesPassing";
-            this.lstFilesPassing.Size = new System.Drawing.Size(166, 797);
-            this.lstFilesPassing.TabIndex = 1;
-            this.lstFilesPassing.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
+            this.lstW3CFilesPassing.FormattingEnabled = true;
+            this.lstW3CFilesPassing.Location = new System.Drawing.Point(3, 3);
+            this.lstW3CFilesPassing.Name = "lstW3CFilesPassing";
+            this.lstW3CFilesPassing.Size = new System.Drawing.Size(166, 797);
+            this.lstW3CFilesPassing.TabIndex = 1;
+            this.lstW3CFilesPassing.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
             // 
-            // failTabPage
+            // failW3CTabPage
             // 
-            this.failTabPage.Controls.Add(this.lstFilesFailing);
-            this.failTabPage.Location = new System.Drawing.Point(4, 22);
-            this.failTabPage.Name = "failTabPage";
-            this.failTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.failTabPage.Size = new System.Drawing.Size(172, 815);
-            this.failTabPage.TabIndex = 1;
-            this.failTabPage.Text = "Fail";
-            this.failTabPage.UseVisualStyleBackColor = true;
+            this.failW3CTabPage.Controls.Add(this.lstW3CFilesFailing);
+            this.failW3CTabPage.Location = new System.Drawing.Point(4, 22);
+            this.failW3CTabPage.Name = "failW3CTabPage";
+            this.failW3CTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.failW3CTabPage.Size = new System.Drawing.Size(172, 815);
+            this.failW3CTabPage.TabIndex = 1;
+            this.failW3CTabPage.Text = "Fail\nW3C";
+            this.failW3CTabPage.UseVisualStyleBackColor = true;
             // 
-            // lstFilesFailing
+            // lstW3CFilesFailing
             // 
-            this.lstFilesFailing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstW3CFilesFailing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.lstFilesFailing.FormattingEnabled = true;
-            this.lstFilesFailing.Location = new System.Drawing.Point(3, 4);
-            this.lstFilesFailing.Name = "lstFilesFailing";
-            this.lstFilesFailing.Size = new System.Drawing.Size(169, 810);
-            this.lstFilesFailing.TabIndex = 0;
-            this.lstFilesFailing.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
+            this.lstW3CFilesFailing.FormattingEnabled = true;
+            this.lstW3CFilesFailing.Location = new System.Drawing.Point(3, 4);
+            this.lstW3CFilesFailing.Name = "lstW3CFilesFailing";
+            this.lstW3CFilesFailing.Size = new System.Drawing.Size(169, 810);
+            this.lstW3CFilesFailing.TabIndex = 0;
+            this.lstW3CFilesFailing.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
             // 
-            // otherTabPage
+            // passOtherTabPage
             // 
-            this.otherTabPage.Controls.Add(this.lstFilesOther);
-            this.otherTabPage.Location = new System.Drawing.Point(4, 22);
-            this.otherTabPage.Name = "otherTabPage";
-            this.otherTabPage.Size = new System.Drawing.Size(172, 815);
-            this.otherTabPage.TabIndex = 2;
-            this.otherTabPage.Text = "Other";
-            this.otherTabPage.UseVisualStyleBackColor = true;
+            this.passOtherTabPage.Controls.Add(this.lstFilesOtherPassing);
+            this.passOtherTabPage.Location = new System.Drawing.Point(4, 22);
+            this.passOtherTabPage.Name = "passOtherTabPage";
+            this.passOtherTabPage.Size = new System.Drawing.Size(172, 815);
+            this.passOtherTabPage.TabIndex = 2;
+            this.passOtherTabPage.Text = "Pass\nOther";
+            this.passOtherTabPage.UseVisualStyleBackColor = true;
             // 
-            // lstFilesOther
+            // lstFilesOtherPassing
             // 
-            this.lstFilesOther.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstFilesOtherPassing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.lstFilesOther.FormattingEnabled = true;
-            this.lstFilesOther.Location = new System.Drawing.Point(0, -2);
-            this.lstFilesOther.Name = "lstFilesOther";
-            this.lstFilesOther.Size = new System.Drawing.Size(172, 810);
-            this.lstFilesOther.TabIndex = 0;
-            this.lstFilesOther.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
+            this.lstFilesOtherPassing.FormattingEnabled = true;
+            this.lstFilesOtherPassing.Location = new System.Drawing.Point(0, -2);
+            this.lstFilesOtherPassing.Name = "lstFilesOtherPassing";
+            this.lstFilesOtherPassing.Size = new System.Drawing.Size(172, 810);
+            this.lstFilesOtherPassing.TabIndex = 0;
+            this.lstFilesOtherPassing.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
+            // 
+            // failOtherTabPage
+            // 
+            this.failOtherTabPage.Controls.Add(this.lstFilesOtherFailing);
+            this.failOtherTabPage.Location = new System.Drawing.Point(4, 22);
+            this.failOtherTabPage.Name = "failOtherTabPage";
+            this.failOtherTabPage.Size = new System.Drawing.Size(172, 815);
+            this.failOtherTabPage.TabIndex = 2;
+            this.failOtherTabPage.Text = "Fail\nOther";
+            this.failOtherTabPage.UseVisualStyleBackColor = true;
+            // 
+            // lstFilesOtherFailing
+            // 
+            this.lstFilesOtherFailing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lstFilesOtherFailing.FormattingEnabled = true;
+            this.lstFilesOtherFailing.Location = new System.Drawing.Point(0, -2);
+            this.lstFilesOtherFailing.Name = "lstFilesOtherFailing";
+            this.lstFilesOtherFailing.Size = new System.Drawing.Size(172, 810);
+            this.lstFilesOtherFailing.TabIndex = 0;
+            this.lstFilesOtherFailing.SelectedIndexChanged += new System.EventHandler(this.lstFiles_SelectedIndexChanged);
             // 
             // View
             // 
@@ -388,13 +414,14 @@ namespace SvgW3CTestRunner
             this.outputTab.ResumeLayout(false);
             this.descriptionTab.ResumeLayout(false);
             this.fileTabBox.ResumeLayout(false);
-            this.passTabPage.ResumeLayout(false);
-            this.failTabPage.ResumeLayout(false);
-            this.otherTabPage.ResumeLayout(false);
+            this.passW3CTabPage.ResumeLayout(false);
+            this.failW3CTabPage.ResumeLayout(false);
+            this.passOtherTabPage.ResumeLayout(false);
+            this.failOtherTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
-        
+
 
         #endregion
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -415,12 +442,14 @@ namespace SvgW3CTestRunner
         private System.Windows.Forms.TabPage descriptionTab;
         private System.Windows.Forms.RichTextBox boxDescription;
         private System.Windows.Forms.TabControl fileTabBox;
-        private System.Windows.Forms.TabPage passTabPage;
-        private System.Windows.Forms.ListBox lstFilesPassing;
-        private System.Windows.Forms.TabPage failTabPage;
-        private System.Windows.Forms.ListBox lstFilesFailing;
-        private System.Windows.Forms.TabPage otherTabPage;
-        private System.Windows.Forms.ListBox lstFilesOther;
+        private System.Windows.Forms.TabPage passW3CTabPage;
+        private System.Windows.Forms.ListBox lstW3CFilesPassing;
+        private System.Windows.Forms.TabPage failW3CTabPage;
+        private System.Windows.Forms.ListBox lstW3CFilesFailing;
+        private System.Windows.Forms.TabPage passOtherTabPage;
+        private System.Windows.Forms.ListBox lstFilesOtherPassing;
+        private System.Windows.Forms.TabPage failOtherTabPage;
+        private System.Windows.Forms.ListBox lstFilesOtherFailing;
     }
 }
 

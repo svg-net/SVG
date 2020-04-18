@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400">
+  <defs>
+    <style>
+
+      .cls-3 {
+        fill: #ac3228;
+        font-size: 100px;
+      }
+
+      .cls-3, .cls-5 {
+        font-family: SegoeUI-Bold, Segoe UI;
+        font-weight: 700;
+      }
+
+      .cls-4, .cls-5 {
+        font-size: 50px;
+      }
+
+      .cls-4 {
+        font-family: SegoeUI, Segoe UI;
+      }
+
+    </style>
+  </defs>
+  <g id="Test_middle_alignment" >
+    
+    <text id="text_name" display="" class="cls-5" text-anchor="middle" x="50%" y="25%">HH</text>
+    <text id="text_name_fit" class="cls-5" textLength="100%" lengthAdjust="spacingAndGlyphs" x="0" y="100%">8888888</text>
+
+	<text id="text_value" class="cls-3" text-anchor="middle" x="50%" y="50%">080</text>
+
+    <text id="text_unit" class="cls-4" text-anchor="middle" x="50%" y="75%">HVH</text>
+
+    
+	<g id="TestSizeAlignment" style="stroke:rgb(255,0,0);stroke-width:3;fill:none;opacity:0.5" >
+		<line x1="50%" y1="0" x2="50%" y2="100%"  />
+		<line x1="0" y1="50%" x2="100%" y2="50%"  />
+		<rect x="0" y="0" width="100%" height="100%"  />
+		<line x1="0" y1="25%" x2="100%" y2="25%"  />
+		<line x1="0" y1="75%" x2="100%" y2="75%"  />
+
+		
+    </g>
+	
+	
+  </g>
+</svg>

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using ExCSS.Model;
+using Svg.ExCSS.Model;
 
-namespace ExCSS
+namespace Svg.ExCSS
 {
     internal class StylesheetReader
     {

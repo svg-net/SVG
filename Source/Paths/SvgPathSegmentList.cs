@@ -1,82 +1,83 @@
-using System;
-using System.ComponentModel;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
+using System.Linq;
 
 namespace Svg.Pathing
 {
     [TypeConverter(typeof(SvgPathBuilder))]
-    public sealed class SvgPathSegmentList : IList<SvgPathSegment>
+    public sealed class SvgPathSegmentList : IList<SvgPathSegment>, ICloneable
     {
-        internal SvgPath _owner;
-        private List<SvgPathSegment> _segments;
+        private readonly List<SvgPathSegment> _segments = new List<SvgPathSegment>();
 
-        public SvgPathSegmentList()
+        public ISvgPathElement Owner { get; set; }
+
+        public SvgPathSegment First
         {
-            this._segments = new List<SvgPathSegment>();
+            get { return _segments[0]; }
         }
 
         public SvgPathSegment Last
         {
-            get { return this._segments[this._segments.Count-1]; }
+            get { return _segments[_segments.Count - 1]; }
         }
 
         public int IndexOf(SvgPathSegment item)
         {
-            return this._segments.IndexOf(item);
+            return _segments.IndexOf(item);
         }
 
         public void Insert(int index, SvgPathSegment item)
         {
-            this._segments.Insert(index, item);
-            if (this._owner != null)
-            {
-                this._owner.OnPathUpdated();
-            }
+            _segments.Insert(index, item);
+            if (Owner != null)
+                Owner.OnPathUpdated();
         }
 
         public void RemoveAt(int index)
         {
-            this._segments.RemoveAt(index);
-            if (this._owner != null)
-            {
-                this._owner.OnPathUpdated();
-            }
+            _segments.RemoveAt(index);
+            if (Owner != null)
+                Owner.OnPathUpdated();
         }
 
         public SvgPathSegment this[int index]
         {
-            get { return this._segments[index]; }
-            set { this._segments[index] = value; this._owner.OnPathUpdated(); }
+            get { return _segments[index]; }
+            set
+            {
+                _segments[index] = value;
+                if (Owner != null)
+                    Owner.OnPathUpdated();
+            }
         }
 
         public void Add(SvgPathSegment item)
         {
-            this._segments.Add(item);
-            if (this._owner != null)
-            {
-                this._owner.OnPathUpdated();
-            }
+            _segments.Add(item);
+            if (Owner != null)
+                Owner.OnPathUpdated();
         }
 
         public void Clear()
         {
-            this._segments.Clear();
+            _segments.Clear();
         }
 
         public bool Contains(SvgPathSegment item)
         {
-            return this._segments.Contains(item);
+            return _segments.Contains(item);
         }
 
         public void CopyTo(SvgPathSegment[] array, int arrayIndex)
         {
-            this._segments.CopyTo(array, arrayIndex);
+            _segments.CopyTo(array, arrayIndex);
         }
 
         public int Count
         {
-            get { return this._segments.Count; }
+            get { return _segments.Count; }
         }
 
         public bool IsReadOnly
@@ -86,27 +87,40 @@ namespace Svg.Pathing
 
         public bool Remove(SvgPathSegment item)
         {
-            bool removed = this._segments.Remove(item);
+            var removed = _segments.Remove(item);
 
-            if (removed)
-            {
-                if (this._owner != null)
-                {
-                    this._owner.OnPathUpdated();
-                }
-            }
+            if (removed && Owner != null)
+                Owner.OnPathUpdated();
 
             return removed;
         }
 
         public IEnumerator<SvgPathSegment> GetEnumerator()
         {
-            return this._segments.GetEnumerator();
+            return _segments.GetEnumerator();
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            return this._segments.GetEnumerator();
+            return _segments.GetEnumerator();
         }
+
+        public object Clone()
+        {
+            var segments = new SvgPathSegmentList();
+            foreach (var segment in this)
+                segments.Add(segment.Clone());
+            return segments;
+        }
+
+        public override string ToString()
+        {
+            return string.Join(" ", this.Select(p => p.ToString()).ToArray());
+        }
+    }
+
+    public interface ISvgPathElement
+    {
+        void OnPathUpdated();
     }
 }

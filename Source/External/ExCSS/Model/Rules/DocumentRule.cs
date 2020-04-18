@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ExCSS.Model;
-using ExCSS.Model.Extensions;
+using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public sealed class DocumentRule : AggregateRule
     {
         readonly List<KeyValuePair<DocumentFunction, string>> _conditions;
 
         internal DocumentRule()
-        { 
+        {
             RuleType = RuleType.Document;
             _conditions = new List<KeyValuePair<DocumentFunction, string>>();
         }
@@ -74,8 +74,8 @@ namespace ExCSS
 
         public override string ToString(bool friendlyFormat, int indentation = 0)
         {
-            return "@document " + ConditionText + " {" + 
-                RuleSets + 
+            return "@document " + ConditionText + " {" +
+                RuleSets +
                 "}".NewLineIndent(friendlyFormat, indentation);
         }
     }

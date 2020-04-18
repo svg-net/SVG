@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using ExCSS.Model.Extensions;
+using Svg.ExCSS.Model.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class MediaTypeList : IEnumerable<string>
     {
@@ -87,7 +87,7 @@ namespace ExCSS
 
         public IEnumerator<string> GetEnumerator()
         {
-            return ((IEnumerable<string>) _media).GetEnumerator();
+            return ((IEnumerable<string>)_media).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

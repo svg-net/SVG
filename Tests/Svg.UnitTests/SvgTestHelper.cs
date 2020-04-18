@@ -1,19 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
 using System.Xml;
 
 namespace Svg.UnitTests
 {
     public abstract class SvgTestHelper
     {
-
         /// <summary>
         /// Test file path.
         /// </summary>
+        [Obsolete("Try not to use the file loader, please use the resource loader to ensure working of tests on all systems")]
         protected virtual string TestFile
         {
             get
@@ -23,7 +24,6 @@ namespace Svg.UnitTests
                 throw new NotImplementedException(msg);
             }
         }
-
 
         /// <summary>
         /// Full Unit Test resource string for test file. 
@@ -41,7 +41,6 @@ namespace Svg.UnitTests
             }
         }
 
-
         /// <summary>
         /// Expected size of svg file after drawing.
         /// </summary>
@@ -54,11 +53,6 @@ namespace Svg.UnitTests
                 throw new NotImplementedException(msg);
             }
         }
-
-
-
-
-
 
         /// <summary>
         /// Get full Unit Test resource string.
@@ -78,7 +72,6 @@ namespace Svg.UnitTests
                 resourcePath);
         }
 
-
         /// <summary>
         /// Get embedded resource as stream from Unit Test resources.
         /// </summary>
@@ -95,7 +88,6 @@ namespace Svg.UnitTests
             return s;
         }
 
-
         /// <summary>
         /// Get embedded resource as byte array from Unit Test resources.
         /// </summary>
@@ -111,7 +103,6 @@ namespace Svg.UnitTests
             }
         }
 
-
         /// <summary>
         /// Get embedded resource as xml document from Unit Test resources.
         /// </summary>
@@ -123,28 +114,48 @@ namespace Svg.UnitTests
             {
                 Trace.WriteLine("Load XmlDocument from resource data.");
                 var xmlDoc = new XmlDocument();
+                xmlDoc.XmlResolver = new SvgDtdResolver();
                 xmlDoc.Load(s);
                 Trace.WriteLine("Done XmlDocument loading from resource data.");
                 return xmlDoc;
             }
         }
 
+        /// <summary>
+        /// Get embedded resource as string from Unit Test resources.
+        /// </summary>
+        /// <param name="fullResourceString">Full Unit Test resource string.</param>
+        /// <returns>Embedded resource data xml as string.</returns>
+        protected virtual string GetResourceXmlDocAsString(string fullResourceString)
+        {
+            using (var s = GetResourceStream(fullResourceString))
+            {
+                Trace.WriteLine("Load XmlDocument content from resource data.");
+                using (var reader = new StreamReader(s, Encoding.UTF8))
+                {
+                    string value = reader.ReadToEnd();
+                    Trace.WriteLine("Done XmlDocument content loading from resource data.");
+                    return value;
+                }
+            }
+        }
 
         /// <summary>
         /// Get xml document from <see cref="TestFile"/>.
         /// </summary>
         /// <returns>File data as xml document.</returns>
+        [Obsolete("Try not to use the file loader, please use the resource loader to ensure working of tests on all systems")]
         protected virtual XmlDocument GetXMLDocFromFile()
         {
             return GetXMLDocFromFile(TestFile);
         }
-
 
         /// <summary>
         /// Get xml document from file.
         /// </summary>
         /// <param name="file">File to load.</param>
         /// <returns>File data as xml document.</returns>
+        [Obsolete("Try not to use the file loader, please use the resource loader to ensure working of tests on all systems")]
         protected virtual XmlDocument GetXMLDocFromFile(string file)
         {
             if (!File.Exists(file))
@@ -155,6 +166,20 @@ namespace Svg.UnitTests
             return xmlDoc;
         }
 
+        /// <summary>
+        /// Get the xml document from an input string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        protected virtual XmlDocument GetXMLDocFromString(string input)
+        {
+            Trace.WriteLine("Load XmlDocument from input data.");
+            var xmlDoc = new XmlDocument();
+            xmlDoc.XmlResolver = new SvgDtdResolver();
+            xmlDoc.LoadXml(input);
+            Trace.WriteLine("Done XmlDocument loading from resource data.");
+            return xmlDoc;
+        }
 
         /// <summary>
         /// Get xml document from <see cref="TestResource"/>.
@@ -165,7 +190,6 @@ namespace Svg.UnitTests
             return GetResourceXmlDoc(TestResource);
         }
 
-
         /// <summary>
         /// Get xml document from resource.
         /// </summary>
@@ -175,7 +199,6 @@ namespace Svg.UnitTests
         {
             return GetResourceXmlDoc(fullResourceString);
         }
-
 
         /// <summary>
         /// Load, draw and check svg file.
@@ -194,7 +217,6 @@ namespace Svg.UnitTests
             CheckSvg(svgDoc, img);
         }
 
-
         /// <summary>
         /// Open SVG document from XML document.
         /// </summary>
@@ -205,7 +227,6 @@ namespace Svg.UnitTests
             return SvgDocument.Open(xml);
         }
 
-
         /// <summary>
         /// Draw SVG.
         /// </summary>
@@ -215,7 +236,6 @@ namespace Svg.UnitTests
         {
             return svgDoc.Draw();
         }
-
 
         /// <summary>
         /// Check svg file data.
@@ -228,10 +248,9 @@ namespace Svg.UnitTests
             {
                 img.Save(ms, ImageFormat.Png);
                 ms.Flush();
-                Assert.IsTrue(ms.Length >= ExpectedSize, "Svg file does not match expected minimum size.");
+                Assert.IsTrue(ms.Length >= ExpectedSize, $"Svg file size {ms.Length} does not match expected minimum size (expected {ExpectedSize}).");
             }
         }
-
 
         /// <summary>
         /// Compare Images.
@@ -245,7 +264,6 @@ namespace Svg.UnitTests
             return ImagesAreEqual(img1, img2, out imgEqualPercentage);
         }
 
-
         /// <summary>
         /// Compare Images.
         /// </summary>
@@ -258,7 +276,6 @@ namespace Svg.UnitTests
             Bitmap imgDiff; // To ignore.
             return ImagesAreEqual(img1, img2, out imgEqualPercentage, out imgDiff);
         }
-
 
         /// <summary>
         /// Compare Images.
@@ -311,7 +328,7 @@ namespace Svg.UnitTests
             int totalPixelCount = img1.Width * img1.Height;
             var imgDiffFactor = ((float)diffPixelCount / totalPixelCount);
             imgEqualPercentage = imgDiffFactor * 100;
-            
+
             return (imgDiffFactor == 1f);
         }
     }

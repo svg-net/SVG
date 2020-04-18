@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Svg
 {
+    [Obsolete("ISvgSupportsCoordinateUnits will be removed.")]
     internal interface ISvgSupportsCoordinateUnits
     {
         SvgCoordinateUnits GetUnits();

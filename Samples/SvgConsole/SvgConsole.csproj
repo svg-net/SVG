@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <IsPackable>False</IsPackable>
+    <IsTool>True</IsTool>
+    <PackAsTool>True</PackAsTool>
+    <ToolCommandName>SvgConsole</ToolCommandName>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PublishTrimmed>False</PublishTrimmed>
+    <PublishReadyToRun>False</PublishReadyToRun>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\Svg.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20104.2" />
+  </ItemGroup>
+
+</Project>

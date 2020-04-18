@@ -1,58 +1,34 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Svg.Exceptions;
-using System;
+using NUnit.Framework;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Svg.UnitTests
 {
-
-    [TestClass]
+    [TestFixture]
     public class MultiThreadingTest : SvgTestHelper
     {
-
-        protected override string TestFile { get { return @"d:\temp\test.svg"; } }
-        protected override int ExpectedSize { get { return 600000; } }
+        protected override string TestResource { get { return GetFullResourceString("Issue_Threading.TestFile.svg"); } }
+        protected override int ExpectedSize { get { return 100; } }
 
         private void LoadFile()
         {
-            LoadSvg(GetXMLDocFromFile());
+            LoadSvg(GetXMLDocFromResource());
         }
 
-        
-        [TestMethod]
-        public void TestSingleThread()
+        [Test]
+        public void LoadSVGThreading_SingleThread_YieldsNoError()
         {
             LoadFile();
         }
 
-
-        [TestMethod]
-        public void TestMultiThread()
+        [Test]
+        public void LoadSVGThreading_MultiThread_YieldsNoErrorWhileInBounds()
         {
             Parallel.For(0, 10, (x) =>
             {
                 LoadFile();
             });
             Trace.WriteLine("Done");
-        }
-
-
-        [TestMethod]
-        [ExpectedException(typeof(SvgMemoryException))]
-        public void SVGGivesMemoryExceptionOnTooManyParallelTest()
-        {
-            try
-            {
-                Parallel.For(0, 50, (x) =>
-                {
-                    LoadFile();
-                });
-            }
-            catch (AggregateException ex)
-            {
-                throw ex.InnerException;
-            }
         }
     }
 }

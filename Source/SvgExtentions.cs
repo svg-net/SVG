@@ -67,7 +67,7 @@ namespace Svg
                 // Make sure to set back the old culture even an error occurred.
                 Thread.CurrentThread.CurrentCulture = currentCulture;
             }
-            
+
             return result;
         }
 
@@ -78,28 +78,52 @@ namespace Svg
 
         public static void ApplyRecursive(this SvgElement elem, Action<SvgElement> action)
         {
-            action(elem);
-
-            if (!(elem is SvgDocument)) //don't apply action to subtree of documents
+            foreach (var e in elem
+                .Traverse(e => e.Children))
             {
-                foreach (var element in elem.Children)
-                {
-                    element.ApplyRecursive(action);
-                }
+                action(e);
             }
         }
 
         public static void ApplyRecursiveDepthFirst(this SvgElement elem, Action<SvgElement> action)
         {
-            if (!(elem is SvgDocument)) //don't apply action to subtree of documents
+            foreach (var e in elem
+                .TraverseDepthFirst(e => e.Children))
             {
-                foreach (var element in elem.Children)
-                {
-                    element.ApplyRecursiveDepthFirst(action);
-                }
+                action(e);
             }
-
-            action(elem);
         }
+
+        public static IEnumerable<T> Traverse<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childrenSelector)
+        {
+            if (childrenSelector == null) throw new ArgumentNullException(nameof(childrenSelector));
+
+            var itemQueue = new Queue<T>(items);
+            while (itemQueue.Count > 0)
+            {
+                var current = itemQueue.Dequeue();
+                yield return current;
+                foreach (var child in childrenSelector(current) ?? Enumerable.Empty<T>()) itemQueue.Enqueue(child);
+            }
+        }
+
+        public static IEnumerable<T> Traverse<T>(this T root, Func<T, IEnumerable<T>> childrenSelector)
+            => Enumerable.Repeat(root, 1).Traverse(childrenSelector);
+
+        public static IEnumerable<T> TraverseDepthFirst<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childrenSelector)
+        {
+            if (childrenSelector == null) throw new ArgumentNullException(nameof(childrenSelector));
+            var itemStack = new Stack<T>(items ?? Enumerable.Empty<T>());
+
+            while (itemStack.Count > 0)
+            {
+                var current = itemStack.Pop();
+                yield return current;
+                foreach (var child in childrenSelector(current) ?? Enumerable.Empty<T>()) itemStack.Push(child);
+            }
+        }
+
+        public static IEnumerable<T> TraverseDepthFirst<T>(this T root, Func<T, IEnumerable<T>> childrenSelector)
+            => Enumerable.Repeat(root, 1).TraverseDepthFirst(childrenSelector);
     }
 }

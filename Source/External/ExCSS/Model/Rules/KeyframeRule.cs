@@ -1,8 +1,8 @@
-﻿using ExCSS.Model;
-using ExCSS.Model.Extensions;
+﻿using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class KeyframeRule : RuleSet, ISupportsDeclarations
     {
@@ -30,8 +30,8 @@ namespace ExCSS
         public override string ToString(bool friendlyFormat, int indentation = 0)
         {
             return string.Empty.Indent(friendlyFormat, indentation) +
-                _value + 
-                "{" + 
+                _value +
+                "{" +
                 Declarations.ToString(friendlyFormat, indentation) +
                 "}".NewLineIndent(friendlyFormat, indentation);
         }

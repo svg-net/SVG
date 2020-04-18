@@ -1,0 +1,33 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [ "**/*.cs" ],
+          "exclude": [ "**/bin/**", "**/obj/**", "External/**" ],
+          "src": "Source"
+        }
+      ],
+      "dest": "obj/api"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [ "**/*.yml" ],
+        "src": "obj/api",
+        "dest": "api"
+      },
+      {
+        "files": [ "*.md", "doc/*.md" ]
+      }
+    ],
+    "globalMetadata": {
+      "_appTitle": "SVG.NET API",
+      "_enableSearch": true
+    },
+    "markdownEngineName": "markdig",
+    "dest": "_site",
+    "xrefService": [ "https://xref.docs.microsoft.com/query?uid={uid}" ]
+  }
+}

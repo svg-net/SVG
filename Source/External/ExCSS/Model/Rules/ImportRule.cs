@@ -1,20 +1,20 @@
-﻿using ExCSS.Model;
-using ExCSS.Model.Extensions;
+﻿using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class ImportRule : RuleSet, ISupportsMedia
     {
         private string _href;
         private readonly MediaTypeList _media;
 
-        public ImportRule() 
+        public ImportRule()
         {
             _media = new MediaTypeList();
             RuleType = RuleType.Import;
         }
-      
+
         public string Href
         {
             get { return _href; }

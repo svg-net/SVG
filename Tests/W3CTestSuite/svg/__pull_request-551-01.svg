@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="100">
+<!-- gray -->
+<rect x="10"  y="10" width="20" height="20" fill="grey" />
+<rect x="40"  y="10" width="20" height="20" fill="gray" />
+<rect x="70"  y="10" width="20" height="20" fill="Grey" />
+<rect x="100" y="10" width="20" height="20" fill="Gray" />
+<!-- lightgray -->
+<rect x="10"  y="40" width="20" height="20" fill="lightgrey" />
+<rect x="40"  y="40" width="20" height="20" fill="lightgray" />
+<rect x="70"  y="40" width="20" height="20" fill="LightGrey" />
+<rect x="100" y="40" width="20" height="20" fill="LightGray" />
+<!-- darkslategray -->
+<rect x="10"  y="70" width="20" height="20" fill="darkslategrey" />
+<rect x="40"  y="70" width="20" height="20" fill="darkslategray" />
+<rect x="70"  y="70" width="20" height="20" fill="DarkSlateGrey" />
+<rect x="100" y="70" width="20" height="20" fill="DarkSlateGray" />
+</svg>

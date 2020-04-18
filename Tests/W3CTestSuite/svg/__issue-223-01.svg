@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <marker id="circle" viewBox="0 0 60 60" refX="30" refY="30" markerUnits="strokeWidth" markerWidth="60" markerHeight="60" orient="0">
+      <g stroke="blue" fill="transparent">
+        <circle cx="30" cy="30" r="26"/>
+      </g>
+    </marker>
+  </defs>
+
+  <path marker-end="url(#circle)" d="M200 200" stroke="red" stroke-width="5"/>
+</svg>

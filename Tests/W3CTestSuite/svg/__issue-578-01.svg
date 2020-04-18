@@ -1,0 +1,11 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" width="600" height="507">
+	<desc>Created with Highcharts 3.0.2</desc>
+	<defs>
+		<pattern id="highcharts-pattern-3" patternUnits="userSpaceOnUse" width="25" height="13">
+			<rect x="0" y="0" width="25" height="13" fill="#ff6600"/>
+			<image preserveAspectRatio="none" x="0" y="0" width="25" height="13" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAANCAYAAABcrsXuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAADJGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4zLWMwMTEgNjYuMTQ1NjYxLCAyMDEyLzAyLzA2LTE0OjU2OjI3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjAyMDc5RTREQ0EwQzExRTI4ODVCRUJEOEE1RkNENjA0IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjAyMDc5RTRFQ0EwQzExRTI4ODVCRUJEOEE1RkNENjA0Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MDIwNzlFNEJDQTBDMTFFMjg4NUJFQkQ4QTVGQ0Q2MDQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MDIwNzlFNENDQTBDMTFFMjg4NUJFQkQ4QTVGQ0Q2MDQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7yExAoAAABNUlEQVQ4T5WTMUqEMRBGf0QEQRsLtbHaztpOtrW111q8gL32XsAL2GuppYsgaGchgiBewMYL+L1sZpmZPxF88DbJ5MuSzSaDmMkNOo5leSW/a8vYQ551l3KJQgfmyAyrfDgY38hruVZbxq3crWR+hUKCGnNkAuzwQfod2m6o937xnWRDBn1qo1PYka/yrIzGUGeeXOZCPsutKn1qgV35IY/LqA/z5MhnTuV7lX5gKr/kQRlF8vEAOfKsyxxWR3zKvXk3cCR/apshz7rmFyZKZlK6ETv//dq2/ifWNY/GYUcYsJvk385fb2JbvsjzMopQY47MAn+v//Mm1uW9tOtq15oacwu699rRexNgG+TR2kMOm9mUT3J0rzuQI886jx1161iHN3ky7wZ4C4+1zZBnXevSJIbJLyqPQIBXtVxmAAAAAElFTkSuQmCC"/>
+		</pattern>
+	</defs>
+	<rect fill="url(#highcharts-pattern-3)" x="140.5" y="49.5" width="259" height="387" stroke="#FFFFFF" stroke-width="1" rx="0" ry="0"/>
+	
+</svg>

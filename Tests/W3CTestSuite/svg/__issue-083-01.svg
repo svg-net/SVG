@@ -6,9 +6,9 @@
       <stop id="stop3937-7" style="stop-color:#a27204;stop-opacity:1" offset="1"></stop>
     </linearGradient>
     <filter x="-0.25" y="-0.5" width="1.5" height="2" color-interpolation-filters="sRGB" id="filter8278">
-      <feGaussianBlur result="blur" stdDeviation="4.5" in="SourceAlpha" id="feGaussianBlur8280"></feGaussianBlur>
-      <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.407 0 " type="matrix" result="bluralpha" id="feColorMatrix8282"></feColorMatrix>
-      <feOffset result="offsetBlur" dy="7.3" dx="-1.08247e-15" in="bluralpha" id="feOffset8284"></feOffset>
+      <feGaussianBlur stdDeviation="4.5" in="SourceAlpha" id="feGaussianBlur8280"></feGaussianBlur>
+      <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.407 0 " type="matrix" id="feColorMatrix8282"></feColorMatrix>
+      <feOffset result="offsetBlur" dy="7.3" dx="-1.08247e-15" id="feOffset8284"></feOffset>
       <feMerge id="feMerge8286">
         <feMergeNode in="offsetBlur" id="feMergeNode8288"></feMergeNode>
         <feMergeNode in="SourceGraphic" id="feMergeNode8290"></feMergeNode>

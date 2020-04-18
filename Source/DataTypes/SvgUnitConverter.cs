@@ -1,11 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web.UI.WebControls;
 
 namespace Svg
 {
@@ -31,6 +26,23 @@ namespace Svg
 
             if (unit == "none")
                 return SvgUnit.None;
+
+            // Note: these are ad-hoc values based on a factor of about 1.2 between adjacent values
+            // see https://www.w3.org/TR/CSS2/fonts.html#value-def-absolute-size for more information
+            if (unit == "medium")
+                unit = "1em";
+            else if (unit == "small")
+                unit = "0.8em";
+            else if (unit == "x-small")
+                unit = "0.7em";
+            else if (unit == "xx-small")
+                unit = "0.6em";
+            else if (unit == "large")
+                unit = "1.2em";
+            else if (unit == "x-large")
+                unit = "1.4em";
+            else if (unit == "xx-large")
+                unit = "1.7em";
 
             for (int i = 0; i < unit.Length; i++)
             {

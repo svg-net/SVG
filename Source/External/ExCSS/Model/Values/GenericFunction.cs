@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using ExCSS.Model;
+using Svg.ExCSS.Model;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class GenericFunction : Term
     {

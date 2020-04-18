@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ExCSS.Model.Extensions;
+using Svg.ExCSS.Model.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public sealed class StyleSheet
     {
@@ -51,7 +51,7 @@ namespace ExCSS
             {
                 return Rules.Where(r => r is StyleRule).Cast<StyleRule>().ToList();
             }
-        } 
+        }
 
         public IList<CharacterSetRule> CharsetDirectives
         {

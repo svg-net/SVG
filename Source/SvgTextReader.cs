@@ -18,14 +18,16 @@ namespace Svg
         public SvgTextReader(Stream stream, Dictionary<string, string> entities)
             : base(stream)
         {
-            this.EntityHandling = EntityHandling.ExpandEntities;
+            if (entities == null)
+                this.EntityHandling = EntityHandling.ExpandEntities;
             this._entities = entities;
         }
 
         public SvgTextReader(TextReader reader, Dictionary<string, string> entities)
             : base(reader)
         {
-            this.EntityHandling = EntityHandling.ExpandEntities;
+            if (entities == null)
+                this.EntityHandling = EntityHandling.ExpandEntities;
             this._entities = entities;
         }
 
@@ -122,7 +124,7 @@ namespace Svg
         private void ParseEntities()
         {
             const string entityText = "<!ENTITY";
-            string[] entities = this.Value.Split(new string[]{entityText}, StringSplitOptions.None);
+            string[] entities = this.Value.Split(new string[] { entityText }, StringSplitOptions.None);
             string name = null;
             string value = null;
             int quoteIndex;

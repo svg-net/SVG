@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
-using ExCSS.Model;
-using ExCSS.Model.TextBlocks;
+using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.TextBlocks;
 
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public partial class Parser
     {
@@ -342,8 +342,10 @@ namespace ExCSS
             switch (token.GrammarSegment)
             {
                 case GrammarSegment.Semicolon:
+                    // the value is empty - remove the property to use the default value
+                    RemoveCurrentProperty();
                     SetParsingContext(ParsingContext.InDeclaration);
-                    break;
+                    return true;
 
                 case GrammarSegment.CurlyBracketClose:
                     ParseDeclaration(token);
@@ -480,8 +482,8 @@ namespace ExCSS
                     break;
             }
 
-            ParseSingleValueHexColor(_buffer.ToString());
             SetParsingContext(ParsingContext.InSingleValue);
+            ParseSingleValueHexColor(_buffer.ToString());
             return ParseSingleValue(token);
         }
 
@@ -552,9 +554,13 @@ namespace ExCSS
         {
             HtmlColor htmlColor;
 
-            if(HtmlColor.TryFromHex(color, out htmlColor))
+            if (HtmlColor.TryFromHex(color, out htmlColor))
                 return AddTerm(htmlColor);
-            return false;
+            else
+                // the value is invalid - remove the property to use the default value
+                RemoveCurrentProperty();
+
+            return true;
         }
 
         #region Namespace
@@ -659,7 +665,7 @@ namespace ExCSS
             }
 
             _buffer = new StringBuilder();
-         
+
             return ParseKeyframeText(token);
         }
 
@@ -714,7 +720,7 @@ namespace ExCSS
 
             return false;
         }
-        
+
         #endregion
 
         #region Document

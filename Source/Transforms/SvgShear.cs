@@ -1,7 +1,4 @@
-﻿﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing.Drawing2D;
+﻿using System.Drawing.Drawing2D;
 using System.Globalization;
 
 namespace Svg.Transforms
@@ -11,48 +8,39 @@ namespace Svg.Transforms
     /// </summary>
     public sealed class SvgShear : SvgTransform
     {
-        private float shearFactorX;
-        private float shearFactorY;
+        public float X { get; set; }
 
-        public float X
-        {
-            get { return this.shearFactorX; }
-            set { this.shearFactorX = value; }
-        }
-
-        public float Y
-        {
-            get { return this.shearFactorY; }
-            set { this.shearFactorY = value; }
-        }
+        public float Y { get; set; }
 
         public override Matrix Matrix
         {
             get
             {
-                Matrix matrix = new Matrix();
-                matrix.Shear(this.X, this.Y);
+                var matrix = new Matrix();
+                matrix.Shear(X, Y);
                 return matrix;
             }
         }
 
         public override string WriteToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "shear({0}, {1})", this.X, this.Y);
+            return string.Format(CultureInfo.InvariantCulture, "shear({0}, {1})", X, Y);
         }
 
-        public SvgShear(float x) : this(x, x) { }
+        public SvgShear(float x)
+            : this(x, x)
+        {
+        }
 
         public SvgShear(float x, float y)
         {
-            this.shearFactorX = x;
-            this.shearFactorY = y;
+            X = x;
+            Y = y;
         }
 
-
-		public override object Clone()
-		{
-			return new SvgShear(this.X, this.Y);
-		}
+        public override object Clone()
+        {
+            return new SvgShear(X, Y);
+        }
     }
 }

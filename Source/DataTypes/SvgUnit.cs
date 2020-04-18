@@ -62,7 +62,6 @@ namespace Svg
         /// <summary>
         /// Converts the current unit to one that can be used at render time.
         /// </summary>
-        /// <param name="boundable">The container element used as the basis for calculations</param>
         /// <returns>The representation of the current unit in a device value (usually pixels).</returns>
         public float ToDeviceValue(ISvgRenderer renderer, UnitRenderingType renderType, SvgElement owner)
         {
@@ -86,7 +85,7 @@ namespace Svg
 
             var type = this.Type;
             var value = this.Value;
-            
+
             float points;
 
             switch (type)
@@ -165,8 +164,13 @@ namespace Svg
                         case UnitRenderingType.VerticalOffset:
                             _deviceValue = (size.Height / 100) * value + boundable.Location.Y;
                             break;
-                        default:
-                            _deviceValue = (float)(Math.Sqrt(Math.Pow(size.Width, 2) + Math.Pow(size.Height, 2)) / Math.Sqrt(2) * value / 100.0);
+                        case UnitRenderingType.Other:
+                            // Calculate a percentage value of the normalized viewBox diagonal length. 
+                            if (owner.OwnerDocument != null && owner.OwnerDocument.ViewBox != null && owner.OwnerDocument.ViewBox.Width != 0 && owner.OwnerDocument.ViewBox.Height != 0)
+                            {
+                                _deviceValue = (float)(Math.Sqrt(Math.Pow(owner.OwnerDocument.ViewBox.Width, 2) + Math.Pow(owner.OwnerDocument.ViewBox.Height, 2)) / Math.Sqrt(2) * value / 100.0);
+                            }
+                            else _deviceValue = (float)(Math.Sqrt(Math.Pow(size.Width, 2) + Math.Pow(size.Height, 2)) / Math.Sqrt(2) * value / 100.0);
                             break;
                     }
                     break;
@@ -181,13 +185,13 @@ namespace Svg
         {
             if (owner == null) return null;
             var visual = owner.Parents.OfType<SvgVisualElement>().FirstOrDefault();
-            return visual?.GetFont(renderer);
+            return visual != null ? visual.GetFont(renderer) : null;
         }
 
         /// <summary>
         /// Converts the current unit to a percentage, if applicable.
         /// </summary>
-        /// <returns>An <see cref="SvgUnit"/> of type <see cref="SvgUnitType.Perscentage"/>.</returns>
+        /// <returns>An <see cref="SvgUnit"/> of type <see cref="SvgUnitType.Percentage"/>.</returns>
         public SvgUnit ToPercentage()
         {
             switch (this.Type)
@@ -205,21 +209,22 @@ namespace Svg
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            if (!(obj.GetType() == typeof (SvgUnit))) return false;
+            if (!(obj.GetType() == typeof(SvgUnit))) return false;
 
             var unit = (SvgUnit)obj;
             return (unit.Value == this.Value && unit.Type == this.Type);
         }
-        
+
         public bool Equals(SvgUnit other)
         {
             return this._type == other._type && (this._value == other._value);
         }
-        
+
         public override int GetHashCode()
         {
             int hashCode = 0;
-            unchecked {
+            unchecked
+            {
                 hashCode += 1000000007 * _type.GetHashCode();
                 hashCode += 1000000009 * _value.GetHashCode();
                 hashCode += 1000000021 * _isEmpty.GetHashCode();
@@ -227,12 +232,12 @@ namespace Svg
             }
             return hashCode;
         }
-        
+
         public static bool operator ==(SvgUnit lhs, SvgUnit rhs)
         {
             return lhs.Equals(rhs);
         }
-        
+
         public static bool operator !=(SvgUnit lhs, SvgUnit rhs)
         {
             return !(lhs == rhs);

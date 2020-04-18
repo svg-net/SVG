@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Net;
-using System.IO;
 
 namespace Svg
 {
@@ -23,11 +21,7 @@ namespace Svg
         /// <returns>An <see cref="SvgElement"/> of one exists with the specified ID; otherwise false.</returns>
         public virtual SvgElement GetElementById(string id)
         {
-            if (id.StartsWith("url("))
-            {
-                id = id.Substring(4);
-                id = id.TrimEnd(')');
-            }
+            id = GetUrlString(id);
             if (id.StartsWith("#"))
             {
                 id = id.Substring(1);
@@ -41,31 +35,53 @@ namespace Svg
 
         public virtual SvgElement GetElementById(Uri uri)
         {
-            if (uri.ToString().StartsWith("url(")) uri = new Uri(uri.ToString().Substring(4).TrimEnd(')'), UriKind.Relative);
-            if (!uri.IsAbsoluteUri && this._document.BaseUri != null && !uri.ToString().StartsWith("#"))
+            var urlString = GetUrlString(uri.ToString());
+
+            if (!urlString.StartsWith("#"))
             {
-                var fullUri = new Uri(this._document.BaseUri, uri);
-                var hash = fullUri.OriginalString.Substring(fullUri.OriginalString.LastIndexOf('#'));
-                SvgDocument doc;
-                switch (fullUri.Scheme.ToLowerInvariant())
+                var index = urlString.LastIndexOf('#');
+                var fragment = urlString.Substring(index);
+
+                uri = new Uri(urlString.Remove(index, fragment.Length), UriKind.RelativeOrAbsolute);
+
+                if (!uri.IsAbsoluteUri && _document.BaseUri != null)
+                    uri = new Uri(_document.BaseUri, uri);
+
+                if (uri.IsAbsoluteUri)
                 {
-                    case "file":
-                        doc = SvgDocument.Open<SvgDocument>(fullUri.LocalPath.Substring(0, fullUri.LocalPath.Length - hash.Length));
-                        return doc.IdManager.GetElementById(hash);
-                    case "http":
-                    case "https":
+                    if (uri.IsFile)
+                    {
+                        var doc = SvgDocument.Open<SvgDocument>(uri.LocalPath);
+                        return doc.IdManager.GetElementById(fragment);
+                    }
+                    else if (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
+                    {
                         var httpRequest = WebRequest.Create(uri);
-                        using (WebResponse webResponse = httpRequest.GetResponse())
+                        using (var webResponse = httpRequest.GetResponse())
                         {
-                            doc = SvgDocument.Open<SvgDocument>(webResponse.GetResponseStream());
-                            return doc.IdManager.GetElementById(hash);
+                            var doc = SvgDocument.Open<SvgDocument>(webResponse.GetResponseStream());
+                            return doc.IdManager.GetElementById(fragment);
                         }
-                    default:
+                    }
+                    else
                         throw new NotSupportedException();
                 }
-
             }
-            return this.GetElementById(uri.ToString());
+
+            return GetElementById(urlString);
+        }
+
+        private static string GetUrlString(string url)
+        {
+            url = url.Trim();
+            if (url.StartsWith("url(", StringComparison.OrdinalIgnoreCase) && url.EndsWith(")"))
+            {
+                url = new StringBuilder(url).Remove(url.Length - 1, 1).Remove(0, 4).ToString().Trim();
+
+                if ((url.StartsWith("\"") && url.EndsWith("\"")) || (url.StartsWith("'") && url.EndsWith("'")))
+                    url = new StringBuilder(url).Remove(url.Length - 1, 1).Remove(0, 1).ToString().Trim();
+            }
+            return url;
         }
 
         /// <summary>
@@ -82,6 +98,7 @@ namespace Svg
         /// And can auto fix the ID if it already exists or it starts with a number.
         /// </summary>
         /// <param name="element">The <see cref="SvgElement"/> to be managed.</param>
+        /// <param name="sibling">Not used.</param>
         /// <param name="autoForceUniqueID">Pass true here, if you want the ID to be fixed</param>
         /// <param name="logElementOldIDNewID">If not null, the action is called before the id is fixed</param>
         /// <returns>true, if ID was altered</returns>
@@ -93,14 +110,14 @@ namespace Svg
                 var newID = this.EnsureValidId(element.ID, autoForceUniqueID);
                 if (autoForceUniqueID && newID != element.ID)
                 {
-                    if(logElementOldIDNewID != null)
+                    if (logElementOldIDNewID != null)
                         logElementOldIDNewID(element, element.ID, newID);
                     element.ForceUniqueID(newID);
                     result = true;
                 }
                 this._idValueMap.Add(element.ID, element);
             }
-            
+
             OnAdded(element);
             return result;
         }
@@ -115,17 +132,16 @@ namespace Svg
             {
                 this._idValueMap.Remove(element.ID);
             }
-            
+
             OnRemoved(element);
         }
 
         /// <summary>
-        /// Ensures that the specified ID is valid within the containing <see cref="SvgDocument"/>.
+        /// Ensures that the specified ID is unique within the containing <see cref="SvgDocument"/>.
         /// </summary>
         /// <param name="id">A <see cref="string"/> containing the ID to validate.</param>
         /// <param name="autoForceUniqueID">Creates a new unique id <see cref="string"/>.</param>
         /// <exception cref="SvgException">
-        /// <para>The ID cannot start with a digit.</para>
         /// <para>An element with the same ID already exists within the containing <see cref="SvgDocument"/>.</para>
         /// </exception>
         public string EnsureValidId(string id, bool autoForceUniqueID = false)
@@ -136,18 +152,9 @@ namespace Svg
                 return id;
             }
 
-            if (char.IsDigit(id[0]))
-            {
-                if (autoForceUniqueID)
-                {
-                    return EnsureValidId("id" + id, true);
-                }
-                throw new SvgIDWrongFormatException("ID cannot start with a digit: '" + id + "'.");
-            }
-
             if (this._idValueMap.ContainsKey(id))
             {
-                if(autoForceUniqueID)
+                if (autoForceUniqueID)
                 {
                     var match = regex.Match(id);
 
@@ -179,32 +186,32 @@ namespace Svg
             this._document = document;
             this._idValueMap = new Dictionary<string, SvgElement>();
         }
-        
+
         public event EventHandler<SvgElementEventArgs> ElementAdded;
         public event EventHandler<SvgElementEventArgs> ElementRemoved;
-        
+
         protected void OnAdded(SvgElement element)
         {
-        	var handler = ElementAdded;
-        	if(handler != null)
-        	{
-        		handler(this._document, new SvgElementEventArgs{ Element = element });
-        	}
+            var handler = ElementAdded;
+            if (handler != null)
+            {
+                handler(this._document, new SvgElementEventArgs { Element = element });
+            }
         }
-        
+
         protected void OnRemoved(SvgElement element)
         {
-        	var handler = ElementRemoved;
-        	if(handler != null)
-        	{
-        		handler(this._document, new SvgElementEventArgs{ Element = element });
-        	}
+            var handler = ElementRemoved;
+            if (handler != null)
+            {
+                handler(this._document, new SvgElementEventArgs { Element = element });
+            }
         }
-        
+
     }
-    
+
     public class SvgElementEventArgs : EventArgs
     {
-    	public SvgElement Element;
+        public SvgElement Element;
     }
 }

@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Fizzler;
 
 namespace Svg.Css
 {
     internal class SvgElementOps : IElementOps<SvgElement>
     {
-	    private readonly SvgElementFactory _elementFactory;
+        private readonly SvgElementFactory _elementFactory;
 
-	    public SvgElementOps(SvgElementFactory elementFactory)
-	    {
-		    _elementFactory = elementFactory;
-	    }
-
-	    public Selector<SvgElement> Type(NamespacePrefix prefix, string name)
+        public SvgElementOps(SvgElementFactory elementFactory)
         {
-            SvgElementFactory.ElementInfo type = null;
-            if (_elementFactory.AvailableElements.TryGetValue(name, out type)) 
+            _elementFactory = elementFactory;
+        }
+
+        public Selector<SvgElement> Type(NamespacePrefix prefix, string name)
+        {
+            var types = _elementFactory.AvailableElements.Where(e => e.ElementName.Equals(name)).Select(e => e.ElementType);
+            if (types.Any())
             {
-                return nodes => nodes.Where(n => n.GetType() == type.ElementType);
+                return nodes => nodes.Where(n => types.Contains(n.GetType()));
             }
             return nodes => Enumerable.Empty<SvgElement>();
         }

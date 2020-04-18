@@ -1,14 +1,14 @@
-﻿using ExCSS.Model;
-using ExCSS.Model.Extensions;
+﻿using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class FontFaceRule : RuleSet, ISupportsDeclarations
     {
         private readonly StyleDeclaration _declarations;
 
-        public FontFaceRule() 
+        public FontFaceRule()
         {
             _declarations = new StyleDeclaration();
             RuleType = RuleType.FontFace;

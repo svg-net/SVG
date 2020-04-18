@@ -236,6 +236,6 @@ namespace Svg.Text
         //    Console.ReadLine();
         //}
 
-        
+
     }
 }

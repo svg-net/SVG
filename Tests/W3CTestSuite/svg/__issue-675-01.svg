@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="Arial">
+  <g id="g1" font-size="18">
+    <defs id="defs1">
+      <text id="text1">Text</text>
+    </defs>
+  </g>
+  <use id="use1" xlink:href="#text1" x="50" y="120" font-size="48"/>
+</svg>

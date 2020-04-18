@@ -21,11 +21,14 @@ namespace Svg
         public static readonly SvgPaintServer None = new SvgColourServer();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SvgPaintServer"/> class.
+        /// A <see cref="SvgPaintServer"/> that should inherit from its parent.
         /// </summary>
-        public SvgPaintServer()
-        {
-        }
+        public static readonly SvgPaintServer Inherit = new SvgColourServer();
+
+        /// <summary>
+        /// An unspecified <see cref="SvgPaintServer"/>.
+        /// </summary>
+        public static readonly SvgPaintServer NotSet = new SvgColourServer();
 
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
@@ -40,7 +43,9 @@ namespace Svg
         /// Gets a <see cref="Brush"/> representing the current paint server.
         /// </summary>
         /// <param name="styleOwner">The owner <see cref="SvgVisualElement"/>.</param>
+        /// <param name="renderer">The renderer object.</param>
         /// <param name="opacity">The opacity of the brush.</param>
+        /// <param name="forStroke">Not used.</param>
         public abstract Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false);
 
         /// <summary>
@@ -53,8 +58,5 @@ namespace Svg
         {
             return String.Format("url(#{0})", this.ID);
         }
-
-
-
     }
 }

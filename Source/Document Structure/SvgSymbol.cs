@@ -12,7 +12,6 @@ namespace Svg.Document_Structure
     [SvgElement("symbol")]
     public class SvgSymbol : SvgVisualElement
     {
-
         /// <summary>
         /// Gets or sets the viewport of the element.
         /// </summary>
@@ -20,8 +19,8 @@ namespace Svg.Document_Structure
         [SvgAttribute("viewBox")]
         public SvgViewBox ViewBox
         {
-            get { return this.Attributes.GetAttribute<SvgViewBox>("viewBox"); }
-            set { this.Attributes["viewBox"] = value; }
+            get { return GetAttribute<SvgViewBox>("viewBox", false); }
+            set { Attributes["viewBox"] = value; }
         }
 
         /// <summary>
@@ -31,12 +30,12 @@ namespace Svg.Document_Structure
         [SvgAttribute("preserveAspectRatio")]
         public SvgAspectRatio AspectRatio
         {
-            get { return this.Attributes.GetAttribute<SvgAspectRatio>("preserveAspectRatio"); }
-            set { this.Attributes["preserveAspectRatio"] = value; }
+            get { return GetAttribute<SvgAspectRatio>("preserveAspectRatio", false); }
+            set { Attributes["preserveAspectRatio"] = value; }
         }
 
         /// <summary>
-        /// Gets the <see cref="GraphicsPath"/> for this element.
+        /// Gets the <see cref="System.Drawing.Drawing2D.GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
@@ -74,7 +73,7 @@ namespace Svg.Document_Structure
                     }
                 }
 
-                return r;
+                return TransformedBounds(r);
             }
         }
 
@@ -86,8 +85,9 @@ namespace Svg.Document_Structure
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
         protected internal override bool PushTransforms(ISvgRenderer renderer)
         {
-            if (!base.PushTransforms(renderer)) return false;
-            this.ViewBox.AddViewBoxTransform(this.AspectRatio, renderer, null);
+            if (!base.PushTransforms(renderer))
+                return false;
+            ViewBox.AddViewBoxTransform(AspectRatio, renderer, null);
             return true;
         }
 
@@ -100,14 +100,6 @@ namespace Svg.Document_Structure
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgSymbol>();
-        }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgSymbol;
-            if (this.Fill != null)
-                newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
-            return newObj;
         }
     }
 }

@@ -1,8 +1,11 @@
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using Svg.ExtensionMethods;
+using Svg.FilterEffects;
 
 namespace Svg
 {
@@ -47,8 +50,8 @@ namespace Svg
         [SvgAttribute("clip")]
         public virtual string Clip
         {
-            get { return this.Attributes.GetInheritedAttribute<string>("clip"); }
-            set { this.Attributes["clip"] = value; }
+            get { return GetAttribute("clip", true, "auto"); }
+            set { Attributes["clip"] = value; }
         }
 
         /// <summary>
@@ -57,8 +60,8 @@ namespace Svg
         [SvgAttribute("clip-path")]
         public virtual Uri ClipPath
         {
-            get { return this.Attributes.GetAttribute<Uri>("clip-path"); }
-            set { this.Attributes["clip-path"] = value; }
+            get { return GetAttribute<Uri>("clip-path", false); }
+            set { Attributes["clip-path"] = value; }
         }
 
         /// <summary>
@@ -67,18 +70,18 @@ namespace Svg
         [SvgAttribute("clip-rule")]
         public SvgClipRule ClipRule
         {
-            get { return this.Attributes.GetAttribute<SvgClipRule>("clip-rule", SvgClipRule.NonZero); }
-            set { this.Attributes["clip-rule"] = value; }
+            get { return GetAttribute("clip-rule", true, SvgClipRule.NonZero); }
+            set { Attributes["clip-rule"] = value; }
         }
 
         /// <summary>
-        /// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
+        /// Gets the associated <see cref="SvgFilter"/> if one has been specified.
         /// </summary>
         [SvgAttribute("filter")]
         public virtual Uri Filter
         {
-            get { return this.Attributes.GetInheritedAttribute<Uri>("filter"); }
-            set { this.Attributes["filter"] = value; }
+            get { return GetAttribute<Uri>("filter", true); }
+            set { Attributes["filter"] = value; }
         }
 
         /// <summary>
@@ -111,7 +114,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SvgGraphicsElement"/> class.
+        /// Initializes a new instance of the <see cref="SvgVisualElement"/> class.
         /// </summary>
         public SvgVisualElement()
         {
@@ -126,68 +129,99 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected override void Render(ISvgRenderer renderer)
         {
-            this.Render(renderer, true);
+            Render(renderer, true);
         }
 
         private void Render(ISvgRenderer renderer, bool renderFilter)
         {
-            if (this.Visible && this.Displayable && this.PushTransforms(renderer) &&
-                (!Renderable || this.Path(renderer) != null))
+            if (Visible && Displayable && (!Renderable || Path(renderer) != null))
             {
-                bool renderNormal = true;
-
-                if (renderFilter && this.Filter != null)
+                if (!(renderFilter && RenderFilter(renderer)))
                 {
-                    var filterPath = this.Filter;
-                    if (filterPath.ToString().StartsWith("url("))
+                    try
                     {
-                        filterPath = new Uri(filterPath.ToString().Substring(4, filterPath.ToString().Length - 5), UriKind.RelativeOrAbsolute);
-                    }
-                    var filter = this.OwnerDocument.IdManager.GetElementById(filterPath) as FilterEffects.SvgFilter;
-                    if (filter != null)
-                    {
-                        this.PopTransforms(renderer);
-                        try
+                        if (PushTransforms(renderer))
                         {
-                            filter.ApplyFilter(this, renderer, (r) => this.Render(r, false));
+                            SetClip(renderer);
+
+                            var opacity = FixOpacityValue(Opacity);
+                            if (opacity == 1f)
+                                if (Renderable)
+                                    RenderFillAndStroke(renderer);
+                                else
+                                    RenderChildren(renderer);
+                            else
+                            {
+                                IsPathDirty = true;
+                                var bounds = Renderable ? Bounds : Path(null).GetBounds();
+                                IsPathDirty = true;
+
+                                if (bounds.Width > 0f && bounds.Height > 0f)
+                                    using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                                    {
+                                        using (var canvasRenderer = SvgRenderer.FromImage(canvas))
+                                        {
+                                            canvasRenderer.SetBoundable(renderer.GetBoundable());
+                                            canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+
+                                            if (Renderable)
+                                                RenderFillAndStroke(canvasRenderer);
+                                            else
+                                                RenderChildren(canvasRenderer);
+                                        }
+                                        var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                                        renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                                    }
+                            }
+
+                            ResetClip(renderer);
                         }
-                        catch (Exception ex) { Debug.Print(ex.ToString()); }
-                        renderNormal = false;
+                    }
+                    finally
+                    {
+                        PopTransforms(renderer);
                     }
                 }
-
-
-                if (renderNormal)
-                {
-                    this.SetClip(renderer);
-
-                    if (Renderable)
-                    {
-                        // If this element needs smoothing enabled turn anti-aliasing on
-                        if (this.RequiresSmoothRendering)
-                        {
-                            renderer.SmoothingMode = SmoothingMode.AntiAlias;
-                        }
-
-                        this.RenderFill(renderer);
-                        this.RenderStroke(renderer);
-
-                        // Reset the smoothing mode
-                        if (this.RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
-                        {
-                            renderer.SmoothingMode = SmoothingMode.Default;
-                        }
-                    }
-                    else
-                    {
-                        base.RenderChildren(renderer);
-                    }
-
-                    this.ResetClip(renderer);
-                    this.PopTransforms(renderer);
-                }
-
             }
+        }
+
+        private bool RenderFilter(ISvgRenderer renderer)
+        {
+            var rendered = false;
+
+            var filterPath = Filter.ReplaceWithNullIfNone();
+            if (filterPath != null)
+            {
+                var element = OwnerDocument.IdManager.GetElementById(filterPath);
+                if (element is SvgFilter)
+                {
+                    try
+                    {
+                        ((SvgFilter)element).ApplyFilter(this, renderer, (r) => Render(r, false));
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.Print(ex.ToString());
+                    }
+                    rendered = true;
+                }
+            }
+
+            return rendered;
+        }
+
+        protected internal virtual void RenderFillAndStroke(ISvgRenderer renderer)
+        {
+            // If this element needs smoothing enabled turn anti-aliasing on
+            if (RequiresSmoothRendering)
+                renderer.SmoothingMode = SmoothingMode.AntiAlias;
+
+            RenderFill(renderer);
+            RenderStroke(renderer);
+
+            // Reset the smoothing mode
+            if (RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
+                renderer.SmoothingMode = SmoothingMode.Default;
         }
 
         /// <summary>
@@ -196,17 +230,16 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected internal virtual void RenderFill(ISvgRenderer renderer)
         {
-            if (this.Fill != null)
-            {
-                using (var brush = this.Fill.GetBrush(this, renderer, Math.Min(Math.Max(this.FillOpacity * this.Opacity, 0), 1)))
+            if (Fill != null)
+                using (var brush = Fill.GetBrush(this, renderer, FixOpacityValue(FillOpacity)))
                 {
                     if (brush != null)
                     {
-                        this.Path(renderer).FillMode = this.FillRule == SvgFillRule.NonZero ? FillMode.Winding : FillMode.Alternate;
-                        renderer.FillPath(brush, this.Path(renderer));
+                        var path = Path(renderer);
+                        path.FillMode = FillRule == SvgFillRule.NonZero ? FillMode.Winding : FillMode.Alternate;
+                        renderer.FillPath(brush, path);
                     }
                 }
-            }
         }
 
         /// <summary>
@@ -215,31 +248,31 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected internal virtual bool RenderStroke(ISvgRenderer renderer)
         {
-            if (this.Stroke != null && this.Stroke != SvgColourServer.None && this.StrokeWidth > 0)
+            if (Stroke != null && Stroke != SvgPaintServer.None && StrokeWidth > 0f)
             {
-                float strokeWidth = this.StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
-                using (var brush = this.Stroke.GetBrush(this, renderer, Math.Min(Math.Max(this.StrokeOpacity * this.Opacity, 0), 1), true))
+                var strokeWidth = StrokeWidth.ToDeviceValue(renderer, UnitRenderingType.Other, this);
+                using (var brush = Stroke.GetBrush(this, renderer, FixOpacityValue(StrokeOpacity), true))
                 {
                     if (brush != null)
                     {
-                        var path = this.Path(renderer);
+                        var path = Path(renderer);
                         var bounds = path.GetBounds();
                         if (path.PointCount < 1) return false;
-                        if (bounds.Width <= 0 && bounds.Height <= 0)
+                        if (bounds.Width <= 0f && bounds.Height <= 0f)
                         {
-                            switch (this.StrokeLineCap)
+                            switch (StrokeLineCap)
                             {
                                 case SvgStrokeLineCap.Round:
                                     using (var capPath = new GraphicsPath())
                                     {
-                                        capPath.AddEllipse(path.PathPoints[0].X - strokeWidth / 2, path.PathPoints[0].Y - strokeWidth / 2, strokeWidth, strokeWidth);
+                                        capPath.AddEllipse(path.PathPoints[0].X - strokeWidth / 2f, path.PathPoints[0].Y - strokeWidth / 2f, strokeWidth, strokeWidth);
                                         renderer.FillPath(brush, capPath);
                                     }
                                     break;
                                 case SvgStrokeLineCap.Square:
                                     using (var capPath = new GraphicsPath())
                                     {
-                                        capPath.AddRectangle(new RectangleF(path.PathPoints[0].X - strokeWidth / 2, path.PathPoints[0].Y - strokeWidth / 2, strokeWidth, strokeWidth));
+                                        capPath.AddRectangle(new RectangleF(path.PathPoints[0].X - strokeWidth / 2f, path.PathPoints[0].Y - strokeWidth / 2f, strokeWidth, strokeWidth));
                                         renderer.FillPath(brush, capPath);
                                     }
                                     break;
@@ -249,13 +282,88 @@ namespace Svg
                         {
                             using (var pen = new Pen(brush, strokeWidth))
                             {
-                                if (this.StrokeDashArray != null && this.StrokeDashArray.Count > 0)
+                                if (StrokeDashArray != null && StrokeDashArray.Count > 0)
                                 {
-                                    /* divide by stroke width - GDI behaviour that I don't quite understand yet.*/
-                                    pen.DashPattern = this.StrokeDashArray.ConvertAll(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0) ? 1 : u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) /
-                                        ((strokeWidth <= 0) ? 1 : strokeWidth)).ToArray();
+                                    var strokeDashArray = StrokeDashArray;
+                                    if (strokeDashArray.Count % 2 != 0)
+                                    {
+                                        // handle odd dash arrays by repeating them once
+                                        strokeDashArray = (SvgUnitCollection)StrokeDashArray.Clone();
+                                        strokeDashArray.AddRange(StrokeDashArray);
+                                    }
+                                    var dashOffset = StrokeDashOffset;
+
+                                    strokeWidth = Math.Max(strokeWidth, 1f);
+
+                                    /* divide by stroke width - GDI uses stroke width as unit.*/
+                                    var dashPattern = strokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
+                                        u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth).ToArray();
+                                    var length = dashPattern.Length;
+
+                                    if (StrokeLineCap == SvgStrokeLineCap.Round)
+                                    {
+                                        // to handle round caps, we have to adapt the dash pattern
+                                        // by increasing the dash length by the stroke width - GDI draws the rounded 
+                                        // edge inside the dash line, SVG draws it outside the line
+                                        var pattern = new float[length];
+                                        var offset = 1; // the values are already normalized to dash width
+                                        for (var i = 0; i < length; i++)
+                                        {
+                                            pattern[i] = dashPattern[i] + offset;
+                                            if (pattern[i] <= 0f)
+                                            {
+                                                // overlapping caps - remove the gap for simplicity, see #508
+                                                if (i < length - 1)
+                                                {
+                                                    // add the next dash segment to the current one
+                                                    dashPattern[i - 1] += dashPattern[i] + dashPattern[i + 1];
+                                                    length -= 2;
+                                                    for (var k = i; k < length; k++)
+                                                        dashPattern[k] = dashPattern[k + 2];
+
+                                                    // and handle the combined segment again
+                                                    i -= 2;
+                                                }
+                                                else if (i > 2)
+                                                {
+                                                    // add the last dash segment to the first one
+                                                    // this will change the start point, so adapt the offset
+                                                    var dashLength = dashPattern[i - 1] + dashPattern[i];
+                                                    pattern[0] += dashLength;
+                                                    length -= 2;
+                                                    dashOffset += dashLength * strokeWidth;
+                                                }
+                                                else
+                                                {
+                                                    // we have only one dash with the gap too small -
+                                                    // do not use dash at all
+                                                    length = 0;
+                                                    break;
+                                                }
+                                            }
+                                            offset *= -1; // increase dash length, decrease spaces
+                                        }
+                                        if (length > 0)
+                                        {
+                                            if (length < dashPattern.Length)
+                                                Array.Resize(ref pattern, length);
+                                            dashPattern = pattern;
+                                            pen.DashCap = DashCap.Round;
+                                        }
+                                    }
+
+                                    if (length > 0)
+                                    {
+                                        pen.DashPattern = dashPattern;
+
+                                        if (dashOffset != 0f)
+                                        {
+                                            pen.DashOffset = ((dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
+                                                dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth;
+                                        }
+                                    }
                                 }
-                                switch (this.StrokeLineJoin)
+                                switch (StrokeLineJoin)
                                 {
                                     case SvgStrokeLineJoin.Bevel:
                                         pen.LineJoin = LineJoin.Bevel;
@@ -267,8 +375,8 @@ namespace Svg
                                         pen.LineJoin = LineJoin.Miter;
                                         break;
                                 }
-                                pen.MiterLimit = this.StrokeMiterLimit;
-                                switch (this.StrokeLineCap)
+                                pen.MiterLimit = StrokeMiterLimit;
+                                switch (StrokeLineCap)
                                 {
                                     case SvgStrokeLineCap.Round:
                                         pen.StartCap = LineCap.Round;
@@ -298,22 +406,24 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region set.</param>
         protected internal virtual void SetClip(ISvgRenderer renderer)
         {
-            if (this.ClipPath != null || !string.IsNullOrEmpty(this.Clip))
+            var clipPath = this.ClipPath.ReplaceWithNullIfNone();
+            var clip = this.Clip;
+            if (clipPath != null || !string.IsNullOrEmpty(clip))
             {
                 this._previousClip = renderer.GetClip();
 
-                if (this.ClipPath != null)
+                if (clipPath != null)
                 {
-                    SvgClipPath clipPath = this.OwnerDocument.GetElementById<SvgClipPath>(this.ClipPath.ToString());
-                    if (clipPath != null) renderer.SetClip(clipPath.GetClipRegion(this), CombineMode.Intersect);
+                    var element = this.OwnerDocument.GetElementById<SvgClipPath>(clipPath.ToString());
+                    if (element != null)
+                        renderer.SetClip(element.GetClipRegion(this, renderer), CombineMode.Intersect);
                 }
 
-                var clip = this.Clip;
                 if (!string.IsNullOrEmpty(clip) && clip.StartsWith("rect("))
                 {
                     clip = clip.Trim();
                     var offsets = (from o in clip.Substring(5, clip.Length - 6).Split(',')
-                                   select float.Parse(o.Trim())).ToList();
+                                   select float.Parse(o.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture)).ToList();
                     var bounds = this.Bounds;
                     var clipRect = new RectangleF(bounds.Left + offsets[3], bounds.Top + offsets[0],
                                                   bounds.Width - (offsets[3] + offsets[1]),
@@ -353,32 +463,5 @@ namespace Svg
         {
             this.ResetClip(renderer);
         }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgVisualElement;
-            newObj.ClipPath = this.ClipPath;
-            newObj.ClipRule = this.ClipRule;
-            newObj.Filter = this.Filter;
-
-            newObj.Visible = this.Visible;
-            if (this.Fill != null)
-                newObj.Fill = this.Fill;
-            if (this.Stroke != null)
-                newObj.Stroke = this.Stroke;
-            newObj.FillRule = this.FillRule;
-            newObj.FillOpacity = this.FillOpacity;
-            newObj.StrokeWidth = this.StrokeWidth;
-            newObj.StrokeLineCap = this.StrokeLineCap;
-            newObj.StrokeLineJoin = this.StrokeLineJoin;
-            newObj.StrokeMiterLimit = this.StrokeMiterLimit;
-            newObj.StrokeDashArray = this.StrokeDashArray;
-            newObj.StrokeDashOffset = this.StrokeDashOffset;
-            newObj.StrokeOpacity = this.StrokeOpacity;
-            newObj.Opacity = this.Opacity;
-
-            return newObj;
-        }
-
     }
 }

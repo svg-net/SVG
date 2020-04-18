@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using ExCSS.Model;
-using ExCSS.Model.Extensions;
+using Svg.ExCSS.Model;
+using Svg.ExCSS.Model.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class HtmlColor : Term, IEquatable<HtmlColor>
     {
@@ -73,19 +73,19 @@ namespace ExCSS
 
                 var g = color[1].FromHex();
                 g += g * 16;
-                
+
                 var b = color[2].FromHex();
                 b += b * 16;
 
                 return new HtmlColor((byte)r, (byte)g, (byte)b);
             }
-           
+
             if (color.Length == 6)
             {
                 var r = 16 * color[0].FromHex();
                 var g = 16 * color[2].FromHex();
                 var b = 16 * color[4].FromHex();
-                
+
                 r += color[1].FromHex();
                 g += color[3].FromHex();
                 b += color[5].FromHex();
@@ -109,20 +109,20 @@ namespace ExCSS
 
                 var r = color[0].FromHex();
                 r += r * 16;
-                
+
                 var g = color[1].FromHex();
                 g += g * 16;
-                
+
                 var b = color[2].FromHex();
                 b += b * 16;
 
                 htmlColor.R = (byte)r;
                 htmlColor.G = (byte)g;
                 htmlColor.B = (byte)b;
-                
+
                 return true;
             }
-            
+
             if (color.Length == 6)
             {
                 if (!color[0].IsHex() || !color[1].IsHex() || !color[2].IsHex() ||
@@ -134,7 +134,7 @@ namespace ExCSS
                 var r = 16 * color[0].FromHex();
                 var g = 16 * color[2].FromHex();
                 var b = 16 * color[4].FromHex();
-                
+
                 r += color[1].FromHex();
                 g += color[3].FromHex();
                 b += color[5].FromHex();
@@ -142,7 +142,7 @@ namespace ExCSS
                 htmlColor.R = (byte)r;
                 htmlColor.G = (byte)g;
                 htmlColor.B = (byte)b;
-                
+
                 return true;
             }
 

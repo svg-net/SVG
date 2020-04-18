@@ -1,5 +1,5 @@
 ﻿
-namespace ExCSS.Model.TextBlocks
+namespace Svg.ExCSS.Model.TextBlocks
 {
     internal class SpecialCharacter : CharacterBlock
     {
@@ -12,7 +12,7 @@ namespace ExCSS.Model.TextBlocks
         {
             GrammarSegment = type;
         }
-        
+
         public override string ToString()
         {
             return Value.ToString();

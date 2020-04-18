@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public abstract class SelectorList : BaseSelector, IEnumerable<BaseSelector>
     {
@@ -13,9 +13,9 @@ namespace ExCSS
             Selectors = new List<BaseSelector>();
         }
 
-        public int Length 
+        public int Length
         {
-            get { return Selectors.Count; } 
+            get { return Selectors.Count; }
         }
 
         public BaseSelector this[int index]

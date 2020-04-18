@@ -7,13 +7,13 @@ namespace Svg
     /// An element used to group SVG shapes.
     /// </summary>
     [SvgElement("g")]
-    public class SvgGroup : SvgVisualElement
+    public class SvgGroup : SvgMarkerElement
     {
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             return GetPaths(this, renderer);
         }
@@ -22,12 +22,12 @@ namespace Svg
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
-            get 
-            { 
+            get
+            {
                 var r = new RectangleF();
-                foreach(var c in this.Children)
+                foreach (var c in this.Children)
                 {
                     if (c is SvgVisualElement)
                     {
@@ -47,24 +47,15 @@ namespace Svg
                         }
                     }
                 }
-                
-                return r;
+                return TransformedBounds(r);
             }
         }
 
         protected override bool Renderable { get { return false; } }
-                
+
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgGroup>();
-        }
-
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgGroup;
-            if (this.Fill != null)
-                newObj.Fill = this.Fill.DeepCopy() as SvgPaintServer;
-            return newObj;
         }
     }
 }

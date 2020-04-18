@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ExCSS.Model.TextBlocks
+namespace Svg.ExCSS.Model.TextBlocks
 {
     internal class RangeBlock : Block
     {
@@ -27,7 +27,7 @@ namespace ExCSS.Model.TextBlocks
 
             if (end == null)
             {
-                SelectedRange = new [] { char.ConvertFromUtf32(startValue) };
+                SelectedRange = new[] { char.ConvertFromUtf32(startValue) };
             }
             else
             {
@@ -62,7 +62,7 @@ namespace ExCSS.Model.TextBlocks
                 return "#" + char.ConvertToUtf32(SelectedRange[0], 0).ToString("x");
             }
 
-            return "#" + char.ConvertToUtf32(SelectedRange[0], 0).ToString("x") + "-#" + 
+            return "#" + char.ConvertToUtf32(SelectedRange[0], 0).ToString("x") + "-#" +
                 char.ConvertToUtf32(SelectedRange[SelectedRange.Length - 1], 0).ToString("x");
         }
     }

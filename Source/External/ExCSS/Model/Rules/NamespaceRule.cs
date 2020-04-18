@@ -1,12 +1,12 @@
-﻿using ExCSS.Model.Extensions;
+﻿using Svg.ExCSS.Model.Extensions;
 // ReSharper disable once CheckNamespace
 
 
-namespace ExCSS
+namespace Svg.ExCSS
 {
     public class NamespaceRule : RuleSet
     {
-        public NamespaceRule() 
+        public NamespaceRule()
         {
             RuleType = RuleType.Namespace;
         }

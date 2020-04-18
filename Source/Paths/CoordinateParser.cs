@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace Svg
 {
@@ -22,33 +18,30 @@ namespace Svg
         }
 
         private string _coords;
-        private int _pos = 0;
         private NumState _currState = NumState.separator;
         private NumState _newState = NumState.separator;
         private int i = 0;
-        private bool _parseWorked = true;
 
-        public int Position { get { return _pos; } }
+        public int Position { get; private set; } = 0;
+        public bool HasMore { get; private set; } = true;
 
         public CoordinateParser(string coords)
         {
             _coords = coords;
-            if (string.IsNullOrEmpty(_coords)) _parseWorked = false;
-            if (char.IsLetter(coords[0])) i++;
+            if (string.IsNullOrEmpty(_coords)) HasMore = false;
+            if (char.IsLetter(coords[0])) ++i;
         }
-
-        public bool HasMore { get { return _parseWorked; } }
 
         private bool MarkState(bool state)
         {
-            _parseWorked = state;
-            i++;
+            HasMore = state;
+            ++i;
             return state;
         }
 
         public bool TryGetBool(out bool result)
         {
-            while (i < _coords.Length && _parseWorked)
+            while (i < _coords.Length && HasMore)
             {
                 switch (_currState)
                 {
@@ -61,14 +54,14 @@ namespace Svg
                         {
                             result = false;
                             _newState = NumState.separator;
-                            _pos = i + 1;
+                            Position = i + 1;
                             return MarkState(true);
                         }
                         else if (_coords[i] == '1')
                         {
                             result = true;
                             _newState = NumState.separator;
-                            _pos = i + 1;
+                            Position = i + 1;
                             return MarkState(true);
                         }
                         else
@@ -81,7 +74,7 @@ namespace Svg
                         result = false;
                         return MarkState(false);
                 }
-                i++;
+                ++i;
             }
             result = false;
             return MarkState(false);
@@ -89,7 +82,7 @@ namespace Svg
 
         public bool TryGetFloat(out float result)
         {
-            while (i < _coords.Length && _parseWorked)
+            while (i < _coords.Length && HasMore)
             {
                 switch (_currState)
                 {
@@ -281,16 +274,16 @@ namespace Svg
                         break;
                 }
 
-                if (_newState < _currState)
+                if (_currState != NumState.separator && _newState < _currState)
                 {
-                    result = float.Parse(_coords.Substring(_pos, i - _pos), NumberStyles.Float, CultureInfo.InvariantCulture);
-                    _pos = i;
+                    result = float.Parse(_coords.Substring(Position, i - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+                    Position = i;
                     _currState = _newState;
                     return MarkState(true);
                 }
                 else if (_newState != _currState && _currState == NumState.separator)
                 {
-                    _pos = i;
+                    Position = i;
                 }
 
                 if (_newState == NumState.invalid)
@@ -299,18 +292,18 @@ namespace Svg
                     return MarkState(false);
                 }
                 _currState = _newState;
-                i++;
+                ++i;
             }
 
-            if (_currState == NumState.separator || !_parseWorked || _pos >= _coords.Length)
+            if (_currState == NumState.separator || !HasMore || Position >= _coords.Length)
             {
                 result = float.MinValue;
                 return MarkState(false);
             }
             else
             {
-                result = float.Parse(_coords.Substring(_pos, _coords.Length - _pos), NumberStyles.Float, CultureInfo.InvariantCulture);
-                _pos = _coords.Length;
+                result = float.Parse(_coords.Substring(Position, _coords.Length - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+                Position = _coords.Length;
                 return MarkState(true);
             }
         }

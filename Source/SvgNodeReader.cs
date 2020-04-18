@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
-using System.IO;
-using System.Collections.Specialized;
 
 namespace Svg
 {
@@ -18,7 +14,7 @@ namespace Svg
         public SvgNodeReader(XmlNode node, Dictionary<string, string> entities)
             : base(node)
         {
-            this._entities = entities;
+            _entities = entities ?? new Dictionary<string, string>();
         }
 
         /// <summary>
@@ -30,7 +26,7 @@ namespace Svg
         {
             get
             {
-                return (this._customValue) ? this._value : base.Value;
+                return _customValue ? _value : base.Value;
             }
         }
 
@@ -43,20 +39,7 @@ namespace Svg
         {
             get
             {
-                return (this._customValue) ? this._localName : base.LocalName;
-            }
-        }
-
-        private IDictionary<string, string> Entities
-        {
-            get
-            {
-                if (this._entities == null)
-                {
-                    this._entities = new Dictionary<string, string>();
-                }
-
-                return this._entities;
+                return _customValue ? _localName : base.LocalName;
             }
         }
 
@@ -72,20 +55,20 @@ namespace Svg
 
             if (moved)
             {
-                this._localName = base.LocalName;
+                _localName = base.LocalName;
 
-                if (this.ReadAttributeValue())
+                if (ReadAttributeValue())
                 {
-                    if (this.NodeType == XmlNodeType.EntityReference)
+                    if (NodeType == XmlNodeType.EntityReference)
                     {
-                        this.ResolveEntity();
+                        ResolveEntity();
                     }
                     else
                     {
-                        this._value = base.Value;
+                        _value = base.Value;
                     }
                 }
-                this._customValue = true;
+                _customValue = true;
             }
 
             return moved;
@@ -100,12 +83,12 @@ namespace Svg
         /// <exception cref="T:System.Xml.XmlException">An error occurred while parsing the XML. </exception>
         public override bool Read()
         {
-            this._customValue = false;
+            _customValue = false;
             bool read = base.Read();
 
-            if (this.NodeType == XmlNodeType.DocumentType)
+            if (NodeType == XmlNodeType.DocumentType)
             {
-                this.ParseEntities();
+                ParseEntities();
             }
 
             return read;
@@ -114,7 +97,7 @@ namespace Svg
         private void ParseEntities()
         {
             const string entityText = "<!ENTITY";
-            string[] entities = this.Value.Split(new string[]{entityText}, StringSplitOptions.None);
+            string[] entities = Value.Split(new string[] { entityText }, StringSplitOptions.None);
             string[] parts = null;
             string name = null;
             string value = null;
@@ -126,11 +109,11 @@ namespace Svg
                     continue;
                 }
 
-                parts = entity.Trim().Split(new char[]{' ', '\t'},  StringSplitOptions.RemoveEmptyEntries);
+                parts = entity.Trim().Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 name = parts[0];
-                value = parts[1].Split(new char[] { this.QuoteChar }, StringSplitOptions.RemoveEmptyEntries)[0];
+                value = parts[1].Split(new char[] { QuoteChar }, StringSplitOptions.RemoveEmptyEntries)[0];
 
-                this.Entities.Add(name, value);
+                _entities.Add(name, value);
             }
         }
 
@@ -139,18 +122,18 @@ namespace Svg
         /// </summary>
         public override void ResolveEntity()
         {
-            if (this.NodeType == XmlNodeType.EntityReference)
+            if (NodeType == XmlNodeType.EntityReference)
             {
-                if (this._entities.ContainsKey(this.Name))
+                if (_entities.ContainsKey(Name))
                 {
-                    this._value = this._entities[this.Name];
+                    _value = _entities[Name];
                 }
                 else
                 {
-                    this._value = string.Empty;
+                    _value = string.Empty;
                 }
 
-                this._customValue = true;
+                _customValue = true;
             }
         }
     }

@@ -13,70 +13,29 @@ namespace Svg
         [SvgAttribute("x1")]
         public SvgUnit X1
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("x1");
-            }
-            set
-            {
-                Attributes["x1"] = value;
-            }
+            get { return GetAttribute("x1", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            set { Attributes["x1"] = value; }
         }
 
         [SvgAttribute("y1")]
         public SvgUnit Y1
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("y1");
-            }
-            set
-            {
-                this.Attributes["y1"] = value;
-            }
+            get { return GetAttribute("y1", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            set { Attributes["y1"] = value; }
         }
 
         [SvgAttribute("x2")]
         public SvgUnit X2
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("x2");
-            }
-            set
-            {
-                Attributes["x2"] = value;
-            }
+            get { return GetAttribute("x2", false, new SvgUnit(SvgUnitType.Percentage, 100f)); }
+            set { Attributes["x2"] = value; }
         }
 
         [SvgAttribute("y2")]
         public SvgUnit Y2
         {
-            get
-            {
-                return this.Attributes.GetAttribute<SvgUnit>("y2");
-            }
-            set
-            {
-                this.Attributes["y2"] = value;
-            }
-        }
-
-        private bool IsInvalid
-        {
-            get
-            {
-                // Need at least 2 colours to do the gradient fill
-                return this.Stops.Count < 2;
-            }
-        }
-
-        public SvgLinearGradientServer()
-        {
-            X1 = new SvgUnit(SvgUnitType.Percentage, 0F);
-            Y1 = new SvgUnit(SvgUnitType.Percentage, 0F);
-            X2 = new SvgUnit(SvgUnitType.Percentage, 100F);
-            Y2 = new SvgUnit(SvgUnitType.Percentage, 0F);
+            get { return GetAttribute("y2", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            set { Attributes["y2"] = value; }
         }
 
         public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
@@ -84,11 +43,11 @@ namespace Svg
             LoadStops(renderingElement);
 
             if (this.Stops.Count < 1) return null;
-            if (this.Stops.Count == 1) 
+            if (this.Stops.Count == 1)
             {
-                var stopColor = this.Stops[0].GetColor(renderingElement); 
-                int alpha = (int)Math.Round((opacity * (stopColor.A/255.0f) ) * 255);
-                Color colour = System.Drawing.Color.FromArgb(alpha, stopColor);
+                var stopColor = this.Stops[0].GetColor(renderingElement);
+                var alpha = (int)Math.Round((opacity * (stopColor.A / 255.0f)) * 255);
+                var colour = System.Drawing.Color.FromArgb(alpha, stopColor);
                 return new SolidBrush(colour);
             }
 
@@ -102,7 +61,7 @@ namespace Svg
                 };
 
                 var bounds = renderer.GetBoundable().Bounds;
-                if (bounds.Width <= 0 || bounds.Height <= 0 || ((points[0].X == points[1].X) && (points[0].Y == points[1].Y))) 
+                if (bounds.Width <= 0 || bounds.Height <= 0 || ((points[0].X == points[1].X) && (points[0].Y == points[1].Y)))
                 {
                     if (this.GetCallback != null) return GetCallback().GetBrush(renderingElement, renderer, opacity, forStroke);
                     return null;
@@ -110,44 +69,37 @@ namespace Svg
 
                 using (var transform = EffectiveGradientTransform)
                 {
-                    var midPoint = new PointF((points[0].X + points[1].X) / 2, (points[0].Y + points[1].Y) / 2);
                     transform.Translate(bounds.X, bounds.Y, MatrixOrder.Prepend);
                     if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox)
                     {
                         // Transform a normal (i.e. perpendicular line) according to the transform
                         transform.Scale(bounds.Width, bounds.Height, MatrixOrder.Prepend);
-                        transform.RotateAt(-90.0f, midPoint, MatrixOrder.Prepend);
                     }
                     transform.TransformPoints(points);
                 }
+
+                points[0].X = (float)Math.Round(points[0].X, 4);
+                points[0].Y = (float)Math.Round(points[0].Y, 4);
+                points[1].X = (float)Math.Round(points[1].X, 4);
+                points[1].Y = (float)Math.Round(points[1].Y, 4);
 
                 if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox)
                 {
                     // Transform the normal line back to a line such that the gradient still starts in the correct corners, but
                     // has the proper normal vector based on the transforms.  If you work out the geometry, these formulas should work.
                     var midPoint = new PointF((points[0].X + points[1].X) / 2, (points[0].Y + points[1].Y) / 2);
-                    var dy = (points[1].Y - points[0].Y);
-                    var dx = (points[1].X - points[0].X);
-                    var x2 = points[0].X;
+                    var dy = points[1].Y - points[0].Y;
+                    var dx = points[1].X - points[0].X;
+                    var x1 = points[0].X;
                     var y2 = points[1].Y;
 
-                    if (Math.Round(dx, 4) == 0)
+                    if (dx != 0f && dy != 0f)
                     {
-                        points[0] = new PointF(midPoint.X + dy / 2 * bounds.Width / bounds.Height, midPoint.Y);
-                        points[1] = new PointF(midPoint.X - dy / 2 * bounds.Width / bounds.Height, midPoint.Y);
-                    }
-                    else if (Math.Round(dy, 4) == 0)
-                    {
-                        points[0] = new PointF(midPoint.X, midPoint.Y - dx / 2 * bounds.Height / bounds.Width);
-                        points[1] = new PointF(midPoint.X, midPoint.Y + dx / 2 * bounds.Height / bounds.Width); ;
-                    }
-                    else
-                    {
-                        var startX = (float)((dy * dx * (midPoint.Y - y2) + Math.Pow(dx, 2) * midPoint.X + Math.Pow(dy, 2) * x2) /
+                        var startX = (float)((dy * dx * (midPoint.Y - y2) + Math.Pow(dx, 2) * midPoint.X + Math.Pow(dy, 2) * x1) /
                         (Math.Pow(dx, 2) + Math.Pow(dy, 2)));
-                        var startY = dy * (startX - x2) / dx + y2;
-                        points[0] = new PointF(startX, startY);
-                        points[1] = new PointF(midPoint.X + (midPoint.X - startX), midPoint.Y + (midPoint.Y - startY));
+                        var endY = dy * (startX - x1) / dx + y2;
+                        points[0] = new PointF(startX, midPoint.Y + (midPoint.Y - endY));
+                        points[1] = new PointF(midPoint.X + (midPoint.X - startX), endY);
                     }
                 }
 
@@ -311,7 +263,7 @@ namespace Svg
             float endExtend;
             List<Color> colors;
             List<float> positions;
-            
+
             var colorBlend = GetColorBlend(renderer, opacity, false);
 
             var startDelta = CalculateDistance(specifiedStart, effectiveStart);
@@ -444,42 +396,15 @@ namespace Svg
             return DeepCopy<SvgLinearGradientServer>();
         }
 
-        public override SvgElement DeepCopy<T>()
-        {
-            var newObj = base.DeepCopy<T>() as SvgLinearGradientServer;
-            newObj.X1 = this.X1;
-            newObj.Y1 = this.Y1;
-            newObj.X2 = this.X2;
-            newObj.Y2 = this.Y2;
-            return newObj;
-
-        }
-
         private sealed class LineF
         {
-            private float X1
-            {
-                get;
-                set;
-            }
+            private float X1 { get; set; }
 
-            private float Y1
-            {
-                get;
-                set;
-            }
+            private float Y1 { get; set; }
 
-            private float X2
-            {
-                get;
-                set;
-            }
+            private float X2 { get; set; }
 
-            private float Y2
-            {
-                get;
-                set;
-            }
+            private float Y2 { get; set; }
 
             public LineF(float x1, float y1, float x2, float y2)
             {
@@ -501,7 +426,7 @@ namespace Svg
                 return result;
             }
 
-            /// <remarks>http://community.topcoder.com/tc?module=Static&d1=tutorials&d2=geometry2</remarks>
+            /// <remarks>http://community.topcoder.com/tc?module=Static&amp;d1=tutorials&amp;d2=geometry2</remarks>
             private PointF? Intersection(LineF other)
             {
                 const int precision = 8;
