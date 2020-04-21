@@ -13,6 +13,7 @@ The release versions are NuGet releases.
 * moved ColorInterpolationFilters property to SvgElement because its a presentation attribute (see [PR #667](https://github.com/vvvv/SVG/pull/667))
 * added ColorInterpolation property to SvgElement (see [PR #667](https://github.com/vvvv/SVG/pull/667))
 * added Href property to SvgFilter (see [PR #679](https://github.com/vvvv/SVG/pull/679))
+* supports localized family names (see [PR #706](https://github.com/vvvv/SVG/pull/706))
 
 ### Fixes
 * fixed CoordinateParser handling of invalid state (see [PR #640](https://github.com/vvvv/SVG/pull/640))
@@ -31,6 +32,10 @@ The release versions are NuGet releases.
 * fixed Parameter is not valid (see [#664](https://github.com/vvvv/SVG/issues/664) and [PR #665](https://github.com/vvvv/SVG/pull/665))
 * fixed Endless loop and out of memory on a specific file (see [#675](https://github.com/vvvv/SVG/issues/675) and [PR #681](https://github.com/vvvv/SVG/pull/681))
 * fixed 'none' does not work at clip-path and filter (see [PR #686](https://github.com/vvvv/SVG/pull/686))
+* fixed argument of Path method (see [PR #690](https://github.com/vvvv/SVG/pull/690))
+* fixed w3c example styling-css-08-f (see [PR #692](https://github.com/vvvv/SVG/pull/692))
+* fixed Output namespace in inner `<svg>` element (see [PR #702](https://github.com/vvvv/SVG/pull/702))
+* fixed SvgNodeReader does not resolve entity reference (see [#707](https://github.com/vvvv/SVG/issues/707) and [PR #713](https://github.com/vvvv/SVG/pull/713))
 
 ## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102)
 
