@@ -14,7 +14,6 @@ using System.Threading;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using Svg.Exceptions;
-using SizeF = System.Drawing.SizeF;
 
 namespace Svg
 {
