@@ -94,20 +94,12 @@ namespace Svg
 #endif
             if (isWindows)
             {
-                try
-                {
-                    // NOTE: starting with Windows 8.1, the DPI is no longer system-wide but screen-specific
-                    IntPtr hDC = GetDC(IntPtr.Zero);
-                    const int LOGPIXELSY = 90;
-                    int result = GetDeviceCaps(hDC, LOGPIXELSY);
-                    ReleaseDC(IntPtr.Zero, hDC);
-                    return result;
-                }
-                catch (TypeLoadException)
-                {
-                    // for UWP Release mode when standard is referenced
-                    return 96;
-                }
+                // NOTE: starting with Windows 8.1, the DPI is no longer system-wide but screen-specific
+                IntPtr hDC = GetDC(IntPtr.Zero);
+                const int LOGPIXELSY = 90;
+                int result = GetDeviceCaps(hDC, LOGPIXELSY);
+                ReleaseDC(IntPtr.Zero, hDC);
+                return result;
             }
             else
             {
