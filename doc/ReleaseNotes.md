@@ -30,6 +30,7 @@ The release versions are NuGet releases.
 * fixed EnumConverters (see [PR #663](https://github.com/vvvv/SVG/pull/663))
 * fixed Parameter is not valid (see [#664](https://github.com/vvvv/SVG/issues/664) and [PR #665](https://github.com/vvvv/SVG/pull/665))
 * fixed Endless loop and out of memory on a specific file (see [#675](https://github.com/vvvv/SVG/issues/675) and [PR #681](https://github.com/vvvv/SVG/pull/681))
+* fixed 'none' does not work at clip-path and filter (see [PR #686](https://github.com/vvvv/SVG/pull/686))
 
 ## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102)
 

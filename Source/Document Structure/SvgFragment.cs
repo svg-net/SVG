@@ -296,21 +296,5 @@ namespace Svg
             newObj._y = _y;
             return newObj;
         }
-
-        // Override the default behavior, writing out the namespaces.
-        protected override void WriteStartElement(XmlTextWriter writer)
-        {
-            base.WriteStartElement(writer);
-
-            foreach (var ns in SvgAttributeAttribute.Namespaces)
-            {
-                if (string.IsNullOrEmpty(ns.Key))
-                    writer.WriteAttributeString("xmlns", ns.Value);
-                else
-                    writer.WriteAttributeString("xmlns:" + ns.Key, ns.Value);
-            }
-
-            writer.WriteAttributeString("version", "1.1");
-        }
     }
 }

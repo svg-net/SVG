@@ -80,7 +80,7 @@ namespace Svg
 
         private bool IsInheritValue(object value)
         {
-            return string.Equals(value?.ToString(), "inherit", StringComparison.OrdinalIgnoreCase);
+            return string.Equals(value?.ToString().Trim(), "inherit", StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>

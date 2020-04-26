@@ -170,6 +170,7 @@ styling-css-02-b.svg
 styling-css-03-b.svg
 styling-css-04-f.svg
 styling-css-07-f.svg
+styling-css-08-f.svg
 styling-inherit-01-b.svg
 styling-pres-01-t.svg
 text-align-01-b.svg
@@ -289,6 +290,9 @@ __pull_request-656-01.svg
 __pull_request-656-02.svg
 __pull_request-658-01.svg
 __pull_request-659-01.svg
+__pull_request-686-01.svg
+__pull_request-690-01.svg
+__pull_request-706-01.svg
 __AJ_Digital_Camera.svg
 __Telefunken_FuBK_test_pattern.svg
 __tiger.svg

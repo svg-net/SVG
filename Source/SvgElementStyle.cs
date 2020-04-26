@@ -469,8 +469,9 @@ namespace Svg
                 return new SvgFontDefn(font, fontSize, OwnerDocument.Ppi);
             }
         }
-
+#if !NETSTANDARD20
         public static System.Drawing.Text.PrivateFontCollection PrivateFonts = new System.Drawing.Text.PrivateFontCollection();
+#endif
         public static object ValidateFontFamily(string fontFamilyList, SvgDocument doc)
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
@@ -485,8 +486,10 @@ namespace Svg
                 if (doc != null && doc.FontDefns().TryGetValue(f, out sFaces)) return sFaces;
                 family = SvgFontManager.FindFont(f);
                 if (family != null) return family;
+#if !NETSTANDARD20
                 family = PrivateFonts.Families.FirstOrDefault(ff => string.Equals(ff.Name, f, StringComparison.OrdinalIgnoreCase));
                 if (family != null) return family;
+#endif
                 switch (f.ToLower())
                 {
                     case "serif":

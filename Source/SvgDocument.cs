@@ -510,42 +510,26 @@ namespace Svg
                 var cssTotal = styles.Select((s) => s.Content).Aggregate((p, c) => p + Environment.NewLine + c);
                 var cssParser = new Parser();
                 var sheet = cssParser.Parse(cssTotal);
-                AggregateSelectorList aggList;
-                IEnumerable<BaseSelector> selectors;
-                IEnumerable<SvgElement> elemsToStyle;
 
                 foreach (var rule in sheet.StyleRules)
                 {
-                    aggList = rule.Selector as AggregateSelectorList;
-                    if (aggList != null && aggList.Delimiter == ",")
+                    try
                     {
-                        selectors = aggList;
-                    }
-                    else
-                    {
-                        selectors = Enumerable.Repeat(rule.Selector, 1);
-                    }
+                        var rootNode = new NonSvgElement();
+                        rootNode.Children.Add(svgDocument);
 
-                    foreach (var selector in selectors)
-                    {
-                        try
+                        var elemsToStyle = rootNode.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
+                        foreach (var elem in elemsToStyle)
                         {
-                            var rootNode = new NonSvgElement();
-                            rootNode.Children.Add(svgDocument);
-
-                            elemsToStyle = rootNode.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
-                            foreach (var elem in elemsToStyle)
+                            foreach (var decl in rule.Declarations)
                             {
-                                foreach (var decl in rule.Declarations)
-                                {
-                                    elem.AddStyle(decl.Name, decl.Term.ToString(), rule.Selector.GetSpecificity());
-                                }
+                                elem.AddStyle(decl.Name, decl.Term.ToString(), rule.Selector.GetSpecificity());
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            Trace.TraceWarning(ex.Message);
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.TraceWarning(ex.Message);
                     }
                 }
             }
@@ -777,7 +761,7 @@ namespace Svg
         public void Write(Stream stream, bool useBom = true)
         {
 
-            var xmlWriter = new XmlTextWriter(stream, useBom ? Encoding.UTF8 : new System.Text.UTF8Encoding(false))
+            var xmlWriter = new XmlTextWriter(stream, useBom ? Encoding.UTF8 : new UTF8Encoding(false))
             {
                 Formatting = Formatting.Indented
             };
@@ -798,6 +782,21 @@ namespace Svg
             {
                 this.Write(fs, useBom);
             }
+        }
+
+        protected override void WriteStartElement(XmlTextWriter writer)
+        {
+            base.WriteStartElement(writer);
+
+            foreach (var ns in SvgAttributeAttribute.Namespaces)
+            {
+                if (string.IsNullOrEmpty(ns.Key))
+                    writer.WriteAttributeString("xmlns", ns.Value);
+                else
+                    writer.WriteAttributeString("xmlns", ns.Key, null, ns.Value);
+            }
+
+            writer.WriteAttributeString("version", "1.1");
         }
     }
 }
