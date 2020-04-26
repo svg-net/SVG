@@ -12,8 +12,8 @@ using Svg.ExCSS;
 using Svg.Css;
 using System.Threading;
 using System.Globalization;
-using System.Runtime.InteropServices;
 using Svg.Exceptions;
+using System.Runtime.InteropServices;
 
 namespace Svg
 {
@@ -92,6 +92,7 @@ namespace Svg
             var platform = Environment.OSVersion.Platform;
             isWindows = platform == PlatformID.Win32NT; 
 #endif
+
             if (isWindows)
             {
                 // NOTE: starting with Windows 8.1, the DPI is no longer system-wide but screen-specific
@@ -590,7 +591,7 @@ namespace Svg
         /// Renders the <see cref="SvgDocument"/> to the specified <see cref="Graphics"/>.
         /// </summary>
         /// <param name="graphics">The <see cref="Graphics"/> to be rendered to.</param>
-        /// <param name="size">The <see cref="System.Drawing.SizeF"/> to render the document. If <c>null</c> document is rendered at the default document size.</param>
+        /// <param name="size">The <see cref="SizeF"/> to render the document. If <c>null</c> document is rendered at the default document size.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
         public void Draw(Graphics graphics, SizeF? size)
         {
