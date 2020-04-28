@@ -67,13 +67,13 @@ namespace Svg
             }
         }
 
-        [DllImport("gdi32.dll")]
+        [DllImport("gdi32.dll", ExactSpelling = true)]
         private static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", ExactSpelling = true)]
         private static extern IntPtr GetDC(IntPtr hWnd);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", ExactSpelling = true)]
         private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
         internal Dictionary<string, IEnumerable<SvgFontFace>> FontDefns()
