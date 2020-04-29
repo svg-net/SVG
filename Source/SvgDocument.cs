@@ -12,6 +12,7 @@ using Svg.ExCSS;
 using Svg.Css;
 using System.Threading;
 using System.Globalization;
+using System.Reflection;
 using Svg.Exceptions;
 using System.Runtime.InteropServices;
 
@@ -51,6 +52,28 @@ namespace Svg
             isWindows = platform == PlatformID.Win32NT; 
 #endif
 
+            var deviceDisplayType = Type.GetType("Xamarin.Essentials.DeviceDisplay, Xamarin.Essentials, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
+            // Detect Xamarin Essentials is available
+            if (deviceDisplayType != null)
+            {
+                //// Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density * 96.0;
+
+                var mainDisplayInfoProperty = deviceDisplayType.GetProperty(
+                    "MainDisplayInfo",
+                    BindingFlags.Static | BindingFlags.Public);
+                if (mainDisplayInfoProperty != null)
+                {
+                    var mainDisplayInfo = mainDisplayInfoProperty.GetValue(null);
+                    var densityProperty = mainDisplayInfo.GetType().GetProperty("Density");
+                    if (densityProperty != null)
+                    {
+                        var val = densityProperty.GetValue(mainDisplayInfo);
+                        var dpi = Convert.ToInt32(((double) val) * 96);
+                        return dpi;
+                    }
+                }
+            }
+
             if (isWindows)
             {
                 try
@@ -61,11 +84,11 @@ namespace Svg
                     int result = GetDeviceCaps(hDC, LOGPIXELSY);
                     ReleaseDC(IntPtr.Zero, hDC);
                     return result;
-                }	
-                catch (TypeLoadException)	
-                {	
+                }
+                catch (TypeLoadException)
+                {
                     // for UWP Release mode when standard is referenced	
-                    return 96;	
+                    return 96;
                 }
             }
             else
