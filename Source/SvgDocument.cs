@@ -265,7 +265,7 @@ namespace Svg
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
         public static SvgDocument Open(string path, Uri baseUri = null)
         {
-            return Open<SvgDocument>(path, null, baseUri == null ? new Uri(path) : baseUri);
+            return Open<SvgDocument>(path, null, baseUri == null ? new Uri(System.IO.Path.GetFullPath(path)) : baseUri);
         }
 
         /// <summary>
@@ -302,9 +302,11 @@ namespace Svg
 
             using (var stream = File.OpenRead(path))
             {
-                var doc = Open<T>(stream, entities, baseUri == null ? new Uri(path) : baseUri);
+                var doc = Open<T>(stream, entities, baseUri == null ? new Uri(System.IO.Path.GetFullPath(path)) : baseUri);
                 if (baseUri == null)
                     doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
+                else
+                    doc.BaseUri = baseUri;
                 return doc;
             }
         }
