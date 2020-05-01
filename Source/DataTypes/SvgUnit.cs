@@ -91,7 +91,7 @@ namespace Svg
             switch (type)
             {
                 case SvgUnitType.Em:
-                    using (var fontManager = new SvgFontManager())
+                    using (var fontManager = owner?.OwnerDocument?.FontManager == null ? new SvgFontManager() : null)
                     using (var currFont = GetFont(renderer, owner, fontManager))
                     {
                         if (currFont == null)
@@ -106,7 +106,7 @@ namespace Svg
                     }
                     break;
                 case SvgUnitType.Ex:
-                    using (var fontManager = new SvgFontManager())
+                    using (var fontManager = owner?.OwnerDocument?.FontManager == null ? new SvgFontManager() : null)
                     using (var currFont = GetFont(renderer, owner, fontManager))
                     {
                         if (currFont == null)

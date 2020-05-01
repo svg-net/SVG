@@ -134,6 +134,8 @@ namespace Svg
         /// </summary>
         public string ExternalCSSHref { get; set; }
 
+        internal SvgFontManager FontManager { get; private set; }
+
         #region ITypeDescriptorContext Members
 
         IContainer ITypeDescriptorContext.Container
@@ -515,8 +517,12 @@ namespace Svg
 
         private void Draw(ISvgRenderer renderer, ISvgBoundable boundable)
         {
-            renderer.SetBoundable(boundable);
-            this.Render(renderer);
+            using (FontManager = new SvgFontManager())
+            {
+                renderer.SetBoundable(boundable);
+                Render(renderer);
+                FontManager = null;
+            }
         }
 
         /// <summary>
