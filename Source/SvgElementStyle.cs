@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Reflection;
 using System.ComponentModel;
-using Svg.DataTypes;
-using System.Text.RegularExpressions;
+using System.Drawing;
 using System.Linq;
+using Svg.DataTypes;
 
 namespace Svg
 {
@@ -456,7 +453,7 @@ namespace Svg
                 }
 
                 // Get the font-family
-                return new GdiFontDefn(new System.Drawing.Font(ff, fontSize, fontStyle, System.Drawing.GraphicsUnit.Pixel));
+                return new GdiFontDefn(new Font(ff, fontSize, fontStyle, GraphicsUnit.Pixel));
             }
             else
             {
@@ -474,26 +471,18 @@ namespace Svg
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
             var fontParts = (fontFamilyList ?? string.Empty).Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
-            FontFamily family;
-            IEnumerable<SvgFontFace> sFaces;
 
             // Find a the first font that exists in the list of installed font families.
-            //styles from IE get sent through as lowercase.
+            // styles from IE get sent through as lowercase.
             foreach (var f in fontParts)
             {
-                if (doc != null && doc.FontDefns().TryGetValue(f, out sFaces)) return sFaces;
-                family = fontManager.FindFont(f);
-                if (family != null) return family;
+                IEnumerable<SvgFontFace> fontFaces;
+                if (doc != null && doc.FontDefns().TryGetValue(f, out fontFaces))
+                    return fontFaces;
 
-                switch (f.ToLower())
-                {
-                    case "serif":
-                        return System.Drawing.FontFamily.GenericSerif;
-                    case "sans-serif":
-                        return System.Drawing.FontFamily.GenericSansSerif;
-                    case "monospace":
-                        return System.Drawing.FontFamily.GenericMonospace;
-                }
+                var family = fontManager.FindFont(f);
+                if (family != null)
+                    return family;
             }
 
             // No valid font family found from the list requested.

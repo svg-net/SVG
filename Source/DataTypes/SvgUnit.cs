@@ -118,8 +118,8 @@ namespace Svg
                         {
                             _deviceValue = value * 0.5f * (currFont.SizeInPoints / 72.0f) * ppi;
                         }
-                        break;
                     }
+                    break;
                 case SvgUnitType.Centimeter:
                     _deviceValue = (float)((value / cmInInch) * ppi);
                     break;
@@ -185,9 +185,8 @@ namespace Svg
 
         private IFontDefn GetFont(ISvgRenderer renderer, SvgElement owner, SvgFontManager fontManager)
         {
-            if (owner == null) return null;
-            var visual = owner.Parents.OfType<SvgVisualElement>().FirstOrDefault();
-            return visual != null ? visual.GetFont(renderer, fontManager) : null;
+            var visual = owner?.Parents.OfType<SvgVisualElement>().FirstOrDefault();
+            return visual?.GetFont(renderer, fontManager);
         }
 
         /// <summary>

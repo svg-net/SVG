@@ -88,6 +88,16 @@ namespace Svg
                     return family;
             }
 
+            switch (name.ToLower())
+            {
+                case "serif":
+                    return FontFamily.GenericSerif;
+                case "sans-serif":
+                    return FontFamily.GenericSansSerif;
+                case "monospace":
+                    return FontFamily.GenericMonospace;
+            }
+
             return null;
         }
 
