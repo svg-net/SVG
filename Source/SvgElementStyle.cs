@@ -395,7 +395,7 @@ namespace Svg
         /// Get the font information based on data stored with the text object or inherited from the parent.
         /// </summary>
         /// <returns></returns>
-        internal IFontDefn GetFont(ISvgRenderer renderer)
+        internal IFontDefn GetFont(ISvgRenderer renderer, SvgFontManager fontManager)
         {
             // Get the font-size
             float fontSize;
@@ -409,7 +409,7 @@ namespace Svg
                 fontSize = fontSizeUnit.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
             }
 
-            var family = ValidateFontFamily(this.FontFamily, this.OwnerDocument);
+            var family = ValidateFontFamily(this.FontFamily, this.OwnerDocument, fontManager);
             var sFaces = family as IEnumerable<SvgFontFace>;
 
             if (sFaces == null)
@@ -472,7 +472,7 @@ namespace Svg
 #if !NETSTANDARD20
         public static System.Drawing.Text.PrivateFontCollection PrivateFonts = new System.Drawing.Text.PrivateFontCollection();
 #endif
-        public static object ValidateFontFamily(string fontFamilyList, SvgDocument doc)
+        public static object ValidateFontFamily(string fontFamilyList, SvgDocument doc, SvgFontManager fontManager)
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
             var fontParts = (fontFamilyList ?? string.Empty).Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
@@ -484,7 +484,7 @@ namespace Svg
             foreach (var f in fontParts)
             {
                 if (doc != null && doc.FontDefns().TryGetValue(f, out sFaces)) return sFaces;
-                family = SvgFontManager.FindFont(f);
+                family = fontManager.FindFont(f);
                 if (family != null) return family;
 #if !NETSTANDARD20
                 family = PrivateFonts.Families.FirstOrDefault(ff => string.Equals(ff.Name, f, StringComparison.OrdinalIgnoreCase));

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
@@ -644,7 +644,8 @@ namespace Svg
                 // Get any defined anchors
                 var xAnchors = GetValues(value.Length, e => e._x, UnitRenderingType.HorizontalOffset);
                 var yAnchors = GetValues(value.Length, e => e._y, UnitRenderingType.VerticalOffset);
-                using (var font = this.Element.GetFont(this.Renderer))
+                using (var fontManager = new SvgFontManager())
+                using (var font = this.Element.GetFont(this.Renderer, fontManager))
                 {
                     var fontBaselineHeight = font.Ascent(this.Renderer);
                     PathStatistics pathStats = null;
