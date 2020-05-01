@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.IO;
 
 namespace Svg.UnitTests
 {
@@ -25,11 +26,32 @@ namespace Svg.UnitTests
 #endif
 
         [Test]
-        public void TestPrivateFont()
+        public void TestPrivateFontData()
         {
             var fontBytes = GetResourceBytes(GetFullResourceString(PrivateFont));
             SvgFontManager.PrivateFontDataList.Add(fontBytes);
             LoadSvg(GetXMLDocFromResource(GetFullResourceString(PrivateFontSvg)));
+        }
+
+        [Test]
+        public void TestPrivateFontFile()
+        {
+            var fontFile = Path.GetTempFileName();
+            try
+            {
+                var fontBytes = GetResourceBytes(GetFullResourceString(PrivateFont));
+                File.WriteAllBytes(fontFile, fontBytes);
+                SvgFontManager.PrivateFontPathList.Add(fontFile);
+                LoadSvg(GetXMLDocFromResource(GetFullResourceString(PrivateFontSvg)));
+            }
+            finally
+            {
+#if false
+                // Cannot remove font file that added until process is terminated.
+                if (File.Exists(fontFile))
+                    File.Delete(fontFile);
+#endif
+            }
         }
     }
 }
