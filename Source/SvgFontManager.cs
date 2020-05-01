@@ -14,12 +14,14 @@ namespace Svg
     /// </summary>
     public static class SvgFontManager
     {
-        private static readonly string[][] LocalizedFamilyNames = new string[][]
+        private static readonly string[][] defaultLocalizedFamilyNames = new string[][]
         {
             // Japanese
             new string[]{ "Meiryo", "メイリオ", },
             new string[]{ "MS Mincho", "ＭＳ 明朝", },
         };
+
+        public static List<string[]> LocalizedFamilyNames { get; private set; } = new List<string[]>();
 
         private static readonly Dictionary<string, FontFamily> SystemFonts;
 
@@ -59,7 +61,7 @@ namespace Svg
             if (name == null)
                 return null;
 
-            var familyNames = LocalizedFamilyNames
+            var familyNames = LocalizedFamilyNames.Concat(defaultLocalizedFamilyNames)
                 .Where(f => f.Contains(name, StringComparer.CurrentCultureIgnoreCase)).FirstOrDefault()
                 ?? Enumerable.Repeat(name, 1);
             foreach (var familyName in familyNames)
