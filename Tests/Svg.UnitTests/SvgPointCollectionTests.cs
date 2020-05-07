@@ -15,5 +15,12 @@ namespace Svg.UnitTests
             };
             Assert.AreEqual("1.6,3.2 1.2,5", collection.ToString());
         }
+
+        [Test]
+        public void CloneReturnsValidObjectType()
+        {
+            var collection = new SvgPointCollection();
+            Assert.IsInstanceOf(typeof(SvgPointCollection), collection.Clone());
+        }
     }
 }
