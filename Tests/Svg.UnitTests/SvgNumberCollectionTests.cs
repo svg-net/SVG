@@ -31,5 +31,12 @@ namespace Svg.UnitTests
             var collection = (SvgNumberCollection)new SvgNumberCollectionConverter().ConvertFrom(value);
             Assert.AreEqual("1.6 3.2 1.2 5", collection.ToString());
         }
+
+        [Test]
+        public void CloneReturnsValidObjectType()
+        {
+            var collection = new SvgNumberCollection();
+            Assert.IsInstanceOf(typeof(SvgNumberCollection), collection.Clone());
+        }
     }
 }
