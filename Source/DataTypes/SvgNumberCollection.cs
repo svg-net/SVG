@@ -15,10 +15,10 @@ namespace Svg
     {
         public object Clone()
         {
-            var points = new SvgPointCollection();
+            var numbers = new SvgNumberCollection();
             foreach (var point in this)
-                points.Add(point);
-            return points;
+                numbers.Add(point);
+            return numbers;
         }
 
         public override string ToString()
