@@ -3,6 +3,8 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
+
 ### Enhancements
 * added new filter effects classes (see [PR #641](https://github.com/vvvv/SVG/pull/641))
 * added FilterUnits and PrimitiveUnits properties to SvgFilter class (see [PR #641](https://github.com/vvvv/SVG/pull/641))
