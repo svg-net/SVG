@@ -420,12 +420,32 @@ namespace Svg
                 switch (this.FontWeight)
                 {
                     case SvgFontWeight.Bold:
-                    case SvgFontWeight.Bolder:
                     case SvgFontWeight.W600:
                     case SvgFontWeight.W700:
                     case SvgFontWeight.W800:
                     case SvgFontWeight.W900:
                         fontStyle |= System.Drawing.FontStyle.Bold;
+                        break;
+                    case SvgFontWeight.Bolder:
+                        switch (Parent?.FontWeight ?? SvgFontWeight.Normal)
+                        {
+                            case SvgFontWeight.W100:
+                            case SvgFontWeight.W200:
+                            case SvgFontWeight.W300:
+                                break;
+                            default:
+                                fontStyle |= System.Drawing.FontStyle.Bold;
+                                break;
+                        }
+                        break;
+                    case SvgFontWeight.Lighter:
+                        switch (Parent?.FontWeight ?? SvgFontWeight.Normal)
+                        {
+                            case SvgFontWeight.W800:
+                            case SvgFontWeight.W900:
+                                fontStyle |= System.Drawing.FontStyle.Bold;
+                                break;
+                        }
                         break;
                 }
 
