@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
@@ -268,13 +268,15 @@ namespace Svg
                         continue;
                     path.AddPath(elem.Path(null), false);
                 }
-                if (Transforms != null && Transforms.Count > 0)
+                if (Transforms == null || Transforms.Count == 0)
+                    return path.GetBounds();
+
+                using (path = (GraphicsPath)path.Clone())
+                using (var matrix = Transforms.GetMatrix())
                 {
-                    path = path.Clone() as GraphicsPath;    // fix issue #704
-                    using (var matrix = Transforms.GetMatrix())
-                        path.Transform(matrix);
+                    path.Transform(matrix);
+                    return path.GetBounds();
                 }
-                return path.GetBounds();
             }
         }
 
