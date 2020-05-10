@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+### Enhancements
+* implement font-weight bolder and lighter (see [PR #727](https://github.com/vvvv/SVG/pull/727))
+
 ## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
 
 ### Enhancements
