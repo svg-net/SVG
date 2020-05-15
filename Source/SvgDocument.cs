@@ -448,9 +448,9 @@ namespace Svg
                                 if (element.CustomAttributes["rel"] == "stylesheet")
                                 {
                                     var href = element.CustomAttributes["href"];
-                                    Uri uri = baseUri == null ? new Uri(href) : new Uri(baseUri, href);
+                                    var uri = baseUri == null ? new Uri(href) : new Uri(baseUri, href);
                                     var content = File.ReadAllText(uri.AbsolutePath);
-                                    SvgUnknownElement elem = new SvgUnknownElement("style");
+                                    var elem = new SvgUnknownElement("style");
                                     element.Content = content;
                                     styles.Add(element);
 
