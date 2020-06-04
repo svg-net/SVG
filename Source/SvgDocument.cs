@@ -42,8 +42,11 @@ namespace Svg
 
         private static int GetSystemDpi()
         {
+#if WINDOWS_UWP
+            var di = Windows.Graphics.Display.DisplayInformation.GetForCurrentView();
+            return Convert.ToInt32(di.LogicalDpi);
+#else
             bool isWindows;
-
 #if NETCORE
             isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #else
@@ -65,6 +68,7 @@ namespace Svg
                 // hack for macOS and Linux
                 return 96;
             }
+#endif
         }
 
         [DllImport("gdi32.dll")]
