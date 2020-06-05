@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+### Enhancements
+* check if BaseUri is absolute (see [PR #738](https://github.com/vvvv/SVG/pull/738))
+
 ## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
 
 ### Enhancements
