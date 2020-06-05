@@ -95,7 +95,18 @@ namespace Svg
             Ppi = PointsPerInch;
         }
 
-        public Uri BaseUri { get; set; }
+        private Uri baseUri;
+
+        public Uri BaseUri
+        {
+            get { return baseUri; }
+            set
+            {
+                if (value != null && !value.IsAbsoluteUri)
+                    throw new ArgumentException("BaseUri is not absolute.");
+                baseUri = value;
+            }
+        }
 
         /// <summary>
         /// Gets an <see cref="SvgElementIdManager"/> for this document.
