@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="1000" height="1300">
+  <!-- https://www.w3.org/TR/2008/REC-CSS2-20080411/fonts.html#propdef-font-weight -->
+  <!-- lighter -->
+  <g font-weight="100">
+    <text fill="blue" font-size="20" x="10" y="40"  font-weight="lighter">This is sample string. lighter (Inherited value is 100)</text>
+  </g>
+  <g font-weight="200">
+    <text fill="blue" font-size="20" x="10" y="80"  font-weight="lighter">This is sample string. lighter (Inherited value is 200)</text>
+  </g>
+  <g font-weight="300">
+    <text fill="blue" font-size="20" x="10" y="120" font-weight="lighter">This is sample string. lighter (Inherited value is 300)</text>
+  </g>
+  <g font-weight="400">
+    <text fill="blue" font-size="20" x="10" y="160" font-weight="lighter">This is sample string. lighter (Inherited value is 400)</text>
+  </g>
+  <g>
+    <text fill="blue" font-size="20" x="10" y="200" font-weight="lighter">This is sample string. lighter (Inherited value is default)</text>
+  </g>
+  <g font-weight="500">
+    <text fill="blue" font-size="20" x="10" y="240" font-weight="lighter">This is sample string. lighter (Inherited value is 500)</text>
+  </g>
+  <g font-weight="600">
+    <text fill="blue" font-size="20" x="10" y="280" font-weight="lighter">This is sample string. lighter (Inherited value is 600)</text>
+  </g>
+  <g font-weight="700">
+    <text fill="blue" font-size="20" x="10" y="320" font-weight="lighter">This is sample string. lighter (Inherited value is 700)</text>
+  </g>
+  <g font-weight="800">
+    <text fill="blue" font-size="20" x="10" y="360" font-weight="lighter">This is sample string. lighter (Inherited value is 800)</text>
+  </g>
+  <g font-weight="900">
+    <text fill="blue" font-size="20" x="10" y="400" font-weight="lighter">This is sample string. lighter (Inherited value is 900)</text>
+  </g>
+  <!-- bolder -->
+  <g font-weight="100">
+    <text fill="blue" font-size="20" x="10" y="440" font-weight="bolder">This is sample string. bolder (Inherited value is 100)</text>
+  </g>
+  <g font-weight="200">
+    <text fill="blue" font-size="20" x="10" y="480" font-weight="bolder">This is sample string. bolder (Inherited value is 200)</text>
+  </g>
+  <g font-weight="300">
+    <text fill="blue" font-size="20" x="10" y="520" font-weight="bolder">This is sample string. bolder (Inherited value is 300)</text>
+  </g>
+  <g font-weight="400">
+    <text fill="blue" font-size="20" x="10" y="560" font-weight="bolder">This is sample string. bolder (Inherited value is 400)</text>
+  </g>
+  <g>
+    <text fill="blue" font-size="20" x="10" y="600" font-weight="bolder">This is sample string. bolder (Inherited value is default)</text>
+  </g>
+  <g font-weight="500">
+    <text fill="blue" font-size="20" x="10" y="640" font-weight="bolder">This is sample string. bolder (Inherited value is 500)</text>
+  </g>
+  <g font-weight="600">
+    <text fill="blue" font-size="20" x="10" y="680" font-weight="bolder">This is sample string. bolder (Inherited value is 600)</text>
+  </g>
+  <g font-weight="700">
+    <text fill="blue" font-size="20" x="10" y="720" font-weight="bolder">This is sample string. bolder (Inherited value is 700)</text>
+  </g>
+  <g font-weight="800">
+    <text fill="blue" font-size="20" x="10" y="760" font-weight="bolder">This is sample string. bolder (Inherited value is 800)</text>
+  </g>
+  <g font-weight="900">
+    <text fill="blue" font-size="20" x="10" y="800" font-weight="bolder">This is sample string. bolder (Inherited value is 900)</text>
+  </g>
+</svg>
