@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Reflection;
 using System.ComponentModel;
-using Svg.DataTypes;
-using System.Text.RegularExpressions;
+using System.Drawing;
 using System.Linq;
+using Svg.DataTypes;
 
 namespace Svg
 {
@@ -395,7 +392,7 @@ namespace Svg
         /// Get the font information based on data stored with the text object or inherited from the parent.
         /// </summary>
         /// <returns></returns>
-        internal IFontDefn GetFont(ISvgRenderer renderer)
+        internal IFontDefn GetFont(ISvgRenderer renderer, SvgFontManager fontManager)
         {
             // Get the font-size
             float fontSize;
@@ -409,7 +406,7 @@ namespace Svg
                 fontSize = fontSizeUnit.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
             }
 
-            var family = ValidateFontFamily(this.FontFamily, this.OwnerDocument);
+            var family = ValidateFontFamily(this.FontFamily, this.OwnerDocument, fontManager ?? this.OwnerDocument.FontManager);
             var sFaces = family as IEnumerable<SvgFontFace>;
 
             if (sFaces == null)
@@ -420,12 +417,32 @@ namespace Svg
                 switch (this.FontWeight)
                 {
                     case SvgFontWeight.Bold:
-                    case SvgFontWeight.Bolder:
                     case SvgFontWeight.W600:
                     case SvgFontWeight.W700:
                     case SvgFontWeight.W800:
                     case SvgFontWeight.W900:
                         fontStyle |= System.Drawing.FontStyle.Bold;
+                        break;
+                    case SvgFontWeight.Bolder:
+                        switch (Parent?.FontWeight ?? SvgFontWeight.Normal)
+                        {
+                            case SvgFontWeight.W100:
+                            case SvgFontWeight.W200:
+                            case SvgFontWeight.W300:
+                                break;
+                            default:
+                                fontStyle |= System.Drawing.FontStyle.Bold;
+                                break;
+                        }
+                        break;
+                    case SvgFontWeight.Lighter:
+                        switch (Parent?.FontWeight ?? SvgFontWeight.Normal)
+                        {
+                            case SvgFontWeight.W800:
+                            case SvgFontWeight.W900:
+                                fontStyle |= System.Drawing.FontStyle.Bold;
+                                break;
+                        }
                         break;
                 }
 
@@ -456,7 +473,7 @@ namespace Svg
                 }
 
                 // Get the font-family
-                return new GdiFontDefn(new System.Drawing.Font(ff, fontSize, fontStyle, System.Drawing.GraphicsUnit.Pixel));
+                return new GdiFontDefn(new Font(ff, fontSize, fontStyle, GraphicsUnit.Pixel));
             }
             else
             {
@@ -469,36 +486,23 @@ namespace Svg
                 return new SvgFontDefn(font, fontSize, OwnerDocument.Ppi);
             }
         }
-#if !NETSTANDARD20
-        public static System.Drawing.Text.PrivateFontCollection PrivateFonts = new System.Drawing.Text.PrivateFontCollection();
-#endif
-        public static object ValidateFontFamily(string fontFamilyList, SvgDocument doc)
+
+        public static object ValidateFontFamily(string fontFamilyList, SvgDocument doc, SvgFontManager fontManager)
         {
             // Split font family list on "," and then trim start and end spaces and quotes.
             var fontParts = (fontFamilyList ?? string.Empty).Split(new[] { ',' }).Select(fontName => fontName.Trim(new[] { '"', ' ', '\'' }));
-            FontFamily family;
-            IEnumerable<SvgFontFace> sFaces;
 
             // Find a the first font that exists in the list of installed font families.
-            //styles from IE get sent through as lowercase.
+            // styles from IE get sent through as lowercase.
             foreach (var f in fontParts)
             {
-                if (doc != null && doc.FontDefns().TryGetValue(f, out sFaces)) return sFaces;
-                family = SvgFontManager.FindFont(f);
-                if (family != null) return family;
-#if !NETSTANDARD20
-                family = PrivateFonts.Families.FirstOrDefault(ff => string.Equals(ff.Name, f, StringComparison.OrdinalIgnoreCase));
-                if (family != null) return family;
-#endif
-                switch (f.ToLower())
-                {
-                    case "serif":
-                        return System.Drawing.FontFamily.GenericSerif;
-                    case "sans-serif":
-                        return System.Drawing.FontFamily.GenericSansSerif;
-                    case "monospace":
-                        return System.Drawing.FontFamily.GenericMonospace;
-                }
+                IEnumerable<SvgFontFace> fontFaces;
+                if (doc != null && doc.FontDefns().TryGetValue(f, out fontFaces))
+                    return fontFaces;
+
+                var family = fontManager.FindFont(f);
+                if (family != null)
+                    return family;
             }
 
             // No valid font family found from the list requested.
