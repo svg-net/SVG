@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+### Fixes
+* fixed filter Inherited (see [#541](https://github.com/vvvv/SVG/issues/541) and [PR #689](https://github.com/vvvv/SVG/pull/689))
+
 ### Enhancements
 * implement font-weight bolder and lighter (see [PR #727](https://github.com/vvvv/SVG/pull/727))
 
