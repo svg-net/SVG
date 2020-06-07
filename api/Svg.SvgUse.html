@@ -125,6 +125,9 @@
       <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_RequiresSmoothRendering">SvgVisualElement.RequiresSmoothRendering</a>
     </div>
     <div>
+      <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Render_Svg_ISvgRenderer_">SvgVisualElement.Render(ISvgRenderer)</a>
+    </div>
+    <div>
       <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_RenderFillAndStroke_Svg_ISvgRenderer_">SvgVisualElement.RenderFillAndStroke(ISvgRenderer)</a>
     </div>
     <div>
@@ -276,9 +279,6 @@
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_WriteChildren_XmlTextWriter_">SvgElement.WriteChildren(XmlTextWriter)</a>
-    </div>
-    <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_RenderChildren_Svg_ISvgRenderer_">SvgElement.RenderChildren(ISvgRenderer)</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_AddPaths_Svg_SvgElement_GraphicsPath_">SvgElement.AddPaths(SvgElement, GraphicsPath)</a>
@@ -811,13 +811,13 @@ public virtual Uri ReferencedElement { get; set; }</code></pre>
   <div><a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_PushTransforms_Svg_ISvgRenderer_">SvgElement.PushTransforms(ISvgRenderer)</a></div>
   
   
-  <a id="Svg_SvgUse_Render_" data-uid="Svg.SvgUse.Render*"></a>
-  <h4 id="Svg_SvgUse_Render_Svg_ISvgRenderer_" data-uid="Svg.SvgUse.Render(Svg.ISvgRenderer)">Render(ISvgRenderer)</h4>
+  <a id="Svg_SvgUse_RenderChildren_" data-uid="Svg.SvgUse.RenderChildren*"></a>
+  <h4 id="Svg_SvgUse_RenderChildren_Svg_ISvgRenderer_" data-uid="Svg.SvgUse.RenderChildren(Svg.ISvgRenderer)">RenderChildren(ISvgRenderer)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void Render(ISvgRenderer renderer)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override void RenderChildren(ISvgRenderer renderer)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -837,7 +837,7 @@ public virtual Uri ReferencedElement { get; set; }</code></pre>
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Render_Svg_ISvgRenderer_">SvgVisualElement.Render(ISvgRenderer)</a></div>
+  <div><a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_RenderChildren_Svg_ISvgRenderer_">SvgElement.RenderChildren(ISvgRenderer)</a></div>
   <h3 id="implements">Implements</h3>
   <div>
       <a class="xref" href="Svg.ISvgTransformable.html">ISvgTransformable</a>

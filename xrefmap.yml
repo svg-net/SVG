@@ -14190,19 +14190,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUse.ReferencedElement
   nameWithType: SvgUse.ReferencedElement
-- uid: Svg.SvgUse.Render(Svg.ISvgRenderer)
-  name: Render(ISvgRenderer)
-  href: api/Svg.SvgUse.html#Svg_SvgUse_Render_Svg_ISvgRenderer_
-  commentId: M:Svg.SvgUse.Render(Svg.ISvgRenderer)
-  fullName: Svg.SvgUse.Render(Svg.ISvgRenderer)
-  nameWithType: SvgUse.Render(ISvgRenderer)
-- uid: Svg.SvgUse.Render*
-  name: Render
-  href: api/Svg.SvgUse.html#Svg_SvgUse_Render_
-  commentId: Overload:Svg.SvgUse.Render
-  isSpec: "True"
-  fullName: Svg.SvgUse.Render
-  nameWithType: SvgUse.Render
 - uid: Svg.SvgUse.Renderable
   name: Renderable
   href: api/Svg.SvgUse.html#Svg_SvgUse_Renderable
@@ -14216,6 +14203,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUse.Renderable
   nameWithType: SvgUse.Renderable
+- uid: Svg.SvgUse.RenderChildren(Svg.ISvgRenderer)
+  name: RenderChildren(ISvgRenderer)
+  href: api/Svg.SvgUse.html#Svg_SvgUse_RenderChildren_Svg_ISvgRenderer_
+  commentId: M:Svg.SvgUse.RenderChildren(Svg.ISvgRenderer)
+  fullName: Svg.SvgUse.RenderChildren(Svg.ISvgRenderer)
+  nameWithType: SvgUse.RenderChildren(ISvgRenderer)
+- uid: Svg.SvgUse.RenderChildren*
+  name: RenderChildren
+  href: api/Svg.SvgUse.html#Svg_SvgUse_RenderChildren_
+  commentId: Overload:Svg.SvgUse.RenderChildren
+  isSpec: "True"
+  fullName: Svg.SvgUse.RenderChildren
+  nameWithType: SvgUse.RenderChildren
 - uid: Svg.SvgUse.Width
   name: Width
   href: api/Svg.SvgUse.html#Svg_SvgUse_Width
