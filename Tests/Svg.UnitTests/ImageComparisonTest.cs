@@ -87,11 +87,8 @@ namespace Svg.UnitTests
             {
                 svgDoc.Write(memStream);
                 memStream.Position = 0;
-                var reader = new StreamReader(memStream);
-                var tempFilePath = Path.Combine(Path.GetTempPath(), "test.svg");
-                File.WriteAllText(tempFilePath, reader.ReadToEnd());
                 var baseUri = svgDoc.BaseUri;
-                svgDoc = SvgDocument.Open(tempFilePath);
+                svgDoc = SvgDocument.Open<SvgDocument>(memStream);
                 svgDoc.BaseUri = baseUri;
                 svgImage = LoadSvgImage(svgDoc, useFixedSize);
                 Assert.IsNotNull(svgImage);
