@@ -7117,12 +7117,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.PopTransforms
   nameWithType: SvgElement.PopTransforms
-- uid: Svg.SvgElement.PrivateFonts
-  name: PrivateFonts
-  href: api/Svg.SvgElement.html#Svg_SvgElement_PrivateFonts
-  commentId: F:Svg.SvgElement.PrivateFonts
-  fullName: Svg.SvgElement.PrivateFonts
-  nameWithType: SvgElement.PrivateFonts
 - uid: Svg.SvgElement.PropertyAttributeTuple
   name: SvgElement.PropertyAttributeTuple
   href: api/Svg.SvgElement.PropertyAttributeTuple.html
@@ -7588,12 +7582,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.TryGetAttribute
   nameWithType: SvgElement.TryGetAttribute
-- uid: Svg.SvgElement.ValidateFontFamily(System.String,Svg.SvgDocument)
-  name: ValidateFontFamily(String, SvgDocument)
-  href: api/Svg.SvgElement.html#Svg_SvgElement_ValidateFontFamily_System_String_Svg_SvgDocument_
-  commentId: M:Svg.SvgElement.ValidateFontFamily(System.String,Svg.SvgDocument)
-  fullName: Svg.SvgElement.ValidateFontFamily(System.String, Svg.SvgDocument)
-  nameWithType: SvgElement.ValidateFontFamily(String, SvgDocument)
+- uid: Svg.SvgElement.ValidateFontFamily(System.String,Svg.SvgDocument,Svg.SvgFontManager)
+  name: ValidateFontFamily(String, SvgDocument, SvgFontManager)
+  href: api/Svg.SvgElement.html#Svg_SvgElement_ValidateFontFamily_System_String_Svg_SvgDocument_Svg_SvgFontManager_
+  commentId: M:Svg.SvgElement.ValidateFontFamily(System.String,Svg.SvgDocument,Svg.SvgFontManager)
+  fullName: Svg.SvgElement.ValidateFontFamily(System.String, Svg.SvgDocument, Svg.SvgFontManager)
+  nameWithType: SvgElement.ValidateFontFamily(String, SvgDocument, SvgFontManager)
 - uid: Svg.SvgElement.ValidateFontFamily*
   name: ValidateFontFamily
   href: api/Svg.SvgElement.html#Svg_SvgElement_ValidateFontFamily_
@@ -8902,6 +8896,19 @@ references:
   commentId: T:Svg.SvgFontManager
   fullName: Svg.SvgFontManager
   nameWithType: SvgFontManager
+- uid: Svg.SvgFontManager.Dispose
+  name: Dispose()
+  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_Dispose
+  commentId: M:Svg.SvgFontManager.Dispose
+  fullName: Svg.SvgFontManager.Dispose()
+  nameWithType: SvgFontManager.Dispose()
+- uid: Svg.SvgFontManager.Dispose*
+  name: Dispose
+  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_Dispose_
+  commentId: Overload:Svg.SvgFontManager.Dispose
+  isSpec: "True"
+  fullName: Svg.SvgFontManager.Dispose
+  nameWithType: SvgFontManager.Dispose
 - uid: Svg.SvgFontManager.FindFont(System.String)
   name: FindFont(String)
   href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_FindFont_System_String_
@@ -8915,25 +8922,45 @@ references:
   isSpec: "True"
   fullName: Svg.SvgFontManager.FindFont
   nameWithType: SvgFontManager.FindFont
-- uid: Svg.SvgFontManager.FontLoaderCallback
-  name: FontLoaderCallback
-  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_FontLoaderCallback
-  commentId: F:Svg.SvgFontManager.FontLoaderCallback
-  fullName: Svg.SvgFontManager.FontLoaderCallback
-  nameWithType: SvgFontManager.FontLoaderCallback
-- uid: Svg.SvgFontManager.LoadFontFamily(System.String)
-  name: LoadFontFamily(String)
-  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_LoadFontFamily_System_String_
-  commentId: M:Svg.SvgFontManager.LoadFontFamily(System.String)
-  fullName: Svg.SvgFontManager.LoadFontFamily(System.String)
-  nameWithType: SvgFontManager.LoadFontFamily(String)
-- uid: Svg.SvgFontManager.LoadFontFamily*
-  name: LoadFontFamily
-  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_LoadFontFamily_
-  commentId: Overload:Svg.SvgFontManager.LoadFontFamily
+- uid: Svg.SvgFontManager.LocalizedFamilyNames
+  name: LocalizedFamilyNames
+  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_LocalizedFamilyNames
+  commentId: P:Svg.SvgFontManager.LocalizedFamilyNames
+  fullName: Svg.SvgFontManager.LocalizedFamilyNames
+  nameWithType: SvgFontManager.LocalizedFamilyNames
+- uid: Svg.SvgFontManager.LocalizedFamilyNames*
+  name: LocalizedFamilyNames
+  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_LocalizedFamilyNames_
+  commentId: Overload:Svg.SvgFontManager.LocalizedFamilyNames
   isSpec: "True"
-  fullName: Svg.SvgFontManager.LoadFontFamily
-  nameWithType: SvgFontManager.LoadFontFamily
+  fullName: Svg.SvgFontManager.LocalizedFamilyNames
+  nameWithType: SvgFontManager.LocalizedFamilyNames
+- uid: Svg.SvgFontManager.PrivateFontDataList
+  name: PrivateFontDataList
+  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_PrivateFontDataList
+  commentId: P:Svg.SvgFontManager.PrivateFontDataList
+  fullName: Svg.SvgFontManager.PrivateFontDataList
+  nameWithType: SvgFontManager.PrivateFontDataList
+- uid: Svg.SvgFontManager.PrivateFontDataList*
+  name: PrivateFontDataList
+  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_PrivateFontDataList_
+  commentId: Overload:Svg.SvgFontManager.PrivateFontDataList
+  isSpec: "True"
+  fullName: Svg.SvgFontManager.PrivateFontDataList
+  nameWithType: SvgFontManager.PrivateFontDataList
+- uid: Svg.SvgFontManager.PrivateFontPathList
+  name: PrivateFontPathList
+  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_PrivateFontPathList
+  commentId: P:Svg.SvgFontManager.PrivateFontPathList
+  fullName: Svg.SvgFontManager.PrivateFontPathList
+  nameWithType: SvgFontManager.PrivateFontPathList
+- uid: Svg.SvgFontManager.PrivateFontPathList*
+  name: PrivateFontPathList
+  href: api/Svg.SvgFontManager.html#Svg_SvgFontManager_PrivateFontPathList_
+  commentId: Overload:Svg.SvgFontManager.PrivateFontPathList
+  isSpec: "True"
+  fullName: Svg.SvgFontManager.PrivateFontPathList
+  nameWithType: SvgFontManager.PrivateFontPathList
 - uid: Svg.SvgFontStretch
   name: SvgFontStretch
   href: api/Svg.SvgFontStretch.html
@@ -14782,221 +14809,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgVisualElement.Visible
   nameWithType: SvgVisualElement.Visible
-- uid: Svg.Text
-  name: Svg.Text
-  href: api/Svg.Text.html
-  commentId: N:Svg.Text
-  fullName: Svg.Text
-  nameWithType: Svg.Text
-- uid: Svg.Text.FontFamily
-  name: FontFamily
-  href: api/Svg.Text.FontFamily.html
-  commentId: T:Svg.Text.FontFamily
-  fullName: Svg.Text.FontFamily
-  nameWithType: FontFamily
-- uid: Svg.Text.FontFamily.FontName
-  name: FontName
-  href: api/Svg.Text.FontFamily.html#Svg_Text_FontFamily_FontName
-  commentId: P:Svg.Text.FontFamily.FontName
-  fullName: Svg.Text.FontFamily.FontName
-  nameWithType: FontFamily.FontName
-- uid: Svg.Text.FontFamily.FontName*
-  name: FontName
-  href: api/Svg.Text.FontFamily.html#Svg_Text_FontFamily_FontName_
-  commentId: Overload:Svg.Text.FontFamily.FontName
-  isSpec: "True"
-  fullName: Svg.Text.FontFamily.FontName
-  nameWithType: FontFamily.FontName
-- uid: Svg.Text.FontFamily.FontPath
-  name: FontPath
-  href: api/Svg.Text.FontFamily.html#Svg_Text_FontFamily_FontPath
-  commentId: P:Svg.Text.FontFamily.FontPath
-  fullName: Svg.Text.FontFamily.FontPath
-  nameWithType: FontFamily.FontPath
-- uid: Svg.Text.FontFamily.FontPath*
-  name: FontPath
-  href: api/Svg.Text.FontFamily.html#Svg_Text_FontFamily_FontPath_
-  commentId: Overload:Svg.Text.FontFamily.FontPath
-  isSpec: "True"
-  fullName: Svg.Text.FontFamily.FontPath
-  nameWithType: FontFamily.FontPath
-- uid: Svg.Text.FontFamily.FontSubFamily
-  name: FontSubFamily
-  href: api/Svg.Text.FontFamily.html#Svg_Text_FontFamily_FontSubFamily
-  commentId: P:Svg.Text.FontFamily.FontSubFamily
-  fullName: Svg.Text.FontFamily.FontSubFamily
-  nameWithType: FontFamily.FontSubFamily
-- uid: Svg.Text.FontFamily.FontSubFamily*
-  name: FontSubFamily
-  href: api/Svg.Text.FontFamily.html#Svg_Text_FontFamily_FontSubFamily_
-  commentId: Overload:Svg.Text.FontFamily.FontSubFamily
-  isSpec: "True"
-  fullName: Svg.Text.FontFamily.FontSubFamily
-  nameWithType: FontFamily.FontSubFamily
-- uid: Svg.Text.FontFamily.FromPath(System.String)
-  name: FromPath(String)
-  href: api/Svg.Text.FontFamily.html#Svg_Text_FontFamily_FromPath_System_String_
-  commentId: M:Svg.Text.FontFamily.FromPath(System.String)
-  fullName: Svg.Text.FontFamily.FromPath(System.String)
-  nameWithType: FontFamily.FromPath(String)
-- uid: Svg.Text.FontFamily.FromPath*
-  name: FromPath
-  href: api/Svg.Text.FontFamily.html#Svg_Text_FontFamily_FromPath_
-  commentId: Overload:Svg.Text.FontFamily.FromPath
-  isSpec: "True"
-  fullName: Svg.Text.FontFamily.FromPath
-  nameWithType: FontFamily.FromPath
-- uid: Svg.Text.FontFamily.TT_NAME_RECORD
-  name: FontFamily.TT_NAME_RECORD
-  href: api/Svg.Text.FontFamily.TT_NAME_RECORD.html
-  commentId: T:Svg.Text.FontFamily.TT_NAME_RECORD
-  fullName: Svg.Text.FontFamily.TT_NAME_RECORD
-  nameWithType: FontFamily.TT_NAME_RECORD
-- uid: Svg.Text.FontFamily.TT_NAME_RECORD.uEncodingID
-  name: uEncodingID
-  href: api/Svg.Text.FontFamily.TT_NAME_RECORD.html#Svg_Text_FontFamily_TT_NAME_RECORD_uEncodingID
-  commentId: F:Svg.Text.FontFamily.TT_NAME_RECORD.uEncodingID
-  fullName: Svg.Text.FontFamily.TT_NAME_RECORD.uEncodingID
-  nameWithType: FontFamily.TT_NAME_RECORD.uEncodingID
-- uid: Svg.Text.FontFamily.TT_NAME_RECORD.uLanguageID
-  name: uLanguageID
-  href: api/Svg.Text.FontFamily.TT_NAME_RECORD.html#Svg_Text_FontFamily_TT_NAME_RECORD_uLanguageID
-  commentId: F:Svg.Text.FontFamily.TT_NAME_RECORD.uLanguageID
-  fullName: Svg.Text.FontFamily.TT_NAME_RECORD.uLanguageID
-  nameWithType: FontFamily.TT_NAME_RECORD.uLanguageID
-- uid: Svg.Text.FontFamily.TT_NAME_RECORD.uNameID
-  name: uNameID
-  href: api/Svg.Text.FontFamily.TT_NAME_RECORD.html#Svg_Text_FontFamily_TT_NAME_RECORD_uNameID
-  commentId: F:Svg.Text.FontFamily.TT_NAME_RECORD.uNameID
-  fullName: Svg.Text.FontFamily.TT_NAME_RECORD.uNameID
-  nameWithType: FontFamily.TT_NAME_RECORD.uNameID
-- uid: Svg.Text.FontFamily.TT_NAME_RECORD.uPlatformID
-  name: uPlatformID
-  href: api/Svg.Text.FontFamily.TT_NAME_RECORD.html#Svg_Text_FontFamily_TT_NAME_RECORD_uPlatformID
-  commentId: F:Svg.Text.FontFamily.TT_NAME_RECORD.uPlatformID
-  fullName: Svg.Text.FontFamily.TT_NAME_RECORD.uPlatformID
-  nameWithType: FontFamily.TT_NAME_RECORD.uPlatformID
-- uid: Svg.Text.FontFamily.TT_NAME_RECORD.uStringLength
-  name: uStringLength
-  href: api/Svg.Text.FontFamily.TT_NAME_RECORD.html#Svg_Text_FontFamily_TT_NAME_RECORD_uStringLength
-  commentId: F:Svg.Text.FontFamily.TT_NAME_RECORD.uStringLength
-  fullName: Svg.Text.FontFamily.TT_NAME_RECORD.uStringLength
-  nameWithType: FontFamily.TT_NAME_RECORD.uStringLength
-- uid: Svg.Text.FontFamily.TT_NAME_RECORD.uStringOffset
-  name: uStringOffset
-  href: api/Svg.Text.FontFamily.TT_NAME_RECORD.html#Svg_Text_FontFamily_TT_NAME_RECORD_uStringOffset
-  commentId: F:Svg.Text.FontFamily.TT_NAME_RECORD.uStringOffset
-  fullName: Svg.Text.FontFamily.TT_NAME_RECORD.uStringOffset
-  nameWithType: FontFamily.TT_NAME_RECORD.uStringOffset
-- uid: Svg.Text.FontFamily.TT_NAME_TABLE_HEADER
-  name: FontFamily.TT_NAME_TABLE_HEADER
-  href: api/Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.html
-  commentId: T:Svg.Text.FontFamily.TT_NAME_TABLE_HEADER
-  fullName: Svg.Text.FontFamily.TT_NAME_TABLE_HEADER
-  nameWithType: FontFamily.TT_NAME_TABLE_HEADER
-- uid: Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.uFSelector
-  name: uFSelector
-  href: api/Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.html#Svg_Text_FontFamily_TT_NAME_TABLE_HEADER_uFSelector
-  commentId: F:Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.uFSelector
-  fullName: Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.uFSelector
-  nameWithType: FontFamily.TT_NAME_TABLE_HEADER.uFSelector
-- uid: Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.uNRCount
-  name: uNRCount
-  href: api/Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.html#Svg_Text_FontFamily_TT_NAME_TABLE_HEADER_uNRCount
-  commentId: F:Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.uNRCount
-  fullName: Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.uNRCount
-  nameWithType: FontFamily.TT_NAME_TABLE_HEADER.uNRCount
-- uid: Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.uStorageOffset
-  name: uStorageOffset
-  href: api/Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.html#Svg_Text_FontFamily_TT_NAME_TABLE_HEADER_uStorageOffset
-  commentId: F:Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.uStorageOffset
-  fullName: Svg.Text.FontFamily.TT_NAME_TABLE_HEADER.uStorageOffset
-  nameWithType: FontFamily.TT_NAME_TABLE_HEADER.uStorageOffset
-- uid: Svg.Text.FontFamily.TT_OFFSET_TABLE
-  name: FontFamily.TT_OFFSET_TABLE
-  href: api/Svg.Text.FontFamily.TT_OFFSET_TABLE.html
-  commentId: T:Svg.Text.FontFamily.TT_OFFSET_TABLE
-  fullName: Svg.Text.FontFamily.TT_OFFSET_TABLE
-  nameWithType: FontFamily.TT_OFFSET_TABLE
-- uid: Svg.Text.FontFamily.TT_OFFSET_TABLE.uEntrySelector
-  name: uEntrySelector
-  href: api/Svg.Text.FontFamily.TT_OFFSET_TABLE.html#Svg_Text_FontFamily_TT_OFFSET_TABLE_uEntrySelector
-  commentId: F:Svg.Text.FontFamily.TT_OFFSET_TABLE.uEntrySelector
-  fullName: Svg.Text.FontFamily.TT_OFFSET_TABLE.uEntrySelector
-  nameWithType: FontFamily.TT_OFFSET_TABLE.uEntrySelector
-- uid: Svg.Text.FontFamily.TT_OFFSET_TABLE.uMajorVersion
-  name: uMajorVersion
-  href: api/Svg.Text.FontFamily.TT_OFFSET_TABLE.html#Svg_Text_FontFamily_TT_OFFSET_TABLE_uMajorVersion
-  commentId: F:Svg.Text.FontFamily.TT_OFFSET_TABLE.uMajorVersion
-  fullName: Svg.Text.FontFamily.TT_OFFSET_TABLE.uMajorVersion
-  nameWithType: FontFamily.TT_OFFSET_TABLE.uMajorVersion
-- uid: Svg.Text.FontFamily.TT_OFFSET_TABLE.uMinorVersion
-  name: uMinorVersion
-  href: api/Svg.Text.FontFamily.TT_OFFSET_TABLE.html#Svg_Text_FontFamily_TT_OFFSET_TABLE_uMinorVersion
-  commentId: F:Svg.Text.FontFamily.TT_OFFSET_TABLE.uMinorVersion
-  fullName: Svg.Text.FontFamily.TT_OFFSET_TABLE.uMinorVersion
-  nameWithType: FontFamily.TT_OFFSET_TABLE.uMinorVersion
-- uid: Svg.Text.FontFamily.TT_OFFSET_TABLE.uNumOfTables
-  name: uNumOfTables
-  href: api/Svg.Text.FontFamily.TT_OFFSET_TABLE.html#Svg_Text_FontFamily_TT_OFFSET_TABLE_uNumOfTables
-  commentId: F:Svg.Text.FontFamily.TT_OFFSET_TABLE.uNumOfTables
-  fullName: Svg.Text.FontFamily.TT_OFFSET_TABLE.uNumOfTables
-  nameWithType: FontFamily.TT_OFFSET_TABLE.uNumOfTables
-- uid: Svg.Text.FontFamily.TT_OFFSET_TABLE.uRangeShift
-  name: uRangeShift
-  href: api/Svg.Text.FontFamily.TT_OFFSET_TABLE.html#Svg_Text_FontFamily_TT_OFFSET_TABLE_uRangeShift
-  commentId: F:Svg.Text.FontFamily.TT_OFFSET_TABLE.uRangeShift
-  fullName: Svg.Text.FontFamily.TT_OFFSET_TABLE.uRangeShift
-  nameWithType: FontFamily.TT_OFFSET_TABLE.uRangeShift
-- uid: Svg.Text.FontFamily.TT_OFFSET_TABLE.uSearchRange
-  name: uSearchRange
-  href: api/Svg.Text.FontFamily.TT_OFFSET_TABLE.html#Svg_Text_FontFamily_TT_OFFSET_TABLE_uSearchRange
-  commentId: F:Svg.Text.FontFamily.TT_OFFSET_TABLE.uSearchRange
-  fullName: Svg.Text.FontFamily.TT_OFFSET_TABLE.uSearchRange
-  nameWithType: FontFamily.TT_OFFSET_TABLE.uSearchRange
-- uid: Svg.Text.FontFamily.TT_TABLE_DIRECTORY
-  name: FontFamily.TT_TABLE_DIRECTORY
-  href: api/Svg.Text.FontFamily.TT_TABLE_DIRECTORY.html
-  commentId: T:Svg.Text.FontFamily.TT_TABLE_DIRECTORY
-  fullName: Svg.Text.FontFamily.TT_TABLE_DIRECTORY
-  nameWithType: FontFamily.TT_TABLE_DIRECTORY
-- uid: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.Initialize
-  name: Initialize()
-  href: api/Svg.Text.FontFamily.TT_TABLE_DIRECTORY.html#Svg_Text_FontFamily_TT_TABLE_DIRECTORY_Initialize
-  commentId: M:Svg.Text.FontFamily.TT_TABLE_DIRECTORY.Initialize
-  fullName: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.Initialize()
-  nameWithType: FontFamily.TT_TABLE_DIRECTORY.Initialize()
-- uid: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.Initialize*
-  name: Initialize
-  href: api/Svg.Text.FontFamily.TT_TABLE_DIRECTORY.html#Svg_Text_FontFamily_TT_TABLE_DIRECTORY_Initialize_
-  commentId: Overload:Svg.Text.FontFamily.TT_TABLE_DIRECTORY.Initialize
-  isSpec: "True"
-  fullName: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.Initialize
-  nameWithType: FontFamily.TT_TABLE_DIRECTORY.Initialize
-- uid: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.szTag
-  name: szTag
-  href: api/Svg.Text.FontFamily.TT_TABLE_DIRECTORY.html#Svg_Text_FontFamily_TT_TABLE_DIRECTORY_szTag
-  commentId: F:Svg.Text.FontFamily.TT_TABLE_DIRECTORY.szTag
-  fullName: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.szTag
-  nameWithType: FontFamily.TT_TABLE_DIRECTORY.szTag
-- uid: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.uCheckSum
-  name: uCheckSum
-  href: api/Svg.Text.FontFamily.TT_TABLE_DIRECTORY.html#Svg_Text_FontFamily_TT_TABLE_DIRECTORY_uCheckSum
-  commentId: F:Svg.Text.FontFamily.TT_TABLE_DIRECTORY.uCheckSum
-  fullName: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.uCheckSum
-  nameWithType: FontFamily.TT_TABLE_DIRECTORY.uCheckSum
-- uid: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.uLength
-  name: uLength
-  href: api/Svg.Text.FontFamily.TT_TABLE_DIRECTORY.html#Svg_Text_FontFamily_TT_TABLE_DIRECTORY_uLength
-  commentId: F:Svg.Text.FontFamily.TT_TABLE_DIRECTORY.uLength
-  fullName: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.uLength
-  nameWithType: FontFamily.TT_TABLE_DIRECTORY.uLength
-- uid: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.uOffset
-  name: uOffset
-  href: api/Svg.Text.FontFamily.TT_TABLE_DIRECTORY.html#Svg_Text_FontFamily_TT_TABLE_DIRECTORY_uOffset
-  commentId: F:Svg.Text.FontFamily.TT_TABLE_DIRECTORY.uOffset
-  fullName: Svg.Text.FontFamily.TT_TABLE_DIRECTORY.uOffset
-  nameWithType: FontFamily.TT_TABLE_DIRECTORY.uOffset
 - uid: Svg.Transforms
   name: Svg.Transforms
   href: api/Svg.Transforms.html
