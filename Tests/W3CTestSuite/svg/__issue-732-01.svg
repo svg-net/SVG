@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="480" height="100">
+  <defs>
+    <path id="id1" d="M20,20 L480,20" />
+  </defs>
+  <text>
+    <textPath startOffset="10%" href="#id1">Environment Heading (degrees CCW off Stern)</textPath>
+  </text>
+</svg>

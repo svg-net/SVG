@@ -9,6 +9,7 @@ The release versions are NuGet releases.
 
 ### Fixes
 * fixed filter Inherited (see [#541](https://github.com/vvvv/SVG/issues/541) and [PR #689](https://github.com/vvvv/SVG/pull/689))
+* fixed calculate required layout rectangle (see [#732](https://github.com/vvvv/SVG/issues/732) and [PR #741](https://github.com/vvvv/SVG/pull/741))
 
 ## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
 
