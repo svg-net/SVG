@@ -13,7 +13,6 @@ namespace Svg
         public SvgLink()
           : base("link")
         {
-
         }
         public enum RelativeValue
         {
@@ -39,7 +38,6 @@ namespace Svg
             return DeepCopy<SvgLink>();
         }
 
-
         [SvgAttribute("href")]
         public string Href
         {
@@ -54,15 +52,13 @@ namespace Svg
             set { Attributes["rel"] = value; }
         }
 
-
-
         public string GetLinkContentAsText(RelativeValue rel)
         {
             var stream = GetLinkContentAsStream(rel);
             if (stream == null)
                 return null;
 
-            string content = null;
+            var content = string.Empty;
             using (StreamReader sr = new StreamReader(stream))
             {
                 content = sr.ReadToEnd();
@@ -70,7 +66,6 @@ namespace Svg
             stream.Dispose();
             return content;
         }
-
 
         public Stream GetLinkContentAsStream(RelativeValue rel = RelativeValue.Unknown)
         {
@@ -89,12 +84,18 @@ namespace Svg
 
                 // should work with http: and file: protocol urls
                 var httpRequest = WebRequest.Create(uri);
-
-                var webResponse = httpRequest.GetResponse();
-                var stream = webResponse.GetResponseStream();
-                if (stream.CanSeek)
-                    stream.Position = 0;
-                return stream;
+                using (var webResponse = httpRequest.GetResponse())
+                {
+                    using (var stream = webResponse.GetResponseStream())
+                    {
+                        if (stream.CanSeek)
+                            stream.Position = 0;
+                        MemoryStream returnedStream = new MemoryStream();
+                        stream.CopyTo(returnedStream);
+                        returnedStream.Position = 0;
+                        return returnedStream;
+                    }
+                }
             }
             catch (Exception ex)
             {
