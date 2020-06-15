@@ -11,10 +11,10 @@ namespace Svg
     public class SvgLink : NonSvgElement
     {
         public SvgLink()
-          :base("link")
-		{
+          : base("link")
+        {
 
-		}
+        }
         public enum RelativeValue
         {
             Unknown,
@@ -34,16 +34,16 @@ namespace Svg
             Stylesheet
         }
 
-         public override SvgElement DeepCopy()
+        public override SvgElement DeepCopy()
         {
-            return DeepCopy<SvgTitle>();
+            return DeepCopy<SvgLink>();
         }
 
 
         [SvgAttribute("href")]
         public string Href
         {
-            get { return GetAttribute<string>("href", false,string.Empty); }
+            get { return GetAttribute<string>("href", false, string.Empty); }
             set { Attributes["href"] = value; }
         }
 
@@ -72,7 +72,7 @@ namespace Svg
         }
 
 
-        public Stream GetLinkContentAsStream(RelativeValue rel= RelativeValue.Unknown)
+        public Stream GetLinkContentAsStream(RelativeValue rel = RelativeValue.Unknown)
         {
             if (Rel != rel && rel != RelativeValue.Unknown)
                 return null;
@@ -90,7 +90,7 @@ namespace Svg
                 // should work with http: and file: protocol urls
                 var httpRequest = WebRequest.Create(uri);
 
-				var webResponse = httpRequest.GetResponse();
+                var webResponse = httpRequest.GetResponse();
                 var stream = webResponse.GetResponseStream();
                 if (stream.CanSeek)
                     stream.Position = 0;
