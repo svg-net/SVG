@@ -14,9 +14,9 @@ namespace Svg
     /// </summary>
     internal class SvgElementFactory
     {
-		private List<ElementInfo> availableElements;
-		private List<ElementInfo> availableNonSvgElements;
-		private Parser cssParser = new Parser();
+        private List<ElementInfo> availableElements;
+        private List<ElementInfo> availableNonSvgElements;
+        private Parser cssParser = new Parser();
 
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
@@ -51,11 +51,11 @@ namespace Svg
                 if (availableNonSvgElements == null)
                 {
                     var nonSvgTypes = from t in typeof(SvgDocument).Assembly.GetExportedTypes()
-                                   where t.GetCustomAttributes(typeof(NonSvgElementAttribute), true).Length > 0
-                                   && t.IsSubclassOf(typeof(NonSvgElement))
-                                   select new ElementInfo { ElementName = ((NonSvgElementAttribute)t.GetCustomAttributes(typeof(NonSvgElementAttribute), true)[0]).ElementName, ElementType = t };
+                                      where t.GetCustomAttributes(typeof(NonSvgElementAttribute), true).Length > 0
+                                      && t.IsSubclassOf(typeof(NonSvgElement))
+                                      select new ElementInfo { ElementName = ((NonSvgElementAttribute)t.GetCustomAttributes(typeof(NonSvgElementAttribute), true)[0]).ElementName, ElementType = t };
 
-					availableNonSvgElements = nonSvgTypes.ToList();
+                    availableNonSvgElements = nonSvgTypes.ToList();
                 }
 
                 return availableNonSvgElements;
