@@ -400,6 +400,8 @@ namespace Svg
                             else
                             {
                                 svgDocument = elementFactory.CreateDocument<T>(reader);
+                                if(baseUri!=null)
+                                    svgDocument.BaseUri = baseUri;
                                 element = svgDocument;
                             }
 
@@ -443,18 +445,15 @@ namespace Svg
                             {
                                 styles.Add(unknown);
                             }
-                            else if (element.ElementName.ToLower() == "link")
+                            else if (element is SvgLink)
                             {
-                                if (element.CustomAttributes["rel"] == "stylesheet")
-                                {
-                                    var href = element.CustomAttributes["href"];
-                                    var uri = baseUri == null ? new Uri(href) : new Uri(baseUri, href);
-                                    var content = File.ReadAllText(uri.AbsolutePath);
-                                    var elem = new SvgUnknownElement("style");
-                                    element.Content = content;
-                                    styles.Add(element);
-
-                                }
+								var stylecontent = ((SvgLink)element).GetLinkContentAsText(SvgLink.RelativeValue.Stylesheet);
+                                if(!string.IsNullOrEmpty(stylecontent))
+								{
+									var elem = new SvgUnknownElement("style");
+									elem.Content = stylecontent;
+									styles.Add(elem);
+								}
                             }
                             break;
                         case XmlNodeType.CDATA:
