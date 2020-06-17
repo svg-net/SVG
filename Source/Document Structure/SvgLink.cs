@@ -54,17 +54,20 @@ namespace Svg
 
         public string GetLinkContentAsText(RelativeValue rel)
         {
-            var stream = GetLinkContentAsStream(rel);
-            if (stream == null)
-                return null;
-
-            var content = string.Empty;
-            using (StreamReader sr = new StreamReader(stream))
+            try
             {
-                content = sr.ReadToEnd();
+                using (var stream = GetLinkContentAsStream(rel))
+                {
+                    using (StreamReader sr = new StreamReader(stream))
+                    {
+                        return sr.ReadToEnd();
+                    }
+                }
             }
-            stream.Dispose();
-            return content;
+            catch
+            {
+                return string.Empty;
+            }
         }
 
         public Stream GetLinkContentAsStream(RelativeValue rel = RelativeValue.Unknown)
