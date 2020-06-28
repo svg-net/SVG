@@ -14,7 +14,6 @@ using System.Threading;
 using System.Globalization;
 using Svg.Exceptions;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 
 namespace Svg
 {
@@ -64,7 +63,7 @@ namespace Svg
                 }
                 else
                 {
-                    var source = new TaskCompletionSource<int>();
+                    var source = new System.Threading.Tasks.TaskCompletionSource<int>();
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                     dispatcher.RunAsync(
                         Windows.UI.Core.CoreDispatcherPriority.Normal,
