@@ -43,7 +43,18 @@ namespace Svg
         private static int GetSystemDpi()
         {
 #if WINDOWS_UWP
-            var dispatcher = Windows.ApplicationModel.Core.CoreApplication.MainView?.CoreWindow?.Dispatcher;
+            Windows.UI.Core.CoreDispatcher dispatcher = null;
+
+            // if this is not null the dispatcher works
+            try
+            {
+                dispatcher = Windows.ApplicationModel.Core.CoreApplication.MainView?.CoreWindow?.Dispatcher;
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine($"Unable to get dispatcher. {ex.Message}");
+            }
+            
             if (dispatcher == null)
             {
                 //  Hack For no Dispatcher set
