@@ -14,6 +14,7 @@ using System.Threading;
 using System.Globalization;
 using Svg.Exceptions;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Svg
 {
@@ -43,8 +44,41 @@ namespace Svg
         private static int GetSystemDpi()
         {
 #if WINDOWS_UWP
-            var di = Windows.Graphics.Display.DisplayInformation.GetForCurrentView();
-            return Convert.ToInt32(di.LogicalDpi);
+            var dispatcher = Windows.ApplicationModel.Core.CoreApplication.MainView?.CoreWindow?.Dispatcher;
+            if (dispatcher == null)
+            {
+                //  Hack For no Dispatcher set
+                return 96;
+            }
+            else
+            {
+                int Func()
+                {
+                    var di = Windows.Graphics.Display.DisplayInformation.GetForCurrentView();
+                    return Convert.ToInt32(di.LogicalDpi);
+                };
+
+                if (dispatcher.HasThreadAccess)
+                {
+                    return Func();    
+                }
+                else
+                {
+                    var source = new TaskCompletionSource<int>();
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    dispatcher.RunAsync(
+                        Windows.UI.Core.CoreDispatcherPriority.Normal,
+                        () =>
+                        {
+                           source.SetResult(Func());
+                        }
+                    );
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
+                    // Wait for Async Call to finish
+                    return source.Task.Result;
+                }
+            }
 #else
             bool isWindows;
 #if NETCORE
