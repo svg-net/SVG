@@ -35,7 +35,7 @@ namespace Svg
         {
             families.AddRange(FontFamily.Families);
 
-#if !NETSTANDARD20
+#if !NETSTANDARD
             using (var privateFontCollection = new PrivateFontCollection())
             {
                 foreach (var path in PrivateFontPathList)

@@ -18,7 +18,7 @@ namespace Svg.UnitTests
         private const string PrivateFontSvg = "Issue204_PrivateFont.Text.svg";
         private const string PrivateFont = "Issue204_PrivateFont.BrushScriptMT2.ttf";
 
-#if NETSTANDARD20
+#if NETSTANDARD
         // Private font does not work if .NET Standard.
         protected override int ExpectedSize { get { return 3000; } } // 3155
 #else
