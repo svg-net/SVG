@@ -129,59 +129,59 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
         protected override void Render(ISvgRenderer renderer)
         {
-            Render(renderer, true);
+            if (Visible && Displayable && (!Renderable || Path(renderer) != null))
+                RenderInternal(renderer, true);
         }
 
-        private void Render(ISvgRenderer renderer, bool renderFilter)
+        private void RenderInternal(ISvgRenderer renderer, bool renderFilter)
         {
-            if (Visible && Displayable && (!Renderable || Path(renderer) != null))
+            if (!(renderFilter && RenderFilter(renderer)))
             {
-                if (!(renderFilter && RenderFilter(renderer)))
+                var opacity = FixOpacityValue(Opacity);
+                if (opacity == 1f)
+                    RenderInternal(renderer);
+                else
                 {
-                    try
-                    {
-                        if (PushTransforms(renderer))
+                    IsPathDirty = true;
+                    var bounds = Renderable ? Bounds : Path(null).GetBounds();
+                    IsPathDirty = true;
+
+                    if (bounds.Width > 0f && bounds.Height > 0f)
+                        using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
                         {
-                            SetClip(renderer);
-
-                            var opacity = FixOpacityValue(Opacity);
-                            if (opacity == 1f)
-                                if (Renderable)
-                                    RenderFillAndStroke(renderer);
-                                else
-                                    RenderChildren(renderer);
-                            else
+                            using (var canvasRenderer = SvgRenderer.FromImage(canvas))
                             {
-                                IsPathDirty = true;
-                                var bounds = Renderable ? Bounds : Path(null).GetBounds();
-                                IsPathDirty = true;
+                                canvasRenderer.SetBoundable(renderer.GetBoundable());
+                                canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
 
-                                if (bounds.Width > 0f && bounds.Height > 0f)
-                                    using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
-                                    {
-                                        using (var canvasRenderer = SvgRenderer.FromImage(canvas))
-                                        {
-                                            canvasRenderer.SetBoundable(renderer.GetBoundable());
-                                            canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
-
-                                            if (Renderable)
-                                                RenderFillAndStroke(canvasRenderer);
-                                            else
-                                                RenderChildren(canvasRenderer);
-                                        }
-                                        var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
-                                        renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
-                                    }
+                                RenderInternal(canvasRenderer);
                             }
-
-                            ResetClip(renderer);
+                            var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                            renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
                         }
-                    }
-                    finally
-                    {
-                        PopTransforms(renderer);
-                    }
                 }
+            }
+        }
+
+        private void RenderInternal(ISvgRenderer renderer)
+        {
+            try
+            {
+                if (PushTransforms(renderer))
+                {
+                    SetClip(renderer);
+
+                    if (Renderable)
+                        RenderFillAndStroke(renderer);
+                    else
+                        RenderChildren(renderer);
+
+                    ResetClip(renderer);
+                }
+            }
+            finally
+            {
+                PopTransforms(renderer);
             }
         }
 
@@ -197,7 +197,7 @@ namespace Svg
                 {
                     try
                     {
-                        ((SvgFilter)element).ApplyFilter(this, renderer, (r) => Render(r, false));
+                        ((SvgFilter)element).ApplyFilter(this, renderer, (r) => RenderInternal(r, false));
                     }
                     catch (Exception ex)
                     {
