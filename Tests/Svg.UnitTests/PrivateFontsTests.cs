@@ -1,7 +1,5 @@
-﻿#if !NETSTANDARD20
-using NUnit.Framework;
-using System.Drawing.Text;
-using System.Runtime.InteropServices;
+﻿using NUnit.Framework;
+using System.IO;
 
 namespace Svg.UnitTests
 {
@@ -20,23 +18,40 @@ namespace Svg.UnitTests
         private const string PrivateFontSvg = "Issue204_PrivateFont.Text.svg";
         private const string PrivateFont = "Issue204_PrivateFont.BrushScriptMT2.ttf";
 
-        protected override int ExpectedSize { get { return 3200; } } //3512
+#if NETSTANDARD
+        // Private font does not work if .NET Standard.
+        protected override int ExpectedSize { get { return 3000; } } // 3155
+#else
+        protected override int ExpectedSize { get { return 3200; } } // 3512
+#endif
 
         [Test]
-        public void TestPrivateFont()
+        public void TestPrivateFontData()
         {
-            AddFontFromResource(SvgElement.PrivateFonts, GetFullResourceString(PrivateFont));
+            var fontBytes = GetResourceBytes(GetFullResourceString(PrivateFont));
+            SvgFontManager.PrivateFontDataList.Add(fontBytes);
             LoadSvg(GetXMLDocFromResource(GetFullResourceString(PrivateFontSvg)));
         }
 
-        private void AddFontFromResource(PrivateFontCollection privateFontCollection, string fullFontResourceString)
+        [Test]
+        public void TestPrivateFontFile()
         {
-            var fontBytes = GetResourceBytes(fullFontResourceString);
-            var fontData = Marshal.AllocCoTaskMem(fontBytes.Length);
-            Marshal.Copy(fontBytes, 0, fontData, fontBytes.Length);
-            privateFontCollection.AddMemoryFont(fontData, fontBytes.Length); // Add font to collection.
-            Marshal.FreeCoTaskMem(fontData); // Do not forget to free the memory block.
+            var fontFile = Path.GetTempFileName();
+            try
+            {
+                var fontBytes = GetResourceBytes(GetFullResourceString(PrivateFont));
+                File.WriteAllBytes(fontFile, fontBytes);
+                SvgFontManager.PrivateFontPathList.Add(fontFile);
+                LoadSvg(GetXMLDocFromResource(GetFullResourceString(PrivateFontSvg)));
+            }
+            finally
+            {
+#if false
+                // Cannot remove font file that added until process is terminated.
+                if (File.Exists(fontFile))
+                    File.Delete(fontFile);
+#endif
+            }
         }
     }
 }
-#endif

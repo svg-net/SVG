@@ -266,6 +266,7 @@ __issue-622-01.svg
 __issue-626-01.svg
 __issue-664-01.svg
 __issue-675-01.svg
+__issue-732-01.svg
 __pull_request-373-01.svg
 __pull_request-374-01.svg
 __pull_request-414-01.svg
@@ -293,6 +294,7 @@ __pull_request-659-01.svg
 __pull_request-686-01.svg
 __pull_request-690-01.svg
 __pull_request-706-01.svg
+__pull_request-727-01.svg
 __AJ_Digital_Camera.svg
 __Telefunken_FuBK_test_pattern.svg
 __tiger.svg

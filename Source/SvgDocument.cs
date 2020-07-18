@@ -143,7 +143,18 @@ namespace Svg
             Ppi = PointsPerInch;
         }
 
-        public Uri BaseUri { get; set; }
+        private Uri baseUri;
+
+        public Uri BaseUri
+        {
+            get { return baseUri; }
+            set
+            {
+                if (value != null && !value.IsAbsoluteUri)
+                    throw new ArgumentException("BaseUri is not absolute.");
+                baseUri = value;
+            }
+        }
 
         /// <summary>
         /// Gets an <see cref="SvgElementIdManager"/> for this document.
@@ -181,6 +192,8 @@ namespace Svg
         /// Gets or sets an external Cascading Style Sheet (CSS)
         /// </summary>
         public string ExternalCSSHref { get; set; }
+
+        internal SvgFontManager FontManager { get; private set; }
 
         #region ITypeDescriptorContext Members
 
@@ -563,8 +576,12 @@ namespace Svg
 
         private void Draw(ISvgRenderer renderer, ISvgBoundable boundable)
         {
-            renderer.SetBoundable(boundable);
-            this.Render(renderer);
+            using (FontManager = new SvgFontManager())
+            {
+                renderer.SetBoundable(boundable);
+                Render(renderer);
+                FontManager = null;
+            }
         }
 
         /// <summary>

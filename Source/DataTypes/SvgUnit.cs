@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -91,7 +91,8 @@ namespace Svg
             switch (type)
             {
                 case SvgUnitType.Em:
-                    using (var currFont = GetFont(renderer, owner))
+                    using (var fontManager = owner?.OwnerDocument?.FontManager == null ? new SvgFontManager() : null)
+                    using (var currFont = GetFont(renderer, owner, fontManager))
                     {
                         if (currFont == null)
                         {
@@ -105,7 +106,8 @@ namespace Svg
                     }
                     break;
                 case SvgUnitType.Ex:
-                    using (var currFont = GetFont(renderer, owner))
+                    using (var fontManager = owner?.OwnerDocument?.FontManager == null ? new SvgFontManager() : null)
+                    using (var currFont = GetFont(renderer, owner, fontManager))
                     {
                         if (currFont == null)
                         {
@@ -116,8 +118,8 @@ namespace Svg
                         {
                             _deviceValue = value * 0.5f * (currFont.SizeInPoints / 72.0f) * ppi;
                         }
-                        break;
                     }
+                    break;
                 case SvgUnitType.Centimeter:
                     _deviceValue = (float)((value / cmInInch) * ppi);
                     break;
@@ -181,11 +183,10 @@ namespace Svg
             return this._deviceValue.Value;
         }
 
-        private IFontDefn GetFont(ISvgRenderer renderer, SvgElement owner)
+        private IFontDefn GetFont(ISvgRenderer renderer, SvgElement owner, SvgFontManager fontManager)
         {
-            if (owner == null) return null;
-            var visual = owner.Parents.OfType<SvgVisualElement>().FirstOrDefault();
-            return visual != null ? visual.GetFont(renderer) : null;
+            var visual = owner?.Parents.OfType<SvgVisualElement>().FirstOrDefault();
+            return visual?.GetFont(renderer, fontManager);
         }
 
         /// <summary>
