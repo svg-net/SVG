@@ -30,7 +30,14 @@ namespace Svg
         /// </remarks>
         public static bool SkipGdiPlusCapabilityCheck { get; set; }
 
-        public static readonly int PointsPerInch = GetSystemDpi();
+        private static int? pointsPerInch;
+
+        public static int PointsPerInch
+        {
+            get { return pointsPerInch ?? (int) (pointsPerInch = GetSystemDpi()); }
+            set { pointsPerInch = value; }
+        } 
+
         private SvgElementIdManager _idManager;
 
         private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;
