@@ -703,7 +703,7 @@ namespace Svg
                         rotations = GetValues(value.Length, e => e._rotations);
 
                         // Calculate Y-offset due to baseline shift. Don't inherit the value so that it is not accumulated multiple times.
-                        var baselineShiftText = Element.BaselineShift.Trim().ToLower();
+                        var baselineShiftText = Element.BaselineShift.Trim().ToLowerInvariant();
                         if (string.IsNullOrEmpty(baselineShiftText))
                             baselineShiftText = "baseline";
 

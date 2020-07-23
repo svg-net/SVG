@@ -583,7 +583,7 @@ namespace Svg.ExCSS
                 }
                 else if (current == Specification.ParenOpen)
                 {
-                    switch (_buffer.ToString().ToLower())
+                    switch (_buffer.ToString().ToLowerInvariant())
                     {
                         case "url":
                             _buffer.Length = 0;

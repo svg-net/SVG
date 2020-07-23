@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Globalization;
 using System.Text;
@@ -204,7 +204,7 @@ namespace Svg
             {
                 var colorString = ColorTranslator.ToHtml((Color)value).Replace("LightGrey", "LightGray");
                 // color names are expected to be lower case in XML
-                return colorString.StartsWith("#") ? colorString : colorString.ToLower();
+                return colorString.StartsWith("#") ? colorString : colorString.ToLowerInvariant();
             }
 
             return base.ConvertTo(context, culture, value, destinationType);

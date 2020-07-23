@@ -8,7 +8,7 @@ namespace Svg.ExCSS.Model
         internal static string Extract(string content)
         {
             var position = 0;
-            content = content.ToLower();
+            content = content.ToLowerInvariant();
 
             for (var i = position; i < content.Length - 7; i++)
             {
@@ -122,7 +122,7 @@ namespace Svg.ExCSS.Model
 
         internal static Encoding Resolve(string charset)
         {
-            charset = charset.ToLower();
+            charset = charset.ToLowerInvariant();
 
             switch (charset)
             {
@@ -390,7 +390,7 @@ namespace Svg.ExCSS.Model
             if (local.Length < 2)
                 return Encoding.UTF8;
 
-            var firstTwo = local.Substring(0, 2).ToLower();
+            var firstTwo = local.Substring(0, 2).ToLowerInvariant();
 
             switch (firstTwo)
             {

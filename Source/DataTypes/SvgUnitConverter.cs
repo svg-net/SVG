@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 
@@ -62,7 +62,7 @@ namespace Svg
                 return new SvgUnit(val);
             }
 
-            switch (unit.Substring(identifierIndex).Trim().ToLower())
+            switch (unit.Substring(identifierIndex).Trim().ToLowerInvariant())
             {
                 case "mm":
                     return new SvgUnit(SvgUnitType.Millimeter, val);

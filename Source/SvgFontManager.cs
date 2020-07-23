@@ -88,7 +88,7 @@ namespace Svg
                     return family;
             }
 
-            switch (name.ToLower())
+            switch (name.ToLowerInvariant())
             {
                 case "serif":
                     return FontFamily.GenericSerif;
