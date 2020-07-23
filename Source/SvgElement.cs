@@ -33,19 +33,19 @@ namespace Svg
         }
 
         //reflection cache
-        private IEnumerable<PropertyAttributeTuple> _svgPropertyAttributes;
-        private IEnumerable<EventAttributeTuple> _svgEventAttributes;
+        private readonly IEnumerable<PropertyAttributeTuple> _svgPropertyAttributes;
+        private readonly IEnumerable<EventAttributeTuple> _svgEventAttributes;
 
         internal SvgElement _parent;
         private string _elementName;
         private SvgAttributeCollection _attributes;
-        private EventHandlerList _eventHandlers;
-        private SvgElementCollection _children;
+        private readonly EventHandlerList _eventHandlers;
+        private readonly SvgElementCollection _children;
         private static readonly object _loadEventKey = new object();
         private Matrix _graphicsTransform;
         private Region _graphicsClip;
-        private SvgCustomAttributeCollection _customAttributes;
-        private List<ISvgNode> _nodes = new List<ISvgNode>();
+        private readonly SvgCustomAttributeCollection _customAttributes;
+        private readonly List<ISvgNode> _nodes = new List<ISvgNode>();
 
         private Dictionary<string, SortedDictionary<int, string>> _styles = new Dictionary<string, SortedDictionary<int, string>>();
 

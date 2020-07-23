@@ -17,7 +17,7 @@ namespace Svg
         private SvgUnitCollection _dy = new SvgUnitCollection();
         private SvgUnitCollection _dx = new SvgUnitCollection();
         private string _rotate;
-        private List<float> _rotations = new List<float>();
+        private readonly List<float> _rotations = new List<float>();
 
         public SvgTextBase()
         {
@@ -541,7 +541,7 @@ namespace Svg
 
         private class FontBoundable : ISvgBoundable
         {
-            private IFontDefn _font;
+            private readonly IFontDefn _font;
             private float _width = 1;
 
             public FontBoundable(IFontDefn font)

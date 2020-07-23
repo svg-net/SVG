@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
@@ -15,7 +15,7 @@ namespace Svg
     internal class SvgElementFactory
     {
         private List<ElementInfo> availableElements;
-        private Parser cssParser = new Parser();
+        private readonly Parser cssParser = new Parser();
 
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
@@ -226,7 +226,7 @@ namespace Svg
         }
 
         private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
-        private static object syncLock = new object();
+        private static readonly object syncLock = new object();
 
         internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle = false)
         {
