@@ -6195,7 +6195,14 @@ references:
 - uid: Svg.SvgDocument.PointsPerInch
   name: PointsPerInch
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_PointsPerInch
-  commentId: F:Svg.SvgDocument.PointsPerInch
+  commentId: P:Svg.SvgDocument.PointsPerInch
+  fullName: Svg.SvgDocument.PointsPerInch
+  nameWithType: SvgDocument.PointsPerInch
+- uid: Svg.SvgDocument.PointsPerInch*
+  name: PointsPerInch
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_PointsPerInch_
+  commentId: Overload:Svg.SvgDocument.PointsPerInch
+  isSpec: "True"
   fullName: Svg.SvgDocument.PointsPerInch
   nameWithType: SvgDocument.PointsPerInch
 - uid: Svg.SvgDocument.Ppi
