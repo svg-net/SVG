@@ -192,20 +192,12 @@ namespace Svg
 
         protected void OnAdded(SvgElement element)
         {
-            var handler = ElementAdded;
-            if (handler != null)
-            {
-                handler(this._document, new SvgElementEventArgs { Element = element });
-            }
+            ElementAdded?.Invoke(this._document, new SvgElementEventArgs { Element = element });
         }
 
         protected void OnRemoved(SvgElement element)
         {
-            var handler = ElementRemoved;
-            if (handler != null)
-            {
-                handler(this._document, new SvgElementEventArgs { Element = element });
-            }
+            ElementRemoved?.Invoke(this._document, new SvgElementEventArgs { Element = element });
         }
 
     }

@@ -463,11 +463,7 @@ namespace Svg
 
         protected void RaiseChange(object sender, StringArg s)
         {
-            var handler = Change;
-            if (handler != null)
-            {
-                handler(sender, s);
-            }
+            Change?.Invoke(sender, s);
         }
 
         //private static GraphicsPath GetPath(string text, Font font)

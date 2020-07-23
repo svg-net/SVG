@@ -492,11 +492,7 @@ namespace Svg
             {
                 sibling = Children[index + 1];
             }
-            var handler = ChildAdded;
-            if (handler != null)
-            {
-                handler(this, new ChildAddedEventArgs { NewChild = child, BeforeSibling = sibling });
-            }
+            ChildAdded?.Invoke(this, new ChildAddedEventArgs { NewChild = child, BeforeSibling = sibling });
         }
 
         /// <summary>
@@ -1028,11 +1024,7 @@ namespace Svg
 
         protected void OnAttributeChanged(AttributeEventArgs args)
         {
-            var handler = AttributeChanged;
-            if (handler != null)
-            {
-                handler(this, args);
-            }
+            AttributeChanged?.Invoke(this, args);
         }
 
         /// <summary>
@@ -1042,11 +1034,7 @@ namespace Svg
 
         protected void OnContentChanged(ContentEventArgs args)
         {
-            var handler = ContentChanged;
-            if (handler != null)
-            {
-                handler(this, args);
-            }
+            ContentChanged?.Invoke(this, args);
         }
 
         #region graphical EVENTS
@@ -1139,60 +1127,36 @@ namespace Svg
         //click
         protected void RaiseMouseClick(object sender, MouseArg e)
         {
-            var handler = Click;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
+            Click?.Invoke(sender, e);
         }
 
         //down
         protected void RaiseMouseDown(object sender, MouseArg e)
         {
-            var handler = MouseDown;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
+            MouseDown?.Invoke(sender, e);
         }
 
         //up
         protected void RaiseMouseUp(object sender, MouseArg e)
         {
-            var handler = MouseUp;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
+            MouseUp?.Invoke(sender, e);
         }
 
         protected void RaiseMouseMove(object sender, MouseArg e)
         {
-            var handler = MouseMove;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
+            MouseMove?.Invoke(sender, e);
         }
 
         //over
         protected void RaiseMouseOver(object sender, MouseArg args)
         {
-            var handler = MouseOver;
-            if (handler != null)
-            {
-                handler(sender, args);
-            }
+            MouseOver?.Invoke(sender, args);
         }
 
         //out
         protected void RaiseMouseOut(object sender, MouseArg args)
         {
-            var handler = MouseOut;
-            if (handler != null)
-            {
-                handler(sender, args);
-            }
+            MouseOut?.Invoke(sender, args);
         }
 
         //scroll
@@ -1203,11 +1167,7 @@ namespace Svg
 
         protected void RaiseMouseScroll(object sender, MouseScrollArg e)
         {
-            var handler = MouseScroll;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
+            MouseScroll?.Invoke(sender, e);
         }
 
         #endregion graphical EVENTS
