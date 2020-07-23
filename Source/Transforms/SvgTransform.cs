@@ -3,7 +3,7 @@ using System.Drawing.Drawing2D;
 
 namespace Svg.Transforms
 {
-    public abstract class SvgTransform : ICloneable
+    public abstract class SvgTransform : ICloneable, IEquatable<SvgTransform>
     {
         public abstract Matrix Matrix { get; }
         public abstract string WriteToString();
@@ -11,13 +11,15 @@ namespace Svg.Transforms
         public abstract object Clone();
 
         #region Equals implementation
+
         public override bool Equals(object obj)
         {
-            var other = obj as SvgTransform;
-            if (other == null)
-                return false;
+            return obj is SvgTransform other && Equals(other);
+        }
 
-            return Matrix.Equals(other.Matrix);
+        public bool Equals(SvgTransform other)
+        {
+            return other != null && Matrix.Equals(other.Matrix);
         }
 
         public override int GetHashCode()
@@ -38,6 +40,7 @@ namespace Svg.Transforms
         {
             return !(lhs == rhs);
         }
+
         #endregion
 
         public override string ToString()
