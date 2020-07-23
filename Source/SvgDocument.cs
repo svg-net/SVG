@@ -358,7 +358,7 @@ namespace Svg
         /// <exception cref="ArgumentNullException">The <paramref name="stream"/> parameter cannot be <c>null</c>.</exception>
         public static T Open<T>(Stream stream, Dictionary<string, string> entities) where T : SvgDocument, new()
         {
-            if (stream == null)
+            if (stream is null)
             {
                 throw new ArgumentNullException("stream");
             }
@@ -443,8 +443,7 @@ namespace Svg
                                 element.Nodes.Clear(); // No sense wasting the space where it isn't needed
                             }
 
-                            var unknown = element as SvgUnknownElement;
-                            if (unknown != null && unknown.ElementName == "style")
+                            if (element is SvgUnknownElement unknown && unknown.ElementName == "style")
                             {
                                 styles.Add(unknown);
                             }
@@ -507,7 +506,7 @@ namespace Svg
         /// <exception cref="ArgumentNullException">The <paramref name="document"/> parameter cannot be <c>null</c>.</exception>
         public static SvgDocument Open(XmlDocument document)
         {
-            if (document == null)
+            if (document is null)
             {
                 throw new ArgumentNullException("document");
             }
@@ -543,7 +542,7 @@ namespace Svg
         /// <exception cref="ArgumentNullException">The <paramref name="renderer"/> parameter cannot be <c>null</c>.</exception>
         public void Draw(ISvgRenderer renderer)
         {
-            if (renderer == null)
+            if (renderer is null)
             {
                 throw new ArgumentNullException("renderer");
             }
@@ -569,7 +568,7 @@ namespace Svg
         /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
         public void Draw(Graphics graphics, SizeF? size)
         {
-            if (graphics == null)
+            if (graphics is null)
             {
                 throw new ArgumentNullException("graphics");
             }
