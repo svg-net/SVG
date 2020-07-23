@@ -126,7 +126,7 @@ namespace Svg
             var fMinX = -MinX * fScaleX;
             var fMinY = -MinY * fScaleY;
 
-            aspectRatio = aspectRatio ?? new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid);
+            aspectRatio ??= new SvgAspectRatio(SvgPreserveAspectRatio.xMidYMid);
             if (aspectRatio.Align != SvgPreserveAspectRatio.none)
             {
                 if (aspectRatio.Slice)
