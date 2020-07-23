@@ -674,7 +674,7 @@ namespace Svg
                             var hasOpacity = writeStyle;
                             if (hasOpacity)
                             {
-                                if (propertyValue is SvgColourServer && ((SvgColourServer)propertyValue).Colour.A < 255)
+                                if (propertyValue is SvgColourServer colourServer && colourServer.Colour.A < 255)
                                 {
                                     var opacity = ((SvgColourServer)propertyValue).Colour.A / 255f;
                                     opacityValues.Add(attr.Attribute.Name + "-opacity", opacity);
@@ -975,7 +975,7 @@ namespace Svg
 
             foreach (var attribute in Attributes)
             {
-                var value = attribute.Value is ICloneable ? ((ICloneable)attribute.Value).Clone() : attribute.Value;
+                var value = attribute.Value is ICloneable clonable ? clonable.Clone() : attribute.Value;
                 newObj.Attributes.Add(attribute.Key, value);
             }
 

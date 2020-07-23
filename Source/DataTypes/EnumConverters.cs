@@ -54,7 +54,7 @@ namespace Svg
         /// <summary>Attempts to convert the value to the destination type.</summary>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType == typeof(string) && value is T)
+            if (destinationType == typeof(string) && value is T s)
             {
                 var stringValue = ((T)value).ToString();
                 if (CaseHandlingMode == CaseHandling.CamelCase)
@@ -132,9 +132,9 @@ namespace Svg
     {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            if (value is string text)
             {
-                switch ((string)value)
+                switch (text)
                 {
                     case "100": return SvgFontWeight.W100;
                     case "200": return SvgFontWeight.W200;
@@ -152,9 +152,9 @@ namespace Svg
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType == typeof(string) && value is SvgFontWeight)
+            if (destinationType == typeof(string) && value is SvgFontWeight weight)
             {
-                switch ((SvgFontWeight)value)
+                switch (weight)
                 {
                     case SvgFontWeight.W100: return "100";
                     case SvgFontWeight.W200: return "200";
