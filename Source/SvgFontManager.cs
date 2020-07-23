@@ -88,14 +88,17 @@ namespace Svg
                     return family;
             }
 
-            switch (name.ToLowerInvariant())
+            if (name.Equals("serif", StringComparison.OrdinalIgnoreCase))
             {
-                case "serif":
-                    return FontFamily.GenericSerif;
-                case "sans-serif":
-                    return FontFamily.GenericSansSerif;
-                case "monospace":
-                    return FontFamily.GenericMonospace;
+                return FontFamily.GenericSerif;
+            }
+            else if (name.Equals("sans-serif", StringComparison.OrdinalIgnoreCase))
+            {
+                return FontFamily.GenericSansSerif;
+            }
+            else if (name.Equals("monospace", StringComparison.OrdinalIgnoreCase))
+            {
+                return FontFamily.GenericMonospace;
             }
 
             return null;
