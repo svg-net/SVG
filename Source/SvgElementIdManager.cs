@@ -158,8 +158,7 @@ namespace Svg
                 {
                     var match = regex.Match(id);
 
-                    int number;
-                    if (match.Success && int.TryParse(match.Value.Substring(1), out number))
+                    if (match.Success && int.TryParse(match.Value.Substring(1), out int number))
                     {
                         id = regex.Replace(id, "#" + (number + 1));
                     }

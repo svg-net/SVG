@@ -57,8 +57,7 @@ namespace Svg
         /// <param name="specificity">The specificity value.</param>
         public void AddStyle(string name, string value, int specificity)
         {
-            SortedDictionary<int, string> rules;
-            if (!_styles.TryGetValue(name, out rules))
+            if (!_styles.TryGetValue(name, out SortedDictionary<int, string> rules))
             {
                 rules = new SortedDictionary<int, string>();
                 _styles[name] = rules;
@@ -93,21 +92,18 @@ namespace Svg
 
         public bool ContainsAttribute(string name)
         {
-            SortedDictionary<int, string> rules;
             return (this.Attributes.ContainsKey(name) || this.CustomAttributes.ContainsKey(name) ||
-                (_styles.TryGetValue(name, out rules)) && (rules.ContainsKey(StyleSpecificity_InlineStyle) || rules.ContainsKey(StyleSpecificity_PresAttribute)));
+                (_styles.TryGetValue(name, out SortedDictionary<int, string> rules)) && (rules.ContainsKey(StyleSpecificity_InlineStyle) || rules.ContainsKey(StyleSpecificity_PresAttribute)));
         }
         public bool TryGetAttribute(string name, out string value)
         {
-            object objValue;
-            if (this.Attributes.TryGetValue(name, out objValue))
+            if (this.Attributes.TryGetValue(name, out object objValue))
             {
                 value = objValue.ToString();
                 return true;
             }
             if (this.CustomAttributes.TryGetValue(name, out value)) return true;
-            SortedDictionary<int, string> rules;
-            if (_styles.TryGetValue(name, out rules))
+            if (_styles.TryGetValue(name, out SortedDictionary<int, string>  rules))
             {
                 // Get staged styles that are 
                 if (rules.TryGetValue(StyleSpecificity_InlineStyle, out value)) return true;
@@ -657,8 +653,7 @@ namespace Svg
                                 if (writeStyle && propertyValue == SvgPaintServer.NotSet)
                                     continue;
 
-                                object parentValue;
-                                if (TryResolveParentAttributeValue(attr.Attribute.Name, out parentValue))
+                                if (TryResolveParentAttributeValue(attr.Attribute.Name, out object parentValue))
                                 {
                                     if ((parentValue == propertyValue)
                                         || ((parentValue != null) && parentValue.Equals(propertyValue)))
