@@ -62,29 +62,19 @@ namespace Svg
                 return new SvgUnit(val);
             }
 
-            switch (unit.Substring(identifierIndex).Trim().ToLowerInvariant())
+            return (unit.Substring(identifierIndex).Trim().ToLowerInvariant()) switch
             {
-                case "mm":
-                    return new SvgUnit(SvgUnitType.Millimeter, val);
-                case "cm":
-                    return new SvgUnit(SvgUnitType.Centimeter, val);
-                case "in":
-                    return new SvgUnit(SvgUnitType.Inch, val);
-                case "px":
-                    return new SvgUnit(SvgUnitType.Pixel, val);
-                case "pt":
-                    return new SvgUnit(SvgUnitType.Point, val);
-                case "pc":
-                    return new SvgUnit(SvgUnitType.Pica, val);
-                case "%":
-                    return new SvgUnit(SvgUnitType.Percentage, val);
-                case "em":
-                    return new SvgUnit(SvgUnitType.Em, val);
-                case "ex":
-                    return new SvgUnit(SvgUnitType.Ex, val);
-                default:
-                    throw new FormatException("Unit is in an invalid format '" + unit + "'.");
-            }
+                "mm" => new SvgUnit(SvgUnitType.Millimeter, val),
+                "cm" => new SvgUnit(SvgUnitType.Centimeter, val),
+                "in" => new SvgUnit(SvgUnitType.Inch, val),
+                "px" => new SvgUnit(SvgUnitType.Pixel, val),
+                "pt" => new SvgUnit(SvgUnitType.Point, val),
+                "pc" => new SvgUnit(SvgUnitType.Pica, val),
+                "%" => new SvgUnit(SvgUnitType.Percentage, val),
+                "em" => new SvgUnit(SvgUnitType.Em, val),
+                "ex" => new SvgUnit(SvgUnitType.Ex, val),
+                _ => throw new FormatException("Unit is in an invalid format '" + unit + "'."),
+            };
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)

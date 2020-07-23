@@ -443,19 +443,13 @@ namespace Svg
 
         private string ApplyTransformation(string value)
         {
-            switch (this.TextTransformation)
+            return this.TextTransformation switch
             {
-                case SvgTextTransformation.Capitalize:
-                    return value.ToUpper();
-
-                case SvgTextTransformation.Uppercase:
-                    return value.ToUpper();
-
-                case SvgTextTransformation.Lowercase:
-                    return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
-            }
-
-            return value;
+                SvgTextTransformation.Capitalize => value.ToUpper(),
+                SvgTextTransformation.Uppercase => value.ToUpper(),
+                SvgTextTransformation.Lowercase => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value),
+                _ => value
+            };
         }
 
         [SvgAttribute("onchange")]
