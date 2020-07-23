@@ -35,7 +35,7 @@
     <PackageProjectUrl>https://github.com/vvvv/SVG</PackageProjectUrl>
     <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
     <PackageIcon>svg-logo-v.png</PackageIcon>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
