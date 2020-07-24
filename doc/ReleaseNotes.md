@@ -8,9 +8,9 @@ The release versions are NuGet releases.
 * check if BaseUri is absolute (see [PR #738](https://github.com/vvvv/SVG/pull/738))
 
 ### Fixes
-* fixed the parsing of significant whitespace (see [#744](https://github.com/vvvv/SVG/issues/744) and [PR #745](https://github.com/vvvv/SVG/pull/745))
 * fixed filter Inherited (see [#541](https://github.com/vvvv/SVG/issues/541) and [PR #689](https://github.com/vvvv/SVG/pull/689))
 * fixed calculate required layout rectangle (see [#732](https://github.com/vvvv/SVG/issues/732) and [PR #741](https://github.com/vvvv/SVG/pull/741))
+* fixed the parsing of significant whitespace (see [#744](https://github.com/vvvv/SVG/issues/744) and [PR #745](https://github.com/vvvv/SVG/pull/745))
 * fixed build error in .NET Standard 2.1 (see [#746](https://github.com/vvvv/SVG/issues/746) and [PR #750](https://github.com/vvvv/SVG/pull/750))
 
 ## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
