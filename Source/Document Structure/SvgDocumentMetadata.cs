@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
+﻿using System.Xml;
 
 namespace Svg
 {
@@ -11,24 +8,13 @@ namespace Svg
     [SvgElement("metadata")]
     public class SvgDocumentMetadata : SvgElement
     {
-        //private string _metadata;
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgDocumentMetadata"/> class.
         /// </summary>
         public SvgDocumentMetadata()
         {
-            Content = "";
+            Content = string.Empty;
         }
-
-
-        //public string Metadata
-        //{
-        //    get { return _metadata; }
-        //    set { _metadata = value; }
-        //}
-
 
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
@@ -41,9 +27,8 @@ namespace Svg
 
         protected override void WriteChildren(XmlTextWriter writer)
         {
-            writer.WriteRaw(this.Content); //write out metadata as is
+            writer.WriteRaw(this.Content); // write out metadata as is
         }
-
 
         public override SvgElement DeepCopy()
         {
@@ -54,9 +39,8 @@ namespace Svg
         {
             base.InitialiseFromXML(reader, document);
 
-            //read in the metadata just as a string ready to be written straight back out again
+            // read in the metadata just as a string ready to be written straight back out again
             Content = reader.ReadInnerXml();
         }
-
     }
 }
