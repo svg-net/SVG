@@ -36,9 +36,8 @@ namespace Svg
             {
                 doc.Write(ms);
                 ms.Position = 0;
-                var sr = new StreamReader(ms);
-                ret = sr.ReadToEnd();
-                sr.Close();
+                using (var sr = new StreamReader(ms))
+                    ret = sr.ReadToEnd();
             }
 
             return ret;
