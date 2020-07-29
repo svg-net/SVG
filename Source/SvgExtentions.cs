@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
-using System.IO;
-using System.Xml;
-using System.Threading;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Xml;
 
 namespace Svg
 {
@@ -30,7 +29,7 @@ namespace Svg
 
         public static string GetXML(this SvgDocument doc)
         {
-            var ret = "";
+            var ret = string.Empty;
 
             using (var ms = new MemoryStream())
             {
@@ -45,20 +44,17 @@ namespace Svg
 
         public static string GetXML(this SvgElement elem)
         {
-            var result = "";
+            var result = string.Empty;
 
             var currentCulture = Thread.CurrentThread.CurrentCulture;
             try
             {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-                using (StringWriter str = new StringWriter())
+                using (var str = new StringWriter())
+                using (var xml = new XmlTextWriter(str))
                 {
-                    using (XmlTextWriter xml = new XmlTextWriter(str))
-                    {
-                        elem.Write(xml);
-                        result = str.ToString();
-
-                    }
+                    elem.Write(xml);
+                    result = str.ToString();
                 }
             }
             finally
@@ -77,32 +73,28 @@ namespace Svg
 
         public static void ApplyRecursive(this SvgElement elem, Action<SvgElement> action)
         {
-            foreach (var e in elem
-                .Traverse(e => e.Children))
-            {
+            foreach (var e in elem.Traverse(e => e.Children))
                 action(e);
-            }
         }
 
         public static void ApplyRecursiveDepthFirst(this SvgElement elem, Action<SvgElement> action)
         {
-            foreach (var e in elem
-                .TraverseDepthFirst(e => e.Children))
-            {
+            foreach (var e in elem.TraverseDepthFirst(e => e.Children))
                 action(e);
-            }
         }
 
         public static IEnumerable<T> Traverse<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childrenSelector)
         {
-            if (childrenSelector == null) throw new ArgumentNullException(nameof(childrenSelector));
+            if (childrenSelector == null)
+                throw new ArgumentNullException(nameof(childrenSelector));
 
             var itemQueue = new Queue<T>(items);
             while (itemQueue.Count > 0)
             {
                 var current = itemQueue.Dequeue();
                 yield return current;
-                foreach (var child in childrenSelector(current) ?? Enumerable.Empty<T>()) itemQueue.Enqueue(child);
+                foreach (var child in childrenSelector(current) ?? Enumerable.Empty<T>())
+                    itemQueue.Enqueue(child);
             }
         }
 
@@ -111,14 +103,16 @@ namespace Svg
 
         public static IEnumerable<T> TraverseDepthFirst<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childrenSelector)
         {
-            if (childrenSelector == null) throw new ArgumentNullException(nameof(childrenSelector));
-            var itemStack = new Stack<T>(items ?? Enumerable.Empty<T>());
+            if (childrenSelector == null)
+                throw new ArgumentNullException(nameof(childrenSelector));
 
+            var itemStack = new Stack<T>(items ?? Enumerable.Empty<T>());
             while (itemStack.Count > 0)
             {
                 var current = itemStack.Pop();
                 yield return current;
-                foreach (var child in childrenSelector(current) ?? Enumerable.Empty<T>()) itemStack.Push(child);
+                foreach (var child in childrenSelector(current) ?? Enumerable.Empty<T>())
+                    itemStack.Push(child);
             }
         }
 
