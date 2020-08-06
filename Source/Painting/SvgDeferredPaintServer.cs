@@ -120,7 +120,7 @@ namespace Svg
                 return string.Empty;
             if (FallbackServer == null)
                 return DeferredId;
-            return new StringBuilder(DeferredId).Append(" ").Append(FallbackServer.ToString()).ToString();
+            return new StringBuilder(DeferredId).Append(' ').Append(FallbackServer.ToString()).ToString();
         }
 
         public static T TryGet<T>(SvgPaintServer server, SvgElement parent) where T : SvgPaintServer

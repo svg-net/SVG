@@ -15,7 +15,7 @@ namespace Svg.ExCSS.Model.Extensions
             var tabs = new StringBuilder();
             for (var i = 0; i < indentation; i++)
             {
-                tabs.Append("\t");
+                tabs.Append('\t');
             }
 
             return string.Format("{0}{1}", tabs, value);

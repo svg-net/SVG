@@ -96,11 +96,11 @@ namespace Svg.ExCSS
                 switch (_separator[i])
                 {
                     case GrammarSegment.Whitespace:
-                        builder.Append(" ");
+                        builder.Append(' ');
                         break;
 
                     case GrammarSegment.Comma:
-                        builder.Append(",");
+                        builder.Append(',');
                         break;
 
                     default:
