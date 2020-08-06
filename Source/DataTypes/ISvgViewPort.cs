@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Svg
+﻿namespace Svg
 {
     /// <summary>
     /// Provides properties and methods to be implemented by view port elements.
