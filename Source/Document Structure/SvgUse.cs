@@ -17,8 +17,7 @@ namespace Svg
 
         private bool ElementReferencesUri(SvgElement element, List<Uri> elementUris)
         {
-            var useElement = element as SvgUse;
-            if (useElement != null)
+            if (element is SvgUse useElement)
             {
                 if (elementUris.Contains(useElement.ReferencedElement))
                 {
@@ -32,8 +31,8 @@ namespace Svg
                 }
                 return useElement.ReferencedElementReferencesUri(elementUris);
             }
-            var groupElement = element as SvgGroup;
-            if (groupElement != null)
+
+            if (element is SvgGroup groupElement)
             {
                 foreach (var child in groupElement.Children)
                 {
@@ -133,8 +132,8 @@ namespace Svg
                 if (ew > 0 && eh > 0)
                     return TransformedBounds(new RectangleF(this.Location.ToDeviceValue(null, this),
                         new SizeF(ew, eh)));
-                var element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement) as SvgVisualElement;
-                if (element != null)
+
+                if (this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement) is SvgVisualElement element)
                 {
                     return element.Bounds;
                 }
@@ -149,8 +148,7 @@ namespace Svg
         {
             if (ReferencedElement != null && !HasRecursiveReference())
             {
-                var element = OwnerDocument.IdManager.GetElementById(ReferencedElement) as SvgVisualElement;
-                if (element != null)
+                if (OwnerDocument.IdManager.GetElementById(ReferencedElement) is SvgVisualElement element)
                 {
                     var ew = Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
                     var eh = Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);

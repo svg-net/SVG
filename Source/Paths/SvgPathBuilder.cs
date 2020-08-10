@@ -117,9 +117,7 @@ namespace Svg
                 case 't': // relative shorthand/smooth quadratic bézier curveto
                     while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                     {
-                        var lastQuadCurve = segments.Last as SvgQuadraticCurveSegment;
-
-                        var controlPoint = lastQuadCurve != null
+                        var controlPoint = segments.Last is SvgQuadraticCurveSegment lastQuadCurve
                             ? Reflect(lastQuadCurve.ControlPoint, segments.Last.End)
                             : segments.Last.End;
 
@@ -144,9 +142,7 @@ namespace Svg
                     while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
                            parser.TryGetFloat(out coords[2]) && parser.TryGetFloat(out coords[3]))
                     {
-                        var lastCubicCurve = segments.Last as SvgCubicCurveSegment;
-
-                        var controlPoint = lastCubicCurve != null
+                        var controlPoint = segments.Last is SvgCubicCurveSegment lastCubicCurve
                             ? Reflect(lastCubicCurve.SecondControlPoint, segments.Last.End)
                             : segments.Last.End;
 
