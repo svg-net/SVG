@@ -30,7 +30,14 @@ namespace Svg
         /// </remarks>
         public static bool SkipGdiPlusCapabilityCheck { get; set; }
 
-        public static readonly int PointsPerInch = GetSystemDpi();
+        private static int? pointsPerInch;
+
+        public static int PointsPerInch
+        {
+            get { return pointsPerInch ?? (int) (pointsPerInch = GetSystemDpi()); }
+            set { pointsPerInch = value; }
+        } 
+
         private SvgElementIdManager _idManager;
 
         private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;
@@ -344,7 +351,7 @@ namespace Svg
                 var reader = new SvgTextReader(strReader, null)
                 {
                     XmlResolver = new SvgDtdResolver(),
-                    WhitespaceHandling = WhitespaceHandling.None
+                    WhitespaceHandling = WhitespaceHandling.Significant
                 };
                 return Open<T>(reader);
             }
@@ -367,7 +374,7 @@ namespace Svg
             var reader = new SvgTextReader(stream, entities)
             {
                 XmlResolver = new SvgDtdResolver(),
-                WhitespaceHandling = WhitespaceHandling.None
+                WhitespaceHandling = WhitespaceHandling.Significant
             };
             return Open<T>(reader);
         }
@@ -450,6 +457,7 @@ namespace Svg
                             break;
                         case XmlNodeType.CDATA:
                         case XmlNodeType.Text:
+                        case XmlNodeType.SignificantWhitespace:
                             element = elementStack.Peek();
                             element.Nodes.Add(new SvgContentNode() { Content = reader.Value });
                             break;
