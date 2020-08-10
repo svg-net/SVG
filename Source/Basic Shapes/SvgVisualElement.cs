@@ -193,11 +193,11 @@ namespace Svg
             if (filterPath != null)
             {
                 var element = OwnerDocument.IdManager.GetElementById(filterPath);
-                if (element is SvgFilter)
+                if (element is SvgFilter filter)
                 {
                     try
                     {
-                        ((SvgFilter)element).ApplyFilter(this, renderer, (r) => Render(r, false));
+                        filter.ApplyFilter(this, renderer, (r) => Render(r, false));
                     }
                     catch (Exception ex)
                     {
@@ -363,18 +363,12 @@ namespace Svg
                                         }
                                     }
                                 }
-                                switch (StrokeLineJoin)
+                                pen.LineJoin = StrokeLineJoin switch
                                 {
-                                    case SvgStrokeLineJoin.Bevel:
-                                        pen.LineJoin = LineJoin.Bevel;
-                                        break;
-                                    case SvgStrokeLineJoin.Round:
-                                        pen.LineJoin = LineJoin.Round;
-                                        break;
-                                    default:
-                                        pen.LineJoin = LineJoin.Miter;
-                                        break;
-                                }
+                                    SvgStrokeLineJoin.Bevel => LineJoin.Bevel,
+                                    SvgStrokeLineJoin.Round => LineJoin.Round,
+                                    _ => LineJoin.Miter
+                                };
                                 pen.MiterLimit = StrokeMiterLimit;
                                 switch (StrokeLineCap)
                                 {
