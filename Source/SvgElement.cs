@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Xml;
 using Svg.Transforms;
 
@@ -115,6 +114,11 @@ namespace Svg
             }
             return false;
         }
+
+        /// <summary>
+        /// Gets the elements namespace as a string.
+        /// </summary>
+        protected internal string ElementNamespace { get; protected set; } = SvgNamespace.UriString;
 
         /// <summary>
         /// Gets the name of the element.
@@ -568,14 +572,14 @@ namespace Svg
         public virtual bool ShouldWriteElement()
         {
             //Write any element who has a name.
-            return (this.ElementName != String.Empty);
+            return !string.IsNullOrEmpty(this.ElementName);
         }
 
         protected virtual void WriteStartElement(XmlTextWriter writer)
         {
-            if (this.ElementName != String.Empty)
+            if (!string.IsNullOrEmpty(this.ElementName))
             {
-                writer.WriteStartElement(this.ElementName);
+                writer.WriteStartElement(this.ElementName, this.ElementNamespace);
             }
 
             this.WriteAttributes(writer);
@@ -583,7 +587,7 @@ namespace Svg
 
         protected virtual void WriteEndElement(XmlTextWriter writer)
         {
-            if (this.ElementName != String.Empty)
+            if (!string.IsNullOrEmpty(this.ElementName))
             {
                 writer.WriteEndElement();
             }
@@ -603,7 +607,8 @@ namespace Svg
                     //if someone has registered publish the attribute
                     if (evt != null && !string.IsNullOrEmpty(this.ID))
                     {
-                        writer.WriteAttributeString(attr.Attribute.Name, this.ID + "/" + attr.Attribute.Name);
+                        string evtValue = this.ID + "/" + attr.Attribute.Name;
+                        WriteAttributeString(writer, attr.Attribute.Name, null, evtValue);
                     }
                 }
             }
@@ -617,14 +622,15 @@ namespace Svg
                     additionalStyleValue = item.Value;
                     continue;
                 }
-                writer.WriteAttributeString(item.Key, item.Value);
+                WriteAttributeString(writer, item.Key, null, item.Value);
             }
 
             //write the style property
             if (styles.Any())
             {
-                writer.WriteAttributeString("style", (from s in styles
-                                                      select s.Key + ":" + s.Value + ";").Aggregate((p, c) => p + c) + additionalStyleValue);
+                var styleValues = styles.Select(s => s.Key + ":" + s.Value)
+                    .Concat(Enumerable.Repeat(additionalStyleValue, 1));
+                WriteAttributeString(writer, "style", null, string.Join(";", styleValues));
             }
         }
 
@@ -703,7 +709,7 @@ namespace Svg
                                     }
                                     else
                                     {
-                                        writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
+                                        WriteAttributeString(writer, attr.Attribute.Name, attr.Attribute.NameSpace, value);
                                     }
                                 }
                             }
@@ -715,7 +721,7 @@ namespace Svg
                                 }
                                 else
                                 {
-                                    writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
+                                    WriteAttributeString(writer, attr.Attribute.Name, attr.Attribute.NameSpace, value);
                                 }
                             }
                         }
@@ -743,7 +749,7 @@ namespace Svg
                         opacity = (float)Math.Round(opacity, 2, MidpointRounding.AwayFromZero);
                         var value = (string)attr.Property.Converter.ConvertTo(opacity, typeof(string));
                         if (!string.IsNullOrEmpty(value))
-                            writer.WriteAttributeString(attr.Attribute.NamespaceAndName, value);
+                            WriteAttributeString(writer, attr.Attribute.Name, attr.Attribute.NameSpace, value);
                     }
                 }
             }
@@ -754,6 +760,23 @@ namespace Svg
 
             return styles;
         }
+
+
+        private void WriteAttributeString(XmlWriter writer, string name, string ns, string value)
+        {
+            if (!string.IsNullOrEmpty(ns) && ns != this.ElementNamespace)
+            {
+                // a namespace has been specified that is different from the enclosing element's namespace;
+                // write the attribute with the corresponding namespace prefix
+                string prefix = writer.LookupPrefix(ns);
+                writer.WriteAttributeString(prefix, name, ns, value);
+            }
+            else
+            {
+                writer.WriteAttributeString(name, value);
+            }
+        }
+
 
         public bool AutoPublishEvents = true;
 
