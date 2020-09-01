@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
@@ -83,7 +83,7 @@ namespace Svg
 
             //Trace.TraceInformation("Begin CreateElement: {0}", elementName);
 
-            if (elementNS == SvgAttributeAttribute.SvgNamespace || string.IsNullOrEmpty(elementNS))
+            if (elementNS == SvgNamespace.UriString || string.IsNullOrEmpty(elementNS))
             {
                 if (elementName == "svg")
                 {
@@ -111,7 +111,7 @@ namespace Svg
             else
             {
                 // All non svg element (html, ...)
-                createdElement = new NonSvgElement(elementName);
+                createdElement = new NonSvgElement(elementName, elementNS);
                 SetAttributes(createdElement, reader, document);
             }
 
@@ -130,6 +130,10 @@ namespace Svg
 
             while (reader.MoveToNextAttribute())
             {
+                if (reader.LocalName.Equals("xmlns"))
+                {
+                    continue;    // skip the xmlns attribute (already processed via reader.NamespaceURI in CreateElement<T>)
+                }
                 if (reader.LocalName.Equals("style") && !(element is NonSvgElement))
                 {
                     var inlineSheet = cssParser.Parse("#a{" + reader.Value + "}");
