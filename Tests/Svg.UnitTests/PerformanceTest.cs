@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.IO;
 using System.Text;
 using System.Reflection;
@@ -39,7 +40,18 @@ namespace Svg.UnitTests
                 {
                     for (int i = 0; i < 10; i++)
                     {
-                        SvgDocument.Open<SvgDocument>(file);
+                        using (var stream = File.OpenRead(file))
+                        {
+                            if (Path.GetExtension(file) == ".svgz")
+                            {
+                                var gzipStream = new GZipStream(stream, CompressionMode.Decompress);
+                                SvgDocument.Open<SvgDocument>(gzipStream);    
+                            }
+                            else
+                            {
+                                SvgDocument.Open<SvgDocument>(stream);    
+                            }
+                        }
                     }
                 }
                 catch (Exception e)
