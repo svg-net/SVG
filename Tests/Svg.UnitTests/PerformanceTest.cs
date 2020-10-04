@@ -26,10 +26,11 @@ namespace Svg.UnitTests
         /// <summary>
         /// Load All W3CSvg Unit tests
         /// On My Machine this Unit Test went from 22 seconds down to 10 seconds. I set the Timeout
-        /// to 25 seconds to catch Performance regressions
+        /// to 25 seconds to catch Performance regressions On the Build Server it needs 9 seconds
+        /// So I can move down the timeout to 15 seconds
         /// </summary>
         [Test]
-        [Timeout(25000)]
+        [Timeout(15000)]
         public void LoadAllW3CSvg()
         {
             var svgPath = Path.Combine(AssemblyDirectory, "..", "..", "..", "..", "W3CTestSuite", "svg");
