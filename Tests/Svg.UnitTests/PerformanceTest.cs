@@ -35,9 +35,17 @@ namespace Svg.UnitTests
             var files = Directory.GetFiles(svgPath, "*.svg");
             foreach (var file in files)
             {
-                for (int i = 0; i < 10; i++)
+                try
                 {
-                    SvgDocument.Open<SvgDocument>(file);
+                    for (int i = 0; i < 10; i++)
+                    {
+                        SvgDocument.Open<SvgDocument>(file);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Exception in svg file: {file} with Message: {e.Message}  {Environment.NewLine} Content: {Environment.NewLine} {File.ReadAllText(file)} ");
+                    throw;
                 }
             }
         }
