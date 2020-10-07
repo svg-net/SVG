@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Globalization;
 using System.Text;
@@ -30,149 +30,138 @@ namespace Svg
 
             if (colour != null)
             {
-                var oldCulture = Thread.CurrentThread.CurrentCulture;
-                try
+                colour = colour.Trim();
+
+                if (colour.StartsWith("rgb", StringComparison.InvariantCulture))
                 {
-                    Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-
-                    colour = colour.Trim();
-
-                    if (colour.StartsWith("rgb"))
+                    try
                     {
-                        try
+                        int start = colour.IndexOf("(", StringComparison.InvariantCulture) + 1;
+
+                        //get the values from the RGB string
+                        string[] values = colour.Substring(start, colour.IndexOf(")", StringComparison.InvariantCulture) - start).Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        //determine the alpha value if this is an RGBA (it will be the 4th value if there is one)
+                        int alphaValue = 255;
+                        if (values.Length > 3)
                         {
-                            int start = colour.IndexOf("(") + 1;
-
-                            //get the values from the RGB string
-                            string[] values = colour.Substring(start, colour.IndexOf(")") - start).Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                            //determine the alpha value if this is an RGBA (it will be the 4th value if there is one)
-                            int alphaValue = 255;
-                            if (values.Length > 3)
+                            //the alpha portion of the rgba is not an int 0-255 it is a decimal between 0 and 1
+                            //so we have to determine the corosponding byte value
+                            var alphastring = values[3];
+                            if (alphastring.StartsWith(".", StringComparison.InvariantCulture))
                             {
-                                //the alpha portion of the rgba is not an int 0-255 it is a decimal between 0 and 1
-                                //so we have to determine the corosponding byte value
-                                var alphastring = values[3];
-                                if (alphastring.StartsWith("."))
-                                {
-                                    alphastring = "0" + alphastring;
-                                }
-
-                                var alphaDecimal = decimal.Parse(alphastring);
-
-                                if (alphaDecimal <= 1)
-                                {
-                                    alphaValue = (int)Math.Round(alphaDecimal * 255);
-                                }
-                                else
-                                {
-                                    alphaValue = (int)Math.Round(alphaDecimal);
-                                }
+                                alphastring = "0" + alphastring;
                             }
 
-                            Color colorpart;
-                            if (values[0].Trim().EndsWith("%"))
+                            var alphaDecimal = decimal.Parse(alphastring, CultureInfo.InvariantCulture);
+
+                            if (alphaDecimal <= 1)
                             {
-                                colorpart = Color.FromArgb(alphaValue,
-                                    (int)Math.Round(255 * float.Parse(values[0].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f),
-                                    (int)Math.Round(255 * float.Parse(values[1].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f),
-                                    (int)Math.Round(255 * float.Parse(values[2].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f));
+                                alphaValue = (int)Math.Round(alphaDecimal * 255);
                             }
                             else
                             {
-                                colorpart = Color.FromArgb(alphaValue, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
+                                alphaValue = (int)Math.Round(alphaDecimal);
                             }
-
-                            return colorpart;
                         }
-                        catch
+
+                        Color colorpart;
+                        if (values[0].Trim().EndsWith("%", StringComparison.InvariantCulture))
                         {
-                            throw new SvgException("Colour is in an invalid format: '" + colour + "'");
+                            colorpart = Color.FromArgb(alphaValue,
+                                (int)Math.Round(255 * float.Parse(values[0].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f),
+                                (int)Math.Round(255 * float.Parse(values[1].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f),
+                                (int)Math.Round(255 * float.Parse(values[2].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f));
                         }
-                    }
-                    // HSL support
-                    else if (colour.StartsWith("hsl"))
-                    {
-                        try
+                        else
                         {
-                            int start = colour.IndexOf("(") + 1;
-
-                            //get the values from the RGB string
-                            string[] values = colour.Substring(start, colour.IndexOf(")") - start).Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                            if (values[1].EndsWith("%"))
-                            {
-                                values[1] = values[1].TrimEnd('%');
-                            }
-                            if (values[2].EndsWith("%"))
-                            {
-                                values[2] = values[2].TrimEnd('%');
-                            }
-                            // Get the HSL values in a range from 0 to 1.
-                            double h = double.Parse(values[0]) / 360.0;
-                            double s = double.Parse(values[1]) / 100.0;
-                            double l = double.Parse(values[2]) / 100.0;
-                            // Convert the HSL color to an RGB color
-                            Color colorpart = Hsl2Rgb(h, s, l);
-                            return colorpart;
+                            colorpart = Color.FromArgb(alphaValue, int.Parse(values[0], CultureInfo.InvariantCulture), int.Parse(values[1], CultureInfo.InvariantCulture), int.Parse(values[2], CultureInfo.InvariantCulture));
                         }
-                        catch
-                        {
-                            throw new SvgException("Colour is in an invalid format: '" + colour + "'");
-                        }
-                    }
-                    else if (colour.StartsWith("#") && colour.Length == 4)
-                    {
-                        colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
-                        return base.ConvertFrom(context, culture, colour);
-                    }
 
-                    switch (colour.ToLowerInvariant())
-                    {
-                        case "activeborder": return SystemColors.ActiveBorder;
-                        case "activecaption": return SystemColors.ActiveCaption;
-                        case "appworkspace": return SystemColors.AppWorkspace;
-                        case "background": return SystemColors.Desktop;
-                        case "buttonface": return SystemColors.Control;
-                        case "buttonhighlight": return SystemColors.ControlLightLight;
-                        case "buttonshadow": return SystemColors.ControlDark;
-                        case "buttontext": return SystemColors.ControlText;
-                        case "captiontext": return SystemColors.ActiveCaptionText;
-                        case "graytext": return SystemColors.GrayText;
-                        case "highlight": return SystemColors.Highlight;
-                        case "highlighttext": return SystemColors.HighlightText;
-                        case "inactiveborder": return SystemColors.InactiveBorder;
-                        case "inactivecaption": return SystemColors.InactiveCaption;
-                        case "inactivecaptiontext": return SystemColors.InactiveCaptionText;
-                        case "infobackground": return SystemColors.Info;
-                        case "infotext": return SystemColors.InfoText;
-                        case "menu": return SystemColors.Menu;
-                        case "menutext": return SystemColors.MenuText;
-                        case "scrollbar": return SystemColors.ScrollBar;
-                        case "threeddarkshadow": return SystemColors.ControlDarkDark;
-                        case "threedface": return SystemColors.Control;
-                        case "threedhighlight": return SystemColors.ControlLight;
-                        case "threedlightshadow": return SystemColors.ControlLightLight;
-                        case "window": return SystemColors.Window;
-                        case "windowframe": return SystemColors.WindowFrame;
-                        case "windowtext": return SystemColors.WindowText;
+                        return colorpart;
                     }
-                    int number;
-                    if (Int32.TryParse(colour, out number))
+                    catch
                     {
-                        // numbers are handled as colors by System.Drawing.ColorConverter - we
-                        // have to prevent this and ignore the color instead (see #342) 
-                        return SvgPaintServer.NotSet;
+                        throw new SvgException("Colour is in an invalid format: '" + colour + "'");
                     }
-
-                    var index = colour.LastIndexOf("grey", StringComparison.InvariantCultureIgnoreCase);
-                    if (index >= 0 && index + 4 == colour.Length)
-                        value = new StringBuilder(colour).Replace("grey", "gray", index, 4).Replace("Grey", "Gray", index, 4).ToString();
                 }
-                finally
+                // HSL support
+                else if (colour.StartsWith("hsl",StringComparison.InvariantCulture))
                 {
-                    // Make sure to set back the old culture even an error occurred.
-                    Thread.CurrentThread.CurrentCulture = oldCulture;
+                    try
+                    {
+                        int start = colour.IndexOf("(", StringComparison.InvariantCulture) + 1;
+
+                        //get the values from the RGB string
+                        string[] values = colour.Substring(start, colour.IndexOf(")", StringComparison.InvariantCulture) - start).Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (values[1].EndsWith("%", StringComparison.InvariantCulture))
+                        {
+                            values[1] = values[1].TrimEnd('%');
+                        }
+                        if (values[2].EndsWith("%", StringComparison.InvariantCulture))
+                        {
+                            values[2] = values[2].TrimEnd('%');
+                        }
+                        // Get the HSL values in a range from 0 to 1.
+                        double h = double.Parse(values[0], CultureInfo.InvariantCulture) / 360.0;
+                        double s = double.Parse(values[1], CultureInfo.InvariantCulture) / 100.0;
+                        double l = double.Parse(values[2], CultureInfo.InvariantCulture) / 100.0;
+                        // Convert the HSL color to an RGB color
+                        Color colorpart = Hsl2Rgb(h, s, l);
+                        return colorpart;
+                    }
+                    catch
+                    {
+                        throw new SvgException("Colour is in an invalid format: '" + colour + "'");
+                    }
                 }
+                else if (colour.StartsWith("#", StringComparison.InvariantCulture) && colour.Length == 4)
+                {
+                    colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
+                    return base.ConvertFrom(context, culture, colour);
+                }
+
+                switch (colour.ToLowerInvariant())
+                {
+                    case "activeborder": return SystemColors.ActiveBorder;
+                    case "activecaption": return SystemColors.ActiveCaption;
+                    case "appworkspace": return SystemColors.AppWorkspace;
+                    case "background": return SystemColors.Desktop;
+                    case "buttonface": return SystemColors.Control;
+                    case "buttonhighlight": return SystemColors.ControlLightLight;
+                    case "buttonshadow": return SystemColors.ControlDark;
+                    case "buttontext": return SystemColors.ControlText;
+                    case "captiontext": return SystemColors.ActiveCaptionText;
+                    case "graytext": return SystemColors.GrayText;
+                    case "highlight": return SystemColors.Highlight;
+                    case "highlighttext": return SystemColors.HighlightText;
+                    case "inactiveborder": return SystemColors.InactiveBorder;
+                    case "inactivecaption": return SystemColors.InactiveCaption;
+                    case "inactivecaptiontext": return SystemColors.InactiveCaptionText;
+                    case "infobackground": return SystemColors.Info;
+                    case "infotext": return SystemColors.InfoText;
+                    case "menu": return SystemColors.Menu;
+                    case "menutext": return SystemColors.MenuText;
+                    case "scrollbar": return SystemColors.ScrollBar;
+                    case "threeddarkshadow": return SystemColors.ControlDarkDark;
+                    case "threedface": return SystemColors.Control;
+                    case "threedhighlight": return SystemColors.ControlLight;
+                    case "threedlightshadow": return SystemColors.ControlLightLight;
+                    case "window": return SystemColors.Window;
+                    case "windowframe": return SystemColors.WindowFrame;
+                    case "windowtext": return SystemColors.WindowText;
+                }
+                int number;
+                if (Int32.TryParse(colour,NumberStyles.Integer, CultureInfo.InvariantCulture, out number))
+                {
+                    // numbers are handled as colors by System.Drawing.ColorConverter - we
+                    // have to prevent this and ignore the color instead (see #342) 
+                    return SvgPaintServer.NotSet;
+                }
+
+                var index = colour.LastIndexOf("grey", StringComparison.InvariantCultureIgnoreCase);
+                if (index >= 0 && index + 4 == colour.Length)
+                    value = new StringBuilder(colour).Replace("grey", "gray", index, 4).Replace("Grey", "Gray", index, 4).ToString();
             }
 
             return base.ConvertFrom(context, culture, value);
@@ -204,7 +193,7 @@ namespace Svg
             {
                 var colorString = ColorTranslator.ToHtml((Color)value).Replace("LightGrey", "LightGray");
                 // color names are expected to be lower case in XML
-                return colorString.StartsWith("#") ? colorString : colorString.ToLower();
+                return colorString.StartsWith("#", StringComparison.InvariantCulture) ? colorString : colorString.ToLowerInvariant();
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
