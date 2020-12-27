@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
@@ -56,6 +56,13 @@ namespace Svg
             set { Attributes["fy"] = value; }
         }
 
+        [SvgAttribute("fr")]
+        public SvgUnit FocalRadius
+        {
+            get { return GetAttribute("fr", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            set { Attributes["fr"] = value; }
+        }
+
         private object _lockObj = new Object();
 
         private SvgUnit NormalizeUnit(SvgUnit orig)
@@ -69,6 +76,7 @@ namespace Svg
         {
             LoadStops(renderingElement);
 
+            // TODO: figure out how to do the brush transform in the presence of FocalRadius
             try
             {
                 if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.SetBoundable(renderingElement);

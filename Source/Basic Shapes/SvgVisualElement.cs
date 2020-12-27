@@ -371,6 +371,10 @@ namespace Svg
                                     case SvgStrokeLineJoin.Round:
                                         pen.LineJoin = LineJoin.Round;
                                         break;
+                                    case SvgStrokeLineJoin.MiterClip:
+                                        pen.LineJoin = LineJoin.MiterClipped;
+                                        break;
+                                    // System.Drawing has no support for Arcs unfortunately
                                     default:
                                         pen.LineJoin = LineJoin.Miter;
                                         break;
