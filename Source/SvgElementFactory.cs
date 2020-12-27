@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
@@ -15,6 +15,7 @@ namespace Svg
     internal class SvgElementFactory
     {
         private List<ElementInfo> availableElements;
+        private List<ElementInfo> availableNonSvgElements;
         private Parser cssParser = new Parser();
 
         /// <summary>
@@ -37,6 +38,31 @@ namespace Svg
                 return availableElements;
             }
         }
+
+
+
+        /// <summary>
+        /// Gets a list of available types that can be used when creating an <see cref="NonSvgElement"/>.
+        /// </summary>
+        public List<ElementInfo> AvailableNonSvgElements
+        {
+            get
+            {
+                if (availableNonSvgElements == null)
+                {
+                    var nonSvgTypes = from t in typeof(SvgDocument).Assembly.GetExportedTypes()
+                                      where t.GetCustomAttributes(typeof(NonSvgElementAttribute), true).Length > 0
+                                      && t.IsSubclassOf(typeof(NonSvgElement))
+                                      select new ElementInfo { ElementName = ((NonSvgElementAttribute)t.GetCustomAttributes(typeof(NonSvgElementAttribute), true)[0]).ElementName, ElementType = t };
+
+                    availableNonSvgElements = nonSvgTypes.ToList();
+                }
+
+                return availableNonSvgElements;
+            }
+        }
+
+
 
         /// <summary>
         /// Creates an <see cref="SvgDocument"/> from the current node in the specified <see cref="XmlTextReader"/>.
@@ -111,8 +137,21 @@ namespace Svg
             else
             {
                 // All non svg element (html, ...)
-                createdElement = new NonSvgElement(elementName);
-                SetAttributes(createdElement, reader, document);
+                ElementInfo validType;
+                if (AvailableNonSvgElements.ToDictionary(e => e.ElementName, e => e).TryGetValue(elementName, out validType))
+                {
+                    createdElement = (NonSvgElement)Activator.CreateInstance(validType.ElementType);
+                }
+                else
+                {
+                    createdElement = new NonSvgElement(elementName);
+                }
+
+                if (createdElement != null)
+                {
+                    SetAttributes(createdElement, reader, document);
+                }
+
             }
 
             //Trace.TraceInformation("End CreateElement");
