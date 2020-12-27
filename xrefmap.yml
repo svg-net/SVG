@@ -3891,12 +3891,12 @@ references:
   commentId: M:Svg.NonSvgElement.#ctor
   fullName: Svg.NonSvgElement.NonSvgElement()
   nameWithType: NonSvgElement.NonSvgElement()
-- uid: Svg.NonSvgElement.#ctor(System.String)
-  name: NonSvgElement(String)
-  href: api/Svg.NonSvgElement.html#Svg_NonSvgElement__ctor_System_String_
-  commentId: M:Svg.NonSvgElement.#ctor(System.String)
-  fullName: Svg.NonSvgElement.NonSvgElement(System.String)
-  nameWithType: NonSvgElement.NonSvgElement(String)
+- uid: Svg.NonSvgElement.#ctor(System.String,System.String)
+  name: NonSvgElement(String, String)
+  href: api/Svg.NonSvgElement.html#Svg_NonSvgElement__ctor_System_String_System_String_
+  commentId: M:Svg.NonSvgElement.#ctor(System.String,System.String)
+  fullName: Svg.NonSvgElement.NonSvgElement(System.String, System.String)
+  nameWithType: NonSvgElement.NonSvgElement(String, String)
 - uid: Svg.NonSvgElement.#ctor*
   name: NonSvgElement
   href: api/Svg.NonSvgElement.html#Svg_NonSvgElement__ctor_
@@ -5010,31 +5010,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgAttributeAttribute.NameSpace
   nameWithType: SvgAttributeAttribute.NameSpace
-- uid: Svg.SvgAttributeAttribute.NamespaceAndName
-  name: NamespaceAndName
-  href: api/Svg.SvgAttributeAttribute.html#Svg_SvgAttributeAttribute_NamespaceAndName
-  commentId: P:Svg.SvgAttributeAttribute.NamespaceAndName
-  fullName: Svg.SvgAttributeAttribute.NamespaceAndName
-  nameWithType: SvgAttributeAttribute.NamespaceAndName
-- uid: Svg.SvgAttributeAttribute.NamespaceAndName*
-  name: NamespaceAndName
-  href: api/Svg.SvgAttributeAttribute.html#Svg_SvgAttributeAttribute_NamespaceAndName_
-  commentId: Overload:Svg.SvgAttributeAttribute.NamespaceAndName
-  isSpec: "True"
-  fullName: Svg.SvgAttributeAttribute.NamespaceAndName
-  nameWithType: SvgAttributeAttribute.NamespaceAndName
 - uid: Svg.SvgAttributeAttribute.Namespaces
   name: Namespaces
   href: api/Svg.SvgAttributeAttribute.html#Svg_SvgAttributeAttribute_Namespaces
   commentId: F:Svg.SvgAttributeAttribute.Namespaces
   fullName: Svg.SvgAttributeAttribute.Namespaces
   nameWithType: SvgAttributeAttribute.Namespaces
-- uid: Svg.SvgAttributeAttribute.SvgNamespace
-  name: SvgNamespace
-  href: api/Svg.SvgAttributeAttribute.html#Svg_SvgAttributeAttribute_SvgNamespace
-  commentId: F:Svg.SvgAttributeAttribute.SvgNamespace
-  fullName: Svg.SvgAttributeAttribute.SvgNamespace
-  nameWithType: SvgAttributeAttribute.SvgNamespace
 - uid: Svg.SvgAttributeAttribute.XLinkNamespace
   name: XLinkNamespace
   href: api/Svg.SvgAttributeAttribute.html#Svg_SvgAttributeAttribute_XLinkNamespace
@@ -6671,6 +6652,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.ElementName
   nameWithType: SvgElement.ElementName
+- uid: Svg.SvgElement.ElementNamespace
+  name: ElementNamespace
+  href: api/Svg.SvgElement.html#Svg_SvgElement_ElementNamespace
+  commentId: P:Svg.SvgElement.ElementNamespace
+  fullName: Svg.SvgElement.ElementNamespace
+  nameWithType: SvgElement.ElementNamespace
+- uid: Svg.SvgElement.ElementNamespace*
+  name: ElementNamespace
+  href: api/Svg.SvgElement.html#Svg_SvgElement_ElementNamespace_
+  commentId: Overload:Svg.SvgElement.ElementNamespace
+  isSpec: "True"
+  fullName: Svg.SvgElement.ElementNamespace
+  nameWithType: SvgElement.ElementNamespace
 - uid: Svg.SvgElement.EventAttributeTuple
   name: SvgElement.EventAttributeTuple
   href: api/Svg.SvgElement.EventAttributeTuple.html
@@ -11120,6 +11114,18 @@ references:
   commentId: T:Svg.SvgMorphologyOperatorConverter
   fullName: Svg.SvgMorphologyOperatorConverter
   nameWithType: SvgMorphologyOperatorConverter
+- uid: Svg.SvgNamespace
+  name: SvgNamespace
+  href: api/Svg.SvgNamespace.html
+  commentId: T:Svg.SvgNamespace
+  fullName: Svg.SvgNamespace
+  nameWithType: SvgNamespace
+- uid: Svg.SvgNamespace.UriString
+  name: UriString
+  href: api/Svg.SvgNamespace.html#Svg_SvgNamespace_UriString
+  commentId: F:Svg.SvgNamespace.UriString
+  fullName: Svg.SvgNamespace.UriString
+  nameWithType: SvgNamespace.UriString
 - uid: Svg.SvgNumberCollection
   name: SvgNumberCollection
   href: api/Svg.SvgNumberCollection.html
