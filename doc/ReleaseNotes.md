@@ -13,6 +13,7 @@ The release versions are NuGet releases.
 * fixed the parsing of significant whitespace (see [#744](https://github.com/vvvv/SVG/issues/744) and [PR #745](https://github.com/vvvv/SVG/pull/745))
 * fixed build error in .NET Standard 2.1 (see [#746](https://github.com/vvvv/SVG/issues/746) and [PR #750](https://github.com/vvvv/SVG/pull/750))
 * fixed opacity issue (see [#747](https://github.com/vvvv/SVG/issues/747) and [PR #751](https://github.com/vvvv/SVG/pull/751))
+* fixed bounds calculation in polygon (see [#758](https://github.com/vvvv/SVG/issues/758) and [PR #759](https://github.com/vvvv/SVG/pull/759))
 
 ## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
 
