@@ -12055,6 +12055,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgRadialGradientServer.DeepCopy
   nameWithType: SvgRadialGradientServer.DeepCopy
+- uid: Svg.SvgRadialGradientServer.FocalRadius
+  name: FocalRadius
+  href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_FocalRadius
+  commentId: P:Svg.SvgRadialGradientServer.FocalRadius
+  fullName: Svg.SvgRadialGradientServer.FocalRadius
+  nameWithType: SvgRadialGradientServer.FocalRadius
+- uid: Svg.SvgRadialGradientServer.FocalRadius*
+  name: FocalRadius
+  href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_FocalRadius_
+  commentId: Overload:Svg.SvgRadialGradientServer.FocalRadius
+  isSpec: "True"
+  fullName: Svg.SvgRadialGradientServer.FocalRadius
+  nameWithType: SvgRadialGradientServer.FocalRadius
 - uid: Svg.SvgRadialGradientServer.FocalX
   name: FocalX
   href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_FocalX
@@ -12715,6 +12728,12 @@ references:
   commentId: T:Svg.SvgStrokeLineJoin
   fullName: Svg.SvgStrokeLineJoin
   nameWithType: SvgStrokeLineJoin
+- uid: Svg.SvgStrokeLineJoin.Arcs
+  name: Arcs
+  href: api/Svg.SvgStrokeLineJoin.html#Svg_SvgStrokeLineJoin_Arcs
+  commentId: F:Svg.SvgStrokeLineJoin.Arcs
+  fullName: Svg.SvgStrokeLineJoin.Arcs
+  nameWithType: SvgStrokeLineJoin.Arcs
 - uid: Svg.SvgStrokeLineJoin.Bevel
   name: Bevel
   href: api/Svg.SvgStrokeLineJoin.html#Svg_SvgStrokeLineJoin_Bevel
@@ -12733,6 +12752,12 @@ references:
   commentId: F:Svg.SvgStrokeLineJoin.Miter
   fullName: Svg.SvgStrokeLineJoin.Miter
   nameWithType: SvgStrokeLineJoin.Miter
+- uid: Svg.SvgStrokeLineJoin.MiterClip
+  name: MiterClip
+  href: api/Svg.SvgStrokeLineJoin.html#Svg_SvgStrokeLineJoin_MiterClip
+  commentId: F:Svg.SvgStrokeLineJoin.MiterClip
+  fullName: Svg.SvgStrokeLineJoin.MiterClip
+  nameWithType: SvgStrokeLineJoin.MiterClip
 - uid: Svg.SvgStrokeLineJoin.Round
   name: Round
   href: api/Svg.SvgStrokeLineJoin.html#Svg_SvgStrokeLineJoin_Round
