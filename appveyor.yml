@@ -46,7 +46,7 @@ after_build:
         
         git config --global credential.helper store
         git config --local core.autocrlf true
-        Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+        Add-Content -Path "$env:USERPROFILE\.git-credentials" -Value "https://$($env:access_token):x-oauth-basic@github.com`n" -NoNewline
         git config --global user.email $env:tebjan@noreply.com
         git config --global user.name $env:tebjan
         git clone https://github.com/vvvv/SVG.git -b gh-pages origin_site -q
