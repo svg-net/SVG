@@ -6,6 +6,8 @@ The release versions are NuGet releases.
 ### Enhancements
 * implement font-weight bolder and lighter (see [PR #727](https://github.com/vvvv/SVG/pull/727))
 * check if BaseUri is absolute (see [PR #738](https://github.com/vvvv/SVG/pull/738))
+* added support for `miter-clip` and `arcs` line joins, and for `fr` radial gradiant property
+  (SVG2 features, see [PR #621](https://github.com/vvvv/SVG/pull/621))
 
 ### Fixes
 * fixed filter Inherited (see [#541](https://github.com/vvvv/SVG/issues/541) and [PR #689](https://github.com/vvvv/SVG/pull/689))
@@ -14,6 +16,8 @@ The release versions are NuGet releases.
 * fixed build error in .NET Standard 2.1 (see [#746](https://github.com/vvvv/SVG/issues/746) and [PR #750](https://github.com/vvvv/SVG/pull/750))
 * fixed opacity issue (see [#747](https://github.com/vvvv/SVG/issues/747) and [PR #751](https://github.com/vvvv/SVG/pull/751))
 * fixed bounds calculation in polygon (see [#758](https://github.com/vvvv/SVG/issues/758) and [PR #759](https://github.com/vvvv/SVG/pull/759))
+* make sure that paths with a single `moveto` command don't display line caps
+ (see [#634](https://github.com/vvvv/SVG/issues/634)
 
 ## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
 
