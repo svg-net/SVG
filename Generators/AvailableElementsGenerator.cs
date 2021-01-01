@@ -180,8 +180,8 @@ namespace {namespaceElementFactory}
 
             source.Append($@"
 
-		private static Dictionary<string, ElementInfo> s_availableElementsDict = new()
-		{{
+        private static Dictionary<string, ElementInfo> s_availableElementsDict = new()
+        {{
 ");
             foreach (var element in elements)
             {
@@ -190,7 +190,7 @@ namespace {namespaceElementFactory}
                     continue;
                 }
 
-                source.AppendLine($@"			[""{element.elementName}""] = new ElementInfo {{ ElementName = ""{element.elementName}"", ElementType = typeof({element.className}), CreateInstance = () => new {element.className}() }},");
+                source.AppendLine($@"            [""{element.elementName}""] = new ElementInfo {{ ElementName = ""{element.elementName}"", ElementType = typeof({element.className}), CreateInstance = () => new {element.className}() }},");
             }
 
             source.Append($@"        }};");
