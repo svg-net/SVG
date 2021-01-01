@@ -179,13 +179,14 @@ namespace {namespaceElementFactory}
 ");
             foreach (var element in elements)
             {
+                var elementName = element.Key;
                 var className = element.Value.FirstOrDefault();
                 if (string.IsNullOrWhiteSpace(className))
                 {
                     continue;
                 }
 
-                source.AppendLine($@"            new ElementInfo {{ ElementName = ""{className}"", ElementType = typeof({className}), CreateInstance = () => new {className}() }},");
+                source.AppendLine($@"            new ElementInfo {{ ElementName = ""{elementName}"", ElementType = typeof({className}), CreateInstance = () => new {className}() }},");
             }
             source.Append($@"        }};");
 
