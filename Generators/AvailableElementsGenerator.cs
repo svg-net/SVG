@@ -172,12 +172,7 @@ namespace {namespaceElementFactory}
 ");
             foreach (var element in elements)
             {
-                source.AppendLine($@"            new ElementInfo
-            {{
-                ElementName = ""{element.elementName}"",
-                ElementType = typeof({element.className}),
-                CreateInstance = () => new {element.className}()
-            }},");
+                source.AppendLine($@"            new ElementInfo {{ ElementName = ""{element.elementName}"", ElementType = typeof({element.className}), CreateInstance = () => new {element.className}() }},");
             }
             source.Append($@"        }};");
 
@@ -195,12 +190,7 @@ namespace {namespaceElementFactory}
                     continue;
                 }
 
-                source.AppendLine($@"			[""{element.elementName}""] = new ElementInfo
-            {{
-                ElementName = ""{element.elementName}"",
-                ElementType = typeof({element.className}),
-                CreateInstance = () => new {element.className}()
-            }},");
+                source.AppendLine($@"			[""{element.elementName}""] = new ElementInfo {{ ElementName = ""{element.elementName}"", ElementType = typeof({element.className}), CreateInstance = () => new {element.className}() }},");
             }
 
             source.Append($@"        }};");
