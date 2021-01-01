@@ -18,32 +18,52 @@ namespace Svg
     internal partial class SvgElementFactory
     {
 #if !USE_SOURCE_GENERATORS
-        private List<ElementInfo> availableElements;
+        static SvgElementFactory()
+        {
+            // cache ElementInfo in static Field
+            var svgTypes = from t in typeof(SvgDocument).Assembly.GetExportedTypes()
+                where t.GetCustomAttributes(typeof(SvgElementAttribute), true).Length > 0
+                      && t.IsSubclassOf(typeof(SvgElement))
+                select new ElementInfo { ElementName = ((SvgElementAttribute)t.GetCustomAttributes(typeof(SvgElementAttribute), true)[0]).ElementName, ElementType = t };
+
+            availableElements = svgTypes.ToList();
+
+            // cache ElementInfo without Svg in static field
+            availableElementsWithoutSvg = availableElements
+                .Where(e => !e.ElementName.Equals("svg", StringComparison.OrdinalIgnoreCase))
+                .ToDictionary(e => e.ElementName, e => e);
+
+            // cache ElementInfo ElementTypes in static field
+            availableElementsDictionary = new Dictionary<string, List<Type>>();
+            foreach (var element in availableElements)
+            {
+                if (!availableElementsDictionary.TryGetValue(element.ElementName, out var list))
+                {
+                    list = new List<Type>();
+                    availableElementsDictionary[element.ElementName] = list;
+                }
+
+                list.Add(element.ElementType);
+            }
+        }
+
+        private static readonly Dictionary<string, List<Type>> availableElementsDictionary;
+        private static readonly Dictionary<string, ElementInfo> availableElementsWithoutSvg;
+        private static readonly List<ElementInfo> availableElements;
 #endif
+
         private Parser cssParser = new Parser();
 
-#if !USE_SOURCE_GENERATORS
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
         /// </summary>
-        public List<ElementInfo> AvailableElements
-        {
-            get
-            {
-                if (availableElements == null)
-                {
-                    var svgTypes = from t in typeof(SvgDocument).Assembly.GetExportedTypes()
-                                   where t.GetCustomAttributes(typeof(SvgElementAttribute), true).Length > 0
-                                   && t.IsSubclassOf(typeof(SvgElement))
-                                   select new ElementInfo { ElementName = ((SvgElementAttribute)t.GetCustomAttributes(typeof(SvgElementAttribute), true)[0]).ElementName, ElementType = t };
+        public List<ElementInfo> AvailableElements => availableElements;
 
-                    availableElements = svgTypes.ToList();
-                }
+        /// <summary>
+        /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
+        /// </summary>
+        internal Dictionary<string, List<Type>> AvailableElementsDictionary => availableElementsDictionary;
 
-                return availableElements;
-            }
-        }
-#endif
         /// <summary>
         /// Creates an <see cref="SvgDocument"/> from the current node in the specified <see cref="XmlTextReader"/>.
         /// </summary>
@@ -99,8 +119,7 @@ namespace Svg
                 {
 #if !USE_SOURCE_GENERATORS
                     ElementInfo validType;
-                    if (AvailableElements.Where(e => !e.ElementName.Equals("svg", StringComparison.OrdinalIgnoreCase))
-                        .ToDictionary(e => e.ElementName, e => e).TryGetValue(elementName, out validType))
+                    if (availableElementsWithoutSvg.TryGetValue(elementName, out validType))
                     {
                         createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
                     }
