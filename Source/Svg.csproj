@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.2;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.2;net452;net461</TargetFrameworks>
     <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
@@ -69,6 +69,12 @@
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
+    <Title>Svg for .Net Framework 4.6.1</Title>
+    <DefineConstants>$(DefineConstants);NETFULL;NET461;Net4</DefineConstants>
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp2.2'">
     <Title>Svg for .Net Core 2.2</Title>
     <DefineConstants>$(DefineConstants);NETCORE;NETCORE22</DefineConstants>
@@ -84,7 +90,7 @@
     <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net452'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net452' Or '$(TargetFramework)'=='net461'">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -135,11 +141,11 @@
     </PackageReference>
   </ItemGroup>
     
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' != 'net452'">
     <DefineConstants>$(DefineConstants);USE_SOURCE_GENERATORS</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' != 'net452'">
     <ProjectReference Include="..\Generators\Svg.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
