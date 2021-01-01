@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -135,6 +136,8 @@ namespace {namespaceElementFactory}
     {{");
             List<(string elementName, string className)> elements = new();
    
+            // elements
+
             foreach (var svgElementSymbol in svgElementSymbols)
             {
                 string namespaceSvgElement = svgElementSymbol.ContainingNamespace.ToDisplayString();
@@ -161,6 +164,8 @@ namespace {namespaceElementFactory}
                 elements.Add((elementName, classNameSvgElement));
             }
 
+            // s_availableElements
+
             source.Append($@"
         private static List<ElementInfo> s_availableElements = new()
         {{
@@ -176,8 +181,36 @@ namespace {namespaceElementFactory}
             }
             source.Append($@"        }};");
 
+            // s_availableElementsDict
+
+            source.Append($@"
+
+		private static Dictionary<string, ElementInfo> s_availableElementsDict = new()
+		{{
+");
+            foreach (var element in elements)
+            {
+                if (element.elementName.Equals("svg", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                source.AppendLine($@"			[""{element.elementName}""] = new ElementInfo
+            {{
+                ElementName = ""{element.elementName}"",
+                ElementType = typeof({element.className}),
+                CreateInstance = () => new {element.className}()
+            }},");
+            }
+
+            source.Append($@"        }};");
+
+            // properties
+
             source.Append($@"
         public List<ElementInfo> AvailableElements => s_availableElements;
+
+        public Dictionary<string, ElementInfo> AvailableElementsDict => s_availableElementsDict;
 ");
 
             source.Append($@"    }}
