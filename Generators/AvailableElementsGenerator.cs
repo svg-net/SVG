@@ -133,11 +133,8 @@ namespace {namespaceElementFactory}
 {{
     internal partial class {classElementFactory}
     {{");
-            source.Append($@"
-        private static List<ElementInfo> s_availableElements = new()
-        {{
-");
-
+            List<(string elementName, string className)> elements = new();
+   
             foreach (var svgElementSymbol in svgElementSymbols)
             {
                 string namespaceSvgElement = svgElementSymbol.ContainingNamespace.ToDisplayString();
@@ -161,18 +158,29 @@ namespace {namespaceElementFactory}
                     continue;
                 }
 
-                source.AppendLine($@"            new ElementInfo
-            {{
-                ElementName = ""{elementName}"",
-                ElementType = typeof({classNameSvgElement}),
-                CreateInstance = () => new {classNameSvgElement}()
-            }},");
+                elements.Add((elementName, classNameSvgElement));
             }
 
-            source.Append($@"        }};
+            source.Append($@"
+        private static List<ElementInfo> s_availableElements = new()
+        {{
+");
+            foreach (var element in elements)
+            {
+                source.AppendLine($@"            new ElementInfo
+            {{
+                ElementName = ""{element.elementName}"",
+                ElementType = typeof({element.className}),
+                CreateInstance = () => new {element.className}()
+            }},");
+            }
+            source.Append($@"        }};");
 
+            source.Append($@"
         public List<ElementInfo> AvailableElements => s_availableElements;
-    }}
+");
+
+            source.Append($@"    }}
 }}");
 
             return source.ToString();

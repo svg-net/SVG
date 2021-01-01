@@ -12,7 +12,9 @@ namespace Svg
     /// <summary>
     /// Provides the methods required in order to parse and create <see cref="SvgElement"/> instances from XML.
     /// </summary>
+#if USE_SOURCE_GENERATORS
     [ElementFactory]
+#endif
     internal partial class SvgElementFactory
     {
 #if !USE_SOURCE_GENERATORS
@@ -95,16 +97,21 @@ namespace Svg
                 }
                 else
                 {
+#if !USE_SOURCE_GENERATORS
                     ElementInfo validType;
                     if (AvailableElements.Where(e => !e.ElementName.Equals("svg", StringComparison.OrdinalIgnoreCase))
                         .ToDictionary(e => e.ElementName, e => e).TryGetValue(elementName, out validType))
                     {
-#if !USE_SOURCE_GENERATORS
                         createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
-#else
-                        createdElement = validType.CreateInstance();
-#endif
                     }
+#else
+                    ElementInfo validType;
+                    if (AvailableElements.Where(e => !e.ElementName.Equals("svg", StringComparison.OrdinalIgnoreCase))
+                        .ToDictionary(e => e.ElementName, e => e).TryGetValue(elementName, out validType))
+                    {
+                        createdElement = validType.CreateInstance();
+                    }
+#endif
                     else
                     {
                         createdElement = new SvgUnknownElement(elementName);
