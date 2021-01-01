@@ -134,7 +134,7 @@ namespace {namespaceElementFactory}
 {{
     internal partial class {classElementFactory}
     {{");
-            List<(string elementName, string className)> elements = new();
+            Dictionary<string, List<string>> elements = new();
    
             // elements
 
@@ -161,49 +161,92 @@ namespace {namespaceElementFactory}
                     continue;
                 }
 
-                elements.Add((elementName, classNameSvgElement));
+                if (elements.TryGetValue(elementName, out var classNames))
+                {
+                    classNames.Add(classNameSvgElement);
+                }
+                else
+                {
+                    elements.Add(elementName, new List<string> { classNameSvgElement });
+                }
             }
 
-            // s_availableElements
+            // availableElements
 
             source.Append($@"
-        private static List<ElementInfo> s_availableElements = new()
+        private static readonly List<ElementInfo> availableElements = new()
         {{
 ");
             foreach (var element in elements)
             {
-                source.AppendLine($@"            new ElementInfo {{ ElementName = ""{element.elementName}"", ElementType = typeof({element.className}), CreateInstance = () => new {element.className}() }},");
-            }
-            source.Append($@"        }};");
-
-            // s_availableElementsDict
-
-            source.Append($@"
-
-        private static Dictionary<string, ElementInfo> s_availableElementsDict = new()
-        {{
-");
-            foreach (var element in elements)
-            {
-                if (element.elementName.Equals("svg", StringComparison.OrdinalIgnoreCase))
+                var className = element.Value.FirstOrDefault();
+                if (string.IsNullOrWhiteSpace(className))
                 {
                     continue;
                 }
 
-                source.AppendLine($@"            [""{element.elementName}""] = new ElementInfo {{ ElementName = ""{element.elementName}"", ElementType = typeof({element.className}), CreateInstance = () => new {element.className}() }},");
+                source.AppendLine($@"            new ElementInfo {{ ElementName = ""{className}"", ElementType = typeof({className}), CreateInstance = () => new {className}() }},");
+            }
+            source.Append($@"        }};");
+
+            // availableElementsWithoutSvg
+
+            source.Append($@"
+
+        private static readonly Dictionary<string, ElementInfo> availableElementsWithoutSvg = new()
+        {{
+");
+            foreach (var element in elements)
+            {
+                var elementName = element.Key;
+                var className = element.Value.FirstOrDefault();
+                if (string.IsNullOrWhiteSpace(className))
+                {
+                    continue;
+                }
+                if (elementName.Equals("svg", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                source.AppendLine($@"            [""{elementName}""] = new ElementInfo {{ ElementName = ""{elementName}"", ElementType = typeof({className}), CreateInstance = () => new {className}() }},");
             }
 
             source.Append($@"        }};");
 
-            // properties
+            // availableElementsDictionary
 
             source.Append($@"
-        public List<ElementInfo> AvailableElements => s_availableElements;
 
-        public Dictionary<string, ElementInfo> AvailableElementsDict => s_availableElementsDict;
+        private static readonly Dictionary<string, List<Type>> availableElementsDictionary = new()
+        {{
 ");
 
-            source.Append($@"    }}
+            foreach (var element in elements)
+            {
+                var elementName = element.Key;
+                var classNames = element.Value;
+ 
+                source.Append($@"            [""{elementName}""] = new List<Type> {{ ");
+
+                for (var i = 0; i < classNames.Count; i++)
+                {
+                    var className = classNames[i];
+                    if (!string.IsNullOrWhiteSpace(className))
+                    {
+                        source.Append($"typeof({className}){((i < classNames.Count && classNames.Count > 1) ? ", " : "")}");
+                    }
+                }
+
+                source.AppendLine($" }},");
+            }
+
+            source.Append($@"        }};");
+
+            // end of class and namespace
+
+            source.Append($@"
+    }}
 }}");
 
             return source.ToString();

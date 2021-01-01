@@ -51,7 +51,6 @@ namespace Svg
         private static readonly Dictionary<string, ElementInfo> availableElementsWithoutSvg;
         private static readonly List<ElementInfo> availableElements;
 #endif
-
         private Parser cssParser = new Parser();
 
         /// <summary>
@@ -124,7 +123,7 @@ namespace Svg
                         createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
                     }
 #else
-                    if (AvailableElementsDict.TryGetValue(elementName, out var validType))
+                    if (availableElementsWithoutSvg.TryGetValue(elementName, out var validType))
                     {
                         createdElement = validType.CreateInstance();
                     }
