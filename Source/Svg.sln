@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2EC3F3A0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SvgConsole", "..\Samples\SvgConsole\SvgConsole.csproj", "{9379360C-CB0B-4035-AE8F-8863A420FDCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svg.Generators", "..\Generators\Svg.Generators.csproj", "{BACDD1F4-B97D-4E27-BD09-6957633FF484}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,18 @@ Global
 		{9379360C-CB0B-4035-AE8F-8863A420FDCF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9379360C-CB0B-4035-AE8F-8863A420FDCF}.Release|x86.ActiveCfg = Release|Any CPU
 		{9379360C-CB0B-4035-AE8F-8863A420FDCF}.Release|x86.Build.0 = Release|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Debug|x86.Build.0 = Debug|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Release|x86.ActiveCfg = Release|Any CPU
+		{BACDD1F4-B97D-4E27-BD09-6957633FF484}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

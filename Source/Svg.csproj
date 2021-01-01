@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.2;net452</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.2;net461</TargetFrameworks>
     <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
@@ -35,7 +35,7 @@
     <PackageProjectUrl>https://github.com/vvvv/SVG</PackageProjectUrl>
     <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
     <PackageIcon>svg-logo-v.png</PackageIcon>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -132,4 +132,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+    
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);USE_SOURCE_GENERATORS</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Generators\Svg.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
 </Project>
