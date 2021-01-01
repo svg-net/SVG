@@ -12,11 +12,15 @@ namespace Svg
     /// <summary>
     /// Provides the methods required in order to parse and create <see cref="SvgElement"/> instances from XML.
     /// </summary>
-    internal class SvgElementFactory
+    [ElementFactory]
+    internal partial class SvgElementFactory
     {
+#if !USE_SOURCE_GENERATORS
         private List<ElementInfo> availableElements;
+#endif
         private Parser cssParser = new Parser();
 
+#if !USE_SOURCE_GENERATORS
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
         /// </summary>
@@ -37,7 +41,7 @@ namespace Svg
                 return availableElements;
             }
         }
-
+#endif
         /// <summary>
         /// Creates an <see cref="SvgDocument"/> from the current node in the specified <see cref="XmlTextReader"/>.
         /// </summary>
@@ -95,7 +99,11 @@ namespace Svg
                     if (AvailableElements.Where(e => !e.ElementName.Equals("svg", StringComparison.OrdinalIgnoreCase))
                         .ToDictionary(e => e.ElementName, e => e).TryGetValue(elementName, out validType))
                     {
+#if !USE_SOURCE_GENERATORS
                         createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
+#else
+                        createdElement = validType.CreateInstance();
+#endif
                     }
                     else
                     {
@@ -323,7 +331,12 @@ namespace Svg
             /// Gets the <see cref="Type"/> of the <see cref="SvgElement"/> subclass.
             /// </summary>
             public Type ElementType { get; set; }
-
+#if USE_SOURCE_GENERATORS
+            /// <summary>
+            /// Creates a new instance based on <see cref="ElementType"/> type.
+            /// </summary>
+            public Func<SvgElement> CreateInstance { get; set; }
+#endif
             /// <summary>
             /// Initializes a new instance of the <see cref="ElementInfo"/> struct.
             /// </summary>
