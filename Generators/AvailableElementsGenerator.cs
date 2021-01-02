@@ -95,7 +95,7 @@ namespace Svg
             }
         }
 
-        private bool HasBaseType(INamedTypeSymbol namedTypeSymbol, INamedTypeSymbol targetBaseType)
+        private static bool HasBaseType(INamedTypeSymbol namedTypeSymbol, INamedTypeSymbol targetBaseType)
         {
             var baseType = namedTypeSymbol.BaseType;
             while (true)
