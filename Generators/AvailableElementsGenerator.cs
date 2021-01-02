@@ -33,6 +33,7 @@ namespace Svg
         /// <inheritdoc/>
         public void Initialize(GeneratorInitializationContext context)
         {
+            // NOTE: Uncomment the next line to enable source generator debugging (build project to trigger debugger to be attached).
             // System.Diagnostics.Debugger.Launch();
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
         }
