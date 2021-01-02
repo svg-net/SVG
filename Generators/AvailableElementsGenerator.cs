@@ -73,22 +73,14 @@ namespace Svg
                 }
                 else
                 {
-                    if (!namedTypeSymbol.IsAbstract && !namedTypeSymbol.IsGenericType)
+                    if (namedTypeSymbol.IsAbstract || namedTypeSymbol.IsGenericType)
                     {
-                        var baseType = namedTypeSymbol.BaseType;
-                        while (true)
-                        {
-                            if (baseType is null)
-                            {
-                                break;
-                            }
-                            if (SymbolEqualityComparer.Default.Equals(baseType, svgElementSymbol))
-                            {
-                                svgElementSymbols.Add(namedTypeSymbol);
-                                break;
-                            }
-                            baseType = baseType.BaseType;
-                        }
+                        continue;
+                    }
+
+                    if (HasBaseType(namedTypeSymbol, svgElementSymbol))
+                    {
+                        svgElementSymbols.Add(namedTypeSymbol);
                     }
                 }
             }
@@ -101,6 +93,24 @@ namespace Svg
                     context.AddSource($"{elementFactorySymbol.Name}_ElementFactory.cs", SourceText.From(classSource, Encoding.UTF8));
                 }
             }
+        }
+
+        private bool HasBaseType(INamedTypeSymbol namedTypeSymbol, INamedTypeSymbol targetBaseType)
+        {
+            var baseType = namedTypeSymbol.BaseType;
+            while (true)
+            {
+                if (baseType is null)
+                {
+                    break;
+                }
+                if (SymbolEqualityComparer.Default.Equals(baseType, targetBaseType))
+                {
+                    return true;
+                }
+                baseType = baseType.BaseType;
+            }
+            return false;
         }
 
         private static string? ProcessClass(Compilation compilation, INamedTypeSymbol elementFactorySymbol, List<INamedTypeSymbol> svgElementSymbols)
