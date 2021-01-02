@@ -59,8 +59,8 @@ namespace Svg
                 return;
             }
 
-            var svgElementSymbol = compilation.GetTypeByMetadataName("Svg.SvgElement");
-            if (svgElementSymbol is null)
+            var svgElementBaseSymbol = compilation.GetTypeByMetadataName("Svg.SvgElement");
+            if (svgElementBaseSymbol is null)
             {
                 return;
             }
@@ -85,7 +85,7 @@ namespace Svg
                 }
 
                 // Find classes derived from SvgElement.
-                if (!namedTypeSymbol.IsAbstract && !namedTypeSymbol.IsGenericType && HasBaseType(namedTypeSymbol, svgElementSymbol))
+                if (!namedTypeSymbol.IsAbstract && !namedTypeSymbol.IsGenericType && HasBaseType(namedTypeSymbol, svgElementBaseSymbol))
                 {
                     svgElementSymbols.Add(namedTypeSymbol);
                 }
@@ -94,7 +94,7 @@ namespace Svg
             // Generate code for each class marked with ElementFactor attribute.
             foreach (var elementFactorySymbol in elementFactorySymbols)
             {
-                var classSource = ProcessClass(compilation, elementFactorySymbol, svgElementSymbols);
+                var classSource = ProcessClass(compilation, elementFactorySymbol, svgElementSymbols, svgElementBaseSymbol);
                 if (classSource is not null)
                 {
                     context.AddSource($"{elementFactorySymbol.Name}_ElementFactory.cs", SourceText.From(classSource, Encoding.UTF8));
@@ -128,8 +128,15 @@ namespace Svg
             }
             return false;
         }
-
-        private static string? ProcessClass(Compilation compilation, INamedTypeSymbol elementFactorySymbol, List<INamedTypeSymbol> svgElementSymbols)
+        
+        private class Element
+        {
+            public INamedTypeSymbol Symbol { get; set; }
+            public string ElementName { get; set; }
+            public List<string> ClassNames { get; set; }
+        }
+        
+        private static string? ProcessClass(Compilation compilation, INamedTypeSymbol elementFactorySymbol, List<INamedTypeSymbol> svgElementSymbols, INamedTypeSymbol svgElementBaseSymbol)
         {
             // Get the containing namespace for ElementFactory class.
             if (!elementFactorySymbol.ContainingSymbol.Equals(elementFactorySymbol.ContainingNamespace, SymbolEqualityComparer.Default))
@@ -160,13 +167,10 @@ using System;
 using System.Collections.Generic;
 
 namespace {namespaceElementFactory}
-{{
-    internal partial class {classElementFactory}
-    {{");
+{{");
 
             // Key: ElementName
-            // Value: list of class names for specified ElementName
-            SortedDictionary<string, List<string>> elements = new();
+            SortedDictionary<string, Element> elements = new();
 
             // Get all classes with SvgElementAttribute attribute set.
             foreach (var svgElementSymbol in svgElementSymbols)
@@ -194,16 +198,26 @@ namespace {namespaceElementFactory}
                     continue;
                 }
 
-                if (elements.TryGetValue(elementName, out var classNames))
+                if (elements.TryGetValue(elementName, out var element))
                 {
-                    classNames.Add(classNameSvgElement);
+                    element.ClassNames.Add(classNameSvgElement);
                 }
                 else
                 {
-                    elements.Add(elementName, new List<string> { classNameSvgElement });
+                    element = new Element()
+                    {
+                        Symbol = svgElementSymbol,
+                        ElementName = elementName,
+                        ClassNames = new List<string> {classNameSvgElement}
+                    };
+                    elements.Add(elementName, element);
                 }
             }
 
+            // Start ElementFactory class.
+
+            source.Append($@"    internal partial class {classElementFactory}
+    {{");
             // Generate availableElements list.
 
             source.Append($@"
@@ -213,7 +227,7 @@ namespace {namespaceElementFactory}
             foreach (var element in elements)
             {
                 var elementName = element.Key;
-                var className = element.Value.FirstOrDefault();
+                var className = element.Value.ClassNames.FirstOrDefault();
                 if (string.IsNullOrWhiteSpace(className))
                 {
                     continue;
@@ -233,7 +247,7 @@ namespace {namespaceElementFactory}
             foreach (var element in elements)
             {
                 var elementName = element.Key;
-                var className = element.Value.FirstOrDefault();
+                var className = element.Value.ClassNames.FirstOrDefault();
                 if (string.IsNullOrWhiteSpace(className))
                 {
                     continue;
@@ -259,7 +273,7 @@ namespace {namespaceElementFactory}
             foreach (var element in elements)
             {
                 var elementName = element.Key;
-                var classNames = element.Value;
+                var classNames = element.Value.ClassNames;
  
                 source.Append($@"            [""{elementName}""] = new List<Type>() {{ ");
 
