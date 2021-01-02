@@ -67,7 +67,6 @@ namespace Svg
             List<INamedTypeSymbol> elementFactorySymbols = new();
             List<INamedTypeSymbol> svgElementSymbols = new();
 
-            
             foreach (var candidateClass in receiver.CandidateClasses)
             {
                 var semanticModel = compilation.GetSemanticModel(candidateClass.SyntaxTree);
