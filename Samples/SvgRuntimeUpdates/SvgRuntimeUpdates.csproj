@@ -8,8 +8,8 @@
     <ProjectGuid>{9782B15C-D0BA-4A4E-9A03-F97082AF9256}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SvgSample</RootNamespace>
-    <AssemblyName>SvgSample</AssemblyName>
+    <RootNamespace>SvgRuntimeUpdates</RootNamespace>
+    <AssemblyName>SvgRuntimeUpdates</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
