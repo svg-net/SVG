@@ -128,14 +128,107 @@ namespace Svg
             }
             return false;
         }
+
+        /// <summary>
+        /// Get symbol base types until provided type.
+        /// </summary>
+        /// <param name="namedTypeSymbol">The candidate class symbol.</param>
+        /// <param name="targetBaseType">The base type class symbol</param>
+        /// <returns>Returns a list of all base class symbol until target base type is reached.</returns>
+        private static IEnumerable<INamedTypeSymbol> GetBaseTypes(INamedTypeSymbol namedTypeSymbol, INamedTypeSymbol targetBaseType)
+        {
+            var baseType = namedTypeSymbol.BaseType;
+            while (true)
+            {
+                if (baseType is null)
+                {
+                    break;
+                }
+
+                // We need to use SymbolEqualityComparer for symbol comparison.
+                if (SymbolEqualityComparer.Default.Equals(baseType, targetBaseType))
+                {
+                    yield return baseType;
+                    break;
+                }
+
+                yield return baseType;
+                baseType = baseType.BaseType;
+            }
+        }
+
+        private static IEnumerable<Property> GetElementProperties(INamedTypeSymbol svgElementSymbol, INamedTypeSymbol svgElementBaseSymbol, INamedTypeSymbol svgAttributeAttribute)
+        {
+            var types = GetBaseTypes(svgElementSymbol, svgElementBaseSymbol).Prepend(svgElementSymbol);
+
+            foreach (var type in types)
+            {
+                var members = type.GetMembers();
+                foreach (var member in members)
+                {
+                    if (member is not IPropertySymbol propertySymbol)
+                    {
+                        continue;
+                    }
+                    
+                    var attributes = propertySymbol.GetAttributes();
+                    if (attributes.Length == 0)
+                    {
+                        continue;
+                    }
+
+                    // Find svgAttributeAttribute attribute data. We need only first constructor argument for attribute 'name'.
+                    var attributeData = attributes.FirstOrDefault(ad => ad?.AttributeClass?.Equals(svgAttributeAttribute, SymbolEqualityComparer.Default) ?? false);
+                    if (attributeData is null || attributeData.ConstructorArguments.Length < 1)
+                    {
+                        continue;
+                    }
+
+                    // The Name is set in attribute by providing constructor argument.
+                    var name = (string?) attributeData.ConstructorArguments[0].Value;
+                    if (name is null)
+                    {
+                        continue;
+                    }
+
+                    var property = new Property(
+                        propertySymbol,
+                        name
+                    );
+ 
+                    yield return property;
+                }
+            }
+        }
+
+        private class Property
+        {
+            public IPropertySymbol Symbol { get; set; }
+            public string Name { get; set; }
+  
+            public Property(IPropertySymbol symbol, string name)
+            {
+                Symbol = symbol;
+                Name = name;
+            }
+        }
         
         private class Element
         {
             public INamedTypeSymbol Symbol { get; set; }
             public string ElementName { get; set; }
             public List<string> ClassNames { get; set; }
+            public List<Property> Properties { get; set; }
+
+            public Element(INamedTypeSymbol symbol, string elementName, List<string> classNames, List<Property> properties)
+            {
+                Symbol = symbol;
+                ElementName = elementName;
+                ClassNames = classNames;
+                Properties = properties;
+            }
         }
-        
+
         private static string? ProcessClass(Compilation compilation, INamedTypeSymbol elementFactorySymbol, List<INamedTypeSymbol> svgElementSymbols, INamedTypeSymbol svgElementBaseSymbol)
         {
             // Get the containing namespace for ElementFactory class.
@@ -147,6 +240,13 @@ namespace Svg
             // Get SvgElementAttribute symbol using for later attribute retrieval.
             var svgElementAttribute = compilation.GetTypeByMetadataName("Svg.SvgElementAttribute");
             if (svgElementAttribute is null)
+            {
+                return null;
+            }
+
+            // Get SvgAttributeAttribute symbol using for later attribute retrieval.
+            var svgAttributeAttribute = compilation.GetTypeByMetadataName("Svg.SvgAttributeAttribute");
+            if (svgAttributeAttribute is null)
             {
                 return null;
             }
@@ -170,7 +270,7 @@ namespace {namespaceElementFactory}
 {{");
 
             // Key: ElementName
-            SortedDictionary<string, Element> elements = new();
+            SortedDictionary<string, Element> items = new();
 
             // Get all classes with SvgElementAttribute attribute set.
             foreach (var svgElementSymbol in svgElementSymbols)
@@ -198,22 +298,37 @@ namespace {namespaceElementFactory}
                     continue;
                 }
 
-                if (elements.TryGetValue(elementName, out var element))
+                if (items.TryGetValue(elementName, out var element))
                 {
                     element.ClassNames.Add(classNameSvgElement);
                 }
                 else
                 {
-                    element = new Element()
-                    {
-                        Symbol = svgElementSymbol,
-                        ElementName = elementName,
-                        ClassNames = new List<string> {classNameSvgElement}
-                    };
-                    elements.Add(elementName, element);
+                    element = new Element(
+                        svgElementSymbol,
+                        elementName,
+                        new List<string> { classNameSvgElement },
+                        GetElementProperties(svgElementSymbol, svgElementBaseSymbol, svgAttributeAttribute).ToList()
+                    );
+                    items.Add(elementName, element);
                 }
             }
 
+            // TODO:
+            
+#if DEBUG
+            source.AppendLine($"");
+            foreach (var item in items)
+            {
+                var element = item.Value;
+                source.AppendLine($"    // {element.Symbol.ToDisplayString(format)}");
+                foreach (var property in element.Properties)
+                {
+                    source.AppendLine($"    // - {property.Symbol}, '{property.Name}', {property.Symbol.Type}");
+                }
+            }
+#endif
+            
             // Start ElementFactory class.
 
             source.Append($@"    internal partial class {classElementFactory}
@@ -224,7 +339,7 @@ namespace {namespaceElementFactory}
         private static readonly List<ElementInfo> availableElements = new List<ElementInfo>()
         {{
 ");
-            foreach (var element in elements)
+            foreach (var element in items)
             {
                 var elementName = element.Key;
                 var className = element.Value.ClassNames.FirstOrDefault();
@@ -244,7 +359,7 @@ namespace {namespaceElementFactory}
         private static readonly Dictionary<string, ElementInfo> availableElementsWithoutSvg = new Dictionary<string, ElementInfo>()
         {{
 ");
-            foreach (var element in elements)
+            foreach (var element in items)
             {
                 var elementName = element.Key;
                 var className = element.Value.ClassNames.FirstOrDefault();
@@ -270,7 +385,7 @@ namespace {namespaceElementFactory}
         {{
 ");
 
-            foreach (var element in elements)
+            foreach (var element in items)
             {
                 var elementName = element.Key;
                 var classNames = element.Value.ClassNames;
