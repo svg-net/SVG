@@ -165,8 +165,8 @@ namespace {namespaceElementFactory}
 
             // Key: ElementName
             // Value: list of class names for specified ElementName
-            Dictionary<string, List<string>> elements = new();
-   
+            SortedDictionary<string, List<string>> elements = new();
+
             // Get all classes with SvgElementAttribute attribute set.
             foreach (var svgElementSymbol in svgElementSymbols)
             {
