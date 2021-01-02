@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using Svg;
 
-namespace SvgSample
+namespace SvgRuntimeUpdates
 {
     class Program
     {
