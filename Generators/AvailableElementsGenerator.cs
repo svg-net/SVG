@@ -158,6 +158,12 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Get the <see cref="TypeConverter"/> type string set for property symbol or property symbol type.
+        /// </summary>
+        /// <param name="compilation">The compilation object.</param>
+        /// <param name="propertySymbol">The property symbol</param>
+        /// <returns>The <see cref="TypeConverter"/> type string set for property symbol or property symbol type.</returns>
         private static string? GetTypeConverter(Compilation compilation, IPropertySymbol propertySymbol)
         {
             // Get TypeConverterAttribute symbol using for later attribute retrieval.
@@ -195,6 +201,12 @@ namespace Svg
             return null;
         }
 
+        /// <summary>
+        /// Get the <see cref="TypeConverter"/> type string set as attribute on symbol.
+        /// </summary>
+        /// <param name="symbol">The symbol object.</param>
+        /// <param name="typeConverterAttribute">The <see cref="TypeConverterAttribute"/> symbol.</param>
+        /// <returns>The <see cref="TypeConverter"/> type string set as attribute on symbol.</returns>
         private static string? GetTypeConverter(ISymbol symbol, INamedTypeSymbol typeConverterAttribute)
         {
             var attributes = symbol.GetAttributes();
@@ -215,8 +227,17 @@ namespace Svg
             return attributeData.ConstructorArguments[0].Value?.ToString();
         }
 
+        /// <summary>
+        /// Gets all properties from class that are annotated with SvgAttributeAttribute attribute.
+        /// </summary>
+        /// <param name="compilation">The compilation object.</param>
+        /// <param name="svgElementSymbol">The target class symbol that derives from SvgElement.</param>
+        /// <param name="svgElementBaseSymbol">The SvgElement base class symbol.</param>
+        /// <param name="svgAttributeAttribute">The SvgAttributeAttribute attribute symbol.</param>
+        /// <returns>List of all properties that are annotated with SvgAttributeAttribute attribute.</returns>
         private static IEnumerable<Property> GetElementProperties(Compilation compilation, INamedTypeSymbol svgElementSymbol, INamedTypeSymbol svgElementBaseSymbol, INamedTypeSymbol svgAttributeAttribute)
         {
+            // Get all types base types plus target type so we get all properties from base objects too.
             var types = GetBaseTypes(svgElementSymbol, svgElementBaseSymbol).Prepend(svgElementSymbol);
 
             foreach (var type in types)
@@ -224,6 +245,7 @@ namespace Svg
                 var members = type.GetMembers();
                 foreach (var member in members)
                 {
+                    // Filter type members and include only properties.
                     if (member is not IPropertySymbol propertySymbol)
                     {
                         continue;
@@ -260,12 +282,32 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// The SvgElement object property.
+        /// </summary>
         private class Property
         {
+            /// <summary>
+            /// Gets or sets property symbol.
+            /// </summary>
             public IPropertySymbol Symbol { get; set; }
+
+            /// <summary>
+            /// Gets or sets property name.
+            /// </summary>
             public string Name { get; set; }
+
+            /// <summary>
+            /// Gets or sets property type converter type string.
+            /// </summary>
             public string? Converter { get; set; }
-  
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Property"/> class.
+            /// </summary>
+            /// <param name="symbol"></param>
+            /// <param name="name"></param>
+            /// <param name="converter"></param>
             public Property(IPropertySymbol symbol, string name, string? converter)
             {
                 Symbol = symbol;
@@ -274,13 +316,38 @@ namespace Svg
             }
         }
         
+        /// <summary>
+        /// The SvgElement object.
+        /// </summary>
         private class Element
         {
+            /// <summary>
+            /// Gets or sets element type symbol.
+            /// </summary>
             public INamedTypeSymbol Symbol { get; set; }
+
+            /// <summary>
+            /// Gets or sets element name.
+            /// </summary>
             public string ElementName { get; set; }
+
+            /// <summary>
+            /// Gets or sets classes that use element name.
+            /// </summary>
             public List<string> ClassNames { get; set; }
+
+            /// <summary>
+            /// Gets or sets element properties list.
+            /// </summary>
             public List<Property> Properties { get; set; }
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Element"/> class.
+            /// </summary>
+            /// <param name="symbol">The element type symbol.</param>
+            /// <param name="elementName">The element name.</param>
+            /// <param name="classNames">The classes that use element name.</param>
+            /// <param name="properties">The element properties list.</param>
             public Element(INamedTypeSymbol symbol, string elementName, List<string> classNames, List<Property> properties)
             {
                 Symbol = symbol;
@@ -290,6 +357,14 @@ namespace Svg
             }
         }
 
+        /// <summary>
+        /// Generates source for for ElementFactory class.
+        /// </summary>
+        /// <param name="compilation">The compilation object.</param>
+        /// <param name="elementFactorySymbol">The ElementFactory type object.</param>
+        /// <param name="svgElementSymbols">The SvgElement type symbols.</param>
+        /// <param name="svgElementBaseSymbol">The base class for SvgElement type symbols.</param>
+        /// <returns>The generated source for for ElementFactory class.</returns>
         private static string? ProcessClass(Compilation compilation, INamedTypeSymbol elementFactorySymbol, List<INamedTypeSymbol> svgElementSymbols, INamedTypeSymbol svgElementBaseSymbol)
         {
             // Get the containing namespace for ElementFactory class.
@@ -315,11 +390,13 @@ namespace Svg
             // Convert symbol to proper display string.
             string namespaceElementFactory = elementFactorySymbol.ContainingNamespace.ToDisplayString();
 
-            // We need to format properly symbols to support generic types.
+            // Format symbols to support generic types and namespaces.
             var format = new SymbolDisplayFormat(
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
                 genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters | SymbolDisplayGenericsOptions.IncludeTypeConstraints | SymbolDisplayGenericsOptions.IncludeVariance
             );
+
+            // Format symbols to support generic types without namespaces.
             var formatClass = new SymbolDisplayFormat(
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypes,
                 genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters | SymbolDisplayGenericsOptions.IncludeTypeConstraints | SymbolDisplayGenericsOptions.IncludeVariance
@@ -379,7 +456,7 @@ namespace {namespaceElementFactory}
             }
 
             // TODO:
-            
+
 #if DEBUG
             source.AppendLine($"");
             foreach (var item in items)
