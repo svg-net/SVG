@@ -290,17 +290,17 @@ namespace Svg
             /// <summary>
             /// Gets or sets property symbol.
             /// </summary>
-            public IPropertySymbol Symbol { get; set; }
+            public IPropertySymbol Symbol { get; }
 
             /// <summary>
             /// Gets or sets property name.
             /// </summary>
-            public string Name { get; set; }
+            public string Name { get; }
 
             /// <summary>
             /// Gets or sets property type converter type string.
             /// </summary>
-            public string? Converter { get; set; }
+            public string? Converter { get; }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Property"/> class.
@@ -324,33 +324,40 @@ namespace Svg
             /// <summary>
             /// Gets or sets element type symbol.
             /// </summary>
-            public INamedTypeSymbol Symbol { get; set; }
+            public INamedTypeSymbol Symbol { get; }
+
+            /// <summary>
+            /// Gets or sets element base types list.
+            /// </summary>
+            public List<INamedTypeSymbol> BaseTypes { get; }
 
             /// <summary>
             /// Gets or sets element name.
             /// </summary>
-            public string ElementName { get; set; }
+            public string ElementName { get; }
 
             /// <summary>
             /// Gets or sets classes that use element name.
             /// </summary>
-            public List<string> ClassNames { get; set; }
+            public List<string> ClassNames { get; }
 
             /// <summary>
             /// Gets or sets element properties list.
             /// </summary>
-            public List<Property> Properties { get; set; }
+            public List<Property> Properties { get; }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Element"/> class.
             /// </summary>
             /// <param name="symbol">The element type symbol.</param>
+            /// <param name="baseTypes">The element base types list.</param>
             /// <param name="elementName">The element name.</param>
             /// <param name="classNames">The classes that use element name.</param>
             /// <param name="properties">The element properties list.</param>
-            public Element(INamedTypeSymbol symbol, string elementName, List<string> classNames, List<Property> properties)
+            public Element(INamedTypeSymbol symbol, List<INamedTypeSymbol> baseTypes, string elementName, List<string> classNames, List<Property> properties)
             {
                 Symbol = symbol;
+                BaseTypes = baseTypes;
                 ElementName = elementName;
                 ClassNames = classNames;
                 Properties = properties;
@@ -447,6 +454,7 @@ namespace {namespaceElementFactory}
                 {
                     element = new Element(
                         svgElementSymbol,
+                        GetBaseTypes(svgElementSymbol, svgElementBaseSymbol).ToList(),
                         elementName,
                         new List<string> { classNameSvgElement },
                         GetElementProperties(compilation, svgElementSymbol, svgElementBaseSymbol, svgAttributeAttribute).ToList()
