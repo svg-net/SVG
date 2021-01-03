@@ -160,18 +160,21 @@ namespace Svg
 
         private static string? GetTypeConverter(Compilation compilation, IPropertySymbol propertySymbol)
         {
+            // Get TypeConverterAttribute symbol using for later attribute retrieval.
             var typeConverterAttribute = compilation.GetTypeByMetadataName("System.ComponentModel.TypeConverterAttribute");
             if (typeConverterAttribute is null)
             {
                 return null;
             }
 
+            // Get converter from attribute explicitly set on property.
             var propertySymbolTypeConverter = GetTypeConverter(propertySymbol, typeConverterAttribute);
             if (propertySymbolTypeConverter is not null)
             {
                 return propertySymbolTypeConverter;
             }
             
+            // Get converter from attribute explicitly set on property type.
             var propertySymbolTypeTypeConverter = GetTypeConverter(propertySymbol.Type, typeConverterAttribute);
             if (propertySymbolTypeTypeConverter is not null)
             {
