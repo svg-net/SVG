@@ -178,13 +178,17 @@ namespace Svg
                 return propertySymbolTypeTypeConverter;
             }
 
-            // TODO: This does not work as it uses reflection.
-            // var type = Type.GetType(propertySymbol.Type.ToDisplayString());
-            // if (type is not null)
-            // {
-            //     return TypeDescriptor.GetConverter(type).ToString();
-            // }
-            
+            // Get converter from property type.
+            var format = new SymbolDisplayFormat(
+                typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+                genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters | SymbolDisplayGenericsOptions.IncludeTypeConstraints | SymbolDisplayGenericsOptions.IncludeVariance
+            );
+            var type = Type.GetType(propertySymbol.Type.ToDisplayString(format));
+            if (type is not null)
+            {
+                return TypeDescriptor.GetConverter(type).ToString();
+            }
+
             return null;
         }
 
