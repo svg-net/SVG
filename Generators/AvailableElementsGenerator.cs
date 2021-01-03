@@ -157,7 +157,57 @@ namespace Svg
             }
         }
 
-        private static IEnumerable<Property> GetElementProperties(INamedTypeSymbol svgElementSymbol, INamedTypeSymbol svgElementBaseSymbol, INamedTypeSymbol svgAttributeAttribute)
+        private static string? GetTypeConverter(Compilation compilation, IPropertySymbol propertySymbol)
+        {
+            var typeConverterAttribute = compilation.GetTypeByMetadataName("System.ComponentModel.TypeConverterAttribute");
+            if (typeConverterAttribute is null)
+            {
+                return null;
+            }
+
+            var propertySymbolTypeConverter = GetTypeConverter(propertySymbol, typeConverterAttribute);
+            if (propertySymbolTypeConverter is not null)
+            {
+                return propertySymbolTypeConverter;
+            }
+            
+            var propertySymbolTypeTypeConverter = GetTypeConverter(propertySymbol.Type, typeConverterAttribute);
+            if (propertySymbolTypeTypeConverter is not null)
+            {
+                return propertySymbolTypeTypeConverter;
+            }
+
+            // TODO: This does not work as it uses reflection.
+            // var type = Type.GetType(propertySymbol.Type.ToDisplayString());
+            // if (type is not null)
+            // {
+            //     return TypeDescriptor.GetConverter(type).ToString();
+            // }
+            
+            return null;
+        }
+
+        private static string? GetTypeConverter(ISymbol symbol, INamedTypeSymbol typeConverterAttribute)
+        {
+            var attributes = symbol.GetAttributes();
+            if (attributes.Length == 0)
+            {
+                return null;
+            }
+
+            // Find typeConverterAttribute attribute data. We need only first constructor argument for attribute type.
+            var attributeData = attributes.FirstOrDefault(ad => ad?.AttributeClass?.Equals(typeConverterAttribute, SymbolEqualityComparer.Default) ?? false);
+            if (attributeData is null || attributeData.ConstructorArguments.Length < 1)
+            {
+                return null;
+            }
+
+            // The Type is set in attribute by providing constructor argument.
+  
+            return attributeData.ConstructorArguments[0].Value?.ToString();
+        }
+
+        private static IEnumerable<Property> GetElementProperties(Compilation compilation, INamedTypeSymbol svgElementSymbol, INamedTypeSymbol svgElementBaseSymbol, INamedTypeSymbol svgAttributeAttribute)
         {
             var types = GetBaseTypes(svgElementSymbol, svgElementBaseSymbol).Prepend(svgElementSymbol);
 
@@ -193,7 +243,8 @@ namespace Svg
 
                     var property = new Property(
                         propertySymbol,
-                        name
+                        name,
+                        GetTypeConverter(compilation, propertySymbol)
                     );
  
                     yield return property;
@@ -205,11 +256,13 @@ namespace Svg
         {
             public IPropertySymbol Symbol { get; set; }
             public string Name { get; set; }
+            public string? Converter { get; set; }
   
-            public Property(IPropertySymbol symbol, string name)
+            public Property(IPropertySymbol symbol, string name, string? converter)
             {
                 Symbol = symbol;
                 Name = name;
+                Converter = converter;
             }
         }
         
@@ -308,7 +361,7 @@ namespace {namespaceElementFactory}
                         svgElementSymbol,
                         elementName,
                         new List<string> { classNameSvgElement },
-                        GetElementProperties(svgElementSymbol, svgElementBaseSymbol, svgAttributeAttribute).ToList()
+                        GetElementProperties(compilation, svgElementSymbol, svgElementBaseSymbol, svgAttributeAttribute).ToList()
                     );
                     items.Add(elementName, element);
                 }
@@ -324,7 +377,7 @@ namespace {namespaceElementFactory}
                 source.AppendLine($"    // {element.Symbol.ToDisplayString(format)}");
                 foreach (var property in element.Properties)
                 {
-                    source.AppendLine($"    // - {property.Symbol}, '{property.Name}', {property.Symbol.Type}");
+                    source.AppendLine($"    // - {property.Symbol}, '{property.Name}', {property.Symbol.Type}, {property.Converter ?? "<INVALID>"}");
                 }
             }
 #endif
