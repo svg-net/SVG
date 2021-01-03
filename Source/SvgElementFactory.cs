@@ -259,14 +259,14 @@ namespace Svg
             }
             return false;
         }
-
+#if !USE_SOURCE_GENERATORS
         private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
         private static object syncLock = new object();
-
+#endif
         internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle = false)
         {
             var elementType = element.GetType();
-
+#if !USE_SOURCE_GENERATORS
             PropertyDescriptorCollection properties;
             lock (syncLock)
             {
@@ -287,6 +287,11 @@ namespace Svg
                     properties = TypeDescriptor.GetProperties(elementType, new[] { new SvgAttributeAttribute(attributeName) });
                     _propertyDescriptors.Add(elementType, new Dictionary<string, PropertyDescriptorCollection>());
 
+                    if (properties.Count > 0)
+                    {
+                        PropertyDescriptor descriptor = properties[0];
+                        Debug.WriteLine($"{elementType}, {attributeName}, {descriptor.Converter}");
+                    }
                     _propertyDescriptors[elementType].Add(attributeName, properties);
                 }
             }
@@ -308,6 +313,24 @@ namespace Svg
                     Trace.TraceWarning(string.Format("Attribute '{0}' cannot be set - type '{1}' cannot convert from string '{2}'.", attributeName, descriptor.PropertyType.FullName, attributeValue));
                 }
             }
+#else
+            if (SvgElements.Descriptors.TryGetValue(elementType, out var elementDescriptor)
+                && elementDescriptor.Properties.TryGetValue(attributeName, out var propertyDescriptor))
+            {
+                try
+                {
+                    if (attributeName == "opacity" && attributeValue == "undefined")
+                    {
+                        attributeValue = "1";
+                    }
+                    propertyDescriptor.SetValue(element, document, CultureInfo.InvariantCulture, attributeValue);
+                }
+                catch
+                {
+                    Trace.TraceWarning($"Attribute '{attributeName}' cannot be set - type '{propertyDescriptor.Type.FullName}' cannot convert from string '{attributeValue}'.");
+                }
+            }
+#endif
             else
             {
                 //check for namespace declaration in svg element
