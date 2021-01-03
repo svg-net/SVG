@@ -48,7 +48,7 @@ namespace Svg
 
                 var location = new PointF(0f, 0f);
                 var size = System.Drawing.Size.Ceiling(g.MeasureString(text, _font, location, format));
-                var layoutRect = new RectangleF(location, size);
+                var layoutRect = new RectangleF(location, new SizeF(size.Width, 1000));
 
                 for (var s = 0; s <= (text.Length - 1) / 32; s++)
                 {
