@@ -388,7 +388,7 @@ namespace {namespaceElementFactory}
                 source.AppendLine($"    // {element.Symbol.ToDisplayString(format)}");
                 foreach (var property in element.Properties)
                 {
-                    source.AppendLine($"    // - {property.Symbol}, '{property.Name}', {property.Symbol.Type.ToDisplayString(format)}, {property.Converter ?? "<INVALID>"}");
+                    source.AppendLine($"    // - {property.Symbol}, '{property.Name}', {property.Symbol.Type.ToDisplayString(format)}, {property.Converter ?? "<ERROR>"}");
                 }
             }
 #endif
