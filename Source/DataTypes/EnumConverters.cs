@@ -73,6 +73,11 @@ namespace Svg
         }
     }
 
+    public sealed class XmlSpaceHandlingConverter : EnumBaseConverter<XmlSpaceHandling>
+    {
+        public XmlSpaceHandlingConverter() : base(CaseHandling.LowerCase) { }
+    }
+
     public sealed class SvgFillRuleConverter : EnumBaseConverter<SvgFillRule>
     {
         public SvgFillRuleConverter() : base(CaseHandling.LowerCase) { }

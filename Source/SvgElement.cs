@@ -434,7 +434,7 @@ namespace Svg
         [SvgAttribute("space", SvgAttributeAttribute.XmlNamespace)]
         public virtual XmlSpaceHandling SpaceHandling
         {
-            get { return GetAttribute("space", true, XmlSpaceHandling.inherit); }
+            get { return GetAttribute("space", true, XmlSpaceHandling.Inherit); }
             set { Attributes["space"] = value; }
         }
 

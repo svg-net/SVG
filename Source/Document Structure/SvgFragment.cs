@@ -136,7 +136,7 @@ namespace Svg
 
         public override XmlSpaceHandling SpaceHandling
         {
-            get { return GetAttribute("space", true, XmlSpaceHandling.@default); }
+            get { return GetAttribute("space", true, XmlSpaceHandling.Default); }
             set { base.SpaceHandling = value; IsPathDirty = true; }
         }
 
