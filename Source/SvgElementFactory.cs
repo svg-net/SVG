@@ -286,12 +286,7 @@ namespace Svg
                 {
                     properties = TypeDescriptor.GetProperties(elementType, new[] { new SvgAttributeAttribute(attributeName) });
                     _propertyDescriptors.Add(elementType, new Dictionary<string, PropertyDescriptorCollection>());
-
-                    if (properties.Count > 0)
-                    {
-                        PropertyDescriptor descriptor = properties[0];
-                        Debug.WriteLine($"{elementType}, {attributeName}, {descriptor.Converter}");
-                    }
+ 
                     _propertyDescriptors[elementType].Add(attributeName, properties);
                 }
             }
