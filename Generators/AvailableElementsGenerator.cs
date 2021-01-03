@@ -535,12 +535,13 @@ namespace {namespaceElementFactory}
 
             source.Append(@"
         };
-    }      
+    }
 ");
 
             // Start ElementFactory class.
 
-            source.Append($@"    internal partial class {classElementFactory}
+            source.Append($@"
+    internal partial class {classElementFactory}
     {{");
             // Generate availableElements list.
 
