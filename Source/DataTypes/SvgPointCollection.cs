@@ -60,10 +60,11 @@ namespace Svg
         {
             if (value is string)
             {
-                var parser = new CoordinateParser(((string)value).Trim());
+                var coords = ((string) value).AsSpan().Trim();
+                var parser = new CoordinateParser(ref coords);
                 var pointValue = 0.0f;
                 var result = new SvgPointCollection();
-                while (parser.TryGetFloat(out pointValue))
+                while (parser.TryGetFloat(out pointValue, ref coords))
                 {
                     result.Add(new SvgUnit(SvgUnitType.User, pointValue));
                 }

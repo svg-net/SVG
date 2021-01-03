@@ -79,7 +79,7 @@
 
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
     <Title>Svg for .Net Standard 2.1</Title>
-    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+    <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD21</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net452'">
@@ -126,6 +126,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="System.Memory" Version="4.5.3" />
     <PackageReference Include="Fizzler" Version="1.2.0" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.0.26">
       <PrivateAssets>all</PrivateAssets>

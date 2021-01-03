@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Svg
 {
@@ -17,7 +18,6 @@ namespace Svg
             expValue
         }
 
-        private string _coords;
         private NumState _currState = NumState.separator;
         private NumState _newState = NumState.separator;
         private int i = 0;
@@ -25,11 +25,10 @@ namespace Svg
         public int Position { get; private set; } = 0;
         public bool HasMore { get; private set; } = true;
 
-        public CoordinateParser(string coords)
+        public CoordinateParser(ref ReadOnlySpan<char> _coords)
         {
-            _coords = coords;
-            if (string.IsNullOrEmpty(_coords)) HasMore = false;
-            if (char.IsLetter(coords[0])) ++i;
+            if (_coords.Length < 0) HasMore = false;
+            if (char.IsLetter(_coords[0])) ++i;
         }
 
         private bool MarkState(bool state)
@@ -39,7 +38,7 @@ namespace Svg
             return state;
         }
 
-        public bool TryGetBool(out bool result)
+        public bool TryGetBool(out bool result, ref ReadOnlySpan<char> _coords)
         {
             while (i < _coords.Length && HasMore)
             {
@@ -80,7 +79,7 @@ namespace Svg
             return MarkState(false);
         }
 
-        public bool TryGetFloat(out float result)
+        public bool TryGetFloat(out float result, ref ReadOnlySpan<char> _coords)
         {
             while (i < _coords.Length && HasMore)
             {
@@ -276,7 +275,11 @@ namespace Svg
 
                 if (_currState != NumState.separator && _newState < _currState)
                 {
-                    result = float.Parse(_coords.Substring(Position, i - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+#if NETSTANDARD2_1 || NETCOREAPP2_2
+                    result = float.Parse(_coords.Slice(Position, i - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+#else
+                    result = float.Parse(_coords.Slice(Position, i - Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+#endif
                     Position = i;
                     _currState = _newState;
                     return MarkState(true);
@@ -302,7 +305,11 @@ namespace Svg
             }
             else
             {
-                result = float.Parse(_coords.Substring(Position, _coords.Length - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+#if NETSTANDARD2_1 || NETCOREAPP2_2
+                result = float.Parse(_coords.Slice(Position, _coords.Length - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+#else
+                result = float.Parse(_coords.Slice(Position, _coords.Length - Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+#endif
                 Position = _coords.Length;
                 return MarkState(true);
             }
