@@ -231,21 +231,25 @@ namespace Svg
             {
                 if (char.IsLetter(path[i]) && path[i] != 'e' && path[i] != 'E') // e is used in scientific notiation. but not svg path
                 {
-                    var command = path.Slice(commandStart, i - commandStart).Trim();
+                    var start = commandStart;
+                    var length = i - commandStart;
+                    var command = path.Slice(start, length).Trim();
                     commandStart = i;
 
                     if (command.Length > 0)
-                        result.Add((commandStart, i - commandStart));
+                        result.Add((start, length));
 
                     if (path.Length == i + 1)
                         result.Add((i, 1));
                 }
                 else if (path.Length == i + 1)
                 {
-                    var command = path.Slice(commandStart, i - commandStart + 1).Trim();
+                    var start = commandStart;
+                    var length = i - commandStart + 1;
+                    var command = path.Slice(start, length).Trim();
 
                     if (command.Length > 0)
-                        result.Add((commandStart, i - commandStart + 1));
+                        result.Add((start, length));
                 }
             }
 
