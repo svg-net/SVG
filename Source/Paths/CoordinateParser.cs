@@ -25,10 +25,10 @@ namespace Svg
         public int Position { get; private set; } = 0;
         public bool HasMore { get; private set; } = true;
 
-        public CoordinateParser(ref ReadOnlySpan<char> _coords)
+        public CoordinateParser(ref ReadOnlySpan<char> chars)
         {
-            if (_coords.Length < 0) HasMore = false;
-            if (char.IsLetter(_coords[0])) ++i;
+            if (chars.Length < 0) HasMore = false;
+            if (char.IsLetter(chars[0])) ++i;
         }
 
         private bool MarkState(bool state)
@@ -38,25 +38,25 @@ namespace Svg
             return state;
         }
 
-        public bool TryGetBool(out bool result, ref ReadOnlySpan<char> _coords)
+        public bool TryGetBool(out bool result, ref ReadOnlySpan<char> chars)
         {
-            while (i < _coords.Length && HasMore)
+            while (i < chars.Length && HasMore)
             {
                 switch (_currState)
                 {
                     case NumState.separator:
-                        if (IsCoordSeparator(_coords[i]))
+                        if (IsCoordSeparator(chars[i]))
                         {
                             _newState = NumState.separator;
                         }
-                        else if (_coords[i] == '0')
+                        else if (chars[i] == '0')
                         {
                             result = false;
                             _newState = NumState.separator;
                             Position = i + 1;
                             return MarkState(true);
                         }
-                        else if (_coords[i] == '1')
+                        else if (chars[i] == '1')
                         {
                             result = true;
                             _newState = NumState.separator;
@@ -79,24 +79,24 @@ namespace Svg
             return MarkState(false);
         }
 
-        public bool TryGetFloat(out float result, ref ReadOnlySpan<char> _coords)
+        public bool TryGetFloat(out float result, ref ReadOnlySpan<char> chars)
         {
-            while (i < _coords.Length && HasMore)
+            while (i < chars.Length && HasMore)
             {
                 switch (_currState)
                 {
                     case NumState.separator:
-                        if (char.IsNumber(_coords[i]))
+                        if (char.IsNumber(chars[i]))
                         {
                             _newState = NumState.integer;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(chars[i]))
                         {
                             _newState = NumState.separator;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (chars[i])
                             {
                                 case '.':
                                     _newState = NumState.decPlace;
@@ -112,11 +112,11 @@ namespace Svg
                         }
                         break;
                     case NumState.prefix:
-                        if (char.IsNumber(_coords[i]))
+                        if (char.IsNumber(chars[i]))
                         {
                             _newState = NumState.integer;
                         }
-                        else if (_coords[i] == '.')
+                        else if (chars[i] == '.')
                         {
                             _newState = NumState.decPlace;
                         }
@@ -126,17 +126,17 @@ namespace Svg
                         }
                         break;
                     case NumState.integer:
-                        if (char.IsNumber(_coords[i]))
+                        if (char.IsNumber(chars[i]))
                         {
                             _newState = NumState.integer;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(chars[i]))
                         {
                             _newState = NumState.separator;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (chars[i])
                             {
                                 case '.':
                                     _newState = NumState.decPlace;
@@ -156,17 +156,17 @@ namespace Svg
                         }
                         break;
                     case NumState.decPlace:
-                        if (char.IsNumber(_coords[i]))
+                        if (char.IsNumber(chars[i]))
                         {
                             _newState = NumState.fraction;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(chars[i]))
                         {
                             _newState = NumState.separator;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (chars[i])
                             {
                                 case 'E':
                                 case 'e':
@@ -183,17 +183,17 @@ namespace Svg
                         }
                         break;
                     case NumState.fraction:
-                        if (char.IsNumber(_coords[i]))
+                        if (char.IsNumber(chars[i]))
                         {
                             _newState = NumState.fraction;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(chars[i]))
                         {
                             _newState = NumState.separator;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (chars[i])
                             {
                                 case '.':
                                     _newState = NumState.decPlace;
@@ -213,17 +213,17 @@ namespace Svg
                         }
                         break;
                     case NumState.exponent:
-                        if (char.IsNumber(_coords[i]))
+                        if (char.IsNumber(chars[i]))
                         {
                             _newState = NumState.expValue;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(chars[i]))
                         {
                             _newState = NumState.invalid;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (chars[i])
                             {
                                 case '+':
                                 case '-':
@@ -236,7 +236,7 @@ namespace Svg
                         }
                         break;
                     case NumState.expPrefix:
-                        if (char.IsNumber(_coords[i]))
+                        if (char.IsNumber(chars[i]))
                         {
                             _newState = NumState.expValue;
                         }
@@ -246,17 +246,17 @@ namespace Svg
                         }
                         break;
                     case NumState.expValue:
-                        if (char.IsNumber(_coords[i]))
+                        if (char.IsNumber(chars[i]))
                         {
                             _newState = NumState.expValue;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(chars[i]))
                         {
                             _newState = NumState.separator;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (chars[i])
                             {
                                 case '.':
                                     _newState = NumState.decPlace;
@@ -276,9 +276,9 @@ namespace Svg
                 if (_currState != NumState.separator && _newState < _currState)
                 {
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
-                    result = float.Parse(_coords.Slice(Position, i - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+                    result = float.Parse(chars.Slice(Position, i - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
-                    result = float.Parse(_coords.Slice(Position, i - Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                    result = float.Parse(chars.Slice(Position, i - Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
 #endif
                     Position = i;
                     _currState = _newState;
@@ -298,7 +298,7 @@ namespace Svg
                 ++i;
             }
 
-            if (_currState == NumState.separator || !HasMore || Position >= _coords.Length)
+            if (_currState == NumState.separator || !HasMore || Position >= chars.Length)
             {
                 result = float.MinValue;
                 return MarkState(false);
@@ -306,11 +306,11 @@ namespace Svg
             else
             {
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
-                result = float.Parse(_coords.Slice(Position, _coords.Length - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+                result = float.Parse(chars.Slice(Position, chars.Length - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
-                result = float.Parse(_coords.Slice(Position, _coords.Length - Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                result = float.Parse(chars.Slice(Position, chars.Length - Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
 #endif
-                Position = _coords.Length;
+                Position = chars.Length;
                 return MarkState(true);
             }
         }
