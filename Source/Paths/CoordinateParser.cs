@@ -275,7 +275,7 @@ namespace Svg
 
                 if (_currState != NumState.separator && _newState < _currState)
                 {
-#if NETSTANDARD2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
                     result = float.Parse(_coords.Slice(Position, i - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
                     result = float.Parse(_coords.Slice(Position, i - Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
@@ -305,7 +305,7 @@ namespace Svg
             }
             else
             {
-#if NETSTANDARD2_1 || NETCOREAPP2_2
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
                 result = float.Parse(_coords.Slice(Position, _coords.Length - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
                 result = float.Parse(_coords.Slice(Position, _coords.Length - Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
