@@ -20,7 +20,7 @@ namespace Svg
 
         private NumState _currState;
         private NumState _newState;
-        private int i;
+        private int _charsPosition;
         private int _position;
         private bool _hasMore;
 
@@ -28,16 +28,16 @@ namespace Svg
         {
             _currState = NumState.separator;
             _newState = NumState.separator;
-            i = 0;
+            _charsPosition = 0;
             _position = 0;
             _hasMore = chars.Length <= 0 ? false : true;
-            if (char.IsLetter(chars[0])) ++i;
+            if (char.IsLetter(chars[0])) ++_charsPosition;
         }
 
         private bool MarkState(bool state)
         {
             _hasMore = state;
-            ++i;
+            ++_charsPosition;
             return state;
         }
 
@@ -45,27 +45,27 @@ namespace Svg
         {
             var charsLength = chars.Length;
 
-            while (i < charsLength && _hasMore)
+            while (_charsPosition < charsLength && _hasMore)
             {
                 switch (_currState)
                 {
                     case NumState.separator:
-                        if (IsCoordSeparator(chars[i]))
+                        if (IsCoordSeparator(chars[_charsPosition]))
                         {
                             _newState = NumState.separator;
                         }
-                        else if (chars[i] == '0')
+                        else if (chars[_charsPosition] == '0')
                         {
                             result = false;
                             _newState = NumState.separator;
-                            _position = i + 1;
+                            _position = _charsPosition + 1;
                             return MarkState(true);
                         }
-                        else if (chars[i] == '1')
+                        else if (chars[_charsPosition] == '1')
                         {
                             result = true;
                             _newState = NumState.separator;
-                            _position = i + 1;
+                            _position = _charsPosition + 1;
                             return MarkState(true);
                         }
                         else
@@ -78,7 +78,7 @@ namespace Svg
                         result = false;
                         return MarkState(false);
                 }
-                ++i;
+                ++_charsPosition;
             }
             result = false;
             return MarkState(false);
@@ -88,22 +88,24 @@ namespace Svg
         {
             var charsLength = chars.Length;
 
-            while (i < charsLength && _hasMore)
+            while (_charsPosition < charsLength && _hasMore)
             {
+                var currentChar = chars[_charsPosition];
+
                 switch (_currState)
                 {
                     case NumState.separator:
-                        if (char.IsNumber(chars[i]))
+                        if (char.IsNumber(currentChar))
                         {
                             _newState = NumState.integer;
                         }
-                        else if (IsCoordSeparator(chars[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
                             _newState = NumState.separator;
                         }
                         else
                         {
-                            switch (chars[i])
+                            switch (currentChar)
                             {
                                 case '.':
                                     _newState = NumState.decPlace;
@@ -119,11 +121,11 @@ namespace Svg
                         }
                         break;
                     case NumState.prefix:
-                        if (char.IsNumber(chars[i]))
+                        if (char.IsNumber(currentChar))
                         {
                             _newState = NumState.integer;
                         }
-                        else if (chars[i] == '.')
+                        else if (currentChar == '.')
                         {
                             _newState = NumState.decPlace;
                         }
@@ -133,17 +135,17 @@ namespace Svg
                         }
                         break;
                     case NumState.integer:
-                        if (char.IsNumber(chars[i]))
+                        if (char.IsNumber(currentChar))
                         {
                             _newState = NumState.integer;
                         }
-                        else if (IsCoordSeparator(chars[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
                             _newState = NumState.separator;
                         }
                         else
                         {
-                            switch (chars[i])
+                            switch (currentChar)
                             {
                                 case '.':
                                     _newState = NumState.decPlace;
@@ -163,17 +165,17 @@ namespace Svg
                         }
                         break;
                     case NumState.decPlace:
-                        if (char.IsNumber(chars[i]))
+                        if (char.IsNumber(currentChar))
                         {
                             _newState = NumState.fraction;
                         }
-                        else if (IsCoordSeparator(chars[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
                             _newState = NumState.separator;
                         }
                         else
                         {
-                            switch (chars[i])
+                            switch (currentChar)
                             {
                                 case 'E':
                                 case 'e':
@@ -190,17 +192,17 @@ namespace Svg
                         }
                         break;
                     case NumState.fraction:
-                        if (char.IsNumber(chars[i]))
+                        if (char.IsNumber(currentChar))
                         {
                             _newState = NumState.fraction;
                         }
-                        else if (IsCoordSeparator(chars[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
                             _newState = NumState.separator;
                         }
                         else
                         {
-                            switch (chars[i])
+                            switch (currentChar)
                             {
                                 case '.':
                                     _newState = NumState.decPlace;
@@ -220,17 +222,17 @@ namespace Svg
                         }
                         break;
                     case NumState.exponent:
-                        if (char.IsNumber(chars[i]))
+                        if (char.IsNumber(currentChar))
                         {
                             _newState = NumState.expValue;
                         }
-                        else if (IsCoordSeparator(chars[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
                             _newState = NumState.invalid;
                         }
                         else
                         {
-                            switch (chars[i])
+                            switch (currentChar)
                             {
                                 case '+':
                                 case '-':
@@ -243,7 +245,7 @@ namespace Svg
                         }
                         break;
                     case NumState.expPrefix:
-                        if (char.IsNumber(chars[i]))
+                        if (char.IsNumber(currentChar))
                         {
                             _newState = NumState.expValue;
                         }
@@ -253,17 +255,17 @@ namespace Svg
                         }
                         break;
                     case NumState.expValue:
-                        if (char.IsNumber(chars[i]))
+                        if (char.IsNumber(currentChar))
                         {
                             _newState = NumState.expValue;
                         }
-                        else if (IsCoordSeparator(chars[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
                             _newState = NumState.separator;
                         }
                         else
                         {
-                            switch (chars[i])
+                            switch (currentChar)
                             {
                                 case '.':
                                     _newState = NumState.decPlace;
@@ -283,17 +285,17 @@ namespace Svg
                 if (_currState != NumState.separator && _newState < _currState)
                 {
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
-                    result = float.Parse(chars.Slice(_position, i - _position), NumberStyles.Float, CultureInfo.InvariantCulture);
+                    result = float.Parse(chars.Slice(_position, _charsPosition - _position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
-                    result = float.Parse(chars.Slice(_position, i - _position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                    result = float.Parse(chars.Slice(_position, _charsPosition - _position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
 #endif
-                    _position = i;
+                    _position = _charsPosition;
                     _currState = _newState;
                     return MarkState(true);
                 }
                 else if (_newState != _currState && _currState == NumState.separator)
                 {
-                    _position = i;
+                    _position = _charsPosition;
                 }
 
                 if (_newState == NumState.invalid)
@@ -302,7 +304,7 @@ namespace Svg
                     return MarkState(false);
                 }
                 _currState = _newState;
-                ++i;
+                ++_charsPosition;
             }
 
             if (_currState == NumState.separator || !_hasMore || _position >= charsLength)
