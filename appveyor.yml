@@ -12,7 +12,7 @@ before_build:
 - ps: nuget restore Samples\XMLOutput\XMLOutputTester.csproj
 - ps: nuget restore Samples\SVGViewer\SVGViewer.csproj
 - ps: nuget restore Tests\Svg.UnitTests\Svg.UnitTests.csproj
-- ps: nuget restore Tests\Svg.UnitTests\SvgW3CTestRunner.csproj
+- ps: nuget restore Tests\SvgW3CTestRunner\SvgW3CTestRunner.csproj
 - ps: nuget install NUnit.ConsoleRunner -Version 3.10.0 -OutputDirectory tools  
 - ps: |
     if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
