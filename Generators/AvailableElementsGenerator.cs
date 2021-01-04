@@ -322,27 +322,27 @@ namespace Svg
                     }
 
                     // The Name is set in attribute by providing constructor argument.
-                    var atrributeName = (string?) attributeData.ConstructorArguments[0].Value;
-                    if (atrributeName is null)
+                    var attributeName = (string?) attributeData.ConstructorArguments[0].Value;
+                    if (attributeName is null)
                     {
                         continue;
                     }
 
-                    var atrributeNamespace = "http://www.w3.org/2000/svg";
+                    var attributeNamespace = "http://www.w3.org/2000/svg";
                     if (attributeData.ConstructorArguments.Length == 2)
                     {
-                        atrributeNamespace = (string?) attributeData.ConstructorArguments[1].Value;
+                        attributeNamespace = (string?) attributeData.ConstructorArguments[1].Value;
                     }
 
-                    if (atrributeNamespace is null)
+                    if (attributeNamespace is null)
                     {
                         continue;
                     }
 
                     var property = new Property(
                         propertySymbol,
-                        atrributeName,
-                        atrributeNamespace,
+                        attributeName,
+                        attributeNamespace,
                         GetTypeConverter(compilation, propertySymbol)
                     );
  
@@ -362,12 +362,12 @@ namespace Svg
             public IPropertySymbol Symbol { get; }
 
             /// <summary>
-            /// Gets or sets property atrribute name.
+            /// Gets or sets property attribute name.
             /// </summary>
             public string AttributeName { get; }
 
             /// <summary>
-            /// Gets or sets property atrribute namespace.
+            /// Gets or sets property attribute namespace.
             /// </summary>
             public string AttributeNamespace { get; }
 
@@ -380,8 +380,8 @@ namespace Svg
             /// Initializes a new instance of the <see cref="Property"/> class.
             /// </summary>
             /// <param name="symbol">The property symbol.</param>
-            /// <param name="attributeName">The property atrribute name.</param>
-            /// <param name="attributeNamespace">The property atrribute namespace.</param>
+            /// <param name="attributeName">The property attribute name.</param>
+            /// <param name="attributeNamespace">The property attribute namespace.</param>
             /// <param name="converter">The property type converter type string.</param>
             public Property(IPropertySymbol symbol, string attributeName, string attributeNamespace, string? converter)
             {
