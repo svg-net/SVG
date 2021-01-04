@@ -36,6 +36,7 @@ namespace Svg
     internal interface ISvgPropertyDescriptor
     {
         string AttributeName { get; }
+        string AttributeNamespace { get; }
         TypeConverter Converter { get; }
         Type Type { get; }
         object GetValue(object component);
@@ -46,6 +47,8 @@ namespace Svg
     {
         public string AttributeName { get; }
 
+        public string AttributeNamespace { get; }
+
         public TypeConverter Converter { get; }
 
         public Type Type { get; } = typeof(TU);
@@ -54,9 +57,10 @@ namespace Svg
 
         private Action<T, TU> Setter { get; }
 
-        public SvgPropertyDescriptor(string attributeName, TypeConverter converter, Func<T, TU> getter, Action<T, TU> setter)
+        public SvgPropertyDescriptor(string attributeName, string attributeNamespace, TypeConverter converter, Func<T, TU> getter, Action<T, TU> setter)
         {
             AttributeName = attributeName;
+            AttributeNamespace = attributeNamespace;
             Converter = converter;
             Getter = getter;
             Setter = setter;
@@ -84,7 +88,7 @@ namespace Svg
         public void Initialize(GeneratorInitializationContext context)
         {
             // NOTE: Uncomment the next line to enable source generator debugging (build project to trigger debugger to be attached).
-            // System.Diagnostics.Debugger.Launch();
+            System.Diagnostics.Debugger.Launch();
             context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
         }
 
@@ -314,15 +318,27 @@ namespace Svg
                     }
 
                     // The Name is set in attribute by providing constructor argument.
-                    var name = (string?) attributeData.ConstructorArguments[0].Value;
-                    if (name is null)
+                    var atrributeName = (string?) attributeData.ConstructorArguments[0].Value;
+                    if (atrributeName is null)
+                    {
+                        continue;
+                    }
+
+                    var atrributeNamespace = "http://www.w3.org/2000/svg";
+                    if (attributeData.ConstructorArguments.Length == 2)
+                    {
+                        atrributeNamespace = (string?) attributeData.ConstructorArguments[1].Value;
+                    }
+
+                    if (atrributeNamespace is null)
                     {
                         continue;
                     }
 
                     var property = new Property(
                         propertySymbol,
-                        name,
+                        atrributeName,
+                        atrributeNamespace,
                         GetTypeConverter(compilation, propertySymbol)
                     );
  
@@ -342,9 +358,14 @@ namespace Svg
             public IPropertySymbol Symbol { get; }
 
             /// <summary>
-            /// Gets or sets property name.
+            /// Gets or sets property atrribute name.
             /// </summary>
-            public string Name { get; }
+            public string AttributeName { get; }
+
+            /// <summary>
+            /// Gets or sets property atrribute namespace.
+            /// </summary>
+            public string AttributeNamespace { get; }
 
             /// <summary>
             /// Gets or sets property type converter type string.
@@ -354,13 +375,15 @@ namespace Svg
             /// <summary>
             /// Initializes a new instance of the <see cref="Property"/> class.
             /// </summary>
-            /// <param name="symbol"></param>
-            /// <param name="name"></param>
-            /// <param name="converter"></param>
-            public Property(IPropertySymbol symbol, string name, string? converter)
+            /// <param name="symbol">The property symbol.</param>
+            /// <param name="attributeName">The property atrribute name.</param>
+            /// <param name="attributeNamespace">The property atrribute namespace.</param>
+            /// <param name="converter">The property type converter type string.</param>
+            public Property(IPropertySymbol symbol, string attributeName, string attributeNamespace, string? converter)
             {
                 Symbol = symbol;
-                Name = name;
+                AttributeName = attributeName;
+                AttributeNamespace = attributeNamespace;
                 Converter = converter;
             }
         }
@@ -536,7 +559,7 @@ namespace {namespaceElementFactory}
                     var containingType = property.Symbol.ContainingType.ToDisplayString(format);
                     var propertyType = property.Symbol.Type.ToDisplayString(format);
                     var propertyName = property.Symbol.Name;
-                    source.AppendLine($"                    [\"{property.Name}\"] = new SvgPropertyDescriptor<{containingType}, {propertyType}>(\"{property.Name}\", new {property.Converter}(), (t) => t.{propertyName}, (t, v) => t.{propertyName} = v),");
+                    source.AppendLine($"                    [\"{property.AttributeName}\"] = new SvgPropertyDescriptor<{containingType}, {propertyType}>(\"{property.AttributeName}\", \"{property.AttributeNamespace}\", new {property.Converter}(), (t) => t.{propertyName}, (t, v) => t.{propertyName} = v),");
                 }
                 source.Append(@$"                }}
             }},");
