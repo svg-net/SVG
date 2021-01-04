@@ -240,14 +240,22 @@ namespace Svg
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
                 genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters | SymbolDisplayGenericsOptions.IncludeTypeConstraints | SymbolDisplayGenericsOptions.IncludeVariance
             );
-            var typeName = $"{propertySymbol.Type.ToDisplayString(format)}, {propertySymbol.Type.ContainingAssembly}";
+            var typeString = $"{propertySymbol.Type.ToDisplayString(format)}";
+            var typeName = $"{typeString},{propertySymbol.Type.ContainingAssembly}";
             var type = Type.GetType(typeName);
             if (type is not null)
             {
                 return TypeDescriptor.GetConverter(type).ToString();
             }
 
-            return null;
+            // Fallback for basic types if Type.GetType does not work.
+            return typeString switch
+            {
+                "System.String" => "System.ComponentModel.StringConverter",
+                "System.Single" => "System.ComponentModel.SingleConverter",
+                "System.Uri" => "System.UriTypeConverter",
+                _ => null
+            };
         }
 
         /// <summary>
