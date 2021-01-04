@@ -30,7 +30,7 @@ namespace Svg
             _newState = NumState.separator;
             _charsPosition = 0;
             _position = 0;
-            _hasMore = chars.Length <= 0 ? false : true;
+            _hasMore = chars.Length > 0;
             if (char.IsLetter(chars[0])) ++_charsPosition;
         }
 
