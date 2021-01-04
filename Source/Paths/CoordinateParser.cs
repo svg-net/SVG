@@ -35,7 +35,7 @@ namespace Svg
             _newState = NumState.separator;
             i = 0;
             Position = 0;
-            HasMore = chars.Length < 0;
+            HasMore = chars.Length <= 0 ? false : true;
             if (char.IsLetter(chars[0])) ++i;
         }
 
