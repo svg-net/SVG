@@ -650,7 +650,7 @@ namespace Svg
             {
                 if (SvgElements.Descriptors.TryGetValue(this.GetType(), out var elementDescriptor))
                 {
-                    throw new Exception($"Can not find {nameof(SvgElementDescriptor)} for {this.GetType()} type.");
+                    throw new Exception($"Could not find {nameof(SvgElementDescriptor)} for {this.GetType()} type.");
                 }
 
                 Writing = true;
