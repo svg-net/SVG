@@ -575,7 +575,7 @@ namespace {namespaceElementFactory}
                 }
             }
 #endif
-            // Generate SvgElements descriptors.
+            // Generate SvgElements descriptors and ElementNames properties.
 
             source.Append(@"
     internal static class SvgElements
@@ -603,9 +603,26 @@ namespace {namespaceElementFactory}
                 source.Append(@$"                }}
             }},");
             }
-
             source.Append(@"
         };
+");
+
+            source.Append(@"
+        public static Dictionary<Type, string> ElementNames { get; } = new Dictionary<Type, string>()
+        {");
+            foreach (var element in elements)
+            {
+                if (element.ElementName is not null)
+                {
+                    source.Append(@$"
+            [typeof({element.Symbol.ToDisplayString(format)})] = ""{element.ElementName}"",");
+                }
+            }
+
+            source.Append(@"
+        };");
+
+            source.Append(@"
     }
 ");
 
