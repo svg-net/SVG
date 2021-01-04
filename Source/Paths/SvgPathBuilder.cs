@@ -261,8 +261,8 @@ namespace Svg
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
-                return Parse((string)value);
+            if (value is string s)
+                return Parse(s);
 
             return base.ConvertFrom(context, culture, value);
         }
