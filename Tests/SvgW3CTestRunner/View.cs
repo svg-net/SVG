@@ -18,8 +18,8 @@ namespace SvgW3CTestRunner
         static private string sprt = Path.DirectorySeparatorChar.ToString();
 
         //Data folders
-        private string _svgBasePath = @".." + sprt + ".." + sprt + ".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "svg" + sprt;
-        private string _pngBasePath = @".." + sprt + ".." + sprt + ".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "png" + sprt;
+        private string _svgBasePath = @".." + sprt + ".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "svg" + sprt;
+        private string _pngBasePath = @".." + sprt + ".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "png" + sprt;
 
         public View()
         {
