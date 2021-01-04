@@ -134,6 +134,11 @@ namespace Svg
                     {
                         this._elementName = elementName;
                     }
+                    else if (this is SvgDocument)
+                    {
+                        // Special case for SvgDocument as valid attribute is only set on SvgFragment.
+                        this._elementName = "svg";
+                    }
 #else
                     var attr = TypeDescriptor.GetAttributes(this).OfType<SvgElementAttribute>().SingleOrDefault();
                     if (attr != null)
