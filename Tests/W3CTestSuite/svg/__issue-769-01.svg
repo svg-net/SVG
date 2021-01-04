@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" >
+	<rect fill="#0669b2" stroke="none" stroke-width="0" width="120" height="60"  />
+	<svg width="120" height="60">
+		<text font-size="11pt" fill="white" text-anchor="middle" transform="matrix(1 0 0 1 60 30)" >
+			<tspan dy="0.3em">Some text</tspan>
+		</text>
+	</svg>
+</svg>
