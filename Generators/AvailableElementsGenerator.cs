@@ -410,7 +410,7 @@ namespace Svg
             /// <summary>
             /// Gets or sets element name.
             /// </summary>
-            public string ElementName { get; }
+            public string? ElementName { get; }
 
             /// <summary>
             /// Gets or sets classes that use element name.
@@ -430,7 +430,7 @@ namespace Svg
             /// <param name="elementName">The element name.</param>
             /// <param name="classNames">The classes that use element name.</param>
             /// <param name="properties">The element properties list.</param>
-            public Element(INamedTypeSymbol symbol, List<INamedTypeSymbol> baseTypes, string elementName, List<string> classNames, List<Property> properties)
+            public Element(INamedTypeSymbol symbol, List<INamedTypeSymbol> baseTypes, string? elementName, List<string> classNames, List<Property> properties)
             {
                 Symbol = symbol;
                 BaseTypes = baseTypes;
@@ -496,33 +496,30 @@ namespace {namespaceElementFactory}
 
             // Key: ElementName
             SortedDictionary<string, Element> items = new();
+            
+            // Include all element even without SvgElementAttribute set (e.g. SvgDocument).
+            List<Element> elements = new();
 
             // Get all classes with SvgElementAttribute attribute set.
             foreach (var svgElementSymbol in svgElementSymbols)
             {
                 string classNameSvgElement = svgElementSymbol.ToDisplayString(format);
 
+                var elementName = default(string);
+
                 var attributes = svgElementSymbol.GetAttributes();
-                if (attributes.Length == 0)
+                if (attributes.Length > 0)
                 {
-                    continue;
+                    // Find SvgElementAttribute attribute data. The SvgElementAttribute has constructor with one argument of type string.
+                    var attributeData = attributes.FirstOrDefault(ad => ad?.AttributeClass?.Equals(svgElementAttribute, SymbolEqualityComparer.Default) ?? false);
+                    if (attributeData is not null && attributeData.ConstructorArguments.Length == 1)
+                    {
+                        // The ElementName is set in attribute by providing constructor argument.
+                        elementName = (string?) attributeData.ConstructorArguments[0].Value;
+                    }
                 }
 
-                // Find SvgElementAttribute attribute data. The SvgElementAttribute has constructor with one argument of type string.
-                var attributeData = attributes.FirstOrDefault(ad => ad?.AttributeClass?.Equals(svgElementAttribute, SymbolEqualityComparer.Default) ?? false);
-                if (attributeData is null || attributeData.ConstructorArguments.Length != 1)
-                {
-                    continue;
-                }
-
-                // The ElementName is set in attribute by providing constructor argument.
-                var elementName = (string?) attributeData.ConstructorArguments[0].Value;
-                if (elementName is null)
-                {
-                    continue;
-                }
-
-                if (items.TryGetValue(elementName, out var element))
+                if (elementName is not null && items.TryGetValue(elementName, out var element))
                 {
                     element.ClassNames.Add(classNameSvgElement);
                 }
@@ -535,9 +532,37 @@ namespace {namespaceElementFactory}
                         new List<string> { classNameSvgElement },
                         GetElementProperties(compilation, svgElementSymbol, svgElementBaseSymbol, svgAttributeAttribute).ToList()
                     );
-                    items.Add(elementName, element);
+                    if (elementName is not null)
+                    {
+                        items.Add(elementName, element);
+                    }
+                    elements.Add(element);
                 }
             }
+
+            static int ElementNameComparison(Element x, Element y)
+            {
+                if (x.ElementName is null && y.ElementName is null)
+                {
+                    return string.Compare(x.Symbol.ToDisplayString(), y.Symbol.ToDisplayString(), StringComparison.Ordinal);
+                }
+                if (x.ElementName is null)
+                {
+                    if (y.ElementName is null)
+                    {
+                        return 0;
+                    }
+                    return -1;
+                }
+                if (y.ElementName is null)
+                {
+                    return 1;
+                }
+                return string.Compare(x.ElementName, y.ElementName, StringComparison.Ordinal);
+            }
+
+            elements.Sort(ElementNameComparison);
+            
 #if false
             source.AppendLine($"");
             foreach (var item in items)
@@ -557,9 +582,8 @@ namespace {namespaceElementFactory}
     {
         public static Dictionary<Type, SvgElementDescriptor> Descriptors { get; } = new Dictionary<Type, SvgElementDescriptor>()
         {");
-            foreach (var item in items)
+            foreach (var element in elements)
             {
-                var element = item.Value;
                 var targetType = element.Symbol.ToDisplayString(format);
 
                 source.Append(@$"
