@@ -50,18 +50,19 @@ namespace Svg
                 switch (_currState)
                 {
                     case NumState.separator:
-                        if (IsCoordSeparator(chars[_charsPosition]))
+                        var currentChar = chars[_charsPosition];
+                        if (IsCoordSeparator(currentChar))
                         {
                             _newState = NumState.separator;
                         }
-                        else if (chars[_charsPosition] == '0')
+                        else if (currentChar == '0')
                         {
                             result = false;
                             _newState = NumState.separator;
                             _position = _charsPosition + 1;
                             return MarkState(true);
                         }
-                        else if (chars[_charsPosition] == '1')
+                        else if (currentChar == '1')
                         {
                             result = true;
                             _newState = NumState.separator;
