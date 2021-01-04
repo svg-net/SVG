@@ -26,7 +26,7 @@ namespace Svg
         public static SvgPathSegmentList Parse(string path)
         {
             if (path == null)
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
 
             var segments = new SvgPathSegmentList();
 
