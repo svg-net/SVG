@@ -33,12 +33,46 @@ namespace Svg
             try
             {
                 var pathTrimmed = path.AsSpan().TrimEnd();
-                var commands = SplitCommands(ref pathTrimmed);
-                foreach (var commandSet in commands)
+                var commandStart = 0;
+                var pathLength = pathTrimmed.Length;
+
+                for (var i = 0; i < pathLength; ++i)
                 {
-                    var commandSetTrimmed = pathTrimmed.Slice(commandSet.Start, commandSet.Length).Trim();
-                    var state = new CoordinateParserState(ref commandSetTrimmed);
-                    CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
+                    var currentChar = pathTrimmed[i];
+                    if (char.IsLetter(currentChar) && currentChar != 'e' && currentChar != 'E') // e is used in scientific notiation. but not svg path
+                    {
+                        var start = commandStart;
+                        var length = i - commandStart;
+                        var command = pathTrimmed.Slice(start, length).Trim();
+                        commandStart = i;
+
+                        if (command.Length > 0)
+                        {
+                            var commandSetTrimmed = pathTrimmed.Slice(start, length).Trim();
+                            var state = new CoordinateParserState(ref commandSetTrimmed);
+                            CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
+                        }
+
+                        if (pathLength == i + 1)
+                        {
+                            var commandSetTrimmed = pathTrimmed.Slice(i, 1).Trim();
+                            var state = new CoordinateParserState(ref commandSetTrimmed);
+                            CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
+                        }
+                    }
+                    else if (pathLength == i + 1)
+                    {
+                        var start = commandStart;
+                        var length = i - commandStart + 1;
+                        var command = pathTrimmed.Slice(start, length).Trim();
+
+                        if (command.Length > 0)
+                        {
+                            var commandSetTrimmed = pathTrimmed.Slice(start, length).Trim();
+                            var state = new CoordinateParserState(ref commandSetTrimmed);
+                            CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
+                        }
+                    }
                 }
             }
             catch (Exception exc)
@@ -221,42 +255,6 @@ namespace Svg
             }
 
             return point;
-        }
-
-        private static List<(int Start, int Length)> SplitCommands(ref ReadOnlySpan<char> path)
-        {
-            var result = new List<(int Start, int Length)>();
-            var commandStart = 0;
-            var pathLength = path.Length;
-
-            for (var i = 0; i < pathLength; ++i)
-            {
-                var currentChar = path[i];
-                if (char.IsLetter(currentChar) && currentChar != 'e' && currentChar != 'E') // e is used in scientific notiation. but not svg path
-                {
-                    var start = commandStart;
-                    var length = i - commandStart;
-                    var command = path.Slice(start, length).Trim();
-                    commandStart = i;
-
-                    if (command.Length > 0)
-                        result.Add((start, length));
-
-                    if (pathLength == i + 1)
-                        result.Add((i, 1));
-                }
-                else if (pathLength == i + 1)
-                {
-                    var start = commandStart;
-                    var length = i - commandStart + 1;
-                    var command = path.Slice(start, length).Trim();
-
-                    if (command.Length > 0)
-                        result.Add((start, length));
-                }
-            }
-
-            return result;
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
