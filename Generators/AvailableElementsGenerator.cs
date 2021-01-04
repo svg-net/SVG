@@ -538,7 +538,18 @@ namespace {namespaceElementFactory}
                     items.Add(elementName, element);
                 }
             }
-
+#if false
+            source.AppendLine($"");
+            foreach (var item in items)
+            {
+                var element = item.Value;
+                source.AppendLine($"    // {element.Symbol.ToDisplayString(format)}");
+                foreach (var property in element.Properties)
+                {
+                    source.AppendLine($"    // - ({property.Symbol.ContainingType}) {property.Symbol.Name}, '{property.AttributeName}', {property.Symbol.Type.ToDisplayString(format)}, {property.Converter ?? "<ERROR>"}");
+                }
+            }
+#endif
             // Generate SvgElements descriptors.
 
             source.Append(@"
