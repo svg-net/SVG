@@ -129,12 +129,18 @@ namespace Svg
             {
                 if (string.IsNullOrEmpty(this._elementName))
                 {
+#if USE_SOURCE_GENERATORS
+                    if (SvgElements.ElementNames.TryGetValue(this.GetType(), out var elementName))
+                    {
+                        this._elementName = elementName;
+                    }
+#else
                     var attr = TypeDescriptor.GetAttributes(this).OfType<SvgElementAttribute>().SingleOrDefault();
-
                     if (attr != null)
                     {
                         this._elementName = attr.ElementName;
                     }
+#endif
                 }
 
                 return this._elementName;
