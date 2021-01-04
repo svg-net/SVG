@@ -17,7 +17,7 @@ namespace Svg
     {
         internal const int StyleSpecificity_PresAttribute = 0;
         internal const int StyleSpecificity_InlineStyle = 1 << 16;
-
+#if !USE_SOURCE_GENERATORS
         //optimization
         protected class PropertyAttributeTuple
         {
@@ -34,7 +34,7 @@ namespace Svg
         //reflection cache
         private IEnumerable<PropertyAttributeTuple> _svgPropertyAttributes;
         private IEnumerable<EventAttributeTuple> _svgEventAttributes;
-
+#endif
         internal SvgElement _parent;
         private string _elementName;
         private SvgAttributeCollection _attributes;
@@ -534,7 +534,7 @@ namespace Svg
             //subscribe to attribute events
             Attributes.AttributeChanged += Attributes_AttributeChanged;
             CustomAttributes.AttributeChanged += Attributes_AttributeChanged;
-
+#if !USE_SOURCE_GENERATORS
             //find svg attribute descriptions
             _svgPropertyAttributes = from PropertyDescriptor a in TypeDescriptor.GetProperties(this)
                                      let attribute = a.Attributes[typeof(SvgAttributeAttribute)] as SvgAttributeAttribute
@@ -545,7 +545,7 @@ namespace Svg
                                   let attribute = a.Attributes[typeof(SvgAttributeAttribute)] as SvgAttributeAttribute
                                   where attribute != null
                                   select new EventAttributeTuple { Event = a.ComponentType.GetField(a.Name, BindingFlags.Instance | BindingFlags.NonPublic), Attribute = attribute };
-
+#endif
         }
 
         //dispatch attribute event
@@ -600,6 +600,9 @@ namespace Svg
             //events
             if (AutoPublishEvents)
             {
+#if USE_SOURCE_GENERATORS
+                // TODO: Add support for events to source generator.
+#else
                 foreach (var attr in _svgEventAttributes)
                 {
                     var evt = attr.Event.GetValue(this);
@@ -611,6 +614,7 @@ namespace Svg
                         WriteAttributeString(writer, attr.Attribute.Name, null, evtValue);
                     }
                 }
+#endif
             }
 
             //add the custom attributes
@@ -638,6 +642,134 @@ namespace Svg
         {
             var styles = _styles.ToDictionary(_styles => _styles.Key, _styles => _styles.Value.Last().Value);
 
+#if USE_SOURCE_GENERATORS
+            var opacityAttributes = new List<ISvgPropertyDescriptor>();
+            var opacityValues = new Dictionary<string, float>();
+
+            try
+            {
+                if (SvgElements.Descriptors.TryGetValue(this.GetType(), out var elementDescriptor))
+                {
+                    throw new Exception($"Can not find {nameof(SvgElementDescriptor)} for {this.GetType()} type.");
+                }
+
+                Writing = true;
+
+                foreach (var kvp in elementDescriptor.Properties)
+                {
+                    var property = kvp.Value;
+  
+                    if (property.Converter.CanConvertTo(typeof(string)))
+                    {
+                        if (property.AttributeName == "fill-opacity" || property.AttributeName == "stroke-opacity")
+                        {
+                            opacityAttributes.Add(property);
+                            continue;
+                        }
+
+                        if (Attributes.ContainsKey(property.AttributeName))
+                        {
+                            var propertyValue = property.GetValue(this);
+
+                            var forceWrite = false;
+                            var writeStyle = property.AttributeName == "fill" || property.AttributeName == "stroke";
+
+                            if (Parent != null)
+                            {
+                                if (writeStyle && propertyValue == SvgPaintServer.NotSet)
+                                    continue;
+
+                                object parentValue;
+                                if (TryResolveParentAttributeValue(property.AttributeName, out parentValue))
+                                {
+                                    if ((parentValue == propertyValue)
+                                        || ((parentValue != null) && parentValue.Equals(propertyValue)))
+                                    {
+                                        if (writeStyle)
+                                            continue;
+                                    }
+                                    else
+                                        forceWrite = true;
+                                }
+                            }
+
+                            var hasOpacity = writeStyle;
+                            if (hasOpacity)
+                            {
+                                if (propertyValue is SvgColourServer && ((SvgColourServer)propertyValue).Colour.A < 255)
+                                {
+                                    var opacity = ((SvgColourServer)propertyValue).Colour.A / 255f;
+                                    opacityValues.Add(property.AttributeName + "-opacity", opacity);
+                                }
+                            }
+
+#if NETFULL
+                            var value = (string)property.Converter.ConvertTo(propertyValue, typeof(string));
+#else
+                            // dotnetcore throws exception if input is null
+                            var value = propertyValue == null ? null : (string)property.Converter.ConvertTo(propertyValue, typeof(string));
+#endif
+
+                            if (propertyValue != null)
+                            {
+                                //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
+                                if (forceWrite || !string.IsNullOrEmpty(value))
+                                {
+                                    if (writeStyle)
+                                    {
+                                        styles[property.AttributeName] = value;
+                                    }
+                                    else
+                                    {
+                                        WriteAttributeString(writer, property.AttributeName, property.AttributeNamespace, value);
+                                    }
+                                }
+                            }
+                            else if (property.AttributeName == "fill") //if fill equals null, write 'none'
+                            {
+                                if (writeStyle)
+                                {
+                                    styles[property.AttributeName] = value;
+                                }
+                                else
+                                {
+                                    WriteAttributeString(writer, property.AttributeName, property.AttributeNamespace, value);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                foreach (var property in opacityAttributes)
+                {
+                    var opacity = 1f;
+                    var write = false;
+
+                    var key = property.AttributeName;
+                    if (opacityValues.ContainsKey(key))
+                    {
+                        opacity = opacityValues[key];
+                        write = true;
+                    }
+                    if (Attributes.ContainsKey(key))
+                    {
+                        opacity *= (float)property.GetValue(this);
+                        write = true;
+                    }
+                    if (write)
+                    {
+                        opacity = (float)Math.Round(opacity, 2, MidpointRounding.AwayFromZero);
+                        var value = (string)property.Converter.ConvertTo(opacity, typeof(string));
+                        if (!string.IsNullOrEmpty(value))
+                            WriteAttributeString(writer, property.AttributeName, property.AttributeNamespace, value);
+                    }
+                }
+            }
+            finally
+            {
+                Writing = false;
+            }
+#else
             var opacityAttributes = new List<PropertyAttributeTuple>();
             var opacityValues = new Dictionary<string, float>();
 
@@ -757,7 +889,7 @@ namespace Svg
             {
                 Writing = false;
             }
-
+#endif
             return styles;
         }
 
@@ -1009,6 +1141,9 @@ namespace Svg
             foreach (var child in Children)
                 newObj.Children.Add(child.DeepCopy());
 
+#if USE_SOURCE_GENERATORS
+            // TODO: Add support for events to source generator.
+#else
             foreach (var attr in _svgEventAttributes)
             {
                 var evt = attr.Event.GetValue(this);
@@ -1034,7 +1169,7 @@ namespace Svg
                         (newObj as SvgText).Change += delegate { };
                 }
             }
-
+#endif
             foreach (var attribute in CustomAttributes)
                 newObj.CustomAttributes.Add(attribute.Key, attribute.Value);
 
