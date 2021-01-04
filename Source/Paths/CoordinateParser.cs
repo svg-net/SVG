@@ -21,34 +21,31 @@ namespace Svg
         private NumState _currState;
         private NumState _newState;
         private int i;
-
-        public int Position { get; private set; }
-        public bool HasMore { get; private set; }
-
-        public CoordinateParser()
-        {
-        }
+        private int _position;
+        private bool _hasMore;
 
         public void Init(ref ReadOnlySpan<char> chars)
         {
             _currState = NumState.separator;
             _newState = NumState.separator;
             i = 0;
-            Position = 0;
-            HasMore = chars.Length <= 0 ? false : true;
+            _position = 0;
+            _hasMore = chars.Length <= 0 ? false : true;
             if (char.IsLetter(chars[0])) ++i;
         }
 
         private bool MarkState(bool state)
         {
-            HasMore = state;
+            _hasMore = state;
             ++i;
             return state;
         }
 
         public bool TryGetBool(out bool result, ref ReadOnlySpan<char> chars)
         {
-            while (i < chars.Length && HasMore)
+            var charsLength = chars.Length;
+
+            while (i < charsLength && _hasMore)
             {
                 switch (_currState)
                 {
@@ -61,14 +58,14 @@ namespace Svg
                         {
                             result = false;
                             _newState = NumState.separator;
-                            Position = i + 1;
+                            _position = i + 1;
                             return MarkState(true);
                         }
                         else if (chars[i] == '1')
                         {
                             result = true;
                             _newState = NumState.separator;
-                            Position = i + 1;
+                            _position = i + 1;
                             return MarkState(true);
                         }
                         else
@@ -89,7 +86,9 @@ namespace Svg
 
         public bool TryGetFloat(out float result, ref ReadOnlySpan<char> chars)
         {
-            while (i < chars.Length && HasMore)
+            var charsLength = chars.Length;
+
+            while (i < charsLength && _hasMore)
             {
                 switch (_currState)
                 {
@@ -284,17 +283,17 @@ namespace Svg
                 if (_currState != NumState.separator && _newState < _currState)
                 {
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
-                    result = float.Parse(chars.Slice(Position, i - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+                    result = float.Parse(chars.Slice(_position, i - _position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
-                    result = float.Parse(chars.Slice(Position, i - Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                    result = float.Parse(chars.Slice(_position, i - _position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
 #endif
-                    Position = i;
+                    _position = i;
                     _currState = _newState;
                     return MarkState(true);
                 }
                 else if (_newState != _currState && _currState == NumState.separator)
                 {
-                    Position = i;
+                    _position = i;
                 }
 
                 if (_newState == NumState.invalid)
@@ -306,7 +305,7 @@ namespace Svg
                 ++i;
             }
 
-            if (_currState == NumState.separator || !HasMore || Position >= chars.Length)
+            if (_currState == NumState.separator || !_hasMore || _position >= charsLength)
             {
                 result = float.MinValue;
                 return MarkState(false);
@@ -314,11 +313,11 @@ namespace Svg
             else
             {
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
-                result = float.Parse(chars.Slice(Position, chars.Length - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+                result = float.Parse(chars.Slice(_position, charsLength - _position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
-                result = float.Parse(chars.Slice(Position, chars.Length - Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                result = float.Parse(chars.Slice(_position, charsLength - _position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
 #endif
-                Position = chars.Length;
+                _position = charsLength;
                 return MarkState(true);
             }
         }
