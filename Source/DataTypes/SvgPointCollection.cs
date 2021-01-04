@@ -46,6 +46,8 @@ namespace Svg
     /// </summary>
     internal class SvgPointCollectionConverter : TypeConverter
     {
+        private CoordinateParser _parser;
+
         /// <summary>
         /// Converts the given object to the type of this converter, using the specified context and culture information.
         /// </summary>
@@ -58,14 +60,16 @@ namespace Svg
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            if (_parser is null)
             {
-                var coords = ((string) value).AsSpan().Trim();
-                var parser = new CoordinateParser();
-                parser.Init(ref coords);
-                var pointValue = 0.0f;
+                _parser = new CoordinateParser();
+            }
+            if (value is string s)
+            {
+                var coords = s.AsSpan().Trim();
+                _parser.Init(ref coords);
                 var result = new SvgPointCollection();
-                while (parser.TryGetFloat(out pointValue, ref coords))
+                while (_parser.TryGetFloat(out var pointValue, ref coords))
                 {
                     result.Add(new SvgUnit(SvgUnitType.User, pointValue));
                 }
