@@ -38,6 +38,7 @@ namespace Svg
         string AttributeName { get; }
         TypeConverter Converter { get; }
         Type Type { get; }
+        object GetValue(object component);
         void SetValue(object component, ITypeDescriptorContext context, CultureInfo culture, object value);
     }
 
@@ -49,13 +50,21 @@ namespace Svg
 
         public Type Type { get; } = typeof(TU);
 
+        private Func<T, TU> Getter { get; }
+
         private Action<T, TU> Setter { get; }
 
-        public SvgPropertyDescriptor(string attributeName, TypeConverter converter, Action<T, TU> setter)
+        public SvgPropertyDescriptor(string attributeName, TypeConverter converter, Func<T, TU> getter, Action<T, TU> setter)
         {
             AttributeName = attributeName;
             Converter = converter;
+            Getter = getter;
             Setter = setter;
+        }
+
+        public object GetValue(object component)
+        {
+            return (object)Getter((T)component);
         }
 
         public void SetValue(object component, ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -527,7 +536,7 @@ namespace {namespaceElementFactory}
                     var containingType = property.Symbol.ContainingType.ToDisplayString(format);
                     var propertyType = property.Symbol.Type.ToDisplayString(format);
                     var propertyName = property.Symbol.Name;
-                    source.AppendLine($"                    [\"{property.Name}\"] = new SvgPropertyDescriptor<{containingType}, {propertyType}>(\"{property.Name}\", new {property.Converter}(), (t, v) => t.{propertyName} = v),");
+                    source.AppendLine($"                    [\"{property.Name}\"] = new SvgPropertyDescriptor<{containingType}, {propertyType}>(\"{property.Name}\", new {property.Converter}(), (t) => t.{propertyName}, (t, v) => t.{propertyName} = v),");
                 }
                 source.Append(@$"                }}
             }},");
