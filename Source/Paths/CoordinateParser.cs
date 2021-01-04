@@ -18,16 +18,24 @@ namespace Svg
             expValue
         }
 
-        private NumState _currState = NumState.separator;
-        private NumState _newState = NumState.separator;
-        private int i = 0;
+        private NumState _currState;
+        private NumState _newState;
+        private int i;
 
-        public int Position { get; private set; } = 0;
-        public bool HasMore { get; private set; } = true;
+        public int Position { get; private set; }
+        public bool HasMore { get; private set; }
 
-        public CoordinateParser(ref ReadOnlySpan<char> chars)
+        public CoordinateParser()
         {
-            if (chars.Length < 0) HasMore = false;
+        }
+
+        public void Init(ref ReadOnlySpan<char> chars)
+        {
+            _currState = NumState.separator;
+            _newState = NumState.separator;
+            i = 0;
+            Position = 0;
+            HasMore = chars.Length < 0;
             if (char.IsLetter(chars[0])) ++i;
         }
 

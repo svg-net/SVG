@@ -34,10 +34,12 @@ namespace Svg
             {
                 var pathTrimmed = path.AsSpan().TrimEnd();
                 var commands = SplitCommands(ref pathTrimmed);
+                var parser = new CoordinateParser();
                 foreach (var commandSet in commands)
                 {
                     var commandSetTrimmed = pathTrimmed.Slice(commandSet.Start, commandSet.Length).Trim();
-                    CreatePathSegment(commandSetTrimmed[0], segments, new CoordinateParser(ref commandSetTrimmed), ref commandSetTrimmed);
+                    parser.Init(ref commandSetTrimmed);
+                    CreatePathSegment(commandSetTrimmed[0], segments, parser, ref commandSetTrimmed);
                 }
             }
             catch (Exception exc)
