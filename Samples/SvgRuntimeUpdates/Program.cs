@@ -9,9 +9,9 @@ namespace SvgRuntimeUpdates
     {
         static void Main(string[] args)
         {
-            var sampleDoc = SvgDocument.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"../../../Sample.svg"));
+            var sampleDoc = SvgDocument.Open(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"../../../sample.svg"));
             sampleDoc.GetElementById<SvgUse>("Commonwealth_Star").Fill = new SvgColourServer(Color.Black);
-            sampleDoc.Draw().Save(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"../../../Sample.png"));
+            sampleDoc.Draw().Save(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"../../../sample.png"));
         }
     }
 }
