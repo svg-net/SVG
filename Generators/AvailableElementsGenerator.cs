@@ -240,7 +240,8 @@ namespace Svg
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
                 genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters | SymbolDisplayGenericsOptions.IncludeTypeConstraints | SymbolDisplayGenericsOptions.IncludeVariance
             );
-            var type = Type.GetType(propertySymbol.Type.ToDisplayString(format));
+            var typeName = $"{propertySymbol.Type.ToDisplayString(format)}, {propertySymbol.Type.ContainingAssembly}";
+            var type = Type.GetType(typeName);
             if (type is not null)
             {
                 return TypeDescriptor.GetConverter(type).ToString();
