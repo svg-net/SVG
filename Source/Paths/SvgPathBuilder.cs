@@ -34,12 +34,11 @@ namespace Svg
             {
                 var pathTrimmed = path.AsSpan().TrimEnd();
                 var commands = SplitCommands(ref pathTrimmed);
-                var parser = new CoordinateParser();
                 foreach (var commandSet in commands)
                 {
                     var commandSetTrimmed = pathTrimmed.Slice(commandSet.Start, commandSet.Length).Trim();
-                    parser.Init(ref commandSetTrimmed);
-                    CreatePathSegment(commandSetTrimmed[0], segments, parser, ref commandSetTrimmed);
+                    var state = new CoordinateParserState(ref commandSetTrimmed);
+                    CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
                 }
             }
             catch (Exception exc)
@@ -50,7 +49,7 @@ namespace Svg
             return segments;
         }
 
-        private static void CreatePathSegment(char command, SvgPathSegmentList segments, CoordinateParser parser, ref ReadOnlySpan<char> chars)
+        private static void CreatePathSegment(char command, SvgPathSegmentList segments, ref CoordinateParserState state, ref ReadOnlySpan<char> chars)
         {
             var isRelative = char.IsLower(command);
             var coords = new float[6];
@@ -60,10 +59,10 @@ namespace Svg
             {
                 case 'M': // moveto
                 case 'm': // relative moveto
-                    if (parser.TryGetFloat(out coords[0], ref chars) && parser.TryGetFloat(out coords[1], ref chars))
+                    if (CoordinateParser.TryGetFloat(out coords[0], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[1], ref chars, ref state))
                         segments.Add(new SvgMoveToSegment(ToAbsolute(coords[0], coords[1], segments, isRelative)));
 
-                    while (parser.TryGetFloat(out coords[0], ref chars) && parser.TryGetFloat(out coords[1], ref chars))
+                    while (CoordinateParser.TryGetFloat(out coords[0], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[1], ref chars, ref state))
                     {
                         segments.Add(new SvgLineSegment(segments.Last.End,
                             ToAbsolute(coords[0], coords[1], segments, isRelative)));
@@ -74,10 +73,10 @@ namespace Svg
                     bool size;
                     bool sweep;
 
-                    while (parser.TryGetFloat(out coords[0], ref chars) && parser.TryGetFloat(out coords[1], ref chars) &&
-                           parser.TryGetFloat(out coords[2], ref chars) && parser.TryGetBool(out size, ref chars) &&
-                           parser.TryGetBool(out sweep, ref chars) && parser.TryGetFloat(out coords[3], ref chars) &&
-                           parser.TryGetFloat(out coords[4], ref chars))
+                    while (CoordinateParser.TryGetFloat(out coords[0], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[1], ref chars, ref state) &&
+                           CoordinateParser.TryGetFloat(out coords[2], ref chars, ref state) && CoordinateParser.TryGetBool(out size, ref chars, ref state) &&
+                           CoordinateParser.TryGetBool(out sweep, ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[3], ref chars, ref state) &&
+                           CoordinateParser.TryGetFloat(out coords[4], ref chars, ref state))
                     {
                         // A|a rx ry x-axis-rotation large-arc-flag sweep-flag x y
                         segments.Add(new SvgArcSegment(segments.Last.End, coords[0], coords[1], coords[2],
@@ -88,7 +87,7 @@ namespace Svg
                     break;
                 case 'L': // lineto
                 case 'l': // relative lineto
-                    while (parser.TryGetFloat(out coords[0], ref chars) && parser.TryGetFloat(out coords[1], ref chars))
+                    while (CoordinateParser.TryGetFloat(out coords[0], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[1], ref chars, ref state))
                     {
                         segments.Add(new SvgLineSegment(segments.Last.End,
                             ToAbsolute(coords[0], coords[1], segments, isRelative)));
@@ -96,7 +95,7 @@ namespace Svg
                     break;
                 case 'H': // horizontal lineto
                 case 'h': // relative horizontal lineto
-                    while (parser.TryGetFloat(out coords[0], ref chars))
+                    while (CoordinateParser.TryGetFloat(out coords[0], ref chars, ref state))
                     {
                         segments.Add(new SvgLineSegment(segments.Last.End,
                             ToAbsolute(coords[0], segments.Last.End.Y, segments, isRelative, false)));
@@ -104,7 +103,7 @@ namespace Svg
                     break;
                 case 'V': // vertical lineto
                 case 'v': // relative vertical lineto
-                    while (parser.TryGetFloat(out coords[0], ref chars))
+                    while (CoordinateParser.TryGetFloat(out coords[0], ref chars, ref state))
                     {
                         segments.Add(new SvgLineSegment(segments.Last.End,
                             ToAbsolute(segments.Last.End.X, coords[0], segments, false, isRelative)));
@@ -112,8 +111,8 @@ namespace Svg
                     break;
                 case 'Q': // quadratic bézier curveto
                 case 'q': // relative quadratic bézier curveto
-                    while (parser.TryGetFloat(out coords[0], ref chars) && parser.TryGetFloat(out coords[1], ref chars) &&
-                           parser.TryGetFloat(out coords[2], ref chars) && parser.TryGetFloat(out coords[3], ref chars))
+                    while (CoordinateParser.TryGetFloat(out coords[0], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[1], ref chars, ref state) &&
+                           CoordinateParser.TryGetFloat(out coords[2], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[3], ref chars, ref state))
                     {
                         segments.Add(new SvgQuadraticCurveSegment(segments.Last.End,
                             ToAbsolute(coords[0], coords[1], segments, isRelative),
@@ -122,7 +121,7 @@ namespace Svg
                     break;
                 case 'T': // shorthand/smooth quadratic bézier curveto
                 case 't': // relative shorthand/smooth quadratic bézier curveto
-                    while (parser.TryGetFloat(out coords[0], ref chars) && parser.TryGetFloat(out coords[1], ref chars))
+                    while (CoordinateParser.TryGetFloat(out coords[0], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[1], ref chars, ref state))
                     {
                         var lastQuadCurve = segments.Last as SvgQuadraticCurveSegment;
 
@@ -136,9 +135,9 @@ namespace Svg
                     break;
                 case 'C': // curveto
                 case 'c': // relative curveto
-                    while (parser.TryGetFloat(out coords[0], ref chars) && parser.TryGetFloat(out coords[1], ref chars) &&
-                           parser.TryGetFloat(out coords[2], ref chars) && parser.TryGetFloat(out coords[3], ref chars) &&
-                           parser.TryGetFloat(out coords[4], ref chars) && parser.TryGetFloat(out coords[5], ref chars))
+                    while (CoordinateParser.TryGetFloat(out coords[0], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[1], ref chars, ref state) &&
+                           CoordinateParser.TryGetFloat(out coords[2], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[3], ref chars, ref state) &&
+                           CoordinateParser.TryGetFloat(out coords[4], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[5], ref chars, ref state))
                     {
                         segments.Add(new SvgCubicCurveSegment(segments.Last.End,
                             ToAbsolute(coords[0], coords[1], segments, isRelative),
@@ -148,8 +147,8 @@ namespace Svg
                     break;
                 case 'S': // shorthand/smooth curveto
                 case 's': // relative shorthand/smooth curveto
-                    while (parser.TryGetFloat(out coords[0], ref chars) && parser.TryGetFloat(out coords[1], ref chars) &&
-                           parser.TryGetFloat(out coords[2], ref chars) && parser.TryGetFloat(out coords[3], ref chars))
+                    while (CoordinateParser.TryGetFloat(out coords[0], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[1], ref chars, ref state) &&
+                           CoordinateParser.TryGetFloat(out coords[2], ref chars, ref state) && CoordinateParser.TryGetFloat(out coords[3], ref chars, ref state))
                     {
                         var lastCubicCurve = segments.Last as SvgCubicCurveSegment;
 

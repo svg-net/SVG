@@ -3,28 +3,28 @@ using System.Globalization;
 
 namespace Svg
 {
-    internal class CoordinateParser
+    internal enum NumState
     {
-        private enum NumState
-        {
-            Invalid,
-            Separator,
-            Prefix,
-            Integer,
-            DecPlace,
-            Fraction,
-            Exponent,
-            ExpPrefix,
-            ExpValue
-        }
+        Invalid,
+        Separator,
+        Prefix,
+        Integer,
+        DecPlace,
+        Fraction,
+        Exponent,
+        ExpPrefix,
+        ExpValue
+    }
 
-        private NumState _currState;
-        private NumState _newState;
-        private int _charsPosition;
-        private int _position;
-        private bool _hasMore;
+    internal struct CoordinateParserState
+    {
+        public NumState _currState;
+        public NumState _newState;
+        public int _charsPosition;
+        public int _position;
+        public bool _hasMore;
 
-        public void Init(ref ReadOnlySpan<char> chars)
+        public CoordinateParserState(ref ReadOnlySpan<char> chars)
         {
             _currState = NumState.Separator;
             _newState = NumState.Separator;
@@ -33,90 +33,93 @@ namespace Svg
             _hasMore = chars.Length > 0;
             if (char.IsLetter(chars[0])) ++_charsPosition;
         }
+    }
 
-        private bool MarkState(bool state)
+    internal static class CoordinateParser
+    {
+        private static bool MarkState(bool hasMode, ref CoordinateParserState state)
         {
-            _hasMore = state;
-            ++_charsPosition;
-            return state;
+            state._hasMore = hasMode;
+            ++state._charsPosition;
+            return hasMode;
         }
 
-        public bool TryGetBool(out bool result, ref ReadOnlySpan<char> chars)
+        public static bool TryGetBool(out bool result, ref ReadOnlySpan<char> chars, ref CoordinateParserState state)
         {
             var charsLength = chars.Length;
 
-            while (_charsPosition < charsLength && _hasMore)
+            while (state._charsPosition < charsLength && state._hasMore)
             {
-                switch (_currState)
+                switch (state._currState)
                 {
                     case NumState.Separator:
-                        var currentChar = chars[_charsPosition];
+                        var currentChar = chars[state._charsPosition];
                         if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.Separator;
+                            state._newState = NumState.Separator;
                         }
                         else if (currentChar == '0')
                         {
                             result = false;
-                            _newState = NumState.Separator;
-                            _position = _charsPosition + 1;
-                            return MarkState(true);
+                            state._newState = NumState.Separator;
+                            state._position = state._charsPosition + 1;
+                            return MarkState(true, ref state);
                         }
                         else if (currentChar == '1')
                         {
                             result = true;
-                            _newState = NumState.Separator;
-                            _position = _charsPosition + 1;
-                            return MarkState(true);
+                            state._newState = NumState.Separator;
+                            state._position = state._charsPosition + 1;
+                            return MarkState(true, ref state);
                         }
                         else
                         {
                             result = false;
-                            return MarkState(false);
+                            return MarkState(false, ref state);
                         }
                         break;
                     default:
                         result = false;
-                        return MarkState(false);
+                        return MarkState(false, ref state);
                 }
-                ++_charsPosition;
+                ++state._charsPosition;
             }
             result = false;
-            return MarkState(false);
+            return MarkState(false, ref state);
         }
 
-        public bool TryGetFloat(out float result, ref ReadOnlySpan<char> chars)
+        public static bool TryGetFloat(out float result, ref ReadOnlySpan<char> chars, ref CoordinateParserState state)
         {
             var charsLength = chars.Length;
 
-            while (_charsPosition < charsLength && _hasMore)
+            while (state._charsPosition < charsLength && state._hasMore)
             {
-                var currentChar = chars[_charsPosition];
+                var currentChar = chars[state._charsPosition];
 
-                switch (_currState)
+                switch (state._currState)
                 {
                     case NumState.Separator:
                         if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.Integer;
+                            state._newState = NumState.Integer;
                         }
                         else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.Separator;
+                            state._newState = NumState.Separator;
                         }
                         else
                         {
                             switch (currentChar)
                             {
                                 case '.':
-                                    _newState = NumState.DecPlace;
+                                    state._newState = NumState.DecPlace;
                                     break;
                                 case '+':
                                 case '-':
-                                    _newState = NumState.Prefix;
+                                    state._newState = NumState.Prefix;
                                     break;
                                 default:
-                                    _newState = NumState.Invalid;
+                                    state._newState = NumState.Invalid;
                                     break;
                             }
                         }
@@ -124,43 +127,43 @@ namespace Svg
                     case NumState.Prefix:
                         if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.Integer;
+                            state._newState = NumState.Integer;
                         }
                         else if (currentChar == '.')
                         {
-                            _newState = NumState.DecPlace;
+                            state._newState = NumState.DecPlace;
                         }
                         else
                         {
-                            _newState = NumState.Invalid;
+                            state._newState = NumState.Invalid;
                         }
                         break;
                     case NumState.Integer:
                         if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.Integer;
+                            state._newState = NumState.Integer;
                         }
                         else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.Separator;
+                            state._newState = NumState.Separator;
                         }
                         else
                         {
                             switch (currentChar)
                             {
                                 case '.':
-                                    _newState = NumState.DecPlace;
+                                    state._newState = NumState.DecPlace;
                                     break;
                                 case 'E':
                                 case 'e':
-                                    _newState = NumState.Exponent;
+                                    state._newState = NumState.Exponent;
                                     break;
                                 case '+':
                                 case '-':
-                                    _newState = NumState.Prefix;
+                                    state._newState = NumState.Prefix;
                                     break;
                                 default:
-                                    _newState = NumState.Invalid;
+                                    state._newState = NumState.Invalid;
                                     break;
                             }
                         }
@@ -168,11 +171,11 @@ namespace Svg
                     case NumState.DecPlace:
                         if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.Fraction;
+                            state._newState = NumState.Fraction;
                         }
                         else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.Separator;
+                            state._newState = NumState.Separator;
                         }
                         else
                         {
@@ -180,14 +183,14 @@ namespace Svg
                             {
                                 case 'E':
                                 case 'e':
-                                    _newState = NumState.Exponent;
+                                    state._newState = NumState.Exponent;
                                     break;
                                 case '+':
                                 case '-':
-                                    _newState = NumState.Prefix;
+                                    state._newState = NumState.Prefix;
                                     break;
                                 default:
-                                    _newState = NumState.Invalid;
+                                    state._newState = NumState.Invalid;
                                     break;
                             }
                         }
@@ -195,29 +198,29 @@ namespace Svg
                     case NumState.Fraction:
                         if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.Fraction;
+                            state._newState = NumState.Fraction;
                         }
                         else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.Separator;
+                            state._newState = NumState.Separator;
                         }
                         else
                         {
                             switch (currentChar)
                             {
                                 case '.':
-                                    _newState = NumState.DecPlace;
+                                    state._newState = NumState.DecPlace;
                                     break;
                                 case 'E':
                                 case 'e':
-                                    _newState = NumState.Exponent;
+                                    state._newState = NumState.Exponent;
                                     break;
                                 case '+':
                                 case '-':
-                                    _newState = NumState.Prefix;
+                                    state._newState = NumState.Prefix;
                                     break;
                                 default:
-                                    _newState = NumState.Invalid;
+                                    state._newState = NumState.Invalid;
                                     break;
                             }
                         }
@@ -225,11 +228,11 @@ namespace Svg
                     case NumState.Exponent:
                         if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.ExpValue;
+                            state._newState = NumState.ExpValue;
                         }
                         else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.Invalid;
+                            state._newState = NumState.Invalid;
                         }
                         else
                         {
@@ -237,10 +240,10 @@ namespace Svg
                             {
                                 case '+':
                                 case '-':
-                                    _newState = NumState.ExpPrefix;
+                                    state._newState = NumState.ExpPrefix;
                                     break;
                                 default:
-                                    _newState = NumState.Invalid;
+                                    state._newState = NumState.Invalid;
                                     break;
                             }
                         }
@@ -248,80 +251,80 @@ namespace Svg
                     case NumState.ExpPrefix:
                         if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.ExpValue;
+                            state._newState = NumState.ExpValue;
                         }
                         else
                         {
-                            _newState = NumState.Invalid;
+                            state._newState = NumState.Invalid;
                         }
                         break;
                     case NumState.ExpValue:
                         if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.ExpValue;
+                            state._newState = NumState.ExpValue;
                         }
                         else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.Separator;
+                            state._newState = NumState.Separator;
                         }
                         else
                         {
                             switch (currentChar)
                             {
                                 case '.':
-                                    _newState = NumState.DecPlace;
+                                    state._newState = NumState.DecPlace;
                                     break;
                                 case '+':
                                 case '-':
-                                    _newState = NumState.Prefix;
+                                    state._newState = NumState.Prefix;
                                     break;
                                 default:
-                                    _newState = NumState.Invalid;
+                                    state._newState = NumState.Invalid;
                                     break;
                             }
                         }
                         break;
                 }
 
-                if (_currState != NumState.Separator && _newState < _currState)
+                if (state._currState != NumState.Separator && state._newState < state._currState)
                 {
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
-                    result = float.Parse(chars.Slice(_position, _charsPosition - _position), NumberStyles.Float, CultureInfo.InvariantCulture);
+                    result = float.Parse(chars.Slice(state._position, state._charsPosition - state._position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
-                    result = float.Parse(chars.Slice(_position, _charsPosition - _position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                    result = float.Parse(chars.Slice(state._position, state._charsPosition - state._position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
 #endif
-                    _position = _charsPosition;
-                    _currState = _newState;
-                    return MarkState(true);
+                    state._position = state._charsPosition;
+                    state._currState = state._newState;
+                    return MarkState(true, ref state);
                 }
-                else if (_newState != _currState && _currState == NumState.Separator)
+                else if (state._newState != state._currState && state._currState == NumState.Separator)
                 {
-                    _position = _charsPosition;
+                    state._position = state._charsPosition;
                 }
 
-                if (_newState == NumState.Invalid)
+                if (state._newState == NumState.Invalid)
                 {
                     result = float.MinValue;
-                    return MarkState(false);
+                    return MarkState(false, ref state);
                 }
-                _currState = _newState;
-                ++_charsPosition;
+                state._currState = state._newState;
+                ++state._charsPosition;
             }
 
-            if (_currState == NumState.Separator || !_hasMore || _position >= charsLength)
+            if (state._currState == NumState.Separator || !state._hasMore || state._position >= charsLength)
             {
                 result = float.MinValue;
-                return MarkState(false);
+                return MarkState(false, ref state);
             }
             else
             {
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
-                result = float.Parse(chars.Slice(_position, charsLength - _position), NumberStyles.Float, CultureInfo.InvariantCulture);
+                result = float.Parse(chars.Slice(state._position, charsLength - state._position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
-                result = float.Parse(chars.Slice(_position, charsLength - _position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+                result = float.Parse(chars.Slice(state._position, charsLength - state._position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
 #endif
-                _position = charsLength;
-                return MarkState(true);
+                state._position = charsLength;
+                return MarkState(true, ref state);
             }
         }
 
