@@ -648,7 +648,7 @@ namespace Svg
 
             try
             {
-                if (SvgElements.Descriptors.TryGetValue(this.GetType(), out var elementDescriptor))
+                if (!SvgElements.Descriptors.TryGetValue(this.GetType(), out var elementDescriptor))
                 {
                     throw new Exception($"Could not find {nameof(SvgElementDescriptor)} for {this.GetType()} type.");
                 }
