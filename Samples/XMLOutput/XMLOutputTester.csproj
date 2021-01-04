@@ -5,10 +5,15 @@
     <TargetFrameworks>net461;netcoreapp3.0</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateResourceUsePreserializedResources></GenerateResourceUsePreserializedResources>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Svg.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
