@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Svg
 {
-    internal enum NumState
+    public enum NumState
     {
         Invalid,
         Separator,
@@ -16,7 +16,7 @@ namespace Svg
         ExpValue
     }
 
-    internal ref struct CoordinateParserState
+    public ref struct CoordinateParserState
     {
         public NumState CurrNumState;
         public NumState NewNumState;
@@ -35,7 +35,7 @@ namespace Svg
         }
     }
 
-    internal static class CoordinateParser
+    public static class CoordinateParser
     {
         private static bool MarkState(bool hasMode, ref CoordinateParserState state)
         {
