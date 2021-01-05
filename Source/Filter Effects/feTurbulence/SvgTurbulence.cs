@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feTurbulence")]
-    public class SvgTurbulence : SvgFilterPrimitive
+    public partial class SvgTurbulence : SvgFilterPrimitive
     {
         [SvgAttribute("baseFrequency")]
         public SvgNumberCollection BaseFrequency

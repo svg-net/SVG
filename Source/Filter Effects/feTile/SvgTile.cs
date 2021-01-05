@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feTile")]
-    public class SvgTile : SvgFilterPrimitive
+    public partial class SvgTile : SvgFilterPrimitive
     {
         public override void Process(ImageBuffer buffer)
         {

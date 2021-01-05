@@ -8,7 +8,7 @@ namespace Svg
     /// Represents an SVG rectangle that could also have rounded edges.
     /// </summary>
     [SvgElement("rect")]
-    public class SvgRectangle : SvgPathBasedElement
+    public partial class SvgRectangle : SvgPathBasedElement
     {
         private SvgUnit _x = 0f;
         private SvgUnit _y = 0f;

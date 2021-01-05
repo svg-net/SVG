@@ -4,7 +4,7 @@ namespace Svg
     /// Represents a list of re-usable SVG components.
     /// </summary>
     [SvgElement("defs")]
-    public class SvgDefinitionList : SvgElement
+    public partial class SvgDefinitionList : SvgElement
     {
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.

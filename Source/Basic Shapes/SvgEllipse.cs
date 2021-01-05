@@ -6,7 +6,7 @@ namespace Svg
     /// Represents and SVG ellipse element.
     /// </summary>
     [SvgElement("ellipse")]
-    public class SvgEllipse : SvgPathBasedElement
+    public partial class SvgEllipse : SvgPathBasedElement
     {
         private SvgUnit _centerX = 0f;
         private SvgUnit _centerY = 0f;

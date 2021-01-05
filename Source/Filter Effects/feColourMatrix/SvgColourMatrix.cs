@@ -10,7 +10,7 @@ namespace Svg.FilterEffects
     /// Note: this is not used in calculations to bitmap - used only to allow for svg xml output
     /// </summary>
     [SvgElement("feColorMatrix")]
-    public class SvgColourMatrix : SvgFilterPrimitive
+    public partial class SvgColourMatrix : SvgFilterPrimitive
     {
         private SvgColourMatrixType _type;
         private string _values;
@@ -29,7 +29,7 @@ namespace Svg.FilterEffects
 
         /// <summary>
         /// list of numbers
-        /// The contents of ?values? depends on the value of attribute ?type?: 
+        /// The contents of ?values? depends on the value of attribute ?type?:
         /// Note: this is not used in calculations to bitmap - used only to allow for svg xml output
         /// </summary>
         [SvgAttribute("values")]

@@ -7,7 +7,7 @@ namespace Svg
     /// Defines a path that can be used by other <see cref="ISvgClipable"/> elements.
     /// </summary>
     [SvgElement("clipPath")]
-    public sealed class SvgClipPath : SvgElement
+    public partial class SvgClipPath : SvgElement
     {
         private GraphicsPath _path;
 
@@ -56,7 +56,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="path"></param>
         /// <param name="element"></param>

@@ -8,7 +8,7 @@ namespace Svg
     /// An <see cref="SvgFragment"/> represents an SVG fragment that can be the root element or an embedded fragment of an SVG document.
     /// </summary>
     [SvgElement("svg")]
-    public class SvgFragment : SvgElement, ISvgViewPort, ISvgBoundable
+    public partial class SvgFragment : SvgElement, ISvgViewPort, ISvgBoundable
     {
         private SvgUnit _x = 0f;
         private SvgUnit _y = 0f;

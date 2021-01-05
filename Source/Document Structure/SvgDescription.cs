@@ -4,7 +4,7 @@ namespace Svg
 {
     [DefaultProperty("Text")]
     [SvgElement("desc")]
-    public class SvgDescription : SvgElement, ISvgDescriptiveElement
+    public partial class SvgDescription : SvgElement, ISvgDescriptiveElement
     {
         public override string ToString()
         {

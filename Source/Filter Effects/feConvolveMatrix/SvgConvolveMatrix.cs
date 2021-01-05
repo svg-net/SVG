@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feConvolveMatrix")]
-    public class SvgConvolveMatrix : SvgFilterPrimitive
+    public partial class SvgConvolveMatrix : SvgFilterPrimitive
     {
         [SvgAttribute("order")]
         public SvgNumberCollection Order

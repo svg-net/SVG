@@ -11,7 +11,7 @@ namespace Svg
     /// A pattern is used to fill or stroke an object using a pre-defined graphic object which can be replicated ("tiled") at fixed intervals in x and y to cover the areas to be painted.
     /// </summary>
     [SvgElement("pattern")]
-    public sealed class SvgPatternServer : SvgPaintServer, ISvgViewPort
+    public partial class SvgPatternServer : SvgPaintServer, ISvgViewPort
     {
         private SvgUnit _x = SvgUnit.None;
         private SvgUnit _y = SvgUnit.None;
@@ -82,7 +82,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Specifies a supplemental transformation which is applied on top of any 
+        /// Specifies a supplemental transformation which is applied on top of any
         /// transformations necessary to create a new pattern coordinate system.
         /// </summary>
         [SvgAttribute("viewBox")]

@@ -3,7 +3,7 @@
 namespace Svg.FilterEffects
 {
     [SvgElement("feDiffuseLighting")]
-    public class SvgDiffuseLighting : SvgFilterPrimitive
+    public partial class SvgDiffuseLighting : SvgFilterPrimitive
     {
         [SvgAttribute("surfaceScale")]
         public float SurfaceScale

@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feMorphology")]
-    public class SvgMorphology : SvgFilterPrimitive
+    public partial class SvgMorphology : SvgFilterPrimitive
     {
         [SvgAttribute("operator")]
         public SvgMorphologyOperator Operator

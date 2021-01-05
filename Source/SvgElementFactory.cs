@@ -286,7 +286,7 @@ namespace Svg
                 {
                     properties = TypeDescriptor.GetProperties(elementType, new[] { new SvgAttributeAttribute(attributeName) });
                     _propertyDescriptors.Add(elementType, new Dictionary<string, PropertyDescriptorCollection>());
- 
+
                     _propertyDescriptors[elementType].Add(attributeName, properties);
                 }
             }
@@ -309,8 +309,7 @@ namespace Svg
                 }
             }
 #else
-            if (SvgElements.Descriptors.TryGetValue(elementType, out var elementDescriptor)
-                && elementDescriptor.Properties.TryGetValue(attributeName, out var propertyDescriptor))
+            if (element.Properties.TryGetValue(attributeName, out var propertyDescriptor))
             {
                 try
                 {

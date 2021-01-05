@@ -5,7 +5,7 @@ using Svg.Pathing;
 namespace Svg
 {
     [SvgElement("glyph")]
-    public class SvgGlyph : SvgPathBasedElement, ISvgPathElement
+    public partial class SvgGlyph : SvgPathBasedElement, ISvgPathElement
     {
         private GraphicsPath _path;
 

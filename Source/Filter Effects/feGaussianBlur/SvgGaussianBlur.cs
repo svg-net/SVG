@@ -11,7 +11,7 @@ namespace Svg.FilterEffects
     }
 
     [SvgElement("feGaussianBlur")]
-    public class SvgGaussianBlur : SvgFilterPrimitive
+    public partial class SvgGaussianBlur : SvgFilterPrimitive
     {
         private float _stdDeviationX = float.NaN;
         private float _stdDeviationY = float.NaN;

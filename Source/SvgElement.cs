@@ -662,14 +662,9 @@ namespace Svg
 
             try
             {
-                if (!SvgElements.Descriptors.TryGetValue(this.GetType(), out var elementDescriptor))
-                {
-                    throw new Exception($"Could not find {nameof(SvgElementDescriptor)} for {this.GetType()} type.");
-                }
-
                 Writing = true;
 
-                foreach (var kvp in elementDescriptor.Properties)
+                foreach (var kvp in this.Properties)
                 {
                     var property = kvp.Value;
 
