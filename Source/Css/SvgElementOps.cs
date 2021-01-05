@@ -16,8 +16,7 @@ namespace Svg.Css
 
         public Selector<SvgElement> Type(NamespacePrefix prefix, string name)
         {
-            var types = _elementFactory.AvailableElements.Where(e => e.ElementName.Equals(name)).Select(e => e.ElementType);
-            if (types.Any())
+            if (_elementFactory.AvailableElementsDictionary.TryGetValue(name, out var types))
             {
                 return nodes => nodes.Where(n => types.Contains(n.GetType()));
             }

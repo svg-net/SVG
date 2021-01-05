@@ -1,7 +1,6 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Xml;
 
 namespace Svg
 {
@@ -17,7 +16,7 @@ namespace Svg
         /// <summary>
         /// Gets the SVG namespace string.
         /// </summary>
-        public static readonly Uri Namespace = new Uri(SvgAttributeAttribute.SvgNamespace);
+        public static readonly Uri Namespace = new Uri(SvgNamespace.UriString);
 
         PointF ISvgBoundable.Location
         {

@@ -772,10 +772,7 @@ namespace Svg
 
             foreach (var ns in SvgAttributeAttribute.Namespaces)
             {
-                if (string.IsNullOrEmpty(ns.Key))
-                    writer.WriteAttributeString("xmlns", ns.Value);
-                else
-                    writer.WriteAttributeString("xmlns", ns.Key, null, ns.Value);
+                writer.WriteAttributeString("xmlns", ns.Key, null, ns.Value);
             }
 
             writer.WriteAttributeString("version", "1.1");

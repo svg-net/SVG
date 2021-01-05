@@ -7,9 +7,7 @@ environment:
     secure: XMbLDC3+c/MyXicj/h1j17YScPrEbIxAPzhyg9LBCJ/BOfRZHsA8znU3vwmfZbO8
 
 before_build:
-- ps: nuget restore Source\Svg.csproj
-- ps: nuget restore Samples\SvgConsole\SvgConsole.csproj
-- ps: nuget restore Tests\Svg.UnitTests\Svg.UnitTests.csproj
+- ps: nuget restore Source\Svg.sln
 - ps: nuget install NUnit.ConsoleRunner -Version 3.10.0 -OutputDirectory tools  
 - ps: |
     if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
@@ -46,7 +44,7 @@ after_build:
         
         git config --global credential.helper store
         git config --local core.autocrlf true
-        Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+        Add-Content -Path "$env:USERPROFILE\.git-credentials" -Value "https://$($env:access_token):x-oauth-basic@github.com`n" -NoNewline
         git config --global user.email $env:tebjan@noreply.com
         git config --global user.name $env:tebjan
         git clone https://github.com/vvvv/SVG.git -b gh-pages origin_site -q

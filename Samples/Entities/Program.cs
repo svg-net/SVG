@@ -9,7 +9,7 @@ namespace Entities
     {
         static void Main(string[] args)
         {
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\sample.svg");
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"../../../sample.svg");
 
             var sampleDoc = SvgDocument.Open<SvgDocument>(filePath,  new Dictionary<string, string> 
                 {
@@ -17,7 +17,7 @@ namespace Entities
                     {"entity2", "fill:yellow" }
                 });
 
-            sampleDoc.Draw().Save(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\sample.png"));
+            sampleDoc.Draw().Save(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"../../../sample.png"));
         }
     }
 }

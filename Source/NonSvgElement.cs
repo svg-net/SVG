@@ -1,4 +1,4 @@
-namespace Svg
+﻿namespace Svg
 {
     public class NonSvgElement : SvgElement
     {
@@ -6,9 +6,10 @@ namespace Svg
         {
         }
 
-        public NonSvgElement(string elementName)
+        public NonSvgElement(string elementName, string elementNamespace)
         {
             ElementName = elementName;
+            ElementNamespace = elementNamespace;
         }
 
         public override SvgElement DeepCopy()
