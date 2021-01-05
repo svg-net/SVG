@@ -208,7 +208,7 @@ namespace Svg
 
             // Key: ElementName
             SortedDictionary<string, Element> items = new();
-            
+
             // Include all element even without SvgElementAttribute set (e.g. SvgDocument).
             List<Element> elements = new();
 
@@ -227,7 +227,7 @@ namespace Svg
                     if (attributeData is not null && attributeData.ConstructorArguments.Length == 1)
                     {
                         // The ElementName is set in attribute by providing constructor argument.
-                        elementName = (string?) attributeData.ConstructorArguments[0].Value;
+                        elementName = (string?)attributeData.ConstructorArguments[0].Value;
                     }
                 }
 
@@ -578,7 +578,7 @@ namespace {namespaceElementFactory}
             {
                 return typeConverter;
             }
-            
+
             // Get converter from attribute explicitly set on property/event type.
             var typeTypeConverter = GetTypeConverter(symbolType, typeConverterAttribute);
             if (typeTypeConverter is not null)
@@ -631,7 +631,7 @@ namespace {namespaceElementFactory}
             }
 
             // The Type is set in attribute by providing constructor argument.
-  
+
             return attributeData.ConstructorArguments[0].Value?.ToString();
         }
 
@@ -668,7 +668,7 @@ namespace {namespaceElementFactory}
                     {
                         continue;
                     }
-                    
+
                     var attributes = member.GetAttributes();
                     if (attributes.Length == 0)
                     {
@@ -683,7 +683,7 @@ namespace {namespaceElementFactory}
                     }
 
                     // The Name is set in attribute by providing constructor argument.
-                    var attributeName = (string?) attributeData.ConstructorArguments[0].Value;
+                    var attributeName = (string?)attributeData.ConstructorArguments[0].Value;
                     if (attributeName is null)
                     {
                         continue;
@@ -692,7 +692,7 @@ namespace {namespaceElementFactory}
                     var attributeNamespace = "http://www.w3.org/2000/svg";
                     if (attributeData.ConstructorArguments.Length == 2)
                     {
-                        attributeNamespace = (string?) attributeData.ConstructorArguments[1].Value;
+                        attributeNamespace = (string?)attributeData.ConstructorArguments[1].Value;
                     }
 
                     if (attributeNamespace is null)
@@ -707,7 +707,7 @@ namespace {namespaceElementFactory}
                         attributeNamespace,
                         GetTypeConverter(compilation, member)
                     );
- 
+
                     yield return property;
                 }
             }
@@ -779,7 +779,7 @@ namespace {namespaceElementFactory}
                 Converter = converter;
             }
         }
-        
+
         /// <summary>
         /// The SvgElement object.
         /// </summary>
