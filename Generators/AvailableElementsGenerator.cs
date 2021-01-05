@@ -33,8 +33,15 @@ namespace Svg
     {
     }
 
+    internal enum DescriptorType
+    {
+        Property,
+        Event
+    }
+
     internal interface ISvgPropertyDescriptor
     {
+        DescriptorType DescriptorType { get; }
         string AttributeName { get; }
         string AttributeNamespace { get; }
         TypeConverter Converter { get; }
@@ -45,6 +52,7 @@ namespace Svg
 
     internal class SvgPropertyDescriptor<T, TU> : ISvgPropertyDescriptor
     {
+        public DescriptorType DescriptorType { get; }
         public string AttributeName { get; }
         public string AttributeNamespace { get; }
         public TypeConverter Converter { get; }
@@ -52,8 +60,9 @@ namespace Svg
         private Func<T, TU> Getter { get; }
         private Action<T, TU> Setter { get; }
 
-        public SvgPropertyDescriptor(string attributeName, string attributeNamespace, TypeConverter converter, Func<T, TU> getter, Action<T, TU> setter)
+        public SvgPropertyDescriptor(DescriptorType descriptorType, string attributeName, string attributeNamespace, TypeConverter converter, Func<T, TU> getter, Action<T, TU> setter)
         {
+            DescriptorType = descriptorType;
             AttributeName = attributeName;
             AttributeNamespace = attributeNamespace;
             Converter = converter;
@@ -207,13 +216,34 @@ namespace Svg
         }
 
         /// <summary>
-        /// Get the <see cref="TypeConverter"/> type string set for property symbol or property symbol type.
+        /// Get the <see cref="ITypeSymbol"/> from symbol.
+        /// </summary>
+        /// <param name="symbol">The symbol object.</param>
+        /// <returns>The <see cref="ITypeSymbol"/> for symbol or null value.</returns>
+        private static ITypeSymbol? GetTypeSymbol(ISymbol symbol)
+        {
+            return symbol switch
+            {
+                IEventSymbol eventSymbol => eventSymbol.Type,
+                IPropertySymbol propertySymbol => propertySymbol.Type,
+                _ => null
+            };
+        }
+
+        /// <summary>
+        /// Get the <see cref="TypeConverter"/> type string set for property/event symbol or property/event symbol type.
         /// </summary>
         /// <param name="compilation">The compilation object.</param>
-        /// <param name="propertySymbol">The property symbol</param>
-        /// <returns>The <see cref="TypeConverter"/> type string set for property symbol or property symbol type.</returns>
-        private static string? GetTypeConverter(Compilation compilation, IPropertySymbol propertySymbol)
+        /// <param name="symbol">The symbol object for property/event.</param>
+        /// <returns>The <see cref="TypeConverter"/> type string set for property/event symbol or property/event symbol type.</returns>
+        private static string? GetTypeConverter(Compilation compilation, ISymbol symbol)
         {
+            var symbolType = GetTypeSymbol(symbol);
+            if (symbolType is null)
+            {
+                return null;
+            }
+
             // Get TypeConverterAttribute symbol using for later attribute retrieval.
             var typeConverterAttribute = compilation.GetTypeByMetadataName("System.ComponentModel.TypeConverterAttribute");
             if (typeConverterAttribute is null)
@@ -221,27 +251,27 @@ namespace Svg
                 return null;
             }
 
-            // Get converter from attribute explicitly set on property.
-            var propertySymbolTypeConverter = GetTypeConverter(propertySymbol, typeConverterAttribute);
-            if (propertySymbolTypeConverter is not null)
+            // Get converter from attribute explicitly set on property/event.
+            var typeConverter = GetTypeConverter(symbol, typeConverterAttribute);
+            if (typeConverter is not null)
             {
-                return propertySymbolTypeConverter;
+                return typeConverter;
             }
             
-            // Get converter from attribute explicitly set on property type.
-            var propertySymbolTypeTypeConverter = GetTypeConverter(propertySymbol.Type, typeConverterAttribute);
-            if (propertySymbolTypeTypeConverter is not null)
+            // Get converter from attribute explicitly set on property/event type.
+            var typeTypeConverter = GetTypeConverter(symbolType, typeConverterAttribute);
+            if (typeTypeConverter is not null)
             {
-                return propertySymbolTypeTypeConverter;
+                return typeTypeConverter;
             }
 
-            // Get converter from property type.
+            // Get converter from property/event type.
             var format = new SymbolDisplayFormat(
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
                 genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters | SymbolDisplayGenericsOptions.IncludeTypeConstraints | SymbolDisplayGenericsOptions.IncludeVariance
             );
-            var typeString = $"{propertySymbol.Type.ToDisplayString(format)}";
-            var typeName = $"{typeString},{propertySymbol.Type.ContainingAssembly}";
+            var typeString = $"{symbolType.ToDisplayString(format)}";
+            var typeName = $"{typeString},{symbolType.ContainingAssembly}";
             var type = Type.GetType(typeName);
             if (type is not null)
             {
@@ -285,7 +315,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets all properties from class that are annotated with SvgAttributeAttribute attribute.
+        /// Gets all properties/events from class that are annotated with SvgAttributeAttribute attribute.
         /// </summary>
         /// <param name="compilation">The compilation object.</param>
         /// <param name="svgElementSymbol">The target class symbol that derives from SvgElement.</param>
@@ -302,13 +332,23 @@ namespace Svg
                 var members = type.GetMembers();
                 foreach (var member in members)
                 {
-                    // Filter type members and include only properties.
-                    if (member is not IPropertySymbol propertySymbol)
+                    var memberType = MemberType.Unknown;
+
+                    // Filter type members to include only properties and events.
+                    if (member is IPropertySymbol)
+                    {
+                        memberType = MemberType.Property;
+                    }
+                    else if (member is IEventSymbol)
+                    {
+                        memberType = MemberType.Event;
+                    }
+                    else
                     {
                         continue;
                     }
                     
-                    var attributes = propertySymbol.GetAttributes();
+                    var attributes = member.GetAttributes();
                     if (attributes.Length == 0)
                     {
                         continue;
@@ -340,10 +380,11 @@ namespace Svg
                     }
 
                     var property = new Property(
-                        propertySymbol,
+                        member,
+                        memberType,
                         attributeName,
                         attributeNamespace,
-                        GetTypeConverter(compilation, propertySymbol)
+                        GetTypeConverter(compilation, member)
                     );
  
                     yield return property;
@@ -351,41 +392,55 @@ namespace Svg
             }
         }
 
+        private enum MemberType
+        {
+            Unknown,
+            Property,
+            Event
+        }
+
         /// <summary>
-        /// The SvgElement object property.
+        /// The SvgElement object property/event.
         /// </summary>
         private class Property
         {
             /// <summary>
-            /// Gets or sets property symbol.
+            /// Gets or sets property/event symbol.
             /// </summary>
-            public IPropertySymbol Symbol { get; }
+            public ISymbol Symbol { get; }
 
             /// <summary>
-            /// Gets or sets property attribute name.
+            /// Gets or sets property/event symbol member type.
+            /// </summary>
+            public MemberType MemberType { get; }
+
+            /// <summary>
+            /// Gets or sets property/event attribute name.
             /// </summary>
             public string AttributeName { get; }
 
             /// <summary>
-            /// Gets or sets property attribute namespace.
+            /// Gets or sets property/event attribute namespace.
             /// </summary>
             public string AttributeNamespace { get; }
 
             /// <summary>
-            /// Gets or sets property type converter type string.
+            /// Gets or sets property/event type converter type string.
             /// </summary>
             public string? Converter { get; }
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Property"/> class.
             /// </summary>
-            /// <param name="symbol">The property symbol.</param>
-            /// <param name="attributeName">The property attribute name.</param>
-            /// <param name="attributeNamespace">The property attribute namespace.</param>
-            /// <param name="converter">The property type converter type string.</param>
-            public Property(IPropertySymbol symbol, string attributeName, string attributeNamespace, string? converter)
+            /// <param name="symbol">The property/event symbol.</param>
+            /// <param name="memberType">The property/event symbol member type.</param>
+            /// <param name="attributeName">The property/event attribute name.</param>
+            /// <param name="attributeNamespace">The property/event attribute namespace.</param>
+            /// <param name="converter">The property/event type converter type string.</param>
+            public Property(ISymbol symbol, MemberType memberType, string attributeName, string attributeNamespace, string? converter)
             {
                 Symbol = symbol;
+                MemberType = memberType;
                 AttributeName = attributeName;
                 AttributeNamespace = attributeNamespace;
                 Converter = converter;
@@ -615,10 +670,24 @@ namespace {namespaceElementFactory}
 ");
                 foreach (var property in element.Properties)
                 {
+                    var symbolType = GetTypeSymbol(property.Symbol);
+                    if (symbolType is null)
+                    {
+                        continue;
+                    }
+
+                    var descriptorType = property.MemberType.ToString();
                     var containingType = property.Symbol.ContainingType.ToDisplayString(format);
-                    var propertyType = property.Symbol.Type.ToDisplayString(format);
+                    var propertyType = symbolType.ToDisplayString(format);
                     var propertyName = property.Symbol.Name;
-                    source.AppendLine($"                    [\"{property.AttributeName}\"] = new SvgPropertyDescriptor<{containingType}, {propertyType}>(\"{property.AttributeName}\", \"{property.AttributeNamespace}\", new {property.Converter}(), (t) => t.{propertyName}, (t, v) => t.{propertyName} = v),");
+                    source.AppendLine($"                    " +
+                                      $"[\"{property.AttributeName}\"] = " +
+                                      $"new SvgPropertyDescriptor<{containingType}, " +
+                                      $"{propertyType}>(DescriptorType.{descriptorType}, " +
+                                      $"\"{property.AttributeName}\", \"{property.AttributeNamespace}\", " +
+                                      $"{(property.Converter == null ? "null" : $"new {property.Converter}()")}, " +
+                                      $"(t) => t.{propertyName}, " +
+                                      $"(t, v) => t.{propertyName} {(property.MemberType == MemberType.Event ? "+=" : "=")} v),");
                 }
                 source.Append(@$"                }}
             }},");
