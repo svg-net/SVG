@@ -82,12 +82,6 @@ namespace Svg
             Setter((T)component, (TU)Converter.ConvertFrom(context, culture, value));
         }
     }
-
-    internal class SvgElementDescriptor
-    {
-        public Type TargetType { get; set; }
-        public Dictionary<string, ISvgPropertyDescriptor> Properties { get; set; }
-    }
 }";
         #endregion
 
