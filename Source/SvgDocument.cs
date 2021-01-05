@@ -31,7 +31,7 @@ namespace Svg
         public static bool SkipGdiPlusCapabilityCheck { get; set; }
 
         /// <summary>
-        /// Skip the Dtd Processing for faster loading of svgs that have a DTD speciefied.
+        /// Skip the Dtd Processing for faster loading of svgs that have a DTD specified.
         /// For Example Adobe Illustrator svgs.
         /// </summary>
         public static bool DisableDtdProcessing { get; set; }
