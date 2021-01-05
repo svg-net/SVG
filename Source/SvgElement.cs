@@ -108,7 +108,7 @@ namespace Svg
             SortedDictionary<int, string> rules;
             if (_styles.TryGetValue(name, out rules))
             {
-                // Get staged styles that are 
+                // Get staged styles that are
                 if (rules.TryGetValue(StyleSpecificity_InlineStyle, out value)) return true;
                 if (rules.TryGetValue(StyleSpecificity_PresAttribute, out value)) return true;
             }
@@ -411,7 +411,7 @@ namespace Svg
 
         /// <summary>
         /// Transforms the given rectangle with the set transformation, if any.
-        /// Can be applied to bounds calculated without considering the element transformation. 
+        /// Can be applied to bounds calculated without considering the element transformation.
         /// </summary>
         /// <param name="bounds">The rectangle to be transformed.</param>
         /// <returns>The transformed rectangle, or the original rectangle if no transformation exists.</returns>
@@ -672,7 +672,7 @@ namespace Svg
                 foreach (var kvp in elementDescriptor.Properties)
                 {
                     var property = kvp.Value;
-  
+
                     if (property.Converter.CanConvertTo(typeof(string)))
                     {
                         if (property.AttributeName == "fill-opacity" || property.AttributeName == "stroke-opacity")
@@ -1037,7 +1037,7 @@ namespace Svg
             foreach (var child in elem.Children)
             {
                 // Skip to avoid double calculate Symbol element
-                // symbol element is only referenced by use element 
+                // symbol element is only referenced by use element
                 // So here we need to skip when it is directly considered
                 if (child is Svg.Document_Structure.SvgSymbol)
                     continue;
@@ -1232,12 +1232,12 @@ namespace Svg
             onmouseup = "<anything>"
             onmouseover = "<anything>"
             onmousemove = "<anything>"
-            onmouseout = "<anything>" 
+            onmouseout = "<anything>"
          */
 
 #if Net4
         /// <summary>
-        /// Use this method to provide your implementation ISvgEventCaller which can register Actions 
+        /// Use this method to provide your implementation ISvgEventCaller which can register Actions
         /// and call them if one of the events occurs. Make sure, that your SvgElement has a unique ID.
         /// The SvgTextElement overwrites this and regsiters the Change event tor its text content.
         /// </summary>
