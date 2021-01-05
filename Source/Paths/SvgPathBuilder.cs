@@ -85,7 +85,7 @@ namespace Svg
         private static void CreatePathSegment(char command, SvgPathSegmentList segments, ref CoordinateParserState state, ref ReadOnlySpan<char> chars)
         {
             var isRelative = char.IsLower(command);
-            var coords = new float[6];
+            Span<float> coords = stackalloc float[6];
             // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
 
             switch (command)
