@@ -16,7 +16,7 @@ namespace Svg
         ExpValue
     }
 
-    internal struct CoordinateParserState
+    internal ref struct CoordinateParserState
     {
         public NumState CurrNumState;
         public NumState NewNumState;
