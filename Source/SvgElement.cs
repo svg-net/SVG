@@ -130,13 +130,16 @@ namespace Svg
                 if (string.IsNullOrEmpty(this._elementName))
                 {
 #if USE_SOURCE_GENERATORS
+                    // There is special case for SvgDocument as valid attribute is only set on SvgFragment.
                     if (SvgElements.ElementNames.TryGetValue(this.GetType(), out var elementName))
                     {
                         this._elementName = elementName;
                     }
                     else if (this is SvgDocument)
                     {
-                        // Special case for SvgDocument as valid attribute is only set on SvgFragment.
+                        // The SvgDocument does not have SvgElement attribute set, instead the attitude is used on SvgFragment so there would be duplicate im dictionary.
+                        // The SvgDocument is not valid Svg element (that is SvgFragment) and is mainly used as abstraction for document reading and writing.
+                        // The ElementName for SvgDocument is set explicitly here as that is the exception to attribute convention used accross codebase.
                         this._elementName = "svg";
                     }
 #else
