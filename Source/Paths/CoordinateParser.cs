@@ -1,310 +1,330 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Svg
 {
-    internal class CoordinateParser
+    internal enum NumState
     {
-        private enum NumState
+        Invalid,
+        Separator,
+        Prefix,
+        Integer,
+        DecPlace,
+        Fraction,
+        Exponent,
+        ExpPrefix,
+        ExpValue
+    }
+
+    internal struct CoordinateParserState
+    {
+        public NumState CurrNumState;
+        public NumState NewNumState;
+        public int CharsPosition;
+        public int Position;
+        public bool HasMore;
+
+        public CoordinateParserState(ref ReadOnlySpan<char> chars)
         {
-            invalid,
-            separator,
-            prefix,
-            integer,
-            decPlace,
-            fraction,
-            exponent,
-            expPrefix,
-            expValue
+            CurrNumState = NumState.Separator;
+            NewNumState = NumState.Separator;
+            CharsPosition = 0;
+            Position = 0;
+            HasMore = chars.Length > 0;
+            if (char.IsLetter(chars[0])) ++CharsPosition;
+        }
+    }
+
+    internal static class CoordinateParser
+    {
+        private static bool MarkState(bool hasMode, ref CoordinateParserState state)
+        {
+            state.HasMore = hasMode;
+            ++state.CharsPosition;
+            return hasMode;
         }
 
-        private string _coords;
-        private NumState _currState = NumState.separator;
-        private NumState _newState = NumState.separator;
-        private int i = 0;
-
-        public int Position { get; private set; } = 0;
-        public bool HasMore { get; private set; } = true;
-
-        public CoordinateParser(string coords)
+        public static bool TryGetBool(out bool result, ref ReadOnlySpan<char> chars, ref CoordinateParserState state)
         {
-            _coords = coords;
-            if (string.IsNullOrEmpty(_coords)) HasMore = false;
-            if (char.IsLetter(coords[0])) ++i;
-        }
+            var charsLength = chars.Length;
 
-        private bool MarkState(bool state)
-        {
-            HasMore = state;
-            ++i;
-            return state;
-        }
-
-        public bool TryGetBool(out bool result)
-        {
-            while (i < _coords.Length && HasMore)
+            while (state.CharsPosition < charsLength && state.HasMore)
             {
-                switch (_currState)
+                switch (state.CurrNumState)
                 {
-                    case NumState.separator:
-                        if (IsCoordSeparator(_coords[i]))
+                    case NumState.Separator:
+                        var currentChar = chars[state.CharsPosition];
+                        if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.separator;
+                            state.NewNumState = NumState.Separator;
                         }
-                        else if (_coords[i] == '0')
+                        else if (currentChar == '0')
                         {
                             result = false;
-                            _newState = NumState.separator;
-                            Position = i + 1;
-                            return MarkState(true);
+                            state.NewNumState = NumState.Separator;
+                            state.Position = state.CharsPosition + 1;
+                            return MarkState(true, ref state);
                         }
-                        else if (_coords[i] == '1')
+                        else if (currentChar == '1')
                         {
                             result = true;
-                            _newState = NumState.separator;
-                            Position = i + 1;
-                            return MarkState(true);
+                            state.NewNumState = NumState.Separator;
+                            state.Position = state.CharsPosition + 1;
+                            return MarkState(true, ref state);
                         }
                         else
                         {
                             result = false;
-                            return MarkState(false);
+                            return MarkState(false, ref state);
                         }
                         break;
                     default:
                         result = false;
-                        return MarkState(false);
+                        return MarkState(false, ref state);
                 }
-                ++i;
+                ++state.CharsPosition;
             }
             result = false;
-            return MarkState(false);
+            return MarkState(false, ref state);
         }
 
-        public bool TryGetFloat(out float result)
+        public static bool TryGetFloat(out float result, ref ReadOnlySpan<char> chars, ref CoordinateParserState state)
         {
-            while (i < _coords.Length && HasMore)
+            var charsLength = chars.Length;
+
+            while (state.CharsPosition < charsLength && state.HasMore)
             {
-                switch (_currState)
+                var currentChar = chars[state.CharsPosition];
+
+                switch (state.CurrNumState)
                 {
-                    case NumState.separator:
-                        if (char.IsNumber(_coords[i]))
+                    case NumState.Separator:
+                        if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.integer;
+                            state.NewNumState = NumState.Integer;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.separator;
+                            state.NewNumState = NumState.Separator;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (currentChar)
                             {
                                 case '.':
-                                    _newState = NumState.decPlace;
+                                    state.NewNumState = NumState.DecPlace;
                                     break;
                                 case '+':
                                 case '-':
-                                    _newState = NumState.prefix;
+                                    state.NewNumState = NumState.Prefix;
                                     break;
                                 default:
-                                    _newState = NumState.invalid;
+                                    state.NewNumState = NumState.Invalid;
                                     break;
                             }
                         }
                         break;
-                    case NumState.prefix:
-                        if (char.IsNumber(_coords[i]))
+                    case NumState.Prefix:
+                        if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.integer;
+                            state.NewNumState = NumState.Integer;
                         }
-                        else if (_coords[i] == '.')
+                        else if (currentChar == '.')
                         {
-                            _newState = NumState.decPlace;
+                            state.NewNumState = NumState.DecPlace;
                         }
                         else
                         {
-                            _newState = NumState.invalid;
+                            state.NewNumState = NumState.Invalid;
                         }
                         break;
-                    case NumState.integer:
-                        if (char.IsNumber(_coords[i]))
+                    case NumState.Integer:
+                        if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.integer;
+                            state.NewNumState = NumState.Integer;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.separator;
+                            state.NewNumState = NumState.Separator;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (currentChar)
                             {
                                 case '.':
-                                    _newState = NumState.decPlace;
+                                    state.NewNumState = NumState.DecPlace;
                                     break;
                                 case 'E':
                                 case 'e':
-                                    _newState = NumState.exponent;
+                                    state.NewNumState = NumState.Exponent;
                                     break;
                                 case '+':
                                 case '-':
-                                    _newState = NumState.prefix;
+                                    state.NewNumState = NumState.Prefix;
                                     break;
                                 default:
-                                    _newState = NumState.invalid;
+                                    state.NewNumState = NumState.Invalid;
                                     break;
                             }
                         }
                         break;
-                    case NumState.decPlace:
-                        if (char.IsNumber(_coords[i]))
+                    case NumState.DecPlace:
+                        if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.fraction;
+                            state.NewNumState = NumState.Fraction;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.separator;
+                            state.NewNumState = NumState.Separator;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (currentChar)
                             {
                                 case 'E':
                                 case 'e':
-                                    _newState = NumState.exponent;
+                                    state.NewNumState = NumState.Exponent;
                                     break;
                                 case '+':
                                 case '-':
-                                    _newState = NumState.prefix;
+                                    state.NewNumState = NumState.Prefix;
                                     break;
                                 default:
-                                    _newState = NumState.invalid;
+                                    state.NewNumState = NumState.Invalid;
                                     break;
                             }
                         }
                         break;
-                    case NumState.fraction:
-                        if (char.IsNumber(_coords[i]))
+                    case NumState.Fraction:
+                        if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.fraction;
+                            state.NewNumState = NumState.Fraction;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.separator;
+                            state.NewNumState = NumState.Separator;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (currentChar)
                             {
                                 case '.':
-                                    _newState = NumState.decPlace;
+                                    state.NewNumState = NumState.DecPlace;
                                     break;
                                 case 'E':
                                 case 'e':
-                                    _newState = NumState.exponent;
+                                    state.NewNumState = NumState.Exponent;
                                     break;
                                 case '+':
                                 case '-':
-                                    _newState = NumState.prefix;
+                                    state.NewNumState = NumState.Prefix;
                                     break;
                                 default:
-                                    _newState = NumState.invalid;
+                                    state.NewNumState = NumState.Invalid;
                                     break;
                             }
                         }
                         break;
-                    case NumState.exponent:
-                        if (char.IsNumber(_coords[i]))
+                    case NumState.Exponent:
+                        if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.expValue;
+                            state.NewNumState = NumState.ExpValue;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.invalid;
+                            state.NewNumState = NumState.Invalid;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (currentChar)
                             {
                                 case '+':
                                 case '-':
-                                    _newState = NumState.expPrefix;
+                                    state.NewNumState = NumState.ExpPrefix;
                                     break;
                                 default:
-                                    _newState = NumState.invalid;
+                                    state.NewNumState = NumState.Invalid;
                                     break;
                             }
                         }
                         break;
-                    case NumState.expPrefix:
-                        if (char.IsNumber(_coords[i]))
+                    case NumState.ExpPrefix:
+                        if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.expValue;
+                            state.NewNumState = NumState.ExpValue;
                         }
                         else
                         {
-                            _newState = NumState.invalid;
+                            state.NewNumState = NumState.Invalid;
                         }
                         break;
-                    case NumState.expValue:
-                        if (char.IsNumber(_coords[i]))
+                    case NumState.ExpValue:
+                        if (char.IsNumber(currentChar))
                         {
-                            _newState = NumState.expValue;
+                            state.NewNumState = NumState.ExpValue;
                         }
-                        else if (IsCoordSeparator(_coords[i]))
+                        else if (IsCoordSeparator(currentChar))
                         {
-                            _newState = NumState.separator;
+                            state.NewNumState = NumState.Separator;
                         }
                         else
                         {
-                            switch (_coords[i])
+                            switch (currentChar)
                             {
                                 case '.':
-                                    _newState = NumState.decPlace;
+                                    state.NewNumState = NumState.DecPlace;
                                     break;
                                 case '+':
                                 case '-':
-                                    _newState = NumState.prefix;
+                                    state.NewNumState = NumState.Prefix;
                                     break;
                                 default:
-                                    _newState = NumState.invalid;
+                                    state.NewNumState = NumState.Invalid;
                                     break;
                             }
                         }
                         break;
                 }
 
-                if (_currState != NumState.separator && _newState < _currState)
+                if (state.CurrNumState != NumState.Separator && state.NewNumState < state.CurrNumState)
                 {
-                    result = float.Parse(_coords.Substring(Position, i - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
-                    Position = i;
-                    _currState = _newState;
-                    return MarkState(true);
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
+                    result = float.Parse(chars.Slice(state.Position, state.CharsPosition - state.Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+#else
+                    result = float.Parse(chars.Slice(state.Position, state.CharsPosition - state.Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+#endif
+                    state.Position = state.CharsPosition;
+                    state.CurrNumState = state.NewNumState;
+                    return MarkState(true, ref state);
                 }
-                else if (_newState != _currState && _currState == NumState.separator)
+                else if (state.NewNumState != state.CurrNumState && state.CurrNumState == NumState.Separator)
                 {
-                    Position = i;
+                    state.Position = state.CharsPosition;
                 }
 
-                if (_newState == NumState.invalid)
+                if (state.NewNumState == NumState.Invalid)
                 {
                     result = float.MinValue;
-                    return MarkState(false);
+                    return MarkState(false, ref state);
                 }
-                _currState = _newState;
-                ++i;
+                state.CurrNumState = state.NewNumState;
+                ++state.CharsPosition;
             }
 
-            if (_currState == NumState.separator || !HasMore || Position >= _coords.Length)
+            if (state.CurrNumState == NumState.Separator || !state.HasMore || state.Position >= charsLength)
             {
                 result = float.MinValue;
-                return MarkState(false);
+                return MarkState(false, ref state);
             }
             else
             {
-                result = float.Parse(_coords.Substring(Position, _coords.Length - Position), NumberStyles.Float, CultureInfo.InvariantCulture);
-                Position = _coords.Length;
-                return MarkState(true);
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
+                result = float.Parse(chars.Slice(state.Position, charsLength - state.Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+#else
+                result = float.Parse(chars.Slice(state.Position, charsLength - state.Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+#endif
+                state.Position = charsLength;
+                return MarkState(true, ref state);
             }
         }
 
