@@ -5950,6 +5950,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocument.BaseUri
   nameWithType: SvgDocument.BaseUri
+- uid: Svg.SvgDocument.DisableDtdProcessing
+  name: DisableDtdProcessing
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_DisableDtdProcessing
+  commentId: P:Svg.SvgDocument.DisableDtdProcessing
+  fullName: Svg.SvgDocument.DisableDtdProcessing
+  nameWithType: SvgDocument.DisableDtdProcessing
+- uid: Svg.SvgDocument.DisableDtdProcessing*
+  name: DisableDtdProcessing
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_DisableDtdProcessing_
+  commentId: Overload:Svg.SvgDocument.DisableDtdProcessing
+  isSpec: "True"
+  fullName: Svg.SvgDocument.DisableDtdProcessing
+  nameWithType: SvgDocument.DisableDtdProcessing
 - uid: Svg.SvgDocument.Draw
   name: Draw()
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_Draw
