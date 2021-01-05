@@ -7,10 +7,7 @@ environment:
     secure: XMbLDC3+c/MyXicj/h1j17YScPrEbIxAPzhyg9LBCJ/BOfRZHsA8znU3vwmfZbO8
 
 before_build:
-- ps: nuget restore Generators\Svg.Generators.csproj
-- ps: nuget restore Source\Svg.csproj
-- ps: nuget restore Samples\SvgConsole\SvgConsole.csproj
-- ps: nuget restore Tests\Svg.UnitTests\Svg.UnitTests.csproj
+- ps: nuget restore Source\Svg.sln
 - ps: nuget install NUnit.ConsoleRunner -Version 3.10.0 -OutputDirectory tools  
 - ps: |
     if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)

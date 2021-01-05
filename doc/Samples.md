@@ -14,8 +14,8 @@ displayed using the library.
 Apart from being useful as a tool, the source code shows how to load an SVG image, render it, and
 save it in another format (PNG in this case). You will find the relevant code in _SvgViewer.cs_
 
-SvgSample
----------
+SvgRuntimeUpdates
+-----------------
 This is a small command line application that reads in a sample SVG, changes the style of one of it's
 elements, and saves it to a PNG file. It shows how to access and alter an element of the SVG source tree.
 

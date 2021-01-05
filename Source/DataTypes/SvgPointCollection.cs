@@ -58,12 +58,12 @@ namespace Svg
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            if (value is string s)
             {
-                var parser = new CoordinateParser(((string)value).Trim());
-                var pointValue = 0.0f;
+                var coords = s.AsSpan().Trim();
+                var state = new CoordinateParserState(ref coords);
                 var result = new SvgPointCollection();
-                while (parser.TryGetFloat(out pointValue))
+                while (CoordinateParser.TryGetFloat(out var pointValue, ref coords, ref state))
                 {
                     result.Add(new SvgUnit(SvgUnitType.User, pointValue));
                 }
