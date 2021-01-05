@@ -30,6 +30,12 @@ namespace Svg
         /// </remarks>
         public static bool SkipGdiPlusCapabilityCheck { get; set; }
 
+        /// <summary>
+        /// Skip the Dtd Processing for faster loading of svgs that have a DTD speciefied.
+        /// For Example Adobe Illustrator svgs.
+        /// </summary>
+        public static bool DisableDtdProcessing { get; set; }
+
         private static int? pointsPerInch;
 
         public static int PointsPerInch
@@ -352,7 +358,7 @@ namespace Svg
                 {
                     XmlResolver = new SvgDtdResolver(),
                     WhitespaceHandling = WhitespaceHandling.Significant,
-                    DtdProcessing = DtdProcessing.Ignore,
+                    DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
                 };
                 return Open<T>(reader);
             }
@@ -376,7 +382,7 @@ namespace Svg
             {
                 XmlResolver = new SvgDtdResolver(),
                 WhitespaceHandling = WhitespaceHandling.Significant,
-                DtdProcessing = DtdProcessing.Ignore,
+                DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
             };
             return Open<T>(reader);
         }
