@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using Svg.Pathing;
 
 namespace Svg
@@ -244,8 +243,17 @@ namespace Svg
                 var lastSegment = segments.Last;
 
                 // if the last element is a SvgClosePathSegment the position of the previous element should be used because the position of SvgClosePathSegment is 0,0
-                if (lastSegment is SvgClosePathSegment)
-                    lastSegment = segments.Reverse().OfType<SvgMoveToSegment>().First();
+                if (lastSegment is SvgClosePathSegment && segments.Count > 0)
+                {
+                    for (int i = segments.Count - 1; i >= 0; i--)
+                    {
+                        if (segments[i] is SvgMoveToSegment moveToSegment)
+                        {
+                            lastSegment = moveToSegment;
+                            break;
+                        }
+                    }
+                }
 
                 if (isRelativeX)
                     point.X += lastSegment.End.X;
