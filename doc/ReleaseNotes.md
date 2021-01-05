@@ -18,6 +18,7 @@ The release versions are NuGet releases.
 * fixed bounds calculation in polygon (see [#758](https://github.com/vvvv/SVG/issues/758) and [PR #759](https://github.com/vvvv/SVG/pull/759))
 * make sure that paths with a single `moveto` command don't display line caps
  (see [#634](https://github.com/vvvv/SVG/issues/634)
+* fixed rendering of text-anchor `middle` (see [#769](https://github.com/vvvv/SVG/issues/769)
 
 ## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
 
