@@ -351,7 +351,8 @@ namespace Svg
                 var reader = new SvgTextReader(strReader, null)
                 {
                     XmlResolver = new SvgDtdResolver(),
-                    WhitespaceHandling = WhitespaceHandling.Significant
+                    WhitespaceHandling = WhitespaceHandling.Significant,
+                    DtdProcessing = DtdProcessing.Ignore,
                 };
                 return Open<T>(reader);
             }
@@ -374,7 +375,8 @@ namespace Svg
             var reader = new SvgTextReader(stream, entities)
             {
                 XmlResolver = new SvgDtdResolver(),
-                WhitespaceHandling = WhitespaceHandling.Significant
+                WhitespaceHandling = WhitespaceHandling.Significant,
+                DtdProcessing = DtdProcessing.Ignore,
             };
             return Open<T>(reader);
         }
