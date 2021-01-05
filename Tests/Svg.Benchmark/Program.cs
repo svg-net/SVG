@@ -7,9 +7,7 @@ using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Validators;
 using BenchmarkDotNet.Environments;
 
-// dotnet run -c Release -f netcoreapp3.1 -- -f '*'
-
-namespace Benchmark.Portable.Xaml
+namespace Svg.Benchmarks
 {
     class Program
     {
