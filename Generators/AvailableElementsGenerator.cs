@@ -408,7 +408,10 @@ namespace {namespaceElement}
             }}
             foreach (var property in base.GetProperties())
             {{
-                yield return property;
+                if (!{classElement}Properties.ContainsKey(property.AttributeName))
+                {{
+                    yield return property;
+                }}
             }}
         }}
 
