@@ -394,7 +394,6 @@ namespace {namespaceElement}
                     {
                         continue;
                     }
-
                     var descriptorType = property.MemberType.ToString();
                     var containingType = property.Symbol.ContainingType.ToDisplayString(format);
                     var propertyType = symbolType.ToDisplayString(format);
@@ -482,7 +481,6 @@ namespace {namespaceElementFactory}
                 {
                     continue;
                 }
-
                 source.AppendLine($@"            new ElementInfo() {{ ElementName = ""{elementName}"", ElementType = typeof({className}), CreateInstance = () => new {className}() }},");
             }
             source.Append($@"        }};");
