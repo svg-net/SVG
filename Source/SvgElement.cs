@@ -664,10 +664,12 @@ namespace Svg
             {
                 Writing = true;
 
-                foreach (var kvp in this.Properties)
+                foreach (var property in this.GetProperties())
                 {
-                    var property = kvp.Value;
-
+                    if (property.Converter == null)
+                    {
+                        continue;
+                    }
                     if (property.Converter.CanConvertTo(typeof(string)))
                     {
                         if (property.AttributeName == "fill-opacity" || property.AttributeName == "stroke-opacity")

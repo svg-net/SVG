@@ -308,24 +308,23 @@ namespace Svg
                     Trace.TraceWarning(string.Format("Attribute '{0}' cannot be set - type '{1}' cannot convert from string '{2}'.", attributeName, descriptor.PropertyType.FullName, attributeValue));
                 }
             }
-#else
-            if (element.Properties.TryGetValue(attributeName, out var propertyDescriptor))
-            {
-                try
-                {
-                    if (attributeName == "opacity" && attributeValue == "undefined")
-                    {
-                        attributeValue = "1";
-                    }
-                    propertyDescriptor.SetValue(element, document, CultureInfo.InvariantCulture, attributeValue);
-                }
-                catch
-                {
-                    Trace.TraceWarning($"Attribute '{attributeName}' cannot be set - type '{propertyDescriptor.Type.FullName}' cannot convert from string '{attributeValue}'.");
-                }
-            }
-#endif
             else
+#else
+            var setValueResult = false;
+            try
+            {
+                if (attributeName == "opacity" && attributeValue == "undefined")
+                {
+                    attributeValue = "1";
+                }
+                setValueResult = element.SetValue(attributeName, document, CultureInfo.InvariantCulture, attributeValue);
+            }
+            catch
+            {
+                Trace.TraceWarning($"Attribute '{attributeName}' cannot be set - type '{element.GetType().FullName}' cannot convert from string '{attributeValue}'.");
+            }
+            if (!setValueResult)
+#endif
             {
                 //check for namespace declaration in svg element
                 if (string.Equals(element.ElementName, "svg", StringComparison.OrdinalIgnoreCase))
