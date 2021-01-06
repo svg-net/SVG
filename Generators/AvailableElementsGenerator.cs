@@ -16,6 +16,16 @@ namespace Svg.Generators
     [Generator]
     public class AvailableElementsGenerator : ISourceGenerator
     {
+        private static readonly DiagnosticDescriptor s_errorDescriptor = new DiagnosticDescriptor(
+#pragma warning disable RS2008 // Enable analyzer release tracking
+            "SV0000",
+#pragma warning restore RS2008 // Enable analyzer release tracking
+            $"Error in the {nameof(AvailableElementsGenerator)} generator",
+            $"Error in the {nameof(AvailableElementsGenerator)} generator: " + "{0}",
+            $"{nameof(AvailableElementsGenerator)}",
+            DiagnosticSeverity.Error,
+            isEnabledByDefault: true);
+
         #region Model
 
         /// <summary>
@@ -111,12 +121,14 @@ namespace Svg
             var elementFactoryAttribute = compilation.GetTypeByMetadataName("Svg.ElementFactoryAttribute");
             if (elementFactoryAttribute is null)
             {
+                context.ReportDiagnostic(Diagnostic.Create(s_errorDescriptor, Location.None, "Could not get Svg.ElementFactoryAttribute metadata."));
                 return;
             }
 
             var svgElementBaseSymbol = compilation.GetTypeByMetadataName("Svg.SvgElement");
             if (svgElementBaseSymbol is null)
             {
+                context.ReportDiagnostic(Diagnostic.Create(s_errorDescriptor, Location.None, "Could not get Svg.SvgElement metadata."));
                 return;
             }
 
@@ -149,7 +161,14 @@ namespace Svg
             // Generate code for each class marked with ElementFactor attribute.
             foreach (var elementFactorySymbol in elementFactorySymbols)
             {
-                ProcessClass(context, compilation, elementFactorySymbol, svgElementSymbols, svgElementBaseSymbol);
+                try
+                {
+                    ProcessClass(context, compilation, elementFactorySymbol, svgElementSymbols, svgElementBaseSymbol);
+                }
+                catch (Exception ex)
+                {
+                    context.ReportDiagnostic(Diagnostic.Create(s_errorDescriptor, Location.None, ex.Message));
+                }
             }
         }
 
@@ -166,6 +185,7 @@ namespace Svg
             // Get the containing namespace for ElementFactory class.
             if (!elementFactorySymbol.ContainingSymbol.Equals(elementFactorySymbol.ContainingNamespace, SymbolEqualityComparer.Default))
             {
+                context.ReportDiagnostic(Diagnostic.Create(s_errorDescriptor, Location.None, "Invalid ElementFactory symbol namespace."));
                 return;
             }
 
@@ -173,6 +193,7 @@ namespace Svg
             var svgElementAttribute = compilation.GetTypeByMetadataName("Svg.SvgElementAttribute");
             if (svgElementAttribute is null)
             {
+                context.ReportDiagnostic(Diagnostic.Create(s_errorDescriptor, Location.None, "Could not get Svg.SvgElementAttribute metadata."));
                 return;
             }
 
@@ -180,6 +201,7 @@ namespace Svg
             var svgAttributeAttribute = compilation.GetTypeByMetadataName("Svg.SvgAttributeAttribute");
             if (svgAttributeAttribute is null)
             {
+                context.ReportDiagnostic(Diagnostic.Create(s_errorDescriptor, Location.None, "Could not get Svg.SvgAttributeAttribute metadata."));
                 return;
             }
 
