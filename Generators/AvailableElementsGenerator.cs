@@ -318,8 +318,22 @@ namespace Svg
     public abstract partial class SvgElement
     {{
         internal abstract string AttributeName {{ get; }}
+
         internal abstract List<Type> ClassNames {{ get; }}
+
         internal virtual Dictionary<string, ISvgPropertyDescriptor> Properties => SvgElementProperties;
+");
+            elementPropertiesDict.TryGetValue(svgElementBaseSymbol, out var svgElementProperties);
+            AppendProperties(svgElementProperties, "SvgElement", format, source);
+            source.Append($@"
+
+        internal virtual IEnumerable<ISvgPropertyDescriptor> GetProperties()
+        {{
+            foreach (var kvp in SvgElementProperties)
+            {{
+                yield return kvp.Value;
+            }}
+        }}
 
         internal virtual object GetValue(string attributeName)
         {{
@@ -338,18 +352,6 @@ namespace Svg
                 return true;
             }}
             return false;
-        }}
-");
-            elementPropertiesDict.TryGetValue(svgElementBaseSymbol, out var svgElementProperties);
-            AppendProperties(svgElementProperties, "SvgElement", format, source);
-            source.Append($@"
-
-        internal virtual IEnumerable<ISvgPropertyDescriptor> GetProperties()
-        {{
-            foreach (var kvp in SvgElementProperties)
-            {{
-                yield return kvp.Value;
-            }}
         }}
     }}
 }}
@@ -379,37 +381,6 @@ namespace {namespaceElement}
         internal override List<Type> ClassNames => {classElement}ClassNames;
 
         internal override Dictionary<string, ISvgPropertyDescriptor> Properties => {classElement}Properties;
-
-        internal override object GetValue(string attributeName)
-        {{
-            if ({classElement}Properties.TryGetValue(attributeName, out var propertyDescriptor))
-            {{
-                return propertyDescriptor.GetValue(this);
-            }}
-            return base.GetValue(attributeName);
-        }}
-
-        internal override bool SetValue(string attributeName, ITypeDescriptorContext context, CultureInfo culture, object value)
-        {{
-            if ({classElement}Properties.TryGetValue(attributeName, out var propertyDescriptor))
-            {{
-                propertyDescriptor.SetValue(this, context, culture, value);
-                return true;
-            }}
-            return base.SetValue(attributeName, context, culture, value);
-        }}
-
-        internal override IEnumerable<ISvgPropertyDescriptor> GetProperties()
-        {{
-            foreach (var kvp in {classElement}Properties)
-            {{
-                yield return kvp.Value;
-            }}
-            foreach (var property in base.GetProperties())
-            {{
-                yield return property;
-            }}
-        }}
 ");
 
                 var classNames = element.ClassNames;
@@ -429,7 +400,38 @@ namespace {namespaceElement}
 
                 AppendProperties(properties, classElement, format, source);
 
-                source.Append(@$"    }}
+                source.Append($@"
+        internal override IEnumerable<ISvgPropertyDescriptor> GetProperties()
+        {{
+            foreach (var kvp in {classElement}Properties)
+            {{
+                yield return kvp.Value;
+            }}
+            foreach (var property in base.GetProperties())
+            {{
+                yield return property;
+            }}
+        }}
+
+        internal override object GetValue(string attributeName)
+        {{
+            if ({classElement}Properties.TryGetValue(attributeName, out var propertyDescriptor))
+            {{
+                return propertyDescriptor.GetValue(this);
+            }}
+            return base.GetValue(attributeName);
+        }}
+
+        internal override bool SetValue(string attributeName, ITypeDescriptorContext context, CultureInfo culture, object value)
+        {{
+            if ({classElement}Properties.TryGetValue(attributeName, out var propertyDescriptor))
+            {{
+                propertyDescriptor.SetValue(this, context, culture, value);
+                return true;
+            }}
+            return base.SetValue(attributeName, context, culture, value);
+        }}
+    }}
 }}
 ");
                 context.AddSource($"{namespaceElement.Replace('.', '_')}_{element.Symbol.Name}_Properties.cs", SourceText.From(source.ToString(), Encoding.UTF8));
