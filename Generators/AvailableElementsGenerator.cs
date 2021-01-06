@@ -263,7 +263,6 @@ namespace Svg
                 {
                     element = new Element(
                         svgElementSymbol,
-                        GetBaseTypes(svgElementSymbol, svgElementBaseSymbol).ToList(),
                         elementName,
                         new List<string> { classNameSvgElement },
                         GetElementProperties(compilation, svgElementSymbol, svgElementBaseSymbol, svgAttributeAttribute).ToList()
@@ -936,11 +935,6 @@ namespace {namespaceElementFactory}
             public INamedTypeSymbol Symbol { get; }
 
             /// <summary>
-            /// Gets or sets element base types list.
-            /// </summary>
-            public List<INamedTypeSymbol> BaseTypes { get; }
-
-            /// <summary>
             /// Gets or sets element name.
             /// </summary>
             public string? ElementName { get; }
@@ -959,14 +953,12 @@ namespace {namespaceElementFactory}
             /// Initializes a new instance of the <see cref="Element"/> class.
             /// </summary>
             /// <param name="symbol">The element type symbol.</param>
-            /// <param name="baseTypes">The element base types list.</param>
             /// <param name="elementName">The element name.</param>
             /// <param name="classNames">The classes that use element name.</param>
             /// <param name="properties">The element properties list.</param>
-            public Element(INamedTypeSymbol symbol, List<INamedTypeSymbol> baseTypes, string? elementName, List<string> classNames, List<Property> properties)
+            public Element(INamedTypeSymbol symbol, string? elementName, List<string> classNames, List<Property> properties)
             {
                 Symbol = symbol;
-                BaseTypes = baseTypes;
                 ElementName = elementName;
                 ClassNames = classNames;
                 Properties = properties;
