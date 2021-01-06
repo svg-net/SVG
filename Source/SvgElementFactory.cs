@@ -265,8 +265,8 @@ namespace Svg
 #endif
         internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle = false)
         {
-            var elementType = element.GetType();
 #if !USE_SOURCE_GENERATORS
+            var elementType = element.GetType();
             PropertyDescriptorCollection properties;
             lock (syncLock)
             {
@@ -310,20 +310,23 @@ namespace Svg
             }
             else
 #else
-            var setValueResult = false;
             try
             {
                 if (attributeName == "opacity" && attributeValue == "undefined")
                 {
                     attributeValue = "1";
                 }
-                setValueResult = element.SetValue(attributeName, document, CultureInfo.InvariantCulture, attributeValue);
+                var setValueResult = element.SetValue(attributeName, document, CultureInfo.InvariantCulture, attributeValue);
+                if (setValueResult)
+                {
+                    return true;
+                }
             }
             catch
             {
                 Trace.TraceWarning($"Attribute '{attributeName}' cannot be set - type '{element.GetType().FullName}' cannot convert from string '{attributeValue}'.");
+                return true;
             }
-            if (!setValueResult)
 #endif
             {
                 //check for namespace declaration in svg element
