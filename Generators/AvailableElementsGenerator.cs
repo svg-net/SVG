@@ -325,7 +325,6 @@ namespace Svg
             elementPropertiesDict.TryGetValue(svgElementBaseSymbol, out var svgElementProperties);
             AppendProperties(svgElementProperties, "SvgElement", format, source);
             source.Append($@"
-
         internal virtual IEnumerable<ISvgPropertyDescriptor> GetProperties()
         {{
             foreach (var kvp in SvgElementProperties)
@@ -347,7 +346,14 @@ namespace Svg
         {{
             if (SvgElementProperties.TryGetValue(attributeName, out var propertyDescriptor))
             {{
-                propertyDescriptor.SetValue(this, context, culture, value);
+                try
+                {{
+                    propertyDescriptor.SetValue(this, context, culture, value);
+                }}
+                catch
+                {{
+                    return false;
+                }}
                 return true;
             }}
             return false;
@@ -428,7 +434,14 @@ namespace {namespaceElement}
         {{
             if ({classElement}Properties.TryGetValue(attributeName, out var propertyDescriptor))
             {{
-                propertyDescriptor.SetValue(this, context, culture, value);
+                try
+                {{
+                    propertyDescriptor.SetValue(this, context, culture, value);
+                }}
+                catch
+                {{
+                    return false;
+                }}
                 return true;
             }}
             return base.SetValue(attributeName, context, culture, value);
