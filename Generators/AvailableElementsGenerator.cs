@@ -154,7 +154,12 @@ namespace Svg
                 // Find classes derived from SvgElement.
                 if (!namedTypeSymbol.IsGenericType && HasBaseType(namedTypeSymbol, svgElementBaseSymbol))
                 {
-                    svgElementSymbols.Add(namedTypeSymbol);
+#pragma warning disable RS1024 // Compare symbols correctly
+                    if (!svgElementSymbols.Contains(namedTypeSymbol, SymbolEqualityComparer.Default))
+#pragma warning restore RS1024 // Compare symbols correctly
+                    {
+                        svgElementSymbols.Add(namedTypeSymbol);
+                    }
                 }
             }
 
