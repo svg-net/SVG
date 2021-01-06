@@ -310,21 +310,13 @@ namespace Svg
             }
             else
 #else
-            try
+            if (attributeName == "opacity" && attributeValue == "undefined")
             {
-                if (attributeName == "opacity" && attributeValue == "undefined")
-                {
-                    attributeValue = "1";
-                }
-                var setValueResult = element.SetValue(attributeName, document, CultureInfo.InvariantCulture, attributeValue);
-                if (setValueResult)
-                {
-                    return true;
-                }
+                attributeValue = "1";
             }
-            catch
+            var setValueResult = element.SetValue(attributeName, document, CultureInfo.InvariantCulture, attributeValue);
+            if (setValueResult)
             {
-                Trace.TraceWarning($"Attribute '{attributeName}' cannot be set - type '{element.GetType().FullName}' cannot convert from string '{attributeValue}'.");
                 return true;
             }
 #endif
