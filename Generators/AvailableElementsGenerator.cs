@@ -152,7 +152,7 @@ namespace Svg
                 }
 
                 // Find classes derived from SvgElement.
-                if (!namedTypeSymbol.IsAbstract && !namedTypeSymbol.IsGenericType && HasBaseType(namedTypeSymbol, svgElementBaseSymbol))
+                if (!namedTypeSymbol.IsGenericType && HasBaseType(namedTypeSymbol, svgElementBaseSymbol))
                 {
                     svgElementSymbols.Add(namedTypeSymbol);
                 }
@@ -344,7 +344,7 @@ using System.Globalization;
 
 namespace {namespaceElement}
 {{
-    public partial class {classElement}
+    public{(element.Symbol.IsAbstract ? " abstract " : " ")}partial class {classElement}
     {{
         internal override string AttributeName => ""{element.ElementName}"";
 
@@ -427,6 +427,10 @@ namespace Svg
         {");
             foreach (var element in items)
             {
+                if (element.Value.Symbol.IsAbstract)
+                {
+                    continue;
+                }
                 var elementName = element.Key;
                 var className = element.Value.ClassNames.FirstOrDefault();
                 if (string.IsNullOrWhiteSpace(className))
@@ -463,6 +467,10 @@ namespace {namespaceElementFactory}
 ");
             foreach (var element in items)
             {
+                if (element.Value.Symbol.IsAbstract)
+                {
+                    continue;
+                }
                 var elementName = element.Key;
                 var className = element.Value.ClassNames.FirstOrDefault();
                 if (string.IsNullOrWhiteSpace(className))
@@ -483,6 +491,10 @@ namespace {namespaceElementFactory}
 ");
             foreach (var element in items)
             {
+                if (element.Value.Symbol.IsAbstract)
+                {
+                    continue;
+                }
                 var elementName = element.Key;
                 var className = element.Value.ClassNames.FirstOrDefault();
                 if (string.IsNullOrWhiteSpace(className))
@@ -507,6 +519,10 @@ namespace {namespaceElementFactory}
 ");
             foreach (var element in items)
             {
+                if (element.Value.Symbol.IsAbstract)
+                {
+                    continue;
+                }
                 var elementName = element.Key;
                 var classNames = element.Value.ClassNames;
                 source.Append($@"            [""{elementName}""] = new List<Type>() {{ ");
