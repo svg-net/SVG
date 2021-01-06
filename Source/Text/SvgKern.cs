@@ -1,6 +1,6 @@
 ﻿namespace Svg
 {
-    public abstract class SvgKern : SvgElement
+    public abstract partial class SvgKern : SvgElement
     {
         [SvgAttribute("g1")]
         public string Glyph1

@@ -6,7 +6,7 @@ namespace Svg
     /// <summary>
     /// Represents a path based element that can have markers.
     /// </summary>
-    public abstract class SvgMarkerElement : SvgPathBasedElement
+    public abstract partial class SvgMarkerElement : SvgPathBasedElement
     {
         /// <summary>
         /// Gets or sets the marker (end cap) of the path.

@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Svg
 {
-    public abstract class SvgTextBase : SvgVisualElement
+    public abstract partial class SvgTextBase : SvgVisualElement
     {
         private SvgUnitCollection _x = new SvgUnitCollection();
         private SvgUnitCollection _y = new SvgUnitCollection();
