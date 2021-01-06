@@ -615,7 +615,17 @@ namespace Svg
             if (AutoPublishEvents)
             {
 #if USE_SOURCE_GENERATORS
-                // TODO: Add support for events to source generator.
+                foreach (var property in this.GetProperties().Where(x => x.DescriptorType == DescriptorType.Event))
+                {
+                    var evt = property.GetValue(this);
+
+                    //if someone has registered publish the attribute
+                    if (evt != null && !string.IsNullOrEmpty(this.ID))
+                    {
+                        string evtValue = this.ID + "/" + property.AttributeName;
+                        WriteAttributeString(writer, property.AttributeName, null, evtValue);
+                    }
+                }
 #else
                 foreach (var attr in _svgEventAttributes)
                 {
@@ -1153,7 +1163,31 @@ namespace Svg
                 newObj.Children.Add(child.DeepCopy());
 
 #if USE_SOURCE_GENERATORS
-            // TODO: Add support for events to source generator.
+            foreach (var property in this.GetProperties().Where(x => x.DescriptorType == DescriptorType.Event))
+            {
+                var evt = property.GetValue(this);
+
+                // if someone has registered also register here
+                if (evt != null)
+                {
+                    if (property.AttributeName == "MouseDown")
+                        newObj.MouseDown += delegate { };
+                    else if (property.AttributeName == "MouseUp")
+                        newObj.MouseUp += delegate { };
+                    else if (property.AttributeName == "MouseOver")
+                        newObj.MouseOver += delegate { };
+                    else if (property.AttributeName == "MouseOut")
+                        newObj.MouseOut += delegate { };
+                    else if (property.AttributeName == "MouseMove")
+                        newObj.MouseMove += delegate { };
+                    else if (property.AttributeName == "MouseScroll")
+                        newObj.MouseScroll += delegate { };
+                    else if (property.AttributeName == "Click")
+                        newObj.Click += delegate { };
+                    else if (property.AttributeName == "Change") // text element
+                        (newObj as SvgText).Change += delegate { };
+                }
+            }
 #else
             foreach (var attr in _svgEventAttributes)
             {
