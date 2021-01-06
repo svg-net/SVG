@@ -352,7 +352,6 @@ namespace Svg
                 }}
                 catch
                 {{
-                    return false;
                 }}
                 return true;
             }}
@@ -440,7 +439,6 @@ namespace {namespaceElement}
                 }}
                 catch
                 {{
-                    return false;
                 }}
                 return true;
             }}
