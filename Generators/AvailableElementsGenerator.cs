@@ -328,6 +328,14 @@ namespace Svg
         {{
             // TODO: Implement for all abstract SvgElement's.
         }};
+
+        internal virtual IEnumerable<ISvgPropertyDescriptor> GetProperties()
+        {{
+            foreach (var kvp in SvgElementProperties)
+            {{
+                yield return kvp.Value;
+            }}
+        }}
     }}
 }}
 ");
@@ -367,6 +375,18 @@ namespace {namespaceElement}
         {{
             // TODO: Try to find attributeName in current element static properties dictionary if not found call the base class.
             // TODO: base.SetValue(attributeName, context, culture, value);
+        }}
+
+        internal override IEnumerable<ISvgPropertyDescriptor> GetProperties()
+        {{
+            foreach (var kvp in {classElement}Properties)
+            {{
+                yield return kvp.Value;
+            }}
+            foreach (var property in base.GetProperties())
+            {{
+                yield return property;
+            }}
         }}
 ");
 
