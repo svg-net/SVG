@@ -113,215 +113,215 @@ namespace Svg.Transforms
                 switch (transformType)
                 {
                     case TransformType.Translate:
-                    {
-                        var count = 0;
-                        var x = default(float);
-                        var y = default(float);
-
-                        foreach (var part in parts)
                         {
-                            var partValue = part.Value;
-                            if (count == 0)
-                            {
-                                x = ToFloat(ref partValue);
-                            }
-                            else if (count == 1)
-                            {
-                                y = ToFloat(ref partValue);
-                            }
-                            count++;
-                        }
+                            var count = 0;
+                            var x = default(float);
+                            var y = default(float);
 
-                        if (count == 0 || count > 2)
-                        {
-                            throw new FormatException("Translate transforms must be in the format 'translate(x [y])'");
-                        }
+                            foreach (var part in parts)
+                            {
+                                var partValue = part.Value;
+                                if (count == 0)
+                                {
+                                    x = ToFloat(ref partValue);
+                                }
+                                else if (count == 1)
+                                {
+                                    y = ToFloat(ref partValue);
+                                }
+                                count++;
+                            }
 
-                        transformList.Add(count > 1 ? new SvgTranslate(x, y) : new SvgTranslate(x));
-                    }
+                            if (count == 0 || count > 2)
+                            {
+                                throw new FormatException("Translate transforms must be in the format 'translate(x [y])'");
+                            }
+
+                            transformList.Add(count > 1 ? new SvgTranslate(x, y) : new SvgTranslate(x));
+                        }
                         break;
                     case TransformType.Rotate:
-                    {
-                        int count = 0;
-                        var angle = default(float);
-                        var cx = default(float);
-                        var cy = default(float);
-
-                        foreach (var part in parts)
                         {
-                            var partValue = part.Value;
-                            if (count == 0)
-                            {
-                                angle = ToFloat(ref partValue);
-                            }
-                            else if (count == 1)
-                            {
-                                cx = ToFloat(ref partValue);
-                            }
-                            else if (count == 2)
-                            {
-                                cy = ToFloat(ref partValue);
-                            }
-                            count++;
-                        }
+                            int count = 0;
+                            var angle = default(float);
+                            var cx = default(float);
+                            var cy = default(float);
 
-                        if (count != 1 && count != 3)
-                        {
-                            throw new FormatException("Rotate transforms must be in the format 'rotate(angle [cx cy])'");
-                        }
+                            foreach (var part in parts)
+                            {
+                                var partValue = part.Value;
+                                if (count == 0)
+                                {
+                                    angle = ToFloat(ref partValue);
+                                }
+                                else if (count == 1)
+                                {
+                                    cx = ToFloat(ref partValue);
+                                }
+                                else if (count == 2)
+                                {
+                                    cy = ToFloat(ref partValue);
+                                }
+                                count++;
+                            }
 
-                        transformList.Add(count == 1 ? new SvgRotate(angle) : new SvgRotate(angle, cx, cy));
-                    }
+                            if (count != 1 && count != 3)
+                            {
+                                throw new FormatException("Rotate transforms must be in the format 'rotate(angle [cx cy])'");
+                            }
+
+                            transformList.Add(count == 1 ? new SvgRotate(angle) : new SvgRotate(angle, cx, cy));
+                        }
                         break;
                     case TransformType.Scale:
-                    {
-                        int count = 0;
-                        var sx = default(float);
-                        var sy = default(float);
-
-                        foreach (var part in parts)
                         {
-                            var partValue = part.Value;
-                            if (count == 0)
-                            {
-                                sx = ToFloat(ref partValue);
-                            }
-                            else if (count == 1)
-                            {
-                                sy = ToFloat(ref partValue);
-                            }
-                            count++;
-                        }
+                            int count = 0;
+                            var sx = default(float);
+                            var sy = default(float);
 
-                        if (count == 0 || count > 2)
-                        {
-                            throw new FormatException("Scale transforms must be in the format 'scale(x [y])'");
-                        }
+                            foreach (var part in parts)
+                            {
+                                var partValue = part.Value;
+                                if (count == 0)
+                                {
+                                    sx = ToFloat(ref partValue);
+                                }
+                                else if (count == 1)
+                                {
+                                    sy = ToFloat(ref partValue);
+                                }
+                                count++;
+                            }
 
-                        transformList.Add(count > 1 ? new SvgScale(sx, sy) : new SvgScale(sx));
-                    }
+                            if (count == 0 || count > 2)
+                            {
+                                throw new FormatException("Scale transforms must be in the format 'scale(x [y])'");
+                            }
+
+                            transformList.Add(count > 1 ? new SvgScale(sx, sy) : new SvgScale(sx));
+                        }
                         break;
                     case TransformType.Matrix:
-                    {
-                        int count = 0;
-                        var m11 = default(float);
-                        var m12 = default(float);
-                        var m21 = default(float);
-                        var m22 = default(float);
-                        var dx = default(float);
-                        var dy = default(float);
-
-                        foreach (var part in parts)
                         {
-                            var partValue = part.Value;
-                            if (count == 0)
-                            {
-                                m11 = ToFloat(ref partValue);
-                            }
-                            else if (count == 1)
-                            {
-                                m12 = ToFloat(ref partValue);
-                            }
-                            else if (count == 2)
-                            {
-                                m21 = ToFloat(ref partValue);
-                            }
-                            else if (count == 3)
-                            {
-                                m22 = ToFloat(ref partValue);
-                            }
-                            else if (count == 4)
-                            {
-                                dx = ToFloat(ref partValue);
-                            }
-                            else if (count == 5)
-                            {
-                                dy = ToFloat(ref partValue);
-                            }
-                            count++;
-                        }
+                            int count = 0;
+                            var m11 = default(float);
+                            var m12 = default(float);
+                            var m21 = default(float);
+                            var m22 = default(float);
+                            var dx = default(float);
+                            var dy = default(float);
 
-                        if (count != 6)
-                        {
-                            throw new FormatException("Matrix transforms must be in the format 'matrix(m11 m12 m21 m22 dx dy)'");
-                        }
+                            foreach (var part in parts)
+                            {
+                                var partValue = part.Value;
+                                if (count == 0)
+                                {
+                                    m11 = ToFloat(ref partValue);
+                                }
+                                else if (count == 1)
+                                {
+                                    m12 = ToFloat(ref partValue);
+                                }
+                                else if (count == 2)
+                                {
+                                    m21 = ToFloat(ref partValue);
+                                }
+                                else if (count == 3)
+                                {
+                                    m22 = ToFloat(ref partValue);
+                                }
+                                else if (count == 4)
+                                {
+                                    dx = ToFloat(ref partValue);
+                                }
+                                else if (count == 5)
+                                {
+                                    dy = ToFloat(ref partValue);
+                                }
+                                count++;
+                            }
 
-                        transformList.Add(new SvgMatrix(new List<float>(6) { m11, m12, m21, m22, dx, dy }));
-                    }
+                            if (count != 6)
+                            {
+                                throw new FormatException("Matrix transforms must be in the format 'matrix(m11 m12 m21 m22 dx dy)'");
+                            }
+
+                            transformList.Add(new SvgMatrix(new List<float>(6) { m11, m12, m21, m22, dx, dy }));
+                        }
                         break;
                     case TransformType.Shear:
-                    {
-                        int count = 0;
-                        var hx = default(float);
-                        var hy = default(float);
-
-                        foreach (var part in parts)
                         {
-                            var partValue = part.Value;
-                            if (count == 0)
-                            {
-                                hx = ToFloat(ref partValue);
-                            }
-                            else if (count == 1)
-                            {
-                                hy = ToFloat(ref partValue);
-                            }
-                            count++;
-                        }
+                            int count = 0;
+                            var hx = default(float);
+                            var hy = default(float);
 
-                        if (count == 0 || count > 2)
-                        {
-                            throw new FormatException("Shear transforms must be in the format 'shear(x [y])'");
-                        }
+                            foreach (var part in parts)
+                            {
+                                var partValue = part.Value;
+                                if (count == 0)
+                                {
+                                    hx = ToFloat(ref partValue);
+                                }
+                                else if (count == 1)
+                                {
+                                    hy = ToFloat(ref partValue);
+                                }
+                                count++;
+                            }
 
-                        transformList.Add(count > 1 ? new SvgShear(hx, hy) : new SvgShear(hx));
-                    }
+                            if (count == 0 || count > 2)
+                            {
+                                throw new FormatException("Shear transforms must be in the format 'shear(x [y])'");
+                            }
+
+                            transformList.Add(count > 1 ? new SvgShear(hx, hy) : new SvgShear(hx));
+                        }
                         break;
                     case TransformType.SkewX:
-                    {
-                        int count = 0;
-                        var ax = default(float);
-
-                        foreach (var part in parts)
                         {
-                            var partValue = part.Value;
-                            if (count == 0)
+                            int count = 0;
+                            var ax = default(float);
+
+                            foreach (var part in parts)
                             {
-                                ax = ToFloat(ref partValue);
+                                var partValue = part.Value;
+                                if (count == 0)
+                                {
+                                    ax = ToFloat(ref partValue);
+                                }
+                                count++;
                             }
-                            count++;
-                        }
 
-                        if (count != 1)
-                        {
-                            throw new FormatException("SkewX transforms must be in the format 'skewX(a)'");
-                        }
+                            if (count != 1)
+                            {
+                                throw new FormatException("SkewX transforms must be in the format 'skewX(a)'");
+                            }
 
-                        transformList.Add(new SvgSkew(ax, 0f));
-                    }
+                            transformList.Add(new SvgSkew(ax, 0f));
+                        }
                         break;
                     case TransformType.SkewY:
-                    {
-                        int count = 0;
-                        var ay = default(float);
-
-                        foreach (var part in parts)
                         {
-                            var partValue = part.Value;
-                            if (count == 0)
+                            int count = 0;
+                            var ay = default(float);
+
+                            foreach (var part in parts)
                             {
-                                ay = ToFloat(ref partValue);
+                                var partValue = part.Value;
+                                if (count == 0)
+                                {
+                                    ay = ToFloat(ref partValue);
+                                }
+                                count++;
                             }
-                            count++;
-                        }
 
-                        if (count != 1)
-                        {
-                            throw new FormatException("SkewY transforms must be in the format 'skewY(a)'");
-                        }
+                            if (count != 1)
+                            {
+                                throw new FormatException("SkewY transforms must be in the format 'skewY(a)'");
+                            }
 
-                        transformList.Add(new SvgSkew(0f, ay));
-                    }
+                            transformList.Add(new SvgSkew(0f, ay));
+                        }
                         break;
                 }
 
