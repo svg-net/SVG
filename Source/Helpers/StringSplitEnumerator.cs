@@ -57,7 +57,7 @@ namespace Svg
         }
 
         public ReadOnlySpan<char> Value { get; }
- 
+
         public static implicit operator ReadOnlySpan<char>(StringPart part) => part.Value;
     }
 }
