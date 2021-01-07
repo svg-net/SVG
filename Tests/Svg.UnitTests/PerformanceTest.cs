@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO.Compression;
 using System.IO;
-using System.Text;
-using System.Reflection;
-
 using NUnit.Framework;
+using Svg.Transforms;
 
 namespace Svg.UnitTests
 {
@@ -61,6 +58,20 @@ namespace Svg.UnitTests
                     throw;
                 }
             }
+        }
+
+        private static readonly SvgTransformConverter TransformConverter = new SvgTransformConverter();
+
+        [Test]
+        public void TransformConverterProfiler()
+        {
+            TransformConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "matrix(252,0,0,252,7560,11340)");
+            TransformConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "matrix(-4.37114e-08,1,-1,-4.37114e-08,181,409.496)");
+            TransformConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "matrix(0.74811711,0.48689734,-0.42145482,0.93331568,324.55155,94.282562)");
+            TransformConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "matrix(0.879978,0.475015,-0.475015,0.879978,120.2732,-136.2899)");
+            TransformConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "rotate(180), translate(-50, 0)");
+            TransformConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "translate(9, 241) rotate(-90)");
+            TransformConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "rotate(180 2.5 2.5) scale(0.7142857142857143,0.7142857142857143)");
         }
 
         private static readonly SvgUnitConverter UnitConverter = new SvgUnitConverter();
