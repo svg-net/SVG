@@ -146,47 +146,33 @@ namespace Svg
             // http://www.w3.org/TR/SVG11/coords.html#Units
 
             int identifierIndex = -1;
-            if (unit == "none")
+            switch (unit)
             {
-                return SvgUnit.None;
-            }
-
-            // Note: these are ad-hoc values based on a factor of about 1.2 between adjacent values
-            // see https://www.w3.org/TR/CSS2/fonts.html#value-def-absolute-size for more information
-            if (unit == "medium")
-            {
-                // unit = "1em";
-                return new SvgUnit(SvgUnitType.Em, 1f);
-            }
-            if (unit == "small")
-            {
-                // unit = "0.8em";
-                return new SvgUnit(SvgUnitType.Em, 0.8f);
-            }
-            if (unit == "x-small")
-            {
-                // unit = "0.7em";
-                return new SvgUnit(SvgUnitType.Em, 0.7f);
-            }
-            if (unit == "xx-small")
-            {
-                // unit = "0.6em";
-                return new SvgUnit(SvgUnitType.Em, 0.6f);
-            }
-            if (unit == "large")
-            {
-                // unit = "1.2em";
-                return new SvgUnit(SvgUnitType.Em, 1.2f);
-            }
-            if (unit == "x-large")
-            {
-                // unit = "1.4em";
-                return new SvgUnit(SvgUnitType.Em, 1.4f);
-            }
-            if (unit == "xx-large")
-            {
-                // unit = "1.7em";
-                return new SvgUnit(SvgUnitType.Em, 1.7f);
+                case "none":
+                    return SvgUnit.None;
+                // Note: these are ad-hoc values based on a factor of about 1.2 between adjacent values
+                // see https://www.w3.org/TR/CSS2/fonts.html#value-def-absolute-size for more information
+                case "medium":
+                    // unit = "1em";
+                    return new SvgUnit(SvgUnitType.Em, 1f);
+                case "small":
+                    // unit = "0.8em";
+                    return new SvgUnit(SvgUnitType.Em, 0.8f);
+                case "x-small":
+                    // unit = "0.7em";
+                    return new SvgUnit(SvgUnitType.Em, 0.7f);
+                case "xx-small":
+                    // unit = "0.6em";
+                    return new SvgUnit(SvgUnitType.Em, 0.6f);
+                case "large":
+                    // unit = "1.2em";
+                    return new SvgUnit(SvgUnitType.Em, 1.2f);
+                case "x-large":
+                    // unit = "1.4em";
+                    return new SvgUnit(SvgUnitType.Em, 1.4f);
+                case "xx-large":
+                    // unit = "1.7em";
+                    return new SvgUnit(SvgUnitType.Em, 1.7f);
             }
 
             var span = unit.AsSpan();
