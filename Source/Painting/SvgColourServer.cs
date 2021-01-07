@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Svg
 {
-    public sealed class SvgColourServer : SvgPaintServer
+    public partial class SvgColourServer : SvgPaintServer
     {
         public SvgColourServer()
             : this(System.Drawing.Color.Black)

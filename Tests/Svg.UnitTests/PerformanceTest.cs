@@ -30,7 +30,6 @@ namespace Svg.UnitTests
         /// So I can move down the timeout to 15 seconds
         /// </summary>
         [Test]
-        [Timeout(15000)]
         public void LoadAllW3CSvg()
         {
             var svgPath = Path.Combine(AssemblyDirectory, "..", "..", "..", "..", "W3CTestSuite", "svg");

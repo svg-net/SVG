@@ -8,7 +8,7 @@ namespace Svg
     /// Represents an SVG path element.
     /// </summary>
     [SvgElement("path")]
-    public class SvgPath : SvgMarkerElement, ISvgPathElement
+    public partial class SvgPath : SvgMarkerElement, ISvgPathElement
     {
         private GraphicsPath _path;
 

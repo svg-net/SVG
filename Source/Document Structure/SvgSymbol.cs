@@ -10,7 +10,7 @@ namespace Svg.Document_Structure
     /// An element used to group SVG shapes.
     /// </summary>
     [SvgElement("symbol")]
-    public class SvgSymbol : SvgVisualElement
+    public partial class SvgSymbol : SvgVisualElement
     {
         /// <summary>
         /// Gets or sets the viewport of the element.

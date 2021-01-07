@@ -11,7 +11,7 @@ namespace Svg
     /// but should be defined by the time the image needs to render.
     /// </summary>
     [TypeConverter(typeof(SvgDeferredPaintServerFactory))]
-    public class SvgDeferredPaintServer : SvgPaintServer
+    public partial class SvgDeferredPaintServer : SvgPaintServer
     {
         private bool _serverLoaded;
 

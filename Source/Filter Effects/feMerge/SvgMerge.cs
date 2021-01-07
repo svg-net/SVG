@@ -4,7 +4,7 @@ using System.Linq;
 namespace Svg.FilterEffects
 {
     [SvgElement("feMerge")]
-    public class SvgMerge : SvgFilterPrimitive
+    public partial class SvgMerge : SvgFilterPrimitive
     {
         public override void Process(ImageBuffer buffer)
         {

@@ -7,7 +7,7 @@ namespace Svg
     /// An element used to group SVG shapes.
     /// </summary>
     [SvgElement("g")]
-    public class SvgGroup : SvgMarkerElement
+    public partial class SvgGroup : SvgMarkerElement
     {
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.

@@ -7,7 +7,7 @@ using System.Linq;
 namespace Svg
 {
     [SvgElement("radialGradient")]
-    public sealed class SvgRadialGradientServer : SvgGradientServer
+    public partial class SvgRadialGradientServer : SvgGradientServer
     {
         [SvgAttribute("cx")]
         public SvgUnit CenterX
@@ -224,7 +224,7 @@ namespace Svg
 
         //New plan:
         // scale the outer rectangle to always encompass ellipse
-        // cut the ellipse in half (either vertical or horizontal) 
+        // cut the ellipse in half (either vertical or horizontal)
         // determine the region on each side of the ellipse
         private static IEnumerable<GraphicsPath> GetDifference(RectangleF subject, GraphicsPath clip)
         {

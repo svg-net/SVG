@@ -4,7 +4,7 @@
     /// The <see cref="SvgText"/> element defines a graphics element consisting of text.
     /// </summary>
     [SvgElement("text")]
-    public class SvgText : SvgTextBase
+    public partial class SvgText : SvgTextBase
     {
         /// <summary>
         /// Initializes the <see cref="SvgText"/> class.

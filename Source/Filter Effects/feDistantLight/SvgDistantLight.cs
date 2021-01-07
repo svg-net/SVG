@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feDistantLight")]
-    public class SvgDistantLight : SvgElement
+    public partial class SvgDistantLight : SvgElement
     {
         [SvgAttribute("azimuth")]
         public float Azimuth

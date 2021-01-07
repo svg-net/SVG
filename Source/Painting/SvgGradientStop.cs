@@ -8,7 +8,7 @@ namespace Svg
     /// Represents a colour stop in a gradient.
     /// </summary>
     [SvgElement("stop")]
-    public class SvgGradientStop : SvgElement
+    public partial class SvgGradientStop : SvgElement
     {
         private SvgUnit _offset;
 

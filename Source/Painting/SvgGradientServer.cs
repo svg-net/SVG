@@ -10,7 +10,7 @@ namespace Svg
     /// <summary>
     /// Provides the base class for all paint servers that wish to render a gradient.
     /// </summary>
-    public abstract class SvgGradientServer : SvgPaintServer
+    public abstract partial class SvgGradientServer : SvgPaintServer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgGradientServer"/> class.

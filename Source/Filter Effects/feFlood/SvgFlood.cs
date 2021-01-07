@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feFlood")]
-    public class SvgFlood : SvgFilterPrimitive
+    public partial class SvgFlood : SvgFilterPrimitive
     {
         [SvgAttribute("flood-color")]
         public virtual SvgPaintServer FloodColor

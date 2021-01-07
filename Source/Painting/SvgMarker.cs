@@ -7,7 +7,7 @@ using Svg.DataTypes;
 namespace Svg
 {
     [SvgElement("marker")]
-    public class SvgMarker : SvgPathBasedElement, ISvgViewPort
+    public partial class SvgMarker : SvgPathBasedElement, ISvgViewPort
     {
         private SvgVisualElement _markerElement = null;
 

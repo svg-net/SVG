@@ -6,7 +6,7 @@ namespace Svg.FilterEffects
     /// Note: this is not used in calculations to bitmap - used only to allow for svg xml output
     /// </summary>
     [SvgElement("feOffset")]
-    public class SvgOffset : SvgFilterPrimitive
+    public partial class SvgOffset : SvgFilterPrimitive
     {
         private SvgUnit _dx = 0f;
         private SvgUnit _dy = 0f;

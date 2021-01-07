@@ -7,7 +7,7 @@ namespace Svg
     /// The 'switch' element evaluates the 'requiredFeatures', 'requiredExtensions' and 'systemLanguage' attributes on its direct child elements in order, and then processes and renders the first child for which these attributes evaluate to true
     /// </summary>
     [SvgElement("switch")]
-    public class SvgSwitch : SvgVisualElement
+    public partial class SvgSwitch : SvgVisualElement
     {
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.

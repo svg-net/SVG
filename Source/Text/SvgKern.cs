@@ -1,6 +1,6 @@
 ﻿namespace Svg
 {
-    public abstract class SvgKern : SvgElement
+    public abstract partial class SvgKern : SvgElement
     {
         [SvgAttribute("g1")]
         public string Glyph1
@@ -39,7 +39,7 @@
     }
 
     [SvgElement("vkern")]
-    public class SvgVerticalKern : SvgKern
+    public partial class SvgVerticalKern : SvgKern
     {
         public override SvgElement DeepCopy()
         {
@@ -47,7 +47,7 @@
         }
     }
     [SvgElement("hkern")]
-    public class SvgHorizontalKern : SvgKern
+    public partial class SvgHorizontalKern : SvgKern
     {
         public override SvgElement DeepCopy()
         {

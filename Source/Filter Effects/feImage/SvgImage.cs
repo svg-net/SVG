@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feImage")]
-    public class SvgImage : SvgFilterPrimitive
+    public partial class SvgImage : SvgFilterPrimitive
     {
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual string Href

@@ -12,8 +12,12 @@ namespace Svg
     /// <summary>
     /// Provides the methods required in order to parse and create <see cref="SvgElement"/> instances from XML.
     /// </summary>
-    internal class SvgElementFactory
+#if USE_SOURCE_GENERATORS
+    [ElementFactory]
+#endif
+    internal partial class SvgElementFactory
     {
+#if !USE_SOURCE_GENERATORS
         static SvgElementFactory()
         {
             // cache ElementInfo in static Field
@@ -46,7 +50,7 @@ namespace Svg
         private static readonly Dictionary<string, List<Type>> availableElementsDictionary;
         private static readonly Dictionary<string, ElementInfo> availableElementsWithoutSvg;
         private static readonly List<ElementInfo> availableElements;
-
+#endif
         private Parser cssParser = new Parser();
 
         /// <summary>
@@ -112,11 +116,18 @@ namespace Svg
                 }
                 else
                 {
+#if !USE_SOURCE_GENERATORS
                     ElementInfo validType;
                     if (availableElementsWithoutSvg.TryGetValue(elementName, out validType))
                     {
                         createdElement = (SvgElement)Activator.CreateInstance(validType.ElementType);
                     }
+#else
+                    if (availableElementsWithoutSvg.TryGetValue(elementName, out var validType))
+                    {
+                        createdElement = validType.CreateInstance();
+                    }
+#endif
                     else
                     {
                         createdElement = new SvgUnknownElement(elementName);
@@ -248,14 +259,14 @@ namespace Svg
             }
             return false;
         }
-
+#if !USE_SOURCE_GENERATORS
         private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
         private static object syncLock = new object();
-
+#endif
         internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle = false)
         {
+#if !USE_SOURCE_GENERATORS
             var elementType = element.GetType();
-
             PropertyDescriptorCollection properties;
             lock (syncLock)
             {
@@ -298,6 +309,17 @@ namespace Svg
                 }
             }
             else
+#else
+            if (attributeName == "opacity" && attributeValue == "undefined")
+            {
+                attributeValue = "1";
+            }
+            var setValueResult = element.SetValue(attributeName, document, CultureInfo.InvariantCulture, attributeValue);
+            if (setValueResult)
+            {
+                return true;
+            }
+#endif
             {
                 //check for namespace declaration in svg element
                 if (string.Equals(element.ElementName, "svg", StringComparison.OrdinalIgnoreCase))
@@ -343,7 +365,12 @@ namespace Svg
             /// Gets the <see cref="Type"/> of the <see cref="SvgElement"/> subclass.
             /// </summary>
             public Type ElementType { get; set; }
-
+#if USE_SOURCE_GENERATORS
+            /// <summary>
+            /// Creates a new instance based on <see cref="ElementType"/> type.
+            /// </summary>
+            public Func<SvgElement> CreateInstance { get; set; }
+#endif
             /// <summary>
             /// Initializes a new instance of the <see cref="ElementInfo"/> struct.
             /// </summary>

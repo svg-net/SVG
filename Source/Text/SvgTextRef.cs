@@ -5,7 +5,7 @@ using System.Linq;
 namespace Svg
 {
     [SvgElement("tref")]
-    public class SvgTextRef : SvgTextBase
+    public partial class SvgTextRef : SvgTextBase
     {
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual Uri ReferencedElement

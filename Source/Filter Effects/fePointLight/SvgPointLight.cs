@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("fePointLight")]
-    public class SvgPointLight : SvgElement
+    public partial class SvgPointLight : SvgElement
     {
         [SvgAttribute("x")]
         public float X

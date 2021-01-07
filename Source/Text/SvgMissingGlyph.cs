@@ -1,7 +1,7 @@
 namespace Svg
 {
     [SvgElement("missing-glyph")]
-    public class SvgMissingGlyph : SvgGlyph
+    public partial class SvgMissingGlyph : SvgGlyph
     {
         [SvgAttribute("glyph-name")]
         public override string GlyphName

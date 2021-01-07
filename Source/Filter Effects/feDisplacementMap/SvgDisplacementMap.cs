@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feDisplacementMap")]
-    public class SvgDisplacementMap : SvgFilterPrimitive
+    public partial class SvgDisplacementMap : SvgFilterPrimitive
     {
         [SvgAttribute("scale")]
         public float Scale

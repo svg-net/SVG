@@ -1,7 +1,7 @@
 ﻿namespace Svg
 {
     [SvgElement("tspan")]
-    public class SvgTextSpan : SvgTextBase
+    public partial class SvgTextSpan : SvgTextBase
     {
         public override SvgElement DeepCopy()
         {

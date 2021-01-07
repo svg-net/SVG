@@ -1,7 +1,7 @@
 namespace Svg
 {
     [SvgElement("title")]
-    public class SvgTitle : SvgElement, ISvgDescriptiveElement
+    public partial class SvgTitle : SvgElement, ISvgDescriptiveElement
     {
         public override string ToString()
         {

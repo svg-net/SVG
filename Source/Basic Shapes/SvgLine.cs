@@ -7,7 +7,7 @@ namespace Svg
     /// Represents and SVG line element.
     /// </summary>
     [SvgElement("line")]
-    public class SvgLine : SvgMarkerElement
+    public partial class SvgLine : SvgMarkerElement
     {
         private SvgUnit _startX = 0f;
         private SvgUnit _startY = 0f;
@@ -104,7 +104,7 @@ namespace Svg
                     this.IsPathDirty = false;
                 }
                 else
-                {    // only when calculating boundary 
+                {    // only when calculating boundary
                     _path.StartFigure();
                     var radius = base.StrokeWidth / 2;
                     _path.AddEllipse(start.X - radius, start.Y - radius, 2 * radius, 2 * radius);

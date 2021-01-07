@@ -20,7 +20,7 @@ namespace Svg
     /// <summary>
     /// The class used to create and load SVG documents.
     /// </summary>
-    public class SvgDocument : SvgFragment, ITypeDescriptorContext
+    public partial class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
         /// <summary>
         /// Skip check whether the GDI+ can be loaded.
@@ -42,7 +42,7 @@ namespace Svg
         {
             get { return pointsPerInch ?? (int) (pointsPerInch = GetSystemDpi()); }
             set { pointsPerInch = value; }
-        } 
+        }
 
         private SvgElementIdManager _idManager;
 
@@ -61,7 +61,7 @@ namespace Svg
             isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #else
             var platform = Environment.OSVersion.Platform;
-            isWindows = platform == PlatformID.Win32NT; 
+            isWindows = platform == PlatformID.Win32NT;
 #endif
 
             if (isWindows)
@@ -138,7 +138,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Overwrites the current IdManager with a custom implementation. 
+        /// Overwrites the current IdManager with a custom implementation.
         /// Be careful with this: If elements have been inserted into the document before,
         /// you have to take care that the new IdManager also knows of them.
         /// </summary>
@@ -220,7 +220,7 @@ namespace Svg
         /// <returns>Boolean whether the system is capable of using GDI+</returns>
         public static bool SystemIsGdiPlusCapable()
         {
-            try 
+            try
             {
                 EnsureSystemIsGdiPlusCapable();
             }
@@ -246,7 +246,7 @@ namespace Svg
             {
                 using (var matrix = new Matrix(0f, 0f, 0f, 0f, 0f, 0f)) { }
             }
-            // GDI+ loading errors will result in TypeInitializationExceptions, 
+            // GDI+ loading errors will result in TypeInitializationExceptions,
             // for readability we will catch and wrap the error
             catch (Exception e)
             {
@@ -256,12 +256,12 @@ namespace Svg
                     throw new SvgGdiPlusCannotBeLoadedException(e);
                 }
                 //If the Matrix creation is causing another type of exception we should just raise that one
-                throw;   
+                throw;
             }
         }
 
         /// <summary>
-        /// Check if the current exception or one of its children is the targeted GDI+ exception. 
+        /// Check if the current exception or one of its children is the targeted GDI+ exception.
         /// It can be hidden in one of the InnerExceptions, so we need to iterate over them.
         /// </summary>
         /// <param name="e">The exception to validate against the GDI+ check</param>

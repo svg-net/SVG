@@ -6,7 +6,7 @@ using System.Drawing.Drawing2D;
 namespace Svg
 {
     [SvgElement("use")]
-    public class SvgUse : SvgVisualElement
+    public partial class SvgUse : SvgVisualElement
     {
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual Uri ReferencedElement
@@ -53,7 +53,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Checks for any direct or indirect recursions in referenced elements, 
+        /// Checks for any direct or indirect recursions in referenced elements,
         /// including recursions via groups.
         /// </summary>
         /// <returns>True if any recursions are found.</returns>

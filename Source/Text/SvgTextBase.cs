@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Svg
 {
-    public abstract class SvgTextBase : SvgVisualElement
+    public abstract partial class SvgTextBase : SvgVisualElement
     {
         private SvgUnitCollection _x = new SvgUnitCollection();
         private SvgUnitCollection _y = new SvgUnitCollection();
@@ -438,7 +438,7 @@ namespace Svg
         {
             value = ApplyTransformation(value);
             value = new StringBuilder(value).Replace("\r\n", " ").Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ').ToString();
-            return this.SpaceHandling == XmlSpaceHandling.preserve ? value : MultipleSpaces.Replace(value.Trim(), " ");
+            return this.SpaceHandling == XmlSpaceHandling.Preserve ? value : MultipleSpaces.Replace(value.Trim(), " ");
         }
 
         private string ApplyTransformation(string value)
