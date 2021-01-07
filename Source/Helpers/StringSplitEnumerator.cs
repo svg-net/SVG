@@ -1,6 +1,6 @@
 using System;
 
-namespace Svg
+namespace Svg.Helpers
 {
     internal ref struct StringSplitEnumerator
     {
