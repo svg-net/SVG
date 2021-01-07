@@ -36,7 +36,6 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgTransformConverter_*'
 dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgUnitConverter_*'
 ```
 
-
 ### TODO
 
 - EnumBaseConverter
@@ -45,8 +44,6 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgUnitConverter_*'
 - SvgOrientConverter
 - SvgPointCollectionConverter
 - SvgUnitCollectionConverter
-- SvgUnitConverter
 - SvgViewBoxConverter
 - SvgPaintServerFactory
-- SvgPathBuilder
 - ColorConverter
