@@ -1,20 +1,12 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using Svg.Helpers;
 
 namespace Svg
 {
     public sealed class SvgUnitConverter : TypeConverter
     {
-        private static float ToFloat(ref ReadOnlySpan<char> value)
-        {
-#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
-            return float.Parse(value, NumberStyles.Float, CultureInfo.InvariantCulture);
-#else
-            return float.Parse(value.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
-#endif
-        }
-
         public static SvgUnit Parse(string unit)
         {
             // http://www.w3.org/TR/CSS21/syndata.html#values
@@ -74,7 +66,7 @@ namespace Svg
             }
 
             var valSpan = identifierIndex > -1 ? span.Slice(0, identifierIndex) : span;
-            var val = ToFloat(ref valSpan);
+            var val = FloatParser.ToFloat(ref valSpan);
             if (identifierIndex == -1)
             {
                 return new SvgUnit(val);

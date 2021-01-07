@@ -63,15 +63,6 @@ namespace Svg.Transforms
             return TransformType.Invalid;
         }
 
-        private static float ToFloat(ref ReadOnlySpan<char> value)
-        {
-#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
-            return float.Parse(value, NumberStyles.Float, CultureInfo.InvariantCulture);
-#else
-            return float.Parse(value.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
-#endif
-        }
-
         public static SvgTransformCollection Parse(string transform)
         {
             var transformList = new SvgTransformCollection();
@@ -108,11 +99,11 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                x = ToFloat(ref partValue);
+                                x = FloatParser.ToFloat(ref partValue);
                             }
                             else if (count == 1)
                             {
-                                y = ToFloat(ref partValue);
+                                y = FloatParser.ToFloat(ref partValue);
                             }
 
                             count++;
@@ -138,15 +129,15 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                angle = ToFloat(ref partValue);
+                                angle = FloatParser.ToFloat(ref partValue);
                             }
                             else if (count == 1)
                             {
-                                cx = ToFloat(ref partValue);
+                                cx = FloatParser.ToFloat(ref partValue);
                             }
                             else if (count == 2)
                             {
-                                cy = ToFloat(ref partValue);
+                                cy = FloatParser.ToFloat(ref partValue);
                             }
 
                             count++;
@@ -171,11 +162,11 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                sx = ToFloat(ref partValue);
+                                sx = FloatParser.ToFloat(ref partValue);
                             }
                             else if (count == 1)
                             {
-                                sy = ToFloat(ref partValue);
+                                sy = FloatParser.ToFloat(ref partValue);
                             }
 
                             count++;
@@ -204,27 +195,27 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                m11 = ToFloat(ref partValue);
+                                m11 = FloatParser.ToFloat(ref partValue);
                             }
                             else if (count == 1)
                             {
-                                m12 = ToFloat(ref partValue);
+                                m12 = FloatParser.ToFloat(ref partValue);
                             }
                             else if (count == 2)
                             {
-                                m21 = ToFloat(ref partValue);
+                                m21 = FloatParser.ToFloat(ref partValue);
                             }
                             else if (count == 3)
                             {
-                                m22 = ToFloat(ref partValue);
+                                m22 = FloatParser.ToFloat(ref partValue);
                             }
                             else if (count == 4)
                             {
-                                dx = ToFloat(ref partValue);
+                                dx = FloatParser.ToFloat(ref partValue);
                             }
                             else if (count == 5)
                             {
-                                dy = ToFloat(ref partValue);
+                                dy = FloatParser.ToFloat(ref partValue);
                             }
 
                             count++;
@@ -250,11 +241,11 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                hx = ToFloat(ref partValue);
+                                hx = FloatParser.ToFloat(ref partValue);
                             }
                             else if (count == 1)
                             {
-                                hy = ToFloat(ref partValue);
+                                hy = FloatParser.ToFloat(ref partValue);
                             }
 
                             count++;
@@ -278,7 +269,7 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                ax = ToFloat(ref partValue);
+                                ax = FloatParser.ToFloat(ref partValue);
                             }
 
                             count++;
@@ -302,7 +293,7 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                ay = ToFloat(ref partValue);
+                                ay = FloatParser.ToFloat(ref partValue);
                             }
 
                             count++;
