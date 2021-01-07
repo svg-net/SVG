@@ -55,6 +55,96 @@ references:
   commentId: F:Svg.ContentEventArgs.Content
   fullName: Svg.ContentEventArgs.Content
   nameWithType: ContentEventArgs.Content
+- uid: Svg.CoordinateParser
+  name: CoordinateParser
+  href: api/Svg.CoordinateParser.html
+  commentId: T:Svg.CoordinateParser
+  fullName: Svg.CoordinateParser
+  nameWithType: CoordinateParser
+- uid: Svg.CoordinateParser.TryGetBool(System.Boolean@,ReadOnlySpan{System.Char}@,Svg.CoordinateParserState@)
+  name: TryGetBool(out Boolean, ref ReadOnlySpan<Char>, ref CoordinateParserState)
+  href: api/Svg.CoordinateParser.html#Svg_CoordinateParser_TryGetBool_System_Boolean__ReadOnlySpan_System_Char___Svg_CoordinateParserState__
+  commentId: M:Svg.CoordinateParser.TryGetBool(System.Boolean@,ReadOnlySpan{System.Char}@,Svg.CoordinateParserState@)
+  name.vb: TryGetBool(ByRef Boolean, ByRef ReadOnlySpan(Of Char), ByRef CoordinateParserState)
+  fullName: Svg.CoordinateParser.TryGetBool(out System.Boolean, ref ReadOnlySpan<System.Char>, ref Svg.CoordinateParserState)
+  fullName.vb: Svg.CoordinateParser.TryGetBool(ByRef System.Boolean, ByRef ReadOnlySpan(Of System.Char), ByRef Svg.CoordinateParserState)
+  nameWithType: CoordinateParser.TryGetBool(out Boolean, ref ReadOnlySpan<Char>, ref CoordinateParserState)
+  nameWithType.vb: CoordinateParser.TryGetBool(ByRef Boolean, ByRef ReadOnlySpan(Of Char), ByRef CoordinateParserState)
+- uid: Svg.CoordinateParser.TryGetBool*
+  name: TryGetBool
+  href: api/Svg.CoordinateParser.html#Svg_CoordinateParser_TryGetBool_
+  commentId: Overload:Svg.CoordinateParser.TryGetBool
+  isSpec: "True"
+  fullName: Svg.CoordinateParser.TryGetBool
+  nameWithType: CoordinateParser.TryGetBool
+- uid: Svg.CoordinateParser.TryGetFloat(System.Single@,ReadOnlySpan{System.Char}@,Svg.CoordinateParserState@)
+  name: TryGetFloat(out Single, ref ReadOnlySpan<Char>, ref CoordinateParserState)
+  href: api/Svg.CoordinateParser.html#Svg_CoordinateParser_TryGetFloat_System_Single__ReadOnlySpan_System_Char___Svg_CoordinateParserState__
+  commentId: M:Svg.CoordinateParser.TryGetFloat(System.Single@,ReadOnlySpan{System.Char}@,Svg.CoordinateParserState@)
+  name.vb: TryGetFloat(ByRef Single, ByRef ReadOnlySpan(Of Char), ByRef CoordinateParserState)
+  fullName: Svg.CoordinateParser.TryGetFloat(out System.Single, ref ReadOnlySpan<System.Char>, ref Svg.CoordinateParserState)
+  fullName.vb: Svg.CoordinateParser.TryGetFloat(ByRef System.Single, ByRef ReadOnlySpan(Of System.Char), ByRef Svg.CoordinateParserState)
+  nameWithType: CoordinateParser.TryGetFloat(out Single, ref ReadOnlySpan<Char>, ref CoordinateParserState)
+  nameWithType.vb: CoordinateParser.TryGetFloat(ByRef Single, ByRef ReadOnlySpan(Of Char), ByRef CoordinateParserState)
+- uid: Svg.CoordinateParser.TryGetFloat*
+  name: TryGetFloat
+  href: api/Svg.CoordinateParser.html#Svg_CoordinateParser_TryGetFloat_
+  commentId: Overload:Svg.CoordinateParser.TryGetFloat
+  isSpec: "True"
+  fullName: Svg.CoordinateParser.TryGetFloat
+  nameWithType: CoordinateParser.TryGetFloat
+- uid: Svg.CoordinateParserState
+  name: CoordinateParserState
+  href: api/Svg.CoordinateParserState.html
+  commentId: T:Svg.CoordinateParserState
+  fullName: Svg.CoordinateParserState
+  nameWithType: CoordinateParserState
+- uid: Svg.CoordinateParserState.#ctor(ReadOnlySpan{System.Char}@)
+  name: CoordinateParserState(ref ReadOnlySpan<Char>)
+  href: api/Svg.CoordinateParserState.html#Svg_CoordinateParserState__ctor_ReadOnlySpan_System_Char___
+  commentId: M:Svg.CoordinateParserState.#ctor(ReadOnlySpan{System.Char}@)
+  name.vb: CoordinateParserState(ByRef ReadOnlySpan(Of Char))
+  fullName: Svg.CoordinateParserState.CoordinateParserState(ref ReadOnlySpan<System.Char>)
+  fullName.vb: Svg.CoordinateParserState.CoordinateParserState(ByRef ReadOnlySpan(Of System.Char))
+  nameWithType: CoordinateParserState.CoordinateParserState(ref ReadOnlySpan<Char>)
+  nameWithType.vb: CoordinateParserState.CoordinateParserState(ByRef ReadOnlySpan(Of Char))
+- uid: Svg.CoordinateParserState.#ctor*
+  name: CoordinateParserState
+  href: api/Svg.CoordinateParserState.html#Svg_CoordinateParserState__ctor_
+  commentId: Overload:Svg.CoordinateParserState.#ctor
+  isSpec: "True"
+  fullName: Svg.CoordinateParserState.CoordinateParserState
+  nameWithType: CoordinateParserState.CoordinateParserState
+- uid: Svg.CoordinateParserState.CharsPosition
+  name: CharsPosition
+  href: api/Svg.CoordinateParserState.html#Svg_CoordinateParserState_CharsPosition
+  commentId: F:Svg.CoordinateParserState.CharsPosition
+  fullName: Svg.CoordinateParserState.CharsPosition
+  nameWithType: CoordinateParserState.CharsPosition
+- uid: Svg.CoordinateParserState.CurrNumState
+  name: CurrNumState
+  href: api/Svg.CoordinateParserState.html#Svg_CoordinateParserState_CurrNumState
+  commentId: F:Svg.CoordinateParserState.CurrNumState
+  fullName: Svg.CoordinateParserState.CurrNumState
+  nameWithType: CoordinateParserState.CurrNumState
+- uid: Svg.CoordinateParserState.HasMore
+  name: HasMore
+  href: api/Svg.CoordinateParserState.html#Svg_CoordinateParserState_HasMore
+  commentId: F:Svg.CoordinateParserState.HasMore
+  fullName: Svg.CoordinateParserState.HasMore
+  nameWithType: CoordinateParserState.HasMore
+- uid: Svg.CoordinateParserState.NewNumState
+  name: NewNumState
+  href: api/Svg.CoordinateParserState.html#Svg_CoordinateParserState_NewNumState
+  commentId: F:Svg.CoordinateParserState.NewNumState
+  fullName: Svg.CoordinateParserState.NewNumState
+  nameWithType: CoordinateParserState.NewNumState
+- uid: Svg.CoordinateParserState.Position
+  name: Position
+  href: api/Svg.CoordinateParserState.html#Svg_CoordinateParserState_Position
+  commentId: F:Svg.CoordinateParserState.Position
+  fullName: Svg.CoordinateParserState.Position
+  nameWithType: CoordinateParserState.Position
 - uid: Svg.DataTypes
   name: Svg.DataTypes
   href: api/Svg.DataTypes.html
@@ -3930,6 +4020,66 @@ references:
   isSpec: "True"
   fullName: Svg.NonSvgElement.Name
   nameWithType: NonSvgElement.Name
+- uid: Svg.NumState
+  name: NumState
+  href: api/Svg.NumState.html
+  commentId: T:Svg.NumState
+  fullName: Svg.NumState
+  nameWithType: NumState
+- uid: Svg.NumState.DecPlace
+  name: DecPlace
+  href: api/Svg.NumState.html#Svg_NumState_DecPlace
+  commentId: F:Svg.NumState.DecPlace
+  fullName: Svg.NumState.DecPlace
+  nameWithType: NumState.DecPlace
+- uid: Svg.NumState.Exponent
+  name: Exponent
+  href: api/Svg.NumState.html#Svg_NumState_Exponent
+  commentId: F:Svg.NumState.Exponent
+  fullName: Svg.NumState.Exponent
+  nameWithType: NumState.Exponent
+- uid: Svg.NumState.ExpPrefix
+  name: ExpPrefix
+  href: api/Svg.NumState.html#Svg_NumState_ExpPrefix
+  commentId: F:Svg.NumState.ExpPrefix
+  fullName: Svg.NumState.ExpPrefix
+  nameWithType: NumState.ExpPrefix
+- uid: Svg.NumState.ExpValue
+  name: ExpValue
+  href: api/Svg.NumState.html#Svg_NumState_ExpValue
+  commentId: F:Svg.NumState.ExpValue
+  fullName: Svg.NumState.ExpValue
+  nameWithType: NumState.ExpValue
+- uid: Svg.NumState.Fraction
+  name: Fraction
+  href: api/Svg.NumState.html#Svg_NumState_Fraction
+  commentId: F:Svg.NumState.Fraction
+  fullName: Svg.NumState.Fraction
+  nameWithType: NumState.Fraction
+- uid: Svg.NumState.Integer
+  name: Integer
+  href: api/Svg.NumState.html#Svg_NumState_Integer
+  commentId: F:Svg.NumState.Integer
+  fullName: Svg.NumState.Integer
+  nameWithType: NumState.Integer
+- uid: Svg.NumState.Invalid
+  name: Invalid
+  href: api/Svg.NumState.html#Svg_NumState_Invalid
+  commentId: F:Svg.NumState.Invalid
+  fullName: Svg.NumState.Invalid
+  nameWithType: NumState.Invalid
+- uid: Svg.NumState.Prefix
+  name: Prefix
+  href: api/Svg.NumState.html#Svg_NumState_Prefix
+  commentId: F:Svg.NumState.Prefix
+  fullName: Svg.NumState.Prefix
+  nameWithType: NumState.Prefix
+- uid: Svg.NumState.Separator
+  name: Separator
+  href: api/Svg.NumState.html#Svg_NumState_Separator
+  commentId: F:Svg.NumState.Separator
+  fullName: Svg.NumState.Separator
+  nameWithType: NumState.Separator
 - uid: Svg.Pathing
   name: Svg.Pathing
   href: api/Svg.Pathing.html
@@ -15768,21 +15918,40 @@ references:
   commentId: T:Svg.XmlSpaceHandling
   fullName: Svg.XmlSpaceHandling
   nameWithType: XmlSpaceHandling
-- uid: Svg.XmlSpaceHandling.default
-  name: default
-  href: api/Svg.XmlSpaceHandling.html#Svg_XmlSpaceHandling_default
-  commentId: F:Svg.XmlSpaceHandling.default
-  fullName: Svg.XmlSpaceHandling.default
-  nameWithType: XmlSpaceHandling.default
-- uid: Svg.XmlSpaceHandling.inherit
-  name: inherit
-  href: api/Svg.XmlSpaceHandling.html#Svg_XmlSpaceHandling_inherit
-  commentId: F:Svg.XmlSpaceHandling.inherit
-  fullName: Svg.XmlSpaceHandling.inherit
-  nameWithType: XmlSpaceHandling.inherit
-- uid: Svg.XmlSpaceHandling.preserve
-  name: preserve
-  href: api/Svg.XmlSpaceHandling.html#Svg_XmlSpaceHandling_preserve
-  commentId: F:Svg.XmlSpaceHandling.preserve
-  fullName: Svg.XmlSpaceHandling.preserve
-  nameWithType: XmlSpaceHandling.preserve
+- uid: Svg.XmlSpaceHandling.Default
+  name: Default
+  href: api/Svg.XmlSpaceHandling.html#Svg_XmlSpaceHandling_Default
+  commentId: F:Svg.XmlSpaceHandling.Default
+  fullName: Svg.XmlSpaceHandling.Default
+  nameWithType: XmlSpaceHandling.Default
+- uid: Svg.XmlSpaceHandling.Inherit
+  name: Inherit
+  href: api/Svg.XmlSpaceHandling.html#Svg_XmlSpaceHandling_Inherit
+  commentId: F:Svg.XmlSpaceHandling.Inherit
+  fullName: Svg.XmlSpaceHandling.Inherit
+  nameWithType: XmlSpaceHandling.Inherit
+- uid: Svg.XmlSpaceHandling.Preserve
+  name: Preserve
+  href: api/Svg.XmlSpaceHandling.html#Svg_XmlSpaceHandling_Preserve
+  commentId: F:Svg.XmlSpaceHandling.Preserve
+  fullName: Svg.XmlSpaceHandling.Preserve
+  nameWithType: XmlSpaceHandling.Preserve
+- uid: Svg.XmlSpaceHandlingConverter
+  name: XmlSpaceHandlingConverter
+  href: api/Svg.XmlSpaceHandlingConverter.html
+  commentId: T:Svg.XmlSpaceHandlingConverter
+  fullName: Svg.XmlSpaceHandlingConverter
+  nameWithType: XmlSpaceHandlingConverter
+- uid: Svg.XmlSpaceHandlingConverter.#ctor
+  name: XmlSpaceHandlingConverter()
+  href: api/Svg.XmlSpaceHandlingConverter.html#Svg_XmlSpaceHandlingConverter__ctor
+  commentId: M:Svg.XmlSpaceHandlingConverter.#ctor
+  fullName: Svg.XmlSpaceHandlingConverter.XmlSpaceHandlingConverter()
+  nameWithType: XmlSpaceHandlingConverter.XmlSpaceHandlingConverter()
+- uid: Svg.XmlSpaceHandlingConverter.#ctor*
+  name: XmlSpaceHandlingConverter
+  href: api/Svg.XmlSpaceHandlingConverter.html#Svg_XmlSpaceHandlingConverter__ctor_
+  commentId: Overload:Svg.XmlSpaceHandlingConverter.#ctor
+  isSpec: "True"
+  fullName: Svg.XmlSpaceHandlingConverter.XmlSpaceHandlingConverter
+  nameWithType: XmlSpaceHandlingConverter.XmlSpaceHandlingConverter

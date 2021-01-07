@@ -137,6 +137,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.CoordinateParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.CoordinateParser.html",
+          "hash": "VPwu0ZTQ5xjNvkaB01O/lQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.CoordinateParserState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.CoordinateParserState.html",
+          "hash": "dfZ8GGaFQs/RcXCqcXiAFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Svg.DataTypes.SvgColourInterpolation.yml",
       "output": {
         ".html": {
@@ -237,7 +261,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.EnumBaseConverter-1.html",
-          "hash": "sLw7QLGJUwCzd2+ntfgV1g=="
+          "hash": "LCGtrTXejrAdOCjamcnrKw=="
         }
       },
       "is_incremental": false,
@@ -537,7 +561,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.FilterEffects.SvgFilter.html",
-          "hash": "SOjLxMR5G0cSfvo1rEln6Q=="
+          "hash": "wBhYbp6TRyBAFVGaet2EPQ=="
         }
       },
       "is_incremental": false,
@@ -965,6 +989,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.NumState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.NumState.html",
+          "hash": "+2vrJmv892ryDu4C7wvBIQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Svg.PathStatistics.yml",
       "output": {
         ".html": {
@@ -1245,7 +1281,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.SvgClipPath.html",
-          "hash": "DsOV44PhDR65HZcyFKQnxw=="
+          "hash": "q/iQ5NVYwp/67p3ff44waA=="
         }
       },
       "is_incremental": false,
@@ -1317,7 +1353,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.SvgColourServer.html",
-          "hash": "VzEnDgZyqZxLNywrUIQtBg=="
+          "hash": "gNMWVQy4BNrvPbh5omTGaA=="
         }
       },
       "is_incremental": false,
@@ -2037,7 +2073,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.SvgLinearGradientServer.html",
-          "hash": "3SMr2x+uohb9Tv4YMivKTg=="
+          "hash": "hoJFKn6mW9K9LQ/xDBudjQ=="
         }
       },
       "is_incremental": false,
@@ -2229,7 +2265,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.SvgPatternServer.html",
-          "hash": "ffX8pCoLN7cUMkFwRFcy1A=="
+          "hash": "xcmDxx8D7kr7Bnq+L0Co3w=="
         }
       },
       "is_incremental": false,
@@ -2301,7 +2337,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.SvgRadialGradientServer.html",
-          "hash": "gHxtSXthdstxqWTaH3WEwg=="
+          "hash": "/Mdre8c1/Z27rswQ0nQ4Aw=="
         }
       },
       "is_incremental": false,
@@ -2949,7 +2985,19 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.XmlSpaceHandling.html",
-          "hash": "jjeNOkB1CoKoR/d7qq5Phw=="
+          "hash": "hRjDz2WkjsCcaniERXEp0g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.XmlSpaceHandlingConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.XmlSpaceHandlingConverter.html",
+          "hash": "SBSuxKi2OOoTFuMuaSwCrg=="
         }
       },
       "is_incremental": false,
@@ -2961,7 +3009,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.html",
-          "hash": "68UfhWdR6hGXKN7P1Wn9Dw=="
+          "hash": "wTE1ZWm74UKkw8xjNPqHbA=="
         }
       },
       "is_incremental": false,
@@ -2973,7 +3021,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "mQIkgOlFSnNFjHUUpx12og=="
+          "hash": "YHYs32lF2lRkcfwlW2LEAw=="
         }
       },
       "is_incremental": false,
@@ -3000,7 +3048,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 239,
+          "total_file_count": 243,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
