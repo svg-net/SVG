@@ -8,7 +8,7 @@ namespace Svg.Benchmark
     public class SvgUnitConverterBenchmarks
     {
         [Benchmark]
-        public void SvgUnitConverter_ConvertFrom()
+        public void SvgUnitConverter_Parse()
         {
             SvgUnitConverter.Parse("1pt");
             SvgUnitConverter.Parse("1.25px");
