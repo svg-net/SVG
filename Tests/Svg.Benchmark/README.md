@@ -23,3 +23,23 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgPathBuilder_*'
 ```
 dotnet run -c Release -f netcoreapp3.1 -- -f '*CoordinateParser_*'
 ```
+
+### Run `SvgTransformConverter` Benchmarks
+
+```
+dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgTransformConverter_*'
+```
+
+### TODO
+
+- EnumBaseConverter
+- SvgPreserveAspectRatioConverter
+- SvgNumberCollectionConverter
+- SvgOrientConverter
+- SvgPointCollectionConverter
+- SvgUnitCollectionConverter
+- SvgUnitConverter
+- SvgViewBoxConverter
+- SvgPaintServerFactory
+- SvgPathBuilder
+- ColorConverter
