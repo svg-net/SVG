@@ -7,40 +7,38 @@ namespace Svg.Benchmark
 {
     public class SvgUnitConverterBenchmarks
     {
-        private static readonly SvgUnitConverter UnitConverter = new SvgUnitConverter();
-
         [Benchmark]
         public void SvgUnitConverter_ConvertFrom()
         {
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "1pt");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "1.25px");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "1pc");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "15px");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "1mm");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "3.543307px");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "1cm");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "35.43307px");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "1in");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "90px");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "15em");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "0.2822222mm");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "3990");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "1990");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "-50");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, ".4in");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, ".25em");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "10%");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "1%");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "0%");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "100%");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "1.2em");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "medium");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "x-small");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "xx-large");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "657.45");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "12.5");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "0");
-            UnitConverter.ConvertFrom(null, CultureInfo.InvariantCulture, "12");
+            SvgUnitConverter.Parse("1pt");
+            SvgUnitConverter.Parse("1.25px");
+            SvgUnitConverter.Parse("1pc");
+            SvgUnitConverter.Parse("15px");
+            SvgUnitConverter.Parse("1mm");
+            SvgUnitConverter.Parse("3.543307px");
+            SvgUnitConverter.Parse("1cm");
+            SvgUnitConverter.Parse("35.43307px");
+            SvgUnitConverter.Parse("1in");
+            SvgUnitConverter.Parse("90px");
+            SvgUnitConverter.Parse("15em");
+            SvgUnitConverter.Parse("0.2822222mm");
+            SvgUnitConverter.Parse("3990");
+            SvgUnitConverter.Parse("1990");
+            SvgUnitConverter.Parse("-50");
+            SvgUnitConverter.Parse(".4in");
+            SvgUnitConverter.Parse(".25em");
+            SvgUnitConverter.Parse("10%");
+            SvgUnitConverter.Parse("1%");
+            SvgUnitConverter.Parse("0%");
+            SvgUnitConverter.Parse("100%");
+            SvgUnitConverter.Parse("1.2em");
+            SvgUnitConverter.Parse("medium");
+            SvgUnitConverter.Parse("x-small");
+            SvgUnitConverter.Parse("xx-large");
+            SvgUnitConverter.Parse("657.45");
+            SvgUnitConverter.Parse("12.5");
+            SvgUnitConverter.Parse("0");
+            SvgUnitConverter.Parse("12");
         }
     }
 }

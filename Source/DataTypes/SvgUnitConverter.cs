@@ -15,18 +15,8 @@ namespace Svg
 #endif
         }
 
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        public static SvgUnit Parse(string unit)
         {
-            if (value == null)
-            {
-                return new SvgUnit(SvgUnitType.User, 0.0f);
-            }
-
-            if (!(value is string unit))
-            {
-                throw new ArgumentException("The value argument must be a string.");
-            }
-
             // http://www.w3.org/TR/CSS21/syndata.html#values
             // http://www.w3.org/TR/SVG11/coords.html#Units
 
@@ -75,7 +65,8 @@ namespace Svg
                     break;
                 }
 
-                if (char.IsLetter(currentChar) && !((currentChar == 'e' || currentChar == 'E') && i < spanLength - 1 && !char.IsLetter(span[i + 1])))
+                if (char.IsLetter(currentChar) && !((currentChar == 'e' || currentChar == 'E') && i < spanLength - 1 &&
+                                                    !char.IsLetter(span[i + 1])))
                 {
                     identifierIndex = i;
                     break;
@@ -113,36 +104,43 @@ namespace Svg
                 {
                     return new SvgUnit(SvgUnitType.Millimeter, val);
                 }
+
                 // cm
                 if (char0 == 'c' && char1 == 'm')
                 {
                     return new SvgUnit(SvgUnitType.Centimeter, val);
                 }
+
                 // in
                 if (char0 == 'i' && char1 == 'n')
                 {
                     return new SvgUnit(SvgUnitType.Inch, val);
                 }
+
                 // px
                 if (char0 == 'p' && char1 == 'x')
                 {
                     return new SvgUnit(SvgUnitType.Pixel, val);
                 }
+
                 // pt
                 if (char0 == 'p' && char1 == 't')
                 {
                     return new SvgUnit(SvgUnitType.Point, val);
                 }
+
                 // pc
                 if (char0 == 'p' && char1 == 'c')
                 {
                     return new SvgUnit(SvgUnitType.Pica, val);
                 }
+
                 // em
                 if (char0 == 'e' && char1 == 'm')
                 {
                     return new SvgUnit(SvgUnitType.Em, val);
                 }
+
                 // ex
                 if (char0 == 'e' && char1 == 'x')
                 {
@@ -151,6 +149,21 @@ namespace Svg
             }
 
             throw new FormatException("Unit is in an invalid format '" + span.ToString() + "'.");
+        }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value == null)
+            {
+                return new SvgUnit(SvgUnitType.User, 0.0f);
+            }
+
+            if (!(value is string unit))
+            {
+                throw new ArgumentException("The value argument must be a string.");
+            }
+
+            return Parse(unit);
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
