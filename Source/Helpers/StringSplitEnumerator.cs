@@ -5,7 +5,7 @@ namespace Svg
     internal ref struct StringSplitEnumerator
     {
         private ReadOnlySpan<char> _str;
-        private ReadOnlySpan<char> _chars;
+        private readonly ReadOnlySpan<char> _chars;
 
         public StringSplitEnumerator(ReadOnlySpan<char> str, ReadOnlySpan<char> chars)
         {
