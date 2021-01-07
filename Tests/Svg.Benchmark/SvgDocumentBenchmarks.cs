@@ -2,7 +2,7 @@ using BenchmarkDotNet.Attributes;
 using System.IO;
 using Svg;
 
-namespace Svg.Benchmarks
+namespace Svg.Benchmark
 {
     public class SvgDocumentBenchmarks
     {

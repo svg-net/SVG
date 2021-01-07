@@ -3,7 +3,7 @@ using BenchmarkDotNet.Attributes;
 using Svg;
 using Svg.Transforms;
 
-namespace Svg.Benchmarks
+namespace Svg.Benchmark
 {
     public class SvgUnitConverterBenchmarks
     {
