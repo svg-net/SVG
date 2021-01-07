@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using Svg.Helpers;
 
 namespace Svg
 {
@@ -76,13 +77,14 @@ namespace Svg
             return units;
         }
     }
-
+#if false
     /// <summary>
     /// A class to convert string into <see cref="SvgUnitCollection"/> instances.
     /// </summary>
-    internal class SvgUnitCollectionConverter : TypeConverter
+    public class SvgUnitCollectionConverter : TypeConverter
     {
         private static readonly SvgUnitConverter _unitConverter = new SvgUnitConverter();
+
         /// <summary>
         /// Converts the given object to the type of this converter, using the specified context and culture information.
         /// </summary>
@@ -97,30 +99,76 @@ namespace Svg
         {
             if (value is string)
             {
-                var points = ((string)value).Trim().Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                var units = new SvgUnitCollection();
-
-                foreach (var point in points)
-                {
-                    var newUnit = (SvgUnit)_unitConverter.ConvertFrom(point.Trim());
-                    if (!newUnit.IsNone)
-                        units.Add(newUnit);
-                }
-
-                return units;
+                return Parse(value);
             }
-
             return base.ConvertFrom(context, culture, value);
         }
-    }
 
+        public static SvgUnitCollection Parse(object value)
+        {
+            var points = ((string) value).Trim()
+                .Split(new char[] {',', ' ', '\r', '\n', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+            var units = new SvgUnitCollection();
+
+            foreach (var point in points)
+            {
+                var newUnit = (SvgUnit) _unitConverter.ConvertFrom(point.Trim());
+                if (!newUnit.IsNone)
+                    units.Add(newUnit);
+            }
+
+            return units;
+        }
+    }
+#else
+    /// <summary>
+    /// A class to convert string into <see cref="SvgUnitCollection"/> instances.
+    /// </summary>
+    public class SvgUnitCollectionConverter : TypeConverter
+    {
+        private static readonly char[] SplitChars = new[] { ',', ' ', '\r', '\n', '\t' };
+
+        /// <summary>
+        /// Converts the given object to the type of this converter, using the specified context and culture information.
+        /// </summary>
+        /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context.</param>
+        /// <param name="culture">The <see cref="T:System.Globalization.CultureInfo"/> to use as the current culture.</param>
+        /// <param name="value">The <see cref="T:System.Object"/> to convert.</param>
+        /// <returns>
+        /// An <see cref="T:System.Object"/> that represents the converted value.
+        /// </returns>
+        /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            return value is not string str ? base.ConvertFrom(context, culture, value) : Parse(str);
+        }
+
+        public static object Parse(string points)
+        {
+            var units = new SvgUnitCollection();
+            var splitChars = SplitChars.AsSpan();
+            var parts = new StringSplitEnumerator(points.AsSpan(), splitChars);
+
+            foreach (var part in parts)
+            {
+                var newUnit = SvgUnitConverter.Parse(part.Value);
+                if (!newUnit.IsNone)
+                {
+                    units.Add(newUnit);
+                }
+            }
+
+            return units;
+        }
+    }
+#endif
     internal class SvgStrokeDashArrayConverter : SvgUnitCollectionConverter
     {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            if (value is string s1)
             {
-                var s = ((string)value).Trim();
+                var s = s1.Trim();
                 if (s.Equals(SvgUnitCollection.None, StringComparison.OrdinalIgnoreCase))
                     return new SvgUnitCollection
                     {

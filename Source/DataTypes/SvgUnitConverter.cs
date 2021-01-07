@@ -7,47 +7,62 @@ namespace Svg
 {
     public sealed class SvgUnitConverter : TypeConverter
     {
-        public static SvgUnit Parse(string unit)
+        public static SvgUnit Parse(ReadOnlySpan<char> unit)
         {
             // http://www.w3.org/TR/CSS21/syndata.html#values
             // http://www.w3.org/TR/SVG11/coords.html#Units
 
             int identifierIndex = -1;
-            switch (unit)
+
+            if (unit.SequenceEqual("none".AsSpan()))
             {
-                case "none":
-                    return SvgUnit.None;
-                // Note: these are ad-hoc values based on a factor of about 1.2 between adjacent values
-                // see https://www.w3.org/TR/CSS2/fonts.html#value-def-absolute-size for more information
-                case "medium":
-                    // unit = "1em";
-                    return new SvgUnit(SvgUnitType.Em, 1f);
-                case "small":
-                    // unit = "0.8em";
-                    return new SvgUnit(SvgUnitType.Em, 0.8f);
-                case "x-small":
-                    // unit = "0.7em";
-                    return new SvgUnit(SvgUnitType.Em, 0.7f);
-                case "xx-small":
-                    // unit = "0.6em";
-                    return new SvgUnit(SvgUnitType.Em, 0.6f);
-                case "large":
-                    // unit = "1.2em";
-                    return new SvgUnit(SvgUnitType.Em, 1.2f);
-                case "x-large":
-                    // unit = "1.4em";
-                    return new SvgUnit(SvgUnitType.Em, 1.4f);
-                case "xx-large":
-                    // unit = "1.7em";
-                    return new SvgUnit(SvgUnitType.Em, 1.7f);
+                return SvgUnit.None;
             }
 
-            var span = unit.AsSpan();
-            var spanLength = span.Length;
+            // Note: these are ad-hoc values based on a factor of about 1.2 between adjacent values
+            // see https://www.w3.org/TR/CSS2/fonts.html#value-def-absolute-size for more information
+
+            if (unit.SequenceEqual("medium".AsSpan()))
+            {
+                // unit = "1em";
+                return new SvgUnit(SvgUnitType.Em, 1f);
+            }
+            if (unit.SequenceEqual("small".AsSpan()))
+            {
+                // unit = "0.8em";
+                return new SvgUnit(SvgUnitType.Em, 0.8f);
+            }
+            if (unit.SequenceEqual("x-small".AsSpan()))
+            {
+                // unit = "0.7em";
+                return new SvgUnit(SvgUnitType.Em, 0.7f);
+            }
+            if (unit.SequenceEqual("xx-small".AsSpan()))
+            {
+                // unit = "0.6em";
+                return new SvgUnit(SvgUnitType.Em, 0.6f);
+            }
+            if (unit.SequenceEqual("large".AsSpan()))
+            {
+                // unit = "1.2em";
+                return new SvgUnit(SvgUnitType.Em, 1.2f);
+            }
+            if (unit.SequenceEqual("x-large".AsSpan()))
+            {
+                // unit = "1.4em";
+                return new SvgUnit(SvgUnitType.Em, 1.4f);
+            }
+            if (unit.SequenceEqual("xx-large".AsSpan()))
+            {
+                // unit = "1.7em";
+                return new SvgUnit(SvgUnitType.Em, 1.7f);
+            }
+
+            var spanLength = unit.Length;
 
             for (var i = 0; i < spanLength; i++)
             {
-                var currentChar = span[i];
+                var currentChar = unit[i];
 
                 // If the character is a percent sign or a letter which is not an exponent 'e'
 
@@ -58,14 +73,14 @@ namespace Svg
                 }
 
                 if (char.IsLetter(currentChar) && !((currentChar == 'e' || currentChar == 'E') && i < spanLength - 1 &&
-                                                    !char.IsLetter(span[i + 1])))
+                                                    !char.IsLetter(unit[i + 1])))
                 {
                     identifierIndex = i;
                     break;
                 }
             }
 
-            var valSpan = identifierIndex > -1 ? span.Slice(0, identifierIndex) : span;
+            var valSpan = identifierIndex > -1 ? unit.Slice(0, identifierIndex) : unit;
             var val = FloatParser.ToFloat(ref valSpan);
             if (identifierIndex == -1)
             {
@@ -73,10 +88,10 @@ namespace Svg
             }
 
             Span<char> typeSpan = stackalloc char[2];
-            var toLowerLength = span.Slice(identifierIndex).Trim().ToLowerInvariant(typeSpan);
+            var toLowerLength = unit.Slice(identifierIndex).Trim().ToLowerInvariant(typeSpan);
             if (toLowerLength <= 0 || toLowerLength > 2)
             {
-                throw new FormatException("Unit is in an invalid format '" + span.ToString() + "'.");
+                throw new FormatException("Unit is in an invalid format '" + unit.ToString() + "'.");
             }
 
             if (toLowerLength == 1)
@@ -140,7 +155,7 @@ namespace Svg
                 }
             }
 
-            throw new FormatException("Unit is in an invalid format '" + span.ToString() + "'.");
+            throw new FormatException("Unit is in an invalid format '" + unit.ToString() + "'.");
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
@@ -155,7 +170,7 @@ namespace Svg
                 throw new ArgumentException("The value argument must be a string.");
             }
 
-            return Parse(unit);
+            return Parse(unit.AsSpan());
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)

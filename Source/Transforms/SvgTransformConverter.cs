@@ -63,10 +63,10 @@ namespace Svg.Transforms
             return TransformType.Invalid;
         }
 
-        public static SvgTransformCollection Parse(string transform)
+        public static SvgTransformCollection Parse(ReadOnlySpan<char> transform)
         {
             var transformList = new SvgTransformCollection();
-            var source = transform.AsSpan().TrimStart();
+            var source = transform.TrimStart();
             var sourceLength = source.Length;
             var splitChars = SplitChars.AsSpan();
 
@@ -343,7 +343,7 @@ namespace Svg.Transforms
                 return base.ConvertFrom(context, culture, value);
             }
 
-            return Parse(transform);
+            return Parse(transform.AsSpan());
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
