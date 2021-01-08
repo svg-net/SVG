@@ -44,7 +44,7 @@ namespace Svg
     /// <summary>
     /// A class to convert string into <see cref="SvgPointCollection"/> instances.
     /// </summary>
-    internal class SvgPointCollectionConverter : TypeConverter
+    public class SvgPointCollectionConverter : TypeConverter
     {
         /// <summary>
         /// Converts the given object to the type of this converter, using the specified context and culture information.
@@ -60,18 +60,23 @@ namespace Svg
         {
             if (value is string s)
             {
-                var coords = s.AsSpan().Trim();
-                var state = new CoordinateParserState(ref coords);
-                var result = new SvgPointCollection();
-                while (CoordinateParser.TryGetFloat(out var pointValue, ref coords, ref state))
-                {
-                    result.Add(new SvgUnit(SvgUnitType.User, pointValue));
-                }
-
-                return result;
+                return Parse(s.AsSpan());
             }
 
             return base.ConvertFrom(context, culture, value);
+        }
+
+        public static SvgPointCollection Parse(ReadOnlySpan<char> points)
+        {
+            var coords = points.Trim();
+            var state = new CoordinateParserState(ref coords);
+            var result = new SvgPointCollection();
+            while (CoordinateParser.TryGetFloat(out var pointValue, ref coords, ref state))
+            {
+                result.Add(new SvgUnit(SvgUnitType.User, pointValue));
+            }
+
+            return result;
         }
     }
 }
