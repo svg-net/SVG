@@ -32,6 +32,8 @@ namespace Svg
     /// </summary>
     public class SvgNumberCollectionConverter : TypeConverter
     {
+        private static readonly char[] SplitChars = new[] { ' ', '\t', '\n', '\r', ',' };
+
         /// <summary>
         /// Converts the given object to the type of this converter, using the specified context and culture information.
         /// </summary>
@@ -56,7 +58,7 @@ namespace Svg
         public static SvgNumberCollection Parse(string numbers)
         {
             var collection = new SvgNumberCollection();
-            var values = numbers.Split(new char[] { ' ', '\t', '\n', '\r', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var values = numbers.Split(SplitChars, StringSplitOptions.RemoveEmptyEntries);
             foreach (var v in values)
             {
                 var result = float.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture);
