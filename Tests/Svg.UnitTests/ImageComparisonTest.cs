@@ -16,33 +16,6 @@ namespace Svg.UnitTests
     {
         public TestContext TestContext { get; set; }
 
-        [Test]
-        public void BaseDirectory_Is_Not_Null()
-        {
-            var locationExecutingAssembly = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            Assert.IsNotNull(locationExecutingAssembly);
-            var locationExecutingAssemblyDirectory = System.IO.Path.GetDirectoryName(locationExecutingAssembly);
-            Assert.IsNotNull(locationExecutingAssemblyDirectory);
-
-            var codeBase = System.Reflection.Assembly.GetEntryAssembly().CodeBase;
-            Assert.IsNotNull(codeBase);
-            var codeBaseDirectory = System.IO.Path.GetDirectoryName(codeBase);
-            Assert.IsNotNull(codeBaseDirectory);
-
-            var locationEntryAssembly = System.Reflection.Assembly.GetEntryAssembly().Location;
-            Assert.IsNotNull(locationEntryAssembly);
-            var locationEntryAssemblyDirectory = System.IO.Path.GetDirectoryName(locationEntryAssembly);
-            Assert.IsNotNull(locationEntryAssemblyDirectory);
-
-            var appDomainBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            Assert.IsNotNull(appDomainBaseDirectory);
-
-#if !NET452
-            var appContextBaseDirectory = AppContext.BaseDirectory;
-            Assert.IsNotNull(appContextBaseDirectory);
-#endif
-        }
-
 #if NETSTANDARD || NETCORE
         /// <summary>
         /// Compares SVG images against reference PNG images from the W3C SVG 1.1 test suite.
@@ -372,7 +345,9 @@ namespace Svg.UnitTests
             get
             {
                 if (_basePath != null) return _basePath;
-                var basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+                var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                var basePath = System.IO.Path.GetDirectoryName(location);
                 while (basePath != null && !basePath.ToLower().EndsWith("svg"))
                 {
                     basePath = Path.GetDirectoryName(basePath);
