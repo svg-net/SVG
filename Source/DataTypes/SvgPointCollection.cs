@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text;
+using Svg.Helpers;
 
 namespace Svg
 {
@@ -46,6 +47,8 @@ namespace Svg
     /// </summary>
     public class SvgPointCollectionConverter : TypeConverter
     {
+        private static readonly char[] SplitChars = new[] { ' ', '\t', '\n', '\r', ',' };
+
         /// <summary>
         /// Converts the given object to the type of this converter, using the specified context and culture information.
         /// </summary>
@@ -68,6 +71,7 @@ namespace Svg
 
         public static SvgPointCollection Parse(ReadOnlySpan<char> points)
         {
+#if false
             var coords = points.Trim();
             var state = new CoordinateParserState(ref coords);
             var result = new SvgPointCollection();
@@ -75,8 +79,21 @@ namespace Svg
             {
                 result.Add(new SvgUnit(SvgUnitType.User, pointValue));
             }
-
             return result;
+#else
+            var collection = new SvgPointCollection();
+            var splitChars = SplitChars.AsSpan();
+            var parts = new StringSplitEnumerator(points, splitChars);
+
+            foreach (var part in parts)
+            {
+                var partValue = part.Value;
+                var result = FloatParser.ToFloat(ref partValue);
+                collection.Add(new SvgUnit(SvgUnitType.User, result));
+            }
+
+            return collection;
+#endif
         }
     }
 }
