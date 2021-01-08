@@ -77,50 +77,7 @@ namespace Svg
             return units;
         }
     }
-#if false
-    /// <summary>
-    /// A class to convert string into <see cref="SvgUnitCollection"/> instances.
-    /// </summary>
-    public class SvgUnitCollectionConverter : TypeConverter
-    {
-        private static readonly SvgUnitConverter _unitConverter = new SvgUnitConverter();
 
-        /// <summary>
-        /// Converts the given object to the type of this converter, using the specified context and culture information.
-        /// </summary>
-        /// <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext"/> that provides a format context.</param>
-        /// <param name="culture">The <see cref="T:System.Globalization.CultureInfo"/> to use as the current culture.</param>
-        /// <param name="value">The <see cref="T:System.Object"/> to convert.</param>
-        /// <returns>
-        /// An <see cref="T:System.Object"/> that represents the converted value.
-        /// </returns>
-        /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            if (value is string)
-            {
-                return Parse(value);
-            }
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public static SvgUnitCollection Parse(object value)
-        {
-            var points = ((string) value).Trim()
-                .Split(new char[] {',', ' ', '\r', '\n', '\t'}, StringSplitOptions.RemoveEmptyEntries);
-            var units = new SvgUnitCollection();
-
-            foreach (var point in points)
-            {
-                var newUnit = (SvgUnit) _unitConverter.ConvertFrom(point.Trim());
-                if (!newUnit.IsNone)
-                    units.Add(newUnit);
-            }
-
-            return units;
-        }
-    }
-#else
     /// <summary>
     /// A class to convert string into <see cref="SvgUnitCollection"/> instances.
     /// </summary>
@@ -140,14 +97,14 @@ namespace Svg
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            return value is not string str ? base.ConvertFrom(context, culture, value) : Parse(str);
+            return value is not string str ? base.ConvertFrom(context, culture, value) : Parse(str.AsSpan());
         }
 
-        public static object Parse(string points)
+        public static SvgUnitCollection Parse(ReadOnlySpan<char> points)
         {
             var units = new SvgUnitCollection();
             var splitChars = SplitChars.AsSpan();
-            var parts = new StringSplitEnumerator(points.AsSpan(), splitChars);
+            var parts = new StringSplitEnumerator(points, splitChars);
 
             foreach (var part in parts)
             {
@@ -161,24 +118,32 @@ namespace Svg
             return units;
         }
     }
-#endif
+
     internal class SvgStrokeDashArrayConverter : SvgUnitCollectionConverter
     {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string s1)
             {
-                var s = s1.Trim();
-                if (s.Equals(SvgUnitCollection.None, StringComparison.OrdinalIgnoreCase))
+                var span = s1.AsSpan();
+                var s = span.Trim();
+
+                if (MemoryExtensions.Equals(s, SvgUnitCollection.None.AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
                     return new SvgUnitCollection
                     {
                         StringForEmptyValue = SvgUnitCollection.None
                     };
-                else if (s.Equals(SvgUnitCollection.Inherit, StringComparison.OrdinalIgnoreCase))
+                }
+                else if (MemoryExtensions.Equals(s, SvgUnitCollection.Inherit.AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
                     return new SvgUnitCollection
                     {
                         StringForEmptyValue = SvgUnitCollection.Inherit
                     };
+                }
+
+                return SvgUnitCollectionConverter.Parse(span);
             }
 
             return base.ConvertFrom(context, culture, value);

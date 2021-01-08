@@ -36,7 +36,7 @@ namespace Svg.Benchmark
                                                657.45
                                                12.5
                                                0
-                                               12");
+                                               12".AsSpan());
         }
     }
 }
