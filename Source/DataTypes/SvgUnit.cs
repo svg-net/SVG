@@ -180,7 +180,8 @@ namespace Svg
                     _deviceValue = value;
                     break;
             }
-            return this._deviceValue.Value;
+
+            return this._deviceValue.HasValue ? this._deviceValue.Value : 0f;
         }
 
         private IFontDefn GetFont(ISvgRenderer renderer, SvgElement owner, SvgFontManager fontManager)
