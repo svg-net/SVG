@@ -16,7 +16,7 @@ namespace Svg.UnitTests
         {
             get
             {
-                string codeBase = typeof(PerformanceTest).Assembly.CodeBase;
+                string codeBase = typeof(PerformanceTest).Assembly.Location;
                 UriBuilder uri = new UriBuilder(codeBase);
                 string path = Uri.UnescapeDataString(uri.Path);
                 return Path.GetDirectoryName(path);
