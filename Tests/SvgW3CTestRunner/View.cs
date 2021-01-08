@@ -55,7 +55,7 @@ namespace SvgW3CTestRunner
                 var contextMenu = new System.Windows.Forms.ContextMenuStrip();
                 var menuItem = new ToolStripMenuItem("Copy");
                 menuItem.Click += new EventHandler(CopyAction);
-                contextMenu.MenuItems.Add(menuItem);
+                contextMenu.Items.Add(menuItem);
 
                 boxConsoleLog.ContextMenuStrip = contextMenu;
             }
