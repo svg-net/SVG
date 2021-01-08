@@ -151,7 +151,7 @@ namespace Svg
 
             foreach (var part in parts)
             {
-                var newUnit = SvgUnitConverter.Parse(part.Value);
+                var newUnit = SvgUnitConverter.Parse(part.Value.Trim());
                 if (!newUnit.IsNone)
                 {
                     units.Add(newUnit);

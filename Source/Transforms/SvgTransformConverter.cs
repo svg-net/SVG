@@ -96,7 +96,7 @@ namespace Svg.Transforms
 
                         foreach (var part in parts)
                         {
-                            var partValue = part.Value;
+                            var partValue = part.Value.Trim();
                             if (count == 0)
                             {
                                 x = FloatParser.ToFloat(ref partValue);
@@ -126,7 +126,7 @@ namespace Svg.Transforms
 
                         foreach (var part in parts)
                         {
-                            var partValue = part.Value;
+                            var partValue = part.Value.Trim();
                             if (count == 0)
                             {
                                 angle = FloatParser.ToFloat(ref partValue);
@@ -159,7 +159,7 @@ namespace Svg.Transforms
 
                         foreach (var part in parts)
                         {
-                            var partValue = part.Value;
+                            var partValue = part.Value.Trim();
                             if (count == 0)
                             {
                                 sx = FloatParser.ToFloat(ref partValue);
@@ -192,7 +192,7 @@ namespace Svg.Transforms
 
                         foreach (var part in parts)
                         {
-                            var partValue = part.Value;
+                            var partValue = part.Value.Trim();
                             if (count == 0)
                             {
                                 m11 = FloatParser.ToFloat(ref partValue);
@@ -238,7 +238,7 @@ namespace Svg.Transforms
 
                         foreach (var part in parts)
                         {
-                            var partValue = part.Value;
+                            var partValue = part.Value.Trim();
                             if (count == 0)
                             {
                                 hx = FloatParser.ToFloat(ref partValue);
@@ -266,7 +266,7 @@ namespace Svg.Transforms
 
                         foreach (var part in parts)
                         {
-                            var partValue = part.Value;
+                            var partValue = part.Value.Trim();
                             if (count == 0)
                             {
                                 ax = FloatParser.ToFloat(ref partValue);
@@ -290,7 +290,7 @@ namespace Svg.Transforms
 
                         foreach (var part in parts)
                         {
-                            var partValue = part.Value;
+                            var partValue = part.Value.Trim();
                             if (count == 0)
                             {
                                 ay = FloatParser.ToFloat(ref partValue);
