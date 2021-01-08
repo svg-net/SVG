@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Svg.Helpers;
 
 namespace Svg
 {
@@ -44,29 +45,7 @@ namespace Svg
         /// An <see cref="T:System.Object"/> that represents the converted value.
         /// </returns>
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
-#if true
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            if (value is string str)
-            {
-                return Parse(str);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public static SvgNumberCollection Parse(string numbers)
-        {
-            var collection = new SvgNumberCollection();
-            var values = numbers.Split(SplitChars, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var v in values)
-            {
-                var result = float.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture);
-                collection.Add(result);
-            }
-            return collection;
-        }
-#else
+#if false
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string str)
@@ -86,6 +65,32 @@ namespace Svg
                 var result = float.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture);
                 collection.Add(result);
             }
+            return collection;
+        }
+#else
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value is string str)
+            {
+                return Parse(str.AsSpan());
+            }
+
+            return base.ConvertFrom(context, culture, value);
+        }
+
+        public static SvgNumberCollection Parse(ReadOnlySpan<char> numbers)
+        {
+            var collection = new SvgNumberCollection();
+            var splitChars = SplitChars.AsSpan();
+            var parts = new StringSplitEnumerator(numbers, splitChars);
+
+            foreach (var part in parts)
+            {
+                var partValue = part.Value;
+                var result = FloatParser.ToFloatAny(ref partValue);
+                collection.Add(result);
+            }
+
             return collection;
         }
 #endif

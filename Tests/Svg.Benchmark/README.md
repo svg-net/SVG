@@ -36,7 +36,7 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgTransformConverter_*'
 dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgUnitConverter_*'
 ```
 
-### Run `SvgUnitCollectionConverter` Benchmarks
+### Run `SvgUnitCollectionConverter` and `SvgStrokeDashArrayConverter` Benchmarks
 
 ```
 dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgUnitCollectionConverter_*'

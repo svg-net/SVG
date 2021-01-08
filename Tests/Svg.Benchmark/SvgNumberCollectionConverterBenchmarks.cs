@@ -8,7 +8,7 @@ namespace Svg.Benchmark
         [Benchmark]
         public void SvgNumberCollectionConverter_Parse()
         {
-#if true
+#if false
             SvgNumberCollectionConverter.Parse("1.6 3.2 1.2 5");
             SvgNumberCollectionConverter.Parse("1.6,3.2,1.2,5");
 #else
