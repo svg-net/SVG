@@ -65,7 +65,7 @@ namespace Svg.Transforms
 
         private static float ToFloat(ref ReadOnlySpan<char> value)
         {
-#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_1 || NETCOREAPP3_1
             return float.Parse(value, NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
             return float.Parse(value.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);

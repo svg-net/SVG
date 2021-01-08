@@ -10,24 +10,24 @@ Install latest [.NET Core SDK](https://dotnet.microsoft.com/download).
 
 ```
 cd Samples/SvgConsole
-dotnet publish -f netcoreapp2.2 -c Release -r win-x64 -o SvgConsole-win-x64-netcoreapp2.2
-cd SvgConsole-win-x64-netcoreapp2.2
+dotnet publish -f netcoreapp3.1 -c Release -r win-x64 -o SvgConsole-win-x64-netcoreapp3.1
+cd SvgConsole-win-x64-netcoreapp3.1
 ```
 
 ### Linux
 
 ```
 cd Samples/SvgConsole
-dotnet publish -f netcoreapp2.2 -c Release -r linux-x64 -o SvgConsole-linux-x64-netcoreapp2.2
-cd SvgConsole-linux-x64-netcoreapp2.2
+dotnet publish -f netcoreapp3.1 -c Release -r linux-x64 -o SvgConsole-linux-x64-netcoreapp3.1
+cd SvgConsole-linux-x64-netcoreapp3.1
 ```
 
 ### macOS
 
 ```
 cd Samples/SvgConsole
-dotnet publish -f netcoreapp2.2 -c Release -r osx-x64 -o SvgConsole-osx-x64-netcoreapp2.2
-cd SvgConsole-osx-x64-netcoreapp2.2
+dotnet publish -f netcoreapp3.1 -c Release -r osx-x64 -o SvgConsole-osx-x64-netcoreapp3.1
+cd SvgConsole-osx-x64-netcoreapp3.1
 ```
 
 ### Other

@@ -128,7 +128,7 @@ On macOS, add a reference to the runtime.osx.10.10-x64.CoreCompat.System.Drawing
 
 When building from source-code you can also uncomment the 
 ```
-<!-- <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
+<!-- <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.6.20" />
   </ItemGroup> -->
 ``` 

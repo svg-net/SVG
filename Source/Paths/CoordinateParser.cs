@@ -288,7 +288,7 @@ namespace Svg
 
                 if (state.CurrNumState != NumState.Separator && state.NewNumState < state.CurrNumState)
                 {
-#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_1 || NETCOREAPP3_1
                     result = float.Parse(chars.Slice(state.Position, state.CharsPosition - state.Position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
                     result = float.Parse(chars.Slice(state.Position, state.CharsPosition - state.Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
@@ -318,7 +318,7 @@ namespace Svg
             }
             else
             {
-#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_1 || NETCOREAPP3_1
                 result = float.Parse(chars.Slice(state.Position, charsLength - state.Position), NumberStyles.Float, CultureInfo.InvariantCulture);
 #else
                 result = float.Parse(chars.Slice(state.Position, charsLength - state.Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
