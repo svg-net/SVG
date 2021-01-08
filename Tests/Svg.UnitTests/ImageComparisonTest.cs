@@ -16,6 +16,25 @@ namespace Svg.UnitTests
     {
         public TestContext TestContext { get; set; }
 
+        [Test]
+        public void BaseDirectory_Is_Not_Null()
+        {
+            var codeBase = System.Reflection.Assembly.GetEntryAssembly().CodeBase;
+            Assert.IsNotNull(codeBase);
+            var codeBaseDirectory = System.IO.Path.GetDirectoryName(codeBase);
+            Assert.IsNotNull(codeBaseDirectory);
+            var location = System.Reflection.Assembly.GetEntryAssembly().Location;
+            Assert.IsNotNull(location);
+            var locationDirectory = System.IO.Path.GetDirectoryName(location);
+            Assert.IsNotNull(locationDirectory);
+            var appDomainBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            Assert.IsNotNull(appDomainBaseDirectory);
+#if !NET452
+            var appContextBaseDirectory = AppContext.BaseDirectory;
+            Assert.IsNotNull(appContextBaseDirectory);
+#endif
+        }
+
 #if NETSTANDARD || NETCORE
         /// <summary>
         /// Compares SVG images against reference PNG images from the W3C SVG 1.1 test suite.
