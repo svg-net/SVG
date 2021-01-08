@@ -704,7 +704,7 @@ namespace Svg
         /// <param name="rasterHeight"></param>
         public virtual void RasterizeDimensions(ref SizeF size, int rasterWidth, int rasterHeight)
         {
-            if (size == null || size.Width == 0)
+            if (size.Width == 0)
                 return;
 
             // Ratio of height/width of the original SVG size, to be used for scaling transformation
