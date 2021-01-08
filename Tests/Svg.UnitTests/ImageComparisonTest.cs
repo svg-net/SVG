@@ -345,7 +345,7 @@ namespace Svg.UnitTests
             get
             {
                 if (_basePath != null) return _basePath;
-                var basePath = PerformanceTest.AssemblyDirectory;
+                var basePath = AppDomain.CurrentDomain.BaseDirectory;
                 while (!basePath.ToLower().EndsWith("svg"))
                 {
                     basePath = Path.GetDirectoryName(basePath);
