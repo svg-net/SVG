@@ -35,7 +35,7 @@ namespace Svg.Helpers
                     return true;
                 }
 
-                var slice = span.Slice(0, index).Trim();
+                var slice = span.Slice(0, index);
                 _str = span.Slice(index + 1);
                 if (slice.Length == 0)
                 {
