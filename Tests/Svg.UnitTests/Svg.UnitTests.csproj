@@ -71,10 +71,6 @@
     <ProjectReference Include="..\..\Source\Svg.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp2.1' Or '$(TargetFramework)'=='netcoreapp3.1'">
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-
   <ItemGroup Condition="'$(TargetFramework)'=='net452' Or '$(TargetFramework)'=='net461'">
     <Reference Include="WindowsBase" />
   </ItemGroup>
