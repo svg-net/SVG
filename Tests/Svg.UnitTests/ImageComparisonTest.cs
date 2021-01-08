@@ -346,9 +346,13 @@ namespace Svg.UnitTests
             {
                 if (_basePath != null) return _basePath;
 
-                var location = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                var basePath = System.IO.Path.GetDirectoryName(location);
-                while (basePath != null && !basePath.ToLower().EndsWith("svg"))
+                var basePath = AppDomain.CurrentDomain.BaseDirectory;
+                if (basePath is null)
+                {
+                    basePath = Environment.CurrentDirectory;
+                }
+
+                while (!basePath.ToLower().EndsWith("svg"))
                 {
                     basePath = Path.GetDirectoryName(basePath);
                 }
