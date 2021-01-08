@@ -365,7 +365,7 @@ namespace Svg.UnitTests
             {
                 if (_basePath != null) return _basePath;
                 var basePath = AppDomain.CurrentDomain.BaseDirectory;
-                while (!basePath.ToLower().EndsWith("svg"))
+                while (basePath != null && !basePath.ToLower().EndsWith("svg"))
                 {
                     basePath = Path.GetDirectoryName(basePath);
                 }
