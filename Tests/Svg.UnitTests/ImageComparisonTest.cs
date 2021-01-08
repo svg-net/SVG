@@ -19,16 +19,24 @@ namespace Svg.UnitTests
         [Test]
         public void BaseDirectory_Is_Not_Null()
         {
+            var locationExecutingAssembly = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            Assert.IsNotNull(locationExecutingAssembly);
+            var locationExecutingAssemblyDirectory = System.IO.Path.GetDirectoryName(locationExecutingAssembly);
+            Assert.IsNotNull(locationExecutingAssemblyDirectory);
+
             var codeBase = System.Reflection.Assembly.GetEntryAssembly().CodeBase;
             Assert.IsNotNull(codeBase);
             var codeBaseDirectory = System.IO.Path.GetDirectoryName(codeBase);
             Assert.IsNotNull(codeBaseDirectory);
-            var location = System.Reflection.Assembly.GetEntryAssembly().Location;
-            Assert.IsNotNull(location);
-            var locationDirectory = System.IO.Path.GetDirectoryName(location);
-            Assert.IsNotNull(locationDirectory);
+
+            var locationEntryAssembly = System.Reflection.Assembly.GetEntryAssembly().Location;
+            Assert.IsNotNull(locationEntryAssembly);
+            var locationEntryAssemblyDirectory = System.IO.Path.GetDirectoryName(locationEntryAssembly);
+            Assert.IsNotNull(locationEntryAssemblyDirectory);
+
             var appDomainBaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             Assert.IsNotNull(appDomainBaseDirectory);
+
 #if !NET452
             var appContextBaseDirectory = AppContext.BaseDirectory;
             Assert.IsNotNull(appContextBaseDirectory);
