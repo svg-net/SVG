@@ -45,29 +45,6 @@ namespace Svg
         /// An <see cref="T:System.Object"/> that represents the converted value.
         /// </returns>
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
-#if false
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            if (value is string str)
-            {
-                return Parse(str);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-
-        public static SvgNumberCollection Parse(string numbers)
-        {
-            var collection = new SvgNumberCollection();
-            var values = numbers.Split(new char[] { ' ', '\t', '\n', '\r', ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var v in values)
-            {
-                var result = float.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture);
-                collection.Add(result);
-            }
-            return collection;
-        }
-#else
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string str)
@@ -93,6 +70,5 @@ namespace Svg
 
             return collection;
         }
-#endif
     }
 }
