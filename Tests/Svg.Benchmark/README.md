@@ -61,4 +61,5 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgPointCollectionConverter_*'
 - SvgOrientConverter
 - SvgViewBoxConverter
 - SvgPaintServerFactory
+- SvgColourConverter
 - ColorConverter
