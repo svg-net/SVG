@@ -19,6 +19,7 @@ The release versions are NuGet releases.
 * make sure that paths with a single `moveto` command don't display line caps
  (see [#634](https://github.com/vvvv/SVG/issues/634)
 * fixed rendering of text-anchor `middle` (see [#769](https://github.com/vvvv/SVG/issues/769)
+* fixed opacity not correctly inherited issue (see [#777](https://github.com/vvvv/SVG/issues/777) and [PR #788](https://github.com/vvvv/SVG/pull/788))
 
 ## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
 
