@@ -277,7 +277,7 @@ namespace Svg
                     break;
             }
 
-            return string.Concat(this.Value.ToString(CultureInfo.InvariantCulture), type);
+            return string.Concat(this.Value.ToSvgString(), type);
         }
 
         /// <summary>

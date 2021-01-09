@@ -26,8 +26,8 @@ namespace Svg.Transforms
         public override string WriteToString()
         {
             if (AngleY == 0f)
-                return string.Format(CultureInfo.InvariantCulture, "skewX({0})", AngleX);
-            return string.Format(CultureInfo.InvariantCulture, "skewY({0})", AngleY);
+                return $"skewX({AngleX.ToSvgString()})";
+            return $"skewY({AngleY.ToSvgString()})";
         }
 
         public SvgSkew(float x, float y)

@@ -10,9 +10,14 @@ namespace Svg
 {
     public static class PointFExtensions
     {
+        public static string ToSvgString(this float value)
+        {
+            return value.ToString(CultureInfo.InvariantCulture);
+        }
+
         public static string ToSvgString(this PointF p)
         {
-            return p.X.ToString(CultureInfo.InvariantCulture) + " " + p.Y.ToString(CultureInfo.InvariantCulture);
+            return p.X.ToSvgString() + " " + p.Y.ToSvgString();
         }
     }
 

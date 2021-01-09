@@ -28,8 +28,7 @@ namespace Svg.Transforms
 
         public override string WriteToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "matrix({0}, {1}, {2}, {3}, {4}, {5})",
-                Points[0], Points[1], Points[2], Points[3], Points[4], Points[5]);
+            return $"matrix({Points[0].ToSvgString()}, {Points[1].ToSvgString()}, {Points[2].ToSvgString()}, {Points[3].ToSvgString()}, {Points[4].ToSvgString()}, {Points[5].ToSvgString()})";
         }
 
         public SvgMatrix(List<float> m)
