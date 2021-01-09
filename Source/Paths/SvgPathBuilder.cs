@@ -12,7 +12,8 @@ namespace Svg
     {
         public static string ToSvgString(this float value)
         {
-            return value.ToString(CultureInfo.InvariantCulture);
+            // Use G7 format specifier to be compatible across all target frameworks.
+            return value.ToString("G7", CultureInfo.InvariantCulture);
         }
 
         public static string ToSvgString(this PointF p)
