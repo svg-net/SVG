@@ -49,7 +49,7 @@ dotnet build -c release -f netcoreapp2.2 Svg.csproj
 This will put the output into the `bin/Release/netcoreapp2.2/` folder.
 
 ## Special instructions for Mac and Linux
-The library depends on GDI+ (see also [here](http://vvvv.github.io/SVG/doc/Q&A.html#im-getting-a-svggdipluscannotbeloadedexception-if-running-under-linux-or-macos)) for rendering.
+The library depends on GDI+ (see also [here](http://svg-net.github.io/SVG/doc/Q&A.html#im-getting-a-svggdipluscannotbeloadedexception-if-running-under-linux-or-macos)) for rendering.
 .NET Core does not support GDI+ out of the box for non-Windows systems. For Mac and Linux you need to add a special compatibility package.
 This is not included in the packages by default, since this would break rendering on Windows systems.
 
@@ -102,8 +102,8 @@ The Svg library does not utilize other external references under Windows, and by
 However please keep in mind that the Mac and Linux versions require additional tooling/packages.
 
 ## Using the library (examples)
-This part will be extended in the future, for now please refer to the [Q&A](http://vvvv.github.io/SVG/doc/Q&A.html) for examples of how to use the library.
+This part will be extended in the future, for now please refer to the [Q&A](http://svg-net.github.io/SVG/doc/Q&A.html) for examples of how to use the library.
 
 ## Troubleshooting
-If you encounter any problems or difficulties, please refer to the [Q&A part of the documentation](http://vvvv.github.io/SVG/doc/Q&A.html).
+If you encounter any problems or difficulties, please refer to the [Q&A part of the documentation](http://svg-net.github.io/SVG/doc/Q&A.html).
 If the Q&A does not solve your problem, please open a ticket with your request.

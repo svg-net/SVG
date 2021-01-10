@@ -11,7 +11,7 @@ documentation updates.
 
 If you found a bug in SVG.NET, you can [create an issue](https://help.github.com/articles/creating-an-issue/).
 If you are able to build the library locally, please check, if the problem still exists in the
-[master branch](https://github.com/vvvv/SVG) before filing the bug. 
+[master branch](https://github.com/svg-net/SVG) before filing the bug. 
 If you can reproduce the problem, please provide enough information so that it can be reproduced by other developers.
 This includes:
   * The Operating System
@@ -28,7 +28,7 @@ Of course - implementing it yourself is the best chance to get it done!
 ### Contributing Code
 
 The preferred workflow for contributing code is to 
-[fork](https://help.github.com/articles/fork-a-repo/) the [repository](https://github.com/vvvv/SVG) on GitHub, clone it, 
+[fork](https://help.github.com/articles/fork-a-repo/) the [repository](https://github.com/svg-net/SVG) on GitHub, clone it, 
 develop on a feature branch, and [create a pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork) when done.
 There are a few things to consider for contributing code:
   * Please use the same coding style as in the rest of the code
@@ -44,6 +44,6 @@ There are a few things to consider for contributing code:
 
 This projects is in need of documentation - any help to add documentation infrastructure, 
 inline documentation, how-tos or sample code is appreciated!
-For specifics, please refer to the [issue related to documentation](https://github.com/vvvv/SVG/issues/401).
+For specifics, please refer to the [issue related to documentation](https://github.com/svg-net/SVG/issues/401).
 
 Thanks for taking the time to contribute to SVG.NET!
