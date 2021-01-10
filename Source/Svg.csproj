@@ -32,7 +32,7 @@
       Supports multiple targets v4.5.2 thru to dotnetcore2.2.
       NetStandard does not fully support the Drawing2D package - so has been left out.
     </PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/vvvv/SVG</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/svg-net/SVG</PackageProjectUrl>
     <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
     <PackageIcon>svg-logo-v.png</PackageIcon>
     <LangVersion>latest</LangVersion>
