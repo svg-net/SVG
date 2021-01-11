@@ -207,7 +207,7 @@ namespace Svg
                     y += bounds.Y;
                 }
 
-                if (width <= 0f && height <= 0f)
+                if (width <= 0f || height <= 0f)
                     return null;
 
                 var tile = new Bitmap((int)Math.Ceiling(width), (int)Math.Ceiling(height));
