@@ -21,6 +21,7 @@ The release versions are NuGet releases.
 * fixed rendering of text-anchor `middle` (see [#769](https://github.com/vvvv/SVG/issues/769)
 * fixed opacity not correctly inherited issue (see [#777](https://github.com/vvvv/SVG/issues/777) and [PR #788](https://github.com/vvvv/SVG/pull/788))
 * fixed fallback color (see [#779](https://github.com/vvvv/SVG/issues/779) and [PR #792](https://github.com/vvvv/SVG/pull/792))
+* fixed size zero pattern issue (see [PR #793](https://github.com/vvvv/SVG/pull/793))
 
 ## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
 
