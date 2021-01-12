@@ -290,6 +290,11 @@ namespace Svg
         {
             Span<char> buffer = stackalloc char[32];
             var length = colour.ToLowerInvariant(buffer);
+            if (colour.Length != length)
+            {
+                color = default;
+                return false;
+            }
             var span = buffer.Slice(0, length);
 
             // SystemColors support
