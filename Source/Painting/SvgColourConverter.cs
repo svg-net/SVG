@@ -14,19 +14,19 @@ namespace Svg
     {
         private static readonly char[] SplitChars = new char[] { ',' , ' ' };
 
-        public object Parse(ITypeDescriptorContext context, CultureInfo culture, ReadOnlySpan<char> colour)
+        public object Parse(ITypeDescriptorContext context, CultureInfo culture, string colour)
         {
-            colour = colour.Trim();
+            var span = colour.AsSpan().Trim();
 
             // RGB support
-            if (colour.IndexOf("rgb".AsSpan()) == 0)
+            if (span.IndexOf("rgb".AsSpan()) == 0)
             {
                 try
                 {
                     // get the values from the RGB string
-                    var start = colour.IndexOf('(') + 1;
-                    var length = colour.IndexOf(')') - start;
-                    var parts = new StringSplitEnumerator(colour.Slice(start, length), SplitChars.AsSpan());
+                    var start = span.IndexOf('(') + 1;
+                    var length = span.IndexOf(')') - start;
+                    var parts = new StringSplitEnumerator(span.Slice(start, length), SplitChars.AsSpan());
                     var count = 0;
                     int alpha = 255;
                     int red = default;
@@ -58,7 +58,7 @@ namespace Svg
                             {
                                 if (!isDecimal)
                                 {
-                                    throw new SvgException("Colour is in an invalid format: '" + colour.ToString() + "'");
+                                    throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
                                 partValue = partValue.TrimEnd('%');
                                 var greenDecimal = FloatParser.ToFloatAny(ref partValue);
@@ -68,7 +68,7 @@ namespace Svg
                             {
                                 if (isDecimal)
                                 {
-                                    throw new SvgException("Colour is in an invalid format: '" + colour.ToString() + "'");
+                                    throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
                                 green = FloatParser.ToInt(ref partValue);
                             }
@@ -79,7 +79,7 @@ namespace Svg
                             {
                                 if (!isDecimal)
                                 {
-                                    throw new SvgException("Colour is in an invalid format: '" + colour.ToString() + "'");
+                                    throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
                                 partValue = partValue.TrimEnd('%');
                                 var blueDecimal = FloatParser.ToFloatAny(ref partValue);
@@ -89,7 +89,7 @@ namespace Svg
                             {
                                 if (isDecimal)
                                 {
-                                    throw new SvgException("Colour is in an invalid format: '" + colour.ToString() + "'");
+                                    throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
                                 blue = FloatParser.ToInt(ref partValue);
                             }
@@ -116,7 +116,7 @@ namespace Svg
                         }
                         else
                         {
-                            throw new SvgException("Colour is in an invalid format: '" + colour.ToString() + "'");
+                            throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                         }
 
                         count++;
@@ -127,19 +127,19 @@ namespace Svg
                 }
                 catch
                 {
-                    throw new SvgException("Colour is in an invalid format: '" + colour.ToString() + "'");
+                    throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                 }
             }
 
             // HSL support
-            if (colour.IndexOf("hsl".AsSpan()) == 0)
+            if (span.IndexOf("hsl".AsSpan()) == 0)
             {
                 try
                 {
                     // get the values from the HSL string
-                    var start = colour.IndexOf('(') + 1;
-                    var length = colour.IndexOf(')') - start;
-                    var parts = new StringSplitEnumerator(colour.Slice(start, length), SplitChars.AsSpan());
+                    var start = span.IndexOf('(') + 1;
+                    var length = span.IndexOf(')') - start;
+                    var parts = new StringSplitEnumerator(span.Slice(start, length), SplitChars.AsSpan());
                     var count = 0;
                     var h = default(double);
                     var s = default(double);
@@ -162,7 +162,7 @@ namespace Svg
                             }
                             else
                             {
-                                throw new SvgException("Colour is in an invalid format: '" + colour.ToString() + "'");
+                                throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                             }
                         }
                         else if (count == 2)
@@ -174,12 +174,12 @@ namespace Svg
                             }
                             else
                             {
-                                throw new SvgException("Colour is in an invalid format: '" + colour.ToString() + "'");
+                                throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                             }
                         }
                         else
                         {
-                            throw new SvgException("Colour is in an invalid format: '" + colour.ToString() + "'");
+                            throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                         }
 
                         count++;
@@ -191,22 +191,22 @@ namespace Svg
                 }
                 catch
                 {
-                    throw new SvgException("Colour is in an invalid format: '" + colour.ToString() + "'");
+                    throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                 }
             }
 
             // HEX support
-            if (colour.IndexOf('#') == 0)
+            if (span.IndexOf('#') == 0)
             {
                 // The format of an RGB value in hexadecimal notation is a '#' immediately followed by either three or six hexadecimal characters.
 
-                if (colour.Length == 4)
+                if (span.Length == 4)
                 {
                     // The three-digit RGB notation (#rgb) is converted into six-digit form (#rrggbb) by replicating digits, not by adding zeros.
                     // For example, #fb0 expands to #ffbb00.
-                    Span<char> redString = stackalloc char[2] { colour[1], colour[1] };
-                    Span<char> greenString = stackalloc char[2] { colour[2], colour[2] };
-                    Span<char> blueString = stackalloc char[2] { colour[3], colour[3] };
+                    Span<char> redString = stackalloc char[2] { span[1], span[1] };
+                    Span<char> greenString = stackalloc char[2] { span[2], span[2] };
+                    Span<char> blueString = stackalloc char[2] { span[3], span[3] };
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
                     var red = int.Parse(redString, NumberStyles.AllowHexSpecifier);
                     var green = int.Parse(greenString, NumberStyles.AllowHexSpecifier);
@@ -219,11 +219,11 @@ namespace Svg
                     return Color.FromArgb(255, red, green, blue);
                 }
 
-                if (colour.Length == 7)
+                if (span.Length == 7)
                 {
-                    var redString = colour.Slice(1, 2);
-                    var greenString = colour.Slice(3, 2);
-                    var blueString = colour.Slice(5, 2);
+                    var redString = span.Slice(1, 2);
+                    var greenString = span.Slice(3, 2);
+                    var blueString = span.Slice(5, 2);
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
                     var red = int.Parse(redString, NumberStyles.AllowHexSpecifier);
                     var green = int.Parse(greenString, NumberStyles.AllowHexSpecifier);
@@ -242,7 +242,7 @@ namespace Svg
             }
 
             // SystemColors support
-            if (TryToGetSystemColor(ref colour, out var systemColor))
+            if (TryToGetSystemColor(ref span, out var systemColor))
             {
                 return systemColor;
             }
@@ -250,176 +250,180 @@ namespace Svg
             // Numbers are handled as colors by System.Drawing.ColorConverter - we
             // have to prevent this and ignore the color instead (see #342).
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
-            if (int.TryParse(colour, NumberStyles.Integer, CultureInfo.InvariantCulture, out _))
+            if (int.TryParse(span, NumberStyles.Integer, CultureInfo.InvariantCulture, out _))
             {
                 return SvgPaintServer.NotSet;
             }
 #else
-            if (int.TryParse(colour.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out _))
+            if (int.TryParse(span.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out _))
             {
                 return SvgPaintServer.NotSet;
             }
 #endif
 
             // Support for grey colors
-            colour.Contains("grey".AsSpan(), StringComparison.InvariantCultureIgnoreCase);
+            span.Contains("grey".AsSpan(), StringComparison.InvariantCultureIgnoreCase);
             Span<char> lowerInvariant = stackalloc char[32];
             var grey = "grey".AsSpan();
-            colour.ToLowerInvariant(lowerInvariant);
+            span.ToLowerInvariant(lowerInvariant);
 
             var index = lowerInvariant.IndexOf(grey);
-            if (index >= 0 && index + 4 == colour.Length)
+            if (index >= 0 && index + 4 == span.Length)
             {
-                if (colour[index] == 'G')
+                if (span[index] == 'G')
                 {
-                    var gray = $"{colour.Slice(0, index - 1).ToString()}Gray";
+                    var gray = $"{span.Slice(0, index - 1).ToString()}Gray";
                     return base.ConvertFrom(context, culture, gray);
                 }
                 else
                 {
-                    var gray = $"{colour.Slice(0, index - 1).ToString()}gray";
+                    var gray = $"{span.Slice(0, index - 1).ToString()}gray";
                     return base.ConvertFrom(context, culture, gray);
                 }
             }
 
             // TODO: Optimize ToString()
-            return base.ConvertFrom(context, culture, colour.ToString());
+            return base.ConvertFrom(context, culture, colour);
         }
 
         public static bool TryToGetSystemColor(ref ReadOnlySpan<char> colour, out Color color)
         {
+            Span<char> buffer = stackalloc char[32];
+            var length = colour.ToLowerInvariant(buffer);
+            var span = buffer.Slice(0, length);
+
             // SystemColors support
-            if (colour.Equals("activeborder".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("activeborder".AsSpan()))
             {
                 color = SystemColors.ActiveBorder;
                 return true;
             }
-            if (colour.Equals("activecaption".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("activecaption".AsSpan()))
             {
                 color = SystemColors.ActiveCaption;
                 return true;
             }
-            if (colour.Equals("appworkspace".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("appworkspace".AsSpan()))
             {
                 color = SystemColors.AppWorkspace;
                 return true;
             }
-            if (colour.Equals("background".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("background".AsSpan()))
             {
                 color = SystemColors.Desktop;
                 return true;
             }
-            if (colour.Equals("buttonface".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("buttonface".AsSpan()))
             {
                 color = SystemColors.Control;
                 return true;
             }
-            if (colour.Equals("buttonhighlight".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("buttonhighlight".AsSpan()))
             {
                 color = SystemColors.ControlLightLight;
                 return true;
             }
-            if (colour.Equals("buttonshadow".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("buttonshadow".AsSpan()))
             {
                 color = SystemColors.ControlDark;
                 return true;
             }
-            if (colour.Equals("buttontext".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("buttontext".AsSpan()))
             {
                 color = SystemColors.ControlText;
                 return true;
             }
-            if (colour.Equals("captiontext".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("captiontext".AsSpan()))
             {
                 color = SystemColors.ActiveCaptionText;
                 return true;
             }
-            if (colour.Equals("graytext".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("graytext".AsSpan()))
             {
                 color = SystemColors.GrayText;
                 return true;
             }
-            if (colour.Equals("highlight".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("highlight".AsSpan()))
             {
                 color = SystemColors.Highlight;
                 return true;
             }
-            if (colour.Equals("highlighttext".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("highlighttext".AsSpan()))
             {
                 color = SystemColors.HighlightText;
                 return true;
             }
-            if (colour.Equals("inactiveborder".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("inactiveborder".AsSpan()))
             {
                 color = SystemColors.InactiveBorder;
                 return true;
             }
-            if (colour.Equals("inactivecaption".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("inactivecaption".AsSpan()))
             {
                 color = SystemColors.InactiveCaption;
                 return true;
             }
-            if (colour.Equals("inactivecaptiontext".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("inactivecaptiontext".AsSpan()))
             {
                 color = SystemColors.InactiveCaptionText;
                 return true;
             }
-            if (colour.Equals("infobackground".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("infobackground".AsSpan()))
             {
                 color = SystemColors.Info;
                 return true;
             }
-            if (colour.Equals("infotext".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("infotext".AsSpan()))
             {
                 color = SystemColors.InfoText;
                 return true;
             }
-            if (colour.Equals("menu".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("menu".AsSpan()))
             {
                 color = SystemColors.Menu;
                 return true;
             }
-            if (colour.Equals("menutext".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("menutext".AsSpan()))
             {
                 color = SystemColors.MenuText;
                 return true;
             }
-            if (colour.Equals("scrollbar".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("scrollbar".AsSpan()))
             {
                 color = SystemColors.ScrollBar;
                 return true;
             }
-            if (colour.Equals("threeddarkshadow".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("threeddarkshadow".AsSpan()))
             {
                 color = SystemColors.ControlDarkDark;
                 return true;
             }
-            if (colour.Equals("threedface".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("threedface".AsSpan()))
             {
                 color = SystemColors.Control;
                 return true;
             }
-            if (colour.Equals("threedhighlight".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("threedhighlight".AsSpan()))
             {
                 color = SystemColors.ControlLight;
                 return true;
             }
-            if (colour.Equals("threedlightshadow".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("threedlightshadow".AsSpan()))
             {
                 color = SystemColors.ControlLightLight;
                 return true;
             }
-            if (colour.Equals("window".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("window".AsSpan()))
             {
                 color = SystemColors.Window;
                 return true;
             }
-            if (colour.Equals("windowframe".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("windowframe".AsSpan()))
             {
                 color = SystemColors.WindowFrame;
                 return true;
             }
-            if (colour.Equals("windowtext".AsSpan(), StringComparison.InvariantCultureIgnoreCase))
+            if (span.SequenceEqual("windowtext".AsSpan()))
             {
                 color = SystemColors.WindowText;
                 return true;
@@ -446,7 +450,7 @@ namespace Svg
         {
             if (value is string colour)
             {
-                return Parse(context, culture, colour.AsSpan());
+                return Parse(context, culture, colour);
             }
 
             return base.ConvertFrom(context, culture, value);
