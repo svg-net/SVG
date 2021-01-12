@@ -12,7 +12,6 @@ namespace Svg
     /// </summary>
     public class SvgColourConverter : ColorConverter
     {
-#if true
         private static readonly char[] SplitChars = new char[] { ',' , ' ' };
 
         public object Parse(ITypeDescriptorContext context, CultureInfo culture, ReadOnlySpan<char> colour)
@@ -197,11 +196,49 @@ namespace Svg
             }
 
             // HEX support
-            if (colour.IndexOf('#') == 0 && colour.Length == 4)
+            if (colour.IndexOf('#') == 0)
             {
-                // TODO: Optimize
-                var hex = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
-                return base.ConvertFrom(context, culture, hex);
+                // The format of an RGB value in hexadecimal notation is a '#' immediately followed by either three or six hexadecimal characters.
+
+                if (colour.Length == 4)
+                {
+                    // The three-digit RGB notation (#rgb) is converted into six-digit form (#rrggbb) by replicating digits, not by adding zeros.
+                    // For example, #fb0 expands to #ffbb00.
+                    Span<char> redString = stackalloc char[2] { colour[1], colour[1] };
+                    Span<char> greenString = stackalloc char[2] { colour[2], colour[2] };
+                    Span<char> blueString = stackalloc char[2] { colour[3], colour[3] };
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
+                    var red = int.Parse(redString, NumberStyles.AllowHexSpecifier);
+                    var green = int.Parse(greenString, NumberStyles.AllowHexSpecifier);
+                    var blue = int.Parse(blueString, NumberStyles.AllowHexSpecifier);
+#else
+                    var red = int.Parse(redString.ToString(), NumberStyles.AllowHexSpecifier);
+                    var green = int.Parse(greenString.ToString(), NumberStyles.AllowHexSpecifier);
+                    var blue = int.Parse(blueString.ToString(), NumberStyles.AllowHexSpecifier);
+#endif
+                    return Color.FromArgb(255, red, green, blue);
+                }
+
+                if (colour.Length == 7)
+                {
+                    var redString = colour.Slice(1, 2);
+                    var greenString = colour.Slice(3, 2);
+                    var blueString = colour.Slice(5, 2);
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
+                    var red = int.Parse(redString, NumberStyles.AllowHexSpecifier);
+                    var green = int.Parse(greenString, NumberStyles.AllowHexSpecifier);
+                    var blue = int.Parse(blueString, NumberStyles.AllowHexSpecifier);
+#else
+                    var red = int.Parse(redString.ToString(), NumberStyles.AllowHexSpecifier);
+                    var green = int.Parse(greenString.ToString(), NumberStyles.AllowHexSpecifier);
+                    var blue = int.Parse(blueString.ToString(), NumberStyles.AllowHexSpecifier);
+#endif
+                    return Color.FromArgb(255, red, green, blue);
+                }
+
+                // TODO: Check if there are other supported formats.
+                // var hex = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
+                // return base.ConvertFrom(context, culture, hex);
             }
 
             // SystemColors support
@@ -414,8 +451,8 @@ namespace Svg
 
             return base.ConvertFrom(context, culture, value);
         }
-#else
-        public object Parse(ITypeDescriptorContext context, CultureInfo culture, string colour)
+
+        public object Parse_OLD(ITypeDescriptorContext context, CultureInfo culture, string colour)
         {
             colour = colour.Trim();
 
@@ -573,30 +610,6 @@ namespace Svg
 
             return base.ConvertFrom(context, culture, colour);
         }
-
-        /// <summary>
-        /// Converts the given object to the converter's native type.
-        /// </summary>
-        /// <param name="context">A <see cref="T:System.ComponentModel.TypeDescriptor"/> that provides a format context. You can use this object to get additional information about the environment from which this converter is being invoked.</param>
-        /// <param name="culture">A <see cref="T:System.Globalization.CultureInfo"/> that specifies the culture to represent the color.</param>
-        /// <param name="value">The object to convert.</param>
-        /// <returns>
-        /// An <see cref="T:System.Object"/> representing the converted value.
-        /// </returns>
-        /// <exception cref="T:System.ArgumentException">The conversion cannot be performed.</exception>
-        /// <PermissionSet>
-        ///     <IPermission class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Unrestricted="true"/>
-        /// </PermissionSet>
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            if (value is string colour)
-            {
-                return Parse(context, culture, colour);
-            }
-
-            return base.ConvertFrom(context, culture, value);
-        }
-#endif
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
