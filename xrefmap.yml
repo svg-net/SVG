@@ -4885,6 +4885,12 @@ references:
   commentId: M:Svg.PointFExtensions.ToSvgString(PointF)
   fullName: Svg.PointFExtensions.ToSvgString(PointF)
   nameWithType: PointFExtensions.ToSvgString(PointF)
+- uid: Svg.PointFExtensions.ToSvgString(System.Single)
+  name: ToSvgString(Single)
+  href: api/Svg.PointFExtensions.html#Svg_PointFExtensions_ToSvgString_System_Single_
+  commentId: M:Svg.PointFExtensions.ToSvgString(System.Single)
+  fullName: Svg.PointFExtensions.ToSvgString(System.Single)
+  nameWithType: PointFExtensions.ToSvgString(Single)
 - uid: Svg.PointFExtensions.ToSvgString*
   name: ToSvgString
   href: api/Svg.PointFExtensions.html#Svg_PointFExtensions_ToSvgString_

@@ -1,6 +1,6 @@
 {
   "homepages": [],
-  "source_base_path": "C:/projects/svg",
+  "source_base_path": "D:/a/SVG/SVG/main",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -18,7 +18,7 @@
       "output": {
         ".html": {
           "relative_path": "CONTRIBUTING.html",
-          "hash": "2Xn5TgWmapEKoFAy52MgmQ=="
+          "hash": "sUZ+4E3LWemVtJoRZhTrSA=="
         }
       },
       "is_incremental": false,
@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "README.html",
-          "hash": "gJjllkIhJDSnaDNNPtZbfA=="
+          "hash": "8IS/oZKJzSMtjGZCundzTQ=="
         }
       },
       "is_incremental": false,
@@ -42,7 +42,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/GettingStarted.html",
-          "hash": "H7bbxo0xIa32tlDJSO5sRA=="
+          "hash": "F5EjkPvW52j9WBBpcOwsJg=="
         }
       },
       "is_incremental": false,
@@ -54,7 +54,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/Q&A.html",
-          "hash": "tYVfLU5vkPfCt+yWJMk1eg=="
+          "hash": "dITN3Nfp+lBKWUA7ZRcILQ=="
         }
       },
       "is_incremental": false,
@@ -66,7 +66,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/ReleaseNotes.html",
-          "hash": "sKlLymkzH74qiQsZwembtQ=="
+          "hash": "5wlNg42pjxgxkLmvvbardQ=="
         }
       },
       "is_incremental": false,
@@ -78,7 +78,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/Samples.html",
-          "hash": "teTI2WW8N+9xvXwvB2mnnw=="
+          "hash": "Xi9nmyXg4AI9epOJIMD+5w=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "index.html",
-          "hash": "P5fqN7zC1e8OQhd7bqNJqA=="
+          "hash": "jAyrcdHj9IB9fLz4BzS9GA=="
         }
       },
       "is_incremental": false,
@@ -1161,7 +1161,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.PointFExtensions.html",
-          "hash": "OThS1ckufESqnw4s1NKwPQ=="
+          "hash": "f+WIvxRKtO0NEeGij2NuJw=="
         }
       },
       "is_incremental": false,
