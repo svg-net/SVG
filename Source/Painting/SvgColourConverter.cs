@@ -288,147 +288,137 @@ namespace Svg
 
         public static bool TryToGetSystemColor(ref ReadOnlySpan<char> colour, out Color color)
         {
-            Span<char> buffer = stackalloc char[32];
-            var length = colour.ToLowerInvariant(buffer);
-            if (colour.Length != length)
-            {
-                color = default;
-                return false;
-            }
-            var span = buffer.Slice(0, length);
-
-            // SystemColors support
-            if (span.SequenceEqual("activeborder".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "activeborder".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.ActiveBorder;
                 return true;
             }
-            if (span.SequenceEqual("activecaption".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "activecaption".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.ActiveCaption;
                 return true;
             }
-            if (span.SequenceEqual("appworkspace".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "appworkspace".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.AppWorkspace;
                 return true;
             }
-            if (span.SequenceEqual("background".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "background".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.Desktop;
                 return true;
             }
-            if (span.SequenceEqual("buttonface".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "buttonface".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.Control;
                 return true;
             }
-            if (span.SequenceEqual("buttonhighlight".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "buttonhighlight".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.ControlLightLight;
                 return true;
             }
-            if (span.SequenceEqual("buttonshadow".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "buttonshadow".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.ControlDark;
                 return true;
             }
-            if (span.SequenceEqual("buttontext".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "buttontext".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.ControlText;
                 return true;
             }
-            if (span.SequenceEqual("captiontext".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "captiontext".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.ActiveCaptionText;
                 return true;
             }
-            if (span.SequenceEqual("graytext".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "graytext".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.GrayText;
                 return true;
             }
-            if (span.SequenceEqual("highlight".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "highlight".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.Highlight;
                 return true;
             }
-            if (span.SequenceEqual("highlighttext".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "highlighttext".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.HighlightText;
                 return true;
             }
-            if (span.SequenceEqual("inactiveborder".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "inactiveborder".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.InactiveBorder;
                 return true;
             }
-            if (span.SequenceEqual("inactivecaption".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "inactivecaption".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.InactiveCaption;
                 return true;
             }
-            if (span.SequenceEqual("inactivecaptiontext".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "inactivecaptiontext".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.InactiveCaptionText;
                 return true;
             }
-            if (span.SequenceEqual("infobackground".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "infobackground".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.Info;
                 return true;
             }
-            if (span.SequenceEqual("infotext".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "infotext".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.InfoText;
                 return true;
             }
-            if (span.SequenceEqual("menu".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "menu".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.Menu;
                 return true;
             }
-            if (span.SequenceEqual("menutext".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "menutext".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.MenuText;
                 return true;
             }
-            if (span.SequenceEqual("scrollbar".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "scrollbar".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.ScrollBar;
                 return true;
             }
-            if (span.SequenceEqual("threeddarkshadow".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "threeddarkshadow".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.ControlDarkDark;
                 return true;
             }
-            if (span.SequenceEqual("threedface".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "threedface".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.Control;
                 return true;
             }
-            if (span.SequenceEqual("threedhighlight".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "threedhighlight".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.ControlLight;
                 return true;
             }
-            if (span.SequenceEqual("threedlightshadow".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "threedlightshadow".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.ControlLightLight;
                 return true;
             }
-            if (span.SequenceEqual("window".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "window".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.Window;
                 return true;
             }
-            if (span.SequenceEqual("windowframe".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "windowframe".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.WindowFrame;
                 return true;
             }
-            if (span.SequenceEqual("windowtext".AsSpan()))
+            if (MemoryExtensions.Equals(colour, "windowtext".AsSpan(), StringComparison.OrdinalIgnoreCase))
             {
                 color = SystemColors.WindowText;
                 return true;
