@@ -26,9 +26,7 @@ namespace Svg
         /// </PermissionSet>
         public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
-            string colour = value as string;
-
-            if (colour != null)
+            if (value is string colour)
             {
                 colour = colour.Trim();
 
@@ -155,7 +153,7 @@ namespace Svg
                 if (Int32.TryParse(colour,NumberStyles.Integer, CultureInfo.InvariantCulture, out number))
                 {
                     // numbers are handled as colors by System.Drawing.ColorConverter - we
-                    // have to prevent this and ignore the color instead (see #342) 
+                    // have to prevent this and ignore the color instead (see #342)
                     return SvgPaintServer.NotSet;
                 }
 
