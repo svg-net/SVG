@@ -21,7 +21,7 @@ namespace Svg.Transforms
 
         public override string WriteToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "translate({0}, {1})", X, Y);
+            return $"translate({X.ToSvgString()}, {Y.ToSvgString()})";
         }
 
         public SvgTranslate(float x, float y)

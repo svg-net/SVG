@@ -23,7 +23,7 @@ namespace Svg
 
         public override string ToString()
         {
-            return string.Join(" ", this.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray());
+            return string.Join(" ", this.Select(v => v.ToSvgString()).ToArray());
         }
     }
 

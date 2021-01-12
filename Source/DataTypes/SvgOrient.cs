@@ -92,7 +92,7 @@ namespace Svg
             if (IsAuto)
                 return IsAutoStartReverse ? "auto-start-reverse" : "auto";
             else
-                return Angle.ToString(CultureInfo.InvariantCulture);
+                return Angle.ToSvgString();
         }
 
         /// <summary>

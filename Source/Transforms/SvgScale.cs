@@ -22,8 +22,8 @@ namespace Svg.Transforms
         public override string WriteToString()
         {
             if (X == Y)
-                return string.Format(CultureInfo.InvariantCulture, "scale({0})", X);
-            return string.Format(CultureInfo.InvariantCulture, "scale({0}, {1})", X, Y);
+                return $"scale({X.ToSvgString()})";
+            return $"scale({X.ToSvgString()}, {Y.ToSvgString()})";
         }
 
         public SvgScale(float x)

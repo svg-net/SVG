@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.2;netcoreapp3.0;net452;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp3.1;net5.0;net452;net461</TargetFrameworks>
     <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
@@ -28,7 +28,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Supports multiple targets v4.5.2 thru to dotnetcore3.0.
+    <PackageReleaseNotes>Supports multiple targets v4.5.2 thru to dotnetcore3.1 and .NET 5.0.
 Many performance improvements by using SourceGenerators instad of reflection.
 
 </PackageReleaseNotes>
@@ -75,14 +75,19 @@ Many performance improvements by using SourceGenerators instad of reflection.
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp2.2'">
-    <Title>Svg for .Net Core 2.2</Title>
-    <DefineConstants>$(DefineConstants);NETCORE;NETCORE22</DefineConstants>
+  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp2.1'">
+    <Title>Svg for .Net Core 2.1</Title>
+    <DefineConstants>$(DefineConstants);NETCORE;NETCORE21</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
-    <Title>Svg for .Net Core 3.0</Title>
-    <DefineConstants>$(DefineConstants);NETCORE;NETCORE30</DefineConstants>
+  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
+    <Title>Svg for .Net Core 3.1</Title>
+    <DefineConstants>$(DefineConstants);NETCORE;NETCORE31</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0'">
+    <Title>Svg for .Net 5.0</Title>
+    <DefineConstants>$(DefineConstants);NETCORE;NETCORE50</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
@@ -108,27 +113,19 @@ Many performance improvements by using SourceGenerators instad of reflection.
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2' Or '$(TargetFramework)' == 'netcoreapp3.0'">
-    <PackageReference Include="System.Drawing.Common">
-      <Version>4.7.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.ObjectModel">
-      <Version>4.3.0</Version>
-    </PackageReference>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net5.0'">
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="System.ObjectModel" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1'">
-    <PackageReference Include="System.Drawing.Common">
-      <Version>4.7.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.ObjectModel">
-      <Version>4.3.0</Version>
-    </PackageReference>
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="System.ObjectModel" Version="4.3.0" />
   </ItemGroup>
 
   <!-- Mac specific include -->
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2' Or '$(TargetFramework)' == 'netcoreapp3.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net5.0'">
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
   </ItemGroup>
 
@@ -140,7 +137,7 @@ Many performance improvements by using SourceGenerators instad of reflection.
 
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="System.Memory" Version="4.5.3" />
+    <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="Fizzler" Version="1.2.0" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
       <PrivateAssets>all</PrivateAssets>

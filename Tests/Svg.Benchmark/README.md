@@ -12,6 +12,12 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*'
 dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgDocument_*'
 ```
 
+### Run `ToStringBenchmarks` Benchmarks
+
+```
+dotnet run -c Release -f netcoreapp3.1 -- -f '*ToStringBenchmarks*'
+```
+
 ### Run `SvgPathBuilder` Benchmarks
 
 ```
@@ -29,17 +35,3 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*CoordinateParser_*'
 ```
 dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgTransformConverter_*'
 ```
-
-### TODO
-
-- EnumBaseConverter
-- SvgPreserveAspectRatioConverter
-- SvgNumberCollectionConverter
-- SvgOrientConverter
-- SvgPointCollectionConverter
-- SvgUnitCollectionConverter
-- SvgUnitConverter
-- SvgViewBoxConverter
-- SvgPaintServerFactory
-- SvgPathBuilder
-- ColorConverter
