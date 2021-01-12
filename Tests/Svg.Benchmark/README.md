@@ -54,12 +54,8 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgNumberCollectionConverter_*'
 dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgPointCollectionConverter_*'
 ```
 
-### TODO
+### Run `SvgColourConverter` Benchmarks
 
-- EnumBaseConverter
-- SvgPreserveAspectRatioConverter
-- SvgOrientConverter
-- SvgViewBoxConverter
-- SvgPaintServerFactory
-- SvgColourConverter
-- ColorConverter
+```
+dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgColourConverter_*'
+```
