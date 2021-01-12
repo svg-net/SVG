@@ -1,7 +1,7 @@
 name: Testsuite
 
 on:
-  push
+  [push, pull_request]
 
 jobs:
   test:
@@ -37,13 +37,13 @@ jobs:
         run: |
           dotnet test --framework ${{ matrix.framework }} Tests/Svg.UnitTests/Svg.UnitTests.csproj
           
-  benchmarks:
+  benchmark:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        benchmark: [SvgDocument, SvgPathBuilder, SvgTransformConverter, CoordinateParser]
         os: [windows-latest]
         # os: [windows-latest, ubuntu-latest]
-        benchmark: [SvgDocument, SvgPathBuilder, SvgTransformConverter, CoordinateParser]
         framework: [netcoreapp3.1]
     steps:
       - name: Checkout source
