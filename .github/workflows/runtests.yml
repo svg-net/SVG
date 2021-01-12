@@ -1,0 +1,70 @@
+name: Testsuite
+
+on:
+  push
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest]
+        # os: [windows-latest, ubuntu-latest]
+        framework: [netcoreapp2.1, netcoreapp3.1, net5.0, net452, net461]
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # needed for GitVersioning to work
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1
+      - name: Cache NuGet packages
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget }}
+      - name: Restore NuGet Packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          nuget restore Source/Svg.sln
+          nuget install NUnit.ConsoleRunner -Version 3.10.0 -OutputDirectory tools
+      - name: Run tests
+        env:
+          DOTNET_NOLOGO: true
+          DOTNET_CLI_TELEMETRY_OPTOUT: true
+        run: |
+          dotnet test --framework ${{ matrix.framework }} Tests/Svg.UnitTests/Svg.UnitTests.csproj
+          
+  benchmarks:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+        # os: [windows-latest, ubuntu-latest]
+        benchmark: [SvgDocument, SvgPathBuilder, SvgTransformConverter, CoordinateParser]
+        framework: [netcoreapp3.1]
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1
+      - name: Cache NuGet packages
+        uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-bench }}
+      - name: Restore NuGet Packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          nuget restore Source/Svg.sln
+      - name: Run benchmarks
+        env:
+          DOTNET_NOLOGO: true
+          DOTNET_CLI_TELEMETRY_OPTOUT: true
+        run: |
+          dotnet run -c Release -f ${{ matrix.framework }} -p Tests/Svg.Benchmark --filter *${{ matrix.benchmark }}*
