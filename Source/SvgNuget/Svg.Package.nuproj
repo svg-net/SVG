@@ -31,7 +31,7 @@ So please feel free to fork it and open pull requests for any fix, improvement o
 
 License: Microsoft Public License: https://svg.codeplex.com/license</Description>
     <ReleaseNotes>merged github pull requests</ReleaseNotes>
-    <ProjectUrl>https://github.com/vvvv/SVG</ProjectUrl>
+    <ProjectUrl>https://github.com/svg-net/SVG</ProjectUrl>
     <LicenseUrl>http://opensource.org/licenses/MS-PL.html</LicenseUrl>
     <Copyright>Copyright © vvvv.org</Copyright>
     <Tags>svg, vector graphics, rendering</Tags>

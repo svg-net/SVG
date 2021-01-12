@@ -6,7 +6,7 @@
     <AssemblyName>Svg</AssemblyName>
     <IsPackable>true</IsPackable>
     <Company></Company>
-    <Authors>davescriven, jvenema, mrbean-bremen, H1Gdev, owaits, ddpruitt, Ralf1108, Tebjan Halm, and others</Authors>
+    <Authors>davescriven, jvenema, mrbean-bremen, H1Gdev, Wiesław Šoltés, owaits, ddpruitt, Ralf1108, Tebjan Halm, and others</Authors>
     <PackageId>Svg</PackageId>
     <Product>SVG Rendering Library</Product>
     <Summary>SVG Rendering Library</Summary>
@@ -28,11 +28,11 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>
-      Supports multiple targets v4.5.2 thru to dotnetcore3.1.
-      NetStandard does not fully support the Drawing2D package - so has been left out.
-    </PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/vvvv/SVG</PackageProjectUrl>
+    <PackageReleaseNotes>Supports multiple targets v4.5.2 thru to dotnetcore3.1 and .NET 5.0.
+Many performance improvements by using SourceGenerators instad of reflection.
+
+</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/svg-net/SVG</PackageProjectUrl>
     <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
     <PackageIcon>svg-logo-v.png</PackageIcon>
     <LangVersion>latest</LangVersion>

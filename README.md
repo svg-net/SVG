@@ -6,9 +6,9 @@ Public fork of the C# SVG rendering library on codeplex: https://svg.codeplex.co
 This started out as a minor modification to enable the writing of proper SVG strings. But now after almost two years we have so many fixes and improvements that we decided to share our current codebase to the public in order to improve it even further.
 
 So please feel free to fork it and open pull requests for any fix, improvement or feature you add. 
-You may check the [contributing guide](https://github.com/vvvv/SVG/blob/master/CONTRIBUTING.md) for more information on how to do this. 
+You may check the [contributing guide](https://github.com/svg-net/SVG/blob/master/CONTRIBUTING.md) for more information on how to do this. 
 
-For information on installation and usage of the library, and for release notes please check the [documentation pages](http://vvvv.github.io/SVG/).
+For information on installation and usage of the library, and for release notes please check the [documentation pages](http://svg-net.github.io/SVG/).
 
 ## Projects using the library
 
