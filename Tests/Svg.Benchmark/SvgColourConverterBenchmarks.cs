@@ -107,7 +107,7 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
-        public void SvgColourConverter_Parse_hsl()
+        public void SvgColourConverter_Parse_rgb_hsl()
         {
             _converter.Parse(null, _cultureInfo, "hsl(0, 100%, 50%)".AsSpan());
             _converter.Parse(null, _cultureInfo, "hsl(120, 100%, 50%)".AsSpan());
@@ -216,7 +216,7 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
-        public void SvgColourConverter_Parse_hsl_OLD()
+        public void SvgColourConverter_Parse_rgb_hsl_OLD()
         {
             _converter.Parse_OLD(null, _cultureInfo, "hsl(0, 100%, 50%)");
             _converter.Parse_OLD(null, _cultureInfo, "hsl(120, 100%, 50%)");
