@@ -42,11 +42,11 @@ Once you downloaded the sources you can use the IDE of your choice to open the s
 and use your IDE to compile the version you would like to have.
 
 If you would like to use `dotnet-cli` to build the sources you can use the following command in the `Sources/` folder to build the library
-for .NET Core 2.2 with the compiler setting for release:
+for .NET Core 3.1 with the compiler setting for release:
 ```
-dotnet build -c release -f netcoreapp2.2 Svg.csproj
+dotnet build -c release -f netcoreapp3.1 Svg.csproj
 ```
-This will put the output into the `bin/Release/netcoreapp2.2/` folder.
+This will put the output into the `bin/Release/netcoreapp3.1/` folder.
 
 ## Special instructions for Mac and Linux
 The library depends on GDI+ (see also [here](http://svg-net.github.io/SVG/doc/Q&A.html#im-getting-a-svggdipluscannotbeloadedexception-if-running-under-linux-or-macos)) for rendering.
@@ -70,7 +70,7 @@ This package can be included in the SVG component if you roll your own version f
 This can be achieved by altering the `Svg.csproj` file and un-comment the following block of code:
 ```
 <!-- 
-<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
+<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
   <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
 </ItemGroup> 
 -->

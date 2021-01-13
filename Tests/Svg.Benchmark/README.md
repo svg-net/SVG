@@ -12,6 +12,12 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*'
 dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgDocument_*'
 ```
 
+### Run `ToStringBenchmarks` Benchmarks
+
+```
+dotnet run -c Release -f netcoreapp3.1 -- -f '*ToStringBenchmarks*'
+```
+
 ### Run `SvgPathBuilder` Benchmarks
 
 ```

@@ -1,5 +1,5 @@
 ![W3C SVG Logo](https://www.w3.org/Icons/SVG/svg-logo-v.png)
-# SVG.NET[![NuGet version](https://badge.fury.io/nu/svg.svg)](https://badge.fury.io/nu/svg) [![Gitter](https://badges.gitter.im/vvvv/SVG.svg)](https://gitter.im/vvvv/SVG?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+# SVG.NET[![NuGet version](https://badge.fury.io/nu/svg.svg)](https://badge.fury.io/nu/svg) [![Gitter](https://badges.gitter.im/vvvv/SVG.svg)](https://gitter.im/vvvv/SVG?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) ![Testsuite](https://github.com/svg-net/SVG/workflows/Testsuite/badge.svg?branch=master) ![DocBuild](https://github.com/svg-net/SVG/workflows/DocBuild/badge.svg?branch=master)
 
 Public fork of the C# SVG rendering library on codeplex: https://svg.codeplex.com/
 

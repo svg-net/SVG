@@ -161,15 +161,15 @@ namespace Svg
             var firstChildren = chain.Where(p => p.Children.Count > 0).FirstOrDefault();
             if (firstChildren == null)
                 return null;
-            var firstX = chain.Where(p => p.X != null && p.X != SvgUnit.None).FirstOrDefault();
-            var firstY = chain.Where(p => p.Y != null && p.Y != SvgUnit.None).FirstOrDefault();
-            var firstWidth = chain.Where(p => p.Width != null && p.Width != SvgUnit.None).FirstOrDefault();
-            var firstHeight = chain.Where(p => p.Height != null && p.Height != SvgUnit.None).FirstOrDefault();
+            var firstX = chain.Where(p => p.X != SvgUnit.None).FirstOrDefault();
+            var firstY = chain.Where(p => p.Y != SvgUnit.None).FirstOrDefault();
+            var firstWidth = chain.Where(p => p.Width != SvgUnit.None).FirstOrDefault();
+            var firstHeight = chain.Where(p => p.Height != SvgUnit.None).FirstOrDefault();
             if (firstWidth == null || firstHeight == null)
                 return null;
             var firstPatternUnit = chain.Where(p => p._patternUnits.HasValue).FirstOrDefault();
             var firstPatternContentUnit = chain.Where(p => p._patternContentUnits.HasValue).FirstOrDefault();
-            var firstViewBox = chain.Where(p => p.ViewBox != null && p.ViewBox != SvgViewBox.Empty).FirstOrDefault();
+            var firstViewBox = chain.Where(p => p.ViewBox != SvgViewBox.Empty).FirstOrDefault();
 
             var xUnit = firstX == null ? new SvgUnit(0f) : firstX.X;
             var yUnit = firstY == null ? new SvgUnit(0f) : firstY.Y;

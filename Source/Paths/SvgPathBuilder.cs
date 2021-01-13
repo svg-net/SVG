@@ -10,9 +10,15 @@ namespace Svg
 {
     public static class PointFExtensions
     {
+        public static string ToSvgString(this float value)
+        {
+            // Use G7 format specifier to be compatible across all target frameworks.
+            return value.ToString("G7", CultureInfo.InvariantCulture);
+        }
+
         public static string ToSvgString(this PointF p)
         {
-            return p.X.ToString(CultureInfo.InvariantCulture) + " " + p.Y.ToString(CultureInfo.InvariantCulture);
+            return p.X.ToSvgString() + " " + p.Y.ToSvgString();
         }
     }
 

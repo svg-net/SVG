@@ -52,12 +52,12 @@ namespace SvgW3CTestRunner
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {   //click event
 
-                ContextMenu contextMenu = new System.Windows.Forms.ContextMenu();
-                MenuItem menuItem = new MenuItem("Copy");
+                var contextMenu = new System.Windows.Forms.ContextMenuStrip();
+                var menuItem = new ToolStripMenuItem("Copy");
                 menuItem.Click += new EventHandler(CopyAction);
-                contextMenu.MenuItems.Add(menuItem);
+                contextMenu.Items.Add(menuItem);
 
-                boxConsoleLog.ContextMenu = contextMenu;
+                boxConsoleLog.ContextMenuStrip = contextMenu;
             }
         }
 

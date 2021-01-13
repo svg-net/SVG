@@ -33,9 +33,9 @@ namespace Svg
                         builder.Append(" ");
                     }
                     // we don't need unit type
-                    builder.Append(this[i].Value.ToString(CultureInfo.InvariantCulture));
+                    builder.Append(this[i].Value.ToSvgString());
                     builder.Append(",");
-                    builder.Append(this[i + 1].Value.ToString(CultureInfo.InvariantCulture));
+                    builder.Append(this[i + 1].Value.ToSvgString());
                 }
             }
             return builder.ToString();
