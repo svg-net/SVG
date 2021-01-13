@@ -6,7 +6,7 @@ namespace Svg.Benchmark
 {
     public class SvgDocumentBenchmarks
     {
-        private Stream Open(string name) => typeof(Program).Assembly.GetManifestResourceStream($"Svg.Benchmark.{name}");
+        private Stream Open(string name) => typeof(Program).Assembly.GetManifestResourceStream($"Svg.Benchmark.Assets.{name}");
 
         [Benchmark]
         public void SvgDocument_Open_AJ_Digital_Camera()
