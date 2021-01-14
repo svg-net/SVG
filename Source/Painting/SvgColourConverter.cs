@@ -327,7 +327,7 @@ namespace Svg
             }
             if (span.SequenceEqual("buttonface".AsSpan()))
             {
-                color = SystemColors.Control;
+                color = SystemColors.ButtonFace;
                 return true;
             }
             if (span.SequenceEqual("buttonhighlight".AsSpan()))
