@@ -14,6 +14,21 @@ namespace Svg
     {
         private static readonly char[] SplitChars = new char[] { ',' , ' ' };
 
+        private static int Clamp(int value, int min, int max)
+        {
+            return Math.Min(Math.Max(value, min), max);
+        }
+
+        private static float Clamp(float value, float min, float max)
+        {
+            return Math.Min(Math.Max(value, min), max);
+        }
+
+        private static double Clamp(double value, double min, double max)
+        {
+            return Math.Min(Math.Max(value, min), max);
+        }
+
         public object Parse(ITypeDescriptorContext context, CultureInfo culture, string colour)
         {
             var span = colour.AsSpan().Trim();
@@ -43,12 +58,14 @@ namespace Svg
                             {
                                 partValue = partValue.TrimEnd('%');
                                 var redDecimal = StringParser.ToFloatAny(ref partValue);
+                                redDecimal = Clamp(redDecimal, 0f, 100f);
                                 red = (int) Math.Round(255 * redDecimal / 100f);
                                 isDecimal = true;
                             }
                             else
                             {
                                 red = StringParser.ToInt(ref partValue);
+                                red = Clamp(red, 0, 255);
                                 isDecimal = false;
                             }
                         }
@@ -63,6 +80,7 @@ namespace Svg
 
                                 partValue = partValue.TrimEnd('%');
                                 var greenDecimal = StringParser.ToFloatAny(ref partValue);
+                                greenDecimal = Clamp(greenDecimal, 0f, 100f);
                                 green = (int) Math.Round(255 * greenDecimal / 100f);
                             }
                             else
@@ -73,6 +91,7 @@ namespace Svg
                                 }
 
                                 green = StringParser.ToInt(ref partValue);
+                                green = Clamp(green, 0, 255);
                             }
                         }
                         else if (count == 2)
@@ -86,6 +105,7 @@ namespace Svg
 
                                 partValue = partValue.TrimEnd('%');
                                 var blueDecimal = StringParser.ToFloatAny(ref partValue);
+                                blueDecimal = Clamp(blueDecimal, 0f, 100f);
                                 blue = (int) Math.Round(255 * blueDecimal / 100f);
                             }
                             else
@@ -96,6 +116,7 @@ namespace Svg
                                 }
 
                                 blue = StringParser.ToInt(ref partValue);
+                                blue = Clamp(blue, 0, 255);
                             }
                         }
                         else if (count == 3)
@@ -111,10 +132,12 @@ namespace Svg
                             var alphaDecimal = StringParser.ToDouble(ref partValue);
                             if (alphaDecimal <= 1)
                             {
+                                alphaDecimal = Clamp(alphaDecimal, 0f, 1f);
                                 alpha = (int) Math.Round(alphaDecimal * 255);
                             }
                             else
                             {
+                                alphaDecimal = Clamp(alphaDecimal, 0f, 255f);
                                 alpha = (int) Math.Round(alphaDecimal);
                             }
                         }
@@ -155,14 +178,19 @@ namespace Svg
                         var partValue = part.Value;
                         if (count == 0)
                         {
-                            h = StringParser.ToDouble(ref partValue) / 360.0;
+                            var hDecimal = StringParser.ToDouble(ref partValue);
+                            hDecimal = Clamp(hDecimal, 0f, 360f);
+                            h = hDecimal / 360.0;
                         }
                         else if (count == 1)
                         {
                             if (partValue.IndexOf('%') == partValue.Length - 1)
                             {
                                 partValue = partValue.TrimEnd('%');
-                                s = StringParser.ToDouble(ref partValue) / 100.0;
+
+                                var sDecimal = StringParser.ToDouble(ref partValue);
+                                sDecimal = Clamp(sDecimal, 0f, 100f);
+                                s = sDecimal / 100.0;
                             }
                             else
                             {
@@ -174,7 +202,9 @@ namespace Svg
                             if (partValue.IndexOf('%') == partValue.Length - 1)
                             {
                                 partValue = partValue.TrimEnd('%');
-                                l = StringParser.ToDouble(ref partValue) / 100.0;
+                                var lDecimal = StringParser.ToDouble(ref partValue);
+                                lDecimal = Clamp(lDecimal, 0f, 100f);
+                                l = lDecimal / 100.0;
                             }
                             else
                             {
