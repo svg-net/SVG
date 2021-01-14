@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using Svg.Helpers;
 
 namespace Svg
 {
@@ -289,8 +288,11 @@ namespace Svg
 
                 if (state.CurrNumState != NumState.Separator && state.NewNumState < state.CurrNumState)
                 {
-                    var value = chars.Slice(state.Position, state.CharsPosition - state.Position);
-                    result = StringParser.ToFloat(ref value);
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_1 || NETCOREAPP3_1 || NET5_0
+                    result = float.Parse(chars.Slice(state.Position, state.CharsPosition - state.Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+#else
+                    result = float.Parse(chars.Slice(state.Position, state.CharsPosition - state.Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+#endif
                     state.Position = state.CharsPosition;
                     state.CurrNumState = state.NewNumState;
                     return MarkState(true, ref state);
@@ -316,8 +318,11 @@ namespace Svg
             }
             else
             {
-                var value = chars.Slice(state.Position, charsLength - state.Position);
-                result = StringParser.ToFloat(ref value);
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_1 || NETCOREAPP3_1 || NET5_0
+                result = float.Parse(chars.Slice(state.Position, charsLength - state.Position), NumberStyles.Float, CultureInfo.InvariantCulture);
+#else
+                result = float.Parse(chars.Slice(state.Position, charsLength - state.Position).ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);
+#endif
                 state.Position = charsLength;
                 return MarkState(true, ref state);
             }
