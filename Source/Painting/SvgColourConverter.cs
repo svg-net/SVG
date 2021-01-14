@@ -208,9 +208,9 @@ namespace Svg
                 {
                     // The three-digit RGB notation (#rgb) is converted into six-digit form (#rrggbb) by replicating digits, not by adding zeros.
                     // For example, #fb0 expands to #ffbb00.
-                    Span<char> redString = stackalloc char[2] { span[1], span[1] };
-                    Span<char> greenString = stackalloc char[2] { span[2], span[2] };
-                    Span<char> blueString = stackalloc char[2] { span[3], span[3] };
+                    Span<char> redString = stackalloc char[2] {span[1], span[1]};
+                    Span<char> greenString = stackalloc char[2] {span[2], span[2]};
+                    Span<char> blueString = stackalloc char[2] {span[3], span[3]};
 #if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
                     var red = int.Parse(redString, NumberStyles.AllowHexSpecifier);
                     var green = int.Parse(greenString, NumberStyles.AllowHexSpecifier);
