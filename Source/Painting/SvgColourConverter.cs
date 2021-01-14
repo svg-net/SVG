@@ -14,19 +14,34 @@ namespace Svg
     {
         private static readonly char[] SplitChars = new char[] { ',' , ' ' };
 
-        private static int Clamp(int value, int min, int max)
+        private static int ClampInt(int value, int min, int max)
         {
             return Math.Min(Math.Max(value, min), max);
         }
 
-        private static float Clamp(float value, float min, float max)
+        private static float ClampFloat(float value, float min, float max)
         {
             return Math.Min(Math.Max(value, min), max);
         }
 
-        private static double Clamp(double value, double min, double max)
+        private static double ClampDouble(double value, double min, double max)
         {
             return Math.Min(Math.Max(value, min), max);
+        }
+
+        private static double ClampHue(double h)
+        {
+            if (h > 360.0)
+            {
+                h = h % 360.0;
+            }
+
+            if (h < 0)
+            {
+                h = 360.0 - (-h) % 360.0;
+            }
+
+            return h;
         }
 
         public object Parse(ITypeDescriptorContext context, CultureInfo culture, string colour)
@@ -58,14 +73,14 @@ namespace Svg
                             {
                                 partValue = partValue.TrimEnd('%');
                                 var redDecimal = StringParser.ToFloatAny(ref partValue);
-                                redDecimal = Clamp(redDecimal, 0f, 100f);
+                                redDecimal = ClampFloat(redDecimal, 0f, 100f);
                                 red = (int) Math.Round(255 * redDecimal / 100f);
                                 isDecimal = true;
                             }
                             else
                             {
                                 red = StringParser.ToInt(ref partValue);
-                                red = Clamp(red, 0, 255);
+                                red = ClampInt(red, 0, 255);
                                 isDecimal = false;
                             }
                         }
@@ -80,7 +95,7 @@ namespace Svg
 
                                 partValue = partValue.TrimEnd('%');
                                 var greenDecimal = StringParser.ToFloatAny(ref partValue);
-                                greenDecimal = Clamp(greenDecimal, 0f, 100f);
+                                greenDecimal = ClampFloat(greenDecimal, 0f, 100f);
                                 green = (int) Math.Round(255 * greenDecimal / 100f);
                             }
                             else
@@ -91,7 +106,7 @@ namespace Svg
                                 }
 
                                 green = StringParser.ToInt(ref partValue);
-                                green = Clamp(green, 0, 255);
+                                green = ClampInt(green, 0, 255);
                             }
                         }
                         else if (count == 2)
@@ -105,7 +120,7 @@ namespace Svg
 
                                 partValue = partValue.TrimEnd('%');
                                 var blueDecimal = StringParser.ToFloatAny(ref partValue);
-                                blueDecimal = Clamp(blueDecimal, 0f, 100f);
+                                blueDecimal = ClampFloat(blueDecimal, 0f, 100f);
                                 blue = (int) Math.Round(255 * blueDecimal / 100f);
                             }
                             else
@@ -116,7 +131,7 @@ namespace Svg
                                 }
 
                                 blue = StringParser.ToInt(ref partValue);
-                                blue = Clamp(blue, 0, 255);
+                                blue = ClampInt(blue, 0, 255);
                             }
                         }
                         else if (count == 3)
@@ -132,12 +147,12 @@ namespace Svg
                             var alphaDecimal = StringParser.ToDouble(ref partValue);
                             if (alphaDecimal <= 1)
                             {
-                                alphaDecimal = Clamp(alphaDecimal, 0f, 1f);
+                                alphaDecimal = ClampDouble(alphaDecimal, 0f, 1f);
                                 alpha = (int) Math.Round(alphaDecimal * 255);
                             }
                             else
                             {
-                                alphaDecimal = Clamp(alphaDecimal, 0f, 255f);
+                                alphaDecimal = ClampDouble(alphaDecimal, 0f, 255f);
                                 alpha = (int) Math.Round(alphaDecimal);
                             }
                         }
@@ -179,14 +194,7 @@ namespace Svg
                         if (count == 0)
                         {
                             var hDecimal = StringParser.ToDouble(ref partValue);
-                            if (hDecimal > 360.0)
-                            {
-                                hDecimal = hDecimal % 360.0;
-                            }
-                            if (hDecimal < 0)
-                            {
-                                hDecimal = 360.0 - (-hDecimal) % 360.0;
-                            }
+                            hDecimal = ClampHue(hDecimal);
                             h = hDecimal / 360.0;
                         }
                         else if (count == 1)
@@ -196,7 +204,7 @@ namespace Svg
                                 partValue = partValue.TrimEnd('%');
 
                                 var sDecimal = StringParser.ToDouble(ref partValue);
-                                sDecimal = Clamp(sDecimal, 0f, 100f);
+                                sDecimal = ClampDouble(sDecimal, 0f, 100f);
                                 s = sDecimal / 100.0;
                             }
                             else
@@ -210,7 +218,7 @@ namespace Svg
                             {
                                 partValue = partValue.TrimEnd('%');
                                 var lDecimal = StringParser.ToDouble(ref partValue);
-                                lDecimal = Clamp(lDecimal, 0f, 100f);
+                                lDecimal = ClampDouble(lDecimal, 0f, 100f);
                                 l = lDecimal / 100.0;
                             }
                             else
