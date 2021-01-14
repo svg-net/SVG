@@ -179,7 +179,14 @@ namespace Svg
                         if (count == 0)
                         {
                             var hDecimal = StringParser.ToDouble(ref partValue);
-                            hDecimal = Clamp(hDecimal, 0f, 360f);
+                            if (hDecimal > 360.0)
+                            {
+                                hDecimal = hDecimal % 360.0;
+                            }
+                            if (hDecimal < 0)
+                            {
+                                hDecimal = 360.0 - (-hDecimal) % 360.0;
+                            }
                             h = hDecimal / 360.0;
                         }
                         else if (count == 1)

@@ -269,13 +269,16 @@ namespace Svg.UnitTests
              Assert.AreEqual(Color.FromArgb(255, 64, 191, 191), color7);
 
              var color8 = _converter.Parse(null, _cultureInfo, "hsl(400, 50%, 50%)");
-             Assert.AreEqual(Color.FromArgb(255, 191, 64, 64), color8);
+             Assert.AreEqual(Color.FromArgb(255, 191, 149, 64), color8);
 
              var color9 = _converter.Parse(null, _cultureInfo, "hsl(180, -50%, 50%)");
              Assert.AreEqual(Color.FromArgb(255, 128, 128, 128), color9);
 
              var color10 = _converter.Parse(null, _cultureInfo, "hsl(90, 50%, -50%)");
              Assert.AreEqual(Color.FromArgb(255, 0, 0, 0), color10);
+
+             var color11 = _converter.Parse(null, _cultureInfo, "hsl(-30, 50%, 50%)");
+             Assert.AreEqual(Color.FromArgb(255, 191, 64, 128), color11);
         }
 
         [Test]
@@ -583,13 +586,16 @@ namespace Svg.UnitTests
              Assert.AreEqual(Color.FromArgb(255, 64, 191, 191), color7);
 
              var color8 = _converter.Parse_OLD(null, _cultureInfo, "hsl(400, 50%, 50%)");
-             Assert.AreEqual(Color.FromArgb(255, 191, 64, 64), color8);
+             Assert.AreEqual(Color.FromArgb(255, 191, 149, 64), color8);
 
              var color9 = _converter.Parse_OLD(null, _cultureInfo, "hsl(180, -50%, 50%)");
              Assert.AreEqual(Color.FromArgb(255, 128, 128, 128), color9);
 
              var color10 = _converter.Parse_OLD(null, _cultureInfo, "hsl(90, 50%, -50%)");
              Assert.AreEqual(Color.FromArgb(255, 0, 0, 0), color10);
+
+             var color11 = _converter.Parse_OLD(null, _cultureInfo, "hsl(-30, 50%, 50%)");
+             Assert.AreEqual(Color.FromArgb(255, 191, 64, 128), color11);
         }
 
         [Test]
