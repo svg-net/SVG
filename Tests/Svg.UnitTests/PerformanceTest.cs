@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO.Compression;
 using System.IO;
+using System.Text;
+using System.Reflection;
+
 using NUnit.Framework;
-using Svg.Transforms;
 
 namespace Svg.UnitTests
 {
