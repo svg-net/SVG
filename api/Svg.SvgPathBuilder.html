@@ -153,13 +153,13 @@
   
   
   <a id="Svg_SvgPathBuilder_Parse_" data-uid="Svg.SvgPathBuilder.Parse*"></a>
-  <h4 id="Svg_SvgPathBuilder_Parse_System_String_" data-uid="Svg.SvgPathBuilder.Parse(System.String)">Parse(String)</h4>
+  <h4 id="Svg_SvgPathBuilder_Parse_ReadOnlySpan_System_Char__" data-uid="Svg.SvgPathBuilder.Parse(ReadOnlySpan{System.Char})">Parse(ReadOnlySpan&lt;Char&gt;)</h4>
   <div class="markdown level1 summary"><p>Parses the specified string into a collection of path segments.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static SvgPathSegmentList Parse(string path)</code></pre>
+    <pre><code class="lang-csharp hljs">public static SvgPathSegmentList Parse(ReadOnlySpan&lt;char&gt; path)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -172,7 +172,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a></td>
+        <td><span class="xref">ReadOnlySpan</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.char">Char</a>&gt;</td>
         <td><span class="parametername">path</span></td>
         <td><p>A <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.string">String</a> containing path data.</p>
 </td>

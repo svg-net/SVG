@@ -11710,12 +11710,15 @@ references:
   isSpec: "True"
   fullName: Svg.SvgPathBuilder.ConvertFrom
   nameWithType: SvgPathBuilder.ConvertFrom
-- uid: Svg.SvgPathBuilder.Parse(System.String)
-  name: Parse(String)
-  href: api/Svg.SvgPathBuilder.html#Svg_SvgPathBuilder_Parse_System_String_
-  commentId: M:Svg.SvgPathBuilder.Parse(System.String)
-  fullName: Svg.SvgPathBuilder.Parse(System.String)
-  nameWithType: SvgPathBuilder.Parse(String)
+- uid: Svg.SvgPathBuilder.Parse(ReadOnlySpan{System.Char})
+  name: Parse(ReadOnlySpan<Char>)
+  href: api/Svg.SvgPathBuilder.html#Svg_SvgPathBuilder_Parse_ReadOnlySpan_System_Char__
+  commentId: M:Svg.SvgPathBuilder.Parse(ReadOnlySpan{System.Char})
+  name.vb: Parse(ReadOnlySpan(Of Char))
+  fullName: Svg.SvgPathBuilder.Parse(ReadOnlySpan<System.Char>)
+  fullName.vb: Svg.SvgPathBuilder.Parse(ReadOnlySpan(Of System.Char))
+  nameWithType: SvgPathBuilder.Parse(ReadOnlySpan<Char>)
+  nameWithType.vb: SvgPathBuilder.Parse(ReadOnlySpan(Of Char))
 - uid: Svg.SvgPathBuilder.Parse*
   name: Parse
   href: api/Svg.SvgPathBuilder.html#Svg_SvgPathBuilder_Parse_

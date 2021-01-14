@@ -902,7 +902,7 @@
   "api/Svg.SvgPathBuilder.html": {
     "href": "api/Svg.SvgPathBuilder.html",
     "title": "Class SvgPathBuilder | SVG.NET API",
-    "keywords": "Class SvgPathBuilder Inheritance Object SvgPathBuilder Namespace : Svg Assembly : cs.temp.dll.dll Syntax public class SvgPathBuilder : TypeConverter Methods ConvertFrom(ITypeDescriptorContext, CultureInfo, Object) Declaration public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) Parameters Type Name Description ITypeDescriptorContext context CultureInfo culture Object value Returns Type Description Object Parse(String) Parses the specified string into a collection of path segments. Declaration public static SvgPathSegmentList Parse(string path) Parameters Type Name Description String path A String containing path data. Returns Type Description SvgPathSegmentList"
+    "keywords": "Class SvgPathBuilder Inheritance Object SvgPathBuilder Namespace : Svg Assembly : cs.temp.dll.dll Syntax public class SvgPathBuilder : TypeConverter Methods ConvertFrom(ITypeDescriptorContext, CultureInfo, Object) Declaration public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) Parameters Type Name Description ITypeDescriptorContext context CultureInfo culture Object value Returns Type Description Object Parse(ReadOnlySpan<Char>) Parses the specified string into a collection of path segments. Declaration public static SvgPathSegmentList Parse(ReadOnlySpan<char> path) Parameters Type Name Description ReadOnlySpan < Char > path A String containing path data. Returns Type Description SvgPathSegmentList"
   },
   "api/Svg.SvgPatternServer.html": {
     "href": "api/Svg.SvgPatternServer.html",
