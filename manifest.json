@@ -2177,6 +2177,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgNumberCollectionConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgNumberCollectionConverter.html",
+          "hash": "9vXJdGlLfwYSIHjagaDm5Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Svg.SvgOrient.yml",
       "output": {
         ".html": {
@@ -3009,7 +3021,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.html",
-          "hash": "wTE1ZWm74UKkw8xjNPqHbA=="
+          "hash": "hYiIWsaA/o12NxA9jZM7qg=="
         }
       },
       "is_incremental": false,
@@ -3021,7 +3033,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "YHYs32lF2lRkcfwlW2LEAw=="
+          "hash": "4SuVmicAb+dbZEwbNV1Z1A=="
         }
       },
       "is_incremental": false,
@@ -3048,7 +3060,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 243,
+          "total_file_count": 244,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {

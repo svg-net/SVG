@@ -11327,6 +11327,41 @@ references:
   isSpec: "True"
   fullName: Svg.SvgNumberCollection.ToString
   nameWithType: SvgNumberCollection.ToString
+- uid: Svg.SvgNumberCollectionConverter
+  name: SvgNumberCollectionConverter
+  href: api/Svg.SvgNumberCollectionConverter.html
+  commentId: T:Svg.SvgNumberCollectionConverter
+  fullName: Svg.SvgNumberCollectionConverter
+  nameWithType: SvgNumberCollectionConverter
+- uid: Svg.SvgNumberCollectionConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+  href: api/Svg.SvgNumberCollectionConverter.html#Svg_SvgNumberCollectionConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
+  commentId: M:Svg.SvgNumberCollectionConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  fullName: Svg.SvgNumberCollectionConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, System.Object)
+  nameWithType: SvgNumberCollectionConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+- uid: Svg.SvgNumberCollectionConverter.ConvertFrom*
+  name: ConvertFrom
+  href: api/Svg.SvgNumberCollectionConverter.html#Svg_SvgNumberCollectionConverter_ConvertFrom_
+  commentId: Overload:Svg.SvgNumberCollectionConverter.ConvertFrom
+  isSpec: "True"
+  fullName: Svg.SvgNumberCollectionConverter.ConvertFrom
+  nameWithType: SvgNumberCollectionConverter.ConvertFrom
+- uid: Svg.SvgNumberCollectionConverter.Parse(ReadOnlySpan{System.Char})
+  name: Parse(ReadOnlySpan<Char>)
+  href: api/Svg.SvgNumberCollectionConverter.html#Svg_SvgNumberCollectionConverter_Parse_ReadOnlySpan_System_Char__
+  commentId: M:Svg.SvgNumberCollectionConverter.Parse(ReadOnlySpan{System.Char})
+  name.vb: Parse(ReadOnlySpan(Of Char))
+  fullName: Svg.SvgNumberCollectionConverter.Parse(ReadOnlySpan<System.Char>)
+  fullName.vb: Svg.SvgNumberCollectionConverter.Parse(ReadOnlySpan(Of System.Char))
+  nameWithType: SvgNumberCollectionConverter.Parse(ReadOnlySpan<Char>)
+  nameWithType.vb: SvgNumberCollectionConverter.Parse(ReadOnlySpan(Of Char))
+- uid: Svg.SvgNumberCollectionConverter.Parse*
+  name: Parse
+  href: api/Svg.SvgNumberCollectionConverter.html#Svg_SvgNumberCollectionConverter_Parse_
+  commentId: Overload:Svg.SvgNumberCollectionConverter.Parse
+  isSpec: "True"
+  fullName: Svg.SvgNumberCollectionConverter.Parse
+  nameWithType: SvgNumberCollectionConverter.Parse
 - uid: Svg.SvgOrient
   name: SvgOrient
   href: api/Svg.SvgOrient.html
