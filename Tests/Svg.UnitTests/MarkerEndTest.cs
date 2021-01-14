@@ -50,7 +50,7 @@ namespace Svg.UnitTests
             {
                 ID = "pathMarkerArrow",
                 Fill = new SvgColourServer(Color.Black),
-                PathData = SvgPathBuilder.Parse(@"M0,0 L4,2 L0,4 L1,2 z")
+                PathData = SvgPathBuilder.Parse(@"M0,0 L4,2 L0,4 L1,2 z".AsSpan())
             };
 
             var arrowMarker = new SvgMarker()
