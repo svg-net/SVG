@@ -176,7 +176,7 @@ namespace Svg.UnitTests
         public void ParseReturnsValidColor_hex_rrggbb()
         {
             var color1 = _converter.Parse(null, _cultureInfo, "#ff0000");
-            Assert.AreEqual(Color.FromArgb(0xFF, 0x00, 0x00, 0x00), color1);
+            Assert.AreEqual(Color.FromArgb(0xFF, 0xFF, 0x00, 0x00), color1);
 
             var color2 = _converter.Parse(null, _cultureInfo, "#00ff00");
             Assert.AreEqual(Color.FromArgb(0xFF, 0x00, 0xFF, 0x00), color2);
@@ -490,7 +490,7 @@ namespace Svg.UnitTests
         public void Parse_OLDReturnsValidColor_hex_rrggbb()
         {
             var color1 = _converter.Parse_OLD(null, _cultureInfo, "#ff0000");
-            Assert.AreEqual(Color.FromArgb(0xFF, 0x00, 0x00, 0x00), color1);
+            Assert.AreEqual(Color.FromArgb(0xFF, 0xFF, 0x00, 0x00), color1);
 
             var color2 = _converter.Parse_OLD(null, _cultureInfo, "#00ff00");
             Assert.AreEqual(Color.FromArgb(0xFF, 0x00, 0xFF, 0x00), color2);
