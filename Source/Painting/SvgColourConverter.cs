@@ -60,6 +60,7 @@ namespace Svg
                                 {
                                     throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
+
                                 partValue = partValue.TrimEnd('%');
                                 var greenDecimal = StringParser.ToFloatAny(ref partValue);
                                 green = (int) Math.Round(255 * greenDecimal / 100f);
@@ -70,6 +71,7 @@ namespace Svg
                                 {
                                     throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
+
                                 green = StringParser.ToInt(ref partValue);
                             }
                         }
@@ -81,6 +83,7 @@ namespace Svg
                                 {
                                     throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
+
                                 partValue = partValue.TrimEnd('%');
                                 var blueDecimal = StringParser.ToFloatAny(ref partValue);
                                 blue = (int) Math.Round(255 * blueDecimal / 100f);
@@ -91,6 +94,7 @@ namespace Svg
                                 {
                                     throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
+
                                 blue = StringParser.ToInt(ref partValue);
                             }
                         }
