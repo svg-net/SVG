@@ -7,7 +7,7 @@ using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Validators;
 using BenchmarkDotNet.Environments;
 
-namespace Svg.Benchmarks
+namespace Svg.Benchmark
 {
     class Program
     {
