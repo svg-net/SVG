@@ -73,7 +73,7 @@ namespace Svg.Benchmark
             _converter.Parse(null, _cultureInfo, "InfoText");
             _converter.Parse(null, _cultureInfo, "Menu");
             _converter.Parse(null, _cultureInfo, "MenuText");
-            _converter.Parse(null, _cultureInfo, "Scrollbar");
+            _converter.Parse(null, _cultureInfo, "ScrollBar");
             _converter.Parse(null, _cultureInfo, "ThreeDDarkShadow");
             _converter.Parse(null, _cultureInfo, "ThreeDFace");
             _converter.Parse(null, _cultureInfo, "ThreeDHighlight");
@@ -123,7 +123,6 @@ namespace Svg.Benchmark
             _converter.Parse(null, _cultureInfo, "#f00");
             _converter.Parse(null, _cultureInfo, "#fb0");
             _converter.Parse(null, _cultureInfo, "#fff");
-            
         }
 
         [Benchmark]
@@ -132,7 +131,6 @@ namespace Svg.Benchmark
             _converter.Parse_OLD(null, _cultureInfo, "#f00");
             _converter.Parse_OLD(null, _cultureInfo, "#fb0");
             _converter.Parse_OLD(null, _cultureInfo, "#fff");
-            
         }
 
         [Benchmark]
@@ -186,7 +184,7 @@ namespace Svg.Benchmark
         {
             _converter.Parse(null, _cultureInfo, "rgb(100%, 0%, 0%)");
             _converter.Parse(null, _cultureInfo, "rgb(0%, 100%, 0%)");
-            _converter.Parse(null, _cultureInfo, "rgb(0%, 100%, 0%)");
+            _converter.Parse(null, _cultureInfo, "rgb(0%, 0%, 100%)");
             _converter.Parse(null, _cultureInfo, "rgb(100%, 100%, 100%)");
             _converter.Parse(null, _cultureInfo, "rgb(0%, 0%, 0%)");
             // TODO: _converter.Parse(null, _cultureInfo, "rgb(110%, 0%, 0%)");
@@ -197,7 +195,7 @@ namespace Svg.Benchmark
         {
             _converter.Parse_OLD(null, _cultureInfo, "rgb(100%, 0%, 0%)");
             _converter.Parse_OLD(null, _cultureInfo, "rgb(0%, 100%, 0%)");
-            _converter.Parse_OLD(null, _cultureInfo, "rgb(0%, 100%, 0%)");
+            _converter.Parse_OLD(null, _cultureInfo, "rgb(0%, 0%, 100%)");
             _converter.Parse_OLD(null, _cultureInfo, "rgb(100%, 100%, 100%)");
             _converter.Parse_OLD(null, _cultureInfo, "rgb(0%, 0%, 0%)");
             // TODO: _converter.Parse_OLD(null, _cultureInfo, "rgb(110%, 0%, 0%)");
