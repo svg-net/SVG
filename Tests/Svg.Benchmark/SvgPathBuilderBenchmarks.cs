@@ -1,7 +1,7 @@
 using BenchmarkDotNet.Attributes;
 using Svg;
 
-namespace Svg.Benchmarks
+namespace Svg.Benchmark
 {
     public class SvgPathBuilderBenchmarks
     {

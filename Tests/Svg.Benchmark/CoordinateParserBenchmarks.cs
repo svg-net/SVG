@@ -3,9 +3,9 @@ using System.Text;
 using BenchmarkDotNet.Attributes;
 using Svg;
 
-namespace Svg.Benchmarks
+namespace Svg.Benchmark
 {
-    public class CoordinateParserBenchmarks
+    public class CoordinateParserBenchmark
     {
         [Benchmark]
         public void CoordinateParser_TryGetBool()
