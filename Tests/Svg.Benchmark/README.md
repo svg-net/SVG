@@ -35,9 +35,3 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*CoordinateParser_*'
 ```
 dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgTransformConverter_*'
 ```
-
-### Run `SvgPointCollectionConverter` Benchmarks
-
-```
-dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgPointCollectionConverter_*'
-```
