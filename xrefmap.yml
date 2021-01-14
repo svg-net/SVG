@@ -14197,6 +14197,41 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUnitCollection.ToString
   nameWithType: SvgUnitCollection.ToString
+- uid: Svg.SvgUnitCollectionConverter
+  name: SvgUnitCollectionConverter
+  href: api/Svg.SvgUnitCollectionConverter.html
+  commentId: T:Svg.SvgUnitCollectionConverter
+  fullName: Svg.SvgUnitCollectionConverter
+  nameWithType: SvgUnitCollectionConverter
+- uid: Svg.SvgUnitCollectionConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+  href: api/Svg.SvgUnitCollectionConverter.html#Svg_SvgUnitCollectionConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
+  commentId: M:Svg.SvgUnitCollectionConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  fullName: Svg.SvgUnitCollectionConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, System.Object)
+  nameWithType: SvgUnitCollectionConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+- uid: Svg.SvgUnitCollectionConverter.ConvertFrom*
+  name: ConvertFrom
+  href: api/Svg.SvgUnitCollectionConverter.html#Svg_SvgUnitCollectionConverter_ConvertFrom_
+  commentId: Overload:Svg.SvgUnitCollectionConverter.ConvertFrom
+  isSpec: "True"
+  fullName: Svg.SvgUnitCollectionConverter.ConvertFrom
+  nameWithType: SvgUnitCollectionConverter.ConvertFrom
+- uid: Svg.SvgUnitCollectionConverter.Parse(ReadOnlySpan{System.Char})
+  name: Parse(ReadOnlySpan<Char>)
+  href: api/Svg.SvgUnitCollectionConverter.html#Svg_SvgUnitCollectionConverter_Parse_ReadOnlySpan_System_Char__
+  commentId: M:Svg.SvgUnitCollectionConverter.Parse(ReadOnlySpan{System.Char})
+  name.vb: Parse(ReadOnlySpan(Of Char))
+  fullName: Svg.SvgUnitCollectionConverter.Parse(ReadOnlySpan<System.Char>)
+  fullName.vb: Svg.SvgUnitCollectionConverter.Parse(ReadOnlySpan(Of System.Char))
+  nameWithType: SvgUnitCollectionConverter.Parse(ReadOnlySpan<Char>)
+  nameWithType.vb: SvgUnitCollectionConverter.Parse(ReadOnlySpan(Of Char))
+- uid: Svg.SvgUnitCollectionConverter.Parse*
+  name: Parse
+  href: api/Svg.SvgUnitCollectionConverter.html#Svg_SvgUnitCollectionConverter_Parse_
+  commentId: Overload:Svg.SvgUnitCollectionConverter.Parse
+  isSpec: "True"
+  fullName: Svg.SvgUnitCollectionConverter.Parse
+  nameWithType: SvgUnitCollectionConverter.Parse
 - uid: Svg.SvgUnitConverter
   name: SvgUnitConverter
   href: api/Svg.SvgUnitConverter.html
@@ -14229,11 +14264,11 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUnitConverter.CanConvertTo
   nameWithType: SvgUnitConverter.CanConvertTo
-- uid: Svg.SvgUnitConverter.ConvertFrom(ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)
+- uid: Svg.SvgUnitConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
   name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
-  href: api/Svg.SvgUnitConverter.html#Svg_SvgUnitConverter_ConvertFrom_ITypeDescriptorContext_System_Globalization_CultureInfo_System_Object_
-  commentId: M:Svg.SvgUnitConverter.ConvertFrom(ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)
-  fullName: Svg.SvgUnitConverter.ConvertFrom(ITypeDescriptorContext, System.Globalization.CultureInfo, System.Object)
+  href: api/Svg.SvgUnitConverter.html#Svg_SvgUnitConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
+  commentId: M:Svg.SvgUnitConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  fullName: Svg.SvgUnitConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, System.Object)
   nameWithType: SvgUnitConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
 - uid: Svg.SvgUnitConverter.ConvertFrom*
   name: ConvertFrom
@@ -14255,6 +14290,22 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUnitConverter.ConvertTo
   nameWithType: SvgUnitConverter.ConvertTo
+- uid: Svg.SvgUnitConverter.Parse(ReadOnlySpan{System.Char})
+  name: Parse(ReadOnlySpan<Char>)
+  href: api/Svg.SvgUnitConverter.html#Svg_SvgUnitConverter_Parse_ReadOnlySpan_System_Char__
+  commentId: M:Svg.SvgUnitConverter.Parse(ReadOnlySpan{System.Char})
+  name.vb: Parse(ReadOnlySpan(Of Char))
+  fullName: Svg.SvgUnitConverter.Parse(ReadOnlySpan<System.Char>)
+  fullName.vb: Svg.SvgUnitConverter.Parse(ReadOnlySpan(Of System.Char))
+  nameWithType: SvgUnitConverter.Parse(ReadOnlySpan<Char>)
+  nameWithType.vb: SvgUnitConverter.Parse(ReadOnlySpan(Of Char))
+- uid: Svg.SvgUnitConverter.Parse*
+  name: Parse
+  href: api/Svg.SvgUnitConverter.html#Svg_SvgUnitConverter_Parse_
+  commentId: Overload:Svg.SvgUnitConverter.Parse
+  isSpec: "True"
+  fullName: Svg.SvgUnitConverter.Parse
+  nameWithType: SvgUnitConverter.Parse
 - uid: Svg.SvgUnitType
   name: SvgUnitType
   href: api/Svg.SvgUnitType.html

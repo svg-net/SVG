@@ -2765,11 +2765,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.SvgUnitCollectionConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.SvgUnitCollectionConverter.html",
+          "hash": "p4uxZUqKyJukHM9xwqJXlw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/api/Svg.SvgUnitConverter.yml",
       "output": {
         ".html": {
           "relative_path": "api/Svg.SvgUnitConverter.html",
-          "hash": "Gad7TyaqT1lHAIT/fwFTdA=="
+          "hash": "6LfSOBh5FpyMgXOT7ZlhqA=="
         }
       },
       "is_incremental": false,
@@ -3021,7 +3033,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.html",
-          "hash": "hYiIWsaA/o12NxA9jZM7qg=="
+          "hash": "3mT7Ym6qq8LwZuyNRR9/bA=="
         }
       },
       "is_incremental": false,
@@ -3033,7 +3045,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "4SuVmicAb+dbZEwbNV1Z1A=="
+          "hash": "fnWqFP3Q6kOaz5KdNdWX0g=="
         }
       },
       "is_incremental": false,
@@ -3060,7 +3072,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 244,
+          "total_file_count": 245,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {

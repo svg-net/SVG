@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class SvgUnitConverter
+    <title>Class SvgUnitCollectionConverter
    | SVG.NET API </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class SvgUnitConverter
+    <meta name="title" content="Class SvgUnitCollectionConverter
    | SVG.NET API ">
     <meta name="generator" content="docfx 2.56.6.0">
     
@@ -78,125 +78,33 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Svg.SvgUnitConverter">
+            <article class="content wrap" id="_content" data-uid="Svg.SvgUnitCollectionConverter">
   
   
-  <h1 id="Svg_SvgUnitConverter" data-uid="Svg.SvgUnitConverter" class="text-break">Class SvgUnitConverter
+  <h1 id="Svg_SvgUnitCollectionConverter" data-uid="Svg.SvgUnitCollectionConverter" class="text-break">Class SvgUnitCollectionConverter
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>A class to convert string into <a class="xref" href="Svg.SvgUnitCollection.html">SvgUnitCollection</a> instances.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">SvgUnitConverter</span></div>
+    <div class="level1"><span class="xref">SvgUnitCollectionConverter</span></div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Svg.html">Svg</a></h6>
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
-  <h5 id="Svg_SvgUnitConverter_syntax">Syntax</h5>
+  <h5 id="Svg_SvgUnitCollectionConverter_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class SvgUnitConverter : TypeConverter</code></pre>
+    <pre><code class="lang-csharp hljs">public class SvgUnitCollectionConverter : TypeConverter</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
   
   
-  <a id="Svg_SvgUnitConverter_CanConvertFrom_" data-uid="Svg.SvgUnitConverter.CanConvertFrom*"></a>
-  <h4 id="Svg_SvgUnitConverter_CanConvertFrom_ITypeDescriptorContext_System_Type_" data-uid="Svg.SvgUnitConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)">CanConvertFrom(ITypeDescriptorContext, Type)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">ITypeDescriptorContext</span></td>
-        <td><span class="parametername">context</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">sourceType</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Svg_SvgUnitConverter_CanConvertTo_" data-uid="Svg.SvgUnitConverter.CanConvertTo*"></a>
-  <h4 id="Svg_SvgUnitConverter_CanConvertTo_ITypeDescriptorContext_System_Type_" data-uid="Svg.SvgUnitConverter.CanConvertTo(ITypeDescriptorContext,System.Type)">CanConvertTo(ITypeDescriptorContext, Type)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">ITypeDescriptorContext</span></td>
-        <td><span class="parametername">context</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">destinationType</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Svg_SvgUnitConverter_ConvertFrom_" data-uid="Svg.SvgUnitConverter.ConvertFrom*"></a>
-  <h4 id="Svg_SvgUnitConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_" data-uid="Svg.SvgUnitConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)">ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="Svg_SvgUnitCollectionConverter_ConvertFrom_" data-uid="Svg.SvgUnitCollectionConverter.ConvertFrom*"></a>
+  <h4 id="Svg_SvgUnitCollectionConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_" data-uid="Svg.SvgUnitCollectionConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)">ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)</h4>
+  <div class="markdown level1 summary"><p>Converts the given object to the type of this converter, using the specified context and culture information.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -215,17 +123,20 @@
       <tr>
         <td><span class="xref">ITypeDescriptorContext</span></td>
         <td><span class="parametername">context</span></td>
-        <td></td>
+        <td><p>An <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.componentmodel.itypedescriptorcontext">ITypeDescriptorContext</a> that provides a format context.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">CultureInfo</span></td>
         <td><span class="parametername">culture</span></td>
-        <td></td>
+        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.globalization.cultureinfo">CultureInfo</a> to use as the current culture.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
         <td><span class="parametername">value</span></td>
-        <td></td>
+        <td><p>The <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a> to convert.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -240,76 +151,36 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td></td>
+        <td><p>An <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a> that represents the converted value.</p>
+</td>
       </tr>
     </tbody>
   </table>
-  
-  
-  <a id="Svg_SvgUnitConverter_ConvertTo_" data-uid="Svg.SvgUnitConverter.ConvertTo*"></a>
-  <h4 id="Svg_SvgUnitConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_" data-uid="Svg.SvgUnitConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)">ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
+  <h5 class="exceptions">Exceptions</h5>
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
+        <th>Condition</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">ITypeDescriptorContext</span></td>
-        <td><span class="parametername">context</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><span class="xref">CultureInfo</span></td>
-        <td><span class="parametername">culture</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td><span class="parametername">value</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.type">Type</a></td>
-        <td><span class="parametername">destinationType</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></td>
-        <td></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.notsupportedexception">NotSupportedException</a></td>
+        <td><p>The conversion cannot be performed.</p>
+</td>
       </tr>
     </tbody>
   </table>
   
   
-  <a id="Svg_SvgUnitConverter_Parse_" data-uid="Svg.SvgUnitConverter.Parse*"></a>
-  <h4 id="Svg_SvgUnitConverter_Parse_ReadOnlySpan_System_Char__" data-uid="Svg.SvgUnitConverter.Parse(ReadOnlySpan{System.Char})">Parse(ReadOnlySpan&lt;Char&gt;)</h4>
+  <a id="Svg_SvgUnitCollectionConverter_Parse_" data-uid="Svg.SvgUnitCollectionConverter.Parse*"></a>
+  <h4 id="Svg_SvgUnitCollectionConverter_Parse_ReadOnlySpan_System_Char__" data-uid="Svg.SvgUnitCollectionConverter.Parse(ReadOnlySpan{System.Char})">Parse(ReadOnlySpan&lt;Char&gt;)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static SvgUnit Parse(ReadOnlySpan&lt;char&gt; unit)</code></pre>
+    <pre><code class="lang-csharp hljs">public static SvgUnitCollection Parse(ReadOnlySpan&lt;char&gt; points)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -323,7 +194,7 @@
     <tbody>
       <tr>
         <td><span class="xref">ReadOnlySpan</span>&lt;<a class="xref" href="https://docs.microsoft.com/dotnet/api/system.char">Char</a>&gt;</td>
-        <td><span class="parametername">unit</span></td>
+        <td><span class="parametername">points</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -338,7 +209,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
+        <td><a class="xref" href="Svg.SvgUnitCollection.html">SvgUnitCollection</a></td>
         <td></td>
       </tr>
     </tbody>
