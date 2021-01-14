@@ -5,7 +5,7 @@ using System.Xml;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using Svg.ExCSS;
+using ExCSS;
 
 namespace Svg
 {
@@ -52,7 +52,7 @@ namespace Svg
         private static readonly Dictionary<string, ElementInfo> availableElementsWithoutSvg;
         private static readonly List<ElementInfo> availableElements;
 #endif
-        private readonly Parser cssParser = new Parser();
+        private readonly StylesheetParser stylesheetParser = new StylesheetParser(true, true);
 
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
@@ -183,14 +183,10 @@ namespace Svg
                     }
                     if (localName.Equals("style") && !(element is NonSvgElement))
                     {
-                        var inlineSheet = cssParser.Parse("#a{" + reader.Value + "}");
+                        var inlineSheet = stylesheetParser.Parse("#a{" + reader.Value + "}");
                         foreach (var rule in inlineSheet.StyleRules)
-                        {
-                            foreach (var decl in rule.Declarations)
-                            {
-                                element.AddStyle(decl.Name, decl.Term.ToString(), SvgElement.StyleSpecificity_InlineStyle);
-                            }
-                        }
+                            foreach (var declaration in rule.Style)
+                                element.AddStyle(declaration.Name, declaration.Value, SvgElement.StyleSpecificity_InlineStyle);
                     }
                     else if (prefix.Length == 0 && IsStyleAttribute(localName))
                     {

@@ -114,10 +114,15 @@ namespace Svg
                         throw new SvgException("Colour is in an invalid format: '" + colour + "'");
                     }
                 }
-                else if (colour.StartsWith("#", StringComparison.InvariantCulture) && colour.Length == 4)
+                else if (colour.StartsWith("#", StringComparison.InvariantCulture))
                 {
-                    colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
-                    return base.ConvertFrom(context, culture, colour);
+                    if (colour.Length == 4)
+                    {
+                        colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
+                        return base.ConvertFrom(context, culture, colour);
+                    }
+                    else if (colour.Length != 7)
+                        return SvgPaintServer.NotSet;
                 }
 
 #if !NO_SDC
