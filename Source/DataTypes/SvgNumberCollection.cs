@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Svg.Helpers;
 
 namespace Svg
 {
@@ -30,8 +31,10 @@ namespace Svg
     /// <summary>
     /// A class to convert string into <see cref="SvgNumberCollection"/> instances.
     /// </summary>
-    internal class SvgNumberCollectionConverter : TypeConverter
+    public class SvgNumberCollectionConverter : TypeConverter
     {
+        private static readonly char[] SplitChars = new[] { ' ', '\t', '\n', '\r', ',' };
+
         /// <summary>
         /// Converts the given object to the type of this converter, using the specified context and culture information.
         /// </summary>
@@ -46,17 +49,26 @@ namespace Svg
         {
             if (value is string str)
             {
-                var collection = new SvgNumberCollection();
-                var values = str.Split(new char[] { ' ', '\t', '\n', '\r', ',' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var v in values)
-                {
-                    var result = float.Parse(v, NumberStyles.Any, CultureInfo.InvariantCulture);
-                    collection.Add(result);
-                }
-                return collection;
+                return Parse(str.AsSpan());
             }
 
             return base.ConvertFrom(context, culture, value);
+        }
+
+        public static SvgNumberCollection Parse(ReadOnlySpan<char> numbers)
+        {
+            var collection = new SvgNumberCollection();
+            var splitChars = SplitChars.AsSpan();
+            var parts = new StringSplitEnumerator(numbers, splitChars);
+
+            foreach (var part in parts)
+            {
+                var partValue = part.Value;
+                var result = StringParser.ToFloatAny(ref partValue);
+                collection.Add(result);
+            }
+
+            return collection;
         }
     }
 }
