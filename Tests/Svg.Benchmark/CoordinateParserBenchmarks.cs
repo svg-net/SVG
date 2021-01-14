@@ -5,7 +5,7 @@ using Svg;
 
 namespace Svg.Benchmark
 {
-    public class CoordinateParserBenchmarks
+    public class CoordinateParserBenchmark
     {
         [Benchmark]
         public void CoordinateParser_TryGetBool()
