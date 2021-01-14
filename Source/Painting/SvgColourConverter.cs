@@ -266,23 +266,26 @@ namespace Svg
 #endif
 
             // Support for grey colors
-            span.Contains("grey".AsSpan(), StringComparison.InvariantCultureIgnoreCase);
-            Span<char> lowerInvariant = stackalloc char[32];
-            var grey = "grey".AsSpan();
-            span.ToLowerInvariant(lowerInvariant);
-
-            var index = lowerInvariant.IndexOf(grey);
-            if (index >= 0 && index + 4 == span.Length)
+            var hasGrey = span.Contains("grey".AsSpan(), StringComparison.InvariantCultureIgnoreCase);
+            if (hasGrey)
             {
-                if (span[index] == 'G')
+                Span<char> lowerInvariant = stackalloc char[32];
+                var grey = "grey".AsSpan();
+                span.ToLowerInvariant(lowerInvariant);
+
+                var index = lowerInvariant.IndexOf(grey);
+                if (index >= 0 && index + 4 == span.Length)
                 {
-                    var gray = $"{span.Slice(0, index - 1).ToString()}Gray";
-                    return base.ConvertFrom(context, culture, gray);
-                }
-                else
-                {
-                    var gray = $"{span.Slice(0, index - 1).ToString()}gray";
-                    return base.ConvertFrom(context, culture, gray);
+                    if (span[index] == 'G')
+                    {
+                        var gray = $"{span.Slice(0, index).ToString()}Gray";
+                        return base.ConvertFrom(context, culture, gray);
+                    }
+                    else
+                    {
+                        var gray = $"{span.Slice(0, index).ToString()}gray";
+                        return base.ConvertFrom(context, culture, gray);
+                    }
                 }
             }
 
