@@ -15792,6 +15792,22 @@ references:
   isSpec: "True"
   fullName: Svg.Transforms.SvgTransformConverter.ConvertTo
   nameWithType: SvgTransformConverter.ConvertTo
+- uid: Svg.Transforms.SvgTransformConverter.Parse(ReadOnlySpan{System.Char})
+  name: Parse(ReadOnlySpan<Char>)
+  href: api/Svg.Transforms.SvgTransformConverter.html#Svg_Transforms_SvgTransformConverter_Parse_ReadOnlySpan_System_Char__
+  commentId: M:Svg.Transforms.SvgTransformConverter.Parse(ReadOnlySpan{System.Char})
+  name.vb: Parse(ReadOnlySpan(Of Char))
+  fullName: Svg.Transforms.SvgTransformConverter.Parse(ReadOnlySpan<System.Char>)
+  fullName.vb: Svg.Transforms.SvgTransformConverter.Parse(ReadOnlySpan(Of System.Char))
+  nameWithType: SvgTransformConverter.Parse(ReadOnlySpan<Char>)
+  nameWithType.vb: SvgTransformConverter.Parse(ReadOnlySpan(Of Char))
+- uid: Svg.Transforms.SvgTransformConverter.Parse*
+  name: Parse
+  href: api/Svg.Transforms.SvgTransformConverter.html#Svg_Transforms_SvgTransformConverter_Parse_
+  commentId: Overload:Svg.Transforms.SvgTransformConverter.Parse
+  isSpec: "True"
+  fullName: Svg.Transforms.SvgTransformConverter.Parse
+  nameWithType: SvgTransformConverter.Parse
 - uid: Svg.Transforms.SvgTranslate
   name: SvgTranslate
   href: api/Svg.Transforms.SvgTranslate.html
