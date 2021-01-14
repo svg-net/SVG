@@ -55,8 +55,8 @@ namespace Svg.UnitTests
             // valid colors
             var doc = GenerateLexerTestFile("fill: #ff0000; stroke: #ffff00");
             var path = doc.GetElementById<SvgPath>("path1");
-            Assert.AreEqual(System.Drawing.Color.Red, ((SvgColourServer)path.Fill).Colour);
-            Assert.AreEqual(System.Drawing.Color.Yellow, ((SvgColourServer)path.Stroke).Colour);
+            Assert.AreEqual(System.Drawing.Color.FromArgb(255, 255, 0, 0), ((SvgColourServer)path.Fill).Colour);
+            Assert.AreEqual(System.Drawing.Color.FromArgb(255, 255, 255, 0), ((SvgColourServer)path.Stroke).Colour);
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace Svg.UnitTests
             var path = doc.GetElementById<SvgPath>("path1");
             // default fill color is Black
             Assert.AreEqual(System.Drawing.Color.Black, ((SvgColourServer)path.Fill).Colour);
-            Assert.AreEqual(System.Drawing.Color.Lime, ((SvgColourServer)path.Stroke).Colour);
+            Assert.AreEqual(System.Drawing.Color.FromArgb(255, 0, 255, 0), ((SvgColourServer)path.Stroke).Colour);
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace Svg.UnitTests
         {
             var doc = GenerateLexerTestFile("fill: #fff; stroke: 005577");
             var path = doc.GetElementById<SvgPath>("path1");
-            Assert.AreEqual(System.Drawing.Color.White, ((SvgColourServer)path.Fill).Colour);
+            Assert.AreEqual(System.Drawing.Color.FromArgb(255, 255, 255, 255), ((SvgColourServer)path.Fill).Colour);
             // default stroke color is null (transparent)
             Assert.IsNull(path.Stroke);
         }
