@@ -88,7 +88,7 @@ namespace Svg
             foreach (var part in parts)
             {
                 var partValue = part.Value;
-                var result = FloatParser.ToFloat(ref partValue);
+                var result = StringParser.ToFloat(ref partValue);
                 collection.Add(new SvgUnit(SvgUnitType.User, result));
             }
 

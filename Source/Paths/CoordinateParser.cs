@@ -290,7 +290,7 @@ namespace Svg
                 if (state.CurrNumState != NumState.Separator && state.NewNumState < state.CurrNumState)
                 {
                     var value = chars.Slice(state.Position, state.CharsPosition - state.Position);
-                    result = FloatParser.ToFloat(ref value);
+                    result = StringParser.ToFloat(ref value);
                     state.Position = state.CharsPosition;
                     state.CurrNumState = state.NewNumState;
                     return MarkState(true, ref state);
@@ -317,7 +317,7 @@ namespace Svg
             else
             {
                 var value = chars.Slice(state.Position, charsLength - state.Position);
-                result = FloatParser.ToFloat(ref value);
+                result = StringParser.ToFloat(ref value);
                 state.Position = charsLength;
                 return MarkState(true, ref state);
             }

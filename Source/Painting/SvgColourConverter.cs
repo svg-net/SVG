@@ -42,13 +42,13 @@ namespace Svg
                             if (partValue.IndexOf('%') == partValue.Length - 1)
                             {
                                 partValue = partValue.TrimEnd('%');
-                                var redDecimal = FloatParser.ToFloatAny(ref partValue);
+                                var redDecimal = StringParser.ToFloatAny(ref partValue);
                                 red = (int) Math.Round(255 * redDecimal / 100f);
                                 isDecimal = true;
                             }
                             else
                             {
-                                red = FloatParser.ToInt(ref partValue);
+                                red = StringParser.ToInt(ref partValue);
                                 isDecimal = false;
                             }
                         }
@@ -61,7 +61,7 @@ namespace Svg
                                     throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
                                 partValue = partValue.TrimEnd('%');
-                                var greenDecimal = FloatParser.ToFloatAny(ref partValue);
+                                var greenDecimal = StringParser.ToFloatAny(ref partValue);
                                 green = (int) Math.Round(255 * greenDecimal / 100f);
                             }
                             else
@@ -70,7 +70,7 @@ namespace Svg
                                 {
                                     throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
-                                green = FloatParser.ToInt(ref partValue);
+                                green = StringParser.ToInt(ref partValue);
                             }
                         }
                         else if (count == 2)
@@ -82,7 +82,7 @@ namespace Svg
                                     throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
                                 partValue = partValue.TrimEnd('%');
-                                var blueDecimal = FloatParser.ToFloatAny(ref partValue);
+                                var blueDecimal = StringParser.ToFloatAny(ref partValue);
                                 blue = (int) Math.Round(255 * blueDecimal / 100f);
                             }
                             else
@@ -91,7 +91,7 @@ namespace Svg
                                 {
                                     throw new SvgException("Colour is in an invalid format: '" + span.ToString() + "'");
                                 }
-                                blue = FloatParser.ToInt(ref partValue);
+                                blue = StringParser.ToInt(ref partValue);
                             }
                         }
                         else if (count == 3)
@@ -104,7 +104,7 @@ namespace Svg
                                 // TODO: partValue = "0" + partValue;
                             }
 
-                            var alphaDecimal = FloatParser.ToDouble(ref partValue);
+                            var alphaDecimal = StringParser.ToDouble(ref partValue);
                             if (alphaDecimal <= 1)
                             {
                                 alpha = (int) Math.Round(alphaDecimal * 255);
@@ -151,14 +151,14 @@ namespace Svg
                         var partValue = part.Value;
                         if (count == 0)
                         {
-                            h = FloatParser.ToDouble(ref partValue) / 360.0;
+                            h = StringParser.ToDouble(ref partValue) / 360.0;
                         }
                         else if (count == 1)
                         {
                             if (partValue.IndexOf('%') == partValue.Length - 1)
                             {
                                 partValue = partValue.TrimEnd('%');
-                                s = FloatParser.ToDouble(ref partValue) / 100.0;
+                                s = StringParser.ToDouble(ref partValue) / 100.0;
                             }
                             else
                             {
@@ -170,7 +170,7 @@ namespace Svg
                             if (partValue.IndexOf('%') == partValue.Length - 1)
                             {
                                 partValue = partValue.TrimEnd('%');
-                                l = FloatParser.ToDouble(ref partValue) / 100.0;
+                                l = StringParser.ToDouble(ref partValue) / 100.0;
                             }
                             else
                             {

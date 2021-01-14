@@ -64,7 +64,7 @@ namespace Svg
             foreach (var part in parts)
             {
                 var partValue = part.Value;
-                var result = FloatParser.ToFloatAny(ref partValue);
+                var result = StringParser.ToFloatAny(ref partValue);
                 collection.Add(result);
             }
 
