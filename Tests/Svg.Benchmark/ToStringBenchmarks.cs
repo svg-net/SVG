@@ -1,7 +1,7 @@
 using System.Globalization;
 using BenchmarkDotNet.Attributes;
 
-namespace Svg.Benchmarks
+namespace Svg.Benchmark
 {
     public class ToStringBenchmarks
     {
