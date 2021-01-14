@@ -17,49 +17,49 @@ namespace Svg.UnitTests
             Assert.AreEqual(Color.Aqua, aqua);
 
             var black = _converter.Parse(null, _cultureInfo, "black");
-            Assert.AreEqual(Color.Aqua, black);
+            Assert.AreEqual(Color.Black, black);
 
             var blue = _converter.Parse(null, _cultureInfo, "blue");
-            Assert.AreEqual(Color.Aqua, blue);
+            Assert.AreEqual(Color.Blue, blue);
 
             var fuchsia = _converter.Parse(null, _cultureInfo, "fuchsia");
-            Assert.AreEqual(Color.Aqua, fuchsia);
+            Assert.AreEqual(Color.Fuchsia, fuchsia);
 
             var gray = _converter.Parse(null, _cultureInfo, "gray");
-            Assert.AreEqual(Color.Aqua, gray);
+            Assert.AreEqual(Color.Gray, gray);
 
             var green = _converter.Parse(null, _cultureInfo, "green");
-            Assert.AreEqual(Color.Aqua, green);
+            Assert.AreEqual(Color.Green, green);
 
             var lime = _converter.Parse(null, _cultureInfo, "lime");
-            Assert.AreEqual(Color.Aqua, lime);
+            Assert.AreEqual(Color.Lime, lime);
 
             var maroon = _converter.Parse(null, _cultureInfo, "maroon");
-            Assert.AreEqual(Color.Aqua, maroon);
+            Assert.AreEqual(Color.Maroon, maroon);
 
             var navy = _converter.Parse(null, _cultureInfo, "navy");
-            Assert.AreEqual(Color.Aqua, navy);
+            Assert.AreEqual(Color.Navy, navy);
 
             var olive = _converter.Parse(null, _cultureInfo, "olive");
-            Assert.AreEqual(Color.Aqua, olive);
+            Assert.AreEqual(Color.Olive, olive);
 
             var purple = _converter.Parse(null, _cultureInfo, "purple");
-            Assert.AreEqual(Color.Aqua, purple);
+            Assert.AreEqual(Color.Purple, purple);
 
             var red = _converter.Parse(null, _cultureInfo, "red");
-            Assert.AreEqual(Color.Aqua, red);
+            Assert.AreEqual(Color.Red, red);
 
             var silver = _converter.Parse(null, _cultureInfo, "silver");
-            Assert.AreEqual(Color.Aqua, silver);
+            Assert.AreEqual(Color.Silver, silver);
 
             var teal = _converter.Parse(null, _cultureInfo, "teal");
-            Assert.AreEqual(Color.Aqua, teal);
+            Assert.AreEqual(Color.Teal, teal);
 
             var white = _converter.Parse(null, _cultureInfo, "white");
-            Assert.AreEqual(Color.Aqua, white);
+            Assert.AreEqual(Color.White, white);
 
             var yellow = _converter.Parse(null, _cultureInfo, "yellow");
-            Assert.AreEqual(Color.Aqua, yellow);
+            Assert.AreEqual(Color.Yellow, yellow);
         }
 
         [Test]
@@ -331,49 +331,49 @@ namespace Svg.UnitTests
             Assert.AreEqual(Color.Aqua, aqua);
 
             var black = _converter.Parse_OLD(null, _cultureInfo, "black");
-            Assert.AreEqual(Color.Aqua, black);
+            Assert.AreEqual(Color.Black, black);
 
             var blue = _converter.Parse_OLD(null, _cultureInfo, "blue");
-            Assert.AreEqual(Color.Aqua, blue);
+            Assert.AreEqual(Color.Blue, blue);
 
             var fuchsia = _converter.Parse_OLD(null, _cultureInfo, "fuchsia");
-            Assert.AreEqual(Color.Aqua, fuchsia);
+            Assert.AreEqual(Color.Fuchsia, fuchsia);
 
             var gray = _converter.Parse_OLD(null, _cultureInfo, "gray");
-            Assert.AreEqual(Color.Aqua, gray);
+            Assert.AreEqual(Color.Gray, gray);
 
             var green = _converter.Parse_OLD(null, _cultureInfo, "green");
-            Assert.AreEqual(Color.Aqua, green);
+            Assert.AreEqual(Color.Green, green);
 
             var lime = _converter.Parse_OLD(null, _cultureInfo, "lime");
-            Assert.AreEqual(Color.Aqua, lime);
+            Assert.AreEqual(Color.Lime, lime);
 
             var maroon = _converter.Parse_OLD(null, _cultureInfo, "maroon");
-            Assert.AreEqual(Color.Aqua, maroon);
+            Assert.AreEqual(Color.Maroon, maroon);
 
             var navy = _converter.Parse_OLD(null, _cultureInfo, "navy");
-            Assert.AreEqual(Color.Aqua, navy);
+            Assert.AreEqual(Color.Navy, navy);
 
             var olive = _converter.Parse_OLD(null, _cultureInfo, "olive");
-            Assert.AreEqual(Color.Aqua, olive);
+            Assert.AreEqual(Color.Olive, olive);
 
             var purple = _converter.Parse_OLD(null, _cultureInfo, "purple");
-            Assert.AreEqual(Color.Aqua, purple);
+            Assert.AreEqual(Color.Purple, purple);
 
             var red = _converter.Parse_OLD(null, _cultureInfo, "red");
-            Assert.AreEqual(Color.Aqua, red);
+            Assert.AreEqual(Color.Red, red);
 
             var silver = _converter.Parse_OLD(null, _cultureInfo, "silver");
-            Assert.AreEqual(Color.Aqua, silver);
+            Assert.AreEqual(Color.Silver, silver);
 
             var teal = _converter.Parse_OLD(null, _cultureInfo, "teal");
-            Assert.AreEqual(Color.Aqua, teal);
+            Assert.AreEqual(Color.Teal, teal);
 
             var white = _converter.Parse_OLD(null, _cultureInfo, "white");
-            Assert.AreEqual(Color.Aqua, white);
+            Assert.AreEqual(Color.White, white);
 
             var yellow = _converter.Parse_OLD(null, _cultureInfo, "yellow");
-            Assert.AreEqual(Color.Aqua, yellow);
+            Assert.AreEqual(Color.Yellow, yellow);
         }
 
         [Test]
