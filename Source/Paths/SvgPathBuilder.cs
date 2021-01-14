@@ -28,13 +28,16 @@ namespace Svg
         /// Parses the specified string into a collection of path segments.
         /// </summary>
         /// <param name="path">A <see cref="string"/> containing path data.</param>
-        public static SvgPathSegmentList Parse(ReadOnlySpan<char> path)
+        public static SvgPathSegmentList Parse(string path)
         {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+
             var segments = new SvgPathSegmentList();
 
             try
             {
-                var pathTrimmed = path.TrimEnd();
+                var pathTrimmed = path.AsSpan().TrimEnd();
                 var commandStart = 0;
                 var pathLength = pathTrimmed.Length;
 
@@ -79,7 +82,7 @@ namespace Svg
             }
             catch (Exception exc)
             {
-                Trace.TraceError("Error parsing path \"{0}\": {1}", path.ToString(), exc.Message);
+                Trace.TraceError("Error parsing path \"{0}\": {1}", path, exc.Message);
             }
 
             return segments;
@@ -118,7 +121,7 @@ namespace Svg
                         while (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state)
                             && CoordinateParser.TryGetFloat(out var coords1, ref chars, ref state)
                             && CoordinateParser.TryGetFloat(out var coords2, ref chars, ref state)
-                            && CoordinateParser.TryGetBool(out var size, ref chars, ref state)
+                            && CoordinateParser.TryGetBool(out var size, ref chars, ref state) 
                             && CoordinateParser.TryGetBool(out var sweep, ref chars, ref state)
                             && CoordinateParser.TryGetFloat(out var coords3, ref chars, ref state)
                             && CoordinateParser.TryGetFloat(out var coords4, ref chars, ref state))
@@ -183,8 +186,8 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgQuadraticCurveSegment(
-                                    segments.Last.End,
-                                    ToAbsolute(coords0, coords1, segments, isRelative),
+                                    segments.Last.End, 
+                                    ToAbsolute(coords0, coords1, segments, isRelative), 
                                     ToAbsolute(coords2, coords3, segments, isRelative)));
                         }
                     }
@@ -199,7 +202,7 @@ namespace Svg
                             var controlPoint = lastQuadCurve != null ? Reflect(lastQuadCurve.ControlPoint, segments.Last.End) : segments.Last.End;
                             segments.Add(
                                 new SvgQuadraticCurveSegment(
-                                    segments.Last.End,
+                                    segments.Last.End, 
                                     controlPoint,
                                     ToAbsolute(coords0, coords1, segments, isRelative)));
                         }
@@ -319,7 +322,7 @@ namespace Svg
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is string s)
-                return Parse(s.AsSpan());
+                return Parse(s);
 
             return base.ConvertFrom(context, culture, value);
         }
