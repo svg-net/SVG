@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using Svg.Helpers;
 
 namespace Svg
 {
@@ -80,9 +81,10 @@ namespace Svg
     /// <summary>
     /// A class to convert string into <see cref="SvgUnitCollection"/> instances.
     /// </summary>
-    internal class SvgUnitCollectionConverter : TypeConverter
+    public class SvgUnitCollectionConverter : TypeConverter
     {
-        private static readonly SvgUnitConverter _unitConverter = new SvgUnitConverter();
+        private static readonly char[] SplitChars = new[] { ',', ' ', '\r', '\n', '\t' };
+
         /// <summary>
         /// Converts the given object to the type of this converter, using the specified context and culture information.
         /// </summary>
@@ -95,22 +97,25 @@ namespace Svg
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            return value is not string str ? base.ConvertFrom(context, culture, value) : Parse(str.AsSpan());
+        }
+
+        public static SvgUnitCollection Parse(ReadOnlySpan<char> points)
+        {
+            var units = new SvgUnitCollection();
+            var splitChars = SplitChars.AsSpan();
+            var parts = new StringSplitEnumerator(points, splitChars);
+
+            foreach (var part in parts)
             {
-                var points = ((string)value).Trim().Split(new char[] { ',', ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                var units = new SvgUnitCollection();
-
-                foreach (var point in points)
+                var newUnit = SvgUnitConverter.Parse(part.Value);
+                if (!newUnit.IsNone)
                 {
-                    var newUnit = (SvgUnit)_unitConverter.ConvertFrom(point.Trim());
-                    if (!newUnit.IsNone)
-                        units.Add(newUnit);
+                    units.Add(newUnit);
                 }
-
-                return units;
             }
 
-            return base.ConvertFrom(context, culture, value);
+            return units;
         }
     }
 
@@ -118,19 +123,27 @@ namespace Svg
     {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            if (value is string s1)
             {
-                var s = ((string)value).Trim();
-                if (s.Equals(SvgUnitCollection.None, StringComparison.OrdinalIgnoreCase))
+                var span = s1.AsSpan();
+                var s = span.Trim();
+
+                if (MemoryExtensions.Equals(s, SvgUnitCollection.None.AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
                     return new SvgUnitCollection
                     {
                         StringForEmptyValue = SvgUnitCollection.None
                     };
-                else if (s.Equals(SvgUnitCollection.Inherit, StringComparison.OrdinalIgnoreCase))
+                }
+                else if (MemoryExtensions.Equals(s, SvgUnitCollection.Inherit.AsSpan(), StringComparison.OrdinalIgnoreCase))
+                {
                     return new SvgUnitCollection
                     {
                         StringForEmptyValue = SvgUnitCollection.Inherit
                     };
+                }
+
+                return SvgUnitCollectionConverter.Parse(span);
             }
 
             return base.ConvertFrom(context, culture, value);
