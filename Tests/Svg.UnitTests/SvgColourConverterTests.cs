@@ -82,10 +82,10 @@ namespace Svg.UnitTests
             Assert.AreEqual(SystemColors.ButtonFace, buttonFace);
 
             var buttonHighlight = _converter.Parse(null, _cultureInfo, "ButtonHighlight");
-            Assert.AreEqual(SystemColors.ButtonHighlight, buttonHighlight);
+            Assert.AreEqual(SystemColors.ControlLightLight, buttonHighlight);
 
             var buttonShadow = _converter.Parse(null, _cultureInfo, "ButtonShadow");
-            Assert.AreEqual(SystemColors.ButtonShadow, buttonShadow);
+            Assert.AreEqual(SystemColors.ControlDark, buttonShadow);
 
             // TODO: Check if SystemColors.ControlText is valid color for ButtonText.
             var buttonText = _converter.Parse(null, _cultureInfo, "ButtonText");
