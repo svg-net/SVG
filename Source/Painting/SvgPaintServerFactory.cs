@@ -7,13 +7,6 @@ namespace Svg
 {
     internal class SvgPaintServerFactory : TypeConverter
     {
-        private static readonly SvgColourConverter _colourConverter;
-
-        static SvgPaintServerFactory()
-        {
-            _colourConverter = new SvgColourConverter();
-        }
-
         public static SvgPaintServer Create(string value, SvgDocument document)
         {
             if (value == null)
