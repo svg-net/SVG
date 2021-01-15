@@ -50,7 +50,7 @@ namespace Svg.Benchmark
         {
             var colour = "ActiveBorder";
             Span<char> buffer = stackalloc char[colour.Length];
-            SvgColourConverter.ToLowerAscii(colour.AsSpan(), ref buffer);
+            ColorConverterHelpers.ToLowerAscii(colour.AsSpan(), ref buffer);
             var trimmed = ((ReadOnlySpan<char>)buffer).Trim();
         }
 
@@ -59,7 +59,7 @@ namespace Svg.Benchmark
         {
             var colour = "ActiveBorder".AsSpan().Trim();
             Span<char> buffer = stackalloc char[colour.Length];
-            SvgColourConverter.ToLowerAscii(colour, ref buffer);
+            ColorConverterHelpers.ToLowerAscii(colour, ref buffer);
         }
     }
 }
