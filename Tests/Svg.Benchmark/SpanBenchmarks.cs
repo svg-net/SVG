@@ -60,6 +60,13 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
+        public bool MemoryExtensionsCompareToOrdinalIgnoreCase()
+        {
+            var colour = "ActiveBorder".AsSpan().Trim();
+            return MemoryExtensions.CompareTo(colour, "activeborder".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0;
+        }
+
+        [Benchmark]
         public bool SpanManualEquality()
         {
             var colour = "ActiveBorder".AsSpan().Trim();
