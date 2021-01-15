@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using BenchmarkDotNet.Attributes;
 
@@ -51,6 +52,27 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_DIRECT_first()
+        {
+            var colour = "ActiveBorder".AsSpan().Trim();
+            SvgColourConverter.TryToGetSystemColor(ref colour, out var color);
+        }
+
+        [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_DIRECT_middle()
+        {
+            var colour = "InactiveCaption".AsSpan().Trim();
+            SvgColourConverter.TryToGetSystemColor(ref colour, out var color);
+        }
+
+        [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_DIRECT_last()
+        {
+            var colour = "WindowText".AsSpan().Trim();
+            SvgColourConverter.TryToGetSystemColor(ref colour, out var color);
+        }
+
+        [Benchmark]
         public void SvgColourConverter_Parse_system_colors_single_first()
         {
             _converter.Parse(null, _cultureInfo, "ActiveBorder");
@@ -101,6 +123,27 @@ namespace Svg.Benchmark
             _converter.Parse(null, _cultureInfo, "WindowText");
         }
         
+        [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_DIRECT_first_OLD()
+        {
+            var colour = "ActiveBorder".Trim();
+            SvgColourConverter.TryToGetSystemColor_OLD(colour, out var color);
+        }
+
+        [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_DIRECT_middle_OLD()
+        {
+            var colour = "InactiveCaption".Trim();
+            SvgColourConverter.TryToGetSystemColor_OLD(colour, out var color);
+        }
+
+        [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_DIRECT_last_OLD()
+        {
+            var colour = "WindowText".Trim();
+            SvgColourConverter.TryToGetSystemColor_OLD(colour, out var color);
+        }
+
         [Benchmark]
         public void SvgColourConverter_Parse_system_colors_single_first_OLD()
         {
