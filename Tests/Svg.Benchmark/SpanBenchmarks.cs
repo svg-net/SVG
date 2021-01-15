@@ -14,7 +14,7 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
-        public void MemoryExtensionsSequenceEqual()
+        public bool MemoryExtensionsSequenceEqual()
         {
             var colour = "ActiveBorder".AsSpan().Trim();
 
@@ -23,7 +23,58 @@ namespace Svg.Benchmark
 
             var span = buffer.Slice(0, length);
 
-            var equal = span.SequenceEqual("activeborder".AsSpan());
+            return span.SequenceEqual("activeborder".AsSpan());
+        }
+
+        [Benchmark]
+        public bool MemoryExtensionsSequenceCompareTo()
+        {
+            var colour = "ActiveBorder".AsSpan().Trim();
+
+            Span<char> buffer = stackalloc char[32];
+            var length = colour.ToLowerInvariant(buffer);
+
+            var span = buffer.Slice(0, length);
+
+            return span.SequenceCompareTo("activeborder".AsSpan()) == 0;
+        }
+
+        [Benchmark]
+        public bool MemoryExtensionsCompareTo()
+        {
+            var colour = "ActiveBorder".AsSpan().Trim();
+
+            Span<char> buffer = stackalloc char[32];
+            var length = colour.ToLowerInvariant(buffer);
+
+            var span = buffer.Slice(0, length);
+
+            return MemoryExtensions.CompareTo(span, "activeborder".AsSpan(), StringComparison.Ordinal) == 0;
+        }
+
+        [Benchmark]
+        public bool SpanManualEquality()
+        {
+            var colour = "ActiveBorder".AsSpan().Trim();
+
+            Span<char> buffer = stackalloc char[32];
+            var length = colour.ToLowerInvariant(buffer);
+
+            var span = buffer.Slice(0, length);
+
+            if (span.Length != colour.Length)
+            {
+                return false;
+            }
+
+            var other = "activeborder".AsSpan();
+            for (int i = 0; i < span.Length; i++)
+            {
+                if (span[i] != other[i])
+                    return false;
+            }
+
+            return true;
         }
     }
 }
