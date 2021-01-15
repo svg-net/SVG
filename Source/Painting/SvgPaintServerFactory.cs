@@ -44,7 +44,7 @@ namespace Svg
             var color = SvgColourConverter.Parse(colorValue);
             if (color == Color.Empty)
             {
-                return null;
+                return SvgPaintServer.NotSet;
             }
             return new SvgColourServer(color);
         }
