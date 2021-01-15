@@ -256,7 +256,7 @@ namespace Svg
                     Span<char> redString = stackalloc char[2] {span[1], span[1]};
                     Span<char> greenString = stackalloc char[2] {span[2], span[2]};
                     Span<char> blueString = stackalloc char[2] {span[3], span[3]};
-#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_1 || NETCOREAPP3_1 || NET5_0
                     var red = int.Parse(redString, NumberStyles.AllowHexSpecifier);
                     var green = int.Parse(greenString, NumberStyles.AllowHexSpecifier);
                     var blue = int.Parse(blueString, NumberStyles.AllowHexSpecifier);
@@ -273,7 +273,7 @@ namespace Svg
                     var redString = span.Slice(1, 2);
                     var greenString = span.Slice(3, 2);
                     var blueString = span.Slice(5, 2);
-#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_1 || NETCOREAPP3_1 || NET5_0
                     var red = int.Parse(redString, NumberStyles.AllowHexSpecifier);
                     var green = int.Parse(greenString, NumberStyles.AllowHexSpecifier);
                     var blue = int.Parse(blueString, NumberStyles.AllowHexSpecifier);
@@ -298,7 +298,7 @@ namespace Svg
 
             // Numbers are handled as colors by System.Drawing.ColorConverter - we
             // have to prevent this and ignore the color instead (see #342).
-#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_2 || NETCOREAPP3_0
+#if NETSTANDARD2_1 || NETCORE || NETCOREAPP2_1 || NETCOREAPP3_1 || NET5_0
             if (int.TryParse(span, NumberStyles.Integer, CultureInfo.InvariantCulture, out _))
             {
                 return SvgPaintServer.NotSet;
