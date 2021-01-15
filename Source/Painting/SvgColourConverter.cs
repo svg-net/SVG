@@ -338,7 +338,337 @@ namespace Svg
             return base.ConvertFrom(context, culture, colour);
         }
 
+        private static uint ComputeStringHash(ref ReadOnlySpan<char> text)
+        {
+            uint hashCode = 0;
+            if (text != null)
+            {
+                var length = text.Length;
+
+                hashCode = unchecked((uint)2166136261);
+
+                int i = 0;
+                goto start;
+
+                again:
+                hashCode = unchecked((text[i] ^ hashCode) * 16777619);
+                i = i + 1;
+
+                start:
+                if (i < length)
+                    goto again;
+            }
+            return hashCode;
+        }
+
         public static bool TryToGetSystemColor(ref ReadOnlySpan<char> colour, out Color systemColor)
+        {
+            var stringHash = ComputeStringHash(ref colour);
+            switch(stringHash)
+            {
+                // activeborder = SystemColors.ActiveBorder
+                case 0x96b1f469:
+                    {
+                        if (colour.CompareTo("activeborder".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ActiveBorder;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // activecaption = SystemColors.ActiveCaption
+                case 0x2cc5885f:
+                    {
+                        if (colour.CompareTo("activecaption".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ActiveCaption;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // appworkspace = SystemColors.AppWorkspace
+                case 0xb4f0f429:
+                    {
+                        if (colour.CompareTo("appworkspace".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.AppWorkspace;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // background = SystemColors.Desktop
+                case 0x4babd89d:
+                    {
+                        if (colour.CompareTo("background".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.Desktop;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // buttonface = SystemColors.ButtonFace
+                case 0xb8a66038:
+                    {
+                        if (colour.CompareTo("buttonface".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ButtonFace;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // buttonhighlight = SystemColors.ControlLightLight
+                case 0x9050ce9b:
+                    {
+                        if (colour.CompareTo("buttonhighlight".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ControlLightLight;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // buttonshadow = SystemColors.ControlDark
+                case 0x6ceea1b5:
+                    {
+                        if (colour.CompareTo("buttonshadow".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ControlDark;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // buttontext = SystemColors.ControlText
+                case 0xb6b04242:
+                    {
+                        if (colour.CompareTo("buttontext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ControlText;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // captiontext = SystemColors.ActiveCaptionText
+                case 0xf29413de:
+                    {
+                        if (colour.CompareTo("captiontext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ActiveCaptionText;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // graytext = SystemColors.GrayText
+                case 0x9642ba91:
+                    {
+                        if (colour.CompareTo("graytext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.GrayText;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // highlight = SystemColors.Highlight
+                case 0x1c9ff127:
+                    {
+                        if (colour.CompareTo("highlight".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.Highlight;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // highlighttext = SystemColors.HighlightText
+                case 0x635b6be0:
+                    {
+                        if (colour.CompareTo("highlighttext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.HighlightText;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // inactiveborder = SystemColors.InactiveBorder
+                case 0xa59d8bc6:
+                    {
+                        if (colour.CompareTo("inactiveborder".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.InactiveBorder;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // inactivecaption = SystemColors.InactiveCaption
+                case 0xba88bd1a:
+                    {
+                        if (colour.CompareTo("inactivecaption".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.InactiveCaption;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // inactivecaptiontext = SystemColors.InactiveCaptionText
+                case 0xcb67dc11:
+                    {
+                        if (colour.CompareTo("inactivecaptiontext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.InactiveCaptionText;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // infobackground = SystemColors.Info
+                case 0x9c8c4bdd:
+                    {
+                        if (colour.CompareTo("infobackground".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.Info;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // infotext = SystemColors.InfoText
+                case 0xb164837e:
+                    {
+                        if (colour.CompareTo("infotext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.InfoText;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // menu = SystemColors.Menu
+                case 0x99e4dd3a:
+                    {
+                        if (colour.CompareTo("menu".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.Menu;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // menutext = SystemColors.MenuText
+                case 0x4c924831:
+                    {
+                        if (colour.CompareTo("menutext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.MenuText;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // scrollbar = SystemColors.ScrollBar
+                case 0xd5b6c079:
+                    {
+                        if (colour.CompareTo("scrollbar".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ScrollBar;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // threeddarkshadow = SystemColors.ControlDarkDark
+                case 0xffa62901:
+                    {
+                        if (colour.CompareTo("threeddarkshadow".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ControlDarkDark;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // threedface = SystemColors.Control
+                case 0x77fd6efc:
+                    {
+                        if (colour.CompareTo("threedface".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.Control;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // threedhighlight = SystemColors.ControlLight
+                case 0xd4724bc7:
+                    {
+                        if (colour.CompareTo("threedhighlight".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ControlLight;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // threedlightshadow = SystemColors.ControlLightLight
+                case 0x238bb757:
+                    {
+                        if (colour.CompareTo("threedlightshadow".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.ControlLightLight;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // window = SystemColors.Window
+                case 0xa172b7dd:
+                    {
+                        if (colour.CompareTo("window".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.Window;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // windowframe = SystemColors.WindowFrame
+                case 0x6f554c7e:
+                    {
+                        if (colour.CompareTo("windowframe".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.WindowFrame;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+                // windowtext = SystemColors.WindowText
+                case 0xe477b746:
+                    {
+                        if (colour.CompareTo("windowtext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+                        {
+                            systemColor = SystemColors.WindowText;
+                            return true;
+                        }
+                        systemColor = default;
+                        return false;
+                    }
+            }
+            systemColor = default;
+            return false;
+        }
+
+        /*public static bool TryToGetSystemColor(ref ReadOnlySpan<char> colour, out Color systemColor)
         {
             if (colour.CompareTo("activeborder".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
             {
@@ -475,10 +805,9 @@ namespace Svg
                 systemColor = SystemColors.WindowText;
                 return true;
             }
-
             systemColor = default;
             return false;
-        }
+        }*/
 
         /// <summary>
         /// Converts the given object to the converter's native type.
