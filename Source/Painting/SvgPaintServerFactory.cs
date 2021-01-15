@@ -41,7 +41,13 @@ namespace Svg
             }
 
             // Otherwise try and parse as colour
-            return new SvgColourServer((Color)_colourConverter.ConvertFrom(colorValue));
+            // return new SvgColourServer((Color)_colourConverter.ConvertFrom(colorValue));
+            var color = SvgColourConverter.Parse(colorValue);
+            if (color == Color.Empty)
+            {
+                return SvgPaintServer.NotSet;
+            }
+            return new SvgColourServer(color);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)

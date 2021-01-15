@@ -12,22 +12,22 @@ namespace Svg.Benchmark
         [Benchmark]
         public void SvgColourConverter_Parse_html_4()
         {
-           _converter.Parse(null, _cultureInfo, "aqua");
-           _converter.Parse(null, _cultureInfo, "black");
-           _converter.Parse(null, _cultureInfo, "blue");
-           _converter.Parse(null, _cultureInfo, "fuchsia");
-           _converter.Parse(null, _cultureInfo, "gray");
-           _converter.Parse(null, _cultureInfo, "green");
-           _converter.Parse(null, _cultureInfo, "lime");
-           _converter.Parse(null, _cultureInfo, "maroon");
-           _converter.Parse(null, _cultureInfo, "navy");
-           _converter.Parse(null, _cultureInfo, "olive");
-           _converter.Parse(null, _cultureInfo, "purple");
-           _converter.Parse(null, _cultureInfo, "red");
-           _converter.Parse(null, _cultureInfo, "silver");
-           _converter.Parse(null, _cultureInfo, "teal");
-           _converter.Parse(null, _cultureInfo, "white");
-           _converter.Parse(null, _cultureInfo, "yellow");
+           SvgColourConverter.Parse("aqua");
+           SvgColourConverter.Parse("black");
+           SvgColourConverter.Parse("blue");
+           SvgColourConverter.Parse("fuchsia");
+           SvgColourConverter.Parse("gray");
+           SvgColourConverter.Parse("green");
+           SvgColourConverter.Parse("lime");
+           SvgColourConverter.Parse("maroon");
+           SvgColourConverter.Parse("navy");
+           SvgColourConverter.Parse("olive");
+           SvgColourConverter.Parse("purple");
+           SvgColourConverter.Parse("red");
+           SvgColourConverter.Parse("silver");
+           SvgColourConverter.Parse("teal");
+           SvgColourConverter.Parse("white");
+           SvgColourConverter.Parse("yellow");
         }
 
         [Benchmark]
@@ -55,72 +55,72 @@ namespace Svg.Benchmark
         public void SvgColourConverter_Parse_system_colors_single_DIRECT_first()
         {
             var colour = "ActiveBorder".AsSpan().Trim();
-            SvgColourConverter.TryToGetSystemColor(ref colour, out var color);
+            ColorConverterHelpers.TryToGetSystemColor(ref colour, out var color);
         }
 
         [Benchmark]
         public void SvgColourConverter_Parse_system_colors_single_DIRECT_middle()
         {
             var colour = "InactiveCaption".AsSpan().Trim();
-            SvgColourConverter.TryToGetSystemColor(ref colour, out var color);
+            ColorConverterHelpers.TryToGetSystemColor(ref colour, out var color);
         }
 
         [Benchmark]
         public void SvgColourConverter_Parse_system_colors_single_DIRECT_last()
         {
             var colour = "WindowText".AsSpan().Trim();
-            SvgColourConverter.TryToGetSystemColor(ref colour, out var color);
+            ColorConverterHelpers.TryToGetSystemColor(ref colour, out var color);
         }
 
         [Benchmark]
         public void SvgColourConverter_Parse_system_colors_single_first()
         {
-            _converter.Parse(null, _cultureInfo, "ActiveBorder");
+            SvgColourConverter.Parse("ActiveBorder");
         }
 
         [Benchmark]
         public void SvgColourConverter_Parse_system_colors_single_middle()
         {
-            _converter.Parse(null, _cultureInfo, "InactiveCaption");
+            SvgColourConverter.Parse("InactiveCaption");
         }
 
         [Benchmark]
         public void SvgColourConverter_Parse_system_colors_single_last()
         {
-            _converter.Parse(null, _cultureInfo, "WindowText");
+            SvgColourConverter.Parse("WindowText");
         }
 
         [Benchmark]
         public void SvgColourConverter_Parse_system_colors()
         {
-            _converter.Parse(null, _cultureInfo, "ActiveBorder");
-            _converter.Parse(null, _cultureInfo, "ActiveCaption");
-            _converter.Parse(null, _cultureInfo, "AppWorkspace");
-            _converter.Parse(null, _cultureInfo, "Background");
-            _converter.Parse(null, _cultureInfo, "ButtonFace");
-            _converter.Parse(null, _cultureInfo, "ButtonHighlight");
-            _converter.Parse(null, _cultureInfo, "ButtonShadow");
-            _converter.Parse(null, _cultureInfo, "ButtonText");
-            _converter.Parse(null, _cultureInfo, "CaptionText");
-            _converter.Parse(null, _cultureInfo, "GrayText");
-            _converter.Parse(null, _cultureInfo, "Highlight");
-            _converter.Parse(null, _cultureInfo, "HighlightText");
-            _converter.Parse(null, _cultureInfo, "InactiveBorder");
-            _converter.Parse(null, _cultureInfo, "InactiveCaption");
-            _converter.Parse(null, _cultureInfo, "InactiveCaptionText");
-            _converter.Parse(null, _cultureInfo, "InfoBackground");
-            _converter.Parse(null, _cultureInfo, "InfoText");
-            _converter.Parse(null, _cultureInfo, "Menu");
-            _converter.Parse(null, _cultureInfo, "MenuText");
-            _converter.Parse(null, _cultureInfo, "ScrollBar");
-            _converter.Parse(null, _cultureInfo, "ThreeDDarkShadow");
-            _converter.Parse(null, _cultureInfo, "ThreeDFace");
-            _converter.Parse(null, _cultureInfo, "ThreeDHighlight");
-            _converter.Parse(null, _cultureInfo, "ThreeDLightShadow");
-            // TODO: _converter.Parse(null, _cultureInfo, "ThreeDShadow");
-            _converter.Parse(null, _cultureInfo, "Window");
-            _converter.Parse(null, _cultureInfo, "WindowFrame");
-            _converter.Parse(null, _cultureInfo, "WindowText");
+            SvgColourConverter.Parse("ActiveBorder");
+            SvgColourConverter.Parse("ActiveCaption");
+            SvgColourConverter.Parse("AppWorkspace");
+            SvgColourConverter.Parse("Background");
+            SvgColourConverter.Parse("ButtonFace");
+            SvgColourConverter.Parse("ButtonHighlight");
+            SvgColourConverter.Parse("ButtonShadow");
+            SvgColourConverter.Parse("ButtonText");
+            SvgColourConverter.Parse("CaptionText");
+            SvgColourConverter.Parse("GrayText");
+            SvgColourConverter.Parse("Highlight");
+            SvgColourConverter.Parse("HighlightText");
+            SvgColourConverter.Parse("InactiveBorder");
+            SvgColourConverter.Parse("InactiveCaption");
+            SvgColourConverter.Parse("InactiveCaptionText");
+            SvgColourConverter.Parse("InfoBackground");
+            SvgColourConverter.Parse("InfoText");
+            SvgColourConverter.Parse("Menu");
+            SvgColourConverter.Parse("MenuText");
+            SvgColourConverter.Parse("ScrollBar");
+            SvgColourConverter.Parse("ThreeDDarkShadow");
+            SvgColourConverter.Parse("ThreeDFace");
+            SvgColourConverter.Parse("ThreeDHighlight");
+            SvgColourConverter.Parse("ThreeDLightShadow");
+            // TODO: SvgColourConverter.Parse("ThreeDShadow");
+            SvgColourConverter.Parse("Window");
+            SvgColourConverter.Parse("WindowFrame");
+            SvgColourConverter.Parse("WindowText");
         }
         
         [Benchmark]
@@ -198,9 +198,9 @@ namespace Svg.Benchmark
         [Benchmark]
         public void SvgColourConverter_Parse_hex_rgb()
         {
-            _converter.Parse(null, _cultureInfo, "#f00");
-            _converter.Parse(null, _cultureInfo, "#fb0");
-            _converter.Parse(null, _cultureInfo, "#fff");
+            SvgColourConverter.Parse("#f00");
+            SvgColourConverter.Parse("#fb0");
+            SvgColourConverter.Parse("#fff");
         }
 
         [Benchmark]
@@ -214,12 +214,12 @@ namespace Svg.Benchmark
         [Benchmark]
         public void SvgColourConverter_Parse_hex_rrggbb()
         {
-            _converter.Parse(null, _cultureInfo, "#ff0000");
-            _converter.Parse(null, _cultureInfo, "#00ff00");
-            _converter.Parse(null, _cultureInfo, "#0000ff");
-            _converter.Parse(null, _cultureInfo, "#000000");
-            _converter.Parse(null, _cultureInfo, "#ffffff");
-            _converter.Parse(null, _cultureInfo, "#ffbb00");
+            SvgColourConverter.Parse("#ff0000");
+            SvgColourConverter.Parse("#00ff00");
+            SvgColourConverter.Parse("#0000ff");
+            SvgColourConverter.Parse("#000000");
+            SvgColourConverter.Parse("#ffffff");
+            SvgColourConverter.Parse("#ffbb00");
         }
 
         [Benchmark]
@@ -236,13 +236,13 @@ namespace Svg.Benchmark
         [Benchmark]
         public void SvgColourConverter_Parse_rgb_integer_range()
         {
-            _converter.Parse(null, _cultureInfo, "rgb(255,0,0)");
-            _converter.Parse(null, _cultureInfo, "rgb(0,255,0)");
-            _converter.Parse(null, _cultureInfo, "rgb(0,0,255)");
-            _converter.Parse(null, _cultureInfo, "rgb(0,0,0)");
-            _converter.Parse(null, _cultureInfo, "rgb(255,255,255)");
-            // TODO: _converter.Parse(null, _cultureInfo, "rgb(300,0,0)");
-            // TODO: _converter.Parse(null, _cultureInfo, "rgb(255,-10,0)");
+            SvgColourConverter.Parse("rgb(255,0,0)");
+            SvgColourConverter.Parse("rgb(0,255,0)");
+            SvgColourConverter.Parse("rgb(0,0,255)");
+            SvgColourConverter.Parse("rgb(0,0,0)");
+            SvgColourConverter.Parse("rgb(255,255,255)");
+            // TODO: SvgColourConverter.Parse("rgb(300,0,0)");
+            // TODO: SvgColourConverter.Parse("rgb(255,-10,0)");
         }
         
         [Benchmark]
@@ -260,12 +260,12 @@ namespace Svg.Benchmark
         [Benchmark]
         public void SvgColourConverter_Parse_rgb_float_range()
         {
-            _converter.Parse(null, _cultureInfo, "rgb(100%, 0%, 0%)");
-            _converter.Parse(null, _cultureInfo, "rgb(0%, 100%, 0%)");
-            _converter.Parse(null, _cultureInfo, "rgb(0%, 0%, 100%)");
-            _converter.Parse(null, _cultureInfo, "rgb(100%, 100%, 100%)");
-            _converter.Parse(null, _cultureInfo, "rgb(0%, 0%, 0%)");
-            // TODO: _converter.Parse(null, _cultureInfo, "rgb(110%, 0%, 0%)");
+            SvgColourConverter.Parse("rgb(100%, 0%, 0%)");
+            SvgColourConverter.Parse("rgb(0%, 100%, 0%)");
+            SvgColourConverter.Parse("rgb(0%, 0%, 100%)");
+            SvgColourConverter.Parse("rgb(100%, 100%, 100%)");
+            SvgColourConverter.Parse("rgb(0%, 0%, 0%)");
+            // TODO: SvgColourConverter.Parse("rgb(110%, 0%, 0%)");
         }
 
         [Benchmark]
@@ -282,13 +282,13 @@ namespace Svg.Benchmark
         [Benchmark]
         public void SvgColourConverter_Parse_rgb_hsl()
         {
-            _converter.Parse(null, _cultureInfo, "hsl(0, 100%, 50%)");
-            _converter.Parse(null, _cultureInfo, "hsl(120, 100%, 50%)");
-            _converter.Parse(null, _cultureInfo, "hsl(240, 100%, 50%)");
-            _converter.Parse(null, _cultureInfo, "hsl(0, 0%, 100%)");
-            _converter.Parse(null, _cultureInfo, "hsl(0, 0%, 0%)");
-            _converter.Parse(null, _cultureInfo, "hsl(359, 0%, 0%)");
-            _converter.Parse(null, _cultureInfo, "hsl(180, 50%, 50%)");
+            SvgColourConverter.Parse("hsl(0, 100%, 50%)");
+            SvgColourConverter.Parse("hsl(120, 100%, 50%)");
+            SvgColourConverter.Parse("hsl(240, 100%, 50%)");
+            SvgColourConverter.Parse("hsl(0, 0%, 100%)");
+            SvgColourConverter.Parse("hsl(0, 0%, 0%)");
+            SvgColourConverter.Parse("hsl(359, 0%, 0%)");
+            SvgColourConverter.Parse("hsl(180, 50%, 50%)");
         }
 
         [Benchmark]
