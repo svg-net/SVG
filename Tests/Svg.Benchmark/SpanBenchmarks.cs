@@ -40,7 +40,7 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
-        public bool MemoryExtensionsCompareTo()
+        public bool MemoryExtensionsCompareToOrdinal()
         {
             var colour = "ActiveBorder".AsSpan().Trim();
 
@@ -50,6 +50,13 @@ namespace Svg.Benchmark
             var span = buffer.Slice(0, length);
 
             return MemoryExtensions.CompareTo(span, "activeborder".AsSpan(), StringComparison.Ordinal) == 0;
+        }
+
+        [Benchmark]
+        public bool MemoryExtensionsCompareToInvariantCultureIgnoreCase()
+        {
+            var colour = "ActiveBorder".AsSpan().Trim();
+            return MemoryExtensions.CompareTo(colour, "activeborder".AsSpan(), StringComparison.InvariantCultureIgnoreCase) == 0;
         }
 
         [Benchmark]
