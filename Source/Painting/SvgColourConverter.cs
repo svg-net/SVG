@@ -338,7 +338,7 @@ namespace Svg
             return base.ConvertFrom(context, culture, colour);
         }
 
-        private static uint ComputeStringHash(ref ReadOnlySpan<char> text)
+        private static uint ComputeStringHash(in ReadOnlySpan<char> text)
         {
             uint hashCode = 0;
             if (text != null)
@@ -361,308 +361,60 @@ namespace Svg
             return hashCode;
         }
 
+        private static void ToLowerAscii(in ReadOnlySpan<char> colour, in Span<char> buffer)
+        {
+            for (int i = 0; i < colour.Length; i++)
+            {
+                var c = colour[i];
+                if (c >= 'a' && c <= 'z')
+                {
+                    buffer[i] = (char)(c - 32);
+                }
+                else if(c >= 'A' && c <= 'Z')
+                {
+                    buffer[i] = (char)(c + 32);
+                }
+                else
+                {
+                    buffer[i] = c;
+                }
+            }
+        }
+
         public static bool TryToGetSystemColor(ref ReadOnlySpan<char> colour, out Color systemColor)
         {
-            var stringHash = ComputeStringHash(ref colour);
+            Span<char> buffer = stackalloc char[colour.Length];
+            ToLowerAscii(colour, buffer);
+            var stringHash = ComputeStringHash(buffer);
             switch(stringHash)
             {
-                // activeborder = SystemColors.ActiveBorder
-                case 0x96b1f469:
-                    {
-                        if (colour.CompareTo("activeborder".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ActiveBorder;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // activecaption = SystemColors.ActiveCaption
-                case 0x2cc5885f:
-                    {
-                        if (colour.CompareTo("activecaption".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ActiveCaption;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // appworkspace = SystemColors.AppWorkspace
-                case 0xb4f0f429:
-                    {
-                        if (colour.CompareTo("appworkspace".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.AppWorkspace;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // background = SystemColors.Desktop
-                case 0x4babd89d:
-                    {
-                        if (colour.CompareTo("background".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.Desktop;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // buttonface = SystemColors.ButtonFace
-                case 0xb8a66038:
-                    {
-                        if (colour.CompareTo("buttonface".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ButtonFace;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // buttonhighlight = SystemColors.ControlLightLight
-                case 0x9050ce9b:
-                    {
-                        if (colour.CompareTo("buttonhighlight".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ControlLightLight;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // buttonshadow = SystemColors.ControlDark
-                case 0x6ceea1b5:
-                    {
-                        if (colour.CompareTo("buttonshadow".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ControlDark;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // buttontext = SystemColors.ControlText
-                case 0xb6b04242:
-                    {
-                        if (colour.CompareTo("buttontext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ControlText;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // captiontext = SystemColors.ActiveCaptionText
-                case 0xf29413de:
-                    {
-                        if (colour.CompareTo("captiontext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ActiveCaptionText;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // graytext = SystemColors.GrayText
-                case 0x9642ba91:
-                    {
-                        if (colour.CompareTo("graytext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.GrayText;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // highlight = SystemColors.Highlight
-                case 0x1c9ff127:
-                    {
-                        if (colour.CompareTo("highlight".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.Highlight;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // highlighttext = SystemColors.HighlightText
-                case 0x635b6be0:
-                    {
-                        if (colour.CompareTo("highlighttext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.HighlightText;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // inactiveborder = SystemColors.InactiveBorder
-                case 0xa59d8bc6:
-                    {
-                        if (colour.CompareTo("inactiveborder".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.InactiveBorder;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // inactivecaption = SystemColors.InactiveCaption
-                case 0xba88bd1a:
-                    {
-                        if (colour.CompareTo("inactivecaption".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.InactiveCaption;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // inactivecaptiontext = SystemColors.InactiveCaptionText
-                case 0xcb67dc11:
-                    {
-                        if (colour.CompareTo("inactivecaptiontext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.InactiveCaptionText;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // infobackground = SystemColors.Info
-                case 0x9c8c4bdd:
-                    {
-                        if (colour.CompareTo("infobackground".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.Info;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // infotext = SystemColors.InfoText
-                case 0xb164837e:
-                    {
-                        if (colour.CompareTo("infotext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.InfoText;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // menu = SystemColors.Menu
-                case 0x99e4dd3a:
-                    {
-                        if (colour.CompareTo("menu".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.Menu;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // menutext = SystemColors.MenuText
-                case 0x4c924831:
-                    {
-                        if (colour.CompareTo("menutext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.MenuText;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // scrollbar = SystemColors.ScrollBar
-                case 0xd5b6c079:
-                    {
-                        if (colour.CompareTo("scrollbar".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ScrollBar;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // threeddarkshadow = SystemColors.ControlDarkDark
-                case 0xffa62901:
-                    {
-                        if (colour.CompareTo("threeddarkshadow".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ControlDarkDark;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // threedface = SystemColors.Control
-                case 0x77fd6efc:
-                    {
-                        if (colour.CompareTo("threedface".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.Control;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // threedhighlight = SystemColors.ControlLight
-                case 0xd4724bc7:
-                    {
-                        if (colour.CompareTo("threedhighlight".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ControlLight;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // threedlightshadow = SystemColors.ControlLightLight
-                case 0x238bb757:
-                    {
-                        if (colour.CompareTo("threedlightshadow".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.ControlLightLight;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // window = SystemColors.Window
-                case 0xa172b7dd:
-                    {
-                        if (colour.CompareTo("window".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.Window;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // windowframe = SystemColors.WindowFrame
-                case 0x6f554c7e:
-                    {
-                        if (colour.CompareTo("windowframe".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.WindowFrame;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
-                // windowtext = SystemColors.WindowText
-                case 0xe477b746:
-                    {
-                        if (colour.CompareTo("windowtext".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
-                        {
-                            systemColor = SystemColors.WindowText;
-                            return true;
-                        }
-                        systemColor = default;
-                        return false;
-                    }
+                case 0x96b1f469: systemColor = SystemColors.ActiveBorder; return true; // activeborder
+                case 0x2cc5885f: systemColor = SystemColors.ActiveCaption; return true; // activecaption
+                case 0xb4f0f429: systemColor = SystemColors.AppWorkspace; return true; // appworkspace
+                case 0x4babd89d: systemColor = SystemColors.Desktop; return true; // background
+                case 0xb8a66038: systemColor = SystemColors.ButtonFace; return true; // buttonface
+                case 0x9050ce9b: systemColor = SystemColors.ControlLightLight; return true; // buttonhighlight
+                case 0x6ceea1b5: systemColor = SystemColors.ControlDark; return true; // buttonshadow
+                case 0xb6b04242: systemColor = SystemColors.ControlText; return true; // buttontext
+                case 0xf29413de: systemColor = SystemColors.ActiveCaptionText; return true; // captiontext
+                case 0x9642ba91: systemColor = SystemColors.GrayText; return true; // graytext
+                case 0x1c9ff127: systemColor = SystemColors.Highlight; return true; // highlight
+                case 0x635b6be0: systemColor = SystemColors.HighlightText; return true; // highlighttext
+                case 0xa59d8bc6: systemColor = SystemColors.InactiveBorder; return true; // inactiveborder
+                case 0xba88bd1a: systemColor = SystemColors.InactiveCaption; return true; // inactivecaption
+                case 0xcb67dc11: systemColor = SystemColors.InactiveCaptionText; return true; // inactivecaptiontext
+                case 0x9c8c4bdd: systemColor = SystemColors.Info; return true; // infobackground
+                case 0xb164837e: systemColor = SystemColors.InfoText; return true; // infotext
+                case 0x99e4dd3a: systemColor = SystemColors.Menu; return true; // menu
+                case 0x4c924831: systemColor = SystemColors.MenuText; return true; // menutext
+                case 0xd5b6c079: systemColor = SystemColors.ScrollBar; return true; // scrollbar
+                case 0xffa62901: systemColor = SystemColors.ControlDarkDark; return true; // threeddarkshadow
+                case 0x77fd6efc: systemColor = SystemColors.Control; return true; // threedface
+                case 0xd4724bc7: systemColor = SystemColors.ControlLight; return true; // threedhighlight
+                case 0x238bb757: systemColor = SystemColors.ControlLightLight; return true; // threedlightshadow
+                case 0xa172b7dd: systemColor = SystemColors.Window; return true; // window
+                case 0x6f554c7e: systemColor = SystemColors.WindowFrame; return true; // windowframe
+                case 0xe477b746: systemColor = SystemColors.WindowText; return true; // windowtext
             }
             systemColor = default;
             return false;
