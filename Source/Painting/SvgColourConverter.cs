@@ -2435,6 +2435,8 @@ namespace Svg
                     }
                     return Color.FromArgb(255, red, green, blue);
                 }
+
+                return Color.Empty;
             }
 
             // Colors support
@@ -2455,7 +2457,6 @@ namespace Svg
                 return greyColor;
             }
 
-            // TODO: return SvgPaintServer.NotSet
             return Color.Empty;
         }
 
