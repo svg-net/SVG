@@ -338,13 +338,13 @@ namespace Svg
             return base.ConvertFrom(context, culture, colour);
         }
 
-        public static bool TryToGetSystemColor(ref ReadOnlySpan<char> colour, out Color color)
+        public static bool TryToGetSystemColor(ref ReadOnlySpan<char> colour, out Color systemColor)
         {
             Span<char> buffer = stackalloc char[32];
             var length = colour.ToLowerInvariant(buffer);
             if (colour.Length != length)
             {
-                color = default;
+                systemColor = default;
                 return false;
             }
             var span = buffer.Slice(0, length);
@@ -352,141 +352,141 @@ namespace Svg
             // SystemColors support
             if (span.SequenceEqual("activeborder".AsSpan()))
             {
-                color = SystemColors.ActiveBorder;
+                systemColor = SystemColors.ActiveBorder;
                 return true;
             }
             if (span.SequenceEqual("activecaption".AsSpan()))
             {
-                color = SystemColors.ActiveCaption;
+                systemColor = SystemColors.ActiveCaption;
                 return true;
             }
             if (span.SequenceEqual("appworkspace".AsSpan()))
             {
-                color = SystemColors.AppWorkspace;
+                systemColor = SystemColors.AppWorkspace;
                 return true;
             }
             if (span.SequenceEqual("background".AsSpan()))
             {
-                color = SystemColors.Desktop;
+                systemColor = SystemColors.Desktop;
                 return true;
             }
             if (span.SequenceEqual("buttonface".AsSpan()))
             {
-                color = SystemColors.ButtonFace;
+                systemColor = SystemColors.ButtonFace;
                 return true;
             }
             if (span.SequenceEqual("buttonhighlight".AsSpan()))
             {
-                color = SystemColors.ControlLightLight;
+                systemColor = SystemColors.ControlLightLight;
                 return true;
             }
             if (span.SequenceEqual("buttonshadow".AsSpan()))
             {
-                color = SystemColors.ControlDark;
+                systemColor = SystemColors.ControlDark;
                 return true;
             }
             if (span.SequenceEqual("buttontext".AsSpan()))
             {
-                color = SystemColors.ControlText;
+                systemColor = SystemColors.ControlText;
                 return true;
             }
             if (span.SequenceEqual("captiontext".AsSpan()))
             {
-                color = SystemColors.ActiveCaptionText;
+                systemColor = SystemColors.ActiveCaptionText;
                 return true;
             }
             if (span.SequenceEqual("graytext".AsSpan()))
             {
-                color = SystemColors.GrayText;
+                systemColor = SystemColors.GrayText;
                 return true;
             }
             if (span.SequenceEqual("highlight".AsSpan()))
             {
-                color = SystemColors.Highlight;
+                systemColor = SystemColors.Highlight;
                 return true;
             }
             if (span.SequenceEqual("highlighttext".AsSpan()))
             {
-                color = SystemColors.HighlightText;
+                systemColor = SystemColors.HighlightText;
                 return true;
             }
             if (span.SequenceEqual("inactiveborder".AsSpan()))
             {
-                color = SystemColors.InactiveBorder;
+                systemColor = SystemColors.InactiveBorder;
                 return true;
             }
             if (span.SequenceEqual("inactivecaption".AsSpan()))
             {
-                color = SystemColors.InactiveCaption;
+                systemColor = SystemColors.InactiveCaption;
                 return true;
             }
             if (span.SequenceEqual("inactivecaptiontext".AsSpan()))
             {
-                color = SystemColors.InactiveCaptionText;
+                systemColor = SystemColors.InactiveCaptionText;
                 return true;
             }
             if (span.SequenceEqual("infobackground".AsSpan()))
             {
-                color = SystemColors.Info;
+                systemColor = SystemColors.Info;
                 return true;
             }
             if (span.SequenceEqual("infotext".AsSpan()))
             {
-                color = SystemColors.InfoText;
+                systemColor = SystemColors.InfoText;
                 return true;
             }
             if (span.SequenceEqual("menu".AsSpan()))
             {
-                color = SystemColors.Menu;
+                systemColor = SystemColors.Menu;
                 return true;
             }
             if (span.SequenceEqual("menutext".AsSpan()))
             {
-                color = SystemColors.MenuText;
+                systemColor = SystemColors.MenuText;
                 return true;
             }
             if (span.SequenceEqual("scrollbar".AsSpan()))
             {
-                color = SystemColors.ScrollBar;
+                systemColor = SystemColors.ScrollBar;
                 return true;
             }
             if (span.SequenceEqual("threeddarkshadow".AsSpan()))
             {
-                color = SystemColors.ControlDarkDark;
+                systemColor = SystemColors.ControlDarkDark;
                 return true;
             }
             if (span.SequenceEqual("threedface".AsSpan()))
             {
-                color = SystemColors.Control;
+                systemColor = SystemColors.Control;
                 return true;
             }
             if (span.SequenceEqual("threedhighlight".AsSpan()))
             {
-                color = SystemColors.ControlLight;
+                systemColor = SystemColors.ControlLight;
                 return true;
             }
             if (span.SequenceEqual("threedlightshadow".AsSpan()))
             {
-                color = SystemColors.ControlLightLight;
+                systemColor = SystemColors.ControlLightLight;
                 return true;
             }
             if (span.SequenceEqual("window".AsSpan()))
             {
-                color = SystemColors.Window;
+                systemColor = SystemColors.Window;
                 return true;
             }
             if (span.SequenceEqual("windowframe".AsSpan()))
             {
-                color = SystemColors.WindowFrame;
+                systemColor = SystemColors.WindowFrame;
                 return true;
             }
             if (span.SequenceEqual("windowtext".AsSpan()))
             {
-                color = SystemColors.WindowText;
+                systemColor = SystemColors.WindowText;
                 return true;
             }
 
-            color = default;
+            systemColor = default;
             return false;
         }
 
@@ -620,35 +620,9 @@ namespace Svg
             }
 
             // SystemColors support
-            switch (colour.ToLowerInvariant())
+            if (TryToGetSystemColor_OLD(colour, out var systemColor))
             {
-                case "activeborder": return SystemColors.ActiveBorder;
-                case "activecaption": return SystemColors.ActiveCaption;
-                case "appworkspace": return SystemColors.AppWorkspace;
-                case "background": return SystemColors.Desktop;
-                case "buttonface": return SystemColors.Control;
-                case "buttonhighlight": return SystemColors.ControlLightLight;
-                case "buttonshadow": return SystemColors.ControlDark;
-                case "buttontext": return SystemColors.ControlText;
-                case "captiontext": return SystemColors.ActiveCaptionText;
-                case "graytext": return SystemColors.GrayText;
-                case "highlight": return SystemColors.Highlight;
-                case "highlighttext": return SystemColors.HighlightText;
-                case "inactiveborder": return SystemColors.InactiveBorder;
-                case "inactivecaption": return SystemColors.InactiveCaption;
-                case "inactivecaptiontext": return SystemColors.InactiveCaptionText;
-                case "infobackground": return SystemColors.Info;
-                case "infotext": return SystemColors.InfoText;
-                case "menu": return SystemColors.Menu;
-                case "menutext": return SystemColors.MenuText;
-                case "scrollbar": return SystemColors.ScrollBar;
-                case "threeddarkshadow": return SystemColors.ControlDarkDark;
-                case "threedface": return SystemColors.Control;
-                case "threedhighlight": return SystemColors.ControlLight;
-                case "threedlightshadow": return SystemColors.ControlLightLight;
-                case "window": return SystemColors.Window;
-                case "windowframe": return SystemColors.WindowFrame;
-                case "windowtext": return SystemColors.WindowText;
+                return systemColor;
             }
 
             // Numbers are handled as colors by System.Drawing.ColorConverter - we
@@ -670,6 +644,151 @@ namespace Svg
             }
 
             return base.ConvertFrom(context, culture, colour);
+        }
+
+        public static bool TryToGetSystemColor_OLD(string colour, out Color systemColor)
+        {
+            switch (colour.ToLowerInvariant())
+            {
+                case "activeborder":
+                {
+                    systemColor = SystemColors.ActiveBorder;
+                    return true;
+                }
+                case "activecaption":
+                {
+                    systemColor = SystemColors.ActiveCaption;
+                    return true;
+                }
+                case "appworkspace":
+                {
+                    systemColor = SystemColors.AppWorkspace;
+                    return true;
+                }
+                case "background":
+                {
+                    systemColor = SystemColors.Desktop;
+                    return true;
+                }
+                case "buttonface":
+                {
+                    systemColor = SystemColors.Control;
+                    return true;
+                }
+                case "buttonhighlight":
+                {
+                    systemColor = SystemColors.ControlLightLight;
+                    return true;
+                }
+                case "buttonshadow":
+                {
+                    systemColor = SystemColors.ControlDark;
+                    return true;
+                }
+                case "buttontext":
+                {
+                    systemColor = SystemColors.ControlText;
+                    return true;
+                }
+                case "captiontext":
+                {
+                    systemColor = SystemColors.ActiveCaptionText;
+                    return true;
+                }
+                case "graytext":
+                {
+                    systemColor = SystemColors.GrayText;
+                    return true;
+                }
+                case "highlight":
+                {
+                    systemColor = SystemColors.Highlight;
+                    return true;
+                }
+                case "highlighttext":
+                {
+                    systemColor = SystemColors.HighlightText;
+                    return true;
+                }
+                case "inactiveborder":
+                {
+                    systemColor = SystemColors.InactiveBorder;
+                    return true;
+                }
+                case "inactivecaption":
+                {
+                    systemColor = SystemColors.InactiveCaption;
+                    return true;
+                }
+                case "inactivecaptiontext":
+                {
+                    systemColor = SystemColors.InactiveCaptionText;
+                    return true;
+                }
+                case "infobackground":
+                {
+                    systemColor = SystemColors.Info;
+                    return true;
+                }
+                case "infotext":
+                {
+                    systemColor = SystemColors.InfoText;
+                    return true;
+                }
+                case "menu":
+                {
+                    systemColor = SystemColors.Menu;
+                    return true;
+                }
+                case "menutext":
+                {
+                    systemColor = SystemColors.MenuText;
+                    return true;
+                }
+                case "scrollbar":
+                {
+                    systemColor = SystemColors.ScrollBar;
+                    return true;
+                }
+                case "threeddarkshadow":
+                {
+                    systemColor = SystemColors.ControlDarkDark;
+                    return true;
+                }
+                case "threedface":
+                {
+                    systemColor = SystemColors.Control;
+                    return true;
+                }
+                case "threedhighlight":
+                {
+                    systemColor = SystemColors.ControlLight;
+                    return true;
+                }
+                case "threedlightshadow":
+                {
+                    systemColor = SystemColors.ControlLightLight;
+                    return true;
+                }
+                case "window":
+                {
+                    systemColor = SystemColors.Window;
+                    return true;
+                }
+                case "windowframe":
+                {
+                    systemColor = SystemColors.WindowFrame;
+                    return true;
+                }
+                case "windowtext":
+                {
+                    systemColor = SystemColors.WindowText;
+                    return true;
+                }
+            }
+
+            systemColor = default;
+            return false;
         }
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
