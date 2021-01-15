@@ -51,6 +51,24 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_first()
+        {
+            _converter.Parse(null, _cultureInfo, "ActiveBorder");
+        }
+
+        [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_middle()
+        {
+            _converter.Parse(null, _cultureInfo, "InactiveCaption");
+        }
+
+        [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_last()
+        {
+            _converter.Parse(null, _cultureInfo, "WindowText");
+        }
+
+        [Benchmark]
         public void SvgColourConverter_Parse_system_colors()
         {
             _converter.Parse(null, _cultureInfo, "ActiveBorder");
@@ -83,6 +101,24 @@ namespace Svg.Benchmark
             _converter.Parse(null, _cultureInfo, "WindowText");
         }
         
+        [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_first_OLD()
+        {
+            _converter.Parse_OLD(null, _cultureInfo, "ActiveBorder");
+        }
+
+        [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_middle_OLD()
+        {
+            _converter.Parse_OLD(null, _cultureInfo, "InactiveCaption");
+        }
+
+        [Benchmark]
+        public void SvgColourConverter_Parse_system_colors_single_last_OLD()
+        {
+            _converter.Parse_OLD(null, _cultureInfo, "WindowText");
+        }
+
         [Benchmark]
         public void SvgColourConverter_Parse_system_colors_OLD()
         {
