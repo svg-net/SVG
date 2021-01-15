@@ -503,17 +503,17 @@ namespace Svg
                     Color colorpart;
                     if (values[0].Trim().EndsWith("%", StringComparison.InvariantCulture))
                     {
-                        colorpart = Color.FromArgb(alphaValue,
-                            (int) Math.Round(255 * float.Parse(values[0].Trim().TrimEnd('%'), NumberStyles.Any,
-                                CultureInfo.InvariantCulture) / 100f),
-                            (int) Math.Round(255 * float.Parse(values[1].Trim().TrimEnd('%'), NumberStyles.Any,
-                                CultureInfo.InvariantCulture) / 100f),
-                            (int) Math.Round(255 * float.Parse(values[2].Trim().TrimEnd('%'), NumberStyles.Any,
-                                CultureInfo.InvariantCulture) / 100f));
+                        colorpart = Color.FromArgb(
+                            alphaValue,
+                            (int) Math.Round(255 * float.Parse(values[0].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f),
+                            (int) Math.Round(255 * float.Parse(values[1].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f),
+                            (int) Math.Round(255 * float.Parse(values[2].Trim().TrimEnd('%'), NumberStyles.Any, CultureInfo.InvariantCulture) / 100f));
                     }
                     else
                     {
-                        colorpart = Color.FromArgb(alphaValue, int.Parse(values[0], CultureInfo.InvariantCulture),
+                        colorpart = Color.FromArgb(
+                            alphaValue,
+                            int.Parse(values[0], CultureInfo.InvariantCulture),
                             int.Parse(values[1], CultureInfo.InvariantCulture),
                             int.Parse(values[2], CultureInfo.InvariantCulture));
                     }
