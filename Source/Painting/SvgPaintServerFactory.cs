@@ -41,11 +41,10 @@ namespace Svg
             }
 
             // Otherwise try and parse as colour
-            // return new SvgColourServer((Color)_colourConverter.ConvertFrom(colorValue));
             var color = SvgColourConverter.Parse(colorValue);
             if (color == Color.Empty)
             {
-                return SvgPaintServer.NotSet;
+                return null;
             }
             return new SvgColourServer(color);
         }
