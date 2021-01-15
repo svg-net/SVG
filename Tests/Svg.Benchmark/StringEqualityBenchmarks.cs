@@ -3,7 +3,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace Svg.Benchmark
 {
-    public class SpanBenchmarks
+    public class StringEqualityBenchmarks
     {
         [Benchmark(Baseline = true)]
         public void StringEqualityOperator()
