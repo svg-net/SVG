@@ -117,7 +117,6 @@ namespace Svg.UnitTests
             var basePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDirectory))); //TODO: Tthe get dir name was parsed from the testparams -> Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestRunDirectory)));
             basePath = Path.Combine(Path.Combine(basePath, "Tests"), "W3CTestSuite");
 #endif
-            //      var svgBasePath = Path.Combine(basePath, "svg");
             string[] lines = File.ReadAllLines(@"..\..\..\..\Tests\Svg.UnitTests\all.csv");
             foreach (var baseName in lines)
             {
@@ -167,7 +166,6 @@ namespace Svg.UnitTests
         {
             return SvgDocument.Open(svgPath);
         }
-
     }
 
     /// <summary>
@@ -229,7 +227,7 @@ namespace Svg.UnitTests
             return grayScale;
         }
 
-        //the colormatrix needed to grayscale an image
+        // the colormatrix needed to grayscale an image
         static readonly ColorMatrix ColorMatrix = new ColorMatrix(new float[][]
         {
             new float[] {.3f, .3f, .3f, 0, 0},
@@ -241,26 +239,25 @@ namespace Svg.UnitTests
 
         public static Bitmap GetGrayScaleVersion(this Bitmap original)
         {
-            //create a blank bitmap the same size as original
-            //https://web.archive.org/web/20130111215043/http://www.switchonthecode.com/tutorials/csharp-tutorial-convert-a-color-image-to-grayscale
+            // create a blank bitmap the same size as original
+            // https://web.archive.org/web/20130111215043/http://www.switchonthecode.com/tutorials/csharp-tutorial-convert-a-color-image-to-grayscale
             var newBitmap = new Bitmap(original.Width, original.Height);
 
-            //get a graphics object from the new image
+            // get a graphics object from the new image
             using (var g = Graphics.FromImage(newBitmap))
-            //create some image attributes
-            using (ImageAttributes attributes = new ImageAttributes())
+            // create some image attributes
+            using (var attributes = new ImageAttributes())
             {
-                //set the color matrix attribute
+                // set the color matrix attribute
                 attributes.SetColorMatrix(ColorMatrix);
 
-                //draw the original image on the new image
-                //using the grayscale color matrix
+                // draw the original image on the new image
+                // using the grayscale color matrix
                 g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
                     0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
             }
 
             return newBitmap;
-
         }
 
         public static byte[,] GetDifferences(this Image img1, Image img2)
@@ -287,8 +284,8 @@ namespace Svg.UnitTests
     }
 
     /// <summary>
-    /// Helper class to read the datasource for the image tests. The datasource will read the embedded resource with the Tests and will pass a
-    /// TestData class with the data to test.
+    /// Helper class to read the datasource for the image tests.
+    /// The datasource will read the embedded resource with the Tests and will pass a TestData class with the data to test.
     /// </summary>
     public class ImageTestDataSource
     {
@@ -306,12 +303,13 @@ namespace Svg.UnitTests
         {
             var basePath = SuiteTestsFolder;
             var testSuite = Path.Combine(basePath, "W3CTestSuite");
-            var rows = new ImageTestDataSource().LoadRowsFromResourceCsv().Skip(1); //Skip header row
+            var rows = new ImageTestDataSource().LoadRowsFromResourceCsv().Skip(1); // Skip header row
             foreach (var row in rows)
                 yield return new TestData() { BasePath = testSuite, BaseName = row };
         }
 
         private const string ResourceIdentifier = "PassingTests.csv";
+
         /// <summary>
         /// Read the rows from the resource
         /// </summary>
@@ -320,7 +318,7 @@ namespace Svg.UnitTests
         {
             var assembly = typeof(ImageTestDataSource).Assembly;
             string resourceName = assembly.GetManifestResourceNames().FirstOrDefault(r => r.IndexOf(ResourceIdentifier) > -1);
-            if(resourceName == null) { throw new Exception($"Cannot find data resource: {ResourceIdentifier}"); }
+            if (resourceName == null) throw new Exception($"Cannot find data resource: {ResourceIdentifier}");
             var res = string.Empty;
             using (var stream = assembly.GetManifestResourceStream(resourceName))
             using (var reader = new StreamReader(stream))
@@ -332,6 +330,7 @@ namespace Svg.UnitTests
         }
 
         private static string _basePath = null;
+
         /// <summary>
         /// Determine the folder the testsuite is running in.
         /// </summary>
