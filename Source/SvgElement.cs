@@ -818,10 +818,11 @@ namespace Svg
                                 {
                                     if (writeStyle)
                                     {
-                                        if (styles != null)
+                                        if (styles == null)
                                         {
-                                            styles[property.AttributeName] = value;
+                                            styles = new Dictionary<string, string>();
                                         }
+                                        styles[property.AttributeName] = value;
                                     }
                                     else
                                     {
@@ -833,10 +834,11 @@ namespace Svg
                             {
                                 if (writeStyle)
                                 {
-                                    if (styles != null)
+                                    if (styles == null)
                                     {
-                                        styles[property.AttributeName] = value;
+                                        styles = new Dictionary<string, string>();
                                     }
+                                    styles[property.AttributeName] = value;
                                 }
                                 else
                                 {
@@ -944,10 +946,11 @@ namespace Svg
                                 {
                                     if (writeStyle)
                                     {
-                                        if (styles != null)
+                                        if (styles == null)
                                         {
-                                            styles[attr.Attribute.Name] = value;
+                                            styles = new Dictionary<string, string>();
                                         }
+                                        styles[attr.Attribute.Name] = value;
                                     }
                                     else
                                     {
@@ -959,10 +962,11 @@ namespace Svg
                             {
                                 if (writeStyle)
                                 {
-                                    if (styles != null)
+                                    if (styles == null)
                                     {
-                                        styles[attr.Attribute.Name] = value;
+                                        styles = new Dictionary<string, string>();
                                     }
+                                    styles[attr.Attribute.Name] = value;
                                 }
                                 else
                                 {
