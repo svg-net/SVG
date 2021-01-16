@@ -10,7 +10,12 @@ namespace Svg.UnitTests
     {
         [Test]
         public void EmptyClass_new_size()
-        {   
+        {
+            if (!dotMemoryApi.IsEnabled)
+            {
+                return;
+            }
+
             var snap1 = dotMemoryApi.GetSnapshot();
 
             var result = new EmptyClass();
@@ -25,6 +30,11 @@ namespace Svg.UnitTests
         [Test]
         public void SvgElementEmpty_new_size()
         {
+            if (!dotMemoryApi.IsEnabled)
+            {
+                return;
+            }
+
             var snap1 = dotMemoryApi.GetSnapshot();
 
             var result = new SvgElementEmpty();
