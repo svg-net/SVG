@@ -36,5 +36,12 @@ namespace Svg.UnitTests
             Assert.AreEqual(1, o.AllocatedMemory.ObjectsCount);
             Assert.AreEqual(200, o.AllocatedMemory.SizeInBytes);
         }
+        
+        [Test]
+        public void SvgElementEmpty_new()
+        {
+            var result = new SvgElementEmpty();
+            Assert.NotNull(result);
+        }
     }
 }
