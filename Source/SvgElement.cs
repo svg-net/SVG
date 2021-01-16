@@ -10,6 +10,20 @@ using Svg.Transforms;
 
 namespace Svg
 {
+    // Define as true if SvgElementBenchmarks in run.
+#if true
+    public class EmptyClass
+    {
+    }
+
+    public partial class SvgElementEmpty : SvgElement
+    {
+        public override SvgElement DeepCopy()
+        {
+            throw new NotImplementedException();
+        }
+    }
+#endif
     /// <summary>
     /// The base class of which all SVG elements are derived from.
     /// </summary>
