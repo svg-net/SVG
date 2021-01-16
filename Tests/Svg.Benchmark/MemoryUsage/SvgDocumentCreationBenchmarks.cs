@@ -4,7 +4,7 @@ namespace Svg.Benchmark
 {
     public class SvgDocumentCreationBenchmarks
     {
-        [Benchmark(Baseline = true)]
+        [Benchmark]
         public void SvgDocument_new()
         {
             var result = new SvgDocument();
