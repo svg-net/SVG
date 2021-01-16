@@ -68,7 +68,7 @@ namespace Svg
 
         public static bool HasNonEmptyCustomAttribute(this SvgElement element, string name)
         {
-            return element.HasAttributes()
+            return element.HasCustomAttributes()
                    && element.CustomAttributes.ContainsKey(name)
                    && !string.IsNullOrEmpty(element.CustomAttributes[name]);
         }
