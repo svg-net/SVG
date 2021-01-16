@@ -142,7 +142,10 @@ namespace Svg.UnitTests
         public void SvgDocumentFromSvgEmptySkipGdiPlusCapabilityCheck()
         {
             SvgDocument.SkipGdiPlusCapabilityCheck = true;
+            SvgDocument.DisableDtdProcessing = true;
+            SvgDocument.PointsPerInch = 96;
             var doc = SvgDocument.FromSvg<SvgDocument>(EmptySvg);
+            SvgDocument.DisableDtdProcessing = false;
             SvgDocument.SkipGdiPlusCapabilityCheck = false;
         }
     }
