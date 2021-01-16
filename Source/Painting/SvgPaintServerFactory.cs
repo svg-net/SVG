@@ -5,9 +5,9 @@ using System.Globalization;
 
 namespace Svg
 {
-    internal class SvgPaintServerFactory : TypeConverter
+    public class SvgPaintServerFactory : TypeConverter
     {
-        public static SvgPaintServer Create(ReadOnlySpan<char> value)
+        public static SvgPaintServer Parse(ReadOnlySpan<char> value)
         {
             if (value.Length == 0)
             {
@@ -44,7 +44,7 @@ namespace Svg
                 var id = colorValue.Slice(0, nextIndex);
 
                 colorValue = colorValue.Slice(nextIndex).Trim();
-                var fallbackServer = colorValue.Length == 0 ? null : Create(colorValue);
+                var fallbackServer = colorValue.Length == 0 ? null : Parse(colorValue);
 
                 return new SvgDeferredPaintServer(id.ToString(), fallbackServer);
             }
@@ -59,7 +59,7 @@ namespace Svg
         {
             if (value is string s)
             {
-                return Create(s.AsSpan());
+                return Parse(s.AsSpan());
             }
 
             return base.ConvertFrom(context, culture, value);

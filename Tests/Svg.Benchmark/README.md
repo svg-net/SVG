@@ -59,3 +59,9 @@ dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgNumberCollectionConverter_*'
 ```
 dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgColourConverter_*'
 ```
+
+### Run `SvgPaintServerFactory` Benchmarks
+
+```
+dotnet run -c Release -f netcoreapp3.1 -- -f '*SvgPaintServerFactory_*'
+```
