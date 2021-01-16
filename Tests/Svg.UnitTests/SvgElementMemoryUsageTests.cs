@@ -4,13 +4,12 @@ using NUnit.Framework;
 
 namespace Svg.UnitTests
 {
-    [DotMemoryUnit(FailIfRunWithoutSupport = false)]
+    [DotMemoryUnit(FailIfRunWithoutSupport=false, CollectAllocations=true)]
     [TestFixture]
     public class SvgElementMemoryUsageTests
     {
-        [DotMemoryUnit(CollectAllocations=true)]
         [Test]
-        public void EmptyClass_new()
+        public void EmptyClass_new_size()
         {   
             var snap1 = dotMemoryApi.GetSnapshot();
 
@@ -23,9 +22,8 @@ namespace Svg.UnitTests
             Assert.AreEqual(24, o.AllocatedMemory.SizeInBytes);
         }
 
-        [DotMemoryUnit(CollectAllocations=true)]
         [Test]
-        public void SvgElementEmpty_new()
+        public void SvgElementEmpty_new_size()
         {
             var snap1 = dotMemoryApi.GetSnapshot();
 
