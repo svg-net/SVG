@@ -392,9 +392,18 @@ namespace Svg
         protected internal TAttributeType GetAttribute<TAttributeType>(string attributeName, bool inherited, TAttributeType defaultValue = default(TAttributeType))
         {
             if (Writing)
-                return Attributes.GetAttribute(attributeName, defaultValue);
+            {
+                if (_attributes == null || _attributes.Count == 0)
+                {
+                    return defaultValue;
+                }
+                return _attributes.GetAttribute(attributeName, defaultValue);
+            }
             else
+            {
+                // TODO: Get inherited attributes without allocating Attributes so we can use _attributes.
                 return Attributes.GetInheritedAttribute(attributeName, inherited, defaultValue);
+            }
         }
 
         /// <summary>
