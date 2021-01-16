@@ -181,10 +181,10 @@ namespace Svg.UnitTests
     /// and slightly modified.
     /// Image width and height, default threshold and handling of alpha values have been adapted.
     /// </summary>
-    public static class ExtensionMethods
+    static class ExtensionMethods
     {
-        private static int ImageWidth = 64;
-        private static int ImageHeight = 64;
+        private static readonly int ImageWidth = 64;
+        private static readonly int ImageHeight = 64;
 
         public static float PercentageDifference(this Image img1, Image img2, byte threshold = 10)
         {
@@ -197,41 +197,42 @@ namespace Svg.UnitTests
                 if (b > threshold) { diffPixels++; }
             }
 
-            return diffPixels / (float)(ImageWidth * ImageHeight);
+            return diffPixels / (float)(differences.GetLength(0) * differences.GetLength(1));
         }
 
-        public static Image Resize(this Image originalImage, int newWidth, int newHeight)
+        public static Bitmap Resize(this Image originalImage, int newWidth, int newHeight)
         {
-            Image smallVersion = new Bitmap(newWidth, newHeight);
+            if (originalImage.Width > originalImage.Height)
+                newWidth = originalImage.Width * newHeight / originalImage.Height;
+            else
+                newHeight = originalImage.Height * newWidth / originalImage.Width;
+
+            var smallVersion = new Bitmap(newWidth, newHeight);
             using (Graphics g = Graphics.FromImage(smallVersion))
             {
                 g.SmoothingMode = SmoothingMode.HighQuality;
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                g.DrawImage(originalImage, 0, 0, newWidth, newHeight);
+                g.DrawImage(originalImage, 0, 0, smallVersion.Width, smallVersion.Height);
             }
 
             return smallVersion;
         }
 
-        public static byte[,] GetGrayScaleValues(this Image img)
+        public static byte[,] GetGrayScaleValues(this Bitmap img)
         {
-            using (Bitmap thisOne = (Bitmap)img.Resize(ImageWidth, ImageHeight).GetGrayScaleVersion())
-            {
-                byte[,] grayScale = new byte[ImageWidth, ImageHeight];
+            byte[,] grayScale = new byte[img.Width, img.Height];
 
-                for (int y = 0; y < ImageHeight; y++)
+            for (int y = 0; y < grayScale.GetLength(1); y++)
+            {
+                for (int x = 0; x < grayScale.GetLength(0); x++)
                 {
-                    for (int x = 0; x < ImageWidth; x++)
-                    {
-                        var pixel = thisOne.GetPixel(x, y);
-                        var alpha = thisOne.GetPixel(x, y).A;
-                        var gray = thisOne.GetPixel(x, y).R;
-                        grayScale[x, y] = (byte)Math.Abs(gray * alpha / 255);
-                    }
+                    var alpha = img.GetPixel(x, y).A;
+                    var gray = img.GetPixel(x, y).R;
+                    grayScale[x, y] = (byte)Math.Abs(gray * alpha / 255);
                 }
-                return grayScale;
             }
+            return grayScale;
         }
 
         //the colormatrix needed to grayscale an image
@@ -244,11 +245,11 @@ namespace Svg.UnitTests
             new float[] {0, 0, 0, 0, 1}
         });
 
-        public static Image GetGrayScaleVersion(this Image original)
+        public static Bitmap GetGrayScaleVersion(this Bitmap original)
         {
             //create a blank bitmap the same size as original
             //https://web.archive.org/web/20130111215043/http://www.switchonthecode.com/tutorials/csharp-tutorial-convert-a-color-image-to-grayscale
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+            var newBitmap = new Bitmap(original.Width, original.Height);
 
             //get a graphics object from the new image
             using (Graphics g = Graphics.FromImage(newBitmap))
@@ -271,15 +272,15 @@ namespace Svg.UnitTests
 
         public static byte[,] GetDifferences(this Image img1, Image img2)
         {
-            Bitmap thisOne = (Bitmap)img1.Resize(ImageWidth, ImageHeight).GetGrayScaleVersion();
-            Bitmap theOtherOne = (Bitmap)img2.Resize(ImageWidth, ImageHeight).GetGrayScaleVersion();
-            byte[,] differences = new byte[ImageWidth, ImageHeight];
+            Bitmap thisOne = img1.Resize(ImageWidth, ImageHeight).GetGrayScaleVersion();
+            Bitmap theOtherOne = img2.Resize(ImageWidth, ImageHeight).GetGrayScaleVersion();
+            byte[,] differences = new byte[thisOne.Width, thisOne.Height];
             byte[,] firstGray = thisOne.GetGrayScaleValues();
             byte[,] secondGray = theOtherOne.GetGrayScaleValues();
 
-            for (int y = 0; y < ImageHeight; y++)
+            for (int y = 0; y < differences.GetLength(1); y++)
             {
-                for (int x = 0; x < ImageWidth; x++)
+                for (int x = 0; x < differences.GetLength(0); x++)
                 {
                     differences[x, y] = (byte)Math.Abs(firstGray[x, y] - secondGray[x, y]);
                 }
