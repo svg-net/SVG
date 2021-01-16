@@ -145,7 +145,7 @@ struct-svg-03-f
 struct-symbol-01-b
 struct-use-01-t
 struct-use-03-t
-#struct-use-10-f
+struct-use-10-f
 struct-use-11-f
 struct-use-12-f
 struct-use-14-f
