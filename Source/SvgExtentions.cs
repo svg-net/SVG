@@ -68,7 +68,9 @@ namespace Svg
 
         public static bool HasNonEmptyCustomAttribute(this SvgElement element, string name)
         {
-            return element.CustomAttributes.ContainsKey(name) && !string.IsNullOrEmpty(element.CustomAttributes[name]);
+            return element.HasAttributes()
+                   && element.CustomAttributes.ContainsKey(name)
+                   && !string.IsNullOrEmpty(element.CustomAttributes[name]);
         }
 
         public static void ApplyRecursive(this SvgElement elem, Action<SvgElement> action)

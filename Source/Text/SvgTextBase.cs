@@ -35,7 +35,10 @@ namespace Svg
             get { return Content; }
             set
             {
-                Nodes.Clear();
+                if (HasNodes())
+                {
+                    Nodes.Clear();
+                }
                 Children.Clear();
                 if (value != null)
                 {
@@ -288,7 +291,9 @@ namespace Svg
 
         internal virtual IEnumerable<ISvgNode> GetContentNodes()
         {
-            return (this.Nodes == null || this.Nodes.Count < 1 ? this.Children.OfType<ISvgNode>().Where(o => !(o is ISvgDescriptiveElement)) : this.Nodes);
+            return !this.HasNodes() ?
+                this.Children.OfType<ISvgNode>().Where(o => !(o is ISvgDescriptiveElement))
+                : this.Nodes;
         }
         protected virtual GraphicsPath GetBaselinePath(ISvgRenderer renderer)
         {
@@ -997,7 +1002,7 @@ namespace Svg
         /// <summary>Empty text elements are not legal - only write this element if it has children.</summary>
         public override bool ShouldWriteElement()
         {
-            return (this.HasChildren() || this.Nodes.Count > 0);
+            return this.HasChildren() || this.HasNodes();
         }
     }
 }

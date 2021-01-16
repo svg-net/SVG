@@ -107,12 +107,12 @@ namespace Svg.Css
 
         public Selector<SvgElement> FirstChild()
         {
-            return nodes => nodes.Where(n => n.Parent == null || n.Parent.Children.First() == n);
+            return nodes => nodes.Where(n => n.Parent == null || (n.Parent.HasChildren() && n.Parent.Children.First() == n));
         }
 
         public Selector<SvgElement> LastChild()
         {
-            return nodes => nodes.Where(n => n.Parent == null || n.Parent.Children.Last() == n);
+            return nodes => nodes.Where(n => n.Parent == null || (n.Parent.HasChildren() && n.Parent.Children.Last() == n));
         }
 
         private IEnumerable<T> GetByIds<T>(IList<T> items, IEnumerable<int> indices)
