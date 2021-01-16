@@ -39,7 +39,11 @@ namespace Svg
                 {
                     Nodes.Clear();
                 }
-                Children.Clear();
+
+                if (HasChildren())
+                {
+                    Children.Clear();
+                }
                 if (value != null)
                 {
                     Nodes.Add(new SvgContentNode { Content = value });
