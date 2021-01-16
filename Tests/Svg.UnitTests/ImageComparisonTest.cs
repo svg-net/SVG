@@ -66,35 +66,40 @@ namespace Svg.UnitTests
         private void CompareSvgImageWithReferenceImpl(string baseName,
             string svgPath, string pngPath, bool testSaveLoad)
         {
-            var pngImage = Image.FromFile(pngPath);
             var svgDoc = LoadSvgDocument(svgPath);
             Assert.IsNotNull(svgDoc);
             bool useFixedSize = !baseName.StartsWith("__");
-            var svgImage = LoadSvgImage(svgDoc, useFixedSize);
-            Assert.AreNotEqual(null, pngImage, "Failed to load " + pngPath);
-            Assert.AreNotEqual(null, svgImage, "Failed to load " + svgPath);
-            var difference = svgImage.PercentageDifference(pngImage);
-            Assert.IsTrue(difference < 0.05,
-                baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
-            if (!testSaveLoad)
-            {
-                // for some images, save/load is still failing
-                return;
-            }
 
-            // test save/load
-            using (var memStream = new MemoryStream())
+            using (var pngImage = Image.FromFile(pngPath))
             {
-                svgDoc.Write(memStream);
-                memStream.Position = 0;
-                var baseUri = svgDoc.BaseUri;
-                svgDoc = SvgDocument.Open<SvgDocument>(memStream);
-                svgDoc.BaseUri = baseUri;
-                svgImage = LoadSvgImage(svgDoc, useFixedSize);
-                Assert.IsNotNull(svgImage);
-                difference = svgImage.PercentageDifference(pngImage);
-                Assert.IsTrue(difference < 0.05,
-                    baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
+                using (var svgImage = LoadSvgImage(svgDoc, useFixedSize))
+                {
+                    Assert.AreNotEqual(null, pngImage, "Failed to load " + pngPath);
+                    Assert.AreNotEqual(null, svgImage, "Failed to load " + svgPath);
+                    var difference = svgImage.PercentageDifference(pngImage);
+                    Assert.IsTrue(difference < 0.05, baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
+                }
+                if (!testSaveLoad)
+                {
+                    // for some images, save/load is still failing
+                    return;
+                }
+
+                // test save/load
+                using (var memStream = new MemoryStream())
+                {
+                    svgDoc.Write(memStream);
+                    memStream.Position = 0;
+                    var baseUri = svgDoc.BaseUri;
+                    svgDoc = SvgDocument.Open<SvgDocument>(memStream);
+                    svgDoc.BaseUri = baseUri;
+                    using (var svgImage = LoadSvgImage(svgDoc, useFixedSize))
+                    {
+                        Assert.IsNotNull(svgImage);
+                        var difference = svgImage.PercentageDifference(pngImage);
+                        Assert.IsTrue(difference < 0.05, baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
+                    }
+                }
             }
         }
 
@@ -120,17 +125,13 @@ namespace Svg.UnitTests
                 var pngPath = Path.Combine(Path.Combine(basePath, "png"), baseName + ".png");
                 if (File.Exists(pngPath) && File.Exists(svgPath))
                 {
-                    var pngImage = Image.FromFile(pngPath);
                     var svgDoc = LoadSvgDocument(svgPath);
-                    if (svgPath != null)
+                    bool useFixedSize = !baseName.StartsWith("__");
+                    using (var pngImage = Image.FromFile(pngPath))
+                    using (var svgImage = LoadSvgImage(svgDoc, useFixedSize))
                     {
-                        bool useFixedSize = !baseName.StartsWith("__");
-                        var svgImage = LoadSvgImage(svgDoc, useFixedSize);
-                        if (pngImage != null && svgImage != null)
-                        {
-                            var difference = svgImage.PercentageDifference(pngImage);
-                            Console.WriteLine(baseName + " " + (difference * 100.0).ToString());
-                        }
+                        var difference = svgImage.PercentageDifference(pngImage);
+                        Console.WriteLine(baseName + " " + (difference * 100.0).ToString());
                     }
                 }
             }
@@ -139,39 +140,32 @@ namespace Svg.UnitTests
         /// <summary>
         /// Load the SVG image the same way as in the SVGW3CTestRunner.
         /// </summary>
-        private static Image LoadSvgImage(SvgDocument svgDoc, bool usedFixedSize)
+        private static Bitmap LoadSvgImage(SvgDocument svgDoc, bool usedFixedSize)
         {
-            Image svgImage;
+            Bitmap svgImage = null;
             try
             {
                 if (usedFixedSize)
                 {
-                    var img = new Bitmap(480, 360);
-                    svgDoc.Draw(img);
-                    svgImage = img;
+                    svgImage = new Bitmap(480, 360);
+                    svgDoc.Draw(svgImage);
                 }
                 else
                 {
                     svgImage = svgDoc.Draw();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                svgImage = null;
+                svgImage?.Dispose();
+                throw e;
             }
             return svgImage;
         }
 
         private static SvgDocument LoadSvgDocument(string svgPath)
         {
-            try
-            {
-                return SvgDocument.Open(svgPath);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            return SvgDocument.Open(svgPath);
         }
 
     }
@@ -208,7 +202,7 @@ namespace Svg.UnitTests
                 newHeight = originalImage.Height * newWidth / originalImage.Width;
 
             var smallVersion = new Bitmap(newWidth, newHeight);
-            using (Graphics g = Graphics.FromImage(smallVersion))
+            using (var g = Graphics.FromImage(smallVersion))
             {
                 g.SmoothingMode = SmoothingMode.HighQuality;
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -252,42 +246,43 @@ namespace Svg.UnitTests
             var newBitmap = new Bitmap(original.Width, original.Height);
 
             //get a graphics object from the new image
-            using (Graphics g = Graphics.FromImage(newBitmap))
+            using (var g = Graphics.FromImage(newBitmap))
+            //create some image attributes
+            using (ImageAttributes attributes = new ImageAttributes())
             {
-                //create some image attributes
-                using (ImageAttributes attributes = new ImageAttributes())
-                {
-                    //set the color matrix attribute
-                    attributes.SetColorMatrix(ColorMatrix);
+                //set the color matrix attribute
+                attributes.SetColorMatrix(ColorMatrix);
 
-                    //draw the original image on the new image
-                    //using the grayscale color matrix
-                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
-                }
+                //draw the original image on the new image
+                //using the grayscale color matrix
+                g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                    0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
             }
+
             return newBitmap;
 
         }
 
         public static byte[,] GetDifferences(this Image img1, Image img2)
         {
-            Bitmap thisOne = img1.Resize(ImageWidth, ImageHeight).GetGrayScaleVersion();
-            Bitmap theOtherOne = img2.Resize(ImageWidth, ImageHeight).GetGrayScaleVersion();
-            byte[,] differences = new byte[thisOne.Width, thisOne.Height];
-            byte[,] firstGray = thisOne.GetGrayScaleValues();
-            byte[,] secondGray = theOtherOne.GetGrayScaleValues();
-
-            for (int y = 0; y < differences.GetLength(1); y++)
+            using (var resizedThisOne = img1.Resize(ImageWidth, ImageHeight))
+            using (var thisOne = resizedThisOne.GetGrayScaleVersion())
+            using (var resizedTheOtherOne = img2.Resize(ImageWidth, ImageHeight))
+            using (var theOtherOne = resizedTheOtherOne.GetGrayScaleVersion())
             {
-                for (int x = 0; x < differences.GetLength(0); x++)
+                byte[,] differences = new byte[thisOne.Width, thisOne.Height];
+                byte[,] firstGray = thisOne.GetGrayScaleValues();
+                byte[,] secondGray = theOtherOne.GetGrayScaleValues();
+
+                for (int y = 0; y < differences.GetLength(1); y++)
                 {
-                    differences[x, y] = (byte)Math.Abs(firstGray[x, y] - secondGray[x, y]);
+                    for (int x = 0; x < differences.GetLength(0); x++)
+                    {
+                        differences[x, y] = (byte)Math.Abs(firstGray[x, y] - secondGray[x, y]);
+                    }
                 }
+                return differences;
             }
-            thisOne.Dispose();
-            theOtherOne.Dispose();
-            return differences;
         }
     }
 
@@ -327,13 +322,12 @@ namespace Svg.UnitTests
             string resourceName = assembly.GetManifestResourceNames().FirstOrDefault(r => r.IndexOf(ResourceIdentifier) > -1);
             if(resourceName == null) { throw new Exception($"Cannot find data resource: {ResourceIdentifier}"); }
             var res = string.Empty;
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            using (var reader = new StreamReader(stream))
             {
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    res = reader.ReadToEnd();
-                }
+                res = reader.ReadToEnd();
             }
+
             return res.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
