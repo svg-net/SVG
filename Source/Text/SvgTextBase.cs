@@ -295,9 +295,11 @@ namespace Svg
 
         internal virtual IEnumerable<ISvgNode> GetContentNodes()
         {
-            return !this.HasNodes() ?
-                this.Children.OfType<ISvgNode>().Where(o => !(o is ISvgDescriptiveElement))
-                : this.Nodes;
+            return this.HasNodes() ?
+                this.Nodes
+                : this.HasChildren() ?
+                    this.Children.OfType<ISvgNode>().Where(o => !(o is ISvgDescriptiveElement))
+                    : Enumerable.Empty<ISvgNode>();
         }
         protected virtual GraphicsPath GetBaselinePath(ISvgRenderer renderer)
         {
