@@ -75,14 +75,20 @@ namespace Svg
 
         public static void ApplyRecursive(this SvgElement elem, Action<SvgElement> action)
         {
-            foreach (var e in elem.Traverse(e => e.Children))
-                action(e);
+            if (elem.HasChildren())
+            {
+                foreach (var e in elem.Traverse(e => e.Children))
+                    action(e);
+            }
         }
 
         public static void ApplyRecursiveDepthFirst(this SvgElement elem, Action<SvgElement> action)
         {
-            foreach (var e in elem.TraverseDepthFirst(e => e.Children))
-                action(e);
+            if (elem.HasChildren())
+            {
+                foreach (var e in elem.TraverseDepthFirst(e => e.Children))
+                    action(e);
+            }
         }
 
         public static IEnumerable<T> Traverse<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childrenSelector)

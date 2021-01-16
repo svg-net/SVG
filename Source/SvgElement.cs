@@ -89,9 +89,13 @@ namespace Svg
         public void FlushStyles(bool children = false)
         {
             FlushStyles();
-            if (children)
+            if (children && HasChildren())
+            {
                 foreach (var child in Children)
+                {
                     child.FlushStyles(children);
+                }
+            }
         }
 
         private void FlushStyles()
@@ -599,9 +603,12 @@ namespace Svg
         {
             this.AddElement(child, index);
             SvgElement sibling = null;
-            if (index < (Children.Count - 1))
+            if (this.HasChildren())
             {
-                sibling = Children[index + 1];
+                if (index < (Children.Count - 1))
+                {
+                    sibling = Children[index + 1];
+                }
             }
             var handler = ChildAdded;
             if (handler != null)
@@ -1096,9 +1103,12 @@ namespace Svg
                     writer.WriteString(this.Content);
 
                 //write all children
-                foreach (SvgElement child in this.Children)
+                if (this.HasChildren())
                 {
-                    child.Write(writer);
+                    foreach (SvgElement child in this.Children)
+                    {
+                        child.Write(writer);
+                    }
                 }
             }
         }
@@ -1126,8 +1136,13 @@ namespace Svg
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to render the child <see cref="SvgElement"/>s to.</param>
         protected virtual void RenderChildren(ISvgRenderer renderer)
         {
-            foreach (var element in Children)
-                element.Render(renderer);
+            if (this.HasChildren())
+            {
+                foreach (var element in Children)
+                {
+                    element.Render(renderer);
+                }
+            }
         }
 
         /// <summary>
@@ -1146,6 +1161,11 @@ namespace Svg
         /// <param name="path"></param>
         protected void AddPaths(SvgElement elem, GraphicsPath path)
         {
+            if (!this.HasChildren())
+            {
+                return;
+            }
+
             foreach (var child in elem.Children)
             {
                 // Skip to avoid double calculate Symbol element
@@ -1185,6 +1205,11 @@ namespace Svg
         {
             var ret = new GraphicsPath();
 
+            if (!this.HasChildren())
+            {
+                return ret;
+            }
+
             foreach (var child in elem.Children)
             {
                 if (child is SvgVisualElement)
@@ -1207,7 +1232,7 @@ namespace Svg
                         childPath = childPath != null ? (GraphicsPath)childPath.Clone() : new GraphicsPath();
 
                         // Non-group element can have child element which we have to consider. i.e tspan in text element
-                        if (child.Children.Count > 0)
+                        if (child.HasChildren())
                         {
                             var descendantPath = GetPaths(child, renderer);
                             if (descendantPath.PointCount > 0)
@@ -1264,8 +1289,13 @@ namespace Svg
                 newObj.Attributes.Add(attribute.Key, value);
             }
 
-            foreach (var child in Children)
-                newObj.Children.Add(child.DeepCopy());
+            if (HasChildren())
+            {
+                foreach (var child in Children)
+                {
+                    newObj.Children.Add(child.DeepCopy());
+                }
+            }
 
 #if USE_SOURCE_GENERATORS
             foreach (var property in this.GetProperties().Where(x => x.DescriptorType == DescriptorType.Event))
