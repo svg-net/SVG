@@ -3,7 +3,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace Svg.Benchmark
 {
-    public class SvgElementBenchmarks
+    public class SvgElementCreationBenchmarks
     {
         [Benchmark]
         public void SvgElement_new_EmptyClass()
