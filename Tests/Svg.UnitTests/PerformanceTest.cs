@@ -129,5 +129,21 @@ namespace Svg.UnitTests
                                                0
                                                12".AsSpan());
         }
+
+        private static string EmptySvg = @"<svg xmlns='http://www.w3.org/2000/svg'></svg>";
+
+        [Test]
+        public void SvgDocumentFromSvgEmpty()
+        {
+            var doc = SvgDocument.FromSvg<SvgDocument>(EmptySvg);
+        }
+        
+        [Test]
+        public void SvgDocumentFromSvgEmptySkipGdiPlusCapabilityCheck()
+        {
+            SvgDocument.SkipGdiPlusCapabilityCheck = true;
+            var doc = SvgDocument.FromSvg<SvgDocument>(EmptySvg);
+            SvgDocument.SkipGdiPlusCapabilityCheck = false;
+        }
     }
 }
