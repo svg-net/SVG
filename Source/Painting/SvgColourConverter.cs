@@ -2176,9 +2176,9 @@ namespace Svg
             return (uint) alpha << 24 | (uint) red << 16 | (uint) green << 8 | (uint) blue << 0;
         }
 
-        public static Color Parse(string colour)
+        public static Color Parse(ReadOnlySpan<char> colour)
         {
-            var span = colour.AsSpan().Trim();
+            var span = colour.Trim();
 
             // RGB support
             if (span.IndexOf("rgb".AsSpan()) == 0)
@@ -2477,7 +2477,7 @@ namespace Svg
         {
             if (value is string colour)
             {
-                return Parse(colour);
+                return Parse(colour.AsSpan());
             }
 
             return base.ConvertFrom(context, culture, value);

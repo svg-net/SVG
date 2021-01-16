@@ -7,45 +7,60 @@ namespace Svg
 {
     internal class SvgPaintServerFactory : TypeConverter
     {
-        public static SvgPaintServer Create(string value, SvgDocument document)
+        public static SvgPaintServer Create(ReadOnlySpan<char> value)
         {
-            if (value == null)
+            if (value.Length == 0)
+            {
                 return SvgPaintServer.NotSet;
+            }
 
             var colorValue = value.Trim();
+
             // If it's pointing to a paint server
-            if (string.IsNullOrEmpty(colorValue))
-                return SvgPaintServer.NotSet;
-            else if (colorValue.Equals("none", StringComparison.OrdinalIgnoreCase))
-                return SvgPaintServer.None;
-            else if (colorValue.Equals("currentColor", StringComparison.OrdinalIgnoreCase))
-                return new SvgDeferredPaintServer("currentColor");
-            else if (colorValue.Equals("inherit", StringComparison.OrdinalIgnoreCase))
-                return SvgPaintServer.Inherit;
-            else if (colorValue.StartsWith("url(", StringComparison.OrdinalIgnoreCase))
+
+            if (colorValue.Length == 0)
             {
-                var nextIndex = colorValue.IndexOf(')', 4) + 1;
-                var id = colorValue.Substring(0, nextIndex);
+                return SvgPaintServer.NotSet;
+            }
 
-                colorValue = colorValue.Substring(nextIndex).Trim();
-                var fallbackServer = string.IsNullOrEmpty(colorValue) ? null : Create(colorValue, document);
+            if (colorValue.CompareTo("none".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                return SvgPaintServer.None;
+            }
 
-                return new SvgDeferredPaintServer(id, fallbackServer);
+            if (colorValue.CompareTo("currentColor".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                return new SvgDeferredPaintServer("currentColor");
+            }
+
+            if (colorValue.CompareTo("inherit".AsSpan(), StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                return SvgPaintServer.Inherit;
+            }
+
+            if (colorValue.StartsWith("url(".AsSpan(), StringComparison.OrdinalIgnoreCase))
+            {
+                var nextIndex = colorValue.IndexOf(')') + 1;
+                var id = colorValue.Slice(0, nextIndex);
+
+                colorValue = colorValue.Slice(nextIndex).Trim();
+                var fallbackServer = colorValue.Length == 0 ? null : Create(colorValue);
+
+                return new SvgDeferredPaintServer(id.ToString(), fallbackServer);
             }
 
             // Otherwise try and parse as colour
+
             var color = SvgColourConverter.Parse(colorValue);
-            if (color == Color.Empty)
-            {
-                return SvgPaintServer.NotSet;
-            }
-            return new SvgColourServer(color);
+            return color == Color.Empty ? SvgPaintServer.NotSet : new SvgColourServer(color);
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
-                return Create((string)value, (SvgDocument)context);
+            if (value is string s)
+            {
+                return Create(s.AsSpan());
+            }
 
             return base.ConvertFrom(context, culture, value);
         }
