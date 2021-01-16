@@ -10,7 +10,7 @@ using Svg.Transforms;
 
 namespace Svg
 {
-    // Define as true if SvgElementBenchmarks in run.
+    // Define as true if SvgElementBenchmarks is run.
 #if true
     public class EmptyClass
     {
