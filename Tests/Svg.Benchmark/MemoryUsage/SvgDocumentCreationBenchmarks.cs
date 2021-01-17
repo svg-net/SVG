@@ -21,6 +21,17 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
+        public void SvgDocument_new_FromSvg_Empty_Fast()
+        {
+            SvgDocument.SkipGdiPlusCapabilityCheck = true;
+            SvgDocument.DisableDtdProcessing = true;
+            SvgDocument.PointsPerInch = 96;
+            var doc = SvgDocument.FromSvg<SvgDocument>(EmptySvg);
+            SvgDocument.DisableDtdProcessing = false;
+            SvgDocument.SkipGdiPlusCapabilityCheck = false;
+        }
+#if false
+        [Benchmark]
         public void Xml_new_XmlTextReader()
         {
             var svg = EmptySvg;
@@ -41,7 +52,7 @@ namespace Svg.Benchmark
                 var reader = XmlReader.Create(strReader);
             }
         }
-        
+
         [Benchmark]
         public void SvgDocument_new_FromSvg_Internals()
         {
@@ -64,16 +75,6 @@ namespace Svg.Benchmark
                 var doc = SvgDocument.Open<SvgDocument>(reader);
             }
         }
-
-        [Benchmark]
-        public void SvgDocument_new_FromSvg_Empty_Fast()
-        {
-            SvgDocument.SkipGdiPlusCapabilityCheck = true;
-            SvgDocument.DisableDtdProcessing = true;
-            SvgDocument.PointsPerInch = 96;
-            var doc = SvgDocument.FromSvg<SvgDocument>(EmptySvg);
-            SvgDocument.DisableDtdProcessing = false;
-            SvgDocument.SkipGdiPlusCapabilityCheck = false;
-        }
+#endif
     }
 }
