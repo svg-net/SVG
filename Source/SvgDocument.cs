@@ -387,7 +387,7 @@ namespace Svg
             return Open<T>(reader);
         }
 
-        public static T Open<T>(XmlReader reader) where T : SvgDocument, new()
+        private static T Open<T>(XmlReader reader) where T : SvgDocument, new()
         {
             if (!SkipGdiPlusCapabilityCheck)
             {

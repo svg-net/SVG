@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace Svg
 {
-    public class SvgDtdResolver : XmlUrlResolver
+    internal class SvgDtdResolver : XmlUrlResolver
     {
         /// <summary>
         /// Maps a URI to an object containing the actual resource.
