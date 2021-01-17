@@ -1,3 +1,5 @@
+using System;
+using System.Xml;
 using BenchmarkDotNet.Attributes;
 
 namespace Svg.Benchmark
@@ -16,6 +18,51 @@ namespace Svg.Benchmark
         public void SvgDocument_new_FromSvg_Empty()
         {
             var doc = SvgDocument.FromSvg<SvgDocument>(EmptySvg);
+        }
+
+        [Benchmark]
+        public void Xml_new_XmlTextReader()
+        {
+            var svg = EmptySvg;
+
+            using (var strReader = new System.IO.StringReader(svg))
+            {
+                var reader = new SvgTextReader(strReader, null);
+            }
+        }
+
+        [Benchmark]
+        public void Xml_new_XmlReader_Create()
+        {
+            var svg = EmptySvg;
+
+            using (var strReader = new System.IO.StringReader(svg))
+            {
+                var reader = XmlReader.Create(strReader);
+            }
+        }
+        
+        [Benchmark]
+        public void SvgDocument_new_FromSvg_Internals()
+        {
+            var svg = EmptySvg;
+
+            if (string.IsNullOrEmpty(svg))
+            {
+                throw new ArgumentNullException("svg");
+            }
+
+            using (var strReader = new System.IO.StringReader(svg))
+            {
+                var reader = new SvgTextReader(strReader, null)
+                {
+                    XmlResolver = new SvgDtdResolver(),
+                    WhitespaceHandling = WhitespaceHandling.Significant,
+                    DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
+                };
+
+                var doc = SvgDocument.Open<SvgDocument>(reader);
+            }
         }
 
         [Benchmark]
