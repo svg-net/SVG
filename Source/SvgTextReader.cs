@@ -8,7 +8,7 @@ using System.Collections.Specialized;
 
 namespace Svg
 {
-    internal sealed class SvgTextReader : XmlTextReader
+    public sealed class SvgTextReader : XmlTextReader
     {
         private Dictionary<string, string> _entities;
         private string _value;
