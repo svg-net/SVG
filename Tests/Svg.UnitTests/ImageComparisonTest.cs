@@ -66,35 +66,40 @@ namespace Svg.UnitTests
         private void CompareSvgImageWithReferenceImpl(string baseName,
             string svgPath, string pngPath, bool testSaveLoad)
         {
-            var pngImage = Image.FromFile(pngPath);
             var svgDoc = LoadSvgDocument(svgPath);
             Assert.IsNotNull(svgDoc);
             bool useFixedSize = !baseName.StartsWith("__");
-            var svgImage = LoadSvgImage(svgDoc, useFixedSize);
-            Assert.AreNotEqual(null, pngImage, "Failed to load " + pngPath);
-            Assert.AreNotEqual(null, svgImage, "Failed to load " + svgPath);
-            var difference = svgImage.PercentageDifference(pngImage);
-            Assert.IsTrue(difference < 0.05,
-                baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
-            if (!testSaveLoad)
-            {
-                // for some images, save/load is still failing
-                return;
-            }
 
-            // test save/load
-            using (var memStream = new MemoryStream())
+            using (var pngImage = Image.FromFile(pngPath))
             {
-                svgDoc.Write(memStream);
-                memStream.Position = 0;
-                var baseUri = svgDoc.BaseUri;
-                svgDoc = SvgDocument.Open<SvgDocument>(memStream);
-                svgDoc.BaseUri = baseUri;
-                svgImage = LoadSvgImage(svgDoc, useFixedSize);
-                Assert.IsNotNull(svgImage);
-                difference = svgImage.PercentageDifference(pngImage);
-                Assert.IsTrue(difference < 0.05,
-                    baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
+                using (var svgImage = LoadSvgImage(svgDoc, useFixedSize))
+                {
+                    Assert.AreNotEqual(null, pngImage, "Failed to load " + pngPath);
+                    Assert.AreNotEqual(null, svgImage, "Failed to load " + svgPath);
+                    var difference = svgImage.PercentageDifference(pngImage);
+                    Assert.IsTrue(difference < 0.05, baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
+                }
+                if (!testSaveLoad)
+                {
+                    // for some images, save/load is still failing
+                    return;
+                }
+
+                // test save/load
+                using (var memStream = new MemoryStream())
+                {
+                    svgDoc.Write(memStream);
+                    memStream.Position = 0;
+                    var baseUri = svgDoc.BaseUri;
+                    svgDoc = SvgDocument.Open<SvgDocument>(memStream);
+                    svgDoc.BaseUri = baseUri;
+                    using (var svgImage = LoadSvgImage(svgDoc, useFixedSize))
+                    {
+                        Assert.IsNotNull(svgImage);
+                        var difference = svgImage.PercentageDifference(pngImage);
+                        Assert.IsTrue(difference < 0.05, baseName + ": Difference is " + (difference * 100.0).ToString() + "%");
+                    }
+                }
             }
         }
 
@@ -112,7 +117,6 @@ namespace Svg.UnitTests
             var basePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDirectory))); //TODO: Tthe get dir name was parsed from the testparams -> Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestRunDirectory)));
             basePath = Path.Combine(Path.Combine(basePath, "Tests"), "W3CTestSuite");
 #endif
-            //      var svgBasePath = Path.Combine(basePath, "svg");
             string[] lines = File.ReadAllLines(@"..\..\..\..\Tests\Svg.UnitTests\all.csv");
             foreach (var baseName in lines)
             {
@@ -120,17 +124,13 @@ namespace Svg.UnitTests
                 var pngPath = Path.Combine(Path.Combine(basePath, "png"), baseName + ".png");
                 if (File.Exists(pngPath) && File.Exists(svgPath))
                 {
-                    var pngImage = Image.FromFile(pngPath);
                     var svgDoc = LoadSvgDocument(svgPath);
-                    if (svgPath != null)
+                    bool useFixedSize = !baseName.StartsWith("__");
+                    using (var pngImage = Image.FromFile(pngPath))
+                    using (var svgImage = LoadSvgImage(svgDoc, useFixedSize))
                     {
-                        bool useFixedSize = !baseName.StartsWith("__");
-                        var svgImage = LoadSvgImage(svgDoc, useFixedSize);
-                        if (pngImage != null && svgImage != null)
-                        {
-                            var difference = svgImage.PercentageDifference(pngImage);
-                            Console.WriteLine(baseName + " " + (difference * 100.0).ToString());
-                        }
+                        var difference = svgImage.PercentageDifference(pngImage);
+                        Console.WriteLine(baseName + " " + (difference * 100.0).ToString());
                     }
                 }
             }
@@ -139,16 +139,15 @@ namespace Svg.UnitTests
         /// <summary>
         /// Load the SVG image the same way as in the SVGW3CTestRunner.
         /// </summary>
-        private static Image LoadSvgImage(SvgDocument svgDoc, bool usedFixedSize)
+        private static Bitmap LoadSvgImage(SvgDocument svgDoc, bool usedFixedSize)
         {
-            Image svgImage;
+            Bitmap svgImage = null;
             try
             {
                 if (usedFixedSize)
                 {
-                    var img = new Bitmap(480, 360);
-                    svgDoc.Draw(img);
-                    svgImage = img;
+                    svgImage = new Bitmap(480, 360);
+                    svgDoc.Draw(svgImage);
                 }
                 else
                 {
@@ -157,23 +156,16 @@ namespace Svg.UnitTests
             }
             catch (Exception)
             {
-                svgImage = null;
+                svgImage?.Dispose();
+                throw;
             }
             return svgImage;
         }
 
         private static SvgDocument LoadSvgDocument(string svgPath)
         {
-            try
-            {
-                return SvgDocument.Open(svgPath);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            return SvgDocument.Open(svgPath);
         }
-
     }
 
     /// <summary>
@@ -181,10 +173,10 @@ namespace Svg.UnitTests
     /// and slightly modified.
     /// Image width and height, default threshold and handling of alpha values have been adapted.
     /// </summary>
-    public static class ExtensionMethods
+    static class ExtensionMethods
     {
-        private static int ImageWidth = 64;
-        private static int ImageHeight = 64;
+        private static readonly int ImageWidth = 64;
+        private static readonly int ImageHeight = 64;
 
         public static float PercentageDifference(this Image img1, Image img2, byte threshold = 10)
         {
@@ -197,44 +189,45 @@ namespace Svg.UnitTests
                 if (b > threshold) { diffPixels++; }
             }
 
-            return diffPixels / (float)(ImageWidth * ImageHeight);
+            return diffPixels / (float)(differences.GetLength(0) * differences.GetLength(1));
         }
 
-        public static Image Resize(this Image originalImage, int newWidth, int newHeight)
+        public static Bitmap Resize(this Image originalImage, int newWidth, int newHeight)
         {
-            Image smallVersion = new Bitmap(newWidth, newHeight);
-            using (Graphics g = Graphics.FromImage(smallVersion))
+            if (originalImage.Width > originalImage.Height)
+                newWidth = originalImage.Width * newHeight / originalImage.Height;
+            else
+                newHeight = originalImage.Height * newWidth / originalImage.Width;
+
+            var smallVersion = new Bitmap(newWidth, newHeight);
+            using (var g = Graphics.FromImage(smallVersion))
             {
                 g.SmoothingMode = SmoothingMode.HighQuality;
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                g.DrawImage(originalImage, 0, 0, newWidth, newHeight);
+                g.DrawImage(originalImage, 0, 0, smallVersion.Width, smallVersion.Height);
             }
 
             return smallVersion;
         }
 
-        public static byte[,] GetGrayScaleValues(this Image img)
+        public static byte[,] GetGrayScaleValues(this Bitmap img)
         {
-            using (Bitmap thisOne = (Bitmap)img.Resize(ImageWidth, ImageHeight).GetGrayScaleVersion())
-            {
-                byte[,] grayScale = new byte[ImageWidth, ImageHeight];
+            byte[,] grayScale = new byte[img.Width, img.Height];
 
-                for (int y = 0; y < ImageHeight; y++)
+            for (int y = 0; y < grayScale.GetLength(1); y++)
+            {
+                for (int x = 0; x < grayScale.GetLength(0); x++)
                 {
-                    for (int x = 0; x < ImageWidth; x++)
-                    {
-                        var pixel = thisOne.GetPixel(x, y);
-                        var alpha = thisOne.GetPixel(x, y).A;
-                        var gray = thisOne.GetPixel(x, y).R;
-                        grayScale[x, y] = (byte)Math.Abs(gray * alpha / 255);
-                    }
+                    var alpha = img.GetPixel(x, y).A;
+                    var gray = img.GetPixel(x, y).R;
+                    grayScale[x, y] = (byte)Math.Abs(gray * alpha / 255);
                 }
-                return grayScale;
             }
+            return grayScale;
         }
 
-        //the colormatrix needed to grayscale an image
+        // the colormatrix needed to grayscale an image
         static readonly ColorMatrix ColorMatrix = new ColorMatrix(new float[][]
         {
             new float[] {.3f, .3f, .3f, 0, 0},
@@ -244,55 +237,55 @@ namespace Svg.UnitTests
             new float[] {0, 0, 0, 0, 1}
         });
 
-        public static Image GetGrayScaleVersion(this Image original)
+        public static Bitmap GetGrayScaleVersion(this Bitmap original)
         {
-            //create a blank bitmap the same size as original
-            //https://web.archive.org/web/20130111215043/http://www.switchonthecode.com/tutorials/csharp-tutorial-convert-a-color-image-to-grayscale
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+            // create a blank bitmap the same size as original
+            // https://web.archive.org/web/20130111215043/http://www.switchonthecode.com/tutorials/csharp-tutorial-convert-a-color-image-to-grayscale
+            var newBitmap = new Bitmap(original.Width, original.Height);
 
-            //get a graphics object from the new image
-            using (Graphics g = Graphics.FromImage(newBitmap))
+            // get a graphics object from the new image
+            using (var g = Graphics.FromImage(newBitmap))
+            // create some image attributes
+            using (var attributes = new ImageAttributes())
             {
-                //create some image attributes
-                using (ImageAttributes attributes = new ImageAttributes())
-                {
-                    //set the color matrix attribute
-                    attributes.SetColorMatrix(ColorMatrix);
+                // set the color matrix attribute
+                attributes.SetColorMatrix(ColorMatrix);
 
-                    //draw the original image on the new image
-                    //using the grayscale color matrix
-                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                        0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
-                }
+                // draw the original image on the new image
+                // using the grayscale color matrix
+                g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+                    0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
             }
-            return newBitmap;
 
+            return newBitmap;
         }
 
         public static byte[,] GetDifferences(this Image img1, Image img2)
         {
-            Bitmap thisOne = (Bitmap)img1.Resize(ImageWidth, ImageHeight).GetGrayScaleVersion();
-            Bitmap theOtherOne = (Bitmap)img2.Resize(ImageWidth, ImageHeight).GetGrayScaleVersion();
-            byte[,] differences = new byte[ImageWidth, ImageHeight];
-            byte[,] firstGray = thisOne.GetGrayScaleValues();
-            byte[,] secondGray = theOtherOne.GetGrayScaleValues();
-
-            for (int y = 0; y < ImageHeight; y++)
+            using (var resizedThisOne = img1.Resize(ImageWidth, ImageHeight))
+            using (var thisOne = resizedThisOne.GetGrayScaleVersion())
+            using (var resizedTheOtherOne = img2.Resize(ImageWidth, ImageHeight))
+            using (var theOtherOne = resizedTheOtherOne.GetGrayScaleVersion())
             {
-                for (int x = 0; x < ImageWidth; x++)
+                byte[,] differences = new byte[thisOne.Width, thisOne.Height];
+                byte[,] firstGray = thisOne.GetGrayScaleValues();
+                byte[,] secondGray = theOtherOne.GetGrayScaleValues();
+
+                for (int y = 0; y < differences.GetLength(1); y++)
                 {
-                    differences[x, y] = (byte)Math.Abs(firstGray[x, y] - secondGray[x, y]);
+                    for (int x = 0; x < differences.GetLength(0); x++)
+                    {
+                        differences[x, y] = (byte)Math.Abs(firstGray[x, y] - secondGray[x, y]);
+                    }
                 }
+                return differences;
             }
-            thisOne.Dispose();
-            theOtherOne.Dispose();
-            return differences;
         }
     }
 
     /// <summary>
-    /// Helper class to read the datasource for the image tests. The datasource will read the embedded resource with the Tests and will pass a
-    /// TestData class with the data to test.
+    /// Helper class to read the datasource for the image tests.
+    /// The datasource will read the embedded resource with the Tests and will pass a TestData class with the data to test.
     /// </summary>
     public class ImageTestDataSource
     {
@@ -310,12 +303,13 @@ namespace Svg.UnitTests
         {
             var basePath = SuiteTestsFolder;
             var testSuite = Path.Combine(basePath, "W3CTestSuite");
-            var rows = new ImageTestDataSource().LoadRowsFromResourceCsv().Skip(1); //Skip header row
+            var rows = new ImageTestDataSource().LoadRowsFromResourceCsv().Skip(1); // Skip header row
             foreach (var row in rows)
                 yield return new TestData() { BasePath = testSuite, BaseName = row };
         }
 
         private const string ResourceIdentifier = "PassingTests.csv";
+
         /// <summary>
         /// Read the rows from the resource
         /// </summary>
@@ -324,19 +318,19 @@ namespace Svg.UnitTests
         {
             var assembly = typeof(ImageTestDataSource).Assembly;
             string resourceName = assembly.GetManifestResourceNames().FirstOrDefault(r => r.IndexOf(ResourceIdentifier) > -1);
-            if(resourceName == null) { throw new Exception($"Cannot find data resource: {ResourceIdentifier}"); }
+            if (resourceName == null) throw new Exception($"Cannot find data resource: {ResourceIdentifier}");
             var res = string.Empty;
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            using (var reader = new StreamReader(stream))
             {
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    res = reader.ReadToEnd();
-                }
+                res = reader.ReadToEnd();
             }
+
             return res.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
         private static string _basePath = null;
+
         /// <summary>
         /// Determine the folder the testsuite is running in.
         /// </summary>
