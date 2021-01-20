@@ -31,7 +31,7 @@
     <PackageReleaseNotes>Supports multiple targets v4.5.2 thru to dotnetcore3.1 and .NET 5.0.
 Many performance improvements by using SourceGenerators instad of reflection.
 
-</PackageReleaseNotes>
+    </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/svg-net/SVG</PackageProjectUrl>
     <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
     <PackageIcon>svg-logo-v.png</PackageIcon>
@@ -42,11 +42,6 @@ Many performance improvements by using SourceGenerators instad of reflection.
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\$(TargetFramework)\GeneratedFiles</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\svg11.dtd" />
@@ -143,6 +138,7 @@ Many performance improvements by using SourceGenerators instad of reflection.
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
     
   <PropertyGroup Condition="'$(TargetFramework)' != 'net452'">
