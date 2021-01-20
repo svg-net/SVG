@@ -273,6 +273,7 @@ __issue-744-01.svg
 __issue-747-01.svg
 __issue-758-01.svg
 __issue-769-01.svg
+__issue-785-01.svg
 __pull_request-373-01.svg
 __pull_request-374-01.svg
 __pull_request-414-01.svg
