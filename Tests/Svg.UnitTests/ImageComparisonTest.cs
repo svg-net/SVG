@@ -154,10 +154,10 @@ namespace Svg.UnitTests
                     svgImage = svgDoc.Draw();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 svgImage?.Dispose();
-                throw e;
+                throw;
             }
             return svgImage;
         }
