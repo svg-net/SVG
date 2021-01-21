@@ -4,6 +4,6 @@
   <polyline style="fill: red; stroke:black; stroke-width: 0px;" points="110 20 135 35 160 20 135 10 110 20"/>
   <circle style="fill: blue; stroke:black; stroke-width: 5px;" cx="35" cy="70" r="20"/>
   <circle style="fill: blue; stroke:black; stroke-width: 0px;" cx="135" cy="70" r="20"/>
-<rect style="fill: green; stroke:black; stroke-width: 5px;" x="20" y="105" width="30" height="30"/>
-<rect style="fill: green; stroke:black; stroke-width: 0px;" x="120" y="105" width="30" height="30"/>
+  <rect style="fill: green; stroke:black; stroke-width: 5px;" x="20" y="105" width="30" height="30"/>
+  <rect style="fill: green; stroke:black; stroke-width: 0px;" x="120" y="105" width="30" height="30"/>
 </svg>
