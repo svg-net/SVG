@@ -3,6 +3,11 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+### Fixes
+* fixed filled polyline not displayed with stroke-width=0 (see [#785](https://github.com/svg-net/SVG/issues/785)
+
+## [Version 3.2.3](https://www.nuget.org/packages/Svg/3.2.3)
+
 ### Enhancements
 * implement font-weight bolder and lighter (see [PR #727](https://github.com/svg-net/SVG/pull/727))
 * check if BaseUri is absolute (see [PR #738](https://github.com/svg-net/SVG/pull/738))
