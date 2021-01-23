@@ -25,7 +25,13 @@ namespace Svg
 
         SizeF ISvgBoundable.Size
         {
-            get { return GetDimensions(); }
+            get
+            {
+                // Prevent stack overflow due to mutually recursive call.
+                if (Width.Type == SvgUnitType.Percentage || Height.Type == SvgUnitType.Percentage)
+                    return new SizeF();
+                return GetDimensions();
+            }
         }
 
         RectangleF ISvgBoundable.Bounds
