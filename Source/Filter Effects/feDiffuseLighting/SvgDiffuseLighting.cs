@@ -50,6 +50,7 @@ namespace Svg.FilterEffects
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feDiffuseLighting filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()

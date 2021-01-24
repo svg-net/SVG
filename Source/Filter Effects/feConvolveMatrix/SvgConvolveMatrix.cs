@@ -69,6 +69,7 @@
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feConvolveMatrix filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()
