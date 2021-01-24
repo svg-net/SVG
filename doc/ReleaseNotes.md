@@ -5,6 +5,7 @@ The release versions are NuGet releases.
 
 ### Fixes
 * fixed filled polyline not displayed with stroke-width=0 (see [#785](https://github.com/svg-net/SVG/issues/785)
+* fixed StackOverFlowException (see [#755](https://github.com/svg-net/SVG/issues/755)
 
 ## [Version 3.2.3](https://www.nuget.org/packages/Svg/3.2.3)
 
