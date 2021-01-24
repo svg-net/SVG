@@ -48,6 +48,7 @@
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feComposite filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()

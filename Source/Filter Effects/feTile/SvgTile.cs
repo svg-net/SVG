@@ -6,6 +6,7 @@
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feTile filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()
