@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace Svg.DocumentStructure
+namespace Svg
 {
     /// <summary>
     /// An element used to group SVG shapes.
@@ -104,9 +104,9 @@ namespace Svg.DocumentStructure
 
 namespace Svg.Document_Structure
 {
-    [Obsolete("Use Svg.DocumentStructure.SvgSymbol.")]
+    [Obsolete("Use Svg.SvgSymbol.")]
     [SvgElement("")]
-    public partial class SvgSymbol : DocumentStructure.SvgSymbol
+    public partial class SvgSymbol : Svg.SvgSymbol
     {
         public SvgSymbol()
         {
