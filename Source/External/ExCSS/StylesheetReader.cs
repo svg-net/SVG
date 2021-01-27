@@ -23,7 +23,7 @@ namespace Svg.ExCSS
 
         internal StylesheetReader(string styleText) : this()
         {
-            _reader = new StringReader(styleText);
+            _reader = new StringReader(styleText??string.Empty);
             ReadCurrent();
         }
 
