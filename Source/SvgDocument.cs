@@ -40,7 +40,7 @@ namespace Svg
 
         public static int PointsPerInch
         {
-            get { return pointsPerInch ?? (int) (pointsPerInch = GetSystemDpi()); }
+            get { return pointsPerInch ?? (int)(pointsPerInch = GetSystemDpi()); }
             set { pointsPerInch = value; }
         }
 
@@ -224,11 +224,11 @@ namespace Svg
             {
                 EnsureSystemIsGdiPlusCapable();
             }
-            catch(SvgGdiPlusCannotBeLoadedException)
+            catch (SvgGdiPlusCannotBeLoadedException)
             {
                 return false;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 //If somehow another type of exception is raised by the ensure function we will let it bubble up, since that might indicate other issues/problems
                 throw;
@@ -487,7 +487,7 @@ namespace Svg
             {
                 var cssTotal = styles.Select((s) => s.Content).Aggregate((p, c) => p + Environment.NewLine + c);
                 var cssParser = new Parser();
-                var sheet = cssParser.Parse(cssTotal);
+                var sheet = cssParser.Parse(cssTotal ?? string.Empty);
 
                 foreach (var rule in sheet.StyleRules)
                 {
