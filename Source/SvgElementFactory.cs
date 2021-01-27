@@ -22,9 +22,10 @@ namespace Svg
         {
             // cache ElementInfo in static Field
             var svgTypes = from t in typeof(SvgDocument).Assembly.GetExportedTypes()
-                where t.GetCustomAttributes(typeof(SvgElementAttribute), true).Length > 0
+                let attrs = (SvgElementAttribute[])t.GetCustomAttributes(typeof(SvgElementAttribute), true)
+                where attrs.Length > 0 && !string.IsNullOrWhiteSpace(attrs[0].ElementName)
                       && t.IsSubclassOf(typeof(SvgElement))
-                select new ElementInfo { ElementName = ((SvgElementAttribute)t.GetCustomAttributes(typeof(SvgElementAttribute), true)[0]).ElementName, ElementType = t };
+                select new ElementInfo { ElementName = attrs[0].ElementName, ElementType = t };
 
             availableElements = svgTypes.ToList();
 
@@ -264,8 +265,8 @@ namespace Svg
             return false;
         }
 #if !USE_SOURCE_GENERATORS
-        private static Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
-        private static object syncLock = new object();
+        private static readonly Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
+        private static readonly object syncLock = new object();
 #endif
         internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle = false)
         {
