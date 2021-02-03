@@ -1,4 +1,4 @@
-using System.Xml;
+﻿using System.Xml;
 
 namespace Svg
 {
@@ -41,7 +41,7 @@ namespace Svg
             return DeepCopy<SvgScript>();
         }
 
-        protected override void WriteChildren(XmlTextWriter writer)
+        protected override void WriteChildren(XmlWriter writer)
         {
             if (!string.IsNullOrEmpty(Content))
             {
