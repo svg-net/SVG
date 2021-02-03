@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
@@ -7,7 +7,7 @@ using System.Linq;
 namespace Svg
 {
     [SvgElement("radialGradient")]
-    public sealed class SvgRadialGradientServer : SvgGradientServer
+    public partial class SvgRadialGradientServer : SvgGradientServer
     {
         [SvgAttribute("cx")]
         public SvgUnit CenterX
@@ -56,6 +56,13 @@ namespace Svg
             set { Attributes["fy"] = value; }
         }
 
+        [SvgAttribute("fr")]
+        public SvgUnit FocalRadius
+        {
+            get { return GetAttribute("fr", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            set { Attributes["fr"] = value; }
+        }
+
         private object _lockObj = new Object();
 
         private SvgUnit NormalizeUnit(SvgUnit orig)
@@ -69,6 +76,7 @@ namespace Svg
         {
             LoadStops(renderingElement);
 
+            // TODO: figure out how to do the brush transform in the presence of FocalRadius
             try
             {
                 if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.SetBoundable(renderingElement);
@@ -216,7 +224,7 @@ namespace Svg
 
         //New plan:
         // scale the outer rectangle to always encompass ellipse
-        // cut the ellipse in half (either vertical or horizontal) 
+        // cut the ellipse in half (either vertical or horizontal)
         // determine the region on each side of the ellipse
         private static IEnumerable<GraphicsPath> GetDifference(RectangleF subject, GraphicsPath clip)
         {

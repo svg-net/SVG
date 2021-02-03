@@ -4,16 +4,21 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using Svg.Pathing;
 
 namespace Svg
 {
     public static class PointFExtensions
     {
+        public static string ToSvgString(this float value)
+        {
+            // Use G7 format specifier to be compatible across all target frameworks.
+            return value.ToString("G7", CultureInfo.InvariantCulture);
+        }
+
         public static string ToSvgString(this PointF p)
         {
-            return p.X.ToString(CultureInfo.InvariantCulture) + " " + p.Y.ToString(CultureInfo.InvariantCulture);
+            return p.X.ToSvgString() + " " + p.Y.ToSvgString();
         }
     }
 
@@ -23,141 +28,226 @@ namespace Svg
         /// Parses the specified string into a collection of path segments.
         /// </summary>
         /// <param name="path">A <see cref="string"/> containing path data.</param>
-        public static SvgPathSegmentList Parse(string path)
+        public static SvgPathSegmentList Parse(ReadOnlySpan<char> path)
         {
-            if (path == null)
-                throw new ArgumentNullException("path");
-
             var segments = new SvgPathSegmentList();
 
             try
             {
-                foreach (var commandSet in SplitCommands(path.TrimEnd(null)))
-                    CreatePathSegment(commandSet[0], segments, new CoordinateParser(commandSet.Trim()));
+                var pathTrimmed = path.TrimEnd();
+                var commandStart = 0;
+                var pathLength = pathTrimmed.Length;
+
+                for (var i = 0; i < pathLength; ++i)
+                {
+                    var currentChar = pathTrimmed[i];
+                    if (char.IsLetter(currentChar) && currentChar != 'e' && currentChar != 'E') // e is used in scientific notiation. but not svg path
+                    {
+                        var start = commandStart;
+                        var length = i - commandStart;
+                        var command = pathTrimmed.Slice(start, length).Trim();
+                        commandStart = i;
+
+                        if (command.Length > 0)
+                        {
+                            var commandSetTrimmed = pathTrimmed.Slice(start, length).Trim();
+                            var state = new CoordinateParserState(ref commandSetTrimmed);
+                            CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
+                        }
+
+                        if (pathLength == i + 1)
+                        {
+                            var commandSetTrimmed = pathTrimmed.Slice(i, 1).Trim();
+                            var state = new CoordinateParserState(ref commandSetTrimmed);
+                            CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
+                        }
+                    }
+                    else if (pathLength == i + 1)
+                    {
+                        var start = commandStart;
+                        var length = i - commandStart + 1;
+                        var command = pathTrimmed.Slice(start, length).Trim();
+
+                        if (command.Length > 0)
+                        {
+                            var commandSetTrimmed = pathTrimmed.Slice(start, length).Trim();
+                            var state = new CoordinateParserState(ref commandSetTrimmed);
+                            CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
+                        }
+                    }
+                }
             }
             catch (Exception exc)
             {
-                Trace.TraceError("Error parsing path \"{0}\": {1}", path, exc.Message);
+                Trace.TraceError("Error parsing path \"{0}\": {1}", path.ToString(), exc.Message);
             }
 
             return segments;
         }
 
-        private static void CreatePathSegment(char command, SvgPathSegmentList segments, CoordinateParser parser)
+        private static void CreatePathSegment(char command, SvgPathSegmentList segments, ref CoordinateParserState state, ref ReadOnlySpan<char> chars)
         {
             var isRelative = char.IsLower(command);
-            var coords = new float[6];
             // http://www.w3.org/TR/SVG11/paths.html#PathDataGeneralInformation
 
             switch (command)
             {
                 case 'M': // moveto
                 case 'm': // relative moveto
-                    if (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
-                        segments.Add(new SvgMoveToSegment(ToAbsolute(coords[0], coords[1], segments, isRelative)));
-
-                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                     {
-                        segments.Add(new SvgLineSegment(segments.Last.End,
-                            ToAbsolute(coords[0], coords[1], segments, isRelative)));
+                        if (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state)
+                         && CoordinateParser.TryGetFloat(out var coords1, ref chars, ref state))
+                        {
+                            segments.Add(
+                                new SvgMoveToSegment(
+                                    ToAbsolute(coords0, coords1, segments, isRelative)));
+                        }
+                        while (CoordinateParser.TryGetFloat(out coords0, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out coords1, ref chars, ref state))
+                        {
+                            segments.Add(
+                                new SvgLineSegment(
+                                    segments.Last.End,
+                                    ToAbsolute(coords0, coords1, segments, isRelative)));
+                        }
                     }
                     break;
                 case 'A': // elliptical arc
                 case 'a': // relative elliptical arc
-                    bool size;
-                    bool sweep;
-
-                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
-                           parser.TryGetFloat(out coords[2]) && parser.TryGetBool(out size) &&
-                           parser.TryGetBool(out sweep) && parser.TryGetFloat(out coords[3]) &&
-                           parser.TryGetFloat(out coords[4]))
                     {
-                        // A|a rx ry x-axis-rotation large-arc-flag sweep-flag x y
-                        segments.Add(new SvgArcSegment(segments.Last.End, coords[0], coords[1], coords[2],
-                            size ? SvgArcSize.Large : SvgArcSize.Small,
-                            sweep ? SvgArcSweep.Positive : SvgArcSweep.Negative,
-                            ToAbsolute(coords[3], coords[4], segments, isRelative)));
+                        while (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords1, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords2, ref chars, ref state)
+                            && CoordinateParser.TryGetBool(out var size, ref chars, ref state)
+                            && CoordinateParser.TryGetBool(out var sweep, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords3, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords4, ref chars, ref state))
+                        {
+                            // A|a rx ry x-axis-rotation large-arc-flag sweep-flag x y
+                            segments.Add(
+                                new SvgArcSegment(
+                                    segments.Last.End,
+                                    coords0,
+                                    coords1,
+                                    coords2,
+                                    size ? SvgArcSize.Large : SvgArcSize.Small,
+                                    sweep ? SvgArcSweep.Positive : SvgArcSweep.Negative,
+                                    ToAbsolute(coords3, coords4, segments, isRelative)));
+                        }
                     }
                     break;
                 case 'L': // lineto
                 case 'l': // relative lineto
-                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                     {
-                        segments.Add(new SvgLineSegment(segments.Last.End,
-                            ToAbsolute(coords[0], coords[1], segments, isRelative)));
+                        while (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords1, ref chars, ref state))
+                        {
+                            segments.Add(
+                                new SvgLineSegment(
+                                    segments.Last.End,
+                                    ToAbsolute(coords0, coords1, segments, isRelative)));
+                        }
                     }
                     break;
                 case 'H': // horizontal lineto
                 case 'h': // relative horizontal lineto
-                    while (parser.TryGetFloat(out coords[0]))
                     {
-                        segments.Add(new SvgLineSegment(segments.Last.End,
-                            ToAbsolute(coords[0], segments.Last.End.Y, segments, isRelative, false)));
+                        while (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state))
+                        {
+                            segments.Add(
+                                new SvgLineSegment(
+                                    segments.Last.End,
+                                    ToAbsolute(coords0, segments.Last.End.Y, segments, isRelative, false)));
+                        }
                     }
                     break;
                 case 'V': // vertical lineto
                 case 'v': // relative vertical lineto
-                    while (parser.TryGetFloat(out coords[0]))
                     {
-                        segments.Add(new SvgLineSegment(segments.Last.End,
-                            ToAbsolute(segments.Last.End.X, coords[0], segments, false, isRelative)));
+                        while (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state))
+                        {
+                            segments.Add(
+                                new SvgLineSegment(
+                                    segments.Last.End,
+                                    ToAbsolute(segments.Last.End.X, coords0, segments, false, isRelative)));
+                        }
                     }
                     break;
                 case 'Q': // quadratic bézier curveto
                 case 'q': // relative quadratic bézier curveto
-                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
-                           parser.TryGetFloat(out coords[2]) && parser.TryGetFloat(out coords[3]))
                     {
-                        segments.Add(new SvgQuadraticCurveSegment(segments.Last.End,
-                            ToAbsolute(coords[0], coords[1], segments, isRelative),
-                            ToAbsolute(coords[2], coords[3], segments, isRelative)));
+                        while (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords1, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords2, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords3, ref chars, ref state))
+                        {
+                            segments.Add(
+                                new SvgQuadraticCurveSegment(
+                                    segments.Last.End,
+                                    ToAbsolute(coords0, coords1, segments, isRelative),
+                                    ToAbsolute(coords2, coords3, segments, isRelative)));
+                        }
                     }
                     break;
                 case 'T': // shorthand/smooth quadratic bézier curveto
                 case 't': // relative shorthand/smooth quadratic bézier curveto
-                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]))
                     {
-                        var lastQuadCurve = segments.Last as SvgQuadraticCurveSegment;
-
-                        var controlPoint = lastQuadCurve != null
-                            ? Reflect(lastQuadCurve.ControlPoint, segments.Last.End)
-                            : segments.Last.End;
-
-                        segments.Add(new SvgQuadraticCurveSegment(segments.Last.End, controlPoint,
-                            ToAbsolute(coords[0], coords[1], segments, isRelative)));
+                        while (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords1, ref chars, ref state))
+                        {
+                            var lastQuadCurve = segments.Last as SvgQuadraticCurveSegment;
+                            var controlPoint = lastQuadCurve != null ? Reflect(lastQuadCurve.ControlPoint, segments.Last.End) : segments.Last.End;
+                            segments.Add(
+                                new SvgQuadraticCurveSegment(
+                                    segments.Last.End,
+                                    controlPoint,
+                                    ToAbsolute(coords0, coords1, segments, isRelative)));
+                        }
                     }
                     break;
                 case 'C': // curveto
                 case 'c': // relative curveto
-                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
-                           parser.TryGetFloat(out coords[2]) && parser.TryGetFloat(out coords[3]) &&
-                           parser.TryGetFloat(out coords[4]) && parser.TryGetFloat(out coords[5]))
                     {
-                        segments.Add(new SvgCubicCurveSegment(segments.Last.End,
-                            ToAbsolute(coords[0], coords[1], segments, isRelative),
-                            ToAbsolute(coords[2], coords[3], segments, isRelative),
-                            ToAbsolute(coords[4], coords[5], segments, isRelative)));
+                    while (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state)
+                        && CoordinateParser.TryGetFloat(out var coords1, ref chars, ref state)
+                        && CoordinateParser.TryGetFloat(out var coords2, ref chars, ref state)
+                        && CoordinateParser.TryGetFloat(out var coords3, ref chars, ref state)
+                        && CoordinateParser.TryGetFloat(out var coords4, ref chars, ref state)
+                        && CoordinateParser.TryGetFloat(out var coords5, ref chars, ref state))
+                    {
+                        segments.Add(
+                            new SvgCubicCurveSegment(
+                                segments.Last.End,
+                                ToAbsolute(coords0, coords1, segments, isRelative),
+                                ToAbsolute(coords2, coords3, segments, isRelative),
+                                ToAbsolute(coords4, coords5, segments, isRelative)));
+                    }
                     }
                     break;
                 case 'S': // shorthand/smooth curveto
                 case 's': // relative shorthand/smooth curveto
-                    while (parser.TryGetFloat(out coords[0]) && parser.TryGetFloat(out coords[1]) &&
-                           parser.TryGetFloat(out coords[2]) && parser.TryGetFloat(out coords[3]))
                     {
-                        var lastCubicCurve = segments.Last as SvgCubicCurveSegment;
-
-                        var controlPoint = lastCubicCurve != null
-                            ? Reflect(lastCubicCurve.SecondControlPoint, segments.Last.End)
-                            : segments.Last.End;
-
-                        segments.Add(new SvgCubicCurveSegment(segments.Last.End, controlPoint,
-                            ToAbsolute(coords[0], coords[1], segments, isRelative),
-                            ToAbsolute(coords[2], coords[3], segments, isRelative)));
+                        while (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords1, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords2, ref chars, ref state)
+                            && CoordinateParser.TryGetFloat(out var coords3, ref chars, ref state))
+                        {
+                            var lastCubicCurve = segments.Last as SvgCubicCurveSegment;
+                            var controlPoint = lastCubicCurve != null ? Reflect(lastCubicCurve.SecondControlPoint, segments.Last.End) : segments.Last.End;
+                            segments.Add(
+                                new SvgCubicCurveSegment(
+                                    segments.Last.End,
+                                    controlPoint,
+                                    ToAbsolute(coords0, coords1, segments, isRelative),
+                                    ToAbsolute(coords2, coords3, segments, isRelative)));
+                        }
                     }
                     break;
                 case 'Z': // closepath
                 case 'z': // relative closepath
-                    segments.Add(new SvgClosePathSegment());
+                    {
+                        segments.Add(new SvgClosePathSegment());
+                    }
                     break;
             }
         }
@@ -204,8 +294,17 @@ namespace Svg
                 var lastSegment = segments.Last;
 
                 // if the last element is a SvgClosePathSegment the position of the previous element should be used because the position of SvgClosePathSegment is 0,0
-                if (lastSegment is SvgClosePathSegment)
-                    lastSegment = segments.Reverse().OfType<SvgMoveToSegment>().First();
+                if (lastSegment is SvgClosePathSegment && segments.Count > 0)
+                {
+                    for (int i = segments.Count - 1; i >= 0; i--)
+                    {
+                        if (segments[i] is SvgMoveToSegment moveToSegment)
+                        {
+                            lastSegment = moveToSegment;
+                            break;
+                        }
+                    }
+                }
 
                 if (isRelativeX)
                     point.X += lastSegment.End.X;
@@ -217,37 +316,10 @@ namespace Svg
             return point;
         }
 
-        private static IEnumerable<string> SplitCommands(string path)
-        {
-            var commandStart = 0;
-
-            for (var i = 0; i < path.Length; ++i)
-            {
-                if (char.IsLetter(path[i]) && path[i] != 'e' && path[i] != 'E') // e is used in scientific notiation. but not svg path
-                {
-                    var command = path.Substring(commandStart, i - commandStart).Trim();
-                    commandStart = i;
-
-                    if (!string.IsNullOrEmpty(command))
-                        yield return command;
-
-                    if (path.Length == i + 1)
-                        yield return path[i].ToString();
-                }
-                else if (path.Length == i + 1)
-                {
-                    var command = path.Substring(commandStart, i - commandStart + 1).Trim();
-
-                    if (!string.IsNullOrEmpty(command))
-                        yield return command;
-                }
-            }
-        }
-
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
-                return Parse((string)value);
+            if (value is string s)
+                return Parse(s.AsSpan());
 
             return base.ConvertFrom(context, culture, value);
         }

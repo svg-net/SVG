@@ -11,7 +11,7 @@ namespace Svg
     /// but should be defined by the time the image needs to render.
     /// </summary>
     [TypeConverter(typeof(SvgDeferredPaintServerFactory))]
-    public class SvgDeferredPaintServer : SvgPaintServer
+    public partial class SvgDeferredPaintServer : SvgPaintServer
     {
         private bool _serverLoaded;
 
@@ -72,7 +72,9 @@ namespace Svg
                     _concreteServer = styleOwner.OwnerDocument.IdManager.GetElementById(DeferredId) as SvgPaintServer;
 
                     _fallbackServer = FallbackServer;
-                    if (!(_fallbackServer is SvgColourServer ||
+                    if (_fallbackServer == null)
+                        _fallbackServer = None;
+                    else if (!(_fallbackServer is SvgColourServer ||
                         (_fallbackServer is SvgDeferredPaintServer && string.Equals(((SvgDeferredPaintServer)_fallbackServer).DeferredId, "currentColor"))))
                         _fallbackServer = Inherit;
                 }
@@ -83,7 +85,7 @@ namespace Svg
         public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
             EnsureServer(styleOwner);
-            return (_concreteServer ?? _fallbackServer ?? NotSet).GetBrush(styleOwner, renderer, opacity, forStroke);
+            return _concreteServer?.GetBrush(styleOwner, renderer, opacity, forStroke) ?? _fallbackServer?.GetBrush(styleOwner, renderer, opacity, forStroke) ?? NotSet?.GetBrush(styleOwner, renderer, opacity, forStroke);
         }
 
         public override SvgElement DeepCopy()

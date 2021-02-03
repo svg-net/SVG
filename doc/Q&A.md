@@ -2,11 +2,11 @@ This is currently a collection of answered questions in issues that have been cl
 The format of the page is preliminary and maybe changed if more questions accumulate.
 
 ## How to get started
-Please use our [getting started article](http://vvvv.github.io/SVG/doc/GettingStarted.html) to get started with installation and implementation of the SVG library.
+Please use our [getting started article](http://svg-net.github.io/SVG/doc/GettingStarted.html) to get started with installation and implementation of the SVG library.
 
 ## How to re-render an SVG faster?
 
-(from [#327](https://github.com/vvvv/SVG/issues/327), by @flemingtech)
+(from [#327](https://github.com/svg-net/SVG/issues/327), by @flemingtech)
 
 The rendering type plays a significant roll on rendering speeds. For example, it anti-aliasing is off for the SvgDocument render times are notably faster.
 
@@ -18,13 +18,13 @@ Once I'm done, I render the first SVG to an Image. When any of the 'animating' e
 
 ## Can I use SVG.NET in a UWP Windows 10 App?
 
-(from [#219](https://github.com/vvvv/SVG/issues/219), by @jonthysell)
+(from [#219](https://github.com/svg-net/SVG/issues/219), by @jonthysell)
 
 SVG.NET requires the System.Drawing namespace, which is not available in UWP. See http://stackoverflow.com/questions/31545389/windows-universal-app-with-system-drawing-and-possible-alternative.
 
 ## How to render an SVG image to a single-color bitmap image?
 
-(from [#366](https://github.com/vvvv/SVG/issues/366), by @UweKeim)
+(from [#366](https://github.com/svg-net/SVG/issues/366), by @UweKeim)
 
 I was able to find a solution with the following fragment:
 
@@ -56,7 +56,7 @@ private void processNodes(IEnumerable<SvgElement> nodes, SvgPaintServer colorSer
 
 ## How to render only a specific SvgElement?
 
-(from [#403](https://github.com/vvvv/SVG/issues/403), by @ievgennaida)
+(from [#403](https://github.com/svg-net/SVG/issues/403), by @ievgennaida)
 
 Use `element.RenderElement();`.
 
@@ -66,7 +66,7 @@ Use `SvgDocument.Draw(int rasterWidth, int rasterHeight)`. If one of the values 
 
 ## Is this code server-safe?
 
-(from [#381](https://github.com/vvvv/SVG/issues/381), by @rangercej, answered by @gvheertum)
+(from [#381](https://github.com/svg-net/SVG/issues/381), by @rangercej, answered by @gvheertum)
 
 I used it in server side code (ASP.NET MVC application and API's) and never had any problems with it. There is however be possible issues regarding use in services and API's, for example the System.Drawing might not always be available in certain situations (if I am not mistaken, some Azure service will not provide the System.Drawing since it relies on GDI calls) and will also be an issue when using it as "portable" code for example in .NET standard or .NET core (but I believe the library is already working on a migration/compatibility with .NET core/standard).
 
@@ -78,7 +78,7 @@ I believe there are some parallelisation tests in the UnitTest suite, since the 
 
 ## How to change the SvgUnit DPI?
 
-(from [#313](https://github.com/vvvv/SVG/issues/313), by @KieranSmartMP)
+(from [#313](https://github.com/svg-net/SVG/issues/313), by @KieranSmartMP)
 
 `SvgUnit` takes the DPI (which is called `Ppi` here) from the document. This is set to the system DPI at creation time, but can be set to another value afterwards, e.g. 
 ```c#
@@ -89,13 +89,13 @@ I believe there are some parallelisation tests in the UnitTest suite, since the 
 
 ## Why does my application crash with "cannot allocate the required memory"?
 
-(from [#250](https://github.com/vvvv/SVG/issues/250), by @Radzhab)
+(from [#250](https://github.com/svg-net/SVG/issues/250), by @Radzhab)
 
 If you try to open a very large SVG file in your application, it may crash, because .NET refuses to allocate that much contiguous memory, even if it could do so in theory. This is done to avoid processes to consume too much memory and slow down the system. Nothing we can do about this - you may catch this exception in your application and inform the user, or try to resize your SVG document and retry.
 
 ## How to add a custom attribute to an SVG element?
 
-(from [#481](https://github.com/vvvv/SVG/issues/481), by @lroye)
+(from [#481](https://github.com/svg-net/SVG/issues/481), by @lroye)
 
 Custom attributes are publicly accessible as a collection, you can add an attribute like this:
 ```C#
@@ -104,7 +104,7 @@ Custom attributes are publicly accessible as a collection, you can add an attrib
 
 ## I'm getting a SvgGdiPlusCannotBeLoadedException if running under Linux or MacOs
 
-(see [#494](https://github.com/vvvv/SVG/pull/495#issuecomment-505429874), by @ErlendSB)
+(see [#494](https://github.com/svg-net/SVG/pull/495#issuecomment-505429874), by @ErlendSB)
 
 This happens if libgdiplus is not installed under Linux or MacOs - libgdiplus is need for the implementation of System.Drawing.Common. The system will validate gdi+ capabilities when calling SvgDocument.Open(), if the gdi+ capabilities are not available, you will receive a SvgGdiPlusCannotBeLoadedException. 
 
@@ -128,7 +128,7 @@ On macOS, add a reference to the runtime.osx.10.10-x64.CoreCompat.System.Drawing
 
 When building from source-code you can also uncomment the 
 ```
-<!-- <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
+<!-- <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.6.20" />
   </ItemGroup> -->
 ``` 

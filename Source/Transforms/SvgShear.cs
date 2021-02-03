@@ -24,7 +24,7 @@ namespace Svg.Transforms
 
         public override string WriteToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "shear({0}, {1})", X, Y);
+            return $"shear({X.ToSvgString()}, {Y.ToSvgString()})";
         }
 
         public SvgShear(float x)

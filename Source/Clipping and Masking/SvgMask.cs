@@ -4,7 +4,7 @@ namespace Svg
     /// Defines an alpha mask for compositing the current object into the background.
     /// </summary>
     [SvgElement("mask")]
-    public class SvgMask : SvgElement
+    public partial class SvgMask : SvgElement
     {
         /// <summary>
         /// Defines the coordinate system for attributes <see cref="X"/>, <see cref="Y"/>, <see cref="Width"/> and <see cref="Height"/>.

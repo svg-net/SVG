@@ -1,6 +1,6 @@
 ﻿namespace Svg.FilterEffects
 {
-    public abstract class SvgComponentTransferFunction : SvgElement
+    public abstract partial class SvgComponentTransferFunction : SvgElement
     {
         [SvgAttribute("type")]
         public SvgComponentTransferType Type

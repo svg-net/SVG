@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Svg
 {
-    public abstract class SvgTextBase : SvgVisualElement
+    public abstract partial class SvgTextBase : SvgVisualElement
     {
         private SvgUnitCollection _x = new SvgUnitCollection();
         private SvgUnitCollection _y = new SvgUnitCollection();
@@ -438,7 +438,7 @@ namespace Svg
         {
             value = ApplyTransformation(value);
             value = new StringBuilder(value).Replace("\r\n", " ").Replace('\r', ' ').Replace('\n', ' ').Replace('\t', ' ').ToString();
-            return this.SpaceHandling == XmlSpaceHandling.preserve ? value : MultipleSpaces.Replace(value.Trim(), " ");
+            return this.SpaceHandling == XmlSpaceHandling.Preserve ? value : MultipleSpaces.Replace(value.Trim(), " ");
         }
 
         private string ApplyTransformation(string value)
@@ -609,16 +609,16 @@ namespace Svg
                 this.BaselinePath = element.GetBaselinePath(renderer);
                 _authorPathLength = element.GetAuthorPathLength();
             }
+
             public TextDrawingState(TextDrawingState parent, SvgTextBase element)
+                : this(parent.Renderer, element)
             {
-                this.Element = element;
-                this.Renderer = parent.Renderer;
                 this.Parent = parent;
                 this.Current = parent.Current;
                 this.TextBounds = parent.TextBounds;
-                this.BaselinePath = element.GetBaselinePath(parent.Renderer) ?? parent.BaselinePath;
-                var currPathLength = element.GetAuthorPathLength();
-                _authorPathLength = currPathLength == 0 ? parent._authorPathLength : currPathLength;
+                this.BaselinePath = this.BaselinePath ?? parent.BaselinePath;
+                if (_authorPathLength == 0)
+                    _authorPathLength = parent._authorPathLength;
             }
 
             public GraphicsPath GetPath()

@@ -7,7 +7,7 @@ namespace Svg
     /// The 'foreignObject' element allows for inclusion of a foreign namespace which has its graphical content drawn by a different user agent
     /// </summary>
     [SvgElement("foreignObject")]
-    public class SvgForeignObject : SvgVisualElement
+    public partial class SvgForeignObject : SvgVisualElement
     {
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.

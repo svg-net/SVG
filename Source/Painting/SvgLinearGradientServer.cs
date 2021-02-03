@@ -8,7 +8,7 @@ using System.Linq;
 namespace Svg
 {
     [SvgElement("linearGradient")]
-    public sealed class SvgLinearGradientServer : SvgGradientServer
+    public partial class SvgLinearGradientServer : SvgGradientServer
     {
         [SvgAttribute("x1")]
         public SvgUnit X1

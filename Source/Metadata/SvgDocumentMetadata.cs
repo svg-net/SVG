@@ -6,7 +6,7 @@ namespace Svg
     /// Represents a list of re-usable SVG components.
     /// </summary>
     [SvgElement("metadata")]
-    public class SvgDocumentMetadata : SvgElement
+    public partial class SvgDocumentMetadata : SvgElement
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgDocumentMetadata"/> class.

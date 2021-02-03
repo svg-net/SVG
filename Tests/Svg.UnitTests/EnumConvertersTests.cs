@@ -10,6 +10,7 @@ namespace Svg.UnitTests
     public class EnumConvertersTests
     {
         [Test]
+        [TestCase(typeof(XmlSpaceHandlingConverter), "default", "inherit", "preserve")]
         [TestCase(typeof(SvgFillRuleConverter), "nonzero", "evenodd", "inherit")]
         [TestCase(typeof(SvgColourInterpolationConverter), "auto", "sRGB", "linearRGB", "inherit")]
         [TestCase(typeof(SvgClipRuleConverter), "nonzero", "evenodd", "inherit")]

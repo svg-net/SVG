@@ -13,7 +13,7 @@ namespace Svg
     /// Represents and SVG image
     /// </summary>
     [SvgElement("image")]
-    public class SvgImage : SvgVisualElement
+    public partial class SvgImage : SvgVisualElement
     {
         private const string MimeTypeSvg = "image/svg+xml";
 

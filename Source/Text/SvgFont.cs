@@ -3,7 +3,7 @@
 namespace Svg
 {
     [SvgElement("font")]
-    public class SvgFont : SvgElement
+    public partial class SvgFont : SvgElement
     {
         [SvgAttribute("horiz-adv-x")]
         public float HorizAdvX

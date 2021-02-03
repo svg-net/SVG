@@ -8,7 +8,7 @@ namespace Svg
     /// An <see cref="SvgFragment"/> represents an SVG fragment that can be the root element or an embedded fragment of an SVG document.
     /// </summary>
     [SvgElement("svg")]
-    public class SvgFragment : SvgElement, ISvgViewPort, ISvgBoundable
+    public partial class SvgFragment : SvgElement, ISvgViewPort, ISvgBoundable
     {
         private SvgUnit _x = 0f;
         private SvgUnit _y = 0f;
@@ -25,7 +25,13 @@ namespace Svg
 
         SizeF ISvgBoundable.Size
         {
-            get { return GetDimensions(); }
+            get
+            {
+                // Prevent stack overflow due to mutually recursive call.
+                if (Width.Type == SvgUnitType.Percentage || Height.Type == SvgUnitType.Percentage)
+                    return new SizeF();
+                return GetDimensions();
+            }
         }
 
         RectangleF ISvgBoundable.Bounds
@@ -136,7 +142,7 @@ namespace Svg
 
         public override XmlSpaceHandling SpaceHandling
         {
-            get { return GetAttribute("space", true, XmlSpaceHandling.@default); }
+            get { return GetAttribute("space", true, XmlSpaceHandling.Default); }
             set { base.SpaceHandling = value; IsPathDirty = true; }
         }
 

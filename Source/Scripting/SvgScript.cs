@@ -7,7 +7,7 @@ namespace Svg
     /// Use the Script property to get the script content (proxies the content)
     /// </summary>
     [SvgElement("script")]
-    public class SvgScript : SvgElement
+    public partial class SvgScript : SvgElement
     {
         public string Script
         {

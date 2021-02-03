@@ -7,7 +7,7 @@
         <authors>davescriven,jvenema,owaits,ddpruitt,Ralf1108,Tebjan Halm,and others</authors>
         <owners>vvvv.org</owners>
         <licenseUrl>http://opensource.org/licenses/MS-PL.html</licenseUrl>
-        <projectUrl>https://github.com/vvvv/SVG</projectUrl>
+        <projectUrl>https://github.com/svg-net/SVG</projectUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>Public fork of the C# SVG rendering library on codeplex: https://svg.codeplex.com/
 

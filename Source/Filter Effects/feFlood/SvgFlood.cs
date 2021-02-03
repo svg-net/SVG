@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feFlood")]
-    public class SvgFlood : SvgFilterPrimitive
+    public partial class SvgFlood : SvgFilterPrimitive
     {
         [SvgAttribute("flood-color")]
         public virtual SvgPaintServer FloodColor
@@ -20,6 +20,7 @@
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feFlood filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()

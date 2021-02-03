@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feBlend")]
-    public class SvgBlend : SvgFilterPrimitive
+    public partial class SvgBlend : SvgFilterPrimitive
     {
         [SvgAttribute("mode")]
         public SvgBlendMode Mode
@@ -20,6 +20,7 @@
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feBlend filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()

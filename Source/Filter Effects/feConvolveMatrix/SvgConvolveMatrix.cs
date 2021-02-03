@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feConvolveMatrix")]
-    public class SvgConvolveMatrix : SvgFilterPrimitive
+    public partial class SvgConvolveMatrix : SvgFilterPrimitive
     {
         [SvgAttribute("order")]
         public SvgNumberCollection Order
@@ -69,6 +69,7 @@
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feConvolveMatrix filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()

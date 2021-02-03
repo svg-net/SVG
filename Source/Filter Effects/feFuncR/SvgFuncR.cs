@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feFuncR")]
-    public class SvgFuncR : SvgComponentTransferFunction
+    public partial class SvgFuncR : SvgComponentTransferFunction
     {
         public override SvgElement DeepCopy()
         {

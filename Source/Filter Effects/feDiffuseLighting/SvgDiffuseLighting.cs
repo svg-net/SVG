@@ -3,7 +3,7 @@
 namespace Svg.FilterEffects
 {
     [SvgElement("feDiffuseLighting")]
-    public class SvgDiffuseLighting : SvgFilterPrimitive
+    public partial class SvgDiffuseLighting : SvgFilterPrimitive
     {
         [SvgAttribute("surfaceScale")]
         public float SurfaceScale
@@ -50,6 +50,7 @@ namespace Svg.FilterEffects
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feDiffuseLighting filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()

@@ -7,7 +7,7 @@ namespace Svg
     /// SvgPolygon defines a closed shape consisting of a set of connected straight line segments.
     /// </summary>
     [SvgElement("polygon")]
-    public class SvgPolygon : SvgMarkerElement
+    public partial class SvgPolygon : SvgMarkerElement
     {
         private GraphicsPath _path;
 
@@ -31,7 +31,7 @@ namespace Svg
                 try
                 {
                     var points = this.Points;
-                    for (int i = 2; (i + 1) < points.Count; i += 2)
+                    for (int i = 0; (i + 1) < points.Count; i += 2)
                     {
                         var endPoint = SvgUnit.GetDevicePoint(points[i], points[i + 1], renderer, this);
 
@@ -44,8 +44,10 @@ namespace Svg
                             continue;
                         }
 
-                        //first line
-                        if (_path.PointCount == 0)
+                        if (i == 0)
+                            continue;
+                        // first line
+                        else if (_path.PointCount == 0)
                         {
                             _path.AddLine(SvgUnit.GetDevicePoint(points[i - 2], points[i - 1], renderer, this), endPoint);
                         }

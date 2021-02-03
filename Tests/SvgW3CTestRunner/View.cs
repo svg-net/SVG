@@ -18,14 +18,15 @@ namespace SvgW3CTestRunner
         static private string sprt = Path.DirectorySeparatorChar.ToString();
 
         //Data folders
-        private string _svgBasePath = @".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "svg" + sprt;
-        private string _pngBasePath = @".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "png" + sprt;
+        private string _svgBasePath = @".." + sprt + ".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "svg" + sprt;
+        private string _pngBasePath = @".." + sprt + ".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "png" + sprt;
 
         public View()
         {
             InitializeComponent();
             // ignore tests pertaining to javascript or xml reading
-            var passes = File.ReadAllLines(_svgBasePath + @".." + sprt + "PassingTests.txt").ToDictionary((f) => f, (f) => true);
+            var passingtestsTxt = _svgBasePath + @".." + sprt + "PassingTests.txt";
+            var passes = File.ReadAllLines(passingtestsTxt).ToDictionary((f) => f, (f) => true);
             var files = (from f in
                          (from g in Directory.GetFiles(_svgBasePath)
                           select Path.GetFileName(g))
@@ -51,12 +52,12 @@ namespace SvgW3CTestRunner
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {   //click event
 
-                ContextMenu contextMenu = new System.Windows.Forms.ContextMenu();
-                MenuItem menuItem = new MenuItem("Copy");
+                var contextMenu = new System.Windows.Forms.ContextMenuStrip();
+                var menuItem = new ToolStripMenuItem("Copy");
                 menuItem.Click += new EventHandler(CopyAction);
-                contextMenu.MenuItems.Add(menuItem);
+                contextMenu.Items.Add(menuItem);
 
-                boxConsoleLog.ContextMenu = contextMenu;
+                boxConsoleLog.ContextMenuStrip = contextMenu;
             }
         }
 

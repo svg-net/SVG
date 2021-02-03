@@ -20,7 +20,7 @@ namespace Svg
     /// <summary>
     /// The class used to create and load SVG documents.
     /// </summary>
-    public class SvgDocument : SvgFragment, ITypeDescriptorContext
+    public partial class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
         /// <summary>
         /// Skip check whether the GDI+ can be loaded.
@@ -30,13 +30,19 @@ namespace Svg
         /// </remarks>
         public static bool SkipGdiPlusCapabilityCheck { get; set; }
 
+        /// <summary>
+        /// Skip the Dtd Processing for faster loading of svgs that have a DTD specified.
+        /// For Example Adobe Illustrator svgs.
+        /// </summary>
+        public static bool DisableDtdProcessing { get; set; }
+
         private static int? pointsPerInch;
 
         public static int PointsPerInch
         {
-            get { return pointsPerInch ?? (int) (pointsPerInch = GetSystemDpi()); }
+            get { return pointsPerInch ?? (int)(pointsPerInch = GetSystemDpi()); }
             set { pointsPerInch = value; }
-        } 
+        }
 
         private SvgElementIdManager _idManager;
 
@@ -55,7 +61,7 @@ namespace Svg
             isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #else
             var platform = Environment.OSVersion.Platform;
-            isWindows = platform == PlatformID.Win32NT; 
+            isWindows = platform == PlatformID.Win32NT;
 #endif
 
             if (isWindows)
@@ -132,7 +138,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Overwrites the current IdManager with a custom implementation. 
+        /// Overwrites the current IdManager with a custom implementation.
         /// Be careful with this: If elements have been inserted into the document before,
         /// you have to take care that the new IdManager also knows of them.
         /// </summary>
@@ -214,15 +220,15 @@ namespace Svg
         /// <returns>Boolean whether the system is capable of using GDI+</returns>
         public static bool SystemIsGdiPlusCapable()
         {
-            try 
+            try
             {
                 EnsureSystemIsGdiPlusCapable();
             }
-            catch(SvgGdiPlusCannotBeLoadedException)
+            catch (SvgGdiPlusCannotBeLoadedException)
             {
                 return false;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 //If somehow another type of exception is raised by the ensure function we will let it bubble up, since that might indicate other issues/problems
                 throw;
@@ -240,7 +246,7 @@ namespace Svg
             {
                 using (var matrix = new Matrix(0f, 0f, 0f, 0f, 0f, 0f)) { }
             }
-            // GDI+ loading errors will result in TypeInitializationExceptions, 
+            // GDI+ loading errors will result in TypeInitializationExceptions,
             // for readability we will catch and wrap the error
             catch (Exception e)
             {
@@ -250,12 +256,12 @@ namespace Svg
                     throw new SvgGdiPlusCannotBeLoadedException(e);
                 }
                 //If the Matrix creation is causing another type of exception we should just raise that one
-                throw;   
+                throw;
             }
         }
 
         /// <summary>
-        /// Check if the current exception or one of its children is the targeted GDI+ exception. 
+        /// Check if the current exception or one of its children is the targeted GDI+ exception.
         /// It can be hidden in one of the InnerExceptions, so we need to iterate over them.
         /// </summary>
         /// <param name="e">The exception to validate against the GDI+ check</param>
@@ -351,7 +357,8 @@ namespace Svg
                 var reader = new SvgTextReader(strReader, null)
                 {
                     XmlResolver = new SvgDtdResolver(),
-                    WhitespaceHandling = WhitespaceHandling.Significant
+                    WhitespaceHandling = WhitespaceHandling.Significant,
+                    DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
                 };
                 return Open<T>(reader);
             }
@@ -374,7 +381,8 @@ namespace Svg
             var reader = new SvgTextReader(stream, entities)
             {
                 XmlResolver = new SvgDtdResolver(),
-                WhitespaceHandling = WhitespaceHandling.Significant
+                WhitespaceHandling = WhitespaceHandling.Significant,
+                DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
             };
             return Open<T>(reader);
         }
@@ -479,7 +487,7 @@ namespace Svg
             {
                 var cssTotal = styles.Select((s) => s.Content).Aggregate((p, c) => p + Environment.NewLine + c);
                 var cssParser = new Parser();
-                var sheet = cssParser.Parse(cssTotal);
+                var sheet = cssParser.Parse(cssTotal ?? string.Empty);
 
                 foreach (var rule in sheet.StyleRules)
                 {
@@ -696,7 +704,7 @@ namespace Svg
         /// <param name="rasterHeight"></param>
         public virtual void RasterizeDimensions(ref SizeF size, int rasterWidth, int rasterHeight)
         {
-            if (size == null || size.Width == 0)
+            if (size.Width == 0)
                 return;
 
             // Ratio of height/width of the original SVG size, to be used for scaling transformation

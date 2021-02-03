@@ -3,7 +3,7 @@
 namespace Svg
 {
     [SvgElement("font-face-uri")]
-    public class SvgFontFaceUri : SvgElement
+    public partial class SvgFontFaceUri : SvgElement
     {
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public virtual Uri ReferencedElement

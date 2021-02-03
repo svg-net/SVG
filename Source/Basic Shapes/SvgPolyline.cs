@@ -9,13 +9,13 @@ namespace Svg
     /// SvgPolyline defines a set of connected straight line segments. Typically, <see cref="SvgPolyline"/> defines open shapes.
     /// </summary>
     [SvgElement("polyline")]
-    public class SvgPolyline : SvgPolygon
+    public partial class SvgPolyline : SvgPolygon
     {
         private GraphicsPath _Path;
 
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if ((_Path == null || this.IsPathDirty) && base.StrokeWidth > 0)
+            if (_Path == null || this.IsPathDirty)
             {
                 _Path = new GraphicsPath();
 

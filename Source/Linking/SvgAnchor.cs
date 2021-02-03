@@ -1,7 +1,7 @@
 ﻿namespace Svg
 {
     [SvgElement("a")]
-    public class SvgAnchor : SvgElement
+    public partial class SvgAnchor : SvgElement
     {
         [SvgAttribute("href", SvgAttributeAttribute.XLinkNamespace)]
         public string Href

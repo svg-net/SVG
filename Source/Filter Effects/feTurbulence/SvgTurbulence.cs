@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feTurbulence")]
-    public class SvgTurbulence : SvgFilterPrimitive
+    public partial class SvgTurbulence : SvgFilterPrimitive
     {
         [SvgAttribute("baseFrequency")]
         public SvgNumberCollection BaseFrequency
@@ -41,6 +41,7 @@
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feTurbulence filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()

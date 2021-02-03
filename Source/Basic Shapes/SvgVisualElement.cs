@@ -139,7 +139,10 @@ namespace Svg
             {
                 var opacity = FixOpacityValue(Opacity);
                 if (opacity == 1f)
-                    RenderInternal(renderer);
+                    if (Renderable)
+                        RenderInternal(renderer, RenderFillAndStroke);
+                    else
+                        RenderInternal(renderer, RenderChildren);
                 else
                 {
                     IsPathDirty = true;
@@ -154,28 +157,29 @@ namespace Svg
                                 canvasRenderer.SetBoundable(renderer.GetBoundable());
                                 canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
 
-                                RenderInternal(canvasRenderer);
+                                if (Renderable)
+                                    RenderInternal(canvasRenderer, RenderFillAndStroke);
+                                else
+                                    RenderChildren(canvasRenderer);
                             }
                             var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
-                            renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                            if (Renderable)
+                                renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
+                            else
+                                RenderInternal(renderer, r => r.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity));
                         }
                 }
             }
         }
 
-        private void RenderInternal(ISvgRenderer renderer)
+        private void RenderInternal(ISvgRenderer renderer, Action<ISvgRenderer> renderMethod)
         {
             try
             {
                 if (PushTransforms(renderer))
                 {
                     SetClip(renderer);
-
-                    if (Renderable)
-                        RenderFillAndStroke(renderer);
-                    else
-                        RenderChildren(renderer);
-
+                    renderMethod.Invoke(renderer);
                     ResetClip(renderer);
                 }
             }
@@ -197,7 +201,7 @@ namespace Svg
                 {
                     try
                     {
-                        ((SvgFilter)element).ApplyFilter(this, renderer, (r) => RenderInternal(r, false));
+                        ((SvgFilter)element).ApplyFilter(this, renderer, r => RenderInternal(r, false));
                     }
                     catch (Exception ex)
                     {
@@ -371,6 +375,10 @@ namespace Svg
                                     case SvgStrokeLineJoin.Round:
                                         pen.LineJoin = LineJoin.Round;
                                         break;
+                                    case SvgStrokeLineJoin.MiterClip:
+                                        pen.LineJoin = LineJoin.MiterClipped;
+                                        break;
+                                    // System.Drawing has no support for Arcs unfortunately
                                     default:
                                         pen.LineJoin = LineJoin.Miter;
                                         break;

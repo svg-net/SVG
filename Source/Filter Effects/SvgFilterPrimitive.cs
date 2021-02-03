@@ -6,7 +6,7 @@ using System.Drawing.Drawing2D;
 
 namespace Svg.FilterEffects
 {
-    public abstract class SvgFilterPrimitive : SvgElement
+    public abstract partial class SvgFilterPrimitive : SvgElement
     {
         public const string SourceGraphic = "SourceGraphic";
         public const string SourceAlpha = "SourceAlpha";

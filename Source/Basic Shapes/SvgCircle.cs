@@ -6,7 +6,7 @@ namespace Svg
     /// An SVG element to render circles to the document.
     /// </summary>
     [SvgElement("circle")]
-    public class SvgCircle : SvgPathBasedElement
+    public partial class SvgCircle : SvgPathBasedElement
     {
         private SvgUnit _centerX = 0f;
         private SvgUnit _centerY = 0f;

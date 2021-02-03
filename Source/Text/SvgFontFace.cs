@@ -1,7 +1,7 @@
 namespace Svg
 {
     [SvgElement("font-face")]
-    public class SvgFontFace : SvgElement
+    public partial class SvgFontFace : SvgElement
     {
         [SvgAttribute("alphabetic")]
         public float Alphabetic

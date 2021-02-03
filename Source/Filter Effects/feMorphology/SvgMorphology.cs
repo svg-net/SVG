@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feMorphology")]
-    public class SvgMorphology : SvgFilterPrimitive
+    public partial class SvgMorphology : SvgFilterPrimitive
     {
         [SvgAttribute("operator")]
         public SvgMorphologyOperator Operator
@@ -20,6 +20,7 @@
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feMorphology filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()

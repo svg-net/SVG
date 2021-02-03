@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feDisplacementMap")]
-    public class SvgDisplacementMap : SvgFilterPrimitive
+    public partial class SvgDisplacementMap : SvgFilterPrimitive
     {
         [SvgAttribute("scale")]
         public float Scale
@@ -34,6 +34,7 @@
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feDisplacementMap filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()

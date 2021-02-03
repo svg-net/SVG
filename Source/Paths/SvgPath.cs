@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using Svg.Pathing;
 
@@ -8,7 +8,7 @@ namespace Svg
     /// Represents an SVG path element.
     /// </summary>
     [SvgElement("path")]
-    public class SvgPath : SvgMarkerElement, ISvgPathElement
+    public partial class SvgPath : SvgMarkerElement, ISvgPathElement
     {
         private GraphicsPath _path;
 
@@ -59,9 +59,11 @@ namespace Svg
                         if (PathData.Count > 0)
                         {
                             // special case with one move command only, see #223
+                            // make sure the case is valid, but nothing is drawn
                             var segment = PathData.Last;
                             _path.AddLine(segment.End, segment.End);
                             Fill = SvgPaintServer.None;
+                            Stroke = SvgPaintServer.None;
                         }
                         else
                             _path = null;

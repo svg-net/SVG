@@ -145,7 +145,7 @@ struct-svg-03-f
 struct-symbol-01-b
 struct-use-01-t
 struct-use-03-t
-#struct-use-10-f
+struct-use-10-f
 struct-use-11-f
 struct-use-12-f
 struct-use-14-f
@@ -182,7 +182,6 @@ text-tspan-01-b
 types-basic-01-f
 __issue-064-02
 __issue-074-01
-__issue-084-01
 __issue-109-01
 __issue-114-01
 __issue-116-01
@@ -232,11 +231,16 @@ __issue-592-01
 __issue-592-02
 __issue-622-01
 __issue-626-01
+__issue-634-01
 __issue-664-01
 __issue-675-01
 __issue-732-01
 __issue-744-01
 __issue-747-01
+__issue-755-01
+__issue-758-01
+__issue-769-01
+__issue-785-01
 __pull_request-373-01
 __pull_request-374-01
 __pull_request-414-01

@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1;net5.0;net461</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\W3CTestSuite\svg\__AJ_Digital_Camera.svg">
+      <Link>Assets\__AJ_Digital_Camera.svg</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\W3CTestSuite\svg\__issue-134-01.svg">
+      <Link>Assets\__issue-134-01.svg</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\W3CTestSuite\svg\__tiger.svg">
+      <Link>Assets\__tiger.svg</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\Svg.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net461'">
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="BenchmarkDotNet.Artifacts\**" />
+  </ItemGroup>
+
+</Project>

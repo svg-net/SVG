@@ -1,7 +1,7 @@
 namespace Svg.FilterEffects
 {
     [SvgElement("feMergeNode")]
-    public class SvgMergeNode : SvgElement
+    public partial class SvgMergeNode : SvgElement
     {
         [SvgAttribute("in")]
         public string Input

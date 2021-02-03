@@ -32,9 +32,9 @@ namespace Svg
                         builder.Append(" ");
                     }
                     // we don't need unit type
-                    builder.Append(this[i].Value.ToString(CultureInfo.InvariantCulture));
+                    builder.Append(this[i].Value.ToSvgString());
                     builder.Append(",");
-                    builder.Append(this[i + 1].Value.ToString(CultureInfo.InvariantCulture));
+                    builder.Append(this[i + 1].Value.ToSvgString());
                 }
             }
             return builder.ToString();
@@ -58,12 +58,12 @@ namespace Svg
         /// <exception cref="T:System.NotSupportedException">The conversion cannot be performed. </exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value is string)
+            if (value is string s)
             {
-                var parser = new CoordinateParser(((string)value).Trim());
-                var pointValue = 0.0f;
+                var coords = s.AsSpan().Trim();
+                var state = new CoordinateParserState(ref coords);
                 var result = new SvgPointCollection();
-                while (parser.TryGetFloat(out pointValue))
+                while (CoordinateParser.TryGetFloat(out var pointValue, ref coords, ref state))
                 {
                     result.Add(new SvgUnit(SvgUnitType.User, pointValue));
                 }

@@ -1,7 +1,7 @@
 ﻿namespace Svg.FilterEffects
 {
     [SvgElement("feComposite")]
-    public class SvgComposite : SvgFilterPrimitive
+    public partial class SvgComposite : SvgFilterPrimitive
     {
         [SvgAttribute("operator")]
         public SvgCompositeOperator Operator
@@ -48,6 +48,7 @@
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feComposite filter Process().
+            buffer[Result] = buffer[Input];
         }
 
         public override SvgElement DeepCopy()

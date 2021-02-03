@@ -1,6 +1,6 @@
 namespace Svg
 {
-    public class SvgUnknownElement : SvgElement
+    public partial class SvgUnknownElement : SvgElement
     {
         public SvgUnknownElement()
         {

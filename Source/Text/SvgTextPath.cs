@@ -7,7 +7,7 @@ namespace Svg
     /// The <see cref="SvgText"/> element defines a graphics element consisting of text.
     /// </summary>
     [SvgElement("textPath")]
-    public class SvgTextPath : SvgTextBase
+    public partial class SvgTextPath : SvgTextBase
     {
         public override SvgUnitCollection Dx
         {

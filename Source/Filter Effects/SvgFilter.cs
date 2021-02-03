@@ -10,7 +10,7 @@ namespace Svg.FilterEffects
     /// A filter effect consists of a series of graphics operations that are applied to a given source graphic to produce a modified graphical result.
     /// </summary>
     [SvgElement("filter")]
-    public sealed class SvgFilter : SvgElement
+    public partial class SvgFilter : SvgElement
     {
         [SvgAttribute("filterUnits")]
         public SvgCoordinateUnits FilterUnits

@@ -25,7 +25,7 @@ namespace Svg.Transforms
 
         public override string WriteToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "rotate({0}, {1}, {2})", Angle, CenterX, CenterY);
+            return $"rotate({Angle.ToSvgString()}, {CenterX.ToSvgString()}, {CenterY.ToSvgString()})";
         }
 
         public SvgRotate(float angle)
