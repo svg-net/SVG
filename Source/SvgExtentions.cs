@@ -53,14 +53,11 @@ namespace Svg
 
                 var writerSettings = new XmlWriterSettings { Encoding = System.Text.Encoding.UTF8 };
 
-                using (var str = new StringWriter())
-                {
-                    using (var xml = XmlWriter.Create(str, writerSettings))
-                    {
-                        elem.Write(xml);
-                    }
-                    result = str.ToString();
-                }
+                using var str = new StringWriter();
+                using var xml = XmlWriter.Create(str, writerSettings);
+                elem.Write(xml);
+                xml.Flush();
+                result = str.ToString();
             }
             finally
             {
