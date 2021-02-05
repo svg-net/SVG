@@ -605,13 +605,16 @@ namespace Svg
         {
             //Trace.TraceInformation("Begin Render");
 
+            var size = Size.Round(GetDimensions());
+            if (size.Width <= 0 || size.Height <= 0)
+                return null;
+
             Bitmap bitmap = null;
             try
             {
                 try
                 {
-                    var size = GetDimensions();
-                    bitmap = new Bitmap((int)Math.Round(size.Width), (int)Math.Round(size.Height));
+                    bitmap = new Bitmap(size.Width, size.Height);
                 }
                 catch (ArgumentException e)
                 {
