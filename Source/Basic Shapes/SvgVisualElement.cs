@@ -190,9 +190,15 @@ namespace Svg
                 if (PushTransforms(renderer))
                 {
                     SetClip(renderer);
-                    SetMask(renderer);
+
+                    var isMaskSet = SetMask(renderer);
                     renderMethod.Invoke(renderer);
-                    ResetMask(renderer);
+
+                    if (isMaskSet)
+                    {
+                        ResetMask(renderer);
+                    }
+
                     ResetClip(renderer);
                 }
             }
@@ -467,7 +473,7 @@ namespace Svg
             }
         }
 
-        protected internal virtual void SetMask(ISvgRenderer renderer)
+        protected internal virtual bool SetMask(ISvgRenderer renderer)
         {
             var maskPath = this.Mask.ReplaceWithNullIfNone();
 
@@ -479,8 +485,12 @@ namespace Svg
                 if (element != null)
                 {
                     renderer.SetMask(element.RenderMask(renderer));
+
+                    return true;
                 }
             }
+
+            return false;
         }
 
         protected internal virtual void ResetMask(ISvgRenderer renderer)
