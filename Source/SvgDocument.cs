@@ -628,8 +628,7 @@ namespace Svg
             }
             catch
             {
-                if (bitmap != null)
-                    bitmap.Dispose();
+                bitmap?.Dispose();
                 throw;
             }
 
@@ -690,8 +689,7 @@ namespace Svg
             }
             catch
             {
-                if (bitmap != null)
-                    bitmap.Dispose();
+                bitmap?.Dispose();
                 throw;
             }
 
