@@ -69,7 +69,7 @@ namespace SvgConsole
 
             using (var bitmap = svgDocument.Draw())
             {
-                bitmap.Save(outputPath);
+                bitmap?.Save(outputPath);
             }
         }
 
