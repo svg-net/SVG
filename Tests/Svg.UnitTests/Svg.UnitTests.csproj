@@ -42,6 +42,8 @@
     <DefineConstants>TRACE;DEBUG;NETCORE;NETCORE50</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\Issue482_MasksNotRendered\PCB.png" />
+    <None Remove="Resources\Issue482_MasksNotRendered\PCB.svg" />
     <None Remove="Resources\Issue482_MasksNotRendered\TestSvgMasks.png" />
     <None Remove="Resources\Issue482_MasksNotRendered\TestSvgMasks.svg" />
     <None Remove="Resources\Issue482_MasksNotRendered\VariousElements.png" />
@@ -53,6 +55,8 @@
     <EmbeddedResource Include="Resources\Issue204_PrivateFont\BrushScriptMT2.ttf" />
     <EmbeddedResource Include="AllTests.csv" />
     <EmbeddedResource Include="PassingTests.csv" />
+    <EmbeddedResource Include="Resources\Issue482_MasksNotRendered\PCB.png" />
+    <EmbeddedResource Include="Resources\Issue482_MasksNotRendered\PCB.svg" />
     <EmbeddedResource Include="Resources\Issue482_MasksNotRendered\TestSvgMasks.png" />
     <EmbeddedResource Include="Resources\Issue482_MasksNotRendered\TestSvgMasks.svg" />
     <EmbeddedResource Include="Resources\Issue482_MasksNotRendered\VariousElements.png" />

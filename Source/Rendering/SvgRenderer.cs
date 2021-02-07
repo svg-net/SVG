@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Svg.ExtensionMethods;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
-using System.Runtime.InteropServices;
 
 namespace Svg
 {
@@ -61,7 +61,8 @@ namespace Svg
 
         public void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit)
         {
-            DrawMasked(graphics => graphics.DrawImage(image, destRect, srcRect, graphicsUnit));
+            var bounds = destRect.Transform(this.Transform);
+            DrawMasked(graphics => graphics.DrawImage(image, destRect, srcRect, graphicsUnit), bounds);
         }
         public void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit, float opacity)
         {
@@ -86,12 +87,14 @@ namespace Svg
 
         public void DrawPath(Pen pen, GraphicsPath path)
         {
-            DrawMasked(graphics => graphics.DrawPath(pen, path));
+            var bounds = path.GetBounds(this.Transform, pen);
+            DrawMasked(graphics => graphics.DrawPath(pen, path), bounds);
         }
 
         public void FillPath(Brush brush, GraphicsPath path)
         {
-            DrawMasked(graphics => graphics.FillPath(brush, path));
+            var bounds = path.GetBounds(this.Transform);
+            DrawMasked(graphics => graphics.FillPath(brush, path), bounds);
         }
         public Region GetClip()
         {
@@ -186,7 +189,7 @@ namespace Svg
             return _mask;
         }
 
-        private void DrawMasked(Action<Graphics> drawAction)
+        private void DrawMasked(Action<Graphics> drawAction, RectangleF bounds)
         {
             if (_mask == null)
             {
@@ -194,47 +197,53 @@ namespace Svg
                 return;
             }
 
-            var buffer = new Bitmap((int)Math.Round(this.RenderSize.Width), (int)Math.Round(this.RenderSize.Height), PixelFormat.Format32bppArgb);
+            var renderedBounds = bounds.GetIntersection(this.RenderSize).Round();
+
+            if (renderedBounds.Width == 0 || renderedBounds.Height == 0)
+            {
+                return;
+            }
+
+            var buffer = new Bitmap(renderedBounds.Width, renderedBounds.Height, PixelFormat.Format32bppArgb);
+
+            var localTransform = new Matrix();
+            localTransform.Translate(-renderedBounds.X, -renderedBounds.Y);
+            localTransform.Multiply(this.Transform);
 
             var bufferGraphics = Graphics.FromImage(buffer);
 
-            bufferGraphics.Transform = this.Transform;
+            bufferGraphics.Transform = localTransform;
             drawAction(bufferGraphics);
 
-            ApplyAlphaMask(buffer, _mask);
+            ApplyAlphaMask(buffer, _mask, renderedBounds);
 
             var previousTransform = _innerGraphics.Transform;
             _innerGraphics.Transform = new Matrix();
-            _innerGraphics.DrawImageUnscaled(buffer, new Point(0, 0));
+            _innerGraphics.DrawImageUnscaled(buffer, new Point(renderedBounds.X, renderedBounds.Y));
             _innerGraphics.Transform = previousTransform;
         }
 
-        private void ApplyAlphaMask(Bitmap buffer, Bitmap mask)
+        private void ApplyAlphaMask(Bitmap buffer, Bitmap mask, Rectangle renderedBounds)
         {
-            var bufferData = buffer.LockBits(new Rectangle(0, 0, buffer.Width, buffer.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
-            var maskData = mask.LockBits(new Rectangle(0, 0, mask.Width, mask.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            var bufferData = buffer.LockBits(new Rectangle(0, 0, renderedBounds.Width, renderedBounds.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            var maskData = mask.LockBits(renderedBounds, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
 
-            var bufferStride = Math.Abs(bufferData.Stride);
-            var maskStride = Math.Abs(maskData.Stride);
-
-            var bufferBytes = new byte[bufferStride * buffer.Height];
-            var maskBytes = new byte[maskStride * mask.Height];
-
-            var bufferScan0 = bufferData.Scan0;
-            var maskScan0 = maskData.Scan0;
-
-            Marshal.Copy(bufferScan0, bufferBytes, 0, bufferBytes.Length);
-            Marshal.Copy(maskScan0, maskBytes, 0, maskBytes.Length);
-
-            for (var byteIndex = 0; byteIndex < bufferBytes.Length && byteIndex < maskBytes.Length; byteIndex += 4)
+            unsafe
             {
-                var alpha = (maskBytes[byteIndex] + maskBytes[byteIndex + 1] + maskBytes[byteIndex + 2]) / 3;
-                var newAlpha = (byte)(bufferBytes[byteIndex + 3] * alpha / 255);
+                for (int y = 0; y < renderedBounds.Height; y++)
+                {
+                    byte* bufferRow = (byte*)bufferData.Scan0 + (y * bufferData.Stride);
+                    byte* maskRow = (byte*)maskData.Scan0 + (y * maskData.Stride);
 
-                bufferBytes[byteIndex + 3] = newAlpha;
+                    for (int x = 0; x < renderedBounds.Width; x++)
+                    {
+                        var alpha = (maskRow[x * 4] + maskRow[x * 4 + 1] + maskRow[x * 4 + 2]) / 3;
+                        var newAlpha = (byte)(bufferRow[x * 4 + 3] * alpha / 255);
+
+                        bufferRow[x * 4 + 3] = newAlpha;
+                    }
+                }
             }
-
-            Marshal.Copy(bufferBytes, 0, bufferScan0, bufferBytes.Length);
 
             buffer.UnlockBits(bufferData);
             mask.UnlockBits(maskData);

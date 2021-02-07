@@ -24,7 +24,7 @@ namespace Svg.UnitTests
 
             ImagesAreEqual(renderedDocument, expectedImage, 1, out equalPercentage, out difference);
 
-            Assert.Greater(equalPercentage, 98);
+            Assert.Greater(equalPercentage, 99);
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace Svg.UnitTests
 
             ImagesAreEqual(renderedDocument, expectedImage, 1, out equalPercentage, out difference);
 
-            Assert.Greater(equalPercentage, 98);
+            Assert.Greater(equalPercentage, 99);
         }
 
         [Test]
@@ -54,9 +54,26 @@ namespace Svg.UnitTests
             float equalPercentage;
             Bitmap difference;
 
-            ImagesAreEqual(renderedDocument, expectedImage, 1, out equalPercentage, out difference);
+            var areImagesEqual = ImagesAreEqual(renderedDocument, expectedImage, 1, out equalPercentage, out difference);
 
-            Assert.Greater(equalPercentage, 98);
+            Assert.Greater(equalPercentage, 99);
+        }
+
+        [Test]
+        public void RenderPcb()
+        {
+            var document = OpenSvg(GetXMLDocFromResource(GetFullResourceString("Issue482_MasksNotRendered.PCB.svg")));
+
+            var renderedDocument = document.Draw(1440, 2560);
+
+            var expectedImage = GetBitmapFromResource("Issue482_MasksNotRendered.PCB.png");
+
+            float equalPercentage;
+            Bitmap difference;
+
+            var areImagesEqual = ImagesAreEqual(renderedDocument, expectedImage, 1, out equalPercentage, out difference);
+
+            Assert.Greater(equalPercentage, 99);
         }
     }
 }
