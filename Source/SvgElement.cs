@@ -956,6 +956,19 @@ namespace Svg
             return resolved;
         }
 
+        /// <summary>
+        /// Write this SvgElement out using a given XmlWriter.
+        /// </summary>
+        /// <param name="writer">The XmlWriter to use.</param>
+        /// <remarks>
+        ///   Recommendation is to create an XmlWriter by calling a factory method,<br/>
+        ///   e.g. <see cref="XmlWriter.Create(System.IO.Stream)"/>,
+        ///   as per <a href="https://docs.microsoft.com/en-gb/dotnet/api/system.xml.xmltextreader?view=net-5.0#remarks">Microsoft documentation</a>.<br/>
+        ///   <br/>
+        ///   However, unlike an <see cref="XmlTextWriter"/> created via 'new XmlTextWriter()',<br/>
+        ///   a factory-constructed XmlWriter will not flush output until it is closed<br/>
+        ///   (normally via a using statement), or unless the client explicitly calls <see cref="XmlWriter.Flush()"/>.
+        /// </remarks>
         public virtual void Write(XmlWriter writer)
         {
             if (ShouldWriteElement())
