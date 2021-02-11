@@ -723,7 +723,7 @@ namespace Svg
             }
         }
 
-        public override void Write(XmlTextWriter writer)
+        public override void Write(XmlWriter writer)
         {
             //Save previous culture and switch to invariant for writing
             var previousCulture = Thread.CurrentThread.CurrentCulture;
@@ -742,11 +742,13 @@ namespace Svg
 
         public void Write(Stream stream, bool useBom = true)
         {
-
-            var xmlWriter = new XmlTextWriter(stream, useBom ? Encoding.UTF8 : new UTF8Encoding(false))
+            var settings = new XmlWriterSettings
             {
-                Formatting = Formatting.Indented
+                Encoding = useBom ? Encoding.UTF8 : new System.Text.UTF8Encoding(false),
+                Indent = true
             };
+
+            using var xmlWriter = XmlWriter.Create(stream, settings);
             xmlWriter.WriteStartDocument();
             xmlWriter.WriteDocType("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", null);
 
@@ -766,7 +768,7 @@ namespace Svg
             }
         }
 
-        protected override void WriteStartElement(XmlTextWriter writer)
+        protected override void WriteStartElement(XmlWriter writer)
         {
             base.WriteStartElement(writer);
 

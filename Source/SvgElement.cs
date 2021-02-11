@@ -589,7 +589,7 @@ namespace Svg
             return !string.IsNullOrEmpty(this.ElementName);
         }
 
-        protected virtual void WriteStartElement(XmlTextWriter writer)
+        protected virtual void WriteStartElement(XmlWriter writer)
         {
             if (!string.IsNullOrEmpty(this.ElementName))
             {
@@ -599,14 +599,14 @@ namespace Svg
             this.WriteAttributes(writer);
         }
 
-        protected virtual void WriteEndElement(XmlTextWriter writer)
+        protected virtual void WriteEndElement(XmlWriter writer)
         {
             if (!string.IsNullOrEmpty(this.ElementName))
             {
                 writer.WriteEndElement();
             }
         }
-        protected virtual void WriteAttributes(XmlTextWriter writer)
+        protected virtual void WriteAttributes(XmlWriter writer)
         {
             //properties
             var styles = WritePropertyAttributes(writer);
@@ -662,7 +662,7 @@ namespace Svg
             }
         }
 
-        private Dictionary<string, string> WritePropertyAttributes(XmlTextWriter writer)
+        private Dictionary<string, string> WritePropertyAttributes(XmlWriter writer)
         {
             var styles = _styles.ToDictionary(_styles => _styles.Key, _styles => _styles.Value.Last().Value);
 
@@ -956,7 +956,20 @@ namespace Svg
             return resolved;
         }
 
-        public virtual void Write(XmlTextWriter writer)
+        /// <summary>
+        /// Write this SvgElement out using a given XmlWriter.
+        /// </summary>
+        /// <param name="writer">The XmlWriter to use.</param>
+        /// <remarks>
+        /// Recommendation is to create an XmlWriter by calling a factory method,<br/>
+        /// e.g. <see cref="XmlWriter.Create(System.IO.Stream)"/>,
+        /// as per <a href="https://docs.microsoft.com/dotnet/api/system.xml.xmltextreader#remarks">Microsoft documentation</a>.<br/>
+        /// <br/>
+        /// However, unlike an <see cref="XmlTextWriter"/> created via 'new XmlTextWriter()',<br/>
+        /// a factory-constructed XmlWriter will not flush output until it is closed<br/>
+        /// (normally via a using statement), or unless the client explicitly calls <see cref="XmlWriter.Flush()"/>.
+        /// </remarks>
+        public virtual void Write(XmlWriter writer)
         {
             if (ShouldWriteElement())
             {
@@ -966,7 +979,7 @@ namespace Svg
             }
         }
 
-        protected virtual void WriteChildren(XmlTextWriter writer)
+        protected virtual void WriteChildren(XmlWriter writer)
         {
             if (this.Nodes.Any())
             {

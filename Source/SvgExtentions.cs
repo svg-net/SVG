@@ -50,12 +50,14 @@ namespace Svg
             try
             {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-                using (var str = new StringWriter())
-                using (var xml = new XmlTextWriter(str))
-                {
-                    elem.Write(xml);
-                    result = str.ToString();
-                }
+
+                var writerSettings = new XmlWriterSettings { Encoding = System.Text.Encoding.UTF8 };
+
+                using var str = new StringWriter();
+                using var xml = XmlWriter.Create(str, writerSettings);
+                elem.Write(xml);
+                xml.Flush();
+                result = str.ToString();
             }
             finally
             {

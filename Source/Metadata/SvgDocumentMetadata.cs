@@ -25,7 +25,7 @@ namespace Svg
             // Do nothing. Children should NOT be rendered.
         }
 
-        protected override void WriteChildren(XmlTextWriter writer)
+        protected override void WriteChildren(XmlWriter writer)
         {
             writer.WriteRaw(this.Content); // write out metadata as is
         }
