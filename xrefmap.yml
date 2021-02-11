@@ -6439,12 +6439,12 @@ references:
   commentId: M:Svg.SvgDocument.Write(System.String,System.Boolean)
   fullName: Svg.SvgDocument.Write(System.String, System.Boolean)
   nameWithType: SvgDocument.Write(String, Boolean)
-- uid: Svg.SvgDocument.Write(XmlTextWriter)
-  name: Write(XmlTextWriter)
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Write_XmlTextWriter_
-  commentId: M:Svg.SvgDocument.Write(XmlTextWriter)
-  fullName: Svg.SvgDocument.Write(XmlTextWriter)
-  nameWithType: SvgDocument.Write(XmlTextWriter)
+- uid: Svg.SvgDocument.Write(XmlWriter)
+  name: Write(XmlWriter)
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Write_XmlWriter_
+  commentId: M:Svg.SvgDocument.Write(XmlWriter)
+  fullName: Svg.SvgDocument.Write(XmlWriter)
+  nameWithType: SvgDocument.Write(XmlWriter)
 - uid: Svg.SvgDocument.Write*
   name: Write
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_Write_
@@ -6452,12 +6452,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocument.Write
   nameWithType: SvgDocument.Write
-- uid: Svg.SvgDocument.WriteStartElement(XmlTextWriter)
-  name: WriteStartElement(XmlTextWriter)
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_WriteStartElement_XmlTextWriter_
-  commentId: M:Svg.SvgDocument.WriteStartElement(XmlTextWriter)
-  fullName: Svg.SvgDocument.WriteStartElement(XmlTextWriter)
-  nameWithType: SvgDocument.WriteStartElement(XmlTextWriter)
+- uid: Svg.SvgDocument.WriteStartElement(XmlWriter)
+  name: WriteStartElement(XmlWriter)
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_WriteStartElement_XmlWriter_
+  commentId: M:Svg.SvgDocument.WriteStartElement(XmlWriter)
+  fullName: Svg.SvgDocument.WriteStartElement(XmlWriter)
+  nameWithType: SvgDocument.WriteStartElement(XmlWriter)
 - uid: Svg.SvgDocument.WriteStartElement*
   name: WriteStartElement
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_WriteStartElement_
@@ -6523,12 +6523,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocumentMetadata.Render
   nameWithType: SvgDocumentMetadata.Render
-- uid: Svg.SvgDocumentMetadata.WriteChildren(XmlTextWriter)
-  name: WriteChildren(XmlTextWriter)
-  href: api/Svg.SvgDocumentMetadata.html#Svg_SvgDocumentMetadata_WriteChildren_XmlTextWriter_
-  commentId: M:Svg.SvgDocumentMetadata.WriteChildren(XmlTextWriter)
-  fullName: Svg.SvgDocumentMetadata.WriteChildren(XmlTextWriter)
-  nameWithType: SvgDocumentMetadata.WriteChildren(XmlTextWriter)
+- uid: Svg.SvgDocumentMetadata.WriteChildren(XmlWriter)
+  name: WriteChildren(XmlWriter)
+  href: api/Svg.SvgDocumentMetadata.html#Svg_SvgDocumentMetadata_WriteChildren_XmlWriter_
+  commentId: M:Svg.SvgDocumentMetadata.WriteChildren(XmlWriter)
+  fullName: Svg.SvgDocumentMetadata.WriteChildren(XmlWriter)
+  nameWithType: SvgDocumentMetadata.WriteChildren(XmlWriter)
 - uid: Svg.SvgDocumentMetadata.WriteChildren*
   name: WriteChildren
   href: api/Svg.SvgDocumentMetadata.html#Svg_SvgDocumentMetadata_WriteChildren_
@@ -7778,12 +7778,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.Visibility
   nameWithType: SvgElement.Visibility
-- uid: Svg.SvgElement.Write(XmlTextWriter)
-  name: Write(XmlTextWriter)
-  href: api/Svg.SvgElement.html#Svg_SvgElement_Write_XmlTextWriter_
-  commentId: M:Svg.SvgElement.Write(XmlTextWriter)
-  fullName: Svg.SvgElement.Write(XmlTextWriter)
-  nameWithType: SvgElement.Write(XmlTextWriter)
+- uid: Svg.SvgElement.Write(XmlWriter)
+  name: Write(XmlWriter)
+  href: api/Svg.SvgElement.html#Svg_SvgElement_Write_XmlWriter_
+  commentId: M:Svg.SvgElement.Write(XmlWriter)
+  fullName: Svg.SvgElement.Write(XmlWriter)
+  nameWithType: SvgElement.Write(XmlWriter)
 - uid: Svg.SvgElement.Write*
   name: Write
   href: api/Svg.SvgElement.html#Svg_SvgElement_Write_
@@ -7791,12 +7791,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.Write
   nameWithType: SvgElement.Write
-- uid: Svg.SvgElement.WriteAttributes(XmlTextWriter)
-  name: WriteAttributes(XmlTextWriter)
-  href: api/Svg.SvgElement.html#Svg_SvgElement_WriteAttributes_XmlTextWriter_
-  commentId: M:Svg.SvgElement.WriteAttributes(XmlTextWriter)
-  fullName: Svg.SvgElement.WriteAttributes(XmlTextWriter)
-  nameWithType: SvgElement.WriteAttributes(XmlTextWriter)
+- uid: Svg.SvgElement.WriteAttributes(XmlWriter)
+  name: WriteAttributes(XmlWriter)
+  href: api/Svg.SvgElement.html#Svg_SvgElement_WriteAttributes_XmlWriter_
+  commentId: M:Svg.SvgElement.WriteAttributes(XmlWriter)
+  fullName: Svg.SvgElement.WriteAttributes(XmlWriter)
+  nameWithType: SvgElement.WriteAttributes(XmlWriter)
 - uid: Svg.SvgElement.WriteAttributes*
   name: WriteAttributes
   href: api/Svg.SvgElement.html#Svg_SvgElement_WriteAttributes_
@@ -7804,12 +7804,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.WriteAttributes
   nameWithType: SvgElement.WriteAttributes
-- uid: Svg.SvgElement.WriteChildren(XmlTextWriter)
-  name: WriteChildren(XmlTextWriter)
-  href: api/Svg.SvgElement.html#Svg_SvgElement_WriteChildren_XmlTextWriter_
-  commentId: M:Svg.SvgElement.WriteChildren(XmlTextWriter)
-  fullName: Svg.SvgElement.WriteChildren(XmlTextWriter)
-  nameWithType: SvgElement.WriteChildren(XmlTextWriter)
+- uid: Svg.SvgElement.WriteChildren(XmlWriter)
+  name: WriteChildren(XmlWriter)
+  href: api/Svg.SvgElement.html#Svg_SvgElement_WriteChildren_XmlWriter_
+  commentId: M:Svg.SvgElement.WriteChildren(XmlWriter)
+  fullName: Svg.SvgElement.WriteChildren(XmlWriter)
+  nameWithType: SvgElement.WriteChildren(XmlWriter)
 - uid: Svg.SvgElement.WriteChildren*
   name: WriteChildren
   href: api/Svg.SvgElement.html#Svg_SvgElement_WriteChildren_
@@ -7817,12 +7817,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.WriteChildren
   nameWithType: SvgElement.WriteChildren
-- uid: Svg.SvgElement.WriteEndElement(XmlTextWriter)
-  name: WriteEndElement(XmlTextWriter)
-  href: api/Svg.SvgElement.html#Svg_SvgElement_WriteEndElement_XmlTextWriter_
-  commentId: M:Svg.SvgElement.WriteEndElement(XmlTextWriter)
-  fullName: Svg.SvgElement.WriteEndElement(XmlTextWriter)
-  nameWithType: SvgElement.WriteEndElement(XmlTextWriter)
+- uid: Svg.SvgElement.WriteEndElement(XmlWriter)
+  name: WriteEndElement(XmlWriter)
+  href: api/Svg.SvgElement.html#Svg_SvgElement_WriteEndElement_XmlWriter_
+  commentId: M:Svg.SvgElement.WriteEndElement(XmlWriter)
+  fullName: Svg.SvgElement.WriteEndElement(XmlWriter)
+  nameWithType: SvgElement.WriteEndElement(XmlWriter)
 - uid: Svg.SvgElement.WriteEndElement*
   name: WriteEndElement
   href: api/Svg.SvgElement.html#Svg_SvgElement_WriteEndElement_
@@ -7830,12 +7830,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.WriteEndElement
   nameWithType: SvgElement.WriteEndElement
-- uid: Svg.SvgElement.WriteStartElement(XmlTextWriter)
-  name: WriteStartElement(XmlTextWriter)
-  href: api/Svg.SvgElement.html#Svg_SvgElement_WriteStartElement_XmlTextWriter_
-  commentId: M:Svg.SvgElement.WriteStartElement(XmlTextWriter)
-  fullName: Svg.SvgElement.WriteStartElement(XmlTextWriter)
-  nameWithType: SvgElement.WriteStartElement(XmlTextWriter)
+- uid: Svg.SvgElement.WriteStartElement(XmlWriter)
+  name: WriteStartElement(XmlWriter)
+  href: api/Svg.SvgElement.html#Svg_SvgElement_WriteStartElement_XmlWriter_
+  commentId: M:Svg.SvgElement.WriteStartElement(XmlWriter)
+  fullName: Svg.SvgElement.WriteStartElement(XmlWriter)
+  nameWithType: SvgElement.WriteStartElement(XmlWriter)
 - uid: Svg.SvgElement.WriteStartElement*
   name: WriteStartElement
   href: api/Svg.SvgElement.html#Svg_SvgElement_WriteStartElement_
@@ -12838,12 +12838,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgScript.ScriptType
   nameWithType: SvgScript.ScriptType
-- uid: Svg.SvgScript.WriteChildren(XmlTextWriter)
-  name: WriteChildren(XmlTextWriter)
-  href: api/Svg.SvgScript.html#Svg_SvgScript_WriteChildren_XmlTextWriter_
-  commentId: M:Svg.SvgScript.WriteChildren(XmlTextWriter)
-  fullName: Svg.SvgScript.WriteChildren(XmlTextWriter)
-  nameWithType: SvgScript.WriteChildren(XmlTextWriter)
+- uid: Svg.SvgScript.WriteChildren(XmlWriter)
+  name: WriteChildren(XmlWriter)
+  href: api/Svg.SvgScript.html#Svg_SvgScript_WriteChildren_XmlWriter_
+  commentId: M:Svg.SvgScript.WriteChildren(XmlWriter)
+  fullName: Svg.SvgScript.WriteChildren(XmlWriter)
+  nameWithType: SvgScript.WriteChildren(XmlWriter)
 - uid: Svg.SvgScript.WriteChildren*
   name: WriteChildren
   href: api/Svg.SvgScript.html#Svg_SvgScript_WriteChildren_
