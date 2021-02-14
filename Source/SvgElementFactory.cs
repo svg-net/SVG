@@ -64,9 +64,9 @@ namespace Svg
         internal Dictionary<string, List<Type>> AvailableElementsDictionary => availableElementsDictionary;
 
         /// <summary>
-        /// Creates an <see cref="SvgDocument"/> from the current node in the specified <see cref="XmlTextReader"/>.
+        /// Creates an <see cref="SvgDocument"/> from the current node in the specified <see cref="XmlReader"/>.
         /// </summary>
-        /// <param name="reader">The <see cref="XmlTextReader"/> containing the node to parse into an <see cref="SvgDocument"/>.</param>
+        /// <param name="reader">The <see cref="XmlReader"/> containing the node to parse into an <see cref="SvgDocument"/>.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="reader"/> parameter cannot be <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">The CreateDocument method can only be used to parse root &lt;svg&gt; elements.</exception>
         public T CreateDocument<T>(XmlReader reader) where T : SvgDocument, new()
@@ -85,9 +85,9 @@ namespace Svg
         }
 
         /// <summary>
-        /// Creates an <see cref="SvgElement"/> from the current node in the specified <see cref="XmlTextReader"/>.
+        /// Creates an <see cref="SvgElement"/> from the current node in the specified <see cref="XmlReader"/>.
         /// </summary>
-        /// <param name="reader">The <see cref="XmlTextReader"/> containing the node to parse into a subclass of <see cref="SvgElement"/>.</param>
+        /// <param name="reader">The <see cref="XmlReader"/> containing the node to parse into a subclass of <see cref="SvgElement"/>.</param>
         /// <param name="document">The <see cref="SvgDocument"/> that the created element belongs to.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="reader"/> and <paramref name="document"/> parameters cannot be <c>null</c>.</exception>
         public SvgElement CreateElement(XmlReader reader, SvgDocument document)
