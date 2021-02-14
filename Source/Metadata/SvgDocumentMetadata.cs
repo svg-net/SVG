@@ -35,7 +35,7 @@ namespace Svg
             return DeepCopy<SvgDocumentMetadata>();
         }
 
-        public override void InitialiseFromXML(XmlTextReader reader, SvgDocument document)
+        public override void InitialiseFromXML(XmlReader reader, SvgDocument document)
         {
             base.InitialiseFromXML(reader, document);
 

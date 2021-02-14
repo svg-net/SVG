@@ -568,7 +568,7 @@ namespace Svg
             OnAttributeChanged(e);
         }
 
-        public virtual void InitialiseFromXML(XmlTextReader reader, SvgDocument document)
+        public virtual void InitialiseFromXML(XmlReader reader, SvgDocument document)
         {
             throw new NotImplementedException();
         }
