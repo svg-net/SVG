@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.IO;
-using System.Collections.Specialized;
+using System.Xml;
 
 namespace Svg
 {
     internal sealed class SvgTextReader : XmlTextReader
     {
-        private Dictionary<string, string> _entities;
+        private readonly Dictionary<string, string> _entities;
         private string _value;
         private bool _customValue = false;
         private string _localName;
@@ -19,16 +16,16 @@ namespace Svg
             : base(stream)
         {
             if (entities == null)
-                this.EntityHandling = EntityHandling.ExpandEntities;
-            this._entities = entities;
+                EntityHandling = EntityHandling.ExpandEntities;
+            _entities = entities ?? new Dictionary<string, string>();
         }
 
         public SvgTextReader(TextReader reader, Dictionary<string, string> entities)
             : base(reader)
         {
             if (entities == null)
-                this.EntityHandling = EntityHandling.ExpandEntities;
-            this._entities = entities;
+                EntityHandling = EntityHandling.ExpandEntities;
+            _entities = entities ?? new Dictionary<string, string>();
         }
 
         /// <summary>
@@ -38,10 +35,7 @@ namespace Svg
         /// <returns>The value returned depends on the <see cref="P:System.Xml.XmlTextReader.NodeType"/> of the node. The following table lists node types that have a value to return. All other node types return String.Empty.Node Type Value AttributeThe value of the attribute. CDATAThe content of the CDATA section. CommentThe content of the comment. DocumentTypeThe internal subset. ProcessingInstructionThe entire content, excluding the target. SignificantWhitespaceThe white space within an xml:space= 'preserve' scope. TextThe content of the text node. WhitespaceThe white space between markup. XmlDeclarationThe content of the declaration. </returns>
         public override string Value
         {
-            get
-            {
-                return (this._customValue) ? this._value : base.Value;
-            }
+            get { return _customValue ? _value : base.Value; }
         }
 
         /// <summary>
@@ -51,23 +45,7 @@ namespace Svg
         /// <returns>The name of the current node with the prefix removed. For example, LocalName is book for the element &lt;bk:book&gt;.For node types that do not have a name (like Text, Comment, and so on), this property returns String.Empty.</returns>
         public override string LocalName
         {
-            get
-            {
-                return (this._customValue) ? this._localName : base.LocalName;
-            }
-        }
-
-        private IDictionary<string, string> Entities
-        {
-            get
-            {
-                if (this._entities == null)
-                {
-                    this._entities = new Dictionary<string, string>();
-                }
-
-                return this._entities;
-            }
+            get { return _customValue ? _localName : base.LocalName; }
         }
 
         /// <summary>
@@ -82,20 +60,16 @@ namespace Svg
 
             if (moved)
             {
-                this._localName = base.LocalName;
+                _localName = base.LocalName;
 
-                if (this.ReadAttributeValue())
+                if (ReadAttributeValue())
                 {
-                    if (this.NodeType == XmlNodeType.EntityReference)
-                    {
-                        this.ResolveEntity();
-                    }
+                    if (NodeType == XmlNodeType.EntityReference)
+                        ResolveEntity();
                     else
-                    {
-                        this._value = base.Value;
-                    }
+                        _value = base.Value;
                 }
-                this._customValue = true;
+                _customValue = true;
             }
 
             return moved;
@@ -110,13 +84,11 @@ namespace Svg
         /// <exception cref="T:System.Xml.XmlException">An error occurred while parsing the XML. </exception>
         public override bool Read()
         {
-            this._customValue = false;
+            _customValue = false;
             bool read = base.Read();
 
-            if (this.NodeType == XmlNodeType.DocumentType)
-            {
-                this.ParseEntities();
-            }
+            if (NodeType == XmlNodeType.DocumentType)
+                ParseEntities();
 
             return read;
         }
@@ -124,25 +96,20 @@ namespace Svg
         private void ParseEntities()
         {
             const string entityText = "<!ENTITY";
-            string[] entities = this.Value.Split(new string[] { entityText }, StringSplitOptions.None);
-            string name = null;
-            string value = null;
-            int quoteIndex;
+            var entities = Value.Split(new string[] { entityText }, StringSplitOptions.None);
 
-            foreach (string entity in entities)
+            foreach (var entity in entities)
             {
                 if (string.IsNullOrEmpty(entity.Trim()))
-                {
                     continue;
-                }
 
-                name = entity.Trim();
-                quoteIndex = name.IndexOf(this.QuoteChar);
+                var name = entity.Trim();
+                var quoteIndex = name.IndexOf(QuoteChar);
                 if (quoteIndex > 0)
                 {
-                    value = name.Substring(quoteIndex + 1, name.LastIndexOf(this.QuoteChar) - quoteIndex - 1);
+                    var value = name.Substring(quoteIndex + 1, name.LastIndexOf(QuoteChar) - quoteIndex - 1);
                     name = name.Substring(0, quoteIndex).Trim();
-                    this.Entities.Add(name, value);
+                    _entities.Add(name, value);
                 }
             }
         }
@@ -152,18 +119,18 @@ namespace Svg
         /// </summary>
         public override void ResolveEntity()
         {
-            if (this.NodeType == XmlNodeType.EntityReference)
+            if (NodeType == XmlNodeType.EntityReference)
             {
-                if (this._entities.ContainsKey(this.Name))
+                if (_entities.ContainsKey(Name))
                 {
-                    this._value = this._entities[this.Name];
+                    _value = _entities[Name];
                 }
                 else
                 {
-                    this._value = string.Empty;
+                    _value = string.Empty;
                 }
 
-                this._customValue = true;
+                _customValue = true;
             }
         }
     }
