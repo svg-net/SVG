@@ -6497,12 +6497,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocumentMetadata.DeepCopy
   nameWithType: SvgDocumentMetadata.DeepCopy
-- uid: Svg.SvgDocumentMetadata.InitialiseFromXML(XmlTextReader,Svg.SvgDocument)
-  name: InitialiseFromXML(XmlTextReader, SvgDocument)
-  href: api/Svg.SvgDocumentMetadata.html#Svg_SvgDocumentMetadata_InitialiseFromXML_XmlTextReader_Svg_SvgDocument_
-  commentId: M:Svg.SvgDocumentMetadata.InitialiseFromXML(XmlTextReader,Svg.SvgDocument)
-  fullName: Svg.SvgDocumentMetadata.InitialiseFromXML(XmlTextReader, Svg.SvgDocument)
-  nameWithType: SvgDocumentMetadata.InitialiseFromXML(XmlTextReader, SvgDocument)
+- uid: Svg.SvgDocumentMetadata.InitialiseFromXML(XmlReader,Svg.SvgDocument)
+  name: InitialiseFromXML(XmlReader, SvgDocument)
+  href: api/Svg.SvgDocumentMetadata.html#Svg_SvgDocumentMetadata_InitialiseFromXML_XmlReader_Svg_SvgDocument_
+  commentId: M:Svg.SvgDocumentMetadata.InitialiseFromXML(XmlReader,Svg.SvgDocument)
+  fullName: Svg.SvgDocumentMetadata.InitialiseFromXML(XmlReader, Svg.SvgDocument)
+  nameWithType: SvgDocumentMetadata.InitialiseFromXML(XmlReader, SvgDocument)
 - uid: Svg.SvgDocumentMetadata.InitialiseFromXML*
   name: InitialiseFromXML
   href: api/Svg.SvgDocumentMetadata.html#Svg_SvgDocumentMetadata_InitialiseFromXML_
@@ -7076,12 +7076,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.ID
   nameWithType: SvgElement.ID
-- uid: Svg.SvgElement.InitialiseFromXML(XmlTextReader,Svg.SvgDocument)
-  name: InitialiseFromXML(XmlTextReader, SvgDocument)
-  href: api/Svg.SvgElement.html#Svg_SvgElement_InitialiseFromXML_XmlTextReader_Svg_SvgDocument_
-  commentId: M:Svg.SvgElement.InitialiseFromXML(XmlTextReader,Svg.SvgDocument)
-  fullName: Svg.SvgElement.InitialiseFromXML(XmlTextReader, Svg.SvgDocument)
-  nameWithType: SvgElement.InitialiseFromXML(XmlTextReader, SvgDocument)
+- uid: Svg.SvgElement.InitialiseFromXML(XmlReader,Svg.SvgDocument)
+  name: InitialiseFromXML(XmlReader, SvgDocument)
+  href: api/Svg.SvgElement.html#Svg_SvgElement_InitialiseFromXML_XmlReader_Svg_SvgDocument_
+  commentId: M:Svg.SvgElement.InitialiseFromXML(XmlReader,Svg.SvgDocument)
+  fullName: Svg.SvgElement.InitialiseFromXML(XmlReader, Svg.SvgDocument)
+  nameWithType: SvgElement.InitialiseFromXML(XmlReader, SvgDocument)
 - uid: Svg.SvgElement.InitialiseFromXML*
   name: InitialiseFromXML
   href: api/Svg.SvgElement.html#Svg_SvgElement_InitialiseFromXML_
