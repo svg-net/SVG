@@ -568,7 +568,7 @@ namespace Svg
             OnAttributeChanged(e);
         }
 
-        public virtual void InitialiseFromXML(XmlTextReader reader, SvgDocument document)
+        public virtual void InitialiseFromXML(XmlReader reader, SvgDocument document)
         {
             throw new NotImplementedException();
         }
@@ -963,7 +963,7 @@ namespace Svg
         /// <remarks>
         /// Recommendation is to create an XmlWriter by calling a factory method,<br/>
         /// e.g. <see cref="XmlWriter.Create(System.IO.Stream)"/>,
-        /// as per <a href="https://docs.microsoft.com/dotnet/api/system.xml.xmltextreader#remarks">Microsoft documentation</a>.<br/>
+        /// as per <a href="https://docs.microsoft.com/dotnet/api/system.xml.xmltextwriter#remarks">Microsoft documentation</a>.<br/>
         /// <br/>
         /// However, unlike an <see cref="XmlTextWriter"/> created via 'new XmlTextWriter()',<br/>
         /// a factory-constructed XmlWriter will not flush output until it is closed<br/>
