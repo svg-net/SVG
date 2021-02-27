@@ -205,7 +205,8 @@ namespace Svg
                 return;
             }
 
-            var renderedBounds = bounds.GetIntersection(this.RenderSize).Round();
+            var fullBounds = new RectangleF(new PointF(), this.RenderSize);
+            var renderedBounds = Rectangle.Round(RectangleF.Intersect(bounds, fullBounds));
 
             if (renderedBounds.Width == 0 || renderedBounds.Height == 0)
             {
