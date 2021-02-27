@@ -495,6 +495,7 @@ namespace Svg
 
         protected internal virtual void ResetMask(ISvgRenderer renderer)
         {
+            renderer.DisposeMask();
             renderer.SetMask(this._previousMask);
         }
 

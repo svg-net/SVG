@@ -189,6 +189,14 @@ namespace Svg
             return _mask;
         }
 
+        public void DisposeMask()
+        {
+            if (_mask != null)
+            {
+                _mask.Dispose();
+            }
+        }
+
         private void DrawMasked(Action<Graphics> drawAction, RectangleF bounds)
         {
             if (_mask == null)
@@ -204,23 +212,24 @@ namespace Svg
                 return;
             }
 
-            var buffer = new Bitmap(renderedBounds.Width, renderedBounds.Height, PixelFormat.Format32bppArgb);
+            using (var buffer = new Bitmap(renderedBounds.Width, renderedBounds.Height, PixelFormat.Format32bppArgb))
+            {
+                var localTransform = new Matrix();
+                localTransform.Translate(-renderedBounds.X, -renderedBounds.Y);
+                localTransform.Multiply(this.Transform);
 
-            var localTransform = new Matrix();
-            localTransform.Translate(-renderedBounds.X, -renderedBounds.Y);
-            localTransform.Multiply(this.Transform);
+                var bufferGraphics = Graphics.FromImage(buffer);
 
-            var bufferGraphics = Graphics.FromImage(buffer);
+                bufferGraphics.Transform = localTransform;
+                drawAction(bufferGraphics);
 
-            bufferGraphics.Transform = localTransform;
-            drawAction(bufferGraphics);
+                ApplyAlphaMask(buffer, _mask, renderedBounds);
 
-            ApplyAlphaMask(buffer, _mask, renderedBounds);
-
-            var previousTransform = _innerGraphics.Transform;
-            _innerGraphics.Transform = new Matrix();
-            _innerGraphics.DrawImageUnscaled(buffer, new Point(renderedBounds.X, renderedBounds.Y));
-            _innerGraphics.Transform = previousTransform;
+                var previousTransform = _innerGraphics.Transform;
+                _innerGraphics.Transform = new Matrix();
+                _innerGraphics.DrawImageUnscaled(buffer, new Point(renderedBounds.X, renderedBounds.Y));
+                _innerGraphics.Transform = previousTransform;
+            }
         }
 
         private void ApplyAlphaMask(Bitmap buffer, Bitmap mask, Rectangle renderedBounds)

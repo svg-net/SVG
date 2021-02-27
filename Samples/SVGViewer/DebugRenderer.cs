@@ -10,7 +10,6 @@ namespace SVGViewer
         private readonly Stack<ISvgBoundable> _boundables = new Stack<ISvgBoundable>();
 
         private Region _clip = new Region();
-        private Bitmap _mask;
         private Matrix _transform = new Matrix();
 
         public void SetBoundable(ISvgBoundable boundable)
@@ -115,7 +114,7 @@ namespace SVGViewer
         {
             get
             {
-                return new SizeF(100, 100);
+                return new SizeF(0, 0);
             }
         }
 
@@ -129,12 +128,15 @@ namespace SVGViewer
 
         public Bitmap GetMask()
         {
-            return _mask;
+            return null;
         }
 
         public void SetMask(Bitmap mask)
         {
-            _mask = mask;
+        }
+
+        public void DisposeMask()
+        {
         }
     }
 }

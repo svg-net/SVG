@@ -20,6 +20,7 @@ namespace Svg
         void SetBoundable(ISvgBoundable boundable);
         void SetClip(Region region, CombineMode combineMode = CombineMode.Replace);
         void SetMask(Bitmap mask);
+        void DisposeMask();
         SmoothingMode SmoothingMode { get; set; }
         Matrix Transform { get; set; }
         SizeF RenderSize { get; }
