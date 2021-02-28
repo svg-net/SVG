@@ -60,9 +60,7 @@ namespace SVGViewer
             try
             {
                 if (e.Control && e.KeyCode == Keys.A)
-                {
                     (sender as TextBox).SelectAll();
-                }
             }
             catch
             {
@@ -81,7 +79,7 @@ namespace SVGViewer
             var baseUri = svgDoc.BaseUri;
             var outputDir = Path.GetDirectoryName(baseUri != null && baseUri.IsFile ? baseUri.LocalPath : Application.ExecutablePath);
             svgImage.Image.Save(Path.Combine(outputDir, "output.png"));
-            //svgDoc.Write(Path.Combine(outputDir, "output.svg"));
+            svgDoc.Write(Path.Combine(outputDir, "output.svg"));
         }
     }
 }
