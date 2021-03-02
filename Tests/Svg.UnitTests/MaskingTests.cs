@@ -54,7 +54,7 @@ namespace Svg.UnitTests
             float equalPercentage;
             Bitmap difference;
 
-            var areImagesEqual = ImagesAreEqual(renderedDocument, expectedImage, 1, out equalPercentage, out difference);
+            ImagesAreEqual(renderedDocument, expectedImage, 1, out equalPercentage, out difference);
 
             Assert.Greater(equalPercentage, 99);
         }
@@ -71,7 +71,7 @@ namespace Svg.UnitTests
             float equalPercentage;
             Bitmap difference;
 
-            var areImagesEqual = ImagesAreEqual(renderedDocument, expectedImage, 1, out equalPercentage, out difference);
+            ImagesAreEqual(renderedDocument, expectedImage, 1, out equalPercentage, out difference);
 
             Assert.Greater(equalPercentage, 99);
         }

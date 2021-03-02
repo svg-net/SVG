@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.Runtime.InteropServices;
 
 namespace Svg
 {
@@ -235,25 +236,30 @@ namespace Svg
 
         private void ApplyAlphaMask(Bitmap buffer, Bitmap mask, Rectangle renderedBounds)
         {
-            var bufferData = buffer.LockBits(new Rectangle(0, 0, renderedBounds.Width, renderedBounds.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
-            var maskData = mask.LockBits(renderedBounds, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+            var bufferData = buffer.LockBits(new Rectangle(0, 0, buffer.Width, buffer.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            var maskData = mask.LockBits(new Rectangle(0, 0, mask.Width, mask.Height), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
 
-            unsafe
+            var bufferBytes = new byte[buffer.Width * buffer.Height * 4];
+            var maskBytes = new byte[mask.Width * mask.Height * 4];
+
+            Marshal.Copy(bufferData.Scan0, bufferBytes, 0, bufferBytes.Length);
+            Marshal.Copy(maskData.Scan0, maskBytes, 0, maskBytes.Length);
+
+            for (int y = 0; y < renderedBounds.Height; y++)
             {
-                for (int y = 0; y < renderedBounds.Height; y++)
+                for (int x = 0; x < renderedBounds.Width; x++)
                 {
-                    byte* bufferRow = (byte*)bufferData.Scan0 + (y * bufferData.Stride);
-                    byte* maskRow = (byte*)maskData.Scan0 + (y * maskData.Stride);
+                    var bufferPixelAddress = (y * buffer.Width + x) * 4;
+                    var maskPixelAddress = ((y + renderedBounds.Y) * mask.Width + (x + renderedBounds.X)) * 4;
 
-                    for (int x = 0; x < renderedBounds.Width; x++)
-                    {
-                        var alpha = (maskRow[x * 4] + maskRow[x * 4 + 1] + maskRow[x * 4 + 2]) / 3;
-                        var newAlpha = (byte)(bufferRow[x * 4 + 3] * alpha / 255);
+                    var alpha = (maskBytes[maskPixelAddress] + maskBytes[maskPixelAddress + 1] + maskBytes[maskPixelAddress + 2]) / 3;
+                    var newAlpha = (byte)(bufferBytes[bufferPixelAddress + 3] * alpha / 255);
 
-                        bufferRow[x * 4 + 3] = newAlpha;
-                    }
+                    bufferBytes[bufferPixelAddress + 3] = newAlpha;
                 }
             }
+
+            Marshal.Copy(bufferBytes, 0, bufferData.Scan0, bufferBytes.Length);
 
             buffer.UnlockBits(bufferData);
             mask.UnlockBits(maskData);
