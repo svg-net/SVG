@@ -408,6 +408,7 @@ namespace Svg
 
             var family = ValidateFontFamily(this.FontFamily, this.OwnerDocument, fontManager ?? this.OwnerDocument.FontManager);
             var sFaces = family as IEnumerable<SvgFontFace>;
+            var ppi = this.OwnerDocument?.Ppi ?? SvgDocument.PointsPerInch;
 
             if (sFaces == null)
             {
@@ -473,7 +474,7 @@ namespace Svg
                 }
 
                 // Get the font-family
-                return new GdiFontDefn(new Font(ff, fontSize, fontStyle, GraphicsUnit.Pixel));
+                return new GdiFontDefn(new Font(ff, fontSize, fontStyle, GraphicsUnit.Pixel), ppi);
             }
             else
             {
@@ -483,7 +484,7 @@ namespace Svg
                     var uri = sFaces.First().Descendants().OfType<SvgFontFaceUri>().First().ReferencedElement;
                     font = OwnerDocument.IdManager.GetElementById(uri) as SvgFont;
                 }
-                return new SvgFontDefn(font, fontSize, OwnerDocument.Ppi);
+                return new SvgFontDefn(font, fontSize, ppi);
             }
         }
 
