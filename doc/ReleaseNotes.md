@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+### Enhancements
+* minimize XmlTextReader customization (see [PR #836](https://github.com/svg-net/SVG/pull/836))
+
 ### Fixes
 * fixed filled polyline not displayed with stroke-width=0 (see [#785](https://github.com/svg-net/SVG/issues/785)
 * fixed unimplemented filter classes issue (see [#768](https://github.com/svg-net/SVG/issues/768)
