@@ -161,28 +161,32 @@ namespace Svg
 
             while (reader.MoveToNextAttribute())
             {
-                if (reader.LocalName.Equals("xmlns"))
+                var localName = reader.LocalName;
+                if (reader.ReadAttributeValue())
                 {
-                    continue;    // skip the xmlns attribute (already processed via reader.NamespaceURI in CreateElement<T>)
-                }
-                if (reader.LocalName.Equals("style") && !(element is NonSvgElement))
-                {
-                    var inlineSheet = cssParser.Parse("#a{" + reader.Value + "}");
-                    foreach (var rule in inlineSheet.StyleRules)
+                    if (localName.Equals("xmlns"))
                     {
-                        foreach (var decl in rule.Declarations)
+                        continue;    // skip the xmlns attribute (already processed via reader.NamespaceURI in CreateElement<T>)
+                    }
+                    if (localName.Equals("style") && !(element is NonSvgElement))
+                    {
+                        var inlineSheet = cssParser.Parse("#a{" + reader.Value + "}");
+                        foreach (var rule in inlineSheet.StyleRules)
                         {
-                            element.AddStyle(decl.Name, decl.Term.ToString(), SvgElement.StyleSpecificity_InlineStyle);
+                            foreach (var decl in rule.Declarations)
+                            {
+                                element.AddStyle(decl.Name, decl.Term.ToString(), SvgElement.StyleSpecificity_InlineStyle);
+                            }
                         }
                     }
-                }
-                else if (IsStyleAttribute(reader.LocalName))
-                {
-                    element.AddStyle(reader.LocalName, reader.Value, SvgElement.StyleSpecificity_PresAttribute);
-                }
-                else
-                {
-                    SetPropertyValue(element, reader.LocalName, reader.Value, document);
+                    else if (IsStyleAttribute(localName))
+                    {
+                        element.AddStyle(localName, reader.Value, SvgElement.StyleSpecificity_PresAttribute);
+                    }
+                    else
+                    {
+                        SetPropertyValue(element, localName, reader.Value, document);
+                    }
                 }
             }
 

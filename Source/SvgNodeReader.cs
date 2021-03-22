@@ -9,7 +9,6 @@ namespace Svg
         private readonly Dictionary<string, string> _entities;
         private string _value;
         private bool _customValue = false;
-        private string _localName;
 
         public SvgNodeReader(XmlNode node, Dictionary<string, string> entities)
             : base(node)
@@ -28,40 +27,19 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets the local name of the current node.
-        /// </summary>
-        /// <value></value>
-        /// <returns>The name of the current node with the prefix removed. For example, LocalName is book for the element &lt;bk:book&gt;.For node types that do not have a name (like Text, Comment, and so on), this property returns String.Empty.</returns>
-        public override string LocalName
-        {
-            get { return _customValue ? _localName : base.LocalName; }
-        }
-
-        /// <summary>
-        /// Moves to the next attribute.
+        /// Reads the attribute value.
         /// </summary>
         /// <returns>
-        /// true if there is a next attribute; false if there are no more attributes.
+        /// true if there is a attribute value; false if there are no attribute value.
         /// </returns>
-        public override bool MoveToNextAttribute()
+        public override bool ReadAttributeValue()
         {
-            bool moved = base.MoveToNextAttribute();
+            _customValue = false;
+            var read = base.ReadAttributeValue();
 
-            if (moved)
-            {
-                _localName = base.LocalName;
-
-                if (ReadAttributeValue())
-                {
-                    if (NodeType == XmlNodeType.EntityReference)
-                        ResolveEntity();
-                    else
-                        _value = base.Value;
-                }
-                _customValue = true;
-            }
-
-            return moved;
+            if (read && NodeType == XmlNodeType.EntityReference)
+                ResolveEntity();
+            return read;
         }
 
         /// <summary>
