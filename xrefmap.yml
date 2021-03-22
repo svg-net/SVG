@@ -644,11 +644,11 @@ references:
   commentId: T:Svg.ExtensionMethods.UriExtensions
   fullName: Svg.ExtensionMethods.UriExtensions
   nameWithType: UriExtensions
-- uid: Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(Uri)
+- uid: Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(System.Uri)
   name: ReplaceWithNullIfNone(Uri)
-  href: api/Svg.ExtensionMethods.UriExtensions.html#Svg_ExtensionMethods_UriExtensions_ReplaceWithNullIfNone_Uri_
-  commentId: M:Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(Uri)
-  fullName: Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(Uri)
+  href: api/Svg.ExtensionMethods.UriExtensions.html#Svg_ExtensionMethods_UriExtensions_ReplaceWithNullIfNone_System_Uri_
+  commentId: M:Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(System.Uri)
+  fullName: Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(System.Uri)
   nameWithType: UriExtensions.ReplaceWithNullIfNone(Uri)
 - uid: Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone*
   name: ReplaceWithNullIfNone
@@ -5547,11 +5547,11 @@ references:
   fullName: Svg.SvgColourConverter
   nameWithType: SvgColourConverter
 - uid: Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)
-  name: CanConvertFrom(ComponentModel.ITypeDescriptorContext, Type)
+  name: CanConvertFrom(ITypeDescriptorContext, Type)
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_CanConvertFrom_System_ComponentModel_ITypeDescriptorContext_System_Type_
   commentId: M:Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)
   fullName: Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext, System.Type)
-  nameWithType: SvgColourConverter.CanConvertFrom(ComponentModel.ITypeDescriptorContext, Type)
+  nameWithType: SvgColourConverter.CanConvertFrom(ITypeDescriptorContext, Type)
 - uid: Svg.SvgColourConverter.CanConvertFrom*
   name: CanConvertFrom
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_CanConvertFrom_
@@ -5560,11 +5560,11 @@ references:
   fullName: Svg.SvgColourConverter.CanConvertFrom
   nameWithType: SvgColourConverter.CanConvertFrom
 - uid: Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)
-  name: CanConvertTo(ComponentModel.ITypeDescriptorContext, Type)
+  name: CanConvertTo(ITypeDescriptorContext, Type)
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_CanConvertTo_System_ComponentModel_ITypeDescriptorContext_System_Type_
   commentId: M:Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)
   fullName: Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext, System.Type)
-  nameWithType: SvgColourConverter.CanConvertTo(ComponentModel.ITypeDescriptorContext, Type)
+  nameWithType: SvgColourConverter.CanConvertTo(ITypeDescriptorContext, Type)
 - uid: Svg.SvgColourConverter.CanConvertTo*
   name: CanConvertTo
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_CanConvertTo_
@@ -5573,11 +5573,11 @@ references:
   fullName: Svg.SvgColourConverter.CanConvertTo
   nameWithType: SvgColourConverter.CanConvertTo
 - uid: Svg.SvgColourConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)
-  name: ConvertFrom(ComponentModel.ITypeDescriptorContext, CultureInfo, Object)
+  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_ConvertFrom_System_ComponentModel_ITypeDescriptorContext_System_Globalization_CultureInfo_System_Object_
   commentId: M:Svg.SvgColourConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)
   fullName: Svg.SvgColourConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext, System.Globalization.CultureInfo, System.Object)
-  nameWithType: SvgColourConverter.ConvertFrom(ComponentModel.ITypeDescriptorContext, CultureInfo, Object)
+  nameWithType: SvgColourConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
 - uid: Svg.SvgColourConverter.ConvertFrom*
   name: ConvertFrom
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_ConvertFrom_
@@ -5586,11 +5586,11 @@ references:
   fullName: Svg.SvgColourConverter.ConvertFrom
   nameWithType: SvgColourConverter.ConvertFrom
 - uid: Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  name: ConvertTo(ComponentModel.ITypeDescriptorContext, CultureInfo, Object, Type)
+  name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_ConvertTo_System_ComponentModel_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
   commentId: M:Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
   fullName: Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
-  nameWithType: SvgColourConverter.ConvertTo(ComponentModel.ITypeDescriptorContext, CultureInfo, Object, Type)
+  nameWithType: SvgColourConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
 - uid: Svg.SvgColourConverter.ConvertTo*
   name: ConvertTo
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_ConvertTo_
@@ -8244,11 +8244,11 @@ references:
   commentId: M:Svg.SvgElementIdManager.GetElementById(System.String)
   fullName: Svg.SvgElementIdManager.GetElementById(System.String)
   nameWithType: SvgElementIdManager.GetElementById(String)
-- uid: Svg.SvgElementIdManager.GetElementById(Uri)
+- uid: Svg.SvgElementIdManager.GetElementById(System.Uri)
   name: GetElementById(Uri)
-  href: api/Svg.SvgElementIdManager.html#Svg_SvgElementIdManager_GetElementById_Uri_
-  commentId: M:Svg.SvgElementIdManager.GetElementById(Uri)
-  fullName: Svg.SvgElementIdManager.GetElementById(Uri)
+  href: api/Svg.SvgElementIdManager.html#Svg_SvgElementIdManager_GetElementById_System_Uri_
+  commentId: M:Svg.SvgElementIdManager.GetElementById(System.Uri)
+  fullName: Svg.SvgElementIdManager.GetElementById(System.Uri)
   nameWithType: SvgElementIdManager.GetElementById(Uri)
 - uid: Svg.SvgElementIdManager.GetElementById*
   name: GetElementById
