@@ -10,6 +10,7 @@ The release versions are NuGet releases.
 * fixed filled polyline not displayed with stroke-width=0 (see [#785](https://github.com/svg-net/SVG/issues/785)
 * fixed unimplemented filter classes issue (see [#768](https://github.com/svg-net/SVG/issues/768)
 * fixed StackOverFlowException (see [#755](https://github.com/svg-net/SVG/issues/755)
+* fixed different prefix is assigned using XmlTextWriter (see [#817](https://github.com/svg-net/SVG/issues/817)
 
 ## [Version 3.2.3](https://www.nuget.org/packages/Svg/3.2.3)
 
