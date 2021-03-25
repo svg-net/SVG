@@ -6452,19 +6452,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocument.Write
   nameWithType: SvgDocument.Write
-- uid: Svg.SvgDocument.WriteStartElement(XmlWriter)
-  name: WriteStartElement(XmlWriter)
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_WriteStartElement_XmlWriter_
-  commentId: M:Svg.SvgDocument.WriteStartElement(XmlWriter)
-  fullName: Svg.SvgDocument.WriteStartElement(XmlWriter)
-  nameWithType: SvgDocument.WriteStartElement(XmlWriter)
-- uid: Svg.SvgDocument.WriteStartElement*
-  name: WriteStartElement
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_WriteStartElement_
-  commentId: Overload:Svg.SvgDocument.WriteStartElement
+- uid: Svg.SvgDocument.WriteAttributes(XmlWriter)
+  name: WriteAttributes(XmlWriter)
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_WriteAttributes_XmlWriter_
+  commentId: M:Svg.SvgDocument.WriteAttributes(XmlWriter)
+  fullName: Svg.SvgDocument.WriteAttributes(XmlWriter)
+  nameWithType: SvgDocument.WriteAttributes(XmlWriter)
+- uid: Svg.SvgDocument.WriteAttributes*
+  name: WriteAttributes
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_WriteAttributes_
+  commentId: Overload:Svg.SvgDocument.WriteAttributes
   isSpec: "True"
-  fullName: Svg.SvgDocument.WriteStartElement
-  nameWithType: SvgDocument.WriteStartElement
+  fullName: Svg.SvgDocument.WriteAttributes
+  nameWithType: SvgDocument.WriteAttributes
 - uid: Svg.SvgDocumentMetadata
   name: SvgDocumentMetadata
   href: api/Svg.SvgDocumentMetadata.html
