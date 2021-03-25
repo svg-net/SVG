@@ -768,16 +768,15 @@ namespace Svg
             }
         }
 
-        protected override void WriteStartElement(XmlWriter writer)
+        protected override void WriteAttributes(XmlWriter writer)
         {
-            base.WriteStartElement(writer);
-
+            writer.WriteAttributeString("version", "1.1");
             foreach (var ns in SvgAttributeAttribute.Namespaces)
             {
                 writer.WriteAttributeString("xmlns", ns.Key, null, ns.Value);
             }
 
-            writer.WriteAttributeString("version", "1.1");
+            base.WriteAttributes(writer);
         }
     }
 }
