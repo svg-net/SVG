@@ -150,24 +150,35 @@ namespace Svg
                     IsPathDirty = true;
 
                     if (bounds.Width > 0f && bounds.Height > 0f)
-                        using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height)))
+                    {
+                        var scaleX = 1f;
+                        var scaleY = 1f;
+                        using (var transform = renderer.Transform)
+                        {
+                            scaleX = Math.Max(scaleX, Math.Abs(transform.Elements[0]));
+                            scaleY = Math.Max(scaleX, Math.Abs(transform.Elements[3]));
+                        }
+
+                        using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width * scaleX), (int)Math.Ceiling(bounds.Height * scaleY)))
                         {
                             using (var canvasRenderer = SvgRenderer.FromImage(canvas))
                             {
                                 canvasRenderer.SetBoundable(renderer.GetBoundable());
                                 canvasRenderer.TranslateTransform(-bounds.X, -bounds.Y);
+                                canvasRenderer.ScaleTransform(scaleX, scaleY);
 
                                 if (Renderable)
                                     RenderInternal(canvasRenderer, RenderFillAndStroke);
                                 else
                                     RenderChildren(canvasRenderer);
                             }
-                            var srcRect = new RectangleF(0f, 0f, bounds.Width, bounds.Height);
+                            var srcRect = new RectangleF(0f, 0f, bounds.Width * scaleX, bounds.Height * scaleY);
                             if (Renderable)
                                 renderer.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity);
                             else
                                 RenderInternal(renderer, r => r.DrawImage(canvas, bounds, srcRect, GraphicsUnit.Pixel, opacity));
                         }
+                    }
                 }
             }
         }
