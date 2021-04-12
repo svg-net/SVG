@@ -11,6 +11,7 @@ The release versions are NuGet releases.
 * fixed unimplemented filter classes issue (see [#768](https://github.com/svg-net/SVG/issues/768)
 * fixed StackOverFlowException (see [#755](https://github.com/svg-net/SVG/issues/755)
 * fixed different prefix is assigned using XmlTextWriter (see [#817](https://github.com/svg-net/SVG/issues/817)
+* fixed scaling if opacity is not 1 (see [#863](https://github.com/svg-net/SVG/issues/863)
 
 ## [Version 3.2.3](https://www.nuget.org/packages/Svg/3.2.3)
 
