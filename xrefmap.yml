@@ -3071,12 +3071,12 @@ references:
   commentId: T:Svg.GdiFontDefn
   fullName: Svg.GdiFontDefn
   nameWithType: GdiFontDefn
-- uid: Svg.GdiFontDefn.#ctor(Font)
-  name: GdiFontDefn(Font)
-  href: api/Svg.GdiFontDefn.html#Svg_GdiFontDefn__ctor_Font_
-  commentId: M:Svg.GdiFontDefn.#ctor(Font)
-  fullName: Svg.GdiFontDefn.GdiFontDefn(Font)
-  nameWithType: GdiFontDefn.GdiFontDefn(Font)
+- uid: Svg.GdiFontDefn.#ctor(Font,System.Single)
+  name: GdiFontDefn(Font, Single)
+  href: api/Svg.GdiFontDefn.html#Svg_GdiFontDefn__ctor_Font_System_Single_
+  commentId: M:Svg.GdiFontDefn.#ctor(Font,System.Single)
+  fullName: Svg.GdiFontDefn.GdiFontDefn(Font, System.Single)
+  nameWithType: GdiFontDefn.GdiFontDefn(Font, Single)
 - uid: Svg.GdiFontDefn.#ctor*
   name: GdiFontDefn
   href: api/Svg.GdiFontDefn.html#Svg_GdiFontDefn__ctor_
