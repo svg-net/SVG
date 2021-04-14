@@ -9,6 +9,7 @@ namespace Svg
     public class GdiFontDefn : IFontDefn
     {
         private readonly Font _font;
+        private float _ppi;
 
         public float Size
         {
@@ -19,9 +20,10 @@ namespace Svg
             get { return _font.SizeInPoints; }
         }
 
-        public GdiFontDefn(Font font)
+        public GdiFontDefn(Font font, float ppi)
         {
             _font = font;
+            _ppi = ppi;
         }
 
         public void AddStringToPath(ISvgRenderer renderer, GraphicsPath path, string text, PointF location)
@@ -35,7 +37,7 @@ namespace Svg
             var ff = _font.FontFamily;
             var ascent = ff.GetCellAscent(_font.Style);
             var baselineOffset = _font.SizeInPoints / ff.GetEmHeight(_font.Style) * ascent;
-            return SvgDocument.PointsPerInch / 72f * baselineOffset;
+            return _ppi / 72f * baselineOffset;
         }
 
         public IList<RectangleF> MeasureCharacters(ISvgRenderer renderer, string text)
