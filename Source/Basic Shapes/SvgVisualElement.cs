@@ -156,7 +156,7 @@ namespace Svg
                         using (var transform = renderer.Transform)
                         {
                             scaleX = Math.Max(scaleX, Math.Abs(transform.Elements[0]));
-                            scaleY = Math.Max(scaleX, Math.Abs(transform.Elements[3]));
+                            scaleY = Math.Max(scaleY, Math.Abs(transform.Elements[3]));
                         }
 
                         using (var canvas = new Bitmap((int)Math.Ceiling(bounds.Width * scaleX), (int)Math.Ceiling(bounds.Height * scaleY)))
