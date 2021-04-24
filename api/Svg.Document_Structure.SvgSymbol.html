@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class SvgSymbol
    | SVG.NET API ">
-    <meta name="generator" content="docfx 2.57.1.0">
+    <meta name="generator" content="docfx 2.57.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -83,15 +83,15 @@
   
   <h1 id="Svg_Document_Structure_SvgSymbol" data-uid="Svg.Document_Structure.SvgSymbol" class="text-break">Class SvgSymbol
   </h1>
-  <div class="markdown level0 summary"><p>An element used to group SVG shapes.</p>
-</div>
+  <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><a class="xref" href="Svg.SvgElement.html">SvgElement</a></div>
     <div class="level2"><a class="xref" href="Svg.SvgVisualElement.html">SvgVisualElement</a></div>
-    <div class="level3"><span class="xref">SvgSymbol</span></div>
+    <div class="level3"><a class="xref" href="Svg.SvgSymbol.html">SvgSymbol</a></div>
+    <div class="level4"><span class="xref">SvgSymbol</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -104,6 +104,30 @@
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Svg.SvgSymbol.html#Svg_SvgSymbol_ViewBox">SvgSymbol.ViewBox</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgSymbol.html#Svg_SvgSymbol_AspectRatio">SvgSymbol.AspectRatio</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgSymbol.html#Svg_SvgSymbol_Path_Svg_ISvgRenderer_">SvgSymbol.Path(ISvgRenderer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgSymbol.html#Svg_SvgSymbol_Bounds">SvgSymbol.Bounds</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgSymbol.html#Svg_SvgSymbol_Renderable">SvgSymbol.Renderable</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgSymbol.html#Svg_SvgSymbol_PushTransforms_Svg_ISvgRenderer_">SvgSymbol.PushTransforms(ISvgRenderer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgSymbol.html#Svg_SvgSymbol_Render_Svg_ISvgRenderer_">SvgSymbol.Render(ISvgRenderer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgSymbol.html#Svg_SvgSymbol_DeepCopy">SvgSymbol.DeepCopy()</a>
+    </div>
     <div>
       <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Svg_ISvgBoundable_Location">SvgVisualElement.ISvgBoundable.Location</a>
     </div>
@@ -478,268 +502,22 @@
   <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
   <h5 id="Svg_Document_Structure_SvgSymbol_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[SvgElement(&quot;symbol&quot;)]
-public class SvgSymbol : SvgVisualElement, ISvgElement, ISvgTransformable, ICloneable, ISvgNode, ISvgBoundable, ISvgStylable, ISvgClipable</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use Svg.SvgSymbol.&quot;)]
+[SvgElement(&quot;&quot;)]
+public class SvgSymbol : SvgSymbol, ISvgElement, ISvgTransformable, ICloneable, ISvgNode, ISvgBoundable, ISvgStylable, ISvgClipable</code></pre>
   </div>
-  <h3 id="properties">Properties
+  <h3 id="constructors">Constructors
   </h3>
   
   
-  <a id="Svg_Document_Structure_SvgSymbol_AspectRatio_" data-uid="Svg.Document_Structure.SvgSymbol.AspectRatio*"></a>
-  <h4 id="Svg_Document_Structure_SvgSymbol_AspectRatio" data-uid="Svg.Document_Structure.SvgSymbol.AspectRatio">AspectRatio</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the aspect of the viewport.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgAspectRatio AspectRatio { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgAspectRatio.html">SvgAspectRatio</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  
-  <a id="Svg_Document_Structure_SvgSymbol_Bounds_" data-uid="Svg.Document_Structure.SvgSymbol.Bounds*"></a>
-  <h4 id="Svg_Document_Structure_SvgSymbol_Bounds" data-uid="Svg.Document_Structure.SvgSymbol.Bounds">Bounds</h4>
-  <div class="markdown level1 summary"><p>Gets the bounds of the element.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override RectangleF Bounds { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.drawing.rectanglef">RectangleF</a></td>
-        <td><p>The bounds.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Bounds">SvgVisualElement.Bounds</a></div>
-  
-  
-  <a id="Svg_Document_Structure_SvgSymbol_Renderable_" data-uid="Svg.Document_Structure.SvgSymbol.Renderable*"></a>
-  <h4 id="Svg_Document_Structure_SvgSymbol_Renderable" data-uid="Svg.Document_Structure.SvgSymbol.Renderable">Renderable</h4>
+  <a id="Svg_Document_Structure_SvgSymbol__ctor_" data-uid="Svg.Document_Structure.SvgSymbol.#ctor*"></a>
+  <h4 id="Svg_Document_Structure_SvgSymbol__ctor" data-uid="Svg.Document_Structure.SvgSymbol.#ctor">SvgSymbol()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override bool Renderable { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public SvgSymbol()</code></pre>
   </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Renderable">SvgVisualElement.Renderable</a></div>
-  
-  
-  <a id="Svg_Document_Structure_SvgSymbol_ViewBox_" data-uid="Svg.Document_Structure.SvgSymbol.ViewBox*"></a>
-  <h4 id="Svg_Document_Structure_SvgSymbol_ViewBox" data-uid="Svg.Document_Structure.SvgSymbol.ViewBox">ViewBox</h4>
-  <div class="markdown level1 summary"><p>Gets or sets the viewport of the element.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgViewBox ViewBox { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgViewBox.html">SvgViewBox</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-  </h3>
-  
-  
-  <a id="Svg_Document_Structure_SvgSymbol_DeepCopy_" data-uid="Svg.Document_Structure.SvgSymbol.DeepCopy*"></a>
-  <h4 id="Svg_Document_Structure_SvgSymbol_DeepCopy" data-uid="Svg.Document_Structure.SvgSymbol.DeepCopy">DeepCopy()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override SvgElement DeepCopy()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgElement.html">SvgElement</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_DeepCopy">SvgElement.DeepCopy()</a></div>
-  
-  
-  <a id="Svg_Document_Structure_SvgSymbol_Path_" data-uid="Svg.Document_Structure.SvgSymbol.Path*"></a>
-  <h4 id="Svg_Document_Structure_SvgSymbol_Path_Svg_ISvgRenderer_" data-uid="Svg.Document_Structure.SvgSymbol.Path(Svg.ISvgRenderer)">Path(ISvgRenderer)</h4>
-  <div class="markdown level1 summary"><p>Gets the <see cref="!:System.Drawing.Drawing2D.GraphicsPath"></see> for this element.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override Drawing2D.GraphicsPath Path(ISvgRenderer renderer)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a></td>
-        <td><span class="parametername">renderer</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.drawing.drawing2d.graphicspath">Drawing2D.GraphicsPath</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Path_Svg_ISvgRenderer_">SvgVisualElement.Path(ISvgRenderer)</a></div>
-  
-  
-  <a id="Svg_Document_Structure_SvgSymbol_PushTransforms_" data-uid="Svg.Document_Structure.SvgSymbol.PushTransforms*"></a>
-  <h4 id="Svg_Document_Structure_SvgSymbol_PushTransforms_Svg_ISvgRenderer_" data-uid="Svg.Document_Structure.SvgSymbol.PushTransforms(Svg.ISvgRenderer)">PushTransforms(ISvgRenderer)</h4>
-  <div class="markdown level1 summary"><p>Applies the required transforms to <a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a>.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override bool PushTransforms(ISvgRenderer renderer)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a></td>
-        <td><span class="parametername">renderer</span></td>
-        <td><p>The <a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a> to be transformed.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_PushTransforms_Svg_ISvgRenderer_">SvgElement.PushTransforms(ISvgRenderer)</a></div>
-  
-  
-  <a id="Svg_Document_Structure_SvgSymbol_Render_" data-uid="Svg.Document_Structure.SvgSymbol.Render*"></a>
-  <h4 id="Svg_Document_Structure_SvgSymbol_Render_Svg_ISvgRenderer_" data-uid="Svg.Document_Structure.SvgSymbol.Render(Svg.ISvgRenderer)">Render(ISvgRenderer)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void Render(ISvgRenderer renderer)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a></td>
-        <td><span class="parametername">renderer</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Render_Svg_ISvgRenderer_">SvgVisualElement.Render(ISvgRenderer)</a></div>
   <h3 id="implements">Implements</h3>
   <div>
       <a class="xref" href="Svg.ISvgTransformable.html">ISvgTransformable</a>
