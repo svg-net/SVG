@@ -1059,7 +1059,7 @@ namespace Svg
                 // Skip to avoid double calculate Symbol element
                 // symbol element is only referenced by use element
                 // So here we need to skip when it is directly considered
-                if (child is Svg.Document_Structure.SvgSymbol)
+                if (child is SvgSymbol)
                     continue;
 
                 if (child is SvgVisualElement)

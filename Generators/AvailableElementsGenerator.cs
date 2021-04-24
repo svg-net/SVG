@@ -255,6 +255,9 @@ namespace Svg
                     }
                 }
 
+                if (string.Empty.Equals(elementName))
+                    continue;
+
                 if (elementName is not null && items.TryGetValue(elementName, out var element))
                 {
                     element.ClassNames.Add(classNameSvgElement);

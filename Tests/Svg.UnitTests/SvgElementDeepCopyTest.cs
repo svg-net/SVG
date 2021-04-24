@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using Svg.Document_Structure;
 using Svg.FilterEffects;
 
 namespace Svg.UnitTests

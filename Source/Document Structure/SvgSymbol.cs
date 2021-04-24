@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
-namespace Svg.Document_Structure
+namespace Svg
 {
     /// <summary>
     /// An element used to group SVG shapes.
@@ -35,10 +33,10 @@ namespace Svg.Document_Structure
         }
 
         /// <summary>
-        /// Gets the <see cref="System.Drawing.Drawing2D.GraphicsPath"/> for this element.
+        /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
         /// <value></value>
-        public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
+        public override GraphicsPath Path(ISvgRenderer renderer)
         {
             return GetPaths(this, renderer);
         }
@@ -47,7 +45,7 @@ namespace Svg.Document_Structure
         /// Gets the bounds of the element.
         /// </summary>
         /// <value>The bounds.</value>
-        public override System.Drawing.RectangleF Bounds
+        public override RectangleF Bounds
         {
             get
             {
@@ -100,6 +98,21 @@ namespace Svg.Document_Structure
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgSymbol>();
+        }
+    }
+}
+
+namespace Svg.Document_Structure
+{
+    [Obsolete("Use Svg.SvgSymbol.")]
+    [SvgElement("")]
+    public partial class SvgSymbol : Svg.SvgSymbol
+    {
+        public SvgSymbol()
+        {
+            typeof(SvgElement)
+                .GetField("_elementName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .SetValue(this, "symbol");
         }
     }
 }

@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+### Changes
+* change namespace of SvgSymbol from Svg.Document_Structure to Svg. (see [PR #556](https://github.com/svg-net/SVG/pull/556))
+
 ### Enhancements
 * minimize XmlTextReader customization (see [PR #836](https://github.com/svg-net/SVG/pull/836))
 
