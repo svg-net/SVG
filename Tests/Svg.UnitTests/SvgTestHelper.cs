@@ -246,7 +246,7 @@ namespace Svg.UnitTests
         {
             using (var ms = new MemoryStream())
             {
-                img.Save(ms, ImageFormat.Png);
+                img?.Save(ms, ImageFormat.Png);
                 ms.Flush();
                 Assert.IsTrue(ms.Length >= ExpectedSize, $"Svg file size {ms.Length} does not match expected minimum size (expected {ExpectedSize}).");
             }

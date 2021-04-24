@@ -605,13 +605,16 @@ namespace Svg
         {
             //Trace.TraceInformation("Begin Render");
 
+            var size = Size.Round(GetDimensions());
+            if (size.Width <= 0 || size.Height <= 0)
+                return null;
+
             Bitmap bitmap = null;
             try
             {
                 try
                 {
-                    var size = GetDimensions();
-                    bitmap = new Bitmap((int)Math.Round(size.Width), (int)Math.Round(size.Height));
+                    bitmap = new Bitmap(size.Width, size.Height);
                 }
                 catch (ArgumentException e)
                 {
@@ -625,8 +628,7 @@ namespace Svg
             }
             catch
             {
-                if (bitmap != null)
-                    bitmap.Dispose();
+                bitmap?.Dispose();
                 throw;
             }
 
@@ -658,11 +660,12 @@ namespace Svg
         /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
         public virtual Bitmap Draw(int rasterWidth, int rasterHeight)
         {
-            var imageSize = GetDimensions();
-            var bitmapSize = imageSize;
-            this.RasterizeDimensions(ref bitmapSize, rasterWidth, rasterHeight);
+            var svgSize = GetDimensions();
+            var imageSize = svgSize;
+            this.RasterizeDimensions(ref imageSize, rasterWidth, rasterHeight);
 
-            if (bitmapSize.Width == 0 || bitmapSize.Height == 0)
+            var bitmapSize = Size.Round(imageSize);
+            if (bitmapSize.Width <= 0 || bitmapSize.Height <= 0)
                 return null;
 
             Bitmap bitmap = null;
@@ -670,7 +673,7 @@ namespace Svg
             {
                 try
                 {
-                    bitmap = new Bitmap((int)Math.Round(bitmapSize.Width), (int)Math.Round(bitmapSize.Height));
+                    bitmap = new Bitmap(bitmapSize.Width, bitmapSize.Height);
                 }
                 catch (ArgumentException e)
                 {
@@ -680,15 +683,14 @@ namespace Svg
 
                 using (var renderer = SvgRenderer.FromImage(bitmap))
                 {
-                    renderer.ScaleTransform(bitmapSize.Width / imageSize.Width, bitmapSize.Height / imageSize.Height);
-                    var boundable = new GenericBoundable(0, 0, imageSize.Width, imageSize.Height);
+                    renderer.ScaleTransform(imageSize.Width / svgSize.Width, imageSize.Height / svgSize.Height);
+                    var boundable = new GenericBoundable(0, 0, svgSize.Width, svgSize.Height);
                     this.Draw(renderer, boundable);
                 }
             }
             catch
             {
-                if (bitmap != null)
-                    bitmap.Dispose();
+                bitmap?.Dispose();
                 throw;
             }
 
@@ -710,8 +712,8 @@ namespace Svg
             // Ratio of height/width of the original SVG size, to be used for scaling transformation
             float ratio = size.Height / size.Width;
 
-            size.Width = rasterWidth > 0 ? (float)rasterWidth : size.Width;
-            size.Height = rasterHeight > 0 ? (float)rasterHeight : size.Height;
+            size.Width = rasterWidth > 0 ? rasterWidth : size.Width;
+            size.Height = rasterHeight > 0 ? rasterHeight : size.Height;
 
             if (rasterHeight == 0 && rasterWidth > 0)
             {

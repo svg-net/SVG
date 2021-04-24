@@ -1,4 +1,4 @@
-#if NETFULL
+﻿#if NETFULL
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -128,7 +128,7 @@ namespace Svg.Web
                         {
                             using (MemoryStream ms = new MemoryStream())
                             {
-                                bitmap.Save(ms, ImageFormat.Png);
+                                bitmap?.Save(ms, ImageFormat.Png);
                                 this._state._context.Response.ContentType = "image/png";
                                 ms.WriteTo(this._state._context.Response.OutputStream);
                             }
