@@ -36,6 +36,12 @@ namespace Svg
         /// </summary>
         public static bool DisableDtdProcessing { get; set; }
 
+        /// <summary>
+        /// Defaults to `false` to prevent XXE.  Set to `true` to resolve external resources.
+        /// </summary>
+        /// <see ref="https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing"/>
+        public static bool ResolveExternalResources { get; set; }
+
         private static int? pointsPerInch;
 
         public static int PointsPerInch
@@ -356,7 +362,10 @@ namespace Svg
             {
                 var reader = new SvgTextReader(strReader, null)
                 {
-                    XmlResolver = new SvgDtdResolver(),
+                    XmlResolver = new SvgDtdResolver
+                    {
+                        ResolveExternalResources = ResolveExternalResources
+                    },
                     WhitespaceHandling = WhitespaceHandling.Significant,
                     DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
                 };
@@ -380,7 +389,10 @@ namespace Svg
             // Don't close the stream via a dispose: that is the client's job.
             var reader = new SvgTextReader(stream, entities)
             {
-                XmlResolver = new SvgDtdResolver(),
+                XmlResolver = new SvgDtdResolver
+                {
+                    ResolveExternalResources = ResolveExternalResources
+                },
                 WhitespaceHandling = WhitespaceHandling.Significant,
                 DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
             };

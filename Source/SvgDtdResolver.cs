@@ -11,6 +11,12 @@ namespace Svg
     internal class SvgDtdResolver : XmlUrlResolver
     {
         /// <summary>
+        /// Defaults to `false` to prevent XXE.  Set to `true` to resolve external resources.
+        /// </summary>
+        /// <see ref="https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing"/>
+        public bool ResolveExternalResources { get; set; }
+
+        /// <summary>
         /// Maps a URI to an object containing the actual resource.
         /// </summary>
         /// <param name="absoluteUri">The URI returned from <see cref="M:System.Xml.XmlResolver.ResolveUri(System.Uri,System.String)"/></param>
@@ -33,7 +39,14 @@ namespace Svg
             }
             else
             {
-                return base.GetEntity(absoluteUri, role, ofObjectToReturn);
+                if (ResolveExternalResources)
+                {
+                    return base.GetEntity(absoluteUri, role, ofObjectToReturn);
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }
