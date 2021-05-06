@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Resources;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Reflection;
 using System.Xml;
 
@@ -33,7 +30,7 @@ namespace Svg
         /// <exception cref="T:System.Exception">There is a runtime error (for example, an interrupted server connection). </exception>
         public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
         {
-            if (absoluteUri.ToString().IndexOf("svg", StringComparison.InvariantCultureIgnoreCase) > -1)
+            if (absoluteUri.ToString().IndexOf("svg11.dtd", StringComparison.InvariantCultureIgnoreCase) > -1)
             {
                 return Assembly.GetExecutingAssembly().GetManifestResourceStream("Svg.Resources.svg11.dtd");
             }
@@ -45,7 +42,7 @@ namespace Svg
                 }
                 else
                 {
-                    return null;
+                    return new MemoryStream();
                 }
             }
         }
