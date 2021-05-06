@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace Svg
@@ -30,21 +31,29 @@ namespace Svg
         /// <exception cref="T:System.Exception">There is a runtime error (for example, an interrupted server connection). </exception>
         public override object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
         {
-            if (absoluteUri.ToString().IndexOf("svg11.dtd", StringComparison.InvariantCultureIgnoreCase) > -1)
+            if (IsSvgDtdEntity(absoluteUri))
             {
                 return Assembly.GetExecutingAssembly().GetManifestResourceStream("Svg.Resources.svg11.dtd");
             }
-            else
+
+            if (ResolveExternalResources)
             {
-                if (ResolveExternalResources)
-                {
-                    return base.GetEntity(absoluteUri, role, ofObjectToReturn);
-                }
-                else
-                {
-                    return new MemoryStream();
-                }
+                return base.GetEntity(absoluteUri, role, ofObjectToReturn);
             }
+
+            return new MemoryStream();
         }
+
+        private static bool IsSvgDtdEntity(Uri absoluteUri)
+        {
+            return _svgDtdRegex.IsMatch(absoluteUri.ToString());
+        }
+
+        /// <summary>
+        /// Matches any reference to svg00.dtd or DTD SVG 0.0 (case-insensitive)
+        /// </summary>
+        /// <see ref="https://regexper.com/#%28%3F%3ASVG%5B0-9%5D%2B%5C.DTD%29%7C%28%3F%3ADTD%20SVG%20%5B0-9%5C.%5D%2B%29"/>
+        private static readonly Regex _svgDtdRegex
+            = new Regex(@"(?:SVG[0-9]+\.DTD)|(?:DTD SVG [0-9\.]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     }
 }
