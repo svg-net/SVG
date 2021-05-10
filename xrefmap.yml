@@ -6293,6 +6293,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocument.RasterizeDimensions
   nameWithType: SvgDocument.RasterizeDimensions
+- uid: Svg.SvgDocument.ResolveExternalResources
+  name: ResolveExternalResources
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_ResolveExternalResources
+  commentId: P:Svg.SvgDocument.ResolveExternalResources
+  fullName: Svg.SvgDocument.ResolveExternalResources
+  nameWithType: SvgDocument.ResolveExternalResources
+- uid: Svg.SvgDocument.ResolveExternalResources*
+  name: ResolveExternalResources
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_ResolveExternalResources_
+  commentId: Overload:Svg.SvgDocument.ResolveExternalResources
+  isSpec: "True"
+  fullName: Svg.SvgDocument.ResolveExternalResources
+  nameWithType: SvgDocument.ResolveExternalResources
 - uid: Svg.SvgDocument.SkipGdiPlusCapabilityCheck
   name: SkipGdiPlusCapabilityCheck
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_SkipGdiPlusCapabilityCheck
