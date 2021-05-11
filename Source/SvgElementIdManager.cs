@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -39,6 +40,12 @@ namespace Svg
 
             if (!urlString.StartsWith("#"))
             {
+                if (!SvgDocument.ResolveExternalResources)
+                {
+                    Trace.TraceWarning("Trying to resolve element by ID from '{0}', but resolving external resources is disabled.", uri);
+                    return null;
+                }
+
                 var index = urlString.LastIndexOf('#');
                 var fragment = urlString.Substring(index);
 
