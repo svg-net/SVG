@@ -259,6 +259,12 @@ namespace Svg
                 if (uri.IsAbsoluteUri && uri.Scheme == "data")
                     return GetImageFromDataUri(uriString);
 
+                if (!SvgDocument.ResolveExternalResources)
+                {
+                    Trace.TraceWarning("Trying to resolve image from '{0}', but resolving external resources is disabled.", uri);
+                    return null;
+                }
+
                 if (!uri.IsAbsoluteUri)
                     uri = new Uri(OwnerDocument.BaseUri, uri);
 
