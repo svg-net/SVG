@@ -44,9 +44,6 @@ namespace Svg.UnitTests
         [TestCaseSource(typeof(ImageTestDataSource), "PassingTests")]
         public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
         {
-            // W3C Test Suites use external references to local fonts
-            SvgDocument.ResolveExternalResources = true;
-        
             var basePath = testData.BasePath;
             while (!basePath.ToLower().EndsWith("svg"))
             {
@@ -69,6 +66,9 @@ namespace Svg.UnitTests
         private void CompareSvgImageWithReferenceImpl(string baseName,
             string svgPath, string pngPath, bool testSaveLoad)
         {
+            // W3C Test Suites use external references to local fonts
+            SvgDocument.ResolveExternalResources = true;
+            
             var svgDoc = LoadSvgDocument(svgPath);
             Assert.IsNotNull(svgDoc);
             bool useFixedSize = !baseName.StartsWith("__");
@@ -94,7 +94,6 @@ namespace Svg.UnitTests
                     svgDoc.Write(memStream);
                     memStream.Position = 0;
                     var baseUri = svgDoc.BaseUri;
-                    SvgDocument.ResolveExternalResources = true;
                     svgDoc = SvgDocument.Open<SvgDocument>(memStream);
                     svgDoc.BaseUri = baseUri;
                     using (var svgImage = LoadSvgImage(svgDoc, useFixedSize))
