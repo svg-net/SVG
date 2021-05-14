@@ -28,6 +28,9 @@ namespace Svg.UnitTests
         [TestCaseSource(typeof(ImageTestDataSource), nameof(ImageTestDataSource.PassingTests))]
         public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
         {
+            // W3C Test Suites use external references to local fonts
+            SvgDocument.ResolveExternalResources = true;
+            
             string basePath = testData.BasePath;
             string baseName = testData.BaseName;
             bool testSaveLoad = !baseName.StartsWith("#");
@@ -44,6 +47,9 @@ namespace Svg.UnitTests
         [TestCaseSource(typeof(ImageTestDataSource), "PassingTests")]
         public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
         {
+            // W3C Test Suites use external references to local fonts
+            SvgDocument.ResolveExternalResources = true;
+
             var basePath = testData.BasePath;
             while (!basePath.ToLower().EndsWith("svg"))
             {
@@ -62,13 +68,12 @@ namespace Svg.UnitTests
             CompareSvgImageWithReferenceImpl(baseName, svgPath, pngPath, testSaveLoad);
         }
 #endif
+        
+        
 
-        private void CompareSvgImageWithReferenceImpl(string baseName,
+        public static void CompareSvgImageWithReferenceImpl(string baseName,
             string svgPath, string pngPath, bool testSaveLoad)
         {
-            // W3C Test Suites use external references to local fonts
-            SvgDocument.ResolveExternalResources = true;
-            
             var svgDoc = LoadSvgDocument(svgPath);
             Assert.IsNotNull(svgDoc);
             bool useFixedSize = !baseName.StartsWith("__");
