@@ -112,6 +112,10 @@ namespace Svg
         public SvgDocument()
         {
             Ppi = PointsPerInch;
+
+            Namespaces.Add(string.Empty, SvgNamespaces.SvgNamespace);
+            Namespaces.Add(SvgNamespaces.XLinkPrefix, SvgNamespaces.XLinkNamespace);
+            Namespaces.Add(SvgNamespaces.XmlPrefix, SvgNamespaces.XmlNamespace);
         }
 
         private Uri baseUri;
@@ -785,11 +789,6 @@ namespace Svg
         protected override void WriteAttributes(XmlWriter writer)
         {
             writer.WriteAttributeString("version", "1.1");
-            foreach (var ns in SvgAttributeAttribute.Namespaces)
-            {
-                writer.WriteAttributeString("xmlns", ns.Key, null, ns.Value);
-            }
-
             base.WriteAttributes(writer);
         }
     }

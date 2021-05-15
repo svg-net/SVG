@@ -116,9 +116,15 @@ namespace Svg
         }
 
         /// <summary>
+        /// Gets the namespaces that element has.
+        /// </summary>
+        /// <value>Key is prefix and value is namespace.</value>
+        public Dictionary<string, string> Namespaces { get; } = new Dictionary<string, string>();
+
+        /// <summary>
         /// Gets the elements namespace as a string.
         /// </summary>
-        protected internal string ElementNamespace { get; protected set; } = SvgNamespace.UriString;
+        protected internal string ElementNamespace { get; protected set; } = SvgNamespaces.SvgNamespace;
 
         /// <summary>
         /// Gets the name of the element.
@@ -593,7 +599,16 @@ namespace Svg
         {
             if (!string.IsNullOrEmpty(this.ElementName))
             {
-                writer.WriteStartElement(this.ElementName, this.ElementNamespace);
+                if (string.IsNullOrEmpty(this.ElementNamespace))
+                    writer.WriteStartElement(this.ElementName);
+                else
+                {
+                    var prefix = writer.LookupPrefix(this.ElementNamespace);
+                    if (prefix == null)
+                        writer.WriteStartElement(this.ElementName, this.ElementNamespace);
+                    else
+                        writer.WriteStartElement(prefix, this.ElementName, this.ElementNamespace);
+                }
             }
 
             this.WriteAttributes(writer);
@@ -608,6 +623,14 @@ namespace Svg
         }
         protected virtual void WriteAttributes(XmlWriter writer)
         {
+            // namespaces
+            foreach (var ns in Namespaces)
+            {
+                if (ns.Value.Equals(SvgNamespaces.SvgNamespace) && !string.IsNullOrEmpty(ns.Key))
+                    continue;
+                writer.WriteAttributeString("xmlns", ns.Key, null, ns.Value);
+            }
+
             //properties
             var styles = WritePropertyAttributes(writer);
 
@@ -917,16 +940,14 @@ namespace Svg
 
         private void WriteAttributeString(XmlWriter writer, string name, string ns, string value)
         {
-            if (!string.IsNullOrEmpty(ns) && ns != this.ElementNamespace)
-            {
-                // a namespace has been specified that is different from the enclosing element's namespace;
-                // write the attribute with the corresponding namespace prefix
-                string prefix = writer.LookupPrefix(ns);
-                writer.WriteAttributeString(prefix, name, ns, value);
-            }
+            if (string.IsNullOrEmpty(ns))
+                writer.WriteAttributeString(name, value);
             else
             {
-                writer.WriteAttributeString(name, value);
+                var prefix = writer.LookupPrefix(ns);
+                if (prefix != null)
+                    ns = null;
+                writer.WriteAttributeString(prefix, name, ns, value);
             }
         }
 
