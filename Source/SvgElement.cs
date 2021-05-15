@@ -621,6 +621,7 @@ namespace Svg
                 writer.WriteEndElement();
             }
         }
+
         protected virtual void WriteAttributes(XmlWriter writer)
         {
             // namespaces
@@ -631,10 +632,10 @@ namespace Svg
                 writer.WriteAttributeString("xmlns", ns.Key, null, ns.Value);
             }
 
-            //properties
+            // properties
             var styles = WritePropertyAttributes(writer);
 
-            //events
+            // events
             if (AutoPublishEvents)
             {
 #if USE_SOURCE_GENERATORS
@@ -642,7 +643,7 @@ namespace Svg
                 {
                     var evt = property.GetValue(this);
 
-                    //if someone has registered publish the attribute
+                    // if someone has registered publish the attribute
                     if (evt != null && !string.IsNullOrEmpty(this.ID))
                     {
                         string evtValue = this.ID + "/" + property.AttributeName;
@@ -654,7 +655,7 @@ namespace Svg
                 {
                     var evt = attr.Event.GetValue(this);
 
-                    //if someone has registered publish the attribute
+                    // if someone has registered publish the attribute
                     if (evt != null && !string.IsNullOrEmpty(this.ID))
                     {
                         string evtValue = this.ID + "/" + attr.Attribute.Name;
@@ -664,7 +665,7 @@ namespace Svg
 #endif
             }
 
-            //add the custom attributes
+            // add the custom attributes
             var additionalStyleValue = string.Empty;
             foreach (var item in this._customAttributes)
             {
@@ -684,7 +685,7 @@ namespace Svg
                     WriteAttributeString(writer, item.Key, null, item.Value);
             }
 
-            //write the style property
+            // write the style property
             if (styles.Any())
             {
                 var styleValues = styles.Select(s => s.Key + ":" + s.Value)
@@ -945,7 +946,6 @@ namespace Svg
             return styles;
         }
 
-
         private void WriteAttributeString(XmlWriter writer, string name, string ns, string value)
         {
             if (string.IsNullOrEmpty(ns))
@@ -958,7 +958,6 @@ namespace Svg
                 writer.WriteAttributeString(prefix, name, ns, value);
             }
         }
-
 
         public bool AutoPublishEvents = true;
 
