@@ -84,7 +84,7 @@ namespace Svg
             {
                 var styles = new Dictionary<string, SortedDictionary<int, string>>();
                 foreach (var s in _styles)
-                    if (!SvgElementFactory.SetPropertyValue(this, s.Key, s.Value.Last().Value, OwnerDocument, true))
+                    if (!SvgElementFactory.SetPropertyValue(this, string.Empty, s.Key, s.Value.Last().Value, OwnerDocument, true))
                         styles.Add(s.Key, s.Value);
                 _styles = styles;
             }
@@ -673,7 +673,15 @@ namespace Svg
                     additionalStyleValue = item.Value;
                     continue;
                 }
-                WriteAttributeString(writer, item.Key, null, item.Value);
+                var index = item.Key.LastIndexOf(":");
+                if (index >= 0)
+                {
+                    var ns = item.Key.Substring(0, index);
+                    var localName = item.Key.Substring(index + 1);
+                    WriteAttributeString(writer, localName, ns, item.Value);
+                }
+                else
+                    WriteAttributeString(writer, item.Key, null, item.Value);
             }
 
             //write the style property

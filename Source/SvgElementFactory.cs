@@ -198,7 +198,8 @@ namespace Svg
                     }
                     else
                     {
-                        SetPropertyValue(element, localName, reader.Value, document);
+                        var ns = prefix.Length == 0 ? string.Empty : reader.LookupNamespace(prefix);
+                        SetPropertyValue(element, ns, localName, reader.Value, document);
                     }
                 }
             }
@@ -280,7 +281,7 @@ namespace Svg
         private static readonly Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>> _propertyDescriptors = new Dictionary<Type, Dictionary<string, PropertyDescriptorCollection>>();
         private static readonly object syncLock = new object();
 #endif
-        internal static bool SetPropertyValue(SvgElement element, string attributeName, string attributeValue, SvgDocument document, bool isStyle = false)
+        internal static bool SetPropertyValue(SvgElement element, string ns, string attributeName, string attributeValue, SvgDocument document, bool isStyle = false)
         {
 #if !USE_SOURCE_GENERATORS
             var elementType = element.GetType();
@@ -342,7 +343,7 @@ namespace Svg
                     // custom styles shall remain as style
                     return false;
                 // attribute is not a svg attribute, store it in custom attributes
-                element.CustomAttributes[attributeName] = attributeValue;
+                element.CustomAttributes[ns.Length == 0 ? attributeName : $"{ns}:{attributeName}"] = attributeValue;
             }
             return true;
         }
