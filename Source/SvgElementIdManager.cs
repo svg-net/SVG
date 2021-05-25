@@ -40,12 +40,6 @@ namespace Svg
 
             if (!urlString.StartsWith("#"))
             {
-                if (!SvgDocument.ResolveExternalResources)
-                {
-                    Trace.TraceWarning("Trying to resolve element by ID from '{0}', but resolving external resources is disabled.", uri);
-                    return null;
-                }
-
                 var index = urlString.LastIndexOf('#');
                 var fragment = urlString.Substring(index);
 
@@ -53,6 +47,13 @@ namespace Svg
 
                 if (!uri.IsAbsoluteUri && _document.BaseUri != null)
                     uri = new Uri(_document.BaseUri, uri);
+
+
+                if (!SvgDocument.ResolveExternalElements.AllowsResolving(uri))
+                {
+                    Trace.TraceWarning("Trying to resolve element by ID from '{0}', but resolving external resources of that type is disabled.", uri);
+                    return null;
+                }
 
                 if (uri.IsAbsoluteUri)
                 {
@@ -101,7 +102,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Adds the specified <see cref="SvgElement"/> for ID management. 
+        /// Adds the specified <see cref="SvgElement"/> for ID management.
         /// And can auto fix the ID if it already exists or it starts with a number.
         /// </summary>
         /// <param name="element">The <see cref="SvgElement"/> to be managed.</param>

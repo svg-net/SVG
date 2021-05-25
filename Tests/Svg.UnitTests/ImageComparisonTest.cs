@@ -29,7 +29,9 @@ namespace Svg.UnitTests
         public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
         {
             // W3C Test Suites use external references to local fonts
-            SvgDocument.ResolveExternalResources = true;
+            SvgDocument.ResolveExternalXmlEntites = ExternalType.Local;
+            SvgDocument.ResolveExternalElements = ExternalType.Local;
+            SvgDocument.ResolveExternalImages = ExternalType.Local;
             
             string basePath = testData.BasePath;
             string baseName = testData.BaseName;
@@ -48,7 +50,9 @@ namespace Svg.UnitTests
         public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
         {
             // W3C Test Suites use external references to local fonts
-            SvgDocument.ResolveExternalResources = true;
+            SvgDocument.ResolveExternalXmlEntites = ExternalType.Local;
+            SvgDocument.ResolveExternalElements = ExternalType.Local;
+            SvgDocument.ResolveExternalImages = ExternalType.Local;
 
             var basePath = testData.BasePath;
             while (!basePath.ToLower().EndsWith("svg"))
