@@ -131,7 +131,6 @@ Many performance improvements by using SourceGenerators instad of reflection.
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="Fizzler" Version="1.2.1" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
