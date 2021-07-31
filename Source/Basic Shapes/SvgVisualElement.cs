@@ -315,7 +315,7 @@ namespace Svg
                                     strokeWidth = Math.Max(strokeWidth, 1f);
 
                                     /* divide by stroke width - GDI uses stroke width as unit.*/
-                                    var dashPattern = strokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f :
+                                    var dashPattern = strokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
                                         u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth).ToArray();
                                     var length = dashPattern.Length;
 
@@ -377,7 +377,7 @@ namespace Svg
 
                                         if (dashOffset != 0f)
                                         {
-                                            pen.DashOffset = ((dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f :
+                                            pen.DashOffset = ((dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
                                                 dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth;
                                         }
                                     }
