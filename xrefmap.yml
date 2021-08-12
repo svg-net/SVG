@@ -5075,36 +5075,18 @@ references:
   isSpec: "True"
   fullName: Svg.SvgAttributeAttribute.NameSpace
   nameWithType: SvgAttributeAttribute.NameSpace
-- uid: Svg.SvgAttributeAttribute.Namespaces
-  name: Namespaces
-  href: api/Svg.SvgAttributeAttribute.html#Svg_SvgAttributeAttribute_Namespaces
-  commentId: F:Svg.SvgAttributeAttribute.Namespaces
-  fullName: Svg.SvgAttributeAttribute.Namespaces
-  nameWithType: SvgAttributeAttribute.Namespaces
 - uid: Svg.SvgAttributeAttribute.XLinkNamespace
   name: XLinkNamespace
   href: api/Svg.SvgAttributeAttribute.html#Svg_SvgAttributeAttribute_XLinkNamespace
   commentId: F:Svg.SvgAttributeAttribute.XLinkNamespace
   fullName: Svg.SvgAttributeAttribute.XLinkNamespace
   nameWithType: SvgAttributeAttribute.XLinkNamespace
-- uid: Svg.SvgAttributeAttribute.XLinkPrefix
-  name: XLinkPrefix
-  href: api/Svg.SvgAttributeAttribute.html#Svg_SvgAttributeAttribute_XLinkPrefix
-  commentId: F:Svg.SvgAttributeAttribute.XLinkPrefix
-  fullName: Svg.SvgAttributeAttribute.XLinkPrefix
-  nameWithType: SvgAttributeAttribute.XLinkPrefix
 - uid: Svg.SvgAttributeAttribute.XmlNamespace
   name: XmlNamespace
   href: api/Svg.SvgAttributeAttribute.html#Svg_SvgAttributeAttribute_XmlNamespace
   commentId: F:Svg.SvgAttributeAttribute.XmlNamespace
   fullName: Svg.SvgAttributeAttribute.XmlNamespace
   nameWithType: SvgAttributeAttribute.XmlNamespace
-- uid: Svg.SvgAttributeAttribute.XmlPrefix
-  name: XmlPrefix
-  href: api/Svg.SvgAttributeAttribute.html#Svg_SvgAttributeAttribute_XmlPrefix
-  commentId: F:Svg.SvgAttributeAttribute.XmlPrefix
-  fullName: Svg.SvgAttributeAttribute.XmlPrefix
-  nameWithType: SvgAttributeAttribute.XmlPrefix
 - uid: Svg.SvgAttributeCollection
   name: SvgAttributeCollection
   href: api/Svg.SvgAttributeCollection.html
@@ -7079,6 +7061,19 @@ references:
   commentId: E:Svg.SvgElement.MouseUp
   fullName: Svg.SvgElement.MouseUp
   nameWithType: SvgElement.MouseUp
+- uid: Svg.SvgElement.Namespaces
+  name: Namespaces
+  href: api/Svg.SvgElement.html#Svg_SvgElement_Namespaces
+  commentId: P:Svg.SvgElement.Namespaces
+  fullName: Svg.SvgElement.Namespaces
+  nameWithType: SvgElement.Namespaces
+- uid: Svg.SvgElement.Namespaces*
+  name: Namespaces
+  href: api/Svg.SvgElement.html#Svg_SvgElement_Namespaces_
+  commentId: Overload:Svg.SvgElement.Namespaces
+  isSpec: "True"
+  fullName: Svg.SvgElement.Namespaces
+  nameWithType: SvgElement.Namespaces
 - uid: Svg.SvgElement.Nodes
   name: Nodes
   href: api/Svg.SvgElement.html#Svg_SvgElement_Nodes
@@ -11205,18 +11200,42 @@ references:
   commentId: T:Svg.SvgMorphologyOperatorConverter
   fullName: Svg.SvgMorphologyOperatorConverter
   nameWithType: SvgMorphologyOperatorConverter
-- uid: Svg.SvgNamespace
+- uid: Svg.SvgNamespaces
+  name: SvgNamespaces
+  href: api/Svg.SvgNamespaces.html
+  commentId: T:Svg.SvgNamespaces
+  fullName: Svg.SvgNamespaces
+  nameWithType: SvgNamespaces
+- uid: Svg.SvgNamespaces.SvgNamespace
   name: SvgNamespace
-  href: api/Svg.SvgNamespace.html
-  commentId: T:Svg.SvgNamespace
-  fullName: Svg.SvgNamespace
-  nameWithType: SvgNamespace
-- uid: Svg.SvgNamespace.UriString
-  name: UriString
-  href: api/Svg.SvgNamespace.html#Svg_SvgNamespace_UriString
-  commentId: F:Svg.SvgNamespace.UriString
-  fullName: Svg.SvgNamespace.UriString
-  nameWithType: SvgNamespace.UriString
+  href: api/Svg.SvgNamespaces.html#Svg_SvgNamespaces_SvgNamespace
+  commentId: F:Svg.SvgNamespaces.SvgNamespace
+  fullName: Svg.SvgNamespaces.SvgNamespace
+  nameWithType: SvgNamespaces.SvgNamespace
+- uid: Svg.SvgNamespaces.XLinkNamespace
+  name: XLinkNamespace
+  href: api/Svg.SvgNamespaces.html#Svg_SvgNamespaces_XLinkNamespace
+  commentId: F:Svg.SvgNamespaces.XLinkNamespace
+  fullName: Svg.SvgNamespaces.XLinkNamespace
+  nameWithType: SvgNamespaces.XLinkNamespace
+- uid: Svg.SvgNamespaces.XLinkPrefix
+  name: XLinkPrefix
+  href: api/Svg.SvgNamespaces.html#Svg_SvgNamespaces_XLinkPrefix
+  commentId: F:Svg.SvgNamespaces.XLinkPrefix
+  fullName: Svg.SvgNamespaces.XLinkPrefix
+  nameWithType: SvgNamespaces.XLinkPrefix
+- uid: Svg.SvgNamespaces.XmlNamespace
+  name: XmlNamespace
+  href: api/Svg.SvgNamespaces.html#Svg_SvgNamespaces_XmlNamespace
+  commentId: F:Svg.SvgNamespaces.XmlNamespace
+  fullName: Svg.SvgNamespaces.XmlNamespace
+  nameWithType: SvgNamespaces.XmlNamespace
+- uid: Svg.SvgNamespaces.XmlPrefix
+  name: XmlPrefix
+  href: api/Svg.SvgNamespaces.html#Svg_SvgNamespaces_XmlPrefix
+  commentId: F:Svg.SvgNamespaces.XmlPrefix
+  fullName: Svg.SvgNamespaces.XmlPrefix
+  nameWithType: SvgNamespaces.XmlPrefix
 - uid: Svg.SvgNumberCollection
   name: SvgNumberCollection
   href: api/Svg.SvgNumberCollection.html
