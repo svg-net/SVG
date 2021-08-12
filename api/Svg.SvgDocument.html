@@ -673,14 +673,14 @@ For Example Adobe Illustrator svgs.</p>
   </table>
   
   
-  <a id="Svg_SvgDocument_ResolveExternalResources_" data-uid="Svg.SvgDocument.ResolveExternalResources*"></a>
-  <h4 id="Svg_SvgDocument_ResolveExternalResources" data-uid="Svg.SvgDocument.ResolveExternalResources">ResolveExternalResources</h4>
-  <div class="markdown level1 summary"><p>Defaults to <code>false</code> to prevent XXE.  Set to <code>true</code> to resolve external resources.</p>
+  <a id="Svg_SvgDocument_ResolveExternalElements_" data-uid="Svg.SvgDocument.ResolveExternalElements*"></a>
+  <h4 id="Svg_SvgDocument_ResolveExternalElements" data-uid="Svg.SvgDocument.ResolveExternalElements">ResolveExternalElements</h4>
+  <div class="markdown level1 summary"><p>Which types of external elements, for example text definitions, are allowed to be resolved. Defaults to <a class="xref" href="Svg.ExternalType.html#Svg_ExternalType_Local">Local</a> and <a class="xref" href="Svg.ExternalType.html#Svg_ExternalType_Remote">Remote</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool ResolveExternalResources { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public static ExternalType ResolveExternalElements { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -692,7 +692,59 @@ For Example Adobe Illustrator svgs.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><a class="xref" href="Svg.ExternalType.html">ExternalType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgDocument_ResolveExternalImages_" data-uid="Svg.SvgDocument.ResolveExternalImages*"></a>
+  <h4 id="Svg_SvgDocument_ResolveExternalImages" data-uid="Svg.SvgDocument.ResolveExternalImages">ResolveExternalImages</h4>
+  <div class="markdown level1 summary"><p>Which types of external images are allowed to be resolved. Defaults to <a class="xref" href="Svg.ExternalType.html#Svg_ExternalType_Local">Local</a> and <a class="xref" href="Svg.ExternalType.html#Svg_ExternalType_Remote">Remote</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ExternalType ResolveExternalImages { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.ExternalType.html">ExternalType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgDocument_ResolveExternalXmlEntites_" data-uid="Svg.SvgDocument.ResolveExternalXmlEntites*"></a>
+  <h4 id="Svg_SvgDocument_ResolveExternalXmlEntites" data-uid="Svg.SvgDocument.ResolveExternalXmlEntites">ResolveExternalXmlEntites</h4>
+  <div class="markdown level1 summary"><p>Which types of XML external entities are allowed to be resolved. Defaults to <a class="xref" href="Svg.ExternalType.html#Svg_ExternalType_None">None</a> to prevent XXE.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ExternalType ResolveExternalXmlEntites { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.ExternalType.html">ExternalType</a></td>
         <td></td>
       </tr>
     </tbody>

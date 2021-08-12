@@ -588,6 +588,49 @@ references:
   fullName.vb: Svg.Extensions.Descendants(Of T)(System.Collections.Generic.IEnumerable(Of T))
   nameWithType: Extensions.Descendants<T>(IEnumerable<T>)
   nameWithType.vb: Extensions.Descendants(Of T)(IEnumerable(Of T))
+- uid: Svg.ExternalType
+  name: ExternalType
+  href: api/Svg.ExternalType.html
+  commentId: T:Svg.ExternalType
+  fullName: Svg.ExternalType
+  nameWithType: ExternalType
+- uid: Svg.ExternalType.Local
+  name: Local
+  href: api/Svg.ExternalType.html#Svg_ExternalType_Local
+  commentId: F:Svg.ExternalType.Local
+  fullName: Svg.ExternalType.Local
+  nameWithType: ExternalType.Local
+- uid: Svg.ExternalType.None
+  name: None
+  href: api/Svg.ExternalType.html#Svg_ExternalType_None
+  commentId: F:Svg.ExternalType.None
+  fullName: Svg.ExternalType.None
+  nameWithType: ExternalType.None
+- uid: Svg.ExternalType.Remote
+  name: Remote
+  href: api/Svg.ExternalType.html#Svg_ExternalType_Remote
+  commentId: F:Svg.ExternalType.Remote
+  fullName: Svg.ExternalType.Remote
+  nameWithType: ExternalType.Remote
+- uid: Svg.ExternalTypeExtensions
+  name: ExternalTypeExtensions
+  href: api/Svg.ExternalTypeExtensions.html
+  commentId: T:Svg.ExternalTypeExtensions
+  fullName: Svg.ExternalTypeExtensions
+  nameWithType: ExternalTypeExtensions
+- uid: Svg.ExternalTypeExtensions.AllowsResolving(Svg.ExternalType,System.Uri)
+  name: AllowsResolving(ExternalType, Uri)
+  href: api/Svg.ExternalTypeExtensions.html#Svg_ExternalTypeExtensions_AllowsResolving_Svg_ExternalType_System_Uri_
+  commentId: M:Svg.ExternalTypeExtensions.AllowsResolving(Svg.ExternalType,System.Uri)
+  fullName: Svg.ExternalTypeExtensions.AllowsResolving(Svg.ExternalType, System.Uri)
+  nameWithType: ExternalTypeExtensions.AllowsResolving(ExternalType, Uri)
+- uid: Svg.ExternalTypeExtensions.AllowsResolving*
+  name: AllowsResolving
+  href: api/Svg.ExternalTypeExtensions.html#Svg_ExternalTypeExtensions_AllowsResolving_
+  commentId: Overload:Svg.ExternalTypeExtensions.AllowsResolving
+  isSpec: "True"
+  fullName: Svg.ExternalTypeExtensions.AllowsResolving
+  nameWithType: ExternalTypeExtensions.AllowsResolving
 - uid: Svg.FilterEffects
   name: Svg.FilterEffects
   href: api/Svg.FilterEffects.html
@@ -6275,19 +6318,45 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocument.RasterizeDimensions
   nameWithType: SvgDocument.RasterizeDimensions
-- uid: Svg.SvgDocument.ResolveExternalResources
-  name: ResolveExternalResources
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_ResolveExternalResources
-  commentId: P:Svg.SvgDocument.ResolveExternalResources
-  fullName: Svg.SvgDocument.ResolveExternalResources
-  nameWithType: SvgDocument.ResolveExternalResources
-- uid: Svg.SvgDocument.ResolveExternalResources*
-  name: ResolveExternalResources
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_ResolveExternalResources_
-  commentId: Overload:Svg.SvgDocument.ResolveExternalResources
+- uid: Svg.SvgDocument.ResolveExternalElements
+  name: ResolveExternalElements
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_ResolveExternalElements
+  commentId: P:Svg.SvgDocument.ResolveExternalElements
+  fullName: Svg.SvgDocument.ResolveExternalElements
+  nameWithType: SvgDocument.ResolveExternalElements
+- uid: Svg.SvgDocument.ResolveExternalElements*
+  name: ResolveExternalElements
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_ResolveExternalElements_
+  commentId: Overload:Svg.SvgDocument.ResolveExternalElements
   isSpec: "True"
-  fullName: Svg.SvgDocument.ResolveExternalResources
-  nameWithType: SvgDocument.ResolveExternalResources
+  fullName: Svg.SvgDocument.ResolveExternalElements
+  nameWithType: SvgDocument.ResolveExternalElements
+- uid: Svg.SvgDocument.ResolveExternalImages
+  name: ResolveExternalImages
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_ResolveExternalImages
+  commentId: P:Svg.SvgDocument.ResolveExternalImages
+  fullName: Svg.SvgDocument.ResolveExternalImages
+  nameWithType: SvgDocument.ResolveExternalImages
+- uid: Svg.SvgDocument.ResolveExternalImages*
+  name: ResolveExternalImages
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_ResolveExternalImages_
+  commentId: Overload:Svg.SvgDocument.ResolveExternalImages
+  isSpec: "True"
+  fullName: Svg.SvgDocument.ResolveExternalImages
+  nameWithType: SvgDocument.ResolveExternalImages
+- uid: Svg.SvgDocument.ResolveExternalXmlEntites
+  name: ResolveExternalXmlEntites
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_ResolveExternalXmlEntites
+  commentId: P:Svg.SvgDocument.ResolveExternalXmlEntites
+  fullName: Svg.SvgDocument.ResolveExternalXmlEntites
+  nameWithType: SvgDocument.ResolveExternalXmlEntites
+- uid: Svg.SvgDocument.ResolveExternalXmlEntites*
+  name: ResolveExternalXmlEntites
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_ResolveExternalXmlEntites_
+  commentId: Overload:Svg.SvgDocument.ResolveExternalXmlEntites
+  isSpec: "True"
+  fullName: Svg.SvgDocument.ResolveExternalXmlEntites
+  nameWithType: SvgDocument.ResolveExternalXmlEntites
 - uid: Svg.SvgDocument.SkipGdiPlusCapabilityCheck
   name: SkipGdiPlusCapabilityCheck
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_SkipGdiPlusCapabilityCheck

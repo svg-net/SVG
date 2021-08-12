@@ -66,7 +66,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/ReleaseNotes.html",
-          "hash": "t9LXMHK8ijDRabLjgyhydgHqE2kQ0AfyyIqE1csGbj0="
+          "hash": "z09yBioiQXcnBlIrw+JIMo/eigpcCs5w/CqMgGiiesA="
         }
       },
       "is_incremental": false,
@@ -334,6 +334,30 @@
         ".html": {
           "relative_path": "api/Svg.Extensions.html",
           "hash": "QJa7AacTPMciXSwRjvml8TfMIXSzsgw5LSne4y9FVPI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.ExternalType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.ExternalType.html",
+          "hash": "Bz6LhiM4jjgzGXYq4fpYmKruJ5/eZlA/O2N67eV/tAA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/api/Svg.ExternalTypeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Svg.ExternalTypeExtensions.html",
+          "hash": "SwQM8upGSeUOHUuNdaZfIhv6MHZmLHMFMIqzM7hiy8c="
         }
       },
       "is_incremental": false,
@@ -1473,7 +1497,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.SvgDocument.html",
-          "hash": "RSF9kCjDzMMWyZD7mASOQMug5XWuz4gbNTols/4Jz/U="
+          "hash": "DoEESCQ+4n0mOGHDKVYOasmOzOtYe4MjZEWcM+JXfMI="
         }
       },
       "is_incremental": false,
@@ -3045,7 +3069,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.html",
-          "hash": "nIptSomTnsXFLWhRsl1HsLEArqpTa/6ng/jq1PLt2ac="
+          "hash": "oXEKJHaJ2JMxtRVFPMTG1TskKTfpNyildf7/tAHOsNw="
         }
       },
       "is_incremental": false,
@@ -3057,7 +3081,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "AFFoFdWoAonndDi0DMPCOVx9qm26ody5AOwxFhLNc8A="
+          "hash": "Mt8YeIqiN0juIEG13oVTAIUpA6zvwW/ER0riI72P3wA="
         }
       },
       "is_incremental": false,
@@ -3084,7 +3108,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 246,
+          "total_file_count": 248,
           "skipped_file_count": 0
         },
         "TocDocumentProcessor": {
