@@ -73,9 +73,7 @@ namespace Svg.UnitTests
         }
 #endif
         
-        
-
-        public static void CompareSvgImageWithReferenceImpl(string baseName,
+        internal static void CompareSvgImageWithReferenceImpl(string baseName,
             string svgPath, string pngPath, bool testSaveLoad)
         {
             var svgDoc = LoadSvgDocument(svgPath);
