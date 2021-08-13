@@ -372,13 +372,13 @@ namespace Svg
                 throw new ArgumentNullException("svg");
             }
 
-            using (var strReader = new System.IO.StringReader(svg))
+            using (var strReader = new StringReader(svg))
             {
                 var reader = new SvgTextReader(strReader, null)
                 {
                     XmlResolver = new SvgDtdResolver(),
                     WhitespaceHandling = WhitespaceHandling.Significant,
-                    DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
+                    DtdProcessing = DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
                 };
                 return Open<T>(reader);
             }
@@ -402,7 +402,7 @@ namespace Svg
             {
                 XmlResolver = new SvgDtdResolver(),
                 WhitespaceHandling = WhitespaceHandling.Significant,
-                DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
+                DtdProcessing = DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
             };
             return Open<T>(reader);
         }
