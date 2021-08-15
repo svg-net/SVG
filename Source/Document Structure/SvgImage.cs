@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -96,6 +96,11 @@ namespace Svg
                 _gettingBounds = false;
                 return bounds;
             }
+        }
+
+        internal ExternalType ResolveExternalImages
+        {
+            get { return SvgDocument.ResolveExternalImages; }
         }
 
         /// <summary>
@@ -262,7 +267,7 @@ namespace Svg
                 if (!uri.IsAbsoluteUri)
                     uri = new Uri(OwnerDocument.BaseUri, uri);
 
-                if (!SvgDocument.ResolveExternalImages.AllowsResolving(uri))
+                if (!ResolveExternalImages.AllowsResolving(uri))
                 {
                     Trace.TraceWarning("Trying to resolve image from '{0}', but resolving external resources of that type is disabled.", uri);
                     return null;

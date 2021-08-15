@@ -14,9 +14,9 @@ namespace Svg
     {
         public static bool AllowsResolving(this ExternalType externalType, Uri uri)
         {
-            var isLocalUri = !uri.IsAbsoluteUri || uri.IsFile;
-            return externalType.HasFlag(ExternalType.Local) && isLocalUri ||
-                   externalType.HasFlag(ExternalType.Remote) && !isLocalUri;
+            return uri.IsAbsoluteUri &&
+                (externalType.HasFlag(ExternalType.Local) && uri.IsFile ||
+                externalType.HasFlag(ExternalType.Remote) && !uri.IsFile);
         }
     }
 }

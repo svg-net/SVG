@@ -13,7 +13,10 @@ namespace Svg
         /// Defaults to <see cref="ExternalType.None"/> to prevent XXE.  Set to <see cref="ExternalType.Local"/> and/or <see cref="ExternalType"/> to resolve external resources.
         /// </summary>
         /// <see ref="https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing"/>
-        public ExternalType ResolveExternalXmlEntities { get; set; }
+        internal ExternalType ResolveExternalXmlEntities
+        {
+            get { return SvgDocument.ResolveExternalXmlEntites; }
+        }
 
         /// <summary>
         /// Maps a URI to an object containing the actual resource.
