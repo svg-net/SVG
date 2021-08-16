@@ -37,10 +37,20 @@ namespace Svg
         public static bool DisableDtdProcessing { get; set; }
 
         /// <summary>
-        /// Defaults to `false` to prevent XXE.  Set to `true` to resolve external resources.
+        /// Which types of XML external entities are allowed to be resolved. Defaults to <see cref="ExternalType.None"/> to prevent XXE.
         /// </summary>
         /// <see ref="https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing"/>
-        public static bool ResolveExternalResources { get; set; }
+        public static ExternalType ResolveExternalXmlEntites { get; set; } = ExternalType.None;
+
+        /// <summary>
+        /// Which types of external images are allowed to be resolved. Defaults to <see cref="ExternalType.Local"/> and <see cref="ExternalType.Remote"/>.
+        /// </summary>
+        public static ExternalType ResolveExternalImages { get; set; } = ExternalType.Local | ExternalType.Remote;
+
+        /// <summary>
+        /// Which types of external elements, for example text definitions, are allowed to be resolved. Defaults to <see cref="ExternalType.Local"/> and <see cref="ExternalType.Remote"/>.
+        /// </summary>
+        public static ExternalType ResolveExternalElements { get; set; } = ExternalType.Local | ExternalType.Remote;
 
         private static int? pointsPerInch;
 
@@ -112,6 +122,10 @@ namespace Svg
         public SvgDocument()
         {
             Ppi = PointsPerInch;
+
+            Namespaces.Add(string.Empty, SvgNamespaces.SvgNamespace);
+            Namespaces.Add(SvgNamespaces.XLinkPrefix, SvgNamespaces.XLinkNamespace);
+            Namespaces.Add(SvgNamespaces.XmlPrefix, SvgNamespaces.XmlNamespace);
         }
 
         private Uri baseUri;
@@ -236,7 +250,7 @@ namespace Svg
             }
             catch (Exception)
             {
-                //If somehow another type of exception is raised by the ensure function we will let it bubble up, since that might indicate other issues/problems
+                // If somehow another type of exception is raised by the ensure function we will let it bubble up, since that might indicate other issues/problems
                 throw;
             }
             return true;
@@ -261,7 +275,7 @@ namespace Svg
                     // Throw only the customized exception if we are sure GDI+ is causing the problem
                     throw new SvgGdiPlusCannotBeLoadedException(e);
                 }
-                //If the Matrix creation is causing another type of exception we should just raise that one
+                // If the Matrix creation is causing another type of exception we should just raise that one
                 throw;
             }
         }
@@ -364,7 +378,7 @@ namespace Svg
                 {
                     XmlResolver = new SvgDtdResolver
                     {
-                        ResolveExternalResources = ResolveExternalResources
+                        ResolveExternalXmlEntities = ResolveExternalXmlEntites
                     },
                     WhitespaceHandling = WhitespaceHandling.Significant,
                     DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
@@ -391,7 +405,7 @@ namespace Svg
             {
                 XmlResolver = new SvgDtdResolver
                 {
-                    ResolveExternalResources = ResolveExternalResources
+                    ResolveExternalXmlEntities = ResolveExternalXmlEntites
                 },
                 WhitespaceHandling = WhitespaceHandling.Significant,
                 DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
@@ -403,7 +417,7 @@ namespace Svg
         {
             if (!SkipGdiPlusCapabilityCheck)
             {
-                EnsureSystemIsGdiPlusCapable(); //Validate whether the GDI+ can be loaded, this will yield an exception if not
+                EnsureSystemIsGdiPlusCapable(); // Validate whether the GDI+ can be loaded, this will yield an exception if not
             }
             var elementStack = new Stack<SvgElement>();
             bool elementEmpty;
@@ -739,7 +753,7 @@ namespace Svg
 
         public override void Write(XmlWriter writer)
         {
-            //Save previous culture and switch to invariant for writing
+            // Save previous culture and switch to invariant for writing
             var previousCulture = Thread.CurrentThread.CurrentCulture;
             try
             {
@@ -749,7 +763,7 @@ namespace Svg
             finally
             {
                 // Make sure to set back the old culture even an error occurred.
-                //Switch culture back
+                // Switch culture back
                 Thread.CurrentThread.CurrentCulture = previousCulture;
             }
         }
@@ -758,7 +772,7 @@ namespace Svg
         {
             var settings = new XmlWriterSettings
             {
-                Encoding = useBom ? Encoding.UTF8 : new System.Text.UTF8Encoding(false),
+                Encoding = useBom ? Encoding.UTF8 : new UTF8Encoding(false),
                 Indent = true
             };
 
@@ -766,8 +780,8 @@ namespace Svg
             xmlWriter.WriteStartDocument();
             xmlWriter.WriteDocType("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd", null);
 
-            if (!String.IsNullOrEmpty(this.ExternalCSSHref))
-                xmlWriter.WriteProcessingInstruction("xml-stylesheet", String.Format("type=\"text/css\" href=\"{0}\"", this.ExternalCSSHref));
+            if (!string.IsNullOrEmpty(this.ExternalCSSHref))
+                xmlWriter.WriteProcessingInstruction("xml-stylesheet", string.Format("type=\"text/css\" href=\"{0}\"", this.ExternalCSSHref));
 
             this.Write(xmlWriter);
 
@@ -785,11 +799,6 @@ namespace Svg
         protected override void WriteAttributes(XmlWriter writer)
         {
             writer.WriteAttributeString("version", "1.1");
-            foreach (var ns in SvgAttributeAttribute.Namespaces)
-            {
-                writer.WriteAttributeString("xmlns", ns.Key, null, ns.Value);
-            }
-
             base.WriteAttributes(writer);
         }
     }

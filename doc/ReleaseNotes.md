@@ -5,11 +5,13 @@ The release versions are NuGet releases.
 
 ### Changes
 * change namespace of SvgSymbol from Svg.Document_Structure to Svg. (see [PR #556](https://github.com/svg-net/SVG/pull/556))
-* changed default behaviour of DTD resolution so external references are not resolved by default; to mitigate XXE vulnerability. (see [PR #870](https://github.com/svg-net/SVG/pull/870))
+* changed default behavior of DTD resolution so external references are not resolved by default; to mitigate XXE vulnerability. (see [PR #870](https://github.com/svg-net/SVG/pull/870))
+* changed default behavior so external references to images, text definitions, and other resources are not resolved by default; to improve safety of rendering untrusted files. (see [PR #873](https://github.com/svg-net/SVG/pull/873))
 * fixed ISvgRenderer.SmoothingMode reset in method SvgVisualElement.RenderFillAndStroke. (see [PR #883](https://github.com/svg-net/SVG/pull/883))
 
 ### Enhancements
 * minimize XmlTextReader customization (see [PR #836](https://github.com/svg-net/SVG/pull/836))
+* manage namespaces and prefixes (see [#604](https://github.com/svg-net/SVG/issues/604))
 
 ### Fixes
 * fixed filled polyline not displayed with stroke-width=0 (see [#785](https://github.com/svg-net/SVG/issues/785))
@@ -18,6 +20,7 @@ The release versions are NuGet releases.
 * fixed different prefix is assigned using XmlTextWriter (see [#817](https://github.com/svg-net/SVG/issues/817))
 * fixed scaling if opacity is not 1 (see [#863](https://github.com/svg-net/SVG/issues/863))
 * fixed error occurs with empty SVG (see [PR #827](https://github.com/svg-net/SVG/pull/827))
+* fixed unnecessary dependency on System.ValueTuple (see [#879](https://github.com/svg-net/SVG/issues/879))
 
 ## [Version 3.2.3](https://www.nuget.org/packages/Svg/3.2.3)
 
