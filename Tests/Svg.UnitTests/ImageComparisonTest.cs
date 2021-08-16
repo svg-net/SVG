@@ -72,9 +72,8 @@ namespace Svg.UnitTests
             CompareSvgImageWithReferenceImpl(baseName, svgPath, pngPath, testSaveLoad);
         }
 #endif
-        
-        internal static void CompareSvgImageWithReferenceImpl(string baseName,
-            string svgPath, string pngPath, bool testSaveLoad)
+
+        private void CompareSvgImageWithReferenceImpl(string baseName, string svgPath, string pngPath, bool testSaveLoad)
         {
             var svgDoc = LoadSvgDocument(svgPath);
             Assert.IsNotNull(svgDoc);
