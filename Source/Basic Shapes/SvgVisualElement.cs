@@ -227,16 +227,20 @@ namespace Svg
 
         protected internal virtual void RenderFillAndStroke(ISvgRenderer renderer)
         {
-            // If this element needs smoothing enabled turn anti-aliasing on
-            if (RequiresSmoothRendering)
-                renderer.SmoothingMode = SmoothingMode.AntiAlias;
+            var smoothingMode = renderer.SmoothingMode;
+            try
+            {
+                // If this element needs smoothing enabled turn anti-aliasing on
+                if (RequiresSmoothRendering)
+                    renderer.SmoothingMode = SmoothingMode.AntiAlias;
 
-            RenderFill(renderer);
-            RenderStroke(renderer);
-
-            // Reset the smoothing mode
-            if (RequiresSmoothRendering && renderer.SmoothingMode == SmoothingMode.AntiAlias)
-                renderer.SmoothingMode = SmoothingMode.Default;
+                RenderFill(renderer);
+                RenderStroke(renderer);
+            }
+            finally
+            {
+                renderer.SmoothingMode = smoothingMode;
+            }
         }
 
         /// <summary>

@@ -7,6 +7,7 @@ The release versions are NuGet releases.
 * change namespace of SvgSymbol from Svg.Document_Structure to Svg. (see [PR #556](https://github.com/svg-net/SVG/pull/556))
 * changed default behavior of DTD resolution so external references are not resolved by default; to mitigate XXE vulnerability. (see [PR #870](https://github.com/svg-net/SVG/pull/870))
 * changed default behavior so external references to images, text definitions, and other resources are not resolved by default; to improve safety of rendering untrusted files. (see [PR #873](https://github.com/svg-net/SVG/pull/873))
+* fixed ISvgRenderer.SmoothingMode reset in method SvgVisualElement.RenderFillAndStroke. (see [PR #883](https://github.com/svg-net/SVG/pull/883))
 
 ### Enhancements
 * minimize XmlTextReader customization (see [PR #836](https://github.com/svg-net/SVG/pull/836))
