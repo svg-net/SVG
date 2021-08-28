@@ -64,6 +64,16 @@ namespace Svg
 
         private Dictionary<string, IEnumerable<SvgFontFace>> _fontDefns = null;
 
+        public override SvgUnit X
+        {
+            get { return 0f; }
+        }
+
+        public override SvgUnit Y
+        {
+            get { return 0f; }
+        }
+
         public override SvgOverflow Overflow
         {
             get { return GetAttribute("overflow", false, SvgOverflow.Visible); }

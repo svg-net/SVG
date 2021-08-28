@@ -21,6 +21,7 @@ The release versions are NuGet releases.
 * fixed scaling if opacity is not 1 (see [#863](https://github.com/svg-net/SVG/issues/863))
 * fixed error occurs with empty SVG (see [PR #827](https://github.com/svg-net/SVG/pull/827))
 * fixed unnecessary dependency on System.ValueTuple (see [#879](https://github.com/svg-net/SVG/issues/879))
+* fixed x and y in outermost svg (see [#886](https://github.com/svg-net/SVG/issues/886))
 
 ## [Version 3.2.3](https://www.nuget.org/packages/Svg/3.2.3)
 
