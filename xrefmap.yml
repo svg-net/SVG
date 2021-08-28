@@ -6438,6 +6438,32 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocument.WriteAttributes
   nameWithType: SvgDocument.WriteAttributes
+- uid: Svg.SvgDocument.X
+  name: X
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_X
+  commentId: P:Svg.SvgDocument.X
+  fullName: Svg.SvgDocument.X
+  nameWithType: SvgDocument.X
+- uid: Svg.SvgDocument.X*
+  name: X
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_X_
+  commentId: Overload:Svg.SvgDocument.X
+  isSpec: "True"
+  fullName: Svg.SvgDocument.X
+  nameWithType: SvgDocument.X
+- uid: Svg.SvgDocument.Y
+  name: Y
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Y
+  commentId: P:Svg.SvgDocument.Y
+  fullName: Svg.SvgDocument.Y
+  nameWithType: SvgDocument.Y
+- uid: Svg.SvgDocument.Y*
+  name: Y
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Y_
+  commentId: Overload:Svg.SvgDocument.Y
+  isSpec: "True"
+  fullName: Svg.SvgDocument.Y
+  nameWithType: SvgDocument.Y
 - uid: Svg.SvgDocumentMetadata
   name: SvgDocumentMetadata
   href: api/Svg.SvgDocumentMetadata.html
