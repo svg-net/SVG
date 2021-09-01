@@ -85,7 +85,7 @@ namespace Svg
                 action(e);
         }
 
-        public static IEnumerable<T> Traverse<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childrenSelector)
+        internal static IEnumerable<T> Traverse<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childrenSelector)
         {
             if (childrenSelector == null)
                 throw new ArgumentNullException(nameof(childrenSelector));
@@ -100,10 +100,10 @@ namespace Svg
             }
         }
 
-        public static IEnumerable<T> Traverse<T>(this T root, Func<T, IEnumerable<T>> childrenSelector)
+        internal static IEnumerable<T> Traverse<T>(this T root, Func<T, IEnumerable<T>> childrenSelector)
             => Enumerable.Repeat(root, 1).Traverse(childrenSelector);
 
-        public static IEnumerable<T> TraverseDepthFirst<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childrenSelector)
+        internal static IEnumerable<T> TraverseDepthFirst<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childrenSelector)
         {
             if (childrenSelector == null)
                 throw new ArgumentNullException(nameof(childrenSelector));
@@ -118,7 +118,7 @@ namespace Svg
             }
         }
 
-        public static IEnumerable<T> TraverseDepthFirst<T>(this T root, Func<T, IEnumerable<T>> childrenSelector)
+        internal static IEnumerable<T> TraverseDepthFirst<T>(this T root, Func<T, IEnumerable<T>> childrenSelector)
             => Enumerable.Repeat(root, 1).TraverseDepthFirst(childrenSelector);
     }
 }
