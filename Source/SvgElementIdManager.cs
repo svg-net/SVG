@@ -15,6 +15,11 @@ namespace Svg
         private SvgDocument _document;
         private Dictionary<string, SvgElement> _idValueMap;
 
+        internal ExternalType ResolveExternalElements
+        {
+            get { return SvgDocument.ResolveExternalElements; }
+        }
+
         /// <summary>
         /// Retrieves the <see cref="SvgElement"/> with the specified ID.
         /// </summary>
@@ -49,7 +54,7 @@ namespace Svg
                     uri = new Uri(_document.BaseUri, uri);
 
 
-                if (!SvgDocument.ResolveExternalElements.AllowsResolving(uri))
+                if (!ResolveExternalElements.AllowsResolving(uri))
                 {
                     Trace.TraceWarning("Trying to resolve element by ID from '{0}', but resolving external resources of that type is disabled.", uri);
                     return null;

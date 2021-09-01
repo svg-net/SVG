@@ -382,16 +382,13 @@ namespace Svg
                 throw new ArgumentNullException("svg");
             }
 
-            using (var strReader = new System.IO.StringReader(svg))
+            using (var strReader = new StringReader(svg))
             {
                 var reader = new SvgTextReader(strReader, null)
                 {
-                    XmlResolver = new SvgDtdResolver
-                    {
-                        ResolveExternalXmlEntities = ResolveExternalXmlEntites
-                    },
+                    XmlResolver = new SvgDtdResolver(),
                     WhitespaceHandling = WhitespaceHandling.Significant,
-                    DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
+                    DtdProcessing = DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
                 };
                 return Open<T>(reader);
             }
@@ -413,12 +410,9 @@ namespace Svg
             // Don't close the stream via a dispose: that is the client's job.
             var reader = new SvgTextReader(stream, entities)
             {
-                XmlResolver = new SvgDtdResolver
-                {
-                    ResolveExternalXmlEntities = ResolveExternalXmlEntites
-                },
+                XmlResolver = new SvgDtdResolver(),
                 WhitespaceHandling = WhitespaceHandling.Significant,
-                DtdProcessing = SvgDocument.DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
+                DtdProcessing = DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
             };
             return Open<T>(reader);
         }
