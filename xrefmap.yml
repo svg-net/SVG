@@ -8535,56 +8535,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgExtentions.SetRectangle
   nameWithType: SvgExtentions.SetRectangle
-- uid: Svg.SvgExtentions.Traverse*
-  name: Traverse
-  href: api/Svg.SvgExtentions.html#Svg_SvgExtentions_Traverse_
-  commentId: Overload:Svg.SvgExtentions.Traverse
-  isSpec: "True"
-  fullName: Svg.SvgExtentions.Traverse
-  nameWithType: SvgExtentions.Traverse
-- uid: Svg.SvgExtentions.Traverse``1(``0,System.Func{``0,System.Collections.Generic.IEnumerable{``0}})
-  name: Traverse<T>(T, Func<T, IEnumerable<T>>)
-  href: api/Svg.SvgExtentions.html#Svg_SvgExtentions_Traverse__1___0_System_Func___0_System_Collections_Generic_IEnumerable___0___
-  commentId: M:Svg.SvgExtentions.Traverse``1(``0,System.Func{``0,System.Collections.Generic.IEnumerable{``0}})
-  name.vb: Traverse(Of T)(T, Func(Of T, IEnumerable(Of T)))
-  fullName: Svg.SvgExtentions.Traverse<T>(T, System.Func<T, System.Collections.Generic.IEnumerable<T>>)
-  fullName.vb: Svg.SvgExtentions.Traverse(Of T)(T, System.Func(Of T, System.Collections.Generic.IEnumerable(Of T)))
-  nameWithType: SvgExtentions.Traverse<T>(T, Func<T, IEnumerable<T>>)
-  nameWithType.vb: SvgExtentions.Traverse(Of T)(T, Func(Of T, IEnumerable(Of T)))
-- uid: Svg.SvgExtentions.Traverse``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``0}})
-  name: Traverse<T>(IEnumerable<T>, Func<T, IEnumerable<T>>)
-  href: api/Svg.SvgExtentions.html#Svg_SvgExtentions_Traverse__1_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Collections_Generic_IEnumerable___0___
-  commentId: M:Svg.SvgExtentions.Traverse``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``0}})
-  name.vb: Traverse(Of T)(IEnumerable(Of T), Func(Of T, IEnumerable(Of T)))
-  fullName: Svg.SvgExtentions.Traverse<T>(System.Collections.Generic.IEnumerable<T>, System.Func<T, System.Collections.Generic.IEnumerable<T>>)
-  fullName.vb: Svg.SvgExtentions.Traverse(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of T, System.Collections.Generic.IEnumerable(Of T)))
-  nameWithType: SvgExtentions.Traverse<T>(IEnumerable<T>, Func<T, IEnumerable<T>>)
-  nameWithType.vb: SvgExtentions.Traverse(Of T)(IEnumerable(Of T), Func(Of T, IEnumerable(Of T)))
-- uid: Svg.SvgExtentions.TraverseDepthFirst*
-  name: TraverseDepthFirst
-  href: api/Svg.SvgExtentions.html#Svg_SvgExtentions_TraverseDepthFirst_
-  commentId: Overload:Svg.SvgExtentions.TraverseDepthFirst
-  isSpec: "True"
-  fullName: Svg.SvgExtentions.TraverseDepthFirst
-  nameWithType: SvgExtentions.TraverseDepthFirst
-- uid: Svg.SvgExtentions.TraverseDepthFirst``1(``0,System.Func{``0,System.Collections.Generic.IEnumerable{``0}})
-  name: TraverseDepthFirst<T>(T, Func<T, IEnumerable<T>>)
-  href: api/Svg.SvgExtentions.html#Svg_SvgExtentions_TraverseDepthFirst__1___0_System_Func___0_System_Collections_Generic_IEnumerable___0___
-  commentId: M:Svg.SvgExtentions.TraverseDepthFirst``1(``0,System.Func{``0,System.Collections.Generic.IEnumerable{``0}})
-  name.vb: TraverseDepthFirst(Of T)(T, Func(Of T, IEnumerable(Of T)))
-  fullName: Svg.SvgExtentions.TraverseDepthFirst<T>(T, System.Func<T, System.Collections.Generic.IEnumerable<T>>)
-  fullName.vb: Svg.SvgExtentions.TraverseDepthFirst(Of T)(T, System.Func(Of T, System.Collections.Generic.IEnumerable(Of T)))
-  nameWithType: SvgExtentions.TraverseDepthFirst<T>(T, Func<T, IEnumerable<T>>)
-  nameWithType.vb: SvgExtentions.TraverseDepthFirst(Of T)(T, Func(Of T, IEnumerable(Of T)))
-- uid: Svg.SvgExtentions.TraverseDepthFirst``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``0}})
-  name: TraverseDepthFirst<T>(IEnumerable<T>, Func<T, IEnumerable<T>>)
-  href: api/Svg.SvgExtentions.html#Svg_SvgExtentions_TraverseDepthFirst__1_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Collections_Generic_IEnumerable___0___
-  commentId: M:Svg.SvgExtentions.TraverseDepthFirst``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``0}})
-  name.vb: TraverseDepthFirst(Of T)(IEnumerable(Of T), Func(Of T, IEnumerable(Of T)))
-  fullName: Svg.SvgExtentions.TraverseDepthFirst<T>(System.Collections.Generic.IEnumerable<T>, System.Func<T, System.Collections.Generic.IEnumerable<T>>)
-  fullName.vb: Svg.SvgExtentions.TraverseDepthFirst(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Func(Of T, System.Collections.Generic.IEnumerable(Of T)))
-  nameWithType: SvgExtentions.TraverseDepthFirst<T>(IEnumerable<T>, Func<T, IEnumerable<T>>)
-  nameWithType.vb: SvgExtentions.TraverseDepthFirst(Of T)(IEnumerable(Of T), Func(Of T, IEnumerable(Of T)))
 - uid: Svg.SvgFallbackPaintServer
   name: SvgFallbackPaintServer
   href: api/Svg.SvgFallbackPaintServer.html

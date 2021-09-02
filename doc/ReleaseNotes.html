@@ -76,26 +76,30 @@
 <h2 id="unreleased-master">Unreleased (master)</h2>
 <h3 id="changes">Changes</h3>
 <ul>
-<li>change namespace of SvgSymbol from Svg.Document_Structure to Svg. (see <a href="https://github.com/svg-net/SVG/pull/556">PR #556</a>)</li>
-<li>changed default behavior of DTD resolution so external references are not resolved by default; to mitigate XXE vulnerability. (see <a href="https://github.com/svg-net/SVG/pull/870">PR #870</a>)</li>
-<li>changed default behavior so external references to images, text definitions, and other resources are not resolved by default; to improve safety of rendering untrusted files. (see <a href="https://github.com/svg-net/SVG/pull/873">PR #873</a>)</li>
-<li>fixed ISvgRenderer.SmoothingMode reset in method SvgVisualElement.RenderFillAndStroke. (see <a href="https://github.com/svg-net/SVG/pull/883">PR #883</a>)</li>
+<li>changed namespace of <code>SvgSymbol</code> from <code>Svg.Document_Structure</code> to <code>Svg</code> (see <a href="https://github.com/svg-net/SVG/pull/556">PR #556</a>)</li>
+<li>mitigated XXE vulnerability: changed default behavior of DTD resolution so external references are not resolved by default
+(see <a href="https://github.com/svg-net/SVG/issues/869">#869</a>)</li>
+<li>improved safety of rendering untrusted files: changed default behavior so external references to images, text definitions,
+and other resources are not resolved by default (see <a href="https://github.com/svg-net/SVG/issues/872">#872</a>)</li>
+<li>made <code>SvgExtentions.Traverse</code> and <code>SvgExtentions.TraverseDepthFirst</code> internal to avoid polluting the API
+(see <a href="https://github.com/svg-net/SVG/issues/889">#889</a>)</li>
 </ul>
 <h3 id="enhancements">Enhancements</h3>
 <ul>
-<li>minimize XmlTextReader customization (see <a href="https://github.com/svg-net/SVG/pull/836">PR #836</a>)</li>
+<li>minimize <code>XmlTextReader</code> customization (see <a href="https://github.com/svg-net/SVG/pull/836">PR #836</a>)</li>
 <li>manage namespaces and prefixes (see <a href="https://github.com/svg-net/SVG/issues/604">#604</a>)</li>
 </ul>
 <h3 id="fixes">Fixes</h3>
 <ul>
-<li>fixed filled polyline not displayed with stroke-width=0 (see <a href="https://github.com/svg-net/SVG/issues/785">#785</a>)</li>
-<li>fixed unimplemented filter classes issue (see <a href="https://github.com/svg-net/SVG/issues/768">#768</a>)</li>
-<li>fixed StackOverFlowException (see <a href="https://github.com/svg-net/SVG/issues/755">#755</a>)</li>
-<li>fixed different prefix is assigned using XmlTextWriter (see <a href="https://github.com/svg-net/SVG/issues/817">#817</a>)</li>
+<li>fixed filled polyline not displayed with <code>stroke-width=0</code> (see <a href="https://github.com/svg-net/SVG/issues/785">#785</a>)</li>
+<li>added basic implementation of filter classes (see <a href="https://github.com/svg-net/SVG/issues/768">#768</a>)</li>
+<li>prevent stack overflow in size calculation for empty SVG (see <a href="https://github.com/svg-net/SVG/issues/755">#755</a>)</li>
+<li>fixed different prefix is assigned using <code>XmlTextWriter</code> (see <a href="https://github.com/svg-net/SVG/issues/817">#817</a>)</li>
 <li>fixed scaling if opacity is not 1 (see <a href="https://github.com/svg-net/SVG/issues/863">#863</a>)</li>
-<li>fixed error occurs with empty SVG (see <a href="https://github.com/svg-net/SVG/pull/827">PR #827</a>)</li>
-<li>fixed unnecessary dependency on System.ValueTuple (see <a href="https://github.com/svg-net/SVG/issues/879">#879</a>)</li>
-<li>fixed x and y in outermost svg (see <a href="https://github.com/svg-net/SVG/issues/886">#886</a>)</li>
+<li>fixed unnecessary dependency on <code>System.ValueTuple</code> (see <a href="https://github.com/svg-net/SVG/issues/879">#879</a>)</li>
+<li>prevent <code>ISvgRenderer.SmoothingMode</code> reset when <code>RequiresSmoothRendering</code> is <code>true</code>
+(see <a href="https://github.com/svg-net/SVG/issues/882">#882</a>)</li>
+<li>ignore <code>x</code> and <code>y</code> attributes in outermost svg as per standard (see <a href="https://github.com/svg-net/SVG/issues/886">#886</a>)</li>
 </ul>
 <h2 id="version-323"><a href="https://www.nuget.org/packages/Svg/3.2.3">Version 3.2.3</a></h2>
 <h3 id="enhancements-1">Enhancements</h3>
