@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="400" height="400">
+  <defs>
+    <marker id="marker" markerWidth="100" markerHeight="100" refX="100" refY="100" viewBox="0,0,200,200">
+      <circle cx="100" cy="100" r="100" fill="red" />
+    </marker>
+  </defs>
+
+  <polyline fill="none" marker-start="url(#marker)" points="100,100" stroke="black" />
+  <polyline fill="none" marker-mid="url(#marker)"   points="200,200" stroke="black" />
+  <polyline fill="none" marker-end="url(#marker)"   points="300,300" stroke="black" />
+</svg>
