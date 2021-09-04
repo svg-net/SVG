@@ -58,9 +58,12 @@ namespace Svg
                 {
                     ++index;
                 }
-                var refPoint2 = path.PathPoints[index];
-                var marker = OwnerDocument.GetElementById<SvgMarker>(markerStart.ToString());
-                marker.RenderMarker(renderer, this, refPoint1, refPoint1, refPoint2, true);
+                if (index < pathLength)
+                {
+                    var refPoint2 = path.PathPoints[index];
+                    var marker = OwnerDocument.GetElementById<SvgMarker>(markerStart.ToString());
+                    marker.RenderMarker(renderer, this, refPoint1, refPoint1, refPoint2, true);
+                }
             }
 
             var markerMid = MarkerMid.ReplaceWithNullIfNone();
