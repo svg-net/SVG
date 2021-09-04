@@ -26,6 +26,7 @@ The release versions are NuGet releases.
 * prevent `ISvgRenderer.SmoothingMode` reset when `RequiresSmoothRendering` is `true`
   (see [#882](https://github.com/svg-net/SVG/issues/882))
 * ignore `x` and `y` attributes in outermost svg as per standard (see [#886](https://github.com/svg-net/SVG/issues/886))
+* fixed index is outside arrary boundary (see [#888](https://github.com/svg-net/SVG/issues/888))
 
 ## [Version 3.2.3](https://www.nuget.org/packages/Svg/3.2.3)
 
