@@ -28,11 +28,6 @@ namespace Svg.UnitTests
         [TestCaseSource(typeof(ImageTestDataSource), nameof(ImageTestDataSource.PassingTests))]
         public void CompareSvgImageWithReference(ImageTestDataSource.TestData testData)
         {
-            // W3C Test Suites use external references to local fonts
-            SvgDocument.ResolveExternalXmlEntites = ExternalType.Local;
-            SvgDocument.ResolveExternalElements = ExternalType.Local;
-            SvgDocument.ResolveExternalImages = ExternalType.Local;
-            
             string basePath = testData.BasePath;
             string baseName = testData.BaseName;
             bool testSaveLoad = !baseName.StartsWith("#");
