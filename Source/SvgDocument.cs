@@ -390,7 +390,7 @@ namespace Svg
                 WhitespaceHandling = WhitespaceHandling.Significant,
                 DtdProcessing = DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
             };
-            return Open<T>(reader);
+            return Create<T>(reader);
         }
 
         /// <summary>
@@ -412,11 +412,32 @@ namespace Svg
                     WhitespaceHandling = WhitespaceHandling.Significant,
                     DtdProcessing = DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
                 };
-                return Open<T>(reader);
+                return Create<T>(reader);
             }
         }
 
-        private static T Open<T>(XmlReader reader) where T : SvgDocument, new()
+        /// <summary>
+        /// Attempts to open an SVG document from the specified <see cref="XmlReader"/>.
+        /// </summary>
+        /// <param name="reader">The <see cref="XmlReader"/> containing the SVG document to open.</param>
+        public static T Open<T>(XmlReader reader) where T : SvgDocument, new()
+        {
+            if (reader == null)
+            {
+                throw new ArgumentNullException("reader");
+            }
+
+            using (var svgReader = XmlReader.Create(reader, new XmlReaderSettings()
+            {
+                XmlResolver = new SvgDtdResolver(),
+                DtdProcessing = DtdProcessing.Parse,
+            }))
+            {
+                return Create<T>(svgReader);
+            }
+        }
+
+        private static T Create<T>(XmlReader reader) where T : SvgDocument, new()
         {
             if (!SkipGdiPlusCapabilityCheck)
             {
@@ -558,7 +579,7 @@ namespace Svg
             }
 
             var reader = new SvgNodeReader(document.DocumentElement, null);
-            return Open<SvgDocument>(reader);
+            return Create<SvgDocument>(reader);
         }
 
         public static Bitmap OpenAsBitmap(string path)
