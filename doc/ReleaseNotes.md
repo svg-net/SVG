@@ -11,6 +11,7 @@ The release versions are NuGet releases.
   and other resources are not resolved by default (see [#872](https://github.com/svg-net/SVG/issues/872))
 * made `SvgExtentions.Traverse` and `SvgExtentions.TraverseDepthFirst` internal to avoid polluting the API
   (see [#889](https://github.com/svg-net/SVG/issues/889))
+* add `Open(XmlReader)` method in `SvgDocument` (see [#877](https://github.com/svg-net/SVG/issues/877))
 
 ### Enhancements
 * minimize `XmlTextReader` customization (see [PR #836](https://github.com/svg-net/SVG/pull/836))
