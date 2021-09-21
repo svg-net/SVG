@@ -66,7 +66,7 @@
       "output": {
         ".html": {
           "relative_path": "doc/ReleaseNotes.html",
-          "hash": "rHzin0VsukTIfx/9I9URexXBNo9J4WrS57OcIKvM5+Q="
+          "hash": "ojuyEjXVY4YZBsG9RCy0OOoCMR3KQOEDw2VmvL0nj10="
         }
       },
       "is_incremental": false,
@@ -1497,7 +1497,7 @@
       "output": {
         ".html": {
           "relative_path": "api/Svg.SvgDocument.html",
-          "hash": "pvBBSuJVyvqL6Txv6rdEXukYYv+9hz8wEakqtHDs7UU="
+          "hash": "+OlPRyZDz63GYT24k7RWTGjznbN1yC56XX2tYWOMEaA="
         }
       },
       "is_incremental": false,

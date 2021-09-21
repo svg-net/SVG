@@ -6231,6 +6231,15 @@ references:
   fullName.vb: Svg.SvgDocument.Open(Of T)(System.String, System.Collections.Generic.Dictionary(Of System.String, System.String))
   nameWithType: SvgDocument.Open<T>(String, Dictionary<String, String>)
   nameWithType.vb: SvgDocument.Open(Of T)(String, Dictionary(Of String, String))
+- uid: Svg.SvgDocument.Open``1(XmlReader)
+  name: Open<T>(XmlReader)
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_XmlReader_
+  commentId: M:Svg.SvgDocument.Open``1(XmlReader)
+  name.vb: Open(Of T)(XmlReader)
+  fullName: Svg.SvgDocument.Open<T>(XmlReader)
+  fullName.vb: Svg.SvgDocument.Open(Of T)(XmlReader)
+  nameWithType: SvgDocument.Open<T>(XmlReader)
+  nameWithType.vb: SvgDocument.Open(Of T)(XmlReader)
 - uid: Svg.SvgDocument.OpenAsBitmap(System.String)
   name: OpenAsBitmap(String)
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_OpenAsBitmap_System_String_
