@@ -28,9 +28,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Supports multiple targets v4.5.2 thru to dotnetcore3.1 and .NET 5.0.
-Many performance improvements by using SourceGenerators instad of reflection.
-
+    <PackageReleaseNotes>Mitigated XXE vulnerability: external references are not resolved by default.
+Several fixes and enhancements (see Release Notes: http://svg-net.github.io/SVG/doc/ReleaseNotes.html).
     </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/svg-net/SVG</PackageProjectUrl>
     <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
