@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+
+## [Version 3.3.0](https://www.nuget.org/packages/Svg/3.3.0)  (2021-09-23)
+
 ### Changes
 * changed namespace of `SvgSymbol` from `Svg.Document_Structure` to `Svg` (see [PR #556](https://github.com/svg-net/SVG/pull/556))
 * mitigated XXE vulnerability: changed default behavior of DTD resolution so external references are not resolved by default
@@ -11,11 +14,11 @@ The release versions are NuGet releases.
   and other resources are not resolved by default (see [#872](https://github.com/svg-net/SVG/issues/872))
 * made `SvgExtentions.Traverse` and `SvgExtentions.TraverseDepthFirst` internal to avoid polluting the API
   (see [#889](https://github.com/svg-net/SVG/issues/889))
-* add `Open(XmlReader)` method in `SvgDocument` (see [#877](https://github.com/svg-net/SVG/issues/877))
 
 ### Enhancements
 * minimize `XmlTextReader` customization (see [PR #836](https://github.com/svg-net/SVG/pull/836))
 * manage namespaces and prefixes (see [#604](https://github.com/svg-net/SVG/issues/604))
+* add `Open(XmlReader)` method in `SvgDocument` (see [#877](https://github.com/svg-net/SVG/issues/877))
 
 ### Fixes
 * fixed filled polyline not displayed with `stroke-width=0` (see [#785](https://github.com/svg-net/SVG/issues/785))
@@ -29,7 +32,7 @@ The release versions are NuGet releases.
 * ignore `x` and `y` attributes in outermost svg as per standard (see [#886](https://github.com/svg-net/SVG/issues/886))
 * fixed index is outside arrary boundary (see [#888](https://github.com/svg-net/SVG/issues/888))
 
-## [Version 3.2.3](https://www.nuget.org/packages/Svg/3.2.3)
+## [Version 3.2.3](https://www.nuget.org/packages/Svg/3.2.3) (2021-01-12)
 
 ### Enhancements
 * implement font-weight bolder and lighter (see [PR #727](https://github.com/svg-net/SVG/pull/727))
@@ -51,7 +54,7 @@ The release versions are NuGet releases.
 * fixed fallback color (see [#779](https://github.com/vvvv/SVG/issues/779) and [PR #792](https://github.com/vvvv/SVG/pull/792))
 * fixed size zero pattern issue (see [PR #793](https://github.com/vvvv/SVG/pull/793) and [PR #794](https://github.com/vvvv/SVG/pull/794))
 
-## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1)
+## [Version 3.1.1](https://www.nuget.org/packages/Svg/3.1.1) (2020-05-01)
 
 ### Enhancements
 * added new filter effects classes (see [PR #641](https://github.com/svg-net/SVG/pull/641))
@@ -87,7 +90,7 @@ The release versions are NuGet releases.
 * fixed Output namespace in inner `<svg>` element (see [PR #702](https://github.com/svg-net/SVG/pull/702))
 * fixed SvgNodeReader does not resolve entity reference (see [#707](https://github.com/svg-net/SVG/issues/707) and [PR #713](https://github.com/svg-net/SVG/pull/713))
 
-## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102)
+## [Version 3.0.102](https://www.nuget.org/packages/Svg/3.0.102) (2020-01-13)
 
 ### Changes
 * removed support for .NET 3.5
@@ -102,7 +105,7 @@ The release versions are NuGet releases.
 * fixed nested svg tags not rendered properly (see [#622](https://github.com/svg-net/SVG/issues/622))
 * added handling of invalid property in parser (see [#632](https://github.com/svg-net/SVG/issues/632))
 
-## [Version 3.0.84](https://www.nuget.org/packages/Svg/3.0.84)
+## [Version 3.0.84](https://www.nuget.org/packages/Svg/3.0.84) (2019-11-09)
 
 _**Note:**_
 * this is the last release version that still supports .NET version 3.5
@@ -131,7 +134,7 @@ _**Note:**_
 * fixed behavior of 'Inherit' value for several attributes (see [#541](https://github.com/svg-net/SVG/issues/541))
 
 
-## [Version 3.0.49](https://www.nuget.org/packages/Svg/3.0.49)
+## [Version 3.0.49](https://www.nuget.org/packages/Svg/3.0.49) (2019-08-30)
 
 **Note:** this is the first version that supports .NET Core alongside .NET.
 To build it yourself, you need at least Visual Studio 2017 due to the added multi-platform support.
@@ -188,20 +191,20 @@ To build it yourself, you need at least Visual Studio 2017 due to the added mult
 * fixed parsing of float values in color matrixes and colors on non-English systems
 * fixed xlink:href value format (see PR [#455](https://github.com/svg-net/SVG/pull/455))
 * support various formats of URL string (see PR [#454](https://github.com/svg-net/SVG/pull/454))
-* fixed stack overflow crash on images with relative size 
+* fixed stack overflow crash on images with relative size
   (see [#436](https://github.com/svg-net/SVG/issues/436))
 
-## [Version 2.4.3](https://www.nuget.org/packages/Svg/2.4.3)
+## [Version 2.4.3](https://www.nuget.org/packages/Svg/2.4.3) (2019-05-07)
 ### Fixes
 * fixed boundary drawing with corner and stroke (see PR [#444](https://github.com/svg-net/SVG/pull/444))
 * fixed rendering with fill opacity 0 (see [#437](https://github.com/svg-net/SVG/issues/437))
 * fixed opacity attribute (see PR [#433](https://github.com/svg-net/SVG/pull/433))
 * fixed bounds calculation with stroke (see PR [#433](https://github.com/svg-net/SVG/pull/433))
 
-## [Version 2.4.2](https://www.nuget.org/packages/Svg/2.4.2)
+## [Version 2.4.2](https://www.nuget.org/packages/Svg/2.4.2) (2019-03-01)
 ### Enhancements
-* added font manager to allow user-defined font handling 
-  (see PR [#414](https://github.com/svg-net/SVG/pull/414)) 
+* added font manager to allow user-defined font handling
+  (see PR [#414](https://github.com/svg-net/SVG/pull/414))
 
 ### Fixes
 * fixed handling of invalid hex color and whitespace after hex color (see [#399](https://github.com/svg-net/SVG/issues/399))
@@ -210,8 +213,8 @@ To build it yourself, you need at least Visual Studio 2017 due to the added mult
 * fixed writing of custom styles (see [#129](https://github.com/svg-net/SVG/issues/129))
 * fixed handling of default values for radial gradients (see [#397](https://github.com/svg-net/SVG/issues/397))
 * allow empty value for style property (see [#318](https://github.com/svg-net/SVG/issues/318))
-* added handling of referenced viewBox scaling in "use" elements 
-* handle special case where path consists of a single move command 
+* added handling of referenced viewBox scaling in "use" elements
+* handle special case where path consists of a single move command
   (see [#223](https://github.com/svg-net/SVG/issues/223))
 * correctly write fill-rule, clip-rule and named color attributes as lower case
   (see [#272](https://github.com/svg-net/SVG/issues/272))
@@ -222,7 +225,7 @@ To build it yourself, you need at least Visual Studio 2017 due to the added mult
   * correctly show mid markers for paths with Bezier curves
   * handle markers on paths with successive equal points
 
-## [Version 2.4.1](https://www.nuget.org/packages/Svg/2.4.1)
+## [Version 2.4.1](https://www.nuget.org/packages/Svg/2.4.1) (2019-01-25)
 ### Changes
 * `ExCSS` lives now in the `Svg` namespace to avoid namespace collusions 
   (see [#408](https://github.com/svg-net/SVG/issues/408))
@@ -236,7 +239,7 @@ To build it yourself, you need at least Visual Studio 2017 due to the added mult
 * prevent crash if `use` element has no reference (see [#323](https://github.com/svg-net/SVG/issues/323))
 * fixed handling of `fill=currentColor` (see [#398](https://github.com/svg-net/SVG/issues/398))
 
-## [Version 2.4.0](https://www.nuget.org/packages/Svg/2.4.0)
+## [Version 2.4.0](https://www.nuget.org/packages/Svg/2.4.0) (2019-01-08)
 
 ### Enhancements
   * added basic support for CSS text-transform 
