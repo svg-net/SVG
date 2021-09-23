@@ -74,6 +74,7 @@
 
 <p>The release versions are NuGet releases.</p>
 <h2 id="unreleased-master">Unreleased (master)</h2>
+<h2 id="version-330--2021-09-23"><a href="https://www.nuget.org/packages/Svg/3.3.0">Version 3.3.0</a>  (2021-09-23)</h2>
 <h3 id="changes">Changes</h3>
 <ul>
 <li>changed namespace of <code>SvgSymbol</code> from <code>Svg.Document_Structure</code> to <code>Svg</code> (see <a href="https://github.com/svg-net/SVG/pull/556">PR #556</a>)</li>
@@ -83,12 +84,12 @@
 and other resources are not resolved by default (see <a href="https://github.com/svg-net/SVG/issues/872">#872</a>)</li>
 <li>made <code>SvgExtentions.Traverse</code> and <code>SvgExtentions.TraverseDepthFirst</code> internal to avoid polluting the API
 (see <a href="https://github.com/svg-net/SVG/issues/889">#889</a>)</li>
-<li>add <code>Open(XmlReader)</code> method in <code>SvgDocument</code> (see <a href="https://github.com/svg-net/SVG/issues/877">#877</a>)</li>
 </ul>
 <h3 id="enhancements">Enhancements</h3>
 <ul>
 <li>minimize <code>XmlTextReader</code> customization (see <a href="https://github.com/svg-net/SVG/pull/836">PR #836</a>)</li>
 <li>manage namespaces and prefixes (see <a href="https://github.com/svg-net/SVG/issues/604">#604</a>)</li>
+<li>add <code>Open(XmlReader)</code> method in <code>SvgDocument</code> (see <a href="https://github.com/svg-net/SVG/issues/877">#877</a>)</li>
 </ul>
 <h3 id="fixes">Fixes</h3>
 <ul>
@@ -103,7 +104,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>ignore <code>x</code> and <code>y</code> attributes in outermost svg as per standard (see <a href="https://github.com/svg-net/SVG/issues/886">#886</a>)</li>
 <li>fixed index is outside arrary boundary (see <a href="https://github.com/svg-net/SVG/issues/888">#888</a>)</li>
 </ul>
-<h2 id="version-323"><a href="https://www.nuget.org/packages/Svg/3.2.3">Version 3.2.3</a></h2>
+<h2 id="version-323-2021-01-12"><a href="https://www.nuget.org/packages/Svg/3.2.3">Version 3.2.3</a> (2021-01-12)</h2>
 <h3 id="enhancements-1">Enhancements</h3>
 <ul>
 <li>implement font-weight bolder and lighter (see <a href="https://github.com/svg-net/SVG/pull/727">PR #727</a>)</li>
@@ -126,7 +127,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>fixed fallback color (see <a href="https://github.com/vvvv/SVG/issues/779">#779</a> and <a href="https://github.com/vvvv/SVG/pull/792">PR #792</a>)</li>
 <li>fixed size zero pattern issue (see <a href="https://github.com/vvvv/SVG/pull/793">PR #793</a> and <a href="https://github.com/vvvv/SVG/pull/794">PR #794</a>)</li>
 </ul>
-<h2 id="version-311"><a href="https://www.nuget.org/packages/Svg/3.1.1">Version 3.1.1</a></h2>
+<h2 id="version-311-2020-05-01"><a href="https://www.nuget.org/packages/Svg/3.1.1">Version 3.1.1</a> (2020-05-01)</h2>
 <h3 id="enhancements-2">Enhancements</h3>
 <ul>
 <li>added new filter effects classes (see <a href="https://github.com/svg-net/SVG/pull/641">PR #641</a>)</li>
@@ -163,7 +164,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>fixed Output namespace in inner <code>&lt;svg&gt;</code> element (see <a href="https://github.com/svg-net/SVG/pull/702">PR #702</a>)</li>
 <li>fixed SvgNodeReader does not resolve entity reference (see <a href="https://github.com/svg-net/SVG/issues/707">#707</a> and <a href="https://github.com/svg-net/SVG/pull/713">PR #713</a>)</li>
 </ul>
-<h2 id="version-30102"><a href="https://www.nuget.org/packages/Svg/3.0.102">Version 3.0.102</a></h2>
+<h2 id="version-30102-2020-01-13"><a href="https://www.nuget.org/packages/Svg/3.0.102">Version 3.0.102</a> (2020-01-13)</h2>
 <h3 id="changes-1">Changes</h3>
 <ul>
 <li>removed support for .NET 3.5</li>
@@ -180,7 +181,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>fixed nested svg tags not rendered properly (see <a href="https://github.com/svg-net/SVG/issues/622">#622</a>)</li>
 <li>added handling of invalid property in parser (see <a href="https://github.com/svg-net/SVG/issues/632">#632</a>)</li>
 </ul>
-<h2 id="version-3084"><a href="https://www.nuget.org/packages/Svg/3.0.84">Version 3.0.84</a></h2>
+<h2 id="version-3084-2019-11-09"><a href="https://www.nuget.org/packages/Svg/3.0.84">Version 3.0.84</a> (2019-11-09)</h2>
 <p><em><strong>Note:</strong></em></p>
 <ul>
 <li>this is the last release version that still supports .NET version 3.5</li>
@@ -212,7 +213,7 @@ Drawing2D is not fully supported</li>
 <li>fixed parsing of some color attributes (see <a href="https://github.com/svg-net/SVG/pull/580">PR #580</a>)</li>
 <li>fixed behavior of 'Inherit' value for several attributes (see <a href="https://github.com/svg-net/SVG/issues/541">#541</a>)</li>
 </ul>
-<h2 id="version-3049"><a href="https://www.nuget.org/packages/Svg/3.0.49">Version 3.0.49</a></h2>
+<h2 id="version-3049-2019-08-30"><a href="https://www.nuget.org/packages/Svg/3.0.49">Version 3.0.49</a> (2019-08-30)</h2>
 <p><strong>Note:</strong> this is the first version that supports .NET Core alongside .NET.
 To build it yourself, you need at least Visual Studio 2017 due to the added multi-platform support.</p>
 <h3 id="enhancements-5">Enhancements</h3>
@@ -273,7 +274,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 <li>fixed stack overflow crash on images with relative size
 (see <a href="https://github.com/svg-net/SVG/issues/436">#436</a>)</li>
 </ul>
-<h2 id="version-243"><a href="https://www.nuget.org/packages/Svg/2.4.3">Version 2.4.3</a></h2>
+<h2 id="version-243-2019-05-07"><a href="https://www.nuget.org/packages/Svg/2.4.3">Version 2.4.3</a> (2019-05-07)</h2>
 <h3 id="fixes-6">Fixes</h3>
 <ul>
 <li>fixed boundary drawing with corner and stroke (see PR <a href="https://github.com/svg-net/SVG/pull/444">#444</a>)</li>
@@ -281,7 +282,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 <li>fixed opacity attribute (see PR <a href="https://github.com/svg-net/SVG/pull/433">#433</a>)</li>
 <li>fixed bounds calculation with stroke (see PR <a href="https://github.com/svg-net/SVG/pull/433">#433</a>)</li>
 </ul>
-<h2 id="version-242"><a href="https://www.nuget.org/packages/Svg/2.4.2">Version 2.4.2</a></h2>
+<h2 id="version-242-2019-03-01"><a href="https://www.nuget.org/packages/Svg/2.4.2">Version 2.4.2</a> (2019-03-01)</h2>
 <h3 id="enhancements-6">Enhancements</h3>
 <ul>
 <li>added font manager to allow user-defined font handling
@@ -310,7 +311,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 </ul>
 </li>
 </ul>
-<h2 id="version-241"><a href="https://www.nuget.org/packages/Svg/2.4.1">Version 2.4.1</a></h2>
+<h2 id="version-241-2019-01-25"><a href="https://www.nuget.org/packages/Svg/2.4.1">Version 2.4.1</a> (2019-01-25)</h2>
 <h3 id="changes-2">Changes</h3>
 <ul>
 <li><code>ExCSS</code> lives now in the <code>Svg</code> namespace to avoid namespace collusions
@@ -326,7 +327,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 <li>prevent crash if <code>use</code> element has no reference (see <a href="https://github.com/svg-net/SVG/issues/323">#323</a>)</li>
 <li>fixed handling of <code>fill=currentColor</code> (see <a href="https://github.com/svg-net/SVG/issues/398">#398</a>)</li>
 </ul>
-<h2 id="version-240"><a href="https://www.nuget.org/packages/Svg/2.4.0">Version 2.4.0</a></h2>
+<h2 id="version-240-2019-01-08"><a href="https://www.nuget.org/packages/Svg/2.4.0">Version 2.4.0</a> (2019-01-08)</h2>
 <h3 id="enhancements-7">Enhancements</h3>
 <ul>
 <li>added basic support for CSS text-transform</li>
