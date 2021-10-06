@@ -3,6 +3,8 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+### Fixes
+* fixed color blend position (see [#902](https://github.com/svg-net/SVG/issues/902))
 
 ## [Version 3.3.0](https://www.nuget.org/packages/Svg/3.3.0)  (2021-09-23)
 
