@@ -41,11 +41,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net5.0|AnyCPU'">
     <DefineConstants>TRACE;DEBUG;NETCORE;NETCORE50</DefineConstants>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\Issue_SpacePreserve\SpacePreserve.svg" />
+    <None Remove="Resources\Issue_SpacePreserve\SpacePreserveText.svg" />
+  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\Issue204_PrivateFont\BrushScriptMT2.ttf" />
     <EmbeddedResource Include="AllTests.csv" />
     <EmbeddedResource Include="PassingTests.csv" />
+    <EmbeddedResource Include="Resources\Issue_SpacePreserve\SpacePreserve.svg" />
+    <EmbeddedResource Include="Resources\Issue_SpacePreserve\SpacePreserveText.svg" />
     <None Include="svgkey.snk" />
   </ItemGroup>
 

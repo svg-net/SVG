@@ -5,7 +5,7 @@ using System.Xml;
 namespace Svg.UnitTests
 {
     [TestFixture]
-    public class SvgTextTests
+    public class SvgTextTests : SvgTestHelper
     {
         [Test]
         public void TextPropertyAffectsSvgOutput()
@@ -82,6 +82,38 @@ namespace Svg.UnitTests
             Assert.IsTrue(xml.Contains("y=\"30\""));
             Assert.IsTrue(xml.Contains("dx=\"40\""));
             Assert.IsTrue(xml.Contains("dy=\"50\""));
+        }
+
+        [Test]
+        public void TestNullText()
+        {
+            var document = new SvgDocument();
+            document.Children.Add(new SvgText { ID="text1" , Text = null });
+
+            var xml = document.GetXML();
+            Assert.IsTrue(xml.Contains("text1"));
+        }
+
+        [Test]
+        public void TextWithPreserveWhitespaceRoot()
+        {
+            
+            var document = OpenSvg(GetXMLDocFromResource(GetFullResourceString("Issue_SpacePreserve.SpacePreserve.svg")));
+            document.Children.Add(new SvgText { ID = "tex1", Text = "Magic" });
+
+            var xml = document.GetXML();
+            Assert.IsTrue(xml.Contains("Magic"));
+        }
+
+        [Test]
+        public void TextWithPreserveWhitespaceInNode()
+        {
+            var document = OpenSvg(GetXMLDocFromResource(GetFullResourceString("Issue_SpacePreserve.SpacePreserveText.svg")));
+            var text = document.GetElementById("text1");
+            text.Children.Add(new SvgTextSpan() { Text = "Magic" });
+
+            var xml = document.GetXML();
+            Assert.IsTrue(xml.Contains("Magic"));
         }
     }
 }
