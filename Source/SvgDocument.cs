@@ -501,7 +501,7 @@ namespace Svg
 
                             if (element.Nodes.OfType<SvgContentNode>().Any())
                             {
-                                element.Content = (from e in element.Nodes select e.Content).Aggregate((p, c) => p + c);
+                                element.Content = string.Join(string.Empty, from e in element.Nodes select e.Content);
                             }
                             else
                             {
