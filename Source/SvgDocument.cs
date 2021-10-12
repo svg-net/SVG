@@ -535,7 +535,7 @@ namespace Svg
 
             if (styles.Any())
             {
-                var cssTotal = styles.Select((s) => s.Content).Aggregate((p, c) => p + Environment.NewLine + c);
+                var cssTotal = string.Join(Environment.NewLine, styles.Select((s) => s.Content));
                 var cssParser = new Parser();
                 var sheet = cssParser.Parse(cssTotal ?? string.Empty);
 
