@@ -501,7 +501,7 @@ namespace Svg
 
                             if (element.Nodes.OfType<SvgContentNode>().Any())
                             {
-                                element.Content = string.Join(string.Empty, from e in element.Nodes select e.Content);
+                                element.Content = string.Concat((from n in element.Nodes select n.Content).ToArray());
                             }
                             else
                             {
@@ -535,7 +535,7 @@ namespace Svg
 
             if (styles.Any())
             {
-                var cssTotal = string.Join(Environment.NewLine, styles.Select((s) => s.Content));
+                var cssTotal = string.Join(Environment.NewLine, styles.Select(s => s.Content).ToArray());
                 var cssParser = new Parser();
                 var sheet = cssParser.Parse(cssTotal ?? string.Empty);
 

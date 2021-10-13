@@ -102,7 +102,7 @@ namespace Svg.Transforms
         {
             if (Count < 1)
                 return string.Empty;
-            return string.Join(" ", from t in this select t.ToString());
+            return string.Join(" ", (from t in this select t.ToString()).ToArray());
         }
     }
 }
