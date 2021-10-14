@@ -3,7 +3,7 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
-### Performances
+### Performance
 * reduce very high memory usage (see [#909](https://github.com/svg-net/SVG/issues/909))
 
 ### Fixes
