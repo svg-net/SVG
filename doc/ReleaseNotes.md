@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased (master)
 
+### Performance
+* reduce very high memory usage (see [#909](https://github.com/svg-net/SVG/issues/909))
+
 ### Fixes
 * fixed color blend position (see [#902](https://github.com/svg-net/SVG/issues/902))
 
