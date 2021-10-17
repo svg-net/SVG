@@ -11615,19 +11615,6 @@ references:
   commentId: T:Svg.SvgPath
   fullName: Svg.SvgPath
   nameWithType: SvgPath
-- uid: Svg.SvgPath.Bounds
-  name: Bounds
-  href: api/Svg.SvgPath.html#Svg_SvgPath_Bounds
-  commentId: P:Svg.SvgPath.Bounds
-  fullName: Svg.SvgPath.Bounds
-  nameWithType: SvgPath.Bounds
-- uid: Svg.SvgPath.Bounds*
-  name: Bounds
-  href: api/Svg.SvgPath.html#Svg_SvgPath_Bounds_
-  commentId: Overload:Svg.SvgPath.Bounds
-  isSpec: "True"
-  fullName: Svg.SvgPath.Bounds
-  nameWithType: SvgPath.Bounds
 - uid: Svg.SvgPath.DeepCopy
   name: DeepCopy()
   href: api/Svg.SvgPath.html#Svg_SvgPath_DeepCopy
