@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Drawing.Drawing2D;
+﻿using System.Drawing.Drawing2D;
 using Svg.Pathing;
 
 namespace Svg
@@ -88,15 +87,6 @@ namespace Svg
         {
             IsPathDirty = true;
             OnAttributeChanged(new AttributeEventArgs { Attribute = "d", Value = Attributes.GetAttribute<SvgPathSegmentList>("d") });
-        }
-
-        /// <summary>
-        /// Gets the bounds of the element.
-        /// </summary>
-        /// <value>The bounds.</value>
-        public override RectangleF Bounds
-        {
-            get { return Path(null).GetBounds(); }
         }
 
         public override SvgElement DeepCopy()
