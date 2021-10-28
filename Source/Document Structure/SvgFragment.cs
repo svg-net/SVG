@@ -160,7 +160,7 @@ namespace Svg
 
         protected override void Render(ISvgRenderer renderer)
         {
-            switch (this.Overflow)
+            switch (Overflow)
             {
                 case SvgOverflow.Auto:
                 case SvgOverflow.Visible:
@@ -171,9 +171,9 @@ namespace Svg
                     var prevClip = renderer.GetClip();
                     try
                     {
-                        var size = this.Parent == null ? renderer.GetBoundable().Bounds.Size : GetDimensions();
-                        var clip = new RectangleF(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                                  this.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
+                        var size = Parent == null ? renderer.GetBoundable().Bounds.Size : GetDimensions();
+                        var clip = new RectangleF(X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                                                  Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
                                                   size.Width, size.Height);
                         renderer.SetClip(new Region(clip), CombineMode.Intersect);
                         try
@@ -219,7 +219,7 @@ namespace Svg
             get
             {
                 var bounds = new RectangleF();
-                foreach (var child in this.Children)
+                foreach (var child in Children)
                 {
                     RectangleF childBounds = new RectangleF();
                     if (child is SvgFragment)
@@ -264,7 +264,7 @@ namespace Svg
                 }
                 else
                 {
-                    bounds = this.Bounds; // do just one call to the recursive bounds property
+                    bounds = Bounds; // do just one call to the recursive bounds property
                 }
             }
 
