@@ -160,7 +160,7 @@ namespace Svg
 
         protected override void Render(ISvgRenderer renderer)
         {
-            switch (this.Overflow)
+            switch (Overflow)
             {
                 case SvgOverflow.Auto:
                 case SvgOverflow.Visible:
@@ -171,9 +171,9 @@ namespace Svg
                     var prevClip = renderer.GetClip();
                     try
                     {
-                        var size = this.Parent == null ? renderer.GetBoundable().Bounds.Size : GetDimensions();
-                        var clip = new RectangleF(this.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                                  this.Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
+                        var size = this is SvgDocument ? renderer.GetBoundable().Bounds.Size : GetDimensions(renderer);
+                        var clip = new RectangleF(X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                                                  Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
                                                   size.Width, size.Height);
                         renderer.SetClip(new Region(clip), CombineMode.Intersect);
                         try
@@ -219,7 +219,7 @@ namespace Svg
             get
             {
                 var bounds = new RectangleF();
-                foreach (var child in this.Children)
+                foreach (var child in Children)
                 {
                     RectangleF childBounds = new RectangleF();
                     if (child is SvgFragment)
@@ -251,6 +251,11 @@ namespace Svg
 
         public SizeF GetDimensions()
         {
+            return GetDimensions(null);
+        }
+
+        internal SizeF GetDimensions(ISvgRenderer renderer)
+        {
             float w, h;
             var isWidthperc = Width.Type == SvgUnitType.Percentage;
             var isHeightperc = Height.Type == SvgUnitType.Percentage;
@@ -264,25 +269,25 @@ namespace Svg
                 }
                 else
                 {
-                    bounds = this.Bounds; // do just one call to the recursive bounds property
+                    bounds = Bounds; // do just one call to the recursive bounds property
                 }
             }
 
-            if (isWidthperc)
+            if (isWidthperc && this is SvgDocument)
             {
                 w = (bounds.Width + bounds.X) * (Width.Value * 0.01f);
             }
             else
             {
-                w = Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this);
+                w = Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this);
             }
-            if (isHeightperc)
+            if (isHeightperc && this is SvgDocument)
             {
                 h = (bounds.Height + bounds.Y) * (Height.Value * 0.01f);
             }
             else
             {
-                h = Height.ToDeviceValue(null, UnitRenderingType.Vertical, this);
+                h = Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this);
             }
 
             return new SizeF(w, h);

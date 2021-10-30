@@ -9,6 +9,7 @@ The release versions are NuGet releases.
 ### Fixes
 * fixed color blend position (see [#902](https://github.com/svg-net/SVG/issues/902))
 * remove override method that is no longer needed in `SvgPath` (see [#830](https://github.com/svg-net/SVG/issues/830))
+* fixed size of inner `<svg>` (see [#917](https://github.com/svg-net/SVG/issues/917))
 
 ## [Version 3.3.0](https://www.nuget.org/packages/Svg/3.3.0)  (2021-09-23)
 
