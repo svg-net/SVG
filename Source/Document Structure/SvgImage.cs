@@ -143,7 +143,7 @@ namespace Svg
                     if (bmp != null)
                         srcRect = new RectangleF(0f, 0f, bmp.Width, bmp.Height);
                     else
-                        srcRect = new RectangleF(new PointF(0f, 0f), svg.GetDimensions());
+                        srcRect = new RectangleF(new PointF(0f, 0f), svg.GetDimensions(renderer));
 
                     var destClip = new RectangleF(Location.ToDeviceValue(renderer, this),
                                                   new SizeF(Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
