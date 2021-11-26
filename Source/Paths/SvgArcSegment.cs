@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -19,8 +19,8 @@ namespace Svg.Pathing
 
         public SvgArcSize Size { get; set; }
 
-        public SvgArcSegment(PointF start, float radiusX, float radiusY, float angle, SvgArcSize size, SvgArcSweep sweep, PointF end)
-            : base(start, end)
+        public SvgArcSegment(float radiusX, float radiusY, float angle, SvgArcSize size, SvgArcSweep sweep, PointF end)
+            : base(end)
         {
             RadiusX = Math.Abs(radiusX);
             RadiusY = Math.Abs(radiusY);
@@ -42,24 +42,26 @@ namespace Svg.Pathing
             return DoublePI - (ta - tb);
         }
 
-        public override void AddToPath(GraphicsPath graphicsPath)
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start)
         {
-            if (Start == End)
+            var end = End;
+
+            if (start == end)
             {
-                return;
+                return end;
             }
 
             if (RadiusX == 0.0f && RadiusY == 0.0f)
             {
-                graphicsPath.AddLine(Start, End);
-                return;
+                graphicsPath.AddLine(start, end);
+                return end;
             }
 
             var sinPhi = Math.Sin(Angle * RadiansPerDegree);
             var cosPhi = Math.Cos(Angle * RadiansPerDegree);
 
-            var x1dash = cosPhi * (Start.X - End.X) / 2.0 + sinPhi * (Start.Y - End.Y) / 2.0;
-            var y1dash = -sinPhi * (Start.X - End.X) / 2.0 + cosPhi * (Start.Y - End.Y) / 2.0;
+            var x1dash = cosPhi * (start.X - end.X) / 2.0 + sinPhi * (start.Y - end.Y) / 2.0;
+            var y1dash = -sinPhi * (start.X - end.X) / 2.0 + cosPhi * (start.Y - end.Y) / 2.0;
 
             double root;
             var numerator = RadiusX * RadiusX * RadiusY * RadiusY - RadiusX * RadiusX * y1dash * y1dash - RadiusY * RadiusY * x1dash * x1dash;
@@ -83,8 +85,8 @@ namespace Svg.Pathing
             var cxdash = root * rx * y1dash / ry;
             var cydash = -root * ry * x1dash / rx;
 
-            var cx = cosPhi * cxdash - sinPhi * cydash + (Start.X + End.X) / 2.0;
-            var cy = sinPhi * cxdash + cosPhi * cydash + (Start.Y + End.Y) / 2.0;
+            var cx = cosPhi * cxdash - sinPhi * cydash + (start.X + end.X) / 2.0;
+            var cy = sinPhi * cxdash + cosPhi * cydash + (start.Y + end.Y) / 2.0;
 
             var theta1 = CalculateVectorAngle(1.0, 0.0, (x1dash - cxdash) / rx, (y1dash - cydash) / ry);
             var dtheta = CalculateVectorAngle((x1dash - cxdash) / rx, (y1dash - cydash) / ry, (-x1dash - cxdash) / rx, (-y1dash - cydash) / ry);
@@ -102,8 +104,8 @@ namespace Svg.Pathing
             var delta = dtheta / segments;
             var t = 8.0 / 3.0 * Math.Sin(delta / 4.0) * Math.Sin(delta / 4.0) / Math.Sin(delta / 2.0);
 
-            var startX = Start.X;
-            var startY = Start.Y;
+            var startX = start.X;
+            var startY = start.Y;
 
             for (var i = 0; i < segments; ++i)
             {
@@ -129,6 +131,8 @@ namespace Svg.Pathing
                 startX = (float)endpointX;
                 startY = (float)endpointY;
             }
+
+            return end;
         }
 
         public override string ToString()

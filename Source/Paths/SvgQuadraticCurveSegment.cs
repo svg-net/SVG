@@ -7,37 +7,33 @@ namespace Svg.Pathing
     {
         public PointF ControlPoint { get; set; }
 
-        private PointF FirstControlPoint
-        {
-            get
-            {
-                var x1 = Start.X + (ControlPoint.X - Start.X) * 2 / 3;
-                var y1 = Start.Y + (ControlPoint.Y - Start.Y) * 2 / 3;
-
-                return new PointF(x1, y1);
-            }
-        }
-
-        private PointF SecondControlPoint
-        {
-            get
-            {
-                var x2 = ControlPoint.X + (End.X - ControlPoint.X) / 3;
-                var y2 = ControlPoint.Y + (End.Y - ControlPoint.Y) / 3;
-
-                return new PointF(x2, y2);
-            }
-        }
-
-        public SvgQuadraticCurveSegment(PointF start, PointF controlPoint, PointF end)
-            : base(start, end)
+        public SvgQuadraticCurveSegment(PointF controlPoint, PointF end)
+            : base(end)
         {
             ControlPoint = controlPoint;
         }
 
-        public override void AddToPath(GraphicsPath graphicsPath)
+        private static PointF CalculateFirstControlPoint(PointF start, PointF controlPoint)
         {
-            graphicsPath.AddBezier(Start, FirstControlPoint, SecondControlPoint, End);
+            var x1 = start.X + (controlPoint.X - start.X) * 2 / 3;
+            var y1 = start.Y + (controlPoint.Y - start.Y) * 2 / 3;
+
+            return new PointF(x1, y1);
+        }
+
+        private static PointF CalculateSecondControlPoint(PointF controlPoint, PointF end)
+        {
+            var x2 = controlPoint.X + (end.X - controlPoint.X) / 3;
+            var y2 = controlPoint.Y + (end.Y - controlPoint.Y) / 3;
+
+            return new PointF(x2, y2);
+        }
+
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start)
+        {
+            var end = End;
+            graphicsPath.AddBezier(start, CalculateFirstControlPoint(start, ControlPoint), CalculateSecondControlPoint(ControlPoint, end), end);
+            return end;
         }
 
         public override string ToString()

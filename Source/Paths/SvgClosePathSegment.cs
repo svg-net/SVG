@@ -5,14 +5,16 @@ namespace Svg.Pathing
 {
     public sealed class SvgClosePathSegment : SvgPathSegment
     {
-        public SvgClosePathSegment(PointF start, PointF end)
-            : base(start, end)
+        public SvgClosePathSegment(PointF end)
+            : base(end)
         {
         }
 
-        public override void AddToPath(GraphicsPath graphicsPath)
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start)
         {
             graphicsPath.CloseFigure();
+
+            return End;
         }
 
         public override string ToString()

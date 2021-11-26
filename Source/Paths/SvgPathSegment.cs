@@ -1,20 +1,18 @@
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace Svg.Pathing
 {
     public abstract class SvgPathSegment
     {
-        public PointF Start { get; set; }
         public PointF End { get; set; }
 
-        protected SvgPathSegment(PointF start, PointF end)
+        protected SvgPathSegment(PointF end)
         {
-            Start = start;
             End = end;
         }
 
-        public abstract void AddToPath(GraphicsPath graphicsPath);
+        public abstract PointF AddToPath(GraphicsPath graphicsPath, PointF start);
 
         public SvgPathSegment Clone()
         {

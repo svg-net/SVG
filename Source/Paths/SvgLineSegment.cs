@@ -5,14 +5,16 @@ namespace Svg.Pathing
 {
     public sealed class SvgLineSegment : SvgPathSegment
     {
-        public SvgLineSegment(PointF start, PointF end)
-            : base(start, end)
+        public SvgLineSegment(PointF end)
+            : base(end)
         {
         }
 
-        public override void AddToPath(GraphicsPath graphicsPath)
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start)
         {
-            graphicsPath.AddLine(Start, End);
+            var end = End;
+            graphicsPath.AddLine(start, end);
+            return end;
         }
 
         public override string ToString()

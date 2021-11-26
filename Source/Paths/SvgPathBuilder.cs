@@ -106,7 +106,6 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgLineSegment(
-                                    segments.Last.End,
                                     ToAbsolute(coords0, coords1, segments, isRelative)));
                         }
                     }
@@ -125,7 +124,6 @@ namespace Svg
                             // A|a rx ry x-axis-rotation large-arc-flag sweep-flag x y
                             segments.Add(
                                 new SvgArcSegment(
-                                    segments.Last.End,
                                     coords0,
                                     coords1,
                                     coords2,
@@ -143,7 +141,6 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgLineSegment(
-                                    segments.Last.End,
                                     ToAbsolute(coords0, coords1, segments, isRelative)));
                         }
                     }
@@ -155,7 +152,6 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgLineSegment(
-                                    segments.Last.End,
                                     ToAbsolute(coords0, segments.Last.End.Y, segments, isRelative, false)));
                         }
                     }
@@ -167,7 +163,6 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgLineSegment(
-                                    segments.Last.End,
                                     ToAbsolute(segments.Last.End.X, coords0, segments, false, isRelative)));
                         }
                     }
@@ -182,7 +177,6 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgQuadraticCurveSegment(
-                                    segments.Last.End,
                                     ToAbsolute(coords0, coords1, segments, isRelative),
                                     ToAbsolute(coords2, coords3, segments, isRelative)));
                         }
@@ -198,7 +192,6 @@ namespace Svg
                             var controlPoint = lastQuadCurve != null ? Reflect(lastQuadCurve.ControlPoint, segments.Last.End) : segments.Last.End;
                             segments.Add(
                                 new SvgQuadraticCurveSegment(
-                                    segments.Last.End,
                                     controlPoint,
                                     ToAbsolute(coords0, coords1, segments, isRelative)));
                         }
@@ -216,7 +209,6 @@ namespace Svg
                     {
                         segments.Add(
                             new SvgCubicCurveSegment(
-                                segments.Last.End,
                                 ToAbsolute(coords0, coords1, segments, isRelative),
                                 ToAbsolute(coords2, coords3, segments, isRelative),
                                 ToAbsolute(coords4, coords5, segments, isRelative)));
@@ -235,7 +227,6 @@ namespace Svg
                             var controlPoint = lastCubicCurve != null ? Reflect(lastCubicCurve.SecondControlPoint, segments.Last.End) : segments.Last.End;
                             segments.Add(
                                 new SvgCubicCurveSegment(
-                                    segments.Last.End,
                                     controlPoint,
                                     ToAbsolute(coords0, coords1, segments, isRelative),
                                     ToAbsolute(coords2, coords3, segments, isRelative)));
@@ -256,7 +247,6 @@ namespace Svg
                         }
                         segments.Add(
                             new SvgClosePathSegment(
-                                segments.Last.End,
                                 moveToIndex >= 0 ? segments[moveToIndex].End : PointF.Empty));
                     }
                     break;

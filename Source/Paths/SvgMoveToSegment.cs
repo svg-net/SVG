@@ -6,18 +6,19 @@ namespace Svg.Pathing
     public class SvgMoveToSegment : SvgPathSegment
     {
         public SvgMoveToSegment(PointF moveTo)
-            : base(moveTo, moveTo)
+            : base(moveTo)
         {
         }
 
-        public override void AddToPath(GraphicsPath graphicsPath)
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start)
         {
             graphicsPath.StartFigure();
+            return End;
         }
 
         public override string ToString()
         {
-            return "M" + Start.ToSvgString();
+            return "M" + End.ToSvgString();
         }
     }
 }

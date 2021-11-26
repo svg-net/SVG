@@ -8,16 +8,18 @@ namespace Svg.Pathing
         public PointF FirstControlPoint { get; set; }
         public PointF SecondControlPoint { get; set; }
 
-        public SvgCubicCurveSegment(PointF start, PointF firstControlPoint, PointF secondControlPoint, PointF end)
-            : base(start, end)
+        public SvgCubicCurveSegment(PointF firstControlPoint, PointF secondControlPoint, PointF end)
+            : base(end)
         {
             FirstControlPoint = firstControlPoint;
             SecondControlPoint = secondControlPoint;
         }
 
-        public override void AddToPath(GraphicsPath graphicsPath)
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start)
         {
-            graphicsPath.AddBezier(Start, FirstControlPoint, SecondControlPoint, End);
+            var end = End;
+            graphicsPath.AddBezier(start, FirstControlPoint, SecondControlPoint, end);
+            return end;
         }
 
         public override string ToString()
