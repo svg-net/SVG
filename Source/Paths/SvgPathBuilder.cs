@@ -99,14 +99,14 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgMoveToSegment(
-                                    ToAbsolute(coords0, coords1, segments, isRelative)));
+                                    isRelative, new PointF(coords0, coords1)));
                         }
                         while (CoordinateParser.TryGetFloat(out coords0, ref chars, ref state)
                             && CoordinateParser.TryGetFloat(out coords1, ref chars, ref state))
                         {
                             segments.Add(
                                 new SvgLineSegment(
-                                    ToAbsolute(coords0, coords1, segments, isRelative)));
+                                    isRelative, new PointF(coords0, coords1)));
                         }
                     }
                     break;
@@ -129,7 +129,7 @@ namespace Svg
                                     coords2,
                                     size ? SvgArcSize.Large : SvgArcSize.Small,
                                     sweep ? SvgArcSweep.Positive : SvgArcSweep.Negative,
-                                    ToAbsolute(coords3, coords4, segments, isRelative)));
+                                    isRelative, new PointF(coords3, coords4)));
                         }
                     }
                     break;
@@ -141,7 +141,7 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgLineSegment(
-                                    ToAbsolute(coords0, coords1, segments, isRelative)));
+                                    isRelative, new PointF(coords0, coords1)));
                         }
                     }
                     break;
@@ -152,7 +152,7 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgLineSegment(
-                                    ToAbsolute(coords0, segments.Last.End.Y, segments, isRelative, false)));
+                                    isRelative, new PointF(coords0, float.NaN)));
                         }
                     }
                     break;
@@ -163,7 +163,7 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgLineSegment(
-                                    ToAbsolute(segments.Last.End.X, coords0, segments, false, isRelative)));
+                                    isRelative, new PointF(float.NaN, coords0)));
                         }
                     }
                     break;
@@ -177,8 +177,9 @@ namespace Svg
                         {
                             segments.Add(
                                 new SvgQuadraticCurveSegment(
-                                    ToAbsolute(coords0, coords1, segments, isRelative),
-                                    ToAbsolute(coords2, coords3, segments, isRelative)));
+                                    isRelative,
+                                    new PointF(coords0, coords1),
+                                    new PointF(coords2, coords3)));
                         }
                     }
                     break;
@@ -188,12 +189,9 @@ namespace Svg
                         while (CoordinateParser.TryGetFloat(out var coords0, ref chars, ref state)
                             && CoordinateParser.TryGetFloat(out var coords1, ref chars, ref state))
                         {
-                            var lastQuadCurve = segments.Last as SvgQuadraticCurveSegment;
-                            var controlPoint = lastQuadCurve != null ? Reflect(lastQuadCurve.ControlPoint, segments.Last.End) : segments.Last.End;
                             segments.Add(
                                 new SvgQuadraticCurveSegment(
-                                    controlPoint,
-                                    ToAbsolute(coords0, coords1, segments, isRelative)));
+                                    isRelative, new PointF(coords0, coords1)));
                         }
                     }
                     break;
@@ -209,9 +207,10 @@ namespace Svg
                     {
                         segments.Add(
                             new SvgCubicCurveSegment(
-                                ToAbsolute(coords0, coords1, segments, isRelative),
-                                ToAbsolute(coords2, coords3, segments, isRelative),
-                                ToAbsolute(coords4, coords5, segments, isRelative)));
+                                isRelative,
+                                new PointF(coords0, coords1),
+                                new PointF(coords2, coords3),
+                                new PointF(coords4, coords5)));
                     }
                     }
                     break;
@@ -223,85 +222,21 @@ namespace Svg
                             && CoordinateParser.TryGetFloat(out var coords2, ref chars, ref state)
                             && CoordinateParser.TryGetFloat(out var coords3, ref chars, ref state))
                         {
-                            var lastCubicCurve = segments.Last as SvgCubicCurveSegment;
-                            var controlPoint = lastCubicCurve != null ? Reflect(lastCubicCurve.SecondControlPoint, segments.Last.End) : segments.Last.End;
                             segments.Add(
                                 new SvgCubicCurveSegment(
-                                    controlPoint,
-                                    ToAbsolute(coords0, coords1, segments, isRelative),
-                                    ToAbsolute(coords2, coords3, segments, isRelative)));
+                                    isRelative,
+                                    new PointF(coords0, coords1),
+                                    new PointF(coords2, coords3)));
                         }
                     }
                     break;
                 case 'Z': // closepath
                 case 'z': // relative closepath
                     {
-                        var moveToIndex = -1;
-                        for (var i = segments.Count - 1; i >= 0; --i)
-                        {
-                            if (segments[i] is SvgMoveToSegment)
-                            {
-                                moveToIndex = i;
-                                break;
-                            }
-                        }
-                        segments.Add(
-                            new SvgClosePathSegment(
-                                moveToIndex >= 0 ? segments[moveToIndex].End : PointF.Empty));
+                        segments.Add(new SvgClosePathSegment(isRelative));
                     }
                     break;
             }
-        }
-
-        private static PointF Reflect(PointF point, PointF mirror)
-        {
-            var dx = Math.Abs(mirror.X - point.X);
-            var dy = Math.Abs(mirror.Y - point.Y);
-
-            var x = mirror.X + (mirror.X >= point.X ? dx : -dx);
-            var y = mirror.Y + (mirror.Y >= point.Y ? dy : -dy);
-
-            return new PointF(x, y);
-        }
-
-        /// <summary>
-        /// Creates point with absolute coorindates.
-        /// </summary>
-        /// <param name="x">Raw X-coordinate value.</param>
-        /// <param name="y">Raw Y-coordinate value.</param>
-        /// <param name="segments">Current path segments.</param>
-        /// <param name="isRelativeBoth"><b>true</b> if <paramref name="x"/> and <paramref name="y"/> contains relative coordinate values, otherwise <b>false</b>.</param>
-        /// <returns><see cref="PointF"/> that contains absolute coordinates.</returns>
-        private static PointF ToAbsolute(float x, float y, SvgPathSegmentList segments, bool isRelativeBoth)
-        {
-            return ToAbsolute(x, y, segments, isRelativeBoth, isRelativeBoth);
-        }
-
-        /// <summary>
-        /// Creates point with absolute coorindates.
-        /// </summary>
-        /// <param name="x">Raw X-coordinate value.</param>
-        /// <param name="y">Raw Y-coordinate value.</param>
-        /// <param name="segments">Current path segments.</param>
-        /// <param name="isRelativeX"><b>true</b> if <paramref name="x"/> contains relative coordinate value, otherwise <b>false</b>.</param>
-        /// <param name="isRelativeY"><b>true</b> if <paramref name="y"/> contains relative coordinate value, otherwise <b>false</b>.</param>
-        /// <returns><see cref="PointF"/> that contains absolute coordinates.</returns>
-        private static PointF ToAbsolute(float x, float y, SvgPathSegmentList segments, bool isRelativeX, bool isRelativeY)
-        {
-            var point = new PointF(x, y);
-
-            if ((isRelativeX || isRelativeY) && segments.Count > 0)
-            {
-                var lastSegment = segments.Last;
-
-                if (isRelativeX)
-                    point.X += lastSegment.End.X;
-
-                if (isRelativeY)
-                    point.Y += lastSegment.End.Y;
-            }
-
-            return point;
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)

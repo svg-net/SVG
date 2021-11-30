@@ -7,10 +7,15 @@ namespace Svg.Pathing
     {
         public PointF ControlPoint { get; set; }
 
-        public SvgQuadraticCurveSegment(PointF controlPoint, PointF end)
-            : base(end)
+        public SvgQuadraticCurveSegment(bool isRelative, PointF controlPoint, PointF end)
+            : base(isRelative, end)
         {
             ControlPoint = controlPoint;
+        }
+
+        public SvgQuadraticCurveSegment(bool isRelative, PointF end)
+            : this(isRelative, NaN, end)
+        {
         }
 
         private static PointF CalculateFirstControlPoint(PointF start, PointF controlPoint)
@@ -29,16 +34,35 @@ namespace Svg.Pathing
             return new PointF(x2, y2);
         }
 
-        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start)
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)
         {
-            var end = End;
-            graphicsPath.AddBezier(start, CalculateFirstControlPoint(start, ControlPoint), CalculateSecondControlPoint(ControlPoint, end), end);
+            var controlPoint = ControlPoint;
+            if (float.IsNaN(controlPoint.X) || float.IsNaN(controlPoint.Y))
+            {
+                var prev = parent.IndexOf(this) - 1;
+                if (prev >= 0 && parent[prev] is SvgQuadraticCurveSegment prevSegment)
+                {
+                    var prevStart = graphicsPath.PathPoints[graphicsPath.PointCount - 4];
+                    var prevControlPoint = ToAbsolute(prevSegment.ControlPoint, prevSegment.IsRelative, prevStart);
+                    controlPoint = Reflect(prevControlPoint, start);
+                }
+                else
+                    controlPoint = start;
+            }
+            else
+                controlPoint = ToAbsolute(controlPoint, IsRelative, start);
+
+            var end = ToAbsolute(End, IsRelative, start);
+            graphicsPath.AddBezier(start, CalculateFirstControlPoint(start, controlPoint), CalculateSecondControlPoint(controlPoint, end), end);
             return end;
         }
 
         public override string ToString()
         {
-            return "Q" + ControlPoint.ToSvgString() + " " + End.ToSvgString();
+            if (float.IsNaN(ControlPoint.X) || float.IsNaN(ControlPoint.Y))
+                return (IsRelative ? "t" : "T") + End.ToSvgString();
+            else
+                return (IsRelative ? "q" : "Q") + ControlPoint.ToSvgString() + " " + End.ToSvgString();
         }
     }
 }

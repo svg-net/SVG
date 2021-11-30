@@ -19,8 +19,8 @@ namespace Svg.Pathing
 
         public SvgArcSize Size { get; set; }
 
-        public SvgArcSegment(float radiusX, float radiusY, float angle, SvgArcSize size, SvgArcSweep sweep, PointF end)
-            : base(end)
+        public SvgArcSegment(float radiusX, float radiusY, float angle, SvgArcSize size, SvgArcSweep sweep, bool isRelative, PointF end)
+            : base(isRelative, end)
         {
             RadiusX = Math.Abs(radiusX);
             RadiusY = Math.Abs(radiusY);
@@ -42,9 +42,9 @@ namespace Svg.Pathing
             return DoublePI - (ta - tb);
         }
 
-        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start)
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)
         {
-            var end = End;
+            var end = ToAbsolute(End, IsRelative, start);
 
             if (start == end)
             {
@@ -139,7 +139,7 @@ namespace Svg.Pathing
         {
             var arcFlag = Size == SvgArcSize.Large ? "1" : "0";
             var sweepFlag = Sweep == SvgArcSweep.Positive ? "1" : "0";
-            return "A" + RadiusX.ToSvgString() + " " + RadiusY.ToSvgString() + " " + Angle.ToSvgString() + " " + arcFlag + " " + sweepFlag + " " + End.ToSvgString();
+            return (IsRelative ? "a" : "A") + RadiusX.ToSvgString() + " " + RadiusY.ToSvgString() + " " + Angle.ToSvgString() + " " + arcFlag + " " + sweepFlag + " " + End.ToSvgString();
         }
     }
 

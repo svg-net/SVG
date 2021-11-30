@@ -8,23 +8,46 @@ namespace Svg.Pathing
         public PointF FirstControlPoint { get; set; }
         public PointF SecondControlPoint { get; set; }
 
-        public SvgCubicCurveSegment(PointF firstControlPoint, PointF secondControlPoint, PointF end)
-            : base(end)
+        public SvgCubicCurveSegment(bool isRelative, PointF firstControlPoint, PointF secondControlPoint, PointF end)
+            : base(isRelative, end)
         {
             FirstControlPoint = firstControlPoint;
             SecondControlPoint = secondControlPoint;
         }
 
-        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start)
+        public SvgCubicCurveSegment(bool isRelative, PointF secondControlPoint, PointF end)
+            : this(isRelative, NaN, secondControlPoint, end)
         {
-            var end = End;
-            graphicsPath.AddBezier(start, FirstControlPoint, SecondControlPoint, end);
+        }
+
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)
+        {
+            var firstControlPoint = FirstControlPoint;
+            if (float.IsNaN(firstControlPoint.X) || float.IsNaN(firstControlPoint.Y))
+            {
+                var prev = parent.IndexOf(this) - 1;
+                if (prev >= 0 && parent[prev] is SvgCubicCurveSegment)
+                {
+                    var prevSecondControlPoint = graphicsPath.PathPoints[graphicsPath.PointCount - 2];
+                    firstControlPoint = Reflect(prevSecondControlPoint, start);
+                }
+                else
+                    firstControlPoint = start;
+            }
+            else
+                firstControlPoint = ToAbsolute(firstControlPoint, IsRelative, start);
+
+            var end = ToAbsolute(End, IsRelative, start);
+            graphicsPath.AddBezier(start, firstControlPoint, ToAbsolute(SecondControlPoint, IsRelative, start), end);
             return end;
         }
 
         public override string ToString()
         {
-            return "C" + FirstControlPoint.ToSvgString() + " " + SecondControlPoint.ToSvgString() + " " + End.ToSvgString();
+            if (float.IsNaN(FirstControlPoint.X) || float.IsNaN(FirstControlPoint.Y))
+                return (IsRelative ? "s" : "S") + SecondControlPoint.ToSvgString() + " " + End.ToSvgString();
+            else
+                return (IsRelative ? "c" : "C") + FirstControlPoint.ToSvgString() + " " + SecondControlPoint.ToSvgString() + " " + End.ToSvgString();
         }
     }
 }

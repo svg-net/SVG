@@ -82,7 +82,7 @@ namespace Svg
                 {
                     var start = PointF.Empty;
                     foreach (var segment in PathData)
-                        start = segment.AddToPath(_path, start);
+                        start = segment.AddToPath(_path, start, PathData);
                 }
 
                 IsPathDirty = false;

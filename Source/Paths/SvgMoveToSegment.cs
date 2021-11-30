@@ -5,20 +5,20 @@ namespace Svg.Pathing
 {
     public class SvgMoveToSegment : SvgPathSegment
     {
-        public SvgMoveToSegment(PointF moveTo)
-            : base(moveTo)
+        public SvgMoveToSegment(bool isRelative, PointF moveTo)
+            : base(isRelative, moveTo)
         {
         }
 
-        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start)
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)
         {
             graphicsPath.StartFigure();
-            return End;
+            return ToAbsolute(End, IsRelative, start);
         }
 
         public override string ToString()
         {
-            return "M" + End.ToSvgString();
+            return (IsRelative ? "m" : "M") + End.ToSvgString();
         }
     }
 }
