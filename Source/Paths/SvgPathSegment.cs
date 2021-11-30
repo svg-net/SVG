@@ -8,10 +8,6 @@ namespace Svg.Pathing
         public PointF Start { get; set; }
         public PointF End { get; set; }
 
-        protected SvgPathSegment()
-        {
-        }
-
         protected SvgPathSegment(PointF start, PointF end)
         {
             Start = start;

@@ -245,7 +245,19 @@ namespace Svg
                 case 'Z': // closepath
                 case 'z': // relative closepath
                     {
-                        segments.Add(new SvgClosePathSegment());
+                        var moveToIndex = -1;
+                        for (var i = segments.Count - 1; i >= 0; --i)
+                        {
+                            if (segments[i] is SvgMoveToSegment)
+                            {
+                                moveToIndex = i;
+                                break;
+                            }
+                        }
+                        segments.Add(
+                            new SvgClosePathSegment(
+                                segments.Last.End,
+                                moveToIndex >= 0 ? segments[moveToIndex].End : PointF.Empty));
                     }
                     break;
             }
@@ -291,19 +303,6 @@ namespace Svg
             if ((isRelativeX || isRelativeY) && segments.Count > 0)
             {
                 var lastSegment = segments.Last;
-
-                // if the last element is a SvgClosePathSegment the position of the previous element should be used because the position of SvgClosePathSegment is 0,0
-                if (lastSegment is SvgClosePathSegment && segments.Count > 0)
-                {
-                    for (int i = segments.Count - 1; i >= 0; i--)
-                    {
-                        if (segments[i] is SvgMoveToSegment moveToSegment)
-                        {
-                            lastSegment = moveToSegment;
-                            break;
-                        }
-                    }
-                }
 
                 if (isRelativeX)
                     point.X += lastSegment.End.X;
