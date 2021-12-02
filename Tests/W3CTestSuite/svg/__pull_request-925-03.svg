@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- relative -->
+  <g stroke="red" stroke-width="5">
+    <path d="m110 10 h-100    v   100 v   -100" />
+    <path d="m120 20 l-100  0 l 0 100 l 0 -100" />
+  </g>
+  <!-- absolute -->
+  <g stroke="green" stroke-width="5">
+    <path d="M130 30 H30      V   130 V     30" />
+    <path d="M140 40 L40   40 L40 140 L40   40" />
+  </g>
+  <!-- relative and absolute -->
+  <g stroke="blue" stroke-width="5">
+    <path d="M150 50 h-100    V   150 v   -100" />
+    <path d="M160 60 l-100  0 L60 160 l 0 -100" />
+  </g>
+</svg>
