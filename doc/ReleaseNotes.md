@@ -6,6 +6,9 @@ The release versions are NuGet releases.
 ### Performance
 * reduce very high memory usage (see [#909](https://github.com/svg-net/SVG/issues/909))
 
+### Enhancements
+* support relative commands in Paths (see [PR #925](https://github.com/svg-net/SVG/pull/925))
+
 ### Fixes
 * fixed color blend position (see [#902](https://github.com/svg-net/SVG/issues/902))
 * remove override method that is no longer needed in `SvgPath` (see [#830](https://github.com/svg-net/SVG/issues/830))
