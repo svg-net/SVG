@@ -1,4 +1,5 @@
-﻿using System.Drawing.Drawing2D;
+﻿using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using Svg.Pathing;
 
@@ -78,8 +79,11 @@ namespace Svg
                 _path = new GraphicsPath();
 
                 if (PathData != null)
+                {
+                    var start = PointF.Empty;
                     foreach (var segment in PathData)
-                        segment.AddToPath(_path);
+                        start = segment.AddToPath(_path, start, PathData);
+                }
 
                 IsPathDirty = false;
             }

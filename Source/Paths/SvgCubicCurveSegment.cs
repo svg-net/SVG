@@ -8,21 +8,58 @@ namespace Svg.Pathing
         public PointF FirstControlPoint { get; set; }
         public PointF SecondControlPoint { get; set; }
 
-        public SvgCubicCurveSegment(PointF start, PointF firstControlPoint, PointF secondControlPoint, PointF end)
-            : base(start, end)
+        public SvgCubicCurveSegment(bool isRelative, PointF firstControlPoint, PointF secondControlPoint, PointF end)
+            : base(isRelative, end)
         {
             FirstControlPoint = firstControlPoint;
             SecondControlPoint = secondControlPoint;
         }
 
-        public override void AddToPath(GraphicsPath graphicsPath)
+        public SvgCubicCurveSegment(bool isRelative, PointF secondControlPoint, PointF end)
+            : this(isRelative, NaN, secondControlPoint, end)
         {
-            graphicsPath.AddBezier(Start, FirstControlPoint, SecondControlPoint, End);
+        }
+
+        public override PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)
+        {
+            var firstControlPoint = FirstControlPoint;
+            if (float.IsNaN(firstControlPoint.X) || float.IsNaN(firstControlPoint.Y))
+            {
+                var prev = parent.IndexOf(this) - 1;
+                if (prev >= 0 && parent[prev] is SvgCubicCurveSegment)
+                {
+                    var prevSecondControlPoint = graphicsPath.PathPoints[graphicsPath.PointCount - 2];
+                    firstControlPoint = Reflect(prevSecondControlPoint, start);
+                }
+                else
+                    firstControlPoint = start;
+            }
+            else
+                firstControlPoint = ToAbsolute(firstControlPoint, IsRelative, start);
+
+            var end = ToAbsolute(End, IsRelative, start);
+            graphicsPath.AddBezier(start, firstControlPoint, ToAbsolute(SecondControlPoint, IsRelative, start), end);
+            return end;
         }
 
         public override string ToString()
         {
-            return "C" + FirstControlPoint.ToSvgString() + " " + SecondControlPoint.ToSvgString() + " " + End.ToSvgString();
+            if (float.IsNaN(FirstControlPoint.X) || float.IsNaN(FirstControlPoint.Y))
+                return (IsRelative ? "s" : "S") + SecondControlPoint.ToSvgString() + " " + End.ToSvgString();
+            else
+                return (IsRelative ? "c" : "C") + FirstControlPoint.ToSvgString() + " " + SecondControlPoint.ToSvgString() + " " + End.ToSvgString();
+        }
+
+        [System.Obsolete("Use new constructor.")]
+        public SvgCubicCurveSegment(PointF start, PointF firstControlPoint, PointF secondControlPoint, PointF end)
+            : this(false, firstControlPoint, secondControlPoint, end)
+        {
+            Start = start;
+        }
+        [System.Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
         }
     }
 }

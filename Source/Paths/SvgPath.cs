@@ -1,4 +1,5 @@
-﻿using System.Drawing.Drawing2D;
+﻿using System.Drawing;
+using System.Drawing.Drawing2D;
 using Svg.Pathing;
 
 namespace Svg
@@ -50,8 +51,9 @@ namespace Svg
 
                 if (PathData != null && PathData.Count > 0 && PathData.First is SvgMoveToSegment)
                 {
+                    var start = PointF.Empty;
                     foreach (var segment in PathData)
-                        segment.AddToPath(_path);
+                        start = segment.AddToPath(_path, start, PathData);
 
                     if (_path.PointCount == 0)
                     {

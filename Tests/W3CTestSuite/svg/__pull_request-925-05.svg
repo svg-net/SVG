@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <!-- S -->
+  <g stroke="red" stroke-width="5" fill="transparent">
+    <path d="M 10  70 C 40     0, 65   0, 95  70 S          150 140, 180  70" />
+    <path d="M 10  80 C 40    10, 65  10, 95  80 C125   150 150 150, 180  80" />
+    <path d="M 10  90 L                   95  90 S          150 160, 180  90" />
+    <path d="M 10 100 Q 52.5  30,         95 100 S          150 170, 180 100" />
+  </g>
+  <!-- T -->
+  <g stroke="green" stroke-width="5" fill="transparent">
+    <path d="M 10 110 Q 52.5  40,         95 110 T                   180 110" />
+    <path d="M 10 120 Q 52.5  50,         95 120 Q137.5 190          180 120" />
+    <path d="M 10 130 L                   95 130 T                   180 130" />
+    <path d="M 10 140 C 40    70, 65  70, 95 140 T                   180 140" />
+  </g>
+</svg>
