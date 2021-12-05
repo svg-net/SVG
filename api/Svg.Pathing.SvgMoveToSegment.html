@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class SvgMoveToSegment
    | SVG.NET API ">
-    <meta name="generator" content="docfx 2.58.5.0">
+    <meta name="generator" content="docfx 2.58.9.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -94,13 +94,25 @@
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_Start">SvgPathSegment.Start</a>
+      <a class="xref" href="Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_NaN">SvgPathSegment.NaN</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_IsRelative">SvgPathSegment.IsRelative</a>
     </div>
     <div>
       <a class="xref" href="Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_End">SvgPathSegment.End</a>
     </div>
     <div>
+      <a class="xref" href="Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_Reflect_PointF_PointF_">SvgPathSegment.Reflect(PointF, PointF)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_ToAbsolute_PointF_System_Boolean_PointF_">SvgPathSegment.ToAbsolute(PointF, Boolean, PointF)</a>
+    </div>
+    <div>
       <a class="xref" href="Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_Clone">SvgPathSegment.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_Start">SvgPathSegment.Start</a>
     </div>
     <div>
       <a class="xref" href="https://docs.microsoft.com/dotnet/api/system.object.equals#System_Object_Equals_System_Object_">Object.Equals(Object)</a>
@@ -137,7 +149,8 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgMoveToSegment(PointF moveTo)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use new constructor.&quot;)]
+public SvgMoveToSegment(PointF moveTo)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -156,6 +169,38 @@
       </tr>
     </tbody>
   </table>
+  
+  
+  <a id="Svg_Pathing_SvgMoveToSegment__ctor_" data-uid="Svg.Pathing.SvgMoveToSegment.#ctor*"></a>
+  <h4 id="Svg_Pathing_SvgMoveToSegment__ctor_System_Boolean_PointF_" data-uid="Svg.Pathing.SvgMoveToSegment.#ctor(System.Boolean,PointF)">SvgMoveToSegment(Boolean, PointF)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SvgMoveToSegment(bool isRelative, PointF moveTo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">isRelative</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">PointF</span></td>
+        <td><span class="parametername">moveTo</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
   </h3>
   
@@ -166,7 +211,8 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void AddToPath(GraphicsPath graphicsPath)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use new AddToPath.&quot;)]
+public override void AddToPath(GraphicsPath graphicsPath)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -187,6 +233,60 @@
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_AddToPath_GraphicsPath_">SvgPathSegment.AddToPath(GraphicsPath)</a></div>
+  
+  
+  <a id="Svg_Pathing_SvgMoveToSegment_AddToPath_" data-uid="Svg.Pathing.SvgMoveToSegment.AddToPath*"></a>
+  <h4 id="Svg_Pathing_SvgMoveToSegment_AddToPath_GraphicsPath_PointF_Svg_Pathing_SvgPathSegmentList_" data-uid="Svg.Pathing.SvgMoveToSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)">AddToPath(GraphicsPath, PointF, SvgPathSegmentList)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">GraphicsPath</span></td>
+        <td><span class="parametername">graphicsPath</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">PointF</span></td>
+        <td><span class="parametername">start</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Svg.Pathing.SvgPathSegmentList.html">SvgPathSegmentList</a></td>
+        <td><span class="parametername">parent</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PointF</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_AddToPath_GraphicsPath_PointF_Svg_Pathing_SvgPathSegmentList_">SvgPathSegment.AddToPath(GraphicsPath, PointF, SvgPathSegmentList)</a></div>
   
   
   <a id="Svg_Pathing_SvgMoveToSegment_ToString_" data-uid="Svg.Pathing.SvgMoveToSegment.ToString*"></a>

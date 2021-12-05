@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class SvgPathSegment
    | SVG.NET API ">
-    <meta name="generator" content="docfx 2.58.5.0">
+    <meta name="generator" content="docfx 2.58.9.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
     <link rel="stylesheet" href="../styles/docfx.vendor.css">
@@ -131,22 +131,12 @@
   
   
   <a id="Svg_Pathing_SvgPathSegment__ctor_" data-uid="Svg.Pathing.SvgPathSegment.#ctor*"></a>
-  <h4 id="Svg_Pathing_SvgPathSegment__ctor" data-uid="Svg.Pathing.SvgPathSegment.#ctor">SvgPathSegment()</h4>
+  <h4 id="Svg_Pathing_SvgPathSegment__ctor_System_Boolean_" data-uid="Svg.Pathing.SvgPathSegment.#ctor(System.Boolean)">SvgPathSegment(Boolean)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected SvgPathSegment()</code></pre>
-  </div>
-  
-  
-  <a id="Svg_Pathing_SvgPathSegment__ctor_" data-uid="Svg.Pathing.SvgPathSegment.#ctor*"></a>
-  <h4 id="Svg_Pathing_SvgPathSegment__ctor_PointF_PointF_" data-uid="Svg.Pathing.SvgPathSegment.#ctor(PointF,PointF)">SvgPathSegment(PointF, PointF)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected SvgPathSegment(PointF start, PointF end)</code></pre>
+    <pre><code class="lang-csharp hljs">protected SvgPathSegment(bool isRelative)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -159,13 +149,66 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">PointF</span></td>
-        <td><span class="parametername">start</span></td>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">isRelative</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_Pathing_SvgPathSegment__ctor_" data-uid="Svg.Pathing.SvgPathSegment.#ctor*"></a>
+  <h4 id="Svg_Pathing_SvgPathSegment__ctor_System_Boolean_PointF_" data-uid="Svg.Pathing.SvgPathSegment.#ctor(System.Boolean,PointF)">SvgPathSegment(Boolean, PointF)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected SvgPathSegment(bool isRelative, PointF end)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">isRelative</span></td>
         <td></td>
       </tr>
       <tr>
         <td><span class="xref">PointF</span></td>
         <td><span class="parametername">end</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+  </h3>
+  
+  
+  <h4 id="Svg_Pathing_SvgPathSegment_NaN" data-uid="Svg.Pathing.SvgPathSegment.NaN">NaN</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static readonly PointF NaN</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PointF</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -199,13 +242,39 @@
   </table>
   
   
+  <a id="Svg_Pathing_SvgPathSegment_IsRelative_" data-uid="Svg.Pathing.SvgPathSegment.IsRelative*"></a>
+  <h4 id="Svg_Pathing_SvgPathSegment_IsRelative" data-uid="Svg.Pathing.SvgPathSegment.IsRelative">IsRelative</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsRelative { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
   <a id="Svg_Pathing_SvgPathSegment_Start_" data-uid="Svg.Pathing.SvgPathSegment.Start*"></a>
   <h4 id="Svg_Pathing_SvgPathSegment_Start" data-uid="Svg.Pathing.SvgPathSegment.Start">Start</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public PointF Start { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Will be removed.&quot;)]
+public PointF Start { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -232,7 +301,8 @@
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract void AddToPath(GraphicsPath graphicsPath)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use new AddToPath.&quot;)]
+public abstract void AddToPath(GraphicsPath graphicsPath)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -247,6 +317,58 @@
       <tr>
         <td><span class="xref">GraphicsPath</span></td>
         <td><span class="parametername">graphicsPath</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_Pathing_SvgPathSegment_AddToPath_" data-uid="Svg.Pathing.SvgPathSegment.AddToPath*"></a>
+  <h4 id="Svg_Pathing_SvgPathSegment_AddToPath_GraphicsPath_PointF_Svg_Pathing_SvgPathSegmentList_" data-uid="Svg.Pathing.SvgPathSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)">AddToPath(GraphicsPath, PointF, SvgPathSegmentList)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">GraphicsPath</span></td>
+        <td><span class="parametername">graphicsPath</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">PointF</span></td>
+        <td><span class="parametername">start</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Svg.Pathing.SvgPathSegmentList.html">SvgPathSegmentList</a></td>
+        <td><span class="parametername">parent</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PointF</span></td>
         <td></td>
       </tr>
     </tbody>
@@ -272,6 +394,105 @@
     <tbody>
       <tr>
         <td><a class="xref" href="Svg.Pathing.SvgPathSegment.html">SvgPathSegment</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_Pathing_SvgPathSegment_Reflect_" data-uid="Svg.Pathing.SvgPathSegment.Reflect*"></a>
+  <h4 id="Svg_Pathing_SvgPathSegment_Reflect_PointF_PointF_" data-uid="Svg.Pathing.SvgPathSegment.Reflect(PointF,PointF)">Reflect(PointF, PointF)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static PointF Reflect(PointF point, PointF mirror)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PointF</span></td>
+        <td><span class="parametername">point</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">PointF</span></td>
+        <td><span class="parametername">mirror</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PointF</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_Pathing_SvgPathSegment_ToAbsolute_" data-uid="Svg.Pathing.SvgPathSegment.ToAbsolute*"></a>
+  <h4 id="Svg_Pathing_SvgPathSegment_ToAbsolute_PointF_System_Boolean_PointF_" data-uid="Svg.Pathing.SvgPathSegment.ToAbsolute(PointF,System.Boolean,PointF)">ToAbsolute(PointF, Boolean, PointF)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static PointF ToAbsolute(PointF point, bool isRelative, PointF start)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PointF</span></td>
+        <td><span class="parametername">point</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">isRelative</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">PointF</span></td>
+        <td><span class="parametername">start</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PointF</span></td>
         <td></td>
       </tr>
     </tbody>

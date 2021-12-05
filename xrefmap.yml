@@ -4069,6 +4069,12 @@ references:
   commentId: M:Svg.Pathing.SvgArcSegment.#ctor(PointF,System.Single,System.Single,System.Single,Svg.Pathing.SvgArcSize,Svg.Pathing.SvgArcSweep,PointF)
   fullName: Svg.Pathing.SvgArcSegment.SvgArcSegment(PointF, System.Single, System.Single, System.Single, Svg.Pathing.SvgArcSize, Svg.Pathing.SvgArcSweep, PointF)
   nameWithType: SvgArcSegment.SvgArcSegment(PointF, Single, Single, Single, SvgArcSize, SvgArcSweep, PointF)
+- uid: Svg.Pathing.SvgArcSegment.#ctor(System.Single,System.Single,System.Single,Svg.Pathing.SvgArcSize,Svg.Pathing.SvgArcSweep,System.Boolean,PointF)
+  name: SvgArcSegment(Single, Single, Single, SvgArcSize, SvgArcSweep, Boolean, PointF)
+  href: api/Svg.Pathing.SvgArcSegment.html#Svg_Pathing_SvgArcSegment__ctor_System_Single_System_Single_System_Single_Svg_Pathing_SvgArcSize_Svg_Pathing_SvgArcSweep_System_Boolean_PointF_
+  commentId: M:Svg.Pathing.SvgArcSegment.#ctor(System.Single,System.Single,System.Single,Svg.Pathing.SvgArcSize,Svg.Pathing.SvgArcSweep,System.Boolean,PointF)
+  fullName: Svg.Pathing.SvgArcSegment.SvgArcSegment(System.Single, System.Single, System.Single, Svg.Pathing.SvgArcSize, Svg.Pathing.SvgArcSweep, System.Boolean, PointF)
+  nameWithType: SvgArcSegment.SvgArcSegment(Single, Single, Single, SvgArcSize, SvgArcSweep, Boolean, PointF)
 - uid: Svg.Pathing.SvgArcSegment.#ctor*
   name: SvgArcSegment
   href: api/Svg.Pathing.SvgArcSegment.html#Svg_Pathing_SvgArcSegment__ctor_
@@ -4082,6 +4088,12 @@ references:
   commentId: M:Svg.Pathing.SvgArcSegment.AddToPath(GraphicsPath)
   fullName: Svg.Pathing.SvgArcSegment.AddToPath(GraphicsPath)
   nameWithType: SvgArcSegment.AddToPath(GraphicsPath)
+- uid: Svg.Pathing.SvgArcSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  name: AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
+  href: api/Svg.Pathing.SvgArcSegment.html#Svg_Pathing_SvgArcSegment_AddToPath_GraphicsPath_PointF_Svg_Pathing_SvgPathSegmentList_
+  commentId: M:Svg.Pathing.SvgArcSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  fullName: Svg.Pathing.SvgArcSegment.AddToPath(GraphicsPath, PointF, Svg.Pathing.SvgPathSegmentList)
+  nameWithType: SvgArcSegment.AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
 - uid: Svg.Pathing.SvgArcSegment.AddToPath*
   name: AddToPath
   href: api/Svg.Pathing.SvgArcSegment.html#Svg_Pathing_SvgArcSegment_AddToPath_
@@ -4209,12 +4221,37 @@ references:
   commentId: T:Svg.Pathing.SvgClosePathSegment
   fullName: Svg.Pathing.SvgClosePathSegment
   nameWithType: SvgClosePathSegment
+- uid: Svg.Pathing.SvgClosePathSegment.#ctor
+  name: SvgClosePathSegment()
+  href: api/Svg.Pathing.SvgClosePathSegment.html#Svg_Pathing_SvgClosePathSegment__ctor
+  commentId: M:Svg.Pathing.SvgClosePathSegment.#ctor
+  fullName: Svg.Pathing.SvgClosePathSegment.SvgClosePathSegment()
+  nameWithType: SvgClosePathSegment.SvgClosePathSegment()
+- uid: Svg.Pathing.SvgClosePathSegment.#ctor(System.Boolean)
+  name: SvgClosePathSegment(Boolean)
+  href: api/Svg.Pathing.SvgClosePathSegment.html#Svg_Pathing_SvgClosePathSegment__ctor_System_Boolean_
+  commentId: M:Svg.Pathing.SvgClosePathSegment.#ctor(System.Boolean)
+  fullName: Svg.Pathing.SvgClosePathSegment.SvgClosePathSegment(System.Boolean)
+  nameWithType: SvgClosePathSegment.SvgClosePathSegment(Boolean)
+- uid: Svg.Pathing.SvgClosePathSegment.#ctor*
+  name: SvgClosePathSegment
+  href: api/Svg.Pathing.SvgClosePathSegment.html#Svg_Pathing_SvgClosePathSegment__ctor_
+  commentId: Overload:Svg.Pathing.SvgClosePathSegment.#ctor
+  isSpec: "True"
+  fullName: Svg.Pathing.SvgClosePathSegment.SvgClosePathSegment
+  nameWithType: SvgClosePathSegment.SvgClosePathSegment
 - uid: Svg.Pathing.SvgClosePathSegment.AddToPath(GraphicsPath)
   name: AddToPath(GraphicsPath)
   href: api/Svg.Pathing.SvgClosePathSegment.html#Svg_Pathing_SvgClosePathSegment_AddToPath_GraphicsPath_
   commentId: M:Svg.Pathing.SvgClosePathSegment.AddToPath(GraphicsPath)
   fullName: Svg.Pathing.SvgClosePathSegment.AddToPath(GraphicsPath)
   nameWithType: SvgClosePathSegment.AddToPath(GraphicsPath)
+- uid: Svg.Pathing.SvgClosePathSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  name: AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
+  href: api/Svg.Pathing.SvgClosePathSegment.html#Svg_Pathing_SvgClosePathSegment_AddToPath_GraphicsPath_PointF_Svg_Pathing_SvgPathSegmentList_
+  commentId: M:Svg.Pathing.SvgClosePathSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  fullName: Svg.Pathing.SvgClosePathSegment.AddToPath(GraphicsPath, PointF, Svg.Pathing.SvgPathSegmentList)
+  nameWithType: SvgClosePathSegment.AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
 - uid: Svg.Pathing.SvgClosePathSegment.AddToPath*
   name: AddToPath
   href: api/Svg.Pathing.SvgClosePathSegment.html#Svg_Pathing_SvgClosePathSegment_AddToPath_
@@ -4247,6 +4284,18 @@ references:
   commentId: M:Svg.Pathing.SvgCubicCurveSegment.#ctor(PointF,PointF,PointF,PointF)
   fullName: Svg.Pathing.SvgCubicCurveSegment.SvgCubicCurveSegment(PointF, PointF, PointF, PointF)
   nameWithType: SvgCubicCurveSegment.SvgCubicCurveSegment(PointF, PointF, PointF, PointF)
+- uid: Svg.Pathing.SvgCubicCurveSegment.#ctor(System.Boolean,PointF,PointF)
+  name: SvgCubicCurveSegment(Boolean, PointF, PointF)
+  href: api/Svg.Pathing.SvgCubicCurveSegment.html#Svg_Pathing_SvgCubicCurveSegment__ctor_System_Boolean_PointF_PointF_
+  commentId: M:Svg.Pathing.SvgCubicCurveSegment.#ctor(System.Boolean,PointF,PointF)
+  fullName: Svg.Pathing.SvgCubicCurveSegment.SvgCubicCurveSegment(System.Boolean, PointF, PointF)
+  nameWithType: SvgCubicCurveSegment.SvgCubicCurveSegment(Boolean, PointF, PointF)
+- uid: Svg.Pathing.SvgCubicCurveSegment.#ctor(System.Boolean,PointF,PointF,PointF)
+  name: SvgCubicCurveSegment(Boolean, PointF, PointF, PointF)
+  href: api/Svg.Pathing.SvgCubicCurveSegment.html#Svg_Pathing_SvgCubicCurveSegment__ctor_System_Boolean_PointF_PointF_PointF_
+  commentId: M:Svg.Pathing.SvgCubicCurveSegment.#ctor(System.Boolean,PointF,PointF,PointF)
+  fullName: Svg.Pathing.SvgCubicCurveSegment.SvgCubicCurveSegment(System.Boolean, PointF, PointF, PointF)
+  nameWithType: SvgCubicCurveSegment.SvgCubicCurveSegment(Boolean, PointF, PointF, PointF)
 - uid: Svg.Pathing.SvgCubicCurveSegment.#ctor*
   name: SvgCubicCurveSegment
   href: api/Svg.Pathing.SvgCubicCurveSegment.html#Svg_Pathing_SvgCubicCurveSegment__ctor_
@@ -4260,6 +4309,12 @@ references:
   commentId: M:Svg.Pathing.SvgCubicCurveSegment.AddToPath(GraphicsPath)
   fullName: Svg.Pathing.SvgCubicCurveSegment.AddToPath(GraphicsPath)
   nameWithType: SvgCubicCurveSegment.AddToPath(GraphicsPath)
+- uid: Svg.Pathing.SvgCubicCurveSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  name: AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
+  href: api/Svg.Pathing.SvgCubicCurveSegment.html#Svg_Pathing_SvgCubicCurveSegment_AddToPath_GraphicsPath_PointF_Svg_Pathing_SvgPathSegmentList_
+  commentId: M:Svg.Pathing.SvgCubicCurveSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  fullName: Svg.Pathing.SvgCubicCurveSegment.AddToPath(GraphicsPath, PointF, Svg.Pathing.SvgPathSegmentList)
+  nameWithType: SvgCubicCurveSegment.AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
 - uid: Svg.Pathing.SvgCubicCurveSegment.AddToPath*
   name: AddToPath
   href: api/Svg.Pathing.SvgCubicCurveSegment.html#Svg_Pathing_SvgCubicCurveSegment_AddToPath_
@@ -4318,6 +4373,12 @@ references:
   commentId: M:Svg.Pathing.SvgLineSegment.#ctor(PointF,PointF)
   fullName: Svg.Pathing.SvgLineSegment.SvgLineSegment(PointF, PointF)
   nameWithType: SvgLineSegment.SvgLineSegment(PointF, PointF)
+- uid: Svg.Pathing.SvgLineSegment.#ctor(System.Boolean,PointF)
+  name: SvgLineSegment(Boolean, PointF)
+  href: api/Svg.Pathing.SvgLineSegment.html#Svg_Pathing_SvgLineSegment__ctor_System_Boolean_PointF_
+  commentId: M:Svg.Pathing.SvgLineSegment.#ctor(System.Boolean,PointF)
+  fullName: Svg.Pathing.SvgLineSegment.SvgLineSegment(System.Boolean, PointF)
+  nameWithType: SvgLineSegment.SvgLineSegment(Boolean, PointF)
 - uid: Svg.Pathing.SvgLineSegment.#ctor*
   name: SvgLineSegment
   href: api/Svg.Pathing.SvgLineSegment.html#Svg_Pathing_SvgLineSegment__ctor_
@@ -4331,6 +4392,12 @@ references:
   commentId: M:Svg.Pathing.SvgLineSegment.AddToPath(GraphicsPath)
   fullName: Svg.Pathing.SvgLineSegment.AddToPath(GraphicsPath)
   nameWithType: SvgLineSegment.AddToPath(GraphicsPath)
+- uid: Svg.Pathing.SvgLineSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  name: AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
+  href: api/Svg.Pathing.SvgLineSegment.html#Svg_Pathing_SvgLineSegment_AddToPath_GraphicsPath_PointF_Svg_Pathing_SvgPathSegmentList_
+  commentId: M:Svg.Pathing.SvgLineSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  fullName: Svg.Pathing.SvgLineSegment.AddToPath(GraphicsPath, PointF, Svg.Pathing.SvgPathSegmentList)
+  nameWithType: SvgLineSegment.AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
 - uid: Svg.Pathing.SvgLineSegment.AddToPath*
   name: AddToPath
   href: api/Svg.Pathing.SvgLineSegment.html#Svg_Pathing_SvgLineSegment_AddToPath_
@@ -4363,6 +4430,12 @@ references:
   commentId: M:Svg.Pathing.SvgMoveToSegment.#ctor(PointF)
   fullName: Svg.Pathing.SvgMoveToSegment.SvgMoveToSegment(PointF)
   nameWithType: SvgMoveToSegment.SvgMoveToSegment(PointF)
+- uid: Svg.Pathing.SvgMoveToSegment.#ctor(System.Boolean,PointF)
+  name: SvgMoveToSegment(Boolean, PointF)
+  href: api/Svg.Pathing.SvgMoveToSegment.html#Svg_Pathing_SvgMoveToSegment__ctor_System_Boolean_PointF_
+  commentId: M:Svg.Pathing.SvgMoveToSegment.#ctor(System.Boolean,PointF)
+  fullName: Svg.Pathing.SvgMoveToSegment.SvgMoveToSegment(System.Boolean, PointF)
+  nameWithType: SvgMoveToSegment.SvgMoveToSegment(Boolean, PointF)
 - uid: Svg.Pathing.SvgMoveToSegment.#ctor*
   name: SvgMoveToSegment
   href: api/Svg.Pathing.SvgMoveToSegment.html#Svg_Pathing_SvgMoveToSegment__ctor_
@@ -4376,6 +4449,12 @@ references:
   commentId: M:Svg.Pathing.SvgMoveToSegment.AddToPath(GraphicsPath)
   fullName: Svg.Pathing.SvgMoveToSegment.AddToPath(GraphicsPath)
   nameWithType: SvgMoveToSegment.AddToPath(GraphicsPath)
+- uid: Svg.Pathing.SvgMoveToSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  name: AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
+  href: api/Svg.Pathing.SvgMoveToSegment.html#Svg_Pathing_SvgMoveToSegment_AddToPath_GraphicsPath_PointF_Svg_Pathing_SvgPathSegmentList_
+  commentId: M:Svg.Pathing.SvgMoveToSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  fullName: Svg.Pathing.SvgMoveToSegment.AddToPath(GraphicsPath, PointF, Svg.Pathing.SvgPathSegmentList)
+  nameWithType: SvgMoveToSegment.AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
 - uid: Svg.Pathing.SvgMoveToSegment.AddToPath*
   name: AddToPath
   href: api/Svg.Pathing.SvgMoveToSegment.html#Svg_Pathing_SvgMoveToSegment_AddToPath_
@@ -4402,18 +4481,18 @@ references:
   commentId: T:Svg.Pathing.SvgPathSegment
   fullName: Svg.Pathing.SvgPathSegment
   nameWithType: SvgPathSegment
-- uid: Svg.Pathing.SvgPathSegment.#ctor
-  name: SvgPathSegment()
-  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment__ctor
-  commentId: M:Svg.Pathing.SvgPathSegment.#ctor
-  fullName: Svg.Pathing.SvgPathSegment.SvgPathSegment()
-  nameWithType: SvgPathSegment.SvgPathSegment()
-- uid: Svg.Pathing.SvgPathSegment.#ctor(PointF,PointF)
-  name: SvgPathSegment(PointF, PointF)
-  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment__ctor_PointF_PointF_
-  commentId: M:Svg.Pathing.SvgPathSegment.#ctor(PointF,PointF)
-  fullName: Svg.Pathing.SvgPathSegment.SvgPathSegment(PointF, PointF)
-  nameWithType: SvgPathSegment.SvgPathSegment(PointF, PointF)
+- uid: Svg.Pathing.SvgPathSegment.#ctor(System.Boolean)
+  name: SvgPathSegment(Boolean)
+  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment__ctor_System_Boolean_
+  commentId: M:Svg.Pathing.SvgPathSegment.#ctor(System.Boolean)
+  fullName: Svg.Pathing.SvgPathSegment.SvgPathSegment(System.Boolean)
+  nameWithType: SvgPathSegment.SvgPathSegment(Boolean)
+- uid: Svg.Pathing.SvgPathSegment.#ctor(System.Boolean,PointF)
+  name: SvgPathSegment(Boolean, PointF)
+  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment__ctor_System_Boolean_PointF_
+  commentId: M:Svg.Pathing.SvgPathSegment.#ctor(System.Boolean,PointF)
+  fullName: Svg.Pathing.SvgPathSegment.SvgPathSegment(System.Boolean, PointF)
+  nameWithType: SvgPathSegment.SvgPathSegment(Boolean, PointF)
 - uid: Svg.Pathing.SvgPathSegment.#ctor*
   name: SvgPathSegment
   href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment__ctor_
@@ -4427,6 +4506,12 @@ references:
   commentId: M:Svg.Pathing.SvgPathSegment.AddToPath(GraphicsPath)
   fullName: Svg.Pathing.SvgPathSegment.AddToPath(GraphicsPath)
   nameWithType: SvgPathSegment.AddToPath(GraphicsPath)
+- uid: Svg.Pathing.SvgPathSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  name: AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
+  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_AddToPath_GraphicsPath_PointF_Svg_Pathing_SvgPathSegmentList_
+  commentId: M:Svg.Pathing.SvgPathSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  fullName: Svg.Pathing.SvgPathSegment.AddToPath(GraphicsPath, PointF, Svg.Pathing.SvgPathSegmentList)
+  nameWithType: SvgPathSegment.AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
 - uid: Svg.Pathing.SvgPathSegment.AddToPath*
   name: AddToPath
   href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_AddToPath_
@@ -4460,6 +4545,38 @@ references:
   isSpec: "True"
   fullName: Svg.Pathing.SvgPathSegment.End
   nameWithType: SvgPathSegment.End
+- uid: Svg.Pathing.SvgPathSegment.IsRelative
+  name: IsRelative
+  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_IsRelative
+  commentId: P:Svg.Pathing.SvgPathSegment.IsRelative
+  fullName: Svg.Pathing.SvgPathSegment.IsRelative
+  nameWithType: SvgPathSegment.IsRelative
+- uid: Svg.Pathing.SvgPathSegment.IsRelative*
+  name: IsRelative
+  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_IsRelative_
+  commentId: Overload:Svg.Pathing.SvgPathSegment.IsRelative
+  isSpec: "True"
+  fullName: Svg.Pathing.SvgPathSegment.IsRelative
+  nameWithType: SvgPathSegment.IsRelative
+- uid: Svg.Pathing.SvgPathSegment.NaN
+  name: NaN
+  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_NaN
+  commentId: F:Svg.Pathing.SvgPathSegment.NaN
+  fullName: Svg.Pathing.SvgPathSegment.NaN
+  nameWithType: SvgPathSegment.NaN
+- uid: Svg.Pathing.SvgPathSegment.Reflect(PointF,PointF)
+  name: Reflect(PointF, PointF)
+  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_Reflect_PointF_PointF_
+  commentId: M:Svg.Pathing.SvgPathSegment.Reflect(PointF,PointF)
+  fullName: Svg.Pathing.SvgPathSegment.Reflect(PointF, PointF)
+  nameWithType: SvgPathSegment.Reflect(PointF, PointF)
+- uid: Svg.Pathing.SvgPathSegment.Reflect*
+  name: Reflect
+  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_Reflect_
+  commentId: Overload:Svg.Pathing.SvgPathSegment.Reflect
+  isSpec: "True"
+  fullName: Svg.Pathing.SvgPathSegment.Reflect
+  nameWithType: SvgPathSegment.Reflect
 - uid: Svg.Pathing.SvgPathSegment.Start
   name: Start
   href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_Start
@@ -4473,6 +4590,19 @@ references:
   isSpec: "True"
   fullName: Svg.Pathing.SvgPathSegment.Start
   nameWithType: SvgPathSegment.Start
+- uid: Svg.Pathing.SvgPathSegment.ToAbsolute(PointF,System.Boolean,PointF)
+  name: ToAbsolute(PointF, Boolean, PointF)
+  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_ToAbsolute_PointF_System_Boolean_PointF_
+  commentId: M:Svg.Pathing.SvgPathSegment.ToAbsolute(PointF,System.Boolean,PointF)
+  fullName: Svg.Pathing.SvgPathSegment.ToAbsolute(PointF, System.Boolean, PointF)
+  nameWithType: SvgPathSegment.ToAbsolute(PointF, Boolean, PointF)
+- uid: Svg.Pathing.SvgPathSegment.ToAbsolute*
+  name: ToAbsolute
+  href: api/Svg.Pathing.SvgPathSegment.html#Svg_Pathing_SvgPathSegment_ToAbsolute_
+  commentId: Overload:Svg.Pathing.SvgPathSegment.ToAbsolute
+  isSpec: "True"
+  fullName: Svg.Pathing.SvgPathSegment.ToAbsolute
+  nameWithType: SvgPathSegment.ToAbsolute
 - uid: Svg.Pathing.SvgPathSegmentList
   name: SvgPathSegmentList
   href: api/Svg.Pathing.SvgPathSegmentList.html
@@ -4718,6 +4848,18 @@ references:
   commentId: M:Svg.Pathing.SvgQuadraticCurveSegment.#ctor(PointF,PointF,PointF)
   fullName: Svg.Pathing.SvgQuadraticCurveSegment.SvgQuadraticCurveSegment(PointF, PointF, PointF)
   nameWithType: SvgQuadraticCurveSegment.SvgQuadraticCurveSegment(PointF, PointF, PointF)
+- uid: Svg.Pathing.SvgQuadraticCurveSegment.#ctor(System.Boolean,PointF)
+  name: SvgQuadraticCurveSegment(Boolean, PointF)
+  href: api/Svg.Pathing.SvgQuadraticCurveSegment.html#Svg_Pathing_SvgQuadraticCurveSegment__ctor_System_Boolean_PointF_
+  commentId: M:Svg.Pathing.SvgQuadraticCurveSegment.#ctor(System.Boolean,PointF)
+  fullName: Svg.Pathing.SvgQuadraticCurveSegment.SvgQuadraticCurveSegment(System.Boolean, PointF)
+  nameWithType: SvgQuadraticCurveSegment.SvgQuadraticCurveSegment(Boolean, PointF)
+- uid: Svg.Pathing.SvgQuadraticCurveSegment.#ctor(System.Boolean,PointF,PointF)
+  name: SvgQuadraticCurveSegment(Boolean, PointF, PointF)
+  href: api/Svg.Pathing.SvgQuadraticCurveSegment.html#Svg_Pathing_SvgQuadraticCurveSegment__ctor_System_Boolean_PointF_PointF_
+  commentId: M:Svg.Pathing.SvgQuadraticCurveSegment.#ctor(System.Boolean,PointF,PointF)
+  fullName: Svg.Pathing.SvgQuadraticCurveSegment.SvgQuadraticCurveSegment(System.Boolean, PointF, PointF)
+  nameWithType: SvgQuadraticCurveSegment.SvgQuadraticCurveSegment(Boolean, PointF, PointF)
 - uid: Svg.Pathing.SvgQuadraticCurveSegment.#ctor*
   name: SvgQuadraticCurveSegment
   href: api/Svg.Pathing.SvgQuadraticCurveSegment.html#Svg_Pathing_SvgQuadraticCurveSegment__ctor_
@@ -4731,6 +4873,12 @@ references:
   commentId: M:Svg.Pathing.SvgQuadraticCurveSegment.AddToPath(GraphicsPath)
   fullName: Svg.Pathing.SvgQuadraticCurveSegment.AddToPath(GraphicsPath)
   nameWithType: SvgQuadraticCurveSegment.AddToPath(GraphicsPath)
+- uid: Svg.Pathing.SvgQuadraticCurveSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  name: AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
+  href: api/Svg.Pathing.SvgQuadraticCurveSegment.html#Svg_Pathing_SvgQuadraticCurveSegment_AddToPath_GraphicsPath_PointF_Svg_Pathing_SvgPathSegmentList_
+  commentId: M:Svg.Pathing.SvgQuadraticCurveSegment.AddToPath(GraphicsPath,PointF,Svg.Pathing.SvgPathSegmentList)
+  fullName: Svg.Pathing.SvgQuadraticCurveSegment.AddToPath(GraphicsPath, PointF, Svg.Pathing.SvgPathSegmentList)
+  nameWithType: SvgQuadraticCurveSegment.AddToPath(GraphicsPath, PointF, SvgPathSegmentList)
 - uid: Svg.Pathing.SvgQuadraticCurveSegment.AddToPath*
   name: AddToPath
   href: api/Svg.Pathing.SvgQuadraticCurveSegment.html#Svg_Pathing_SvgQuadraticCurveSegment_AddToPath_
