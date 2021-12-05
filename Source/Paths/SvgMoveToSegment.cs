@@ -20,5 +20,17 @@ namespace Svg.Pathing
         {
             return (IsRelative ? "m" : "M") + End.ToSvgString();
         }
+
+        [System.Obsolete("Use new constructor.")]
+        public SvgMoveToSegment(PointF moveTo)
+            : this(false, moveTo)
+        {
+            Start = moveTo;
+        }
+        [System.Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
+        }
     }
 }

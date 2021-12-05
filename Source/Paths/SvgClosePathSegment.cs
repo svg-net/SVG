@@ -28,5 +28,16 @@ namespace Svg.Pathing
         {
             return IsRelative ? "z" : "Z";
         }
+
+        [System.Obsolete("Use new constructor.")]
+        public SvgClosePathSegment()
+            : this(true)
+        {
+        }
+        [System.Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
+        }
     }
 }

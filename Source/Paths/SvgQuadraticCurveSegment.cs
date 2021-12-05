@@ -64,5 +64,17 @@ namespace Svg.Pathing
             else
                 return (IsRelative ? "q" : "Q") + ControlPoint.ToSvgString() + " " + End.ToSvgString();
         }
+
+        [System.Obsolete("Use new constructor.")]
+        public SvgQuadraticCurveSegment(PointF start, PointF controlPoint, PointF end)
+            : this(false, controlPoint, end)
+        {
+            Start = start;
+        }
+        [System.Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
+        }
     }
 }

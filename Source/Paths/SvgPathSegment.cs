@@ -55,5 +55,10 @@ namespace Svg.Pathing
         {
             return MemberwiseClone() as SvgPathSegment;
         }
+
+        [Obsolete("Will be removed.")]
+        public PointF Start { get; set; }
+        [Obsolete("Use new AddToPath.")]
+        public abstract void AddToPath(GraphicsPath graphicsPath);
     }
 }

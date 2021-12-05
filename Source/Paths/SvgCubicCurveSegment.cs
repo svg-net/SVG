@@ -49,5 +49,17 @@ namespace Svg.Pathing
             else
                 return (IsRelative ? "c" : "C") + FirstControlPoint.ToSvgString() + " " + SecondControlPoint.ToSvgString() + " " + End.ToSvgString();
         }
+
+        [System.Obsolete("Use new constructor.")]
+        public SvgCubicCurveSegment(PointF start, PointF firstControlPoint, PointF secondControlPoint, PointF end)
+            : this(false, firstControlPoint, secondControlPoint, end)
+        {
+            Start = start;
+        }
+        [System.Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
+        }
     }
 }

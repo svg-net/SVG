@@ -26,5 +26,17 @@ namespace Svg.Pathing
             else
                 return (IsRelative ? "l" : "L") + End.ToSvgString();
         }
+
+        [System.Obsolete("Use new constructor.")]
+        public SvgLineSegment(PointF start, PointF end)
+            : this(false, end)
+        {
+            Start = start;
+        }
+        [System.Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
+        }
     }
 }

@@ -141,6 +141,18 @@ namespace Svg.Pathing
             var sweepFlag = Sweep == SvgArcSweep.Positive ? "1" : "0";
             return (IsRelative ? "a" : "A") + RadiusX.ToSvgString() + " " + RadiusY.ToSvgString() + " " + Angle.ToSvgString() + " " + arcFlag + " " + sweepFlag + " " + End.ToSvgString();
         }
+
+        [Obsolete("Use new constructor.")]
+        public SvgArcSegment(PointF start, float radiusX, float radiusY, float angle, SvgArcSize size, SvgArcSweep sweep, PointF end)
+            : this(radiusX, radiusY, angle, size, sweep, false, end)
+        {
+            Start = start;
+        }
+        [Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
+        }
     }
 
     [Flags]
