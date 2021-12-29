@@ -151,6 +151,7 @@ namespace Svg
                     var destRect = destClip;
                     renderer.SetClip(new Region(destClip), CombineMode.Intersect);
                     SetClip(renderer);
+                    SetMask(renderer);
 
                     var aspectRatio = AspectRatio;
                     if (aspectRatio.Align != SvgPreserveAspectRatio.none)
@@ -232,6 +233,7 @@ namespace Svg
                         }
                     }
 
+                    ResetMask(renderer);
                     ResetClip(renderer);
                 }
             }
