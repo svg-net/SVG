@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NO_SDC
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -191,3 +192,4 @@ namespace Svg.FilterEffects
         }
     }
 }
+#endif

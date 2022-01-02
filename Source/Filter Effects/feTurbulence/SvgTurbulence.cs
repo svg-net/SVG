@@ -38,11 +38,13 @@
             set { Attributes["type"] = value; }
         }
 
+#if !NO_SDC
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feTurbulence filter Process().
             buffer[Result] = buffer[Input];
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

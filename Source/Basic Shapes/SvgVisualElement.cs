@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Globalization;
 using System.Linq;
 using Svg.ExtensionMethods;
@@ -15,7 +17,9 @@ namespace Svg
     public abstract partial class SvgVisualElement : SvgElement, ISvgBoundable, ISvgStylable, ISvgClipable
     {
         private bool? _requiresSmoothRendering;
+#if !NO_SDC
         private Region _previousClip;
+
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
@@ -43,6 +47,7 @@ namespace Svg
         /// </summary>
         /// <value>The bounds.</value>
         public abstract RectangleF Bounds { get; }
+#endif
 
         /// <summary>
         /// Gets the associated <see cref="SvgClipPath"/> if one has been specified.
@@ -122,6 +127,7 @@ namespace Svg
         }
 
         protected virtual bool Renderable { get { return true; } }
+#if !NO_SDC
 
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
@@ -315,14 +321,14 @@ namespace Svg
                                     strokeWidth = Math.Max(strokeWidth, 1f);
 
                                     /* divide by stroke width - GDI uses stroke width as unit.*/
-                                    var dashPattern = strokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
+                                    var dashPattern = strokeDashArray.Select(u => ((u.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f :
                                         u.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth).ToArray();
                                     var length = dashPattern.Length;
 
                                     if (StrokeLineCap == SvgStrokeLineCap.Round)
                                     {
                                         // to handle round caps, we have to adapt the dash pattern
-                                        // by increasing the dash length by the stroke width - GDI draws the rounded 
+                                        // by increasing the dash length by the stroke width - GDI draws the rounded
                                         // edge inside the dash line, SVG draws it outside the line
                                         var pattern = new float[length];
                                         var offset = 1; // the values are already normalized to dash width
@@ -377,7 +383,7 @@ namespace Svg
 
                                         if (dashOffset != 0f)
                                         {
-                                            pen.DashOffset = ((dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f : 
+                                            pen.DashOffset = ((dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this) <= 0f) ? 1f :
                                                 dashOffset.ToDeviceValue(renderer, UnitRenderingType.Other, this)) / strokeWidth;
                                         }
                                     }
@@ -446,11 +452,11 @@ namespace Svg
                 {
                     clip = clip.Trim();
                     var offsets = (from o in clip.Substring(5, clip.Length - 6).Split(',')
-                                   select float.Parse(o.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture)).ToList();
+                        select float.Parse(o.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture)).ToList();
                     var bounds = this.Bounds;
                     var clipRect = new RectangleF(bounds.Left + offsets[3], bounds.Top + offsets[0],
-                                                  bounds.Width - (offsets[3] + offsets[1]),
-                                                  bounds.Height - (offsets[2] + offsets[0]));
+                        bounds.Width - (offsets[3] + offsets[1]),
+                        bounds.Height - (offsets[2] + offsets[0]));
                     renderer.SetClip(new Region(clipRect), CombineMode.Intersect);
                 }
             }
@@ -486,5 +492,6 @@ namespace Svg
         {
             this.ResetClip(renderer);
         }
+#endif
     }
 }

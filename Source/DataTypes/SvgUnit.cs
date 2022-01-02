@@ -90,6 +90,7 @@ namespace Svg
 
             switch (type)
             {
+#if !NO_SDC
                 case SvgUnitType.Em:
                     using (var fontManager = owner?.OwnerDocument?.FontManager == null ? new SvgFontManager() : null)
                     using (var currFont = GetFont(renderer, owner, fontManager))
@@ -120,6 +121,7 @@ namespace Svg
                         }
                     }
                     break;
+#endif
                 case SvgUnitType.Centimeter:
                     _deviceValue = (float)((value / cmInInch) * ppi);
                     break;
@@ -141,6 +143,7 @@ namespace Svg
                 case SvgUnitType.User:
                     _deviceValue = value;
                     break;
+#if !NO_SDC
                 case SvgUnitType.Percentage:
                     // Can't calculate if there is no style owner
                     var boundable = (renderer == null ? (owner == null ? null : owner.OwnerDocument) : renderer.GetBoundable());
@@ -150,7 +153,7 @@ namespace Svg
                         break;
                     }
 
-                    System.Drawing.SizeF size = boundable.Bounds.Size;
+                    SizeF size = boundable.Bounds.Size;
 
                     switch (renderType)
                     {
@@ -176,6 +179,7 @@ namespace Svg
                             break;
                     }
                     break;
+#endif
                 default:
                     _deviceValue = value;
                     break;
@@ -183,12 +187,14 @@ namespace Svg
 
             return this._deviceValue.HasValue ? this._deviceValue.Value : 0f;
         }
+#if !NO_SDC
 
         private IFontDefn GetFont(ISvgRenderer renderer, SvgElement owner, SvgFontManager fontManager)
         {
             var visual = owner?.Parents.OfType<SvgVisualElement>().FirstOrDefault();
             return visual?.GetFont(renderer, fontManager);
         }
+#endif
 
         /// <summary>
         /// Converts the current unit to a percentage, if applicable.

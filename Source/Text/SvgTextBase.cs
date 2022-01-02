@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -250,6 +252,7 @@ namespace Svg
         {
             return this.Text;
         }
+#if !NO_SDC
 
         /// <summary>
         /// Gets the bounds of the element.
@@ -426,6 +429,7 @@ namespace Svg
             _path = path;
             this.IsPathDirty = false;
         }
+#endif
 
         private static readonly Regex MultipleSpaces = new Regex(@" {2,}", RegexOptions.Compiled);
 
@@ -548,6 +552,7 @@ namespace Svg
                 newObj._rotations.Add(rotation);
             return newObj;
         }
+#if !NO_SDC
 
         private class FontBoundable : ISvgBoundable
         {
@@ -755,7 +760,7 @@ namespace Svg
 
                         xTextStart = xTextStart.Equals(Current.X) ? _xAnchor : xTextStart;
                         DrawStringOnCurrPath(value[i].ToString(), font, new PointF(_xAnchor, yPos),
-                                             fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
+                            fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
                     }
 
                     // Render any remaining characters
@@ -788,7 +793,7 @@ namespace Svg
                             {
                                 xTextStart = xTextStart.Equals(Current.X) ? xPos : xTextStart;
                                 DrawStringOnCurrPath(value[i].ToString(), font, new PointF(xPos, yPos),
-                                                     fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
+                                    fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
                             }
                             else
                             {
@@ -798,7 +803,7 @@ namespace Svg
                                 {
                                     pathStats.LocationAngleAtOffset(xPos + halfWidth, out pathPoint, out rotation);
                                     pathPoint = new PointF((float)(pathPoint.X - halfWidth * Math.Cos(rotation * Math.PI / 180) - (float)pathScale * yPos * Math.Sin(rotation * Math.PI / 180)),
-                                                           (float)(pathPoint.Y - halfWidth * Math.Sin(rotation * Math.PI / 180) + (float)pathScale * yPos * Math.Cos(rotation * Math.PI / 180)));
+                                        (float)(pathPoint.Y - halfWidth * Math.Sin(rotation * Math.PI / 180) + (float)pathScale * yPos * Math.Cos(rotation * Math.PI / 180)));
                                     xTextStart = xTextStart.Equals(Current.X) ? pathPoint.X : xTextStart;
                                     DrawStringOnCurrPath(value[i].ToString(), font, pathPoint, fontBaselineHeight, rotation);
                                 }
@@ -821,10 +826,10 @@ namespace Svg
                     {
                         xPos += (xOffsets.Count > lastIndividualChar ? xOffsets[lastIndividualChar] : 0);
                         yPos = (yAnchors.Count > lastIndividualChar ? yAnchors[lastIndividualChar] : yPos) +
-                                (yOffsets.Count > lastIndividualChar ? yOffsets[lastIndividualChar] : 0);
+                               (yOffsets.Count > lastIndividualChar ? yOffsets[lastIndividualChar] : 0);
                         xTextStart = xTextStart.Equals(Current.X) ? xPos : xTextStart;
                         DrawStringOnCurrPath(value.Substring(lastIndividualChar), font, new PointF(xPos, yPos),
-                                             fontBaselineHeight, rotations.LastOrDefault());
+                            fontBaselineHeight, rotations.LastOrDefault());
                         var bounds = font.MeasureString(this.Renderer, value.Substring(lastIndividualChar));
                         xPos += bounds.Width;
                     }
@@ -993,6 +998,7 @@ namespace Svg
                 return results;
             }
         }
+#endif
 
         /// <summary>Empty text elements are not legal - only write this element if it has children.</summary>
         public override bool ShouldWriteElement()

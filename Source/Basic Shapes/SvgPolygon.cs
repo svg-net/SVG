@@ -1,5 +1,7 @@
 using System.Diagnostics;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -9,7 +11,9 @@ namespace Svg
     [SvgElement("polygon")]
     public partial class SvgPolygon : SvgMarkerElement
     {
+#if !NO_SDC
         private GraphicsPath _path;
+#endif
 
         /// <summary>
         /// The points that make up the SvgPolygon
@@ -20,6 +24,7 @@ namespace Svg
             get { return GetAttribute<SvgPointCollection>("points", false); }
             set { Attributes["points"] = value; IsPathDirty = true; }
         }
+#if !NO_SDC
 
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
@@ -68,6 +73,7 @@ namespace Svg
             }
             return this._path;
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

@@ -1,4 +1,6 @@
-﻿using System.Drawing.Drawing2D;
+﻿#if !NO_SDC
+using System.Drawing.Drawing2D;
+#endif
 using System.Globalization;
 
 namespace Svg.Transforms
@@ -12,6 +14,7 @@ namespace Svg.Transforms
 
         public float Y { get; set; }
 
+#if !NO_SDC
         public override Matrix Matrix
         {
             get
@@ -21,6 +24,7 @@ namespace Svg.Transforms
                 return matrix;
             }
         }
+#endif
 
         public override string WriteToString()
         {

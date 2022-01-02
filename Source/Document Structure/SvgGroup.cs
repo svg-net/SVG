@@ -1,5 +1,7 @@
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -9,6 +11,7 @@ namespace Svg
     [SvgElement("g")]
     public partial class SvgGroup : SvgMarkerElement
     {
+#if !NO_SDC
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
@@ -50,6 +53,7 @@ namespace Svg
                 return TransformedBounds(r);
             }
         }
+#endif
 
         protected override bool Renderable { get { return false; } }
 

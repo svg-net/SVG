@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using Svg.Pathing;
 
 namespace Svg
@@ -10,7 +12,9 @@ namespace Svg
     [SvgElement("path")]
     public partial class SvgPath : SvgMarkerElement, ISvgPathElement
     {
+#if !NO_SDC
         private GraphicsPath _path;
+#endif
 
         /// <summary>
         /// Gets or sets a <see cref="SvgPathSegmentList"/> of path data.
@@ -40,6 +44,7 @@ namespace Svg
             set { Attributes["pathLength"] = value; }
         }
 
+#if !NO_SDC
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
@@ -84,6 +89,7 @@ namespace Svg
             }
             return _path;
         }
+#endif
 
         public void OnPathUpdated()
         {

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Linq;
 
 namespace Svg
@@ -37,6 +39,7 @@ namespace Svg
             get { return GetAttribute("y2", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
             set { Attributes["y2"] = value; }
         }
+#if !NO_SDC
 
         public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
@@ -96,7 +99,7 @@ namespace Svg
                     if (dx != 0f && dy != 0f)
                     {
                         var startX = (float)((dy * dx * (midPoint.Y - y2) + Math.Pow(dx, 2) * midPoint.X + Math.Pow(dy, 2) * x1) /
-                        (Math.Pow(dx, 2) + Math.Pow(dy, 2)));
+                                             (Math.Pow(dx, 2) + Math.Pow(dy, 2)));
                         var endY = dy * (startX - x1) / dx + y2;
                         points[0] = new PointF(startX, midPoint.Y + (midPoint.Y - endY));
                         points[1] = new PointF(midPoint.X + (midPoint.X - startX), endY);
@@ -125,6 +128,7 @@ namespace Svg
                 if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.PopBoundable();
             }
         }
+#endif
 
         private SvgUnit NormalizeUnit(SvgUnit orig)
         {
@@ -141,6 +145,7 @@ namespace Svg
             End = 2
         }
 
+#if !NO_SDC
         private LinePoints PointsToMove(ISvgBoundable boundable, PointF specifiedStart, PointF specifiedEnd)
         {
             var bounds = boundable.Bounds;
@@ -157,6 +162,7 @@ namespace Svg
             return (boundable.Bounds.Contains(specifiedStart) ? LinePoints.Start : LinePoints.None) |
                    (boundable.Bounds.Contains(specifiedEnd) ? LinePoints.End : LinePoints.None);
         }
+#endif
 
         public struct GradientPoints
         {
@@ -169,6 +175,7 @@ namespace Svg
                 this.EndPoint = endPoint;
             }
         }
+#if !NO_SDC
 
         private GradientPoints ExpandGradient(ISvgBoundable boundable, PointF specifiedStart, PointF specifiedEnd)
         {
@@ -212,6 +219,7 @@ namespace Svg
 
             return new GradientPoints(effectiveStart, effectiveEnd);
         }
+#endif
 
         private IList<PointF> CandidateIntersections(RectangleF bounds, PointF p1, PointF p2)
         {
@@ -256,6 +264,7 @@ namespace Svg
 
             return results;
         }
+#if !NO_SDC
 
         private ColorBlend CalculateColorBlend(ISvgRenderer renderer, float opacity, PointF specifiedStart, PointF effectiveStart, PointF specifiedEnd, PointF effectiveEnd)
         {
@@ -378,6 +387,7 @@ namespace Svg
 
             return colorBlend;
         }
+#endif
 
         private static PointF CalculateClosestIntersectionPoint(PointF sourcePoint, IList<PointF> targetPoints)
         {

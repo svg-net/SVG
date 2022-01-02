@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Diagnostics;
 
 namespace Svg
@@ -11,6 +13,7 @@ namespace Svg
     [SvgElement("polyline")]
     public partial class SvgPolyline : SvgPolygon
     {
+#if !NO_SDC
         private GraphicsPath _Path;
 
         public override GraphicsPath Path(ISvgRenderer renderer)
@@ -24,7 +27,7 @@ namespace Svg
                     for (int i = 0; (i + 1) < Points.Count; i += 2)
                     {
                         PointF endPoint = new PointF(Points[i].ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                                     Points[i + 1].ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+                            Points[i + 1].ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
 
                         if (renderer == null)
                         {
@@ -53,6 +56,7 @@ namespace Svg
             }
             return _Path;
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

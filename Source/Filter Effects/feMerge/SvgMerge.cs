@@ -6,6 +6,7 @@ namespace Svg.FilterEffects
     [SvgElement("feMerge")]
     public partial class SvgMerge : SvgFilterPrimitive
     {
+#if !NO_SDC
         public override void Process(ImageBuffer buffer)
         {
             var children = this.Children.OfType<SvgMergeNode>().ToList();
@@ -16,12 +17,13 @@ namespace Svg.FilterEffects
                 foreach (var child in children)
                 {
                     g.DrawImage(buffer[child.Input], new Rectangle(0, 0, inputImage.Width, inputImage.Height),
-                                0, 0, inputImage.Width, inputImage.Height, GraphicsUnit.Pixel);
+                        0, 0, inputImage.Width, inputImage.Height, GraphicsUnit.Pixel);
                 }
                 g.Flush();
             }
             buffer[this.Result] = result;
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

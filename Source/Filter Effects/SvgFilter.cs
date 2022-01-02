@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Linq;
 using Svg.DataTypes;
 
@@ -76,6 +78,7 @@ namespace Svg.FilterEffects
             set { Attributes["href"] = value; }
         }
 
+#if !NO_SDC
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
@@ -135,6 +138,7 @@ namespace Svg.FilterEffects
                 }
             }
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

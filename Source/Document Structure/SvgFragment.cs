@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -17,7 +19,7 @@ namespace Svg
         /// Gets the SVG namespace string.
         /// </summary>
         public static readonly Uri Namespace = new Uri(SvgNamespaces.SvgNamespace);
-
+#if !NO_SDC
         PointF ISvgBoundable.Location
         {
             get { return PointF.Empty; }
@@ -38,6 +40,7 @@ namespace Svg
         {
             get { return new RectangleF(((ISvgBoundable)this).Location, ((ISvgBoundable)this).Size); }
         }
+#endif
 
         /// <summary>
         /// Gets or sets the position where the left point of the svg should start.
@@ -145,6 +148,7 @@ namespace Svg
             get { return GetAttribute("space", true, XmlSpaceHandling.Default); }
             set { base.SpaceHandling = value; IsPathDirty = true; }
         }
+#if !NO_SDC
 
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
@@ -173,8 +177,8 @@ namespace Svg
                     {
                         var size = this is SvgDocument ? renderer.GetBoundable().Bounds.Size : GetDimensions(renderer);
                         var clip = new RectangleF(X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                                  Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
-                                                  size.Width, size.Height);
+                            Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
+                            size.Width, size.Height);
                         renderer.SetClip(new Region(clip), CombineMode.Intersect);
                         try
                         {
@@ -292,6 +296,7 @@ namespace Svg
 
             return new SizeF(w, h);
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

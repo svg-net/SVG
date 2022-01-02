@@ -1,5 +1,7 @@
 ﻿using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg.Pathing
 {
@@ -34,6 +36,7 @@ namespace Svg.Pathing
             return new PointF(x2, y2);
         }
 
+#if !NO_SDC
         private static PointF CalculateControlPoint(PointF start, PointF firstControlPoint)
         {
             var x1 = (firstControlPoint.X * 3 - start.X) / 2;
@@ -66,6 +69,13 @@ namespace Svg.Pathing
             return end;
         }
 
+        [System.Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
+        }
+#endif
+
         public override string ToString()
         {
             if (float.IsNaN(ControlPoint.X) || float.IsNaN(ControlPoint.Y))
@@ -79,11 +89,6 @@ namespace Svg.Pathing
             : this(false, controlPoint, end)
         {
             Start = start;
-        }
-        [System.Obsolete("Use new AddToPath.")]
-        public override void AddToPath(GraphicsPath graphicsPath)
-        {
-            AddToPath(graphicsPath, Start, null);
         }
     }
 }

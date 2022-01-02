@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -17,7 +19,9 @@ namespace Svg
         private SvgUnit _cornerRadiusX = 0f;
         private SvgUnit _cornerRadiusY = 0f;
 
+#if !NO_SDC
         private GraphicsPath _path;
+#endif
 
         /// <summary>
         /// Gets an <see cref="SvgPoint"/> representing the top left point of the rectangle.
@@ -108,6 +112,7 @@ namespace Svg
                     return false;
             }
         }
+#if !NO_SDC
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
@@ -223,6 +228,7 @@ namespace Svg
                 base.Render(renderer);
             }
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

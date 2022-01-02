@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Linq;
 
 namespace Svg.Transforms
@@ -38,6 +40,7 @@ namespace Svg.Transforms
             OnTransformChanged();
         }
 
+#if !NO_SDC
         /// <summary>
         /// Multiplies all matrices
         /// </summary>
@@ -52,10 +55,11 @@ namespace Svg.Transforms
 
             return transformMatrix;
         }
+#endif
 
         public override bool Equals(object obj)
         {
-            if (Count == 0 && Count == base.Count) // default will be an empty list 
+            if (Count == 0 && Count == base.Count) // default will be an empty list
                 return true;
             return base.Equals(obj);
         }

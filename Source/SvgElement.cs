@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Linq;
 using System.Reflection;
 using System.Xml;
@@ -41,8 +43,10 @@ namespace Svg
         private EventHandlerList _eventHandlers;
         private SvgElementCollection _children;
         private static readonly object _loadEventKey = new object();
+#if !NO_SDC
         private Matrix _graphicsTransform;
         private Region _graphicsClip;
+#endif
         private SvgCustomAttributeCollection _customAttributes;
         private List<ISvgNode> _nodes = new List<ISvgNode>();
 
@@ -335,6 +339,7 @@ namespace Svg
         {
             get { return this._customAttributes; }
         }
+#if !NO_SDC
 
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
@@ -396,6 +401,7 @@ namespace Svg
         {
             PopTransforms(renderer);
         }
+#endif
 
         /// <summary>
         /// Gets or sets the element transforms.
@@ -415,6 +421,7 @@ namespace Svg
             }
         }
 
+#if !NO_SDC
         /// <summary>
         /// Transforms the given rectangle with the set transformation, if any.
         /// Can be applied to bounds calculated without considering the element transformation.
@@ -435,6 +442,7 @@ namespace Svg
             }
             return bounds;
         }
+#endif
 
         /// <summary>
         /// Gets or sets the ID of the element.
@@ -579,6 +587,7 @@ namespace Svg
             throw new NotImplementedException();
         }
 
+#if !NO_SDC
         /// <summary>
         /// Renders this element to the <see cref="ISvgRenderer"/>.
         /// </summary>
@@ -587,6 +596,7 @@ namespace Svg
         {
             Render(renderer);
         }
+#endif
 
         /// <summary>Derrived classes may decide that the element should not be written. For example, the text element shouldn't be written if it's empty.</summary>
         public virtual bool ShouldWriteElement()
@@ -1038,6 +1048,7 @@ namespace Svg
                 }
             }
         }
+#if !NO_SDC
 
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
@@ -1164,6 +1175,7 @@ namespace Svg
 
             return ret;
         }
+#endif
 
         /// <summary>
         /// Creates a new object that is a copy of the current instance.
@@ -1589,6 +1601,8 @@ namespace Svg
         SvgElementCollection Children { get; }
         IList<ISvgNode> Nodes { get; }
 
+#if !NO_SDC
         void Render(ISvgRenderer renderer);
+#endif
     }
 }

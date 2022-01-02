@@ -37,6 +37,7 @@ namespace Svg
             get { return GetAttribute<Uri>("marker-start", true); }
             set { Attributes["marker-start"] = value; }
         }
+#if !NO_SDC
 
         /// <summary>
         /// Renders the stroke of the element to the specified <see cref="ISvgRenderer"/>.
@@ -101,5 +102,6 @@ namespace Svg
 
             return result;
         }
+#endif
     }
 }

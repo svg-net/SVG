@@ -70,6 +70,7 @@ namespace Svg.FilterEffects
             _stdDeviationY = stdDeviationY;
             _isPrecalculated = true;
         }
+#if !NO_SDC
 
         public Bitmap Apply(Image inputImage)
         {
@@ -234,6 +235,7 @@ namespace Svg.FilterEffects
                 }
             }
         }
+#endif
 
         /// <summary>
         /// Gets or sets the radius of the blur (only allows for one value - not the two specified in the SVG Spec)
@@ -245,12 +247,14 @@ namespace Svg.FilterEffects
             set { Attributes["stdDeviation"] = value; }
         }
 
+#if !NO_SDC
         public override void Process(ImageBuffer buffer)
         {
             var inputImage = buffer[this.Input];
             var result = Apply(inputImage);
             buffer[this.Result] = result;
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

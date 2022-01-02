@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg.Pathing
 {
@@ -10,6 +12,7 @@ namespace Svg.Pathing
         {
         }
 
+#if !NO_SDC
         public override PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)
         {
             graphicsPath.CloseFigure();
@@ -23,6 +26,7 @@ namespace Svg.Pathing
                 }
             return end;
         }
+#endif
 
         public override string ToString()
         {

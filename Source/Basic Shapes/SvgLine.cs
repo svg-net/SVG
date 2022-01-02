@@ -1,5 +1,7 @@
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -14,7 +16,11 @@ namespace Svg
         private SvgUnit _endX = 0f;
         private SvgUnit _endY = 0f;
 
+        #if !NO_SDC
+
         private GraphicsPath _path;
+
+        #endif
 
         [SvgAttribute("x1")]
         public SvgUnit StartX
@@ -84,15 +90,16 @@ namespace Svg
                 // Do nothing
             }
         }
+#if !NO_SDC
 
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
             if ((this._path == null || this.IsPathDirty) && base.StrokeWidth > 0)
             {
                 PointF start = new PointF(this.StartX.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                          this.StartY.ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+                    this.StartY.ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
                 PointF end = new PointF(this.EndX.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                        this.EndY.ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+                    this.EndY.ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
 
                 this._path = new GraphicsPath();
 
@@ -114,6 +121,7 @@ namespace Svg
             }
             return this._path;
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

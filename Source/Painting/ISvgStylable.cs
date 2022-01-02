@@ -1,4 +1,6 @@
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -19,6 +21,8 @@ namespace Svg
         float StrokeMiterLimit { get; set; }
         SvgUnitCollection StrokeDashArray { get; set; }
         SvgUnit StrokeDashOffset { get; set; }
+#if !NO_SDC
         GraphicsPath Path(ISvgRenderer renderer);
+#endif
     }
 }

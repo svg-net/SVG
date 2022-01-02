@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Imaging;
+#endif
 using System.Globalization;
 using System.Linq;
 
@@ -38,6 +40,7 @@ namespace Svg.FilterEffects
             get { return _values; }
             set { _values = value; Attributes["values"] = value; }
         }
+#if !NO_SDC
 
         public override void Process(ImageBuffer buffer)
         {
@@ -54,14 +57,14 @@ namespace Svg.FilterEffects
                     value = (string.IsNullOrEmpty(this.Values) ? 0 : float.Parse(this.Values, NumberStyles.Any, CultureInfo.InvariantCulture));
                     colorMatrixElements = new float[][] {
                         new float[] {(float)(0.213 + Math.Cos(value) * +0.787 + Math.Sin(value) * -0.213),
-                                     (float)(0.715 + Math.Cos(value) * -0.715 + Math.Sin(value) * -0.715),
-                                     (float)(0.072 + Math.Cos(value) * -0.072 + Math.Sin(value) * +0.928), 0, 0},
+                            (float)(0.715 + Math.Cos(value) * -0.715 + Math.Sin(value) * -0.715),
+                            (float)(0.072 + Math.Cos(value) * -0.072 + Math.Sin(value) * +0.928), 0, 0},
                         new float[] {(float)(0.213 + Math.Cos(value) * -0.213 + Math.Sin(value) * +0.143),
-                                     (float)(0.715 + Math.Cos(value) * +0.285 + Math.Sin(value) * +0.140),
-                                     (float)(0.072 + Math.Cos(value) * -0.072 + Math.Sin(value) * -0.283), 0, 0},
+                            (float)(0.715 + Math.Cos(value) * +0.285 + Math.Sin(value) * +0.140),
+                            (float)(0.072 + Math.Cos(value) * -0.072 + Math.Sin(value) * -0.283), 0, 0},
                         new float[] {(float)(0.213 + Math.Cos(value) * -0.213 + Math.Sin(value) * -0.787),
-                                     (float)(0.715 + Math.Cos(value) * -0.715 + Math.Sin(value) * +0.715),
-                                     (float)(0.072 + Math.Cos(value) * +0.928 + Math.Sin(value) * +0.072), 0, 0},
+                            (float)(0.715 + Math.Cos(value) * -0.715 + Math.Sin(value) * +0.715),
+                            (float)(0.072 + Math.Cos(value) * +0.928 + Math.Sin(value) * +0.072), 0, 0},
                         new float[] {0, 0, 0, 1, 0},
                         new float[] {0, 0, 0, 0, 1}
                     };
@@ -106,12 +109,13 @@ namespace Svg.FilterEffects
                 using (var g = Graphics.FromImage(result))
                 {
                     g.DrawImage(inputImage, new Rectangle(0, 0, inputImage.Width, inputImage.Height),
-                                0, 0, inputImage.Width, inputImage.Height, GraphicsUnit.Pixel, imageAttrs);
+                        0, 0, inputImage.Width, inputImage.Height, GraphicsUnit.Pixel, imageAttrs);
                     g.Flush();
                 }
                 buffer[this.Result] = result;
             }
         }
+#endif
 
 
         public override SvgElement DeepCopy()
