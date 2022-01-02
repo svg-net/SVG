@@ -26,6 +26,12 @@ namespace Svg.Pathing
                 }
             return end;
         }
+
+        [System.Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
+        }
 #endif
 
         public override string ToString()
@@ -37,11 +43,6 @@ namespace Svg.Pathing
         public SvgClosePathSegment()
             : this(true)
         {
-        }
-        [System.Obsolete("Use new AddToPath.")]
-        public override void AddToPath(GraphicsPath graphicsPath)
-        {
-            AddToPath(graphicsPath, Start, null);
         }
     }
 }
