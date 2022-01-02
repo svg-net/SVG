@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 #if !NO_SDC
 using System.Drawing.Drawing2D;
