@@ -34,16 +34,25 @@ namespace Svg.Pathing
             return new PointF(x2, y2);
         }
 
+        private static PointF CalculateControlPoint(PointF start, PointF firstControlPoint)
+        {
+            var x1 = (firstControlPoint.X * 3 - start.X) / 2;
+            var y1 = (firstControlPoint.Y * 3 - start.Y) / 2;
+
+            return new PointF(x1, y1);
+        }
+
         public override PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)
         {
             var controlPoint = ControlPoint;
             if (float.IsNaN(controlPoint.X) || float.IsNaN(controlPoint.Y))
             {
                 var prev = parent.IndexOf(this) - 1;
-                if (prev >= 0 && parent[prev] is SvgQuadraticCurveSegment prevSegment)
+                if (prev >= 0 && parent[prev] is SvgQuadraticCurveSegment)
                 {
                     var prevStart = graphicsPath.PathPoints[graphicsPath.PointCount - 4];
-                    var prevControlPoint = ToAbsolute(prevSegment.ControlPoint, prevSegment.IsRelative, prevStart);
+                    var prevFirstControlPoint = graphicsPath.PathPoints[graphicsPath.PointCount - 3];
+                    var prevControlPoint = CalculateControlPoint(prevStart, prevFirstControlPoint);
                     controlPoint = Reflect(prevControlPoint, start);
                 }
                 else
