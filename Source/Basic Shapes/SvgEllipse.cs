@@ -1,4 +1,6 @@
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -13,7 +15,9 @@ namespace Svg
         private SvgUnit _radiusX = 0f;
         private SvgUnit _radiusY = 0f;
 
+#if !NO_SDC
         private GraphicsPath _path;
+#endif
 
         [SvgAttribute("cx")]
         public virtual SvgUnit CenterX
@@ -43,6 +47,7 @@ namespace Svg
             set { _radiusY = value; Attributes["ry"] = value; IsPathDirty = true; }
         }
 
+#if !NO_SDC
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
@@ -84,6 +89,7 @@ namespace Svg
                 base.Render(renderer);
             }
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

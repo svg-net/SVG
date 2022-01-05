@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -187,8 +189,10 @@ namespace Svg
         /// Gets or sets an external Cascading Style Sheet (CSS)
         /// </summary>
         public string ExternalCSSHref { get; set; }
+#if !NO_SDC
 
         internal SvgFontManager FontManager { get; private set; }
+#endif
 
         #region ITypeDescriptorContext Members
 
@@ -274,7 +278,9 @@ namespace Svg
         {
             try
             {
+#if !NO_SDC
                 using (var matrix = new Matrix(0f, 0f, 0f, 0f, 0f, 0f)) { }
+#endif
             }
             // GDI+ loading errors will result in TypeInitializationExceptions,
             // for readability we will catch and wrap the error
@@ -581,6 +587,7 @@ namespace Svg
             var reader = new SvgNodeReader(document.DocumentElement, null);
             return Create<SvgDocument>(reader);
         }
+#if !NO_SDC
 
         public static Bitmap OpenAsBitmap(string path)
         {
@@ -746,6 +753,7 @@ namespace Svg
 
             return bitmap;
         }
+#endif
 
         /// <summary>
         /// If both or one of raster height and width is not given (0), calculate that missing value from original SVG size

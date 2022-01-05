@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using Svg.Transforms;
 
 namespace Svg
@@ -110,6 +112,7 @@ namespace Svg
             set { Attributes["stop-opacity"] = FixOpacityValue(value); }
         }
 
+#if !NO_SDC
         protected Matrix EffectiveGradientTransform
         {
             get
@@ -209,6 +212,7 @@ namespace Svg
 
             return blend;
         }
+#endif
 
         protected void LoadStops(SvgVisualElement parent)
         {

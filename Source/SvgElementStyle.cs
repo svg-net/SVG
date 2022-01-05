@@ -387,6 +387,7 @@ namespace Svg
                 IsPathDirty = true;
             }
         }
+#if !NO_SDC
 
         /// <summary>
         /// Get the font information based on data stored with the text object or inherited from the parent.
@@ -509,5 +510,6 @@ namespace Svg
             // No valid font family found from the list requested.
             return System.Drawing.FontFamily.GenericSansSerif;
         }
+#endif
     }
 }

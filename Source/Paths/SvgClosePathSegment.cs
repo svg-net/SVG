@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg.Pathing
 {
@@ -10,6 +12,7 @@ namespace Svg.Pathing
         {
         }
 
+#if !NO_SDC
         public override PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)
         {
             graphicsPath.CloseFigure();
@@ -24,6 +27,13 @@ namespace Svg.Pathing
             return end;
         }
 
+        [System.Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
+        }
+#endif
+
         public override string ToString()
         {
             return IsRelative ? "z" : "Z";
@@ -33,11 +43,6 @@ namespace Svg.Pathing
         public SvgClosePathSegment()
             : this(true)
         {
-        }
-        [System.Obsolete("Use new AddToPath.")]
-        public override void AddToPath(GraphicsPath graphicsPath)
-        {
-            AddToPath(graphicsPath, Start, null);
         }
     }
 }

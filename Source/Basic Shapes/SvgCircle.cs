@@ -1,4 +1,6 @@
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -11,9 +13,9 @@ namespace Svg
         private SvgUnit _centerX = 0f;
         private SvgUnit _centerY = 0f;
         private SvgUnit _radius = 0f;
-
+#if !NO_SDC
         private GraphicsPath _path;
-
+#endif
         /// <summary>
         /// Gets the center point of the circle.
         /// </summary>
@@ -43,6 +45,7 @@ namespace Svg
             get { return _radius; }
             set { _radius = value; Attributes["r"] = value; IsPathDirty = true; }
         }
+#if !NO_SDC
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> representing this element.
@@ -83,6 +86,7 @@ namespace Svg
                 base.Render(renderer);
             }
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

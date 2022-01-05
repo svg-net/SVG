@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Linq;
 using Svg.DataTypes;
 
@@ -115,18 +117,20 @@ namespace Svg
             }
         }
 
+#if !NO_SDC
         public override System.Drawing.Drawing2D.GraphicsPath Path(ISvgRenderer renderer)
         {
             if (MarkerElement != null)
                 return MarkerElement.Path(renderer);
             return null;
         }
+#endif
 
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgMarker>();
         }
-
+#if !NO_SDC
         /// <summary>
         /// Render this marker using the slope of the given line segment
         /// </summary>
@@ -205,9 +209,9 @@ namespace Svg
                                     transMatrix.Scale(MarkerWidth, MarkerHeight);
                                     var strokeWidth = pOwner.StrokeWidth.ToDeviceValue(pRenderer, UnitRenderingType.Other, this);
                                     transMatrix.Translate(AdjustForViewBoxWidth(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this) *
-                                                            strokeWidth),
-                                                          AdjustForViewBoxHeight(-RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this) *
-                                                            strokeWidth));
+                                            strokeWidth),
+                                        AdjustForViewBoxHeight(-RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this) *
+                                                               strokeWidth));
                                 }
                                 else
                                 {
@@ -216,12 +220,12 @@ namespace Svg
                                     //        But use this until the TODOs from AdjustForViewBoxWidth and AdjustForViewBoxHeight are done.
                                     //  MORE see Unit Test "MakerEndTest.TestArrowCodeCreation()"
                                     transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
-                                                         -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
+                                        -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
                                 }
                                 break;
                             case SvgMarkerUnits.UserSpaceOnUse:
                                 transMatrix.Translate(-RefX.ToDeviceValue(pRenderer, UnitRenderingType.Horizontal, this),
-                                                      -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
+                                    -RefY.ToDeviceValue(pRenderer, UnitRenderingType.Vertical, this));
                                 break;
                         }
 
@@ -287,6 +291,7 @@ namespace Svg
             }
             return (pRet);
         }
+#endif
 
         /// <summary>
         /// Adjust the given value to account for the width of the viewbox in the viewport

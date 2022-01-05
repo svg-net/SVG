@@ -66,11 +66,13 @@
             set { Attributes["preserveAlpha"] = value; }
         }
 
+#if !NO_SDC
         public override void Process(ImageBuffer buffer)
         {
             // TODO: Implement feConvolveMatrix filter Process().
             buffer[Result] = buffer[Input];
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

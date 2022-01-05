@@ -1,6 +1,8 @@
-﻿using System;
+using System;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg.Pathing
 {
@@ -23,6 +25,7 @@ namespace Svg.Pathing
             End = end;
         }
 
+#if !NO_SDC
         protected static PointF Reflect(PointF point, PointF mirror)
         {
             var dx = Math.Abs(mirror.X - point.X);
@@ -51,6 +54,11 @@ namespace Svg.Pathing
 
         public abstract PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent);
 
+        [Obsolete("Use new AddToPath.")]
+        public abstract void AddToPath(GraphicsPath graphicsPath);
+
+#endif
+
         public SvgPathSegment Clone()
         {
             return MemberwiseClone() as SvgPathSegment;
@@ -58,7 +66,5 @@ namespace Svg.Pathing
 
         [Obsolete("Will be removed.")]
         public PointF Start { get; set; }
-        [Obsolete("Use new AddToPath.")]
-        public abstract void AddToPath(GraphicsPath graphicsPath);
     }
 }

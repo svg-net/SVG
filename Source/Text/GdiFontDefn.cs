@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Linq;
 
 namespace Svg
 {
     public class GdiFontDefn : IFontDefn
     {
+#if !NO_SDC
         private readonly Font _font;
+
         private float _ppi;
 
         public float Size
@@ -56,7 +60,7 @@ namespace Svg
                 {
                     var numberOfChar = Math.Min(32, text.Length - 32 * s);
                     format.SetMeasurableCharacterRanges((from r in Enumerable.Range(32 * s, numberOfChar)
-                                                         select new CharacterRange(r, 1)).ToArray());
+                        select new CharacterRange(r, 1)).ToArray());
                     regions.AddRange(from r in g.MeasureCharacterRanges(text, _font, layoutRect, format) select r.GetBounds(g));
                 }
             }
@@ -86,10 +90,13 @@ namespace Svg
             }
             return provider.GetGraphics();
         }
+#endif
 
         public void Dispose()
         {
+#if !NO_SDC
             _font.Dispose();
+#endif
         }
     }
 }

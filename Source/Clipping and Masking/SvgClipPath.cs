@@ -1,5 +1,7 @@
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -9,7 +11,9 @@ namespace Svg
     [SvgElement("clipPath")]
     public partial class SvgClipPath : SvgElement
     {
+#if !NO_SDC
         private GraphicsPath _path;
+#endif
 
         /// <summary>
         /// Specifies the coordinate system for the clipping path.
@@ -20,6 +24,7 @@ namespace Svg
             get { return GetAttribute("clipPathUnits", false, SvgCoordinateUnits.UserSpaceOnUse); }
             set { Attributes["clipPathUnits"] = value; }
         }
+#if !NO_SDC
 
         /// <summary>
         /// Gets this <see cref="SvgClipPath"/>'s region to be used as a clipping region.
@@ -83,6 +88,7 @@ namespace Svg
             foreach (var child in element.Children)
                 CombinePaths(path, child, renderer);
         }
+#endif
 
         /// <summary>
         /// Called by the underlying <see cref="SvgElement"/> when an element has been added to the
@@ -107,6 +113,7 @@ namespace Svg
             IsPathDirty = true;
         }
 
+#if !NO_SDC
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
@@ -114,6 +121,7 @@ namespace Svg
         protected override void Render(ISvgRenderer renderer)
         {
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

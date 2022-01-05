@@ -1,16 +1,22 @@
 using System;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg.Transforms
 {
     public abstract class SvgTransform : ICloneable
     {
+#if !NO_SDC
         public abstract Matrix Matrix { get; }
+#endif
         public abstract string WriteToString();
 
         public abstract object Clone();
 
         #region Equals implementation
+
+#if !NO_SDC
         public override bool Equals(object obj)
         {
             var other = obj as SvgTransform;
@@ -38,6 +44,7 @@ namespace Svg.Transforms
         {
             return !(lhs == rhs);
         }
+#endif
         #endregion
 
         public override string ToString()

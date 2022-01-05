@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
     public class SvgFontDefn : IFontDefn
     {
+#if !NO_SDC
         private SvgFont _font;
         private float _emScale;
         private float _ppi;
@@ -42,14 +45,14 @@ namespace Svg
             return _ppi / 72f * baselineOffset;
         }
 
-        public IList<System.Drawing.RectangleF> MeasureCharacters(ISvgRenderer renderer, string text)
+        public IList<RectangleF> MeasureCharacters(ISvgRenderer renderer, string text)
         {
             var result = new List<RectangleF>();
             using (var path = GetPath(renderer, text, result, false)) { }
             return result;
         }
 
-        public System.Drawing.SizeF MeasureString(ISvgRenderer renderer, string text)
+        public SizeF MeasureString(ISvgRenderer renderer, string text)
         {
             var result = new List<RectangleF>();
             using (var path = GetPath(renderer, text, result, true)) { }
@@ -130,10 +133,13 @@ namespace Svg
             if (_kerning == null) _kerning = _font.Descendants().OfType<SvgKern>().ToDictionary(k => k.Glyph1 + "|" + k.Glyph2);
         }
 
+#endif
         public void Dispose()
         {
+#if !NO_SDC
             _glyphs = null;
             _kerning = null;
+#endif
         }
     }
 }

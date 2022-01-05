@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.IO;
 using System.Net;
 using System.Text;
@@ -17,7 +19,9 @@ namespace Svg
     {
         private const string MimeTypeSvg = "image/svg+xml";
 
+#if !NO_SDC
         private GraphicsPath _path;
+#endif
         private bool _gettingBounds;
 
         /// <summary>
@@ -73,6 +77,7 @@ namespace Svg
             get { return GetAttribute<string>("href", false); }
             set { Attributes["href"] = value; }
         }
+#if !NO_SDC
 
         /// <summary>
         /// Gets the bounds of the element.
@@ -91,17 +96,19 @@ namespace Svg
                 }
                 _gettingBounds = true;
                 var bounds = TransformedBounds(new RectangleF(Location.ToDeviceValue(null, this),
-                                               new SizeF(Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this),
-                                                         Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))));
+                    new SizeF(Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this),
+                        Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))));
                 _gettingBounds = false;
                 return bounds;
             }
         }
+#endif
 
         internal ExternalType ResolveExternalImages
         {
             get { return SvgDocument.ResolveExternalImages; }
         }
+#if !NO_SDC
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
@@ -146,8 +153,8 @@ namespace Svg
                         srcRect = new RectangleF(new PointF(0f, 0f), svg.GetDimensions(renderer));
 
                     var destClip = new RectangleF(Location.ToDeviceValue(renderer, this),
-                                                  new SizeF(Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                                            Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this)));
+                        new SizeF(Width.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
+                            Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, this)));
                     var destRect = destClip;
                     renderer.SetClip(new Region(destClip), CombineMode.Intersect);
                     SetClip(renderer);
@@ -206,7 +213,7 @@ namespace Svg
                         }
 
                         destRect = new RectangleF(destClip.X + xOffset, destClip.Y + yOffset,
-                                                  srcRect.Width * fScaleX, srcRect.Height * fScaleY);
+                            srcRect.Width * fScaleX, srcRect.Height * fScaleY);
                     }
 
                     if (bmp != null)
@@ -359,6 +366,7 @@ namespace Svg
             else
                 return null;
         }
+#endif
 
         private SvgDocument LoadSvg(Stream stream, Uri baseUri)
         {

@@ -22,6 +22,7 @@ namespace Svg
             get { return this._colour; }
             set { this._colour = value; }
         }
+#if !NO_SDC
 
         public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
@@ -36,6 +37,7 @@ namespace Svg
 
             return new SolidBrush(colour);
         }
+#endif
 
         public override string ToString()
         {

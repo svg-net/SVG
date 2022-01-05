@@ -1,5 +1,7 @@
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -8,6 +10,7 @@ namespace Svg
     /// </summary>
     public abstract partial class SvgPathBasedElement : SvgVisualElement
     {
+#if !NO_SDC
         public override RectangleF Bounds
         {
             get
@@ -26,5 +29,6 @@ namespace Svg
                 }
             }
         }
+#endif
     }
 }

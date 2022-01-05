@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Globalization;
 
 namespace Svg
@@ -107,6 +109,7 @@ namespace Svg
         }
         #endregion
 
+#if !NO_SDC
         public void AddViewBoxTransform(SvgAspectRatio aspectRatio, ISvgRenderer renderer, SvgFragment frag)
         {
             var x = frag == null ? 0f : frag.X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, frag);
@@ -122,7 +125,7 @@ namespace Svg
             var height = frag == null ? Height : frag.Height.ToDeviceValue(renderer, UnitRenderingType.Vertical, frag);
 
             var fScaleX = width / Width;
-            var fScaleY = height / Height; //(MinY < 0 ? -1 : 1) * 
+            var fScaleY = height / Height; //(MinY < 0 ? -1 : 1) *
             var fMinX = -MinX * fScaleX;
             var fMinY = -MinY * fScaleY;
 
@@ -187,6 +190,7 @@ namespace Svg
             renderer.TranslateTransform(fMinX, fMinY, MatrixOrder.Prepend);
             renderer.ScaleTransform(fScaleX, fScaleY, MatrixOrder.Prepend);
         }
+#endif
     }
 
     internal class SvgViewBoxConverter : TypeConverter

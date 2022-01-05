@@ -14,6 +14,7 @@ namespace Svg
             set { Attributes["href"] = value; }
         }
 
+#if !NO_SDC
         internal override IEnumerable<ISvgNode> GetContentNodes()
         {
             var refText = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement) as SvgTextBase;
@@ -32,6 +33,7 @@ namespace Svg
 
             return contentNodes;
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

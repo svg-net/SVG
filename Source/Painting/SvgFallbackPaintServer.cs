@@ -21,6 +21,7 @@ namespace Svg
             _primary = primary;
         }
 
+#if !NO_SDC
         public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
             try
@@ -33,6 +34,7 @@ namespace Svg
                 _primary.GetCallback = null;
             }
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

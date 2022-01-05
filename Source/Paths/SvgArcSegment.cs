@@ -1,6 +1,8 @@
-﻿using System;
+using System;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg.Pathing
 {
@@ -42,6 +44,7 @@ namespace Svg.Pathing
             return DoublePI - (ta - tb);
         }
 
+#if !NO_SDC
         public override PointF AddToPath(GraphicsPath graphicsPath, PointF start, SvgPathSegmentList parent)
         {
             var end = ToAbsolute(End, IsRelative, start);
@@ -135,6 +138,13 @@ namespace Svg.Pathing
             return end;
         }
 
+        [Obsolete("Use new AddToPath.")]
+        public override void AddToPath(GraphicsPath graphicsPath)
+        {
+            AddToPath(graphicsPath, Start, null);
+        }
+#endif
+
         public override string ToString()
         {
             var arcFlag = Size == SvgArcSize.Large ? "1" : "0";
@@ -147,11 +157,6 @@ namespace Svg.Pathing
             : this(radiusX, radiusY, angle, size, sweep, false, end)
         {
             Start = start;
-        }
-        [Obsolete("Use new AddToPath.")]
-        public override void AddToPath(GraphicsPath graphicsPath)
-        {
-            AddToPath(graphicsPath, Start, null);
         }
     }
 

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Linq;
 using Svg.Transforms;
 
@@ -127,6 +129,7 @@ namespace Svg
             set { Attributes["patternTransform"] = value; }
         }
 
+#if !NO_SDC
         private Matrix EffectivePatternTransform
         {
             get
@@ -245,6 +248,7 @@ namespace Svg
                     renderer.PopBoundable();
             }
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

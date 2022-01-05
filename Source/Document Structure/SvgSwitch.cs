@@ -1,5 +1,7 @@
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -9,6 +11,7 @@ namespace Svg
     [SvgElement("switch")]
     public partial class SvgSwitch : SvgVisualElement
     {
+#if !NO_SDC
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
@@ -75,6 +78,7 @@ namespace Svg
                 PopTransforms(renderer);
             }
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

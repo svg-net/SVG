@@ -6,6 +6,7 @@ namespace Svg
     [SvgElement("defs")]
     public partial class SvgDefinitionList : SvgElement
     {
+#if !NO_SDC
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
@@ -14,6 +15,7 @@ namespace Svg
         {
             // Do nothing. Children should NOT be rendered.
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

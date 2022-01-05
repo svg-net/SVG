@@ -1,5 +1,7 @@
 ﻿using System;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -49,6 +51,7 @@ namespace Svg
             get { return GetAttribute<Uri>("href", false); }
             set { Attributes["href"] = value; }
         }
+#if !NO_SDC
 
         protected override GraphicsPath GetBaselinePath(ISvgRenderer renderer)
         {
@@ -66,6 +69,7 @@ namespace Svg
             if (path == null) return 0;
             return path.PathLength;
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

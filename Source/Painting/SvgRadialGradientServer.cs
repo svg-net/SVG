@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 using System.Linq;
 
 namespace Svg
@@ -71,6 +73,7 @@ namespace Svg
                     new SvgUnit(SvgUnitType.User, orig.Value / 100f) :
                     orig);
         }
+#if !NO_SDC
 
         public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
         {
@@ -83,9 +86,9 @@ namespace Svg
 
                 // Calculate the path and transform it appropriately
                 var center = new PointF(NormalizeUnit(CenterX).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                        NormalizeUnit(CenterY).ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
+                    NormalizeUnit(CenterY).ToDeviceValue(renderer, UnitRenderingType.Vertical, this));
                 var focals = new PointF[] {new PointF(NormalizeUnit(FocalX).ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                                      NormalizeUnit(FocalY).ToDeviceValue(renderer, UnitRenderingType.Vertical, this)) };
+                    NormalizeUnit(FocalY).ToDeviceValue(renderer, UnitRenderingType.Vertical, this)) };
                 var specifiedRadius = NormalizeUnit(Radius).ToDeviceValue(renderer, UnitRenderingType.Other, this);
                 var path = new GraphicsPath();
                 path.AddEllipse(
@@ -205,10 +208,10 @@ namespace Svg
                 {
                     var previousPoints = new PointF[]
                     {
-                                                new PointF(points[0].X, points[0].Y),
-                                                new PointF(points[1].X, points[1].Y),
-                                                new PointF(points[2].X, points[2].Y),
-                                                new PointF(points[3].X, points[3].Y)
+                        new PointF(points[0].X, points[0].Y),
+                        new PointF(points[1].X, points[1].Y),
+                        new PointF(points[2].X, points[2].Y),
+                        new PointF(points[3].X, points[3].Y)
                     };
 
                     transform.TransformPoints(points);
@@ -252,7 +255,7 @@ namespace Svg
             rightPoints.Sort((p, q) => p.Y.CompareTo(q.Y));
 
             var point = new PointF((leftPoints.Last().X + rightPoints.Last().X) / 2,
-                                   (leftPoints.Last().Y + rightPoints.Last().Y) / 2);
+                (leftPoints.Last().Y + rightPoints.Last().Y) / 2);
             leftPoints.Add(point);
             rightPoints.Add(point);
             point = new PointF(point.X, bounds.Bottom);
@@ -366,6 +369,7 @@ namespace Svg
 
             return colorBlend;
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

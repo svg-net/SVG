@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -32,6 +34,7 @@ namespace Svg
             set { Attributes["preserveAspectRatio"] = value; }
         }
 
+#if !NO_SDC
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
@@ -74,8 +77,9 @@ namespace Svg
                 return TransformedBounds(r);
             }
         }
-
+#endif
         protected override bool Renderable { get { return false; } }
+#if !NO_SDC
 
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
@@ -94,6 +98,7 @@ namespace Svg
         {
             if (_parent is SvgUse) base.Render(renderer);
         }
+#endif
 
         public override SvgElement DeepCopy()
         {

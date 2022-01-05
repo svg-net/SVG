@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Drawing2D;
+#endif
 
 namespace Svg
 {
@@ -92,6 +94,7 @@ namespace Svg
             set { Attributes["height"] = value; }
         }
 
+#if !NO_SDC
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
@@ -101,8 +104,8 @@ namespace Svg
             if (!base.PushTransforms(renderer))
                 return false;
             renderer.TranslateTransform(X.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this),
-                                        Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
-                                        MatrixOrder.Prepend);
+                Y.ToDeviceValue(renderer, UnitRenderingType.Vertical, this),
+                MatrixOrder.Prepend);
             return true;
         }
 
@@ -111,6 +114,7 @@ namespace Svg
             SvgVisualElement element = (SvgVisualElement)this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement);
             return (element != null && !this.HasRecursiveReference()) ? element.Path(renderer) : null;
         }
+#endif
 
         /// <summary>
         /// Gets an <see cref="SvgPoint"/> representing the top left point of the rectangle.
@@ -120,6 +124,7 @@ namespace Svg
             get { return new SvgPoint(X, Y); }
         }
 
+#if !NO_SDC
         /// <summary>
         /// Gets the bounds of the element.
         /// </summary>
@@ -142,8 +147,10 @@ namespace Svg
                 return new RectangleF();
             }
         }
+#endif
 
         protected override bool Renderable { get { return false; } }
+#if !NO_SDC
 
         protected override void RenderChildren(ISvgRenderer renderer)
         {
@@ -175,6 +182,7 @@ namespace Svg
                 }
             }
         }
+#endif
 
         public override SvgElement DeepCopy()
         {
