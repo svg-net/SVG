@@ -144,6 +144,16 @@ namespace Svg
             return this._deviceValue.HasValue ? this._deviceValue.Value : 0f;
         }
 
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Svg.SvgUnit"/> to <see cref="System.Single"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The result of the conversion.</returns>
+        public static implicit operator float(SvgUnit value)
+        {
+            return value.ToDeviceValue(null, UnitRenderingType.Other, null);
+        }
+
         private IFontDefn GetFont(ISvgRenderer renderer, SvgElement owner, SvgFontManager fontManager)
         {
             var visual = owner?.Parents.OfType<SvgVisualElement>().FirstOrDefault();

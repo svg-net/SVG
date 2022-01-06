@@ -147,16 +147,6 @@ namespace Svg
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="Svg.SvgUnit"/> to <see cref="System.Single"/>.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>The result of the conversion.</returns>
-        public static implicit operator float(SvgUnit value)
-        {
-            return value.ToDeviceValue(null, UnitRenderingType.Other, null);
-        }
-
-        /// <summary>
         /// Performs an implicit conversion from <see cref="System.Single"/> to <see cref="Svg.SvgUnit"/>.
         /// </summary>
         /// <param name="value">The value.</param>
