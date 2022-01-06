@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
 using System.ComponentModel;
 
 namespace Svg
 {
-    public struct SvgPoint
+    public partial struct SvgPoint
     {
         private SvgUnit x;
         private SvgUnit y;
@@ -22,12 +18,7 @@ namespace Svg
             get { return this.y; }
             set { this.y = value; }
         }
-#if !NO_SDC
-        public PointF ToDeviceValue(ISvgRenderer renderer, SvgElement owner)
-        {
-            return SvgUnit.GetDevicePoint(this.X, this.Y, renderer, owner);
-        }
-#endif
+
         public bool IsEmpty()
         {
             return (this.X.Value == 0.0f && this.Y.Value == 0.0f);
