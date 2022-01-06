@@ -1,10 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
-#if !NO_SDC
-using System.Drawing.Drawing2D;
-#endif
 
 namespace Svg
 {
