@@ -22,12 +22,12 @@ namespace Svg
             get { return this.y; }
             set { this.y = value; }
         }
-
+#if !NO_SDC
         public PointF ToDeviceValue(ISvgRenderer renderer, SvgElement owner)
         {
             return SvgUnit.GetDevicePoint(this.X, this.Y, renderer, owner);
         }
-
+#endif
         public bool IsEmpty()
         {
             return (this.X.Value == 0.0f && this.Y.Value == 0.0f);
