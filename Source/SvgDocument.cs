@@ -11,6 +11,7 @@ using Svg.ExCSS;
 using Svg.Css;
 using System.Threading;
 using System.Globalization;
+using System.Runtime.InteropServices;
 
 namespace Svg
 {
