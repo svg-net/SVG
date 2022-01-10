@@ -7,7 +7,7 @@
     <IsPackable>true</IsPackable>
     <Company></Company>
     <Authors>davescriven, jvenema, mrbean-bremen, H1Gdev, Wiesław Šoltés, owaits, ddpruitt, Ralf1108, Tebjan Halm, and others</Authors>
-    <PackageId>Svg</PackageId>
+    <PackageId>Svg.Drawing</PackageId>
     <Product>SVG Rendering Library</Product>
     <Summary>SVG Rendering Library</Summary>
     <Description>
@@ -43,8 +43,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Web\Resources\" />
-    <None Include="Basic Shapes\DOM.cd" />
     <None Include="..\svgkey.snk" />
     <None Include="..\svg-logo-v.png" Pack="true" PackagePath="" />
   </ItemGroup>
@@ -120,12 +118,6 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net5.0'">
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove=".\External\ExCSS\Parser.generated.cs" />
-    <Compile Remove=".\External\ExCSS\ParserX.cs" />
-    <Compile Remove=".\Resources\svg11.dtd" />
   </ItemGroup>
 
   <ItemGroup>
