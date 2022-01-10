@@ -8,7 +8,7 @@ using Svg.Exceptions;
 
 namespace Svg
 {
-    public partial class SvgDocument : SvgFragment, ITypeDescriptorContext
+    public partial class SvgDocument : SvgFragment
     {
         /// <summary>
         /// Skip check whether the GDI+ can be loaded.
