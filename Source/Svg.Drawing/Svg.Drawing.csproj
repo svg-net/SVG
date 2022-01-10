@@ -43,6 +43,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+      <EmbeddedResource Include="Resources\svg11.dtd" />
     <None Include="..\svgkey.snk" />
     <None Include="..\svg-logo-v.png" Pack="true" PackagePath="" />
   </ItemGroup>
