@@ -88,7 +88,7 @@ namespace Svg
             return false;
         }
 
-        private static void Validate()
+        static partial void Validate()
         {
 #if !NO_SDC
             if (!SkipGdiPlusCapabilityCheck)
