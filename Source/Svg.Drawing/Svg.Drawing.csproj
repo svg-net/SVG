@@ -131,9 +131,13 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Svg\Svg.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Include="..\Svg\**\*.cs" Exclude="..\Svg\obj\**" />
+        <Compile Remove="..\Svg\Properties\AssemblyInfo.cs" />
+        <Compile Remove="..\Svg\External\ExCSS\Parser.generated.cs" />
+        <Compile Remove="..\Svg\External\ExCSS\ParserX.cs" />
+        <Compile Remove="..\Svg\Resources\svg11.dtd" />
+    </ItemGroup>
     
   <PropertyGroup Condition="'$(TargetFramework)' != 'net452'">
     <DefineConstants>$(DefineConstants);USE_SOURCE_GENERATORS</DefineConstants>
