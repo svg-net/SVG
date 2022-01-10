@@ -1367,9 +1367,5 @@ namespace Svg
         SvgElement Parent { get; }
         SvgElementCollection Children { get; }
         IList<ISvgNode> Nodes { get; }
-
-#if !NO_SDC
-        void Render(ISvgRenderer renderer);
-#endif
     }
 }

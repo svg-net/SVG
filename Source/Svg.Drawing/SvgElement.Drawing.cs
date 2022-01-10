@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 
 namespace Svg
 {
-    public abstract partial class SvgElement : ISvgElement, ISvgTransformable, ICloneable, ISvgNode
+    public abstract partial class SvgElement : ISvgRenderElement, ISvgRenderTransformable
     {
         private Matrix _graphicsTransform;
         private Region _graphicsClip;
@@ -57,7 +57,7 @@ namespace Svg
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
-        void ISvgTransformable.PushTransforms(ISvgRenderer renderer)
+        void ISvgRenderTransformable.PushTransforms(ISvgRenderer renderer)
         {
             PushTransforms(renderer);
         }
@@ -66,7 +66,7 @@ namespace Svg
         /// Removes any previously applied transforms from the specified <see cref="ISvgRenderer"/>.
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> that should have transforms removed.</param>
-        void ISvgTransformable.PopTransforms(ISvgRenderer renderer)
+        void ISvgRenderTransformable.PopTransforms(ISvgRenderer renderer)
         {
             PopTransforms(renderer);
         }
@@ -132,7 +132,7 @@ namespace Svg
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
-        void ISvgElement.Render(ISvgRenderer renderer)
+        void ISvgRenderElement.Render(ISvgRenderer renderer)
         {
             Render(renderer);
         }
@@ -226,6 +226,13 @@ namespace Svg
 
             return ret;
         }
+    }
+
+    internal interface ISvgRenderElement
+    {
+#if !NO_SDC
+        void Render(ISvgRenderer renderer);
+#endif
     }
 }
 #endif
