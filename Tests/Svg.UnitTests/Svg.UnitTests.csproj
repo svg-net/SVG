@@ -75,7 +75,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\Svg.csproj" />
+    <ProjectReference Include="..\..\Source\Svg\Svg.csproj" />
+    <ProjectReference Include="..\..\Source\Svg.Drawing\Svg.Drawing.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net452' Or '$(TargetFramework)'=='net461'">
