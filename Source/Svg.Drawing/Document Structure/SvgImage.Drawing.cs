@@ -12,6 +12,7 @@ namespace Svg
 {
     public partial class SvgImage : SvgVisualElement
     {
+        private bool _gettingBounds;
         private GraphicsPath _path;
 
         /// <summary>

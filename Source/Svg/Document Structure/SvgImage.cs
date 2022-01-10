@@ -10,7 +10,6 @@ namespace Svg
     public partial class SvgImage : SvgVisualElement
     {
         private const string MimeTypeSvg = "image/svg+xml";
-        private bool _gettingBounds;
 
         /// <summary>
         /// Gets an <see cref="SvgPoint"/> representing the top left point of the rectangle.
