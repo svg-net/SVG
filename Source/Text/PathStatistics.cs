@@ -1,15 +1,11 @@
-﻿using System;
+﻿#if !NO_SDC
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-#if !NO_SDC
 using System.Drawing.Drawing2D;
-#endif
 using System.Drawing;
 
 namespace Svg
 {
-#if !NO_SDC
     public class PathStatistics
     {
         private const double GqBreak_TwoPoint = 0.57735026918962573;
@@ -263,5 +259,5 @@ namespace Svg
             }
         }
     }
-#endif
 }
+#endif

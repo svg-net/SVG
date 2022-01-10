@@ -1,16 +1,14 @@
-﻿using System;
+﻿#if !NO_SDC
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-#if !NO_SDC
 using System.Drawing.Drawing2D;
-#endif
 using System.Linq;
 
 namespace Svg
 {
     public class GdiFontDefn : IFontDefn
     {
-#if !NO_SDC
         private readonly Font _font;
 
         private float _ppi;
@@ -90,13 +88,12 @@ namespace Svg
             }
             return provider.GetGraphics();
         }
-#endif
 
         public void Dispose()
         {
-#if !NO_SDC
             _font.Dispose();
-#endif
+
         }
     }
 }
+#endif
