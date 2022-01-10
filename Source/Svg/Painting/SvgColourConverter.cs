@@ -120,7 +120,7 @@ namespace Svg
                     return base.ConvertFrom(context, culture, colour);
                 }
 
-#if !NO_SDC
+#if NO_SDC
                 switch (colour.ToLowerInvariant())
                 {
                     case "activeborder": return SystemColors.ActiveBorder;
@@ -192,7 +192,7 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
-#if !NO_SDC
+#if NO_SDC
                 var colorString = ColorTranslator.ToHtml((Color)value).Replace("LightGrey", "LightGray");
                 // color names are expected to be lower case in XML
                 return colorString.StartsWith("#", StringComparison.InvariantCulture) ? colorString : colorString.ToLowerInvariant();
