@@ -99,8 +99,8 @@
     <div><a class="xref" href="Svg.ISvgTransformable.html">ISvgTransformable</a></div>
     <div><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.icloneable">ICloneable</a></div>
     <div><a class="xref" href="Svg.ISvgNode.html">ISvgNode</a></div>
-    <div><a class="xref" href="Svg.ISvgBoundable.html">ISvgBoundable</a></div>
     <div><a class="xref" href="Svg.ISvgStylable.html">ISvgStylable</a></div>
+    <div><a class="xref" href="Svg.ISvgBoundable.html">ISvgBoundable</a></div>
     <div><a class="xref" href="Svg.ISvgClipable.html">ISvgClipable</a></div>
     <div><span class="xref">ISvgPathElement</span></div>
   </div>
@@ -108,12 +108,6 @@
     <h5>Inherited Members</h5>
     <div>
       <a class="xref" href="Svg.SvgPathBasedElement.html#Svg_SvgPathBasedElement_Bounds">SvgPathBasedElement.Bounds</a>
-    </div>
-    <div>
-      <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Svg_ISvgBoundable_Location">SvgVisualElement.ISvgBoundable.Location</a>
-    </div>
-    <div>
-      <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Svg_ISvgBoundable_Size">SvgVisualElement.ISvgBoundable.Size</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Clip">SvgVisualElement.Clip</a>
@@ -132,6 +126,12 @@
     </div>
     <div>
       <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Renderable">SvgVisualElement.Renderable</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Svg_ISvgBoundable_Location">SvgVisualElement.ISvgBoundable.Location</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Svg_ISvgBoundable_Size">SvgVisualElement.ISvgBoundable.Size</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgVisualElement.html#Svg_SvgVisualElement_Render_Svg_ISvgRenderer_">SvgVisualElement.Render(ISvgRenderer)</a>
@@ -236,22 +236,7 @@
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_CustomAttributes">SvgElement.CustomAttributes</a>
     </div>
     <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_PushTransforms_Svg_ISvgRenderer_">SvgElement.PushTransforms(ISvgRenderer)</a>
-    </div>
-    <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_PopTransforms_Svg_ISvgRenderer_">SvgElement.PopTransforms(ISvgRenderer)</a>
-    </div>
-    <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Svg_ISvgTransformable_PushTransforms_Svg_ISvgRenderer_">SvgElement.ISvgTransformable.PushTransforms(ISvgRenderer)</a>
-    </div>
-    <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Svg_ISvgTransformable_PopTransforms_Svg_ISvgRenderer_">SvgElement.ISvgTransformable.PopTransforms(ISvgRenderer)</a>
-    </div>
-    <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Transforms">SvgElement.Transforms</a>
-    </div>
-    <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_TransformedBounds_RectangleF_">SvgElement.TransformedBounds(RectangleF)</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_ID">SvgElement.ID</a>
@@ -275,9 +260,6 @@
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_InitialiseFromXML_XmlReader_Svg_SvgDocument_">SvgElement.InitialiseFromXML(XmlReader, SvgDocument)</a>
     </div>
     <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_RenderElement_Svg_ISvgRenderer_">SvgElement.RenderElement(ISvgRenderer)</a>
-    </div>
-    <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_ShouldWriteElement">SvgElement.ShouldWriteElement()</a>
     </div>
     <div>
@@ -297,15 +279,6 @@
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_WriteChildren_XmlWriter_">SvgElement.WriteChildren(XmlWriter)</a>
-    </div>
-    <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_RenderChildren_Svg_ISvgRenderer_">SvgElement.RenderChildren(ISvgRenderer)</a>
-    </div>
-    <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_AddPaths_Svg_SvgElement_GraphicsPath_">SvgElement.AddPaths(SvgElement, GraphicsPath)</a>
-    </div>
-    <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_GetPaths_Svg_SvgElement_Svg_ISvgRenderer_">SvgElement.GetPaths(SvgElement, ISvgRenderer)</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Clone">SvgElement.Clone()</a>
@@ -369,6 +342,33 @@
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_RaiseMouseScroll_System_Object_Svg_MouseScrollArg_">SvgElement.RaiseMouseScroll(Object, MouseScrollArg)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_PushTransforms_Svg_ISvgRenderer_">SvgElement.PushTransforms(ISvgRenderer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_PopTransforms_Svg_ISvgRenderer_">SvgElement.PopTransforms(ISvgRenderer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Svg_ISvgTransformable_PushTransforms_Svg_ISvgRenderer_">SvgElement.ISvgTransformable.PushTransforms(ISvgRenderer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_Svg_ISvgTransformable_PopTransforms_Svg_ISvgRenderer_">SvgElement.ISvgTransformable.PopTransforms(ISvgRenderer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_TransformedBounds_RectangleF_">SvgElement.TransformedBounds(RectangleF)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_RenderElement_Svg_ISvgRenderer_">SvgElement.RenderElement(ISvgRenderer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_RenderChildren_Svg_ISvgRenderer_">SvgElement.RenderChildren(ISvgRenderer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_AddPaths_Svg_SvgElement_GraphicsPath_">SvgElement.AddPaths(SvgElement, GraphicsPath)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_GetPaths_Svg_SvgElement_Svg_ISvgRenderer_">SvgElement.GetPaths(SvgElement, ISvgRenderer)</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_IsPathDirty">SvgElement.IsPathDirty</a>
@@ -493,7 +493,7 @@
   <h5 id="Svg_SvgGlyph_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[SvgElement(&quot;glyph&quot;)]
-public class SvgGlyph : SvgPathBasedElement, ISvgElement, ISvgTransformable, ICloneable, ISvgNode, ISvgBoundable, ISvgStylable, ISvgClipable, ISvgPathElement</code></pre>
+public class SvgGlyph : SvgPathBasedElement, ISvgElement, ISvgTransformable, ICloneable, ISvgNode, ISvgStylable, ISvgBoundable, ISvgClipable, ISvgPathElement</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -811,10 +811,10 @@ public class SvgGlyph : SvgPathBasedElement, ISvgElement, ISvgTransformable, ICl
       <a class="xref" href="Svg.ISvgNode.html">ISvgNode</a>
   </div>
   <div>
-      <a class="xref" href="Svg.ISvgBoundable.html">ISvgBoundable</a>
+      <a class="xref" href="Svg.ISvgStylable.html">ISvgStylable</a>
   </div>
   <div>
-      <a class="xref" href="Svg.ISvgStylable.html">ISvgStylable</a>
+      <a class="xref" href="Svg.ISvgBoundable.html">ISvgBoundable</a>
   </div>
   <div>
       <a class="xref" href="Svg.ISvgClipable.html">ISvgClipable</a>
