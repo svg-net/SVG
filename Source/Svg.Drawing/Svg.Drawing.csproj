@@ -18,7 +18,7 @@
     </Description>
     <Copyright>Copyright © vvvv.org</Copyright>
     <Tags>svg, vector graphics, rendering</Tags>
-    <ProjectGuid>{886A98C5-37C0-4E8B-885E-30C1D2F98B47}</ProjectGuid>
+    <ProjectGuid>{D9ECE46B-9ADC-483C-8911-92C10753EC29}</ProjectGuid>
     <Configurations>Debug;Release</Configurations>
     <NoWarn>1591</NoWarn>
     <SignAssembly>true</SignAssembly>
