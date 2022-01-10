@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\Svg\Svg.csproj" />
     <ProjectReference Include="..\..\Source\Svg.Drawing\Svg.Drawing.csproj" />
   </ItemGroup>
 
