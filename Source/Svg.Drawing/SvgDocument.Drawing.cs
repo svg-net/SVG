@@ -88,6 +88,16 @@ namespace Svg
             return false;
         }
 
+        private static void Validate()
+        {
+#if !NO_SDC
+            if (!SkipGdiPlusCapabilityCheck)
+            {
+                EnsureSystemIsGdiPlusCapable(); // Validate whether the GDI+ can be loaded, this will yield an exception if not
+            }
+#endif
+        }
+
         public static Bitmap OpenAsBitmap(string path)
         {
             return null;
