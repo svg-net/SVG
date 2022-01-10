@@ -12,7 +12,7 @@ namespace Svg
     /// <summary>
     /// Svg helpers
     /// </summary>
-    public static class SvgExtentions
+    public static partial class SvgExtentions
     {
         public static void SetRectangle(this SvgRectangle r, RectangleF bounds)
         {
@@ -21,12 +21,7 @@ namespace Svg
             r.Width = bounds.Width;
             r.Height = bounds.Height;
         }
-#if !NO_SDC
-        public static RectangleF GetRectangle(this SvgRectangle r)
-        {
-            return new RectangleF(r.X, r.Y, r.Width, r.Height);
-        }
-#endif
+
         public static string GetXML(this SvgDocument doc)
         {
             var ret = string.Empty;
