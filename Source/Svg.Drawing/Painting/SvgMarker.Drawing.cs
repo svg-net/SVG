@@ -7,7 +7,7 @@ using Svg.DataTypes;
 
 namespace Svg
 {
-    public partial class SvgMarker : SvgPathBasedElement, ISvgViewPort
+    public partial class SvgMarker : SvgPathBasedElement
     {
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
