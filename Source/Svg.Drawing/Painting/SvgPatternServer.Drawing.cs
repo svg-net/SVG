@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Svg
 {
-    public partial class SvgPatternServer : SvgPaintServer, ISvgViewPort
+    public partial class SvgPatternServer : SvgPaintServer
     {
         private Matrix EffectivePatternTransform
         {
