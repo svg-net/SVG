@@ -10,7 +10,7 @@ using Svg.FilterEffects;
 
 namespace Svg
 {
-    public abstract partial class SvgVisualElement : SvgElement, ISvgBoundable, IPathProvider, ISvgClipable
+    public abstract partial class SvgVisualElement : SvgElement, ISvgBoundable, IPathProvider, ISvgRenderClipable
     {
         private Region _previousClip;
 
@@ -391,7 +391,7 @@ namespace Svg
         /// Sets the clipping region of the specified <see cref="ISvgRenderer"/>.
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region set.</param>
-        void ISvgClipable.SetClip(ISvgRenderer renderer)
+        void ISvgRenderClipable.SetClip(ISvgRenderer renderer)
         {
             this.SetClip(renderer);
         }
@@ -400,7 +400,7 @@ namespace Svg
         /// Resets the clipping region of the specified <see cref="ISvgRenderer"/> back to where it was before the <see cref="SetClip"/> method was called.
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region reset.</param>
-        void ISvgClipable.ResetClip(ISvgRenderer renderer)
+        void ISvgRenderClipable.ResetClip(ISvgRenderer renderer)
         {
             this.ResetClip(renderer);
         }
