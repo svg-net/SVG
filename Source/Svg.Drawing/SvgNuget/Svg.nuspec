@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
-        <id>Svg</id>
+        <id>Svg.Drawing</id>
         <version>$version$</version>
         <title>SVG Rendering Library</title>
         <authors>davescriven,jvenema,owaits,ddpruitt,Ralf1108,Tebjan Halm,and others</authors>
@@ -27,8 +27,8 @@ License: Microsoft Public License: https://svg.codeplex.com/license</description
         </frameworkAssemblies>
     </metadata>
     <files>
-        <file src="..\Source\bin\Release\Svg.dll" target="lib\Svg.dll" />
-        <file src="..\Source\bin\Release\Svg.pdb" target="lib\Svg.pdb" />
-        <file src="..\Source\bin\Release\Svg.XML" target="lib\Svg.XML" />
+        <file src="..\Source\Svg.Drawing\bin\Release\Svg.dll" target="lib\Svg.dll" />
+        <file src="..\Source\Svg.Drawing\bin\Release\Svg.pdb" target="lib\Svg.pdb" />
+        <file src="..\Source\Svg.Drawing\bin\Release\Svg.XML" target="lib\Svg.XML" />
     </files>
 </package>
