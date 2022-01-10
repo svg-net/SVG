@@ -10,7 +10,7 @@ using Svg.FilterEffects;
 
 namespace Svg
 {
-    public abstract partial class SvgVisualElement : SvgElement, ISvgBoundable, ISvgStylable, ISvgClipable
+    public abstract partial class SvgVisualElement : SvgElement, ISvgBoundable, IPathProvider, ISvgClipable
     {
         private Region _previousClip;
 
