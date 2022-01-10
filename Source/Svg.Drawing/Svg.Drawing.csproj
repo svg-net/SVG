@@ -143,8 +143,8 @@
     <DefineConstants>$(DefineConstants);USE_SOURCE_GENERATORS</DefineConstants>
   </PropertyGroup>
 
-<!--  <ItemGroup Condition="'$(TargetFramework)' != 'net452'">-->
-<!--    <ProjectReference Include="..\..\Generators\Svg.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />-->
-<!--  </ItemGroup>-->
+  <ItemGroup Condition="'$(TargetFramework)' != 'net452'">
+    <ProjectReference Include="..\..\Generators\Svg.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
 
 </Project>
