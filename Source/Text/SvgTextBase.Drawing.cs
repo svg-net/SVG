@@ -36,7 +36,7 @@ namespace Svg
                     return path.GetBounds();
 
                 using (path = (GraphicsPath)path.Clone())
-                using (matrix = transforms.GetMatrix())
+                using (var matrix = transforms.GetMatrix())
                 {
                     path.Transform(matrix);
                     return path.GetBounds();
