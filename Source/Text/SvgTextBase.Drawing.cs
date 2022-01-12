@@ -26,18 +26,17 @@ namespace Svg
                         continue;
                     path.AddPath(elem.Path(null), false);
                 }
-                Matrix matrix;
-                if (Transforms == null)
+                var transforms = Transforms;
+                if (transforms == null)
                 {
                     // This is an SvgTextSpan which does not support the transform attribute, but parent transforms still apply.
-                    matrix = Parents.First(p => p.Transforms != null).Transforms.GetMatrix();
+                    transforms = Parents.First(p => p.Transforms != null).Transforms;
                 }
-                else if (Transforms.Count == 0)
+                if (transforms.Count == 0)
                     return path.GetBounds();
-                else matrix = Transforms.GetMatrix();
 
                 using (path = (GraphicsPath)path.Clone())
-                using (matrix)
+                using (matrix = transforms.GetMatrix())
                 {
                     path.Transform(matrix);
                     return path.GetBounds();
