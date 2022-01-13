@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="60">
+  <text y="50" font-size="50" fill="red" text-decoration="underline overline line-through">Hello World!</text>
+</svg>
