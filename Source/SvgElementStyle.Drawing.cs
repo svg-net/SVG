@@ -76,14 +76,13 @@ namespace Svg
                 }
 
                 // Get the text-decoration
-                switch (this.TextDecoration)
+                var textDecoration = this.TextDecoration;
+                if (!textDecoration.HasFlag(SvgTextDecoration.None))
                 {
-                    case SvgTextDecoration.LineThrough:
+                    if (textDecoration.HasFlag(SvgTextDecoration.LineThrough))
                         fontStyle |= System.Drawing.FontStyle.Strikeout;
-                        break;
-                    case SvgTextDecoration.Underline:
+                    if (textDecoration.HasFlag(SvgTextDecoration.Underline))
                         fontStyle |= System.Drawing.FontStyle.Underline;
-                        break;
                 }
 
                 var ff = family as FontFamily;
