@@ -30,7 +30,7 @@ namespace Svg
                 if (transforms == null)
                 {
                     // This is an SvgTextSpan which does not support the transform attribute, but parent transforms still apply.
-                    transforms = Parents.First(p => p.Transforms != null).Transforms;
+                    transforms = Parents.FirstOrDefault(p => p.Transforms != null)?.Transforms;
                 }
                 if (transforms.Count == 0)
                     return path.GetBounds();
