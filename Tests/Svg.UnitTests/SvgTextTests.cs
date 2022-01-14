@@ -88,9 +88,9 @@ namespace Svg.UnitTests
         public void TestParentTransformsRespected()
         {
             var span = new SvgTextSpan { Text = "abc" };
-            var b1 = text.Bounds;
+            var b1 = span.Bounds;
             _ = new SvgText { Transforms = new Transforms.SvgTransformCollection { new Transforms.SvgTranslate(10f, 20f) }, Children = { span } };
-            var b2 = text.Bounds;
+            var b2 = span.Bounds;
             Assert.AreNotEqual(b1, b2);
         }
     }
