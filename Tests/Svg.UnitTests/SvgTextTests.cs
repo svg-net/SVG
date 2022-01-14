@@ -89,7 +89,7 @@ namespace Svg.UnitTests
         {
             var span = new SvgTextSpan { Text = "abc" };
             var b1 = text.Bounds;
-            _ = new SvgText { Transforms = new Transforms.SvgTransformCollection() { new Transforms.SvgTranslate(10f, 20f) }, Children = { span } };
+            _ = new SvgText { Transforms = new Transforms.SvgTransformCollection { new Transforms.SvgTranslate(10f, 20f) }, Children = { span } };
             var b2 = text.Bounds;
             
             var xml = text.GetXML();
