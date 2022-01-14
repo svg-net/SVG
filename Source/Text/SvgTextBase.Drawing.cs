@@ -27,12 +27,12 @@ namespace Svg
                     path.AddPath(elem.Path(null), false);
                 }
                 var transforms = Transforms;
-                if (transforms == null)
+                if (transforms is null)
                 {
                     // This is an SvgTextSpan which does not support the transform attribute, but parent transforms still apply.
                     transforms = Parents.FirstOrDefault(p => p.Transforms != null)?.Transforms;
                 }
-                if (transforms.Count == 0)
+                if (transforms is null || transforms.Count == 0)
                     return path.GetBounds();
 
                 using (path = (GraphicsPath)path.Clone())
