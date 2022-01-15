@@ -13743,6 +13743,32 @@ references:
   isSpec: "True"
   fullName: Svg.SvgTextDecorationConverter.SvgTextDecorationConverter
   nameWithType: SvgTextDecorationConverter.SvgTextDecorationConverter
+- uid: Svg.SvgTextDecorationConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+  href: api/Svg.SvgTextDecorationConverter.html#Svg_SvgTextDecorationConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
+  commentId: M:Svg.SvgTextDecorationConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  fullName: Svg.SvgTextDecorationConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, System.Object)
+  nameWithType: SvgTextDecorationConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+- uid: Svg.SvgTextDecorationConverter.ConvertFrom*
+  name: ConvertFrom
+  href: api/Svg.SvgTextDecorationConverter.html#Svg_SvgTextDecorationConverter_ConvertFrom_
+  commentId: Overload:Svg.SvgTextDecorationConverter.ConvertFrom
+  isSpec: "True"
+  fullName: Svg.SvgTextDecorationConverter.ConvertFrom
+  nameWithType: SvgTextDecorationConverter.ConvertFrom
+- uid: Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+  name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
+  href: api/Svg.SvgTextDecorationConverter.html#Svg_SvgTextDecorationConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
+  commentId: M:Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+  fullName: Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
+  nameWithType: SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
+- uid: Svg.SvgTextDecorationConverter.ConvertTo*
+  name: ConvertTo
+  href: api/Svg.SvgTextDecorationConverter.html#Svg_SvgTextDecorationConverter_ConvertTo_
+  commentId: Overload:Svg.SvgTextDecorationConverter.ConvertTo
+  isSpec: "True"
+  fullName: Svg.SvgTextDecorationConverter.ConvertTo
+  nameWithType: SvgTextDecorationConverter.ConvertTo
 - uid: Svg.SvgTextLengthAdjust
   name: SvgTextLengthAdjust
   href: api/Svg.SvgTextLengthAdjust.html
