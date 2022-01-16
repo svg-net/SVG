@@ -93,8 +93,8 @@ namespace Svg.UnitTests
             Assert.AreNotEqual(new PointF(0f, 0f), b.Location);
             var text = new SvgText { Transforms = new Transforms.SvgTransformCollection { new Transforms.SvgTranslate(10f, 20f) }, Children = { span } };
             b.Offset(10f, 20f);
-            Assert.AreEqual(b, span.Bounds.Location);
-            Assert.AreEqual(b, text.Bounds.Location);
+            Assert.AreEqual(b, span.Bounds);
+            Assert.AreEqual(b, text.Bounds);
         }
     }
 }
