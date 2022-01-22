@@ -162,7 +162,7 @@ namespace Svg.UnitTests
             Assert.AreEqual(eBounds, e.BoundsRelativeToTop);
 
             var bBoundsRelativeToA = b.Bounds;
-            var t = a.Transforms[^1];
+            var t = a.Transforms[1];
             a.Transforms.Remove(t);
             Assert.AreNotEqual(aBounds, a.BoundsRelativeToTop);
             Assert.AreNotEqual(bBounds, b.BoundsRelativeToTop);
