@@ -44,7 +44,7 @@ namespace Svg
                         }
                     }
                 }
-                return TransformedBounds(r);
+                return r; // Don't call TransformedBounds because the child elements are already subject to transforms applied on this group
             }
         }
     }
