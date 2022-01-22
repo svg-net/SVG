@@ -1,4 +1,4 @@
-#if !NO_SDC
+﻿#if !NO_SDC
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -15,38 +15,10 @@ namespace Svg
             return GetPaths(this, renderer);
         }
 
-        /// <summary>
-        /// Gets the bounds of the element.
-        /// </summary>
-        /// <value>The bounds.</value>
-        public override RectangleF Bounds
-        {
-            get
-            {
-                var r = new RectangleF();
-                foreach (var c in this.Children)
-                {
-                    if (c is SvgVisualElement)
-                    {
-                        // First it should check if rectangle is empty or it will return the wrong Bounds.
-                        // This is because when the Rectangle is Empty, the Union method adds as if the first values where X=0, Y=0
-                        if (r.IsEmpty)
-                        {
-                            r = ((SvgVisualElement)c).Bounds;
-                        }
-                        else
-                        {
-                            var childBounds = ((SvgVisualElement)c).Bounds;
-                            if (!childBounds.IsEmpty)
-                            {
-                                r = RectangleF.Union(r, childBounds);
-                            }
-                        }
-                    }
-                }
-                return r; // Don't call TransformedBounds because the child elements are already subject to transforms applied on this group
-            }
-        }
+        /// <inheritdoc/>
+        public override RectangleF Bounds => BoundsFromChildren(e => e.Bounds, TransformedBounds);
+        /// <inheritdoc/>
+        public override RectangleF BoundsRelativeToTop => BoundsFromChildren(e => e.BoundsRelativeToTop, r => r);
     }
 }
 #endif

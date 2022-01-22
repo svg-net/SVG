@@ -36,10 +36,76 @@ namespace Svg
         }
 
         /// <summary>
-        /// Gets the bounds of the element.
+        /// Gets the bounds of the element relative to <see cref="SvgElement.Parent"/>.
         /// </summary>
         /// <value>The bounds.</value>
         public abstract RectangleF Bounds { get; }
+
+        /// <summary>
+        /// Gets the bounds of the element relative to the top-level <see cref="SvgElement.Parent"/>.
+        /// </summary>
+        /// <value>The bounds.</value>
+
+        public abstract RectangleF BoundsRelativeToTop { get; }
+        /// <summary>
+        /// Just like <see cref="SvgElement.TransformedBounds(RectangleF)"/> but considers all <see cref="SvgElement.Parents"/>.
+        /// </summary>
+        /// <param name="bounds">The rectangle to be transformed.</param>
+        /// <returns>The transformed rectangle, or the original rectangle if no transformation exists.</returns>
+        protected RectangleF TransformedBoundsPlusParents(RectangleF bounds)
+        {
+            GraphicsPath path = null;
+            try
+            {
+                foreach (var p in ParentsAndSelf)
+                    if (p.Transforms is { Count: > 0 } t)
+                    {
+                        if (path is null)
+                        {
+                            path = new();
+                            path.AddRectangle(bounds);
+                        }
+                        using var m = t.GetMatrix();
+                        path.Transform(m);
+                    }
+                return path?.GetBounds() ?? bounds;
+            }
+            finally { path?.Dispose(); }
+        }
+        protected RectangleF TransformedBoundsPlusParentsFromPathToClone(GraphicsPath path)
+        {
+            if (path is null) return default;
+            GraphicsPath pathCloned = null;
+            try
+            {
+                foreach (var p in ParentsAndSelf)
+                    if (p.Transforms is { Count: > 0 } t)
+                    {
+                        pathCloned ??= (GraphicsPath)path.Clone();
+                        using var m = t.GetMatrix();
+                        pathCloned.Transform(m);
+                    }
+                return pathCloned?.GetBounds() ?? path.GetBounds();
+            }
+            finally { pathCloned?.Dispose(); }
+        }
+        protected RectangleF BoundsFromChildren(Func<SvgVisualElement, RectangleF> boundsGetter, Func<RectangleF, RectangleF> transform)
+        {
+            var r = new RectangleF();
+            foreach (var c in this.Children)
+            {
+                if (c is SvgVisualElement v)
+                {
+                    // First it should check if rectangle is empty or it will return the wrong Bounds.
+                    // This is because when the Rectangle is Empty, the Union method adds as if the first values where X=0, Y=0
+                    if (r.IsEmpty)
+                        r = boundsGetter(v);
+                    else if (boundsGetter(v) is { IsEmpty: false } childBounds)
+                        r = RectangleF.Union(r, childBounds);
+                }
+            }
+            return transform(r);
+        }
 
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.

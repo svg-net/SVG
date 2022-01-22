@@ -89,17 +89,16 @@ namespace Svg.UnitTests
             AssertEqualBounds("line-xform", 19.5f, -40.5f, 21, 21);
             AssertEqualBounds("line-xform", 19.5f, -40.5f, 21, 21);
         }
-
-        private void AssertEqualBounds(string elementId, float x, float y, float width, float height)
+        void AssertEqualBoundsCore(string elementId, float x, float y, float width, float height, System.Func<string, System.Drawing.RectangleF> boundsGetter)
         {
             const float Epsilon = 0.01f;
-            var element = GetElement(elementId);
-            var elementBounds = element.Bounds;
+            var elementBounds = boundsGetter(elementId);
             Assert.AreEqual(x, elementBounds.X, Epsilon);
             Assert.AreEqual(y, elementBounds.Y, Epsilon);
             Assert.AreEqual(width, elementBounds.Width, Epsilon);
             Assert.AreEqual(height, elementBounds.Height, Epsilon);
         }
+        private void AssertEqualBounds(string elementId, float x, float y, float width, float height) => AssertEqualBoundsCore(elementId, x, y, width, height, id => GetElement(id).Bounds);
 
         private SvgVisualElement GetElement(string elementId)
         {
@@ -108,6 +107,82 @@ namespace Svg.UnitTests
                 testDocument = OpenSvg(GetXMLDocFromResource(GetFullResourceString(BoundsTestSvg)));
             }
             return testDocument.GetElementById<SvgVisualElement>(elementId);
+        }
+        [Test]
+        public void BoundsUseParentTransforms()
+        {
+            var doc = SvgDocument.FromSvg<SvgDocument>(@"
+<svg>
+<g transform=""translate(10 20) rotate(20)"" id=""a"">
+<g transform=""translate(-20 -10)"" id=""b"">
+<text id=""c""><tspan id=""d"">ABC</tspan></text>
+</g>
+<rect x=""10"" width=""50"" height=""60"" id=""e""/>
+</g>
+<text id=""f"">ABC</text>
+</svg>
+");
+            void AssertEqualBounds(string elementId, float x, float y, float width, float height) => AssertEqualBoundsCore(elementId, x, y, width, height, id => doc.GetElementById<Svg.SvgVisualElement>(id).BoundsRelativeToTop);
+            var a = doc.GetElementById<SvgGroup>("a");
+            var b = doc.GetElementById<SvgGroup>("b");
+            var c = doc.GetElementById<SvgText>("c");
+            var d = doc.GetElementById<SvgTextSpan>("d");
+            var e = doc.GetElementById<SvgRectangle>("e");
+            var f = doc.GetElementById<SvgText>("f");
+            AssertEqualBounds("a", -5.38f, -3.18f, 72.41f, 100.73f);
+            AssertEqualBounds("b", -5.38f, -3.18f, 24.87f, 14.49f);
+            AssertEqualBounds("c", -5.38f, -3.18f, 24.87f, 14.49f);
+            AssertEqualBounds("d", -5.38f, -3.18f, 24.87f, 14.49f);
+            AssertEqualBounds("e", -1.77f, 22.78f, 68.79f, 74.76f);
+            AssertEqualBounds("f", -0.01f, -8.74f, 24.07f, 8.88f);
+            var aBounds = a.BoundsRelativeToTop;
+            var bBounds = b.BoundsRelativeToTop;
+            var cBounds = c.BoundsRelativeToTop;
+            var dBounds = d.BoundsRelativeToTop;
+            var eBounds = e.BoundsRelativeToTop;
+            var fBounds = f.BoundsRelativeToTop;
+            Assert.AreEqual(bBounds, cBounds);
+            Assert.AreEqual(cBounds, dBounds);
+            Assert.AreNotEqual(cBounds, fBounds);
+            Assert.AreEqual(c.Bounds, f.Bounds); // Important difference between Bounds and BoundsRelativeToTop
+            Assert.AreEqual(aBounds, System.Drawing.RectangleF.Union(dBounds, eBounds));
+            Assert.AreNotEqual(a.Bounds, System.Drawing.RectangleF.Union(d.Bounds, e.Bounds));
+
+            Assert.True(a.Children.Remove(e));
+            Assert.AreNotEqual(aBounds, a.BoundsRelativeToTop);
+            Assert.AreEqual(bBounds, b.BoundsRelativeToTop);
+            Assert.AreEqual(cBounds, c.BoundsRelativeToTop);
+            Assert.AreEqual(dBounds, d.BoundsRelativeToTop);
+            Assert.AreNotEqual(eBounds, e.BoundsRelativeToTop);
+            a.Children.Add(e);
+            Assert.AreEqual(aBounds, a.BoundsRelativeToTop);
+            Assert.AreEqual(bBounds, b.BoundsRelativeToTop);
+            Assert.AreEqual(cBounds, c.BoundsRelativeToTop);
+            Assert.AreEqual(dBounds, d.BoundsRelativeToTop);
+            Assert.AreEqual(eBounds, e.BoundsRelativeToTop);
+
+            var bBoundsRelativeToA = b.Bounds;
+            var t = a.Transforms[^1];
+            a.Transforms.Remove(t);
+            Assert.AreNotEqual(aBounds, a.BoundsRelativeToTop);
+            Assert.AreNotEqual(bBounds, b.BoundsRelativeToTop);
+            Assert.AreNotEqual(cBounds, c.BoundsRelativeToTop);
+            Assert.AreNotEqual(dBounds, d.BoundsRelativeToTop);
+            Assert.AreNotEqual(eBounds, e.BoundsRelativeToTop);
+            Assert.AreEqual(bBoundsRelativeToA, b.Bounds);
+            a.Transforms.Add(t);
+            Assert.AreEqual(aBounds, a.BoundsRelativeToTop);
+            Assert.AreEqual(bBounds, b.BoundsRelativeToTop);
+            Assert.AreEqual(cBounds, c.BoundsRelativeToTop);
+            Assert.AreEqual(dBounds, d.BoundsRelativeToTop);
+            Assert.AreEqual(eBounds, e.BoundsRelativeToTop);
+
+            d.Text = "ABCDE";
+            Assert.AreEqual(aBounds, a.BoundsRelativeToTop);
+            Assert.AreNotEqual(bBounds, b.BoundsRelativeToTop);
+            Assert.AreNotEqual(cBounds, c.BoundsRelativeToTop);
+            Assert.AreNotEqual(dBounds, d.BoundsRelativeToTop);
+            Assert.AreEqual(eBounds, e.BoundsRelativeToTop);
         }
     }
 }
