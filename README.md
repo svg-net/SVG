@@ -8,14 +8,14 @@ This started out as a minor modification to enable the writing of proper SVG str
 So please feel free to fork it and open pull requests for any fix, improvement or feature you add. 
 You may check the [contributing guide](https://github.com/svg-net/SVG/blob/master/CONTRIBUTING.md) for more information on how to do this. 
 
-For information on installation and usage of the library, and for release notes please check the [documentation pages](http://svg-net.github.io/SVG/).
+For information on installation and usage of the library, and for release notes please check the [documentation pages](https://svg-net.github.io/SVG/).
 
 ## Projects using the library
 
-* [vvvv](http://vvvv.org) a hybrid visual/textual live-programming environment for easy prototyping and development.
+* [vvvv](https://vvvv.org) a hybrid visual/textual live-programming environment for easy prototyping and development.
 * [Posh](https://github.com/vvvv/Posh) a windowing/interaction/drawing layer for C#/.NET desktop applications with their GUI in a browser. 
 * [Timeliner](https://github.com/vvvv/Timeliner) a Posh based timeline that can be controlled by and sends out its values via OSC.
-* [Chordious](http://chordious.com) a fretboard diagram generator for fretted stringed instruments.
+* [Chordious](https://chordious.com) a fretboard diagram generator for fretted stringed instruments.
 
 If you want your project in this list, send me a pull request on this file or link + short description to tebjan (at) vvvv.org
 
