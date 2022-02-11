@@ -268,13 +268,13 @@ namespace Svg
             switch (this.TextTransformation)
             {
                 case SvgTextTransformation.Capitalize:
-                    return value.ToUpper();
+                    return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
 
                 case SvgTextTransformation.Uppercase:
                     return value.ToUpper();
 
                 case SvgTextTransformation.Lowercase:
-                    return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
+                    return value.ToLower();
             }
 
             return value;
