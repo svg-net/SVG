@@ -19,6 +19,15 @@ namespace Svg
 
         public SvgTextBase()
         {
+            NotifyCollectionChangedEventHandler xHandler = null;
+            _x.CollectionChanged += xHandler = (s, e) => { Attributes["x"] = s; _x.CollectionChanged -= xHandler; };
+            NotifyCollectionChangedEventHandler dxHandler = null;
+            _dx.CollectionChanged += dxHandler = (s, e) => { Attributes["dx"] = s; _dx.CollectionChanged -= dxHandler; };
+            NotifyCollectionChangedEventHandler yHandler = null;
+            _y.CollectionChanged += yHandler = (s, e) => { Attributes["y"] = s; _y.CollectionChanged -= yHandler; };
+            NotifyCollectionChangedEventHandler dyHandler = null;
+            _dy.CollectionChanged += dyHandler = (s, e) => { Attributes["dy"] = s; _dy.CollectionChanged -= dyHandler; };
+
             _x.CollectionChanged += OnCoordinateChanged;
             _dx.CollectionChanged += OnCoordinateChanged;
             _y.CollectionChanged += OnCoordinateChanged;
@@ -139,7 +148,7 @@ namespace Svg
 
         private void OnCoordinateChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            this.IsPathDirty = true;
+            IsPathDirty = true;
         }
 
         /// <summary>
