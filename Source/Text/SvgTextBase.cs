@@ -311,33 +311,29 @@ namespace Svg
         {
             var newObj = base.DeepCopy<T>() as SvgTextBase;
 
-            if (_x == null)
-                newObj._x = null;
-            else
+            if (newObj.Attributes.ContainsKey("x"))
             {
-                newObj._x = (SvgUnitCollection)_x.Clone();
-                newObj._x.CollectionChanged += newObj.OnCoordinateChanged;
+                newObj._x = (SvgUnitCollection)newObj.Attributes["x"];
+                if (newObj._x != null)
+                    newObj._x.CollectionChanged += newObj.OnCoordinateChanged;
             }
-            if (_y == null)
-                newObj._y = null;
-            else
+            if (newObj.Attributes.ContainsKey("y"))
             {
-                newObj._y = (SvgUnitCollection)_y.Clone();
-                newObj._y.CollectionChanged += newObj.OnCoordinateChanged;
+                newObj._y = (SvgUnitCollection)newObj.Attributes["y"];
+                if (newObj._y != null)
+                    newObj._y.CollectionChanged += newObj.OnCoordinateChanged;
             }
-            if (_dx == null)
-                newObj._dx = null;
-            else
+            if (newObj.Attributes.ContainsKey("dx"))
             {
-                newObj._dx = (SvgUnitCollection)_dx.Clone();
-                newObj._dx.CollectionChanged += newObj.OnCoordinateChanged;
+                newObj._dx = (SvgUnitCollection)newObj.Attributes["dx"];
+                if (newObj._dx != null)
+                    newObj._dx.CollectionChanged += newObj.OnCoordinateChanged;
             }
-            if (_dy == null)
-                newObj._dy = null;
-            else
+            if (newObj.Attributes.ContainsKey("dy"))
             {
-                newObj._dy = (SvgUnitCollection)_dy.Clone();
-                newObj._dy.CollectionChanged += newObj.OnCoordinateChanged;
+                newObj._dy = (SvgUnitCollection)newObj.Attributes["dy"];
+                if (newObj._dy != null)
+                    newObj._dy.CollectionChanged += newObj.OnCoordinateChanged;
             }
             newObj._rotate = _rotate;
             foreach (var rotation in _rotations)
