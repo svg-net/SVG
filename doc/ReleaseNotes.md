@@ -7,6 +7,7 @@ The release versions are NuGet releases.
 * fixed `text-decoration` conversion (see [#941](https://github.com/svg-net/SVG/issues/941))
 * fixed `text-transformation` (see [#952](https://github.com/svg-net/SVG/issues/952))
 * fixed invalid value is set in `Attributes` of `SvgTextBase` (see [#954](https://github.com/svg-net/SVG/issues/954))
+* fixed precision issue in `SvgUnit` (see [PR #961](https://github.com/svg-net/SVG/pull/961))
 
 ## [Version 3.4.0](https://www.nuget.org/packages/Svg/3.4.0)  (2022-01-09)
 
