@@ -28,8 +28,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Support relative commands in Paths, reduce memory usage, and several fixes 
-(see Release Notes: http://svg-net.github.io/SVG/doc/ReleaseNotes.html).
+    <PackageReleaseNotes>Several bug fixes (see Release Notes: http://svg-net.github.io/SVG/doc/ReleaseNotes.html).
     </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/svg-net/SVG</PackageProjectUrl>
     <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>

@@ -1,7 +1,7 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
-## Unreleased (master)
+## [Version 3.4.1](https://www.nuget.org/packages/Svg/3.4.1)  (2022-03-19)
 
 ### Fixes
 * fixed `text-decoration` conversion (see [#941](https://github.com/svg-net/SVG/issues/941))
