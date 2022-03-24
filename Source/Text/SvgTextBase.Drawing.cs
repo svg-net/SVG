@@ -25,7 +25,7 @@ namespace Svg
                     if (span != null && string.IsNullOrWhiteSpace(span.Text))
                         continue;
 
-                        path.AddPath(elem.Path(null), false);
+                    path.AddPath(elem.Path(null), false);
                 }
                 if (Transforms == null || Transforms.Count == 0)
                     return path.GetBounds();
