@@ -22,9 +22,10 @@ namespace Svg
                 {
                     //When empty Text span, don't add path
                     var span = elem as SvgTextSpan;
-                    if (span != null && span.Text == null)
+                    if (span != null && string.IsNullOrWhiteSpace(span.Text))
                         continue;
-                    path.AddPath(elem.Path(null), false);
+
+                        path.AddPath(elem.Path(null), false);
                 }
                 if (Transforms == null || Transforms.Count == 0)
                     return path.GetBounds();
