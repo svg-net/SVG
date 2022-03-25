@@ -20,7 +20,7 @@ namespace Svg
                 var path = this.Path(null);
                 foreach (var elem in this.Children.OfType<SvgVisualElement>())
                 {
-                    //If string is blank, GraphicsPath points will be empty.
+                    // If string is blank, GraphicsPath points will be empty.
                     var span = elem as SvgTextSpan;
                     if (span != null && string.IsNullOrWhiteSpace(span.Text))
                         continue;
