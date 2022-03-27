@@ -1,6 +1,11 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
+## Unreleased
+
+### Fixes
+* fixed issue for `SvgTextBase.Bounds` with blank `SvgTextSpan` (see [PR #963](https://github.com/svg-net/SVG/pull/963))
+
 ## [Version 3.4.1](https://www.nuget.org/packages/Svg/3.4.1)  (2022-03-19)
 
 ### Fixes
