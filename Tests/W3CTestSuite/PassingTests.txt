@@ -282,6 +282,7 @@ __issue-888-01.svg
 __issue-917-01.svg
 __issue-917-02.svg
 __issue-941-01.svg
+__issue-960-01.svg
 __pull_request-373-01.svg
 __pull_request-374-01.svg
 __pull_request-414-01.svg

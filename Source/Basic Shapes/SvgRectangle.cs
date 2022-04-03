@@ -89,20 +89,6 @@ namespace Svg
             set { _cornerRadiusY = value; Attributes["ry"] = value; IsPathDirty = true; }
         }
 
-        /// <summary>
-        /// Gets or sets a value to determine if anti-aliasing should occur when the element is being rendered.
-        /// </summary>
-        protected override bool RequiresSmoothRendering
-        {
-            get
-            {
-                if (base.RequiresSmoothRendering)
-                    return (CornerRadiusX.Value > 0.0f || CornerRadiusY.Value > 0.0f);
-                else
-                    return false;
-            }
-        }
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgRectangle>();

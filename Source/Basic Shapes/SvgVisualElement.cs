@@ -70,11 +70,11 @@ namespace Svg
             {
                 case SvgShapeRendering.OptimizeSpeed:
                 case SvgShapeRendering.CrispEdges:
-                case SvgShapeRendering.GeometricPrecision:
                     return false;
                 default:
                     // SvgShapeRendering.Auto
                     // SvgShapeRendering.Inherit
+                    // SvgShapeRendering.GeometricPrecision
                     return true;
             }
         }
