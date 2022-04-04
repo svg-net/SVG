@@ -90,16 +90,21 @@ namespace Svg
                     i++;
                 }
 
-                blend.Positions[i] = position;
+                // always set the first position to 0 to account for rounding errors
+                blend.Positions[i] = i == 0 ? 0.0f : position;
                 blend.Colors[i] = colour;
 
                 // Insert this colour after itself at position 0
                 if (insertEnd && i == colourBlends - 2)
                 {
                     i++;
-
-                    blend.Positions[i] = 1.0f;
                     blend.Colors[i] = colour;
+                }
+
+                if (i == colourBlends - 1)
+                {
+                    // always set the last position to 1 to account for rounding errors
+                    blend.Positions[i] = 1.0f;
                 }
             }
 
