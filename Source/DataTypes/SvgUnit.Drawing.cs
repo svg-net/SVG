@@ -107,16 +107,16 @@ namespace Svg
                     switch (renderType)
                     {
                         case UnitRenderingType.Horizontal:
-                            _deviceValue = (size.Width / 100) * value;
+                            _deviceValue = (float)(size.Width / 100.0 * value);
                             break;
                         case UnitRenderingType.HorizontalOffset:
-                            _deviceValue = (size.Width / 100) * value + boundable.Location.X;
+                            _deviceValue = (float)(size.Width / 100.0 * value) + boundable.Location.X;
                             break;
                         case UnitRenderingType.Vertical:
-                            _deviceValue = (size.Height / 100) * value;
+                            _deviceValue = (float)(size.Height / 100.0 * value);
                             break;
                         case UnitRenderingType.VerticalOffset:
-                            _deviceValue = (size.Height / 100) * value + boundable.Location.Y;
+                            _deviceValue = (float)(size.Height / 100.0 * value) + boundable.Location.Y;
                             break;
                         case UnitRenderingType.Other:
                             // Calculate a percentage value of the normalized viewBox diagonal length.
