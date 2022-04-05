@@ -12569,19 +12569,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgRectangle.Render
   nameWithType: SvgRectangle.Render
-- uid: Svg.SvgRectangle.RequiresSmoothRendering
-  name: RequiresSmoothRendering
-  href: api/Svg.SvgRectangle.html#Svg_SvgRectangle_RequiresSmoothRendering
-  commentId: P:Svg.SvgRectangle.RequiresSmoothRendering
-  fullName: Svg.SvgRectangle.RequiresSmoothRendering
-  nameWithType: SvgRectangle.RequiresSmoothRendering
-- uid: Svg.SvgRectangle.RequiresSmoothRendering*
-  name: RequiresSmoothRendering
-  href: api/Svg.SvgRectangle.html#Svg_SvgRectangle_RequiresSmoothRendering_
-  commentId: Overload:Svg.SvgRectangle.RequiresSmoothRendering
-  isSpec: "True"
-  fullName: Svg.SvgRectangle.RequiresSmoothRendering
-  nameWithType: SvgRectangle.RequiresSmoothRendering
 - uid: Svg.SvgRectangle.Width
   name: Width
   href: api/Svg.SvgRectangle.html#Svg_SvgRectangle_Width
