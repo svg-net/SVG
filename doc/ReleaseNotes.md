@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased
 
+### Changes
+* made anti-aliasing behavior more consistent with rendering in browsers (see [#960](https://github.com/svg-net/SVG/issues/960))
+
 ### Fixes
 * fixed issue for `SvgTextBase.Bounds` with blank `SvgTextSpan` (see [PR #963](https://github.com/svg-net/SVG/pull/963))
 
