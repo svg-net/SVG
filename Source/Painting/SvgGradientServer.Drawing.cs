@@ -1,4 +1,4 @@
-#if !NO_SDC
+﻿#if !NO_SDC
 using System;
 using System.Drawing.Drawing2D;
 
@@ -104,6 +104,12 @@ namespace Svg
             }
 
             return blend;
+        }
+
+        protected SvgUnit NormalizeUnit(SvgUnit orig)
+        {
+            return orig.Type == SvgUnitType.Percentage && GradientUnits == SvgCoordinateUnits.ObjectBoundingBox ?
+                new SvgUnit(SvgUnitType.User, orig.Value / 100f) : orig;
         }
     }
 }

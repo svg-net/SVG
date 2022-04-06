@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-
-namespace Svg
+﻿namespace Svg
 {
     [SvgElement("linearGradient")]
     public partial class SvgLinearGradientServer : SvgGradientServer

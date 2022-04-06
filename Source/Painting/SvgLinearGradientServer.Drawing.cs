@@ -1,4 +1,4 @@
-#if !NO_SDC
+﻿#if !NO_SDC
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -334,13 +334,6 @@ namespace Svg
             }
 
             return colorBlend;
-        }
-
-        private SvgUnit NormalizeUnit(SvgUnit orig)
-        {
-            return (orig.Type == SvgUnitType.Percentage && this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox ?
-                new SvgUnit(SvgUnitType.User, orig.Value / 100) :
-                orig);
         }
 
         [Flags]

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -11,14 +11,6 @@ namespace Svg
     /// </summary>
     public abstract partial class SvgGradientServer : SvgPaintServer
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgGradientServer"/> class.
-        /// </summary>
-        internal SvgGradientServer()
-        {
-            Stops = new List<SvgGradientStop>();
-        }
-
         /// <summary>
         /// Called by the underlying <see cref="SvgElement"/> when an element has been added to the
         /// 'Children' collection.
@@ -49,7 +41,7 @@ namespace Svg
         /// <summary>
         /// Gets the ramp of colors to use on a gradient.
         /// </summary>
-        public List<SvgGradientStop> Stops { get; private set; }
+        public List<SvgGradientStop> Stops { get; } = new List<SvgGradientStop>();
 
         /// <summary>
         /// Specifies what happens if the gradient starts or ends inside the bounds of the target rectangle.
