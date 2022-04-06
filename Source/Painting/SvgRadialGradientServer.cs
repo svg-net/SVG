@@ -6,21 +6,21 @@
         [SvgAttribute("cx")]
         public SvgUnit CenterX
         {
-            get { return GetAttribute("cx", false, new SvgUnit(SvgUnitType.Percentage, 50f)); }
+            get { return GetAttribute("cx", false, SvgDeferredPaintServer.TryGet<SvgRadialGradientServer>(InheritGradient, null)?.CenterX ?? new SvgUnit(SvgUnitType.Percentage, 50f)); }
             set { Attributes["cx"] = value; }
         }
 
         [SvgAttribute("cy")]
         public SvgUnit CenterY
         {
-            get { return GetAttribute("cy", false, new SvgUnit(SvgUnitType.Percentage, 50f)); }
+            get { return GetAttribute("cy", false, SvgDeferredPaintServer.TryGet<SvgRadialGradientServer>(InheritGradient, null)?.CenterY ?? new SvgUnit(SvgUnitType.Percentage, 50f)); }
             set { Attributes["cy"] = value; }
         }
 
         [SvgAttribute("r")]
         public SvgUnit Radius
         {
-            get { return GetAttribute("r", false, new SvgUnit(SvgUnitType.Percentage, 50f)); }
+            get { return GetAttribute("r", false, SvgDeferredPaintServer.TryGet<SvgRadialGradientServer>(InheritGradient, null)?.Radius ?? new SvgUnit(SvgUnitType.Percentage, 50f)); }
             set { Attributes["r"] = value; }
         }
 
@@ -29,7 +29,7 @@
         {
             get
             {
-                var value = GetAttribute("fx", false, SvgUnit.None);
+                var value = GetAttribute("fx", false, SvgDeferredPaintServer.TryGet<SvgRadialGradientServer>(InheritGradient, null)?.FocalX ?? SvgUnit.None);
                 if (value.IsEmpty || value.IsNone)
                     value = CenterX;
                 return value;
@@ -42,7 +42,7 @@
         {
             get
             {
-                var value = GetAttribute("fy", false, SvgUnit.None);
+                var value = GetAttribute("fy", false, SvgDeferredPaintServer.TryGet<SvgRadialGradientServer>(InheritGradient, null)?.FocalY ?? SvgUnit.None);
                 if (value.IsEmpty || value.IsNone)
                     value = CenterY;
                 return value;
@@ -53,7 +53,7 @@
         [SvgAttribute("fr")]
         public SvgUnit FocalRadius
         {
-            get { return GetAttribute("fr", false, new SvgUnit(SvgUnitType.Percentage, 0f)); }
+            get { return GetAttribute("fr", false, SvgDeferredPaintServer.TryGet<SvgRadialGradientServer>(InheritGradient, null)?.FocalRadius ?? new SvgUnit(SvgUnitType.Percentage, 0f)); }
             set { Attributes["fr"] = value; }
         }
 

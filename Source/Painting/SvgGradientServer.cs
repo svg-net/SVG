@@ -49,7 +49,7 @@ namespace Svg
         [SvgAttribute("spreadMethod")]
         public SvgGradientSpreadMethod SpreadMethod
         {
-            get { return GetAttribute("spreadMethod", false, SvgGradientSpreadMethod.Pad); }
+            get { return GetAttribute("spreadMethod", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.SpreadMethod ?? SvgGradientSpreadMethod.Pad); }
             set { Attributes["spreadMethod"] = value; }
         }
 
@@ -59,7 +59,7 @@ namespace Svg
         [SvgAttribute("gradientUnits")]
         public SvgCoordinateUnits GradientUnits
         {
-            get { return GetAttribute("gradientUnits", false, SvgCoordinateUnits.ObjectBoundingBox); }
+            get { return GetAttribute("gradientUnits", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.GradientUnits ?? SvgCoordinateUnits.ObjectBoundingBox); }
             set { Attributes["gradientUnits"] = value; }
         }
 
@@ -76,7 +76,7 @@ namespace Svg
         [SvgAttribute("gradientTransform")]
         public SvgTransformCollection GradientTransform
         {
-            get { return GetAttribute<SvgTransformCollection>("gradientTransform", false); }
+            get { return GetAttribute("gradientTransform", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.GradientTransform); }
             set { Attributes["gradientTransform"] = value; }
         }
 
@@ -87,7 +87,7 @@ namespace Svg
         [TypeConverter(typeof(SvgPaintServerFactory))]
         public SvgPaintServer StopColor
         {
-            get { return GetAttribute<SvgPaintServer>("stop-color", false, new SvgColourServer(System.Drawing.Color.Black)); }
+            get { return GetAttribute("stop-color", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.StopColor ?? new SvgColourServer(System.Drawing.Color.Black)); }
             set { Attributes["stop-color"] = value; }
         }
 
@@ -97,7 +97,7 @@ namespace Svg
         [SvgAttribute("stop-opacity")]
         public float StopOpacity
         {
-            get { return GetAttribute("stop-opacity", false, 1f); }
+            get { return GetAttribute("stop-opacity", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.StopOpacity ?? 1f); }
             set { Attributes["stop-opacity"] = FixOpacityValue(value); }
         }
 
