@@ -10,19 +10,8 @@ namespace Svg
 {
     public partial class SvgLinearGradientServer : SvgGradientServer
     {
-        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
+        protected override Brush CreateBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke)
         {
-            LoadStops(renderingElement);
-
-            if (this.Stops.Count < 1) return null;
-            if (this.Stops.Count == 1)
-            {
-                var stopColor = this.Stops[0].GetColor(renderingElement);
-                var alpha = (int)Math.Round((opacity * (stopColor.A / 255.0f)) * 255);
-                var colour = System.Drawing.Color.FromArgb(alpha, stopColor);
-                return new SolidBrush(colour);
-            }
-
             try
             {
                 if (this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox) renderer.SetBoundable(renderingElement);

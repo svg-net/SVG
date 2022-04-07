@@ -101,13 +101,6 @@ namespace Svg
             set { Attributes["stop-opacity"] = FixOpacityValue(value); }
         }
 
-        protected void LoadStops(SvgVisualElement parent)
-        {
-            var core = SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, parent);
-            if (Stops.Count == 0 && core != null)
-                Stops.AddRange(core.Stops);
-        }
-
         protected static double CalculateDistance(PointF first, PointF second)
         {
             return Math.Sqrt(Math.Pow(first.X - second.X, 2) + Math.Pow(first.Y - second.Y, 2));
@@ -116,6 +109,13 @@ namespace Svg
         protected static float CalculateLength(PointF vector)
         {
             return (float)Math.Sqrt(Math.Pow(vector.X, 2) + Math.Pow(vector.Y, 2));
+        }
+
+        private void LoadStops(SvgVisualElement parent)
+        {
+            var core = SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, parent);
+            if (Stops.Count == 0 && core != null)
+                Stops.AddRange(core.Stops);
         }
     }
 }

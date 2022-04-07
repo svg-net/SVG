@@ -9,10 +9,8 @@ namespace Svg
 {
     public partial class SvgRadialGradientServer : SvgGradientServer
     {
-        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
+        protected override Brush CreateBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke)
         {
-            LoadStops(renderingElement);
-
             // TODO: figure out how to do the brush transform in the presence of FocalRadius
             try
             {
