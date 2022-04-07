@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="200">
+  <defs>
+    <radialGradient id="grad" cx="75%" cy="75%" fx="25%" fy="25%" r="75%">
+      <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:0" />
+      <stop offset="100%" style="stop-color:rgb(0,0,255);stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="grad1" fx="75%" fy="75%" xlink:href="#grad" />
+    <radialGradient id="grad2" xlink:href="#grad1" />
+  </defs>
+  <ellipse cx="200" cy="100" rx="200" ry="100" fill="url(#grad2)" />
+</svg>
