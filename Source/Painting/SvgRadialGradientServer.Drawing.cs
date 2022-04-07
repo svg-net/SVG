@@ -9,10 +9,8 @@ namespace Svg
 {
     public partial class SvgRadialGradientServer : SvgGradientServer
     {
-        public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)
+        protected override Brush CreateBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke)
         {
-            LoadStops(renderingElement);
-
             // TODO: figure out how to do the brush transform in the presence of FocalRadius
             try
             {
@@ -302,13 +300,6 @@ namespace Svg
             }
 
             return colorBlend;
-        }
-
-        private SvgUnit NormalizeUnit(SvgUnit orig)
-        {
-            return (orig.Type == SvgUnitType.Percentage && this.GradientUnits == SvgCoordinateUnits.ObjectBoundingBox ?
-                new SvgUnit(SvgUnitType.User, orig.Value / 100f) :
-                orig);
         }
     }
 }

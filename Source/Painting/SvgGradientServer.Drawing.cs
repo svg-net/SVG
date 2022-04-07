@@ -1,11 +1,32 @@
-#if !NO_SDC
+﻿#if !NO_SDC
 using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace Svg
 {
     public abstract partial class SvgGradientServer : SvgPaintServer
     {
+        public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)
+        {
+            LoadStops(styleOwner);
+
+            if (Stops.Count == 0)
+                return null;
+            else if (Stops.Count == 1)
+            {
+                // For simplicity.
+                var stopColor = Stops[0].GetColor(styleOwner);
+                var alpha = (int)Math.Round(opacity * (stopColor.A / 255f) * 255);
+                var colour = System.Drawing.Color.FromArgb(alpha, stopColor);
+                return new SolidBrush(colour);
+            }
+
+            return CreateBrush(styleOwner, renderer, opacity, forStroke);
+        }
+
+        protected abstract Brush CreateBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke);
+
         protected Matrix EffectiveGradientTransform
         {
             get
@@ -104,6 +125,12 @@ namespace Svg
             }
 
             return blend;
+        }
+
+        protected SvgUnit NormalizeUnit(SvgUnit orig)
+        {
+            return orig.Type == SvgUnitType.Percentage && GradientUnits == SvgCoordinateUnits.ObjectBoundingBox ?
+                new SvgUnit(SvgUnitType.User, orig.Value / 100f) : orig;
         }
     }
 }

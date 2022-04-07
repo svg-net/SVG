@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -11,14 +11,6 @@ namespace Svg
     /// </summary>
     public abstract partial class SvgGradientServer : SvgPaintServer
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgGradientServer"/> class.
-        /// </summary>
-        internal SvgGradientServer()
-        {
-            Stops = new List<SvgGradientStop>();
-        }
-
         /// <summary>
         /// Called by the underlying <see cref="SvgElement"/> when an element has been added to the
         /// 'Children' collection.
@@ -49,7 +41,7 @@ namespace Svg
         /// <summary>
         /// Gets the ramp of colors to use on a gradient.
         /// </summary>
-        public List<SvgGradientStop> Stops { get; private set; }
+        public List<SvgGradientStop> Stops { get; } = new List<SvgGradientStop>();
 
         /// <summary>
         /// Specifies what happens if the gradient starts or ends inside the bounds of the target rectangle.
@@ -57,7 +49,7 @@ namespace Svg
         [SvgAttribute("spreadMethod")]
         public SvgGradientSpreadMethod SpreadMethod
         {
-            get { return GetAttribute("spreadMethod", false, SvgGradientSpreadMethod.Pad); }
+            get { return GetAttribute("spreadMethod", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.SpreadMethod ?? SvgGradientSpreadMethod.Pad); }
             set { Attributes["spreadMethod"] = value; }
         }
 
@@ -67,7 +59,7 @@ namespace Svg
         [SvgAttribute("gradientUnits")]
         public SvgCoordinateUnits GradientUnits
         {
-            get { return GetAttribute("gradientUnits", false, SvgCoordinateUnits.ObjectBoundingBox); }
+            get { return GetAttribute("gradientUnits", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.GradientUnits ?? SvgCoordinateUnits.ObjectBoundingBox); }
             set { Attributes["gradientUnits"] = value; }
         }
 
@@ -84,7 +76,7 @@ namespace Svg
         [SvgAttribute("gradientTransform")]
         public SvgTransformCollection GradientTransform
         {
-            get { return GetAttribute<SvgTransformCollection>("gradientTransform", false); }
+            get { return GetAttribute("gradientTransform", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.GradientTransform); }
             set { Attributes["gradientTransform"] = value; }
         }
 
@@ -95,7 +87,7 @@ namespace Svg
         [TypeConverter(typeof(SvgPaintServerFactory))]
         public SvgPaintServer StopColor
         {
-            get { return GetAttribute<SvgPaintServer>("stop-color", false, new SvgColourServer(System.Drawing.Color.Black)); }
+            get { return GetAttribute("stop-color", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.StopColor ?? new SvgColourServer(System.Drawing.Color.Black)); }
             set { Attributes["stop-color"] = value; }
         }
 
@@ -105,15 +97,8 @@ namespace Svg
         [SvgAttribute("stop-opacity")]
         public float StopOpacity
         {
-            get { return GetAttribute("stop-opacity", false, 1f); }
+            get { return GetAttribute("stop-opacity", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.StopOpacity ?? 1f); }
             set { Attributes["stop-opacity"] = FixOpacityValue(value); }
-        }
-
-        protected void LoadStops(SvgVisualElement parent)
-        {
-            var core = SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, parent);
-            if (Stops.Count == 0 && core != null)
-                Stops.AddRange(core.Stops);
         }
 
         protected static double CalculateDistance(PointF first, PointF second)
@@ -124,6 +109,16 @@ namespace Svg
         protected static float CalculateLength(PointF vector)
         {
             return (float)Math.Sqrt(Math.Pow(vector.X, 2) + Math.Pow(vector.Y, 2));
+        }
+
+        private void LoadStops(SvgVisualElement parent)
+        {
+            var gradient = this;
+            while (gradient?.Stops.Count == 0)
+                gradient = SvgDeferredPaintServer.TryGet<SvgGradientServer>(gradient.InheritGradient, parent);
+
+            if (gradient != null)
+                Stops.AddRange(gradient.Stops);
         }
     }
 }

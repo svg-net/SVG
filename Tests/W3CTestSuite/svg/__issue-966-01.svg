@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="200">
+  <defs>
+    <linearGradient id="grad" x1="22.22" y1="237.44" x2="412.98" y2="167.51" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#059ad6"/>
+    </linearGradient>
+    <linearGradient id="grad1" x2="380" y2="180" xlink:href="#grad" />
+    <linearGradient id="grad2" xlink:href="#grad1" />
+  </defs>
+  <ellipse cx="200" cy="100" rx="200" ry="100" fill="url(#grad2)" />
+</svg>
