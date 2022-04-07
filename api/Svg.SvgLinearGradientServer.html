@@ -129,19 +129,22 @@
       <a class="xref" href="Svg.SvgGradientServer.html#Svg_SvgGradientServer_StopOpacity">SvgGradientServer.StopOpacity</a>
     </div>
     <div>
-      <a class="xref" href="Svg.SvgGradientServer.html#Svg_SvgGradientServer_LoadStops_Svg_SvgVisualElement_">SvgGradientServer.LoadStops(SvgVisualElement)</a>
-    </div>
-    <div>
       <a class="xref" href="Svg.SvgGradientServer.html#Svg_SvgGradientServer_CalculateDistance_PointF_PointF_">SvgGradientServer.CalculateDistance(PointF, PointF)</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgGradientServer.html#Svg_SvgGradientServer_CalculateLength_PointF_">SvgGradientServer.CalculateLength(PointF)</a>
     </div>
     <div>
+      <a class="xref" href="Svg.SvgGradientServer.html#Svg_SvgGradientServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_">SvgGradientServer.GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)</a>
+    </div>
+    <div>
       <a class="xref" href="Svg.SvgGradientServer.html#Svg_SvgGradientServer_EffectiveGradientTransform">SvgGradientServer.EffectiveGradientTransform</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgGradientServer.html#Svg_SvgGradientServer_GetColorBlend_Svg_ISvgRenderer_System_Single_System_Boolean_">SvgGradientServer.GetColorBlend(ISvgRenderer, Single, Boolean)</a>
+    </div>
+    <div>
+      <a class="xref" href="Svg.SvgGradientServer.html#Svg_SvgGradientServer_NormalizeUnit_Svg_SvgUnit_">SvgGradientServer.NormalizeUnit(SvgUnit)</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_GetCallback">SvgPaintServer.GetCallback</a>
@@ -590,40 +593,13 @@ public class SvgLinearGradientServer : SvgGradientServer, ISvgTransformable, ICl
   </h3>
   
   
-  <a id="Svg_SvgLinearGradientServer_DeepCopy_" data-uid="Svg.SvgLinearGradientServer.DeepCopy*"></a>
-  <h4 id="Svg_SvgLinearGradientServer_DeepCopy" data-uid="Svg.SvgLinearGradientServer.DeepCopy">DeepCopy()</h4>
+  <a id="Svg_SvgLinearGradientServer_CreateBrush_" data-uid="Svg.SvgLinearGradientServer.CreateBrush*"></a>
+  <h4 id="Svg_SvgLinearGradientServer_CreateBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_" data-uid="Svg.SvgLinearGradientServer.CreateBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)">CreateBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override SvgElement DeepCopy()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgElement.html">SvgElement</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_DeepCopy">SvgElement.DeepCopy()</a></div>
-  
-  
-  <a id="Svg_SvgLinearGradientServer_GetBrush_" data-uid="Svg.SvgLinearGradientServer.GetBrush*"></a>
-  <h4 id="Svg_SvgLinearGradientServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_" data-uid="Svg.SvgLinearGradientServer.GetBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)">GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override Brush GetBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke = false)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override Brush CreateBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -673,7 +649,34 @@ public class SvgLinearGradientServer : SvgGradientServer, ISvgTransformable, ICl
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_">SvgPaintServer.GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)</a></div>
+  <div><a class="xref" href="Svg.SvgGradientServer.html#Svg_SvgGradientServer_CreateBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_">SvgGradientServer.CreateBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)</a></div>
+  
+  
+  <a id="Svg_SvgLinearGradientServer_DeepCopy_" data-uid="Svg.SvgLinearGradientServer.DeepCopy*"></a>
+  <h4 id="Svg_SvgLinearGradientServer_DeepCopy" data-uid="Svg.SvgLinearGradientServer.DeepCopy">DeepCopy()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override SvgElement DeepCopy()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgElement.html">SvgElement</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_DeepCopy">SvgElement.DeepCopy()</a></div>
   <h3 id="implements">Implements</h3>
   <div>
       <a class="xref" href="Svg.ISvgTransformable.html">ISvgTransformable</a>

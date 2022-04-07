@@ -10107,6 +10107,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgGradientServer.CalculateLength
   nameWithType: SvgGradientServer.CalculateLength
+- uid: Svg.SvgGradientServer.CreateBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
+  name: CreateBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
+  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_CreateBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_
+  commentId: M:Svg.SvgGradientServer.CreateBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
+  fullName: Svg.SvgGradientServer.CreateBrush(Svg.SvgVisualElement, Svg.ISvgRenderer, System.Single, System.Boolean)
+  nameWithType: SvgGradientServer.CreateBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
+- uid: Svg.SvgGradientServer.CreateBrush*
+  name: CreateBrush
+  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_CreateBrush_
+  commentId: Overload:Svg.SvgGradientServer.CreateBrush
+  isSpec: "True"
+  fullName: Svg.SvgGradientServer.CreateBrush
+  nameWithType: SvgGradientServer.CreateBrush
 - uid: Svg.SvgGradientServer.EffectiveGradientTransform
   name: EffectiveGradientTransform
   href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_EffectiveGradientTransform
@@ -10120,6 +10133,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgGradientServer.EffectiveGradientTransform
   nameWithType: SvgGradientServer.EffectiveGradientTransform
+- uid: Svg.SvgGradientServer.GetBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
+  name: GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
+  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_
+  commentId: M:Svg.SvgGradientServer.GetBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
+  fullName: Svg.SvgGradientServer.GetBrush(Svg.SvgVisualElement, Svg.ISvgRenderer, System.Single, System.Boolean)
+  nameWithType: SvgGradientServer.GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
+- uid: Svg.SvgGradientServer.GetBrush*
+  name: GetBrush
+  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_GetBrush_
+  commentId: Overload:Svg.SvgGradientServer.GetBrush
+  isSpec: "True"
+  fullName: Svg.SvgGradientServer.GetBrush
+  nameWithType: SvgGradientServer.GetBrush
 - uid: Svg.SvgGradientServer.GetColorBlend(Svg.ISvgRenderer,System.Single,System.Boolean)
   name: GetColorBlend(ISvgRenderer, Single, Boolean)
   href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_GetColorBlend_Svg_ISvgRenderer_System_Single_System_Boolean_
@@ -10172,19 +10198,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgGradientServer.InheritGradient
   nameWithType: SvgGradientServer.InheritGradient
-- uid: Svg.SvgGradientServer.LoadStops(Svg.SvgVisualElement)
-  name: LoadStops(SvgVisualElement)
-  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_LoadStops_Svg_SvgVisualElement_
-  commentId: M:Svg.SvgGradientServer.LoadStops(Svg.SvgVisualElement)
-  fullName: Svg.SvgGradientServer.LoadStops(Svg.SvgVisualElement)
-  nameWithType: SvgGradientServer.LoadStops(SvgVisualElement)
-- uid: Svg.SvgGradientServer.LoadStops*
-  name: LoadStops
-  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_LoadStops_
-  commentId: Overload:Svg.SvgGradientServer.LoadStops
+- uid: Svg.SvgGradientServer.NormalizeUnit(Svg.SvgUnit)
+  name: NormalizeUnit(SvgUnit)
+  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_NormalizeUnit_Svg_SvgUnit_
+  commentId: M:Svg.SvgGradientServer.NormalizeUnit(Svg.SvgUnit)
+  fullName: Svg.SvgGradientServer.NormalizeUnit(Svg.SvgUnit)
+  nameWithType: SvgGradientServer.NormalizeUnit(SvgUnit)
+- uid: Svg.SvgGradientServer.NormalizeUnit*
+  name: NormalizeUnit
+  href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_NormalizeUnit_
+  commentId: Overload:Svg.SvgGradientServer.NormalizeUnit
   isSpec: "True"
-  fullName: Svg.SvgGradientServer.LoadStops
-  nameWithType: SvgGradientServer.LoadStops
+  fullName: Svg.SvgGradientServer.NormalizeUnit
+  nameWithType: SvgGradientServer.NormalizeUnit
 - uid: Svg.SvgGradientServer.RemoveElement(Svg.SvgElement)
   name: RemoveElement(SvgElement)
   href: api/Svg.SvgGradientServer.html#Svg_SvgGradientServer_RemoveElement_Svg_SvgElement_
@@ -10900,6 +10926,19 @@ references:
   commentId: T:Svg.SvgLinearGradientServer
   fullName: Svg.SvgLinearGradientServer
   nameWithType: SvgLinearGradientServer
+- uid: Svg.SvgLinearGradientServer.CreateBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
+  name: CreateBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
+  href: api/Svg.SvgLinearGradientServer.html#Svg_SvgLinearGradientServer_CreateBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_
+  commentId: M:Svg.SvgLinearGradientServer.CreateBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
+  fullName: Svg.SvgLinearGradientServer.CreateBrush(Svg.SvgVisualElement, Svg.ISvgRenderer, System.Single, System.Boolean)
+  nameWithType: SvgLinearGradientServer.CreateBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
+- uid: Svg.SvgLinearGradientServer.CreateBrush*
+  name: CreateBrush
+  href: api/Svg.SvgLinearGradientServer.html#Svg_SvgLinearGradientServer_CreateBrush_
+  commentId: Overload:Svg.SvgLinearGradientServer.CreateBrush
+  isSpec: "True"
+  fullName: Svg.SvgLinearGradientServer.CreateBrush
+  nameWithType: SvgLinearGradientServer.CreateBrush
 - uid: Svg.SvgLinearGradientServer.DeepCopy
   name: DeepCopy()
   href: api/Svg.SvgLinearGradientServer.html#Svg_SvgLinearGradientServer_DeepCopy
@@ -10913,19 +10952,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgLinearGradientServer.DeepCopy
   nameWithType: SvgLinearGradientServer.DeepCopy
-- uid: Svg.SvgLinearGradientServer.GetBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
-  name: GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
-  href: api/Svg.SvgLinearGradientServer.html#Svg_SvgLinearGradientServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_
-  commentId: M:Svg.SvgLinearGradientServer.GetBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
-  fullName: Svg.SvgLinearGradientServer.GetBrush(Svg.SvgVisualElement, Svg.ISvgRenderer, System.Single, System.Boolean)
-  nameWithType: SvgLinearGradientServer.GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
-- uid: Svg.SvgLinearGradientServer.GetBrush*
-  name: GetBrush
-  href: api/Svg.SvgLinearGradientServer.html#Svg_SvgLinearGradientServer_GetBrush_
-  commentId: Overload:Svg.SvgLinearGradientServer.GetBrush
-  isSpec: "True"
-  fullName: Svg.SvgLinearGradientServer.GetBrush
-  nameWithType: SvgLinearGradientServer.GetBrush
 - uid: Svg.SvgLinearGradientServer.GradientPoints
   name: SvgLinearGradientServer.GradientPoints
   href: api/Svg.SvgLinearGradientServer.GradientPoints.html
@@ -12385,6 +12411,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgRadialGradientServer.CenterY
   nameWithType: SvgRadialGradientServer.CenterY
+- uid: Svg.SvgRadialGradientServer.CreateBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
+  name: CreateBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
+  href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_CreateBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_
+  commentId: M:Svg.SvgRadialGradientServer.CreateBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
+  fullName: Svg.SvgRadialGradientServer.CreateBrush(Svg.SvgVisualElement, Svg.ISvgRenderer, System.Single, System.Boolean)
+  nameWithType: SvgRadialGradientServer.CreateBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
+- uid: Svg.SvgRadialGradientServer.CreateBrush*
+  name: CreateBrush
+  href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_CreateBrush_
+  commentId: Overload:Svg.SvgRadialGradientServer.CreateBrush
+  isSpec: "True"
+  fullName: Svg.SvgRadialGradientServer.CreateBrush
+  nameWithType: SvgRadialGradientServer.CreateBrush
 - uid: Svg.SvgRadialGradientServer.DeepCopy
   name: DeepCopy()
   href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_DeepCopy
@@ -12437,19 +12476,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgRadialGradientServer.FocalY
   nameWithType: SvgRadialGradientServer.FocalY
-- uid: Svg.SvgRadialGradientServer.GetBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
-  name: GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
-  href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_
-  commentId: M:Svg.SvgRadialGradientServer.GetBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)
-  fullName: Svg.SvgRadialGradientServer.GetBrush(Svg.SvgVisualElement, Svg.ISvgRenderer, System.Single, System.Boolean)
-  nameWithType: SvgRadialGradientServer.GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)
-- uid: Svg.SvgRadialGradientServer.GetBrush*
-  name: GetBrush
-  href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_GetBrush_
-  commentId: Overload:Svg.SvgRadialGradientServer.GetBrush
-  isSpec: "True"
-  fullName: Svg.SvgRadialGradientServer.GetBrush
-  nameWithType: SvgRadialGradientServer.GetBrush
 - uid: Svg.SvgRadialGradientServer.Radius
   name: Radius
   href: api/Svg.SvgRadialGradientServer.html#Svg_SvgRadialGradientServer_Radius

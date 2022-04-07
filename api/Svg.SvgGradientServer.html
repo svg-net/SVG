@@ -122,9 +122,6 @@
       <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_Render_Svg_ISvgRenderer_">SvgPaintServer.Render(ISvgRenderer)</a>
     </div>
     <div>
-      <a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_">SvgPaintServer.GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)</a>
-    </div>
-    <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_AddStyle_System_String_System_String_System_Int32_">SvgElement.AddStyle(String, String, Int32)</a>
     </div>
     <div>
@@ -789,6 +786,122 @@ public SvgDeferredPaintServer InheritGradient { get; set; }</code></pre>
   </table>
   
   
+  <a id="Svg_SvgGradientServer_CreateBrush_" data-uid="Svg.SvgGradientServer.CreateBrush*"></a>
+  <h4 id="Svg_SvgGradientServer_CreateBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_" data-uid="Svg.SvgGradientServer.CreateBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)">CreateBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract Brush CreateBrush(SvgVisualElement renderingElement, ISvgRenderer renderer, float opacity, bool forStroke)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgVisualElement.html">SvgVisualElement</a></td>
+        <td><span class="parametername">renderingElement</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a></td>
+        <td><span class="parametername">renderer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">opacity</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">forStroke</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Brush</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  
+  <a id="Svg_SvgGradientServer_GetBrush_" data-uid="Svg.SvgGradientServer.GetBrush*"></a>
+  <h4 id="Svg_SvgGradientServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_" data-uid="Svg.SvgGradientServer.GetBrush(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Single,System.Boolean)">GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgVisualElement.html">SvgVisualElement</a></td>
+        <td><span class="parametername">styleOwner</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Svg.ISvgRenderer.html">ISvgRenderer</a></td>
+        <td><span class="parametername">renderer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.single">Single</a></td>
+        <td><span class="parametername">opacity</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://docs.microsoft.com/dotnet/api/system.boolean">Boolean</a></td>
+        <td><span class="parametername">forStroke</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Brush</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Svg.SvgPaintServer.html#Svg_SvgPaintServer_GetBrush_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Single_System_Boolean_">SvgPaintServer.GetBrush(SvgVisualElement, ISvgRenderer, Single, Boolean)</a></div>
+  
+  
   <a id="Svg_SvgGradientServer_GetColorBlend_" data-uid="Svg.SvgGradientServer.GetColorBlend*"></a>
   <h4 id="Svg_SvgGradientServer_GetColorBlend_Svg_ISvgRenderer_System_Single_System_Boolean_" data-uid="Svg.SvgGradientServer.GetColorBlend(Svg.ISvgRenderer,System.Single,System.Boolean)">GetColorBlend(ISvgRenderer, Single, Boolean)</h4>
   <div class="markdown level1 summary"><p>Gets a <see cref="!:ColorBlend"></see> representing the <a class="xref" href="Svg.SvgGradientServer.html">SvgGradientServer</a>'s gradient stops.</p>
@@ -845,13 +958,13 @@ public SvgDeferredPaintServer InheritGradient { get; set; }</code></pre>
   </table>
   
   
-  <a id="Svg_SvgGradientServer_LoadStops_" data-uid="Svg.SvgGradientServer.LoadStops*"></a>
-  <h4 id="Svg_SvgGradientServer_LoadStops_Svg_SvgVisualElement_" data-uid="Svg.SvgGradientServer.LoadStops(Svg.SvgVisualElement)">LoadStops(SvgVisualElement)</h4>
+  <a id="Svg_SvgGradientServer_NormalizeUnit_" data-uid="Svg.SvgGradientServer.NormalizeUnit*"></a>
+  <h4 id="Svg_SvgGradientServer_NormalizeUnit_Svg_SvgUnit_" data-uid="Svg.SvgGradientServer.NormalizeUnit(Svg.SvgUnit)">NormalizeUnit(SvgUnit)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected void LoadStops(SvgVisualElement parent)</code></pre>
+    <pre><code class="lang-csharp hljs">protected SvgUnit NormalizeUnit(SvgUnit orig)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -864,8 +977,23 @@ public SvgDeferredPaintServer InheritGradient { get; set; }</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="Svg.SvgVisualElement.html">SvgVisualElement</a></td>
-        <td><span class="parametername">parent</span></td>
+        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
+        <td><span class="parametername">orig</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgUnit.html">SvgUnit</a></td>
         <td></td>
       </tr>
     </tbody>
