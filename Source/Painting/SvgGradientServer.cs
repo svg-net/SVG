@@ -113,9 +113,12 @@ namespace Svg
 
         private void LoadStops(SvgVisualElement parent)
         {
-            var core = SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, parent);
-            if (Stops.Count == 0 && core != null)
-                Stops.AddRange(core.Stops);
+            var gradient = this;
+            while (gradient?.Stops.Count == 0)
+                gradient = SvgDeferredPaintServer.TryGet<SvgGradientServer>(gradient.InheritGradient, parent);
+
+            if (gradient != null)
+                Stops.AddRange(gradient.Stops);
         }
     }
 }
