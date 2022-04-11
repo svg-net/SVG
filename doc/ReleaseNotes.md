@@ -3,6 +3,8 @@ The release versions are NuGet releases.
 
 ## Unreleased
 
+## [Version 3.4.2](https://www.nuget.org/packages/Svg/3.4.2)  (2022-04-11)
+
 ### Changes
 * made anti-aliasing behavior more consistent with rendering in browsers (see [#960](https://github.com/svg-net/SVG/issues/960))
 
