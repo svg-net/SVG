@@ -16,6 +16,7 @@ For information on installation and usage of the library, and for release notes 
 * [Posh](https://github.com/vvvv/Posh) a windowing/interaction/drawing layer for C#/.NET desktop applications with their GUI in a browser. 
 * [Timeliner](https://github.com/vvvv/Timeliner) a Posh based timeline that can be controlled by and sends out its values via OSC.
 * [Chordious](https://chordious.com) a fretboard diagram generator for fretted stringed instruments.
+* [HttpMaster](https://www.httpmaster.net) a Windows tool for HTTP testing and debugging.
 
 If you want your project in this list, send me a pull request on this file or link + short description to tebjan (at) vvvv.org
 
