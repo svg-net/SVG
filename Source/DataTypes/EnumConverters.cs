@@ -126,6 +126,24 @@ namespace Svg
     public sealed class SvgTextDecorationConverter : EnumBaseConverter<SvgTextDecoration>
     {
         public SvgTextDecorationConverter() : base(CaseHandling.KebabCase) { }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        {
+            if (value is string)
+                value = ((string)value).Replace(" ", ", ");
+
+            return base.ConvertFrom(context, culture, value);
+        }
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            var destination = base.ConvertTo(context, culture, value, destinationType);
+
+            if (destination is string && value is SvgTextDecoration)
+                destination = ((string)destination).Replace(",", string.Empty);
+
+            return destination;
+        }
     }
 
     public sealed class SvgFontStretchConverter : EnumBaseConverter<SvgFontStretch>

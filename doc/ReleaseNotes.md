@@ -1,6 +1,26 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
+## Unreleased
+
+## [Version 3.4.2](https://www.nuget.org/packages/Svg/3.4.2)  (2022-04-11)
+
+### Changes
+* made anti-aliasing behavior more consistent with rendering in browsers (see [#960](https://github.com/svg-net/SVG/issues/960))
+
+### Fixes
+* fixed issue for `SvgTextBase.Bounds` with blank `SvgTextSpan` (see [PR #963](https://github.com/svg-net/SVG/pull/963))
+* fixed precision issue in `SvgUnit` (see [PR #969](https://github.com/svg-net/SVG/pull/969))
+* fixed `InheritGradient` values are not inherited (see [#966](https://github.com/svg-net/SVG/issues/966))
+
+## [Version 3.4.1](https://www.nuget.org/packages/Svg/3.4.1)  (2022-03-19)
+
+### Fixes
+* fixed `text-decoration` conversion (see [#941](https://github.com/svg-net/SVG/issues/941))
+* fixed `text-transformation` (see [#952](https://github.com/svg-net/SVG/issues/952))
+* fixed invalid value is set in `Attributes` of `SvgTextBase` (see [#954](https://github.com/svg-net/SVG/issues/954))
+* fixed precision issue in `SvgUnit` (see [PR #961](https://github.com/svg-net/SVG/pull/961))
+
 ## [Version 3.4.0](https://www.nuget.org/packages/Svg/3.4.0)  (2022-01-09)
 
 ### Performance

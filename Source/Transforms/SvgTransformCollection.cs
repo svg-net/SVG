@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-#if !NO_SDC
-using System.Drawing.Drawing2D;
-#endif
 using System.Linq;
 
 namespace Svg.Transforms
 {
     [TypeConverter(typeof(SvgTransformConverter))]
-    public class SvgTransformCollection : List<SvgTransform>, ICloneable
+    public partial class SvgTransformCollection : List<SvgTransform>, ICloneable
     {
         private void AddItem(SvgTransform item)
         {
@@ -39,23 +36,6 @@ namespace Svg.Transforms
             base.RemoveAt(index);
             OnTransformChanged();
         }
-
-#if !NO_SDC
-        /// <summary>
-        /// Multiplies all matrices
-        /// </summary>
-        /// <returns>The result of all transforms</returns>
-        public Matrix GetMatrix()
-        {
-            var transformMatrix = new Matrix();
-
-            foreach (var transform in this)
-                using (var matrix = transform.Matrix)
-                    transformMatrix.Multiply(matrix);
-
-            return transformMatrix;
-        }
-#endif
 
         public override bool Equals(object obj)
         {

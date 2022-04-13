@@ -83,5 +83,29 @@ namespace Svg.UnitTests
             Assert.IsTrue(xml.Contains("dx=\"40\""));
             Assert.IsTrue(xml.Contains("dy=\"50\""));
         }
+
+        [Test]
+        public void TestUpdateCoordinatesForCollectionChange()
+        {
+            SvgText text = new SvgText()
+            {
+                Text = "Test coordinates",
+                X = { 10 },
+                Y = { 10 },
+                Dx = { 10 },
+                Dy = { 10 },
+            };
+
+            text.X = new SvgUnitCollection() { 20 };
+            text.Y = new SvgUnitCollection() { 30 };
+            text.Dx = new SvgUnitCollection() { 40 };
+            text.Dy = new SvgUnitCollection() { 50 };
+
+            var xml = text.GetXML();
+            Assert.IsTrue(xml.Contains("x=\"20\""));
+            Assert.IsTrue(xml.Contains("y=\"30\""));
+            Assert.IsTrue(xml.Contains("dx=\"40\""));
+            Assert.IsTrue(xml.Contains("dy=\"50\""));
+        }
     }
 }

@@ -1,15 +1,13 @@
-﻿using System;
+﻿#if !NO_SDC
+using System;
 using System.Drawing;
-#if !NO_SDC
 using System.Drawing.Drawing2D;
-#endif
 
 namespace Svg
 {
     public interface ISvgRenderer : IDisposable
     {
         float DpiY { get; }
-#if !NO_SDC
         void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit);
         void DrawImageUnscaled(Image image, Point location);
         void DrawPath(Pen pen, GraphicsPath path);
@@ -25,6 +23,6 @@ namespace Svg
         Matrix Transform { get; set; }
         void TranslateTransform(float dx, float dy, MatrixOrder order = MatrixOrder.Append);
         void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit, float opacity);
-#endif
     }
 }
+#endif

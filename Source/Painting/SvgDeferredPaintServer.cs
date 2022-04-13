@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -81,14 +80,6 @@ namespace Svg
                 _serverLoaded = true;
             }
         }
-
-#if !NO_SDC
-        public override Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false)
-        {
-            EnsureServer(styleOwner);
-            return _concreteServer?.GetBrush(styleOwner, renderer, opacity, forStroke) ?? _fallbackServer?.GetBrush(styleOwner, renderer, opacity, forStroke) ?? NotSet?.GetBrush(styleOwner, renderer, opacity, forStroke);
-        }
-#endif
 
         public override SvgElement DeepCopy()
         {

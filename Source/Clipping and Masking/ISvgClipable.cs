@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
 #if !NO_SDC
-using System.Drawing.Drawing2D;
-#endif
+using System;
 
 namespace Svg
 {
@@ -13,7 +8,6 @@ namespace Svg
     /// </summary>
     public interface ISvgClipable
     {
-#if !NO_SDC
         /// <summary>
         /// Gets or sets the ID of the associated <see cref="SvgClipPath"/> if one has been specified.
         /// </summary>
@@ -32,6 +26,6 @@ namespace Svg
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> to have its clipping region reset.</param>
         void ResetClip(ISvgRenderer renderer);
-#endif
     }
 }
+#endif

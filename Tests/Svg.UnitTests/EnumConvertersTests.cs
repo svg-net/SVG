@@ -29,7 +29,7 @@ namespace Svg.UnitTests
         [TestCase(typeof(SvgFontVariantConverter), "normal", "small-caps", "inherit")]
         [TestCase(typeof(SvgCoordinateUnitsConverter), "userSpaceOnUse", "objectBoundingBox")]
         [TestCase(typeof(SvgGradientSpreadMethodConverter), "pad", "reflect", "repeat")]
-        [TestCase(typeof(SvgTextDecorationConverter), "none", "underline", "overline", "line-through", "blink", "inherit")]
+        [TestCase(typeof(SvgTextDecorationConverter), "none", "underline", "overline", "line-through", "blink", "inherit", "underline overline line-through blink")]
         [TestCase(typeof(SvgFontStretchConverter), "normal", "wider", "narrower", "ultra-condensed", "extra-condensed", "condensed", "semi-condensed", "semi-expanded", "expanded", "extra-expanded", "ultra-expanded", "inherit")]
         [TestCase(typeof(SvgFontWeightConverter), "normal", "bold", "bolder", "lighter", "100", "200", "300", "400", "500", "600", "700", "800", "900", "inherit")]
         [TestCase(typeof(SvgTextTransformationConverter), "none", "capitalize", "uppercase", "lowercase", "inherit")]
