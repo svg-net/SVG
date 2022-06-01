@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp3.1;net5.0;net452;net461</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp3.1;net5.0;net462</TargetFrameworks>
     <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
     <RootNamespace>Svg</RootNamespace>
     <AssemblyName>Svg</AssemblyName>
@@ -62,9 +62,9 @@
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net461'">
-    <Title>Svg for .Net Framework 4.6.1</Title>
-    <DefineConstants>$(DefineConstants);NETFULL;NET461;Net4</DefineConstants>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net462'">
+    <Title>Svg for .Net Framework 4.6.2</Title>
+    <DefineConstants>$(DefineConstants);NETFULL;NET462;Net4</DefineConstants>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
@@ -93,7 +93,7 @@
     <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD21</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net452' Or '$(TargetFramework)'=='net461'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net452' Or '$(TargetFramework)'=='net462'">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
