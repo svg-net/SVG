@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased
 
+### Enhancements
+* removed out of support framework versions. (see PR [#980](https://github.com/svg-net/SVG/pull/980))
+
 ## [Version 3.4.2](https://www.nuget.org/packages/Svg/3.4.2)  (2022-04-11)
 
 ### Changes
