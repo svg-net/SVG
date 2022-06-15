@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{038E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "..\Samples\Entities\Entities.csproj", "{F34CF345-E7EF-4354-B49A-AFE7A78442A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XMLOutputTester", "..\Samples\XMLOutput\XMLOutputTester.csproj", "{8CEEB917-63E2-4AE7-B0D1-50A840050975}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SVGBuilder", "..\Samples\SVGBuilder\SVGBuilder.csproj", "{8CEEB917-63E2-4AE7-B0D1-50A840050975}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2EC3F3A0-F097-43EF-A603-9B82E3061469}"
 EndProject
