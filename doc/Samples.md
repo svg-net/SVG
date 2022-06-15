@@ -20,10 +20,10 @@ This is a small command line application that reads in a sample SVG, changes the
 elements, and saves it to a PNG file. It shows how to access and alter an element of the SVG source tree.
 
 
-XMLOutputTester
+SVGBuilder
 ---------------
-This is a simple form-based application that shows how to create a new SVG document from scratch (in this
-example representing a filled circle), display it's XML source and save it to a file.
+This is a form-based .NET application that shows how to create a new SVG document from scratch (in this
+example representing a filled circle), display it's SVG source and save it to a file.
 
 
 Entities

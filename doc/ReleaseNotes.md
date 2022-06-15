@@ -7,7 +7,7 @@ The release versions are NuGet releases.
 * removed out of support framework versions .NET 4.5.2/4.6.1 (replaced with 4.6.2) and .NET Core 2.1 (see PR [#980](https://github.com/svg-net/SVG/pull/980))
 
 ### Enhancements
-* update XMLOutputTester (see [PR #983](https://github.com/svg-net/SVG/pull/983))
+* update XMLOutputTester (rename to SVGBuilder) (see [PR #983](https://github.com/svg-net/SVG/pull/983))
 
 ## [Version 3.4.2](https://www.nuget.org/packages/Svg/3.4.2)  (2022-04-11)
 
