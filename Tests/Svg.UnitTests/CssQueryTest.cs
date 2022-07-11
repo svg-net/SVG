@@ -86,9 +86,9 @@ namespace Svg.UnitTests
         }
 
         [Test]
-        [TestCase("font-size:13;", "font-size:13;")]
-        [TestCase("font-size:13;font-style:normal;", "font-size:13;font-style:normal;")]
-        [TestCase("font-size:13;font-style:normal;font-weight:bold;", "font-size:13;font-style:normal;font-weight:bold;")]
+        [TestCase("font-size:13px;", "font-size:13px;")]
+        [TestCase("font-size:13px;font-style:normal;", "font-size:13px;font-style:normal;")]
+        [TestCase("font-size:13px;font-style:normal;font-weight:bold;", "font-size:13px;font-style:normal;font-weight:bold;")]
         [TestCase("font-family:Nimbus Sans L,'Arial Narrow',sans-serif;Sans L',sans-serif;", "font-family:Nimbus Sans L,'Arial Narrow',sans-serif;")]
         public void TestStyleDeclarations(string style, string expected)
         {
