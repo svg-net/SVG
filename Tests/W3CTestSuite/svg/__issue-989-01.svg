@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200">
+  <defs>
+    <linearGradient id="grad">
+      <stop offset="0%"   style="stop-color:rgb(255,255,255)" />
+      <stop offset="100%" style="stop-color:rgb(0,0,255)" />
+    </linearGradient>
+    <linearGradient id="grad1" xlink:href="#grad" />
+  </defs>
+  <rect y="0"   width="200" height="100" fill="url(#grad)" />
+  <rect y="100" width="200" height="100" fill="url(#grad1)" />
+</svg>
