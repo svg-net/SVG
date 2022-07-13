@@ -12,6 +12,9 @@ The release versions are NuGet releases.
 ### Fixes
 * fixed out of memory in Svg 3.4.2 (see [#989](https://github.com/svg-net/SVG/issues/989))
 
+### Infrastructures
+* the ExCSS library is now included via NuGet instead of copying the sources
+
 ## [Version 3.4.2](https://www.nuget.org/packages/Svg/3.4.2)  (2022-04-11)
 
 ### Changes
