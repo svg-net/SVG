@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using Svg.Css;
 using NUnit.Framework;
+using ExCSS;
 
 namespace Svg.UnitTests
 {
@@ -49,9 +51,9 @@ namespace Svg.UnitTests
 
         private void TestSelectorSpecificity(string selector, int specificity)
         {
-            var parser = new ExCSS.Parser();
-            var sheet = parser.Parse(selector + " {color:black}");
-            Assert.AreEqual(specificity, CssQuery.GetSpecificity(sheet.StyleRules[0].Selector));
+            var stylesheetParser = new StylesheetParser(true, true);
+            var stylesheet = stylesheetParser.Parse(selector + " {color:black}");
+            Assert.AreEqual(specificity, CssQuery.GetSpecificity(stylesheet.StyleRules.First().Selector));
         }
 
         /// <summary>
@@ -78,7 +80,7 @@ namespace Svg.UnitTests
         [TestCase("a[id=\"a-02\"]", 0x0110)]
         [TestCase("ul#nav li.active a", 0x1130)]
         [TestCase("body.ie7 .col_3 h2 ~ h2", 0x0230)]
-        [TestCase("#footer *:not(nav) li", 0x1020)]
+        [TestCase("#footer *:not(nav) li", 0x1110)]
         [TestCase("ul > li ul li ol li:first-letter", 0x0070)]
         public void RunSpecificityTests(string selector, int specifity)
         {
@@ -89,16 +91,16 @@ namespace Svg.UnitTests
         [TestCase("font-size:13px;", "font-size:13px;")]
         [TestCase("font-size:13px;font-style:normal;", "font-size:13px;font-style:normal;")]
         [TestCase("font-size:13px;font-style:normal;font-weight:bold;", "font-size:13px;font-style:normal;font-weight:bold;")]
-        [TestCase("font-family:Nimbus Sans L,'Arial Narrow',sans-serif;Sans L',sans-serif;", "font-family:Nimbus Sans L,'Arial Narrow',sans-serif;")]
+        [TestCase("font-family:Nimbus Sans L,'Arial Narrow',sans-serif;Sans L',sans-serif;", "font-family:Nimbus Sans L, \"Arial Narrow\", sans-serif;")]
         public void TestStyleDeclarations(string style, string expected)
         {
             var actual = new StringBuilder();
 
-            var cssParser = new ExCSS.Parser();
-            var inlineSheet = cssParser.Parse("#a{" + style + "}");
-            foreach (var rule in inlineSheet.StyleRules)
-                foreach (var decl in rule.Declarations)
-                    actual.Append(decl.Name).Append(":").Append(decl.Term.ToString()).Append(";");
+            var stylesheetParser = new StylesheetParser(true, true);
+            var stylesheet = stylesheetParser.Parse("#a{" + style + "}");
+            foreach (var rule in stylesheet.StyleRules)
+                foreach (var declaration in rule.Style)
+                    actual.Append(declaration.Name).Append(":").Append(declaration.Value).Append(";");
 
             Assert.AreEqual(expected, actual.ToString());
         }
