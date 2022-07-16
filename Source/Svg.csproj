@@ -123,13 +123,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove=".\External\ExCSS\Parser.generated.cs" />
-    <Compile Remove=".\External\ExCSS\ParserX.cs" />
     <Compile Remove=".\Resources\svg11.dtd" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="ExCSS" Version="4.1.4" />
     <PackageReference Include="Fizzler" Version="1.2.1" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
       <PrivateAssets>all</PrivateAssets>
