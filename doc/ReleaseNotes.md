@@ -1,7 +1,7 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
-## Unreleased
+## [Version 3.4.3](https://www.nuget.org/packages/Svg/3.4.3)  (2022-07-16)
 
 ### Changes
 * removed out of support framework versions .NET 4.5.2/4.6.1 (replaced with 4.6.2) and .NET Core 2.1 (see PR [#980](https://github.com/svg-net/SVG/pull/980))
@@ -12,8 +12,9 @@ The release versions are NuGet releases.
 ### Fixes
 * fixed out of memory in Svg 3.4.2 (see [#989](https://github.com/svg-net/SVG/issues/989))
 
-### Infrastructures
+### Infrastructure
 * the ExCSS library is now included via NuGet instead of copying the sources
+  (see [#596](https://github.com/svg-net/SVG/issues/596))
 
 ## [Version 3.4.2](https://www.nuget.org/packages/Svg/3.4.2)  (2022-04-11)
 
