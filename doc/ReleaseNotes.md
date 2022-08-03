@@ -1,6 +1,11 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
+## Unreleased
+
+### Fixes
+* fixed localized family names in `SvgFontManager` (see [PR #993](https://github.com/svg-net/SVG/pull/993))
+
 ## [Version 3.4.3](https://www.nuget.org/packages/Svg/3.4.3)  (2022-07-16)
 
 ### Changes
