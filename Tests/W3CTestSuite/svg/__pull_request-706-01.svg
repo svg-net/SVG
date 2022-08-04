@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="110" height="100">
-  <text fill="blue" font-size="10" font-family="Meiryo"   x="10" y="20">Meiryo String.</text>
-  <text fill="blue" font-size="10" font-family="メイリオ" x="10" y="40">Meiryo String.</text>
-
-  <text fill="blue" font-size="10" font-family="MS Mincho" x="10" y="60">MS Mincho String.</text>
-  <text fill="blue" font-size="10" font-family="ＭＳ 明朝" x="10" y="80">MS Mincho String.</text>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="168" height="44">
+  <text fill="blue" font-size="20" font-family="MS Gothic"     x="0" y="20">MS Gothic String.</text>
+  <text fill="blue" font-size="20" font-family="ＭＳ ゴシック" x="0" y="40">MS Gothic String.</text>
 </svg>

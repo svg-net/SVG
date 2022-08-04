@@ -19,6 +19,7 @@ namespace Svg
         {
             // Japanese
             new string[]{ "Meiryo", "メイリオ", },
+            new string[]{ "MS Gothic", "ＭＳ ゴシック", },
             new string[]{ "MS Mincho", "ＭＳ 明朝", },
         };
 
@@ -84,7 +85,7 @@ namespace Svg
                 ?? Enumerable.Repeat(name, 1);
             foreach (var familyName in familyNames)
             {
-                var family = families.Where(f => f.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                var family = families.Where(f => f.Name.Equals(familyName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
                 if (family != null)
                     return family;
             }
