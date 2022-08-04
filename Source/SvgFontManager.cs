@@ -19,6 +19,7 @@ namespace Svg
         {
             // Japanese
             new string[]{ "Meiryo", "メイリオ", },
+            new string[]{ "MS Gothic", "ＭＳ ゴシック", },
             new string[]{ "MS Mincho", "ＭＳ 明朝", },
         };
 
