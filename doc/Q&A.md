@@ -8,7 +8,7 @@ Please use our [getting started article](http://svg-net.github.io/SVG/doc/Gettin
 
 (from [#327](https://github.com/svg-net/SVG/issues/327), by @flemingtech)
 
-The rendering type plays a significant roll on rendering speeds. For example, it anti-aliasing is off for the SvgDocument render times are notably faster.
+The rendering type plays a significant roll on rendering speeds. For example, if anti-aliasing is off for the SvgDocument render times are notably faster.
 
 Because of the huge reduction in image quality, this wasn't a viable solution for my needs. Instead what I've come up with so far seems to work since I can't figure out how to get clipping regions to work.
 
