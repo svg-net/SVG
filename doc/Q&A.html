@@ -77,7 +77,7 @@ The format of the page is preliminary and maybe changed if more questions accumu
 <p>Please use our <a href="http://svg-net.github.io/SVG/doc/GettingStarted.html">getting started article</a> to get started with installation and implementation of the SVG library.</p>
 <h2 id="how-to-re-render-an-svg-faster">How to re-render an SVG faster?</h2>
 <p>(from <a href="https://github.com/svg-net/SVG/issues/327">#327</a>, by @flemingtech)</p>
-<p>The rendering type plays a significant roll on rendering speeds. For example, it anti-aliasing is off for the SvgDocument render times are notably faster.</p>
+<p>The rendering type plays a significant role on rendering speeds. For example, if anti-aliasing is off for the SvgDocument render times are notably faster.</p>
 <p>Because of the huge reduction in image quality, this wasn't a viable solution for my needs. Instead what I've come up with so far seems to work since I can't figure out how to get clipping regions to work.</p>
 <p>After I load the SVG, I make new SVG with the same initial SvgDocument properties (basically a deep copy followed by deleting all children). As I walk the first document tree I'm looking for elements I know are going to be modified. For each one that I find, I remove it from the first SVG and put it into the 2nd SVG. When I'm doing this, I also apply any parent transforms to the new child since it doesn't need/have all of it's parents.</p>
 <p>Once I'm done, I render the first SVG to an Image. When any of the 'animating' elements are changed, the 2nd SVG is rendered on top of a copy of the first SVG's rendering to form a complete composite. This prevents all the non-moving elements for having to re-render, unless of course the target graphics width/height changes. This is giving huge performance gains.</p>
@@ -112,7 +112,7 @@ var bitmap = svgDoc.Draw();
 <p>(from <a href="https://github.com/svg-net/SVG/issues/403">#403</a>, by @ievgennaida)</p>
 <p>Use <code>element.RenderElement();</code>.</p>
 <h2 id="how-to-render-an-svg-document-to-a-bitmap-in-another-size">How to render an SVG document to a bitmap in another size?</h2>
-<p>Use <code>SvgDocument.Draw(int rasterWidth, int rasterHeight)</code>. If one of the values is 0, it it set to preserve the aspect ratio, if both values are given, the aspect ratio is ignored.</p>
+<p>Use <code>SvgDocument.Draw(int rasterWidth, int rasterHeight)</code>. If one of the values is 0, it is set to preserve the aspect ratio, if both values are given, the aspect ratio is ignored.</p>
 <h2 id="is-this-code-server-safe">Is this code server-safe?</h2>
 <p>(from <a href="https://github.com/svg-net/SVG/issues/381">#381</a>, by @rangercej, answered by @gvheertum)</p>
 <p>I used it in server side code (ASP.NET MVC application and API's) and never had any problems with it. There is however be possible issues regarding use in services and API's, for example the System.Drawing might not always be available in certain situations (if I am not mistaken, some Azure service will not provide the System.Drawing since it relies on GDI calls) and will also be an issue when using it as &quot;portable&quot; code for example in .NET standard or .NET core (but I believe the library is already working on a migration/compatibility with .NET core/standard).</p>
