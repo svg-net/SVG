@@ -213,18 +213,17 @@ namespace Svg
                 var httpRequest = WebRequest.Create(uri);
 
                 using (var webResponse = httpRequest.GetResponse())
+                using (var stream = webResponse.GetResponseStream())
                 {
-                    using (var stream = webResponse.GetResponseStream())
-                    {
-                        if (stream.CanSeek)
-                            stream.Position = 0;
+                    if (stream.CanSeek)
+                        stream.Position = 0;
 
-                        if (webResponse.ContentType.StartsWith(MimeTypeSvg, StringComparison.InvariantCultureIgnoreCase) ||
-                            uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
-                            return LoadSvg(stream, uri);
-                        else
-                            return Image.FromStream(stream);
-                    }
+                    if (webResponse.ContentType.StartsWith(MimeTypeSvg, StringComparison.InvariantCultureIgnoreCase) ||
+                        uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
+                        return LoadSvg(stream, uri);
+                    else
+                        using (var image = Image.FromStream(stream))
+                            return new Bitmap(image);
                 }
             }
             catch (Exception ex)
@@ -288,9 +287,8 @@ namespace Svg
             {
                 var dataBytes = base64 ? Convert.FromBase64String(data) : Encoding.Default.GetBytes(data);
                 using (var stream = new MemoryStream(dataBytes))
-                {
-                    return Image.FromStream(stream);
-                }
+                using (var image = Image.FromStream(stream))
+                    return new Bitmap(image);
             }
             else
                 return null;
