@@ -5,6 +5,7 @@ The release versions are NuGet releases.
 
 ### Fixes
 * fixed localized family names in `SvgFontManager` (see [PR #993](https://github.com/svg-net/SVG/pull/993))
+* fixed out of memory Exception in `SvgImage.Render()` (see [#1003](https://github.com/svg-net/SVG/issues/1003))
 
 ## [Version 3.4.3](https://www.nuget.org/packages/Svg/3.4.3)  (2022-07-16)
 
