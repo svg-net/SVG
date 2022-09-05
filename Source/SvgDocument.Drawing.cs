@@ -146,7 +146,8 @@ namespace Svg
 
             using (var renderer = SvgRenderer.FromGraphics(graphics))
             {
-                var boundable = size.HasValue ? (ISvgBoundable)new GenericBoundable(0, 0, size.Value.Width, size.Value.Height) : this;
+                var docSize = size ?? GetDimensions(renderer);
+                var boundable = new GenericBoundable(0, 0, docSize.Width, docSize.Height);
                 this.Draw(renderer, boundable);
             }
         }
