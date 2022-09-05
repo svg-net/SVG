@@ -142,9 +142,7 @@ namespace Svg
         public void Draw(Graphics graphics, SizeF? size)
         {
             if (graphics == null)
-            {
                 throw new ArgumentNullException("graphics");
-            }
 
             using (var renderer = SvgRenderer.FromGraphics(graphics))
             {
