@@ -1,4 +1,4 @@
-#if !NO_SDC
+﻿#if !NO_SDC
 using System.Drawing;
 
 namespace Svg.FilterEffects
@@ -12,7 +12,8 @@ namespace Svg.FilterEffects
 
             var pts = new PointF[] { new PointF(this.Dx.ToDeviceValue(null, UnitRenderingType.Horizontal, null),
                 this.Dy.ToDeviceValue(null, UnitRenderingType.Vertical, null)) };
-            buffer.Transform.TransformVectors(pts);
+            using (var transform = buffer.Transform)
+                transform.TransformVectors(pts);
 
             using (var g = Graphics.FromImage(result))
             {
