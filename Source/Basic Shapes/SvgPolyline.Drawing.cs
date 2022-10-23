@@ -1,4 +1,4 @@
-#if !NO_SDC
+﻿#if !NO_SDC
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -8,13 +8,13 @@ namespace Svg
 {
     public partial class SvgPolyline : SvgPolygon
     {
-        private GraphicsPath _Path;
+        private GraphicsPath _path;
 
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
-            if (_Path == null || this.IsPathDirty)
+            if (_path == null || this.IsPathDirty)
             {
-                _Path = new GraphicsPath();
+                _path = new GraphicsPath();
 
                 try
                 {
@@ -26,18 +26,18 @@ namespace Svg
                         if (renderer == null)
                         {
                             var radius = base.StrokeWidth / 2;
-                            _Path.AddEllipse(endPoint.X - radius, endPoint.Y - radius, 2 * radius, 2 * radius);
+                            _path.AddEllipse(endPoint.X - radius, endPoint.Y - radius, 2 * radius, 2 * radius);
                             continue;
                         }
 
                         // TODO: Remove unrequired first line
-                        if (_Path.PointCount == 0)
+                        if (_path.PointCount == 0)
                         {
-                            _Path.AddLine(endPoint, endPoint);
+                            _path.AddLine(endPoint, endPoint);
                         }
                         else
                         {
-                            _Path.AddLine(_Path.GetLastPoint(), endPoint);
+                            _path.AddLine(_path.GetLastPoint(), endPoint);
                         }
                     }
                 }
@@ -48,7 +48,7 @@ namespace Svg
                 if (renderer != null)
                     this.IsPathDirty = false;
             }
-            return _Path;
+            return _path;
         }
     }
 }
