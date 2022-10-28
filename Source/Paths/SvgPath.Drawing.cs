@@ -18,19 +18,20 @@ namespace Svg
             {
                 _path = new GraphicsPath();
 
-                if (PathData != null && PathData.Count > 0 && PathData.First is SvgMoveToSegment)
+                var pathData = PathData;
+                if (pathData != null && pathData.Count > 0 && pathData.First is SvgMoveToSegment)
                 {
                     var start = PointF.Empty;
-                    foreach (var segment in PathData)
-                        start = segment.AddToPath(_path, start, PathData);
+                    foreach (var segment in pathData)
+                        start = segment.AddToPath(_path, start, pathData);
 
                     if (_path.PointCount == 0)
                     {
-                        if (PathData.Count > 0)
+                        if (pathData.Count > 0)
                         {
                             // special case with one move command only, see #223
                             // make sure the case is valid, but nothing is drawn
-                            var segment = PathData.Last;
+                            var segment = pathData.Last;
                             _path.AddLine(segment.End, segment.End);
                             Fill = SvgPaintServer.None;
                             Stroke = SvgPaintServer.None;

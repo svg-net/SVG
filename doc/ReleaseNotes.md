@@ -8,6 +8,9 @@ The release versions are NuGet releases.
 * fixed out of memory Exception in `SvgImage.Render()` (see [#1003](https://github.com/svg-net/SVG/issues/1003))
 * fixed argument Exception in `Draw(Graphics)` (see [#1004](https://github.com/svg-net/SVG/issues/1004))
 
+### Performance
+* performance optimization for `SvgPath.Path()` (see [#1018](https://github.com/svg-net/SVG/issues/1018), [#1013](https://github.com/svg-net/SVG/issues/1013))
+
 ## [Version 3.4.3](https://www.nuget.org/packages/Svg/3.4.3)  (2022-07-16)
 
 ### Changes
