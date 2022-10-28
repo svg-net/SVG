@@ -7,6 +7,7 @@ The release versions are NuGet releases.
 * fixed localized family names in `SvgFontManager` (see [PR #993](https://github.com/svg-net/SVG/pull/993))
 * fixed out of memory Exception in `SvgImage.Render()` (see [#1003](https://github.com/svg-net/SVG/issues/1003))
 * fixed argument Exception in `Draw(Graphics)` (see [#1004](https://github.com/svg-net/SVG/issues/1004))
+ * updated System.Drawing.Common to prevent Remote Code Execution Vulnerability (see [#1025](https://github.com/svg-net/SVG/issues/1025))
 
 ### Performance
 * performance optimization for `SvgPath.Path()` (see [#1018](https://github.com/svg-net/SVG/issues/1018), [#1013](https://github.com/svg-net/SVG/issues/1013))
