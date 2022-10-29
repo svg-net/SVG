@@ -28,7 +28,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Updated framework support, use newest ExCSS via nuget (see Release Notes: http://svg-net.github.io/SVG/doc/ReleaseNotes.html).
+    <PackageReleaseNotes>Fixed security issue, minor bug fixes (see Release Notes: http://svg-net.github.io/SVG/doc/ReleaseNotes.html).
     </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/svg-net/SVG</PackageProjectUrl>
     <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
