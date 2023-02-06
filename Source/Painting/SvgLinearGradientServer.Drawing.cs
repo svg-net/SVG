@@ -201,10 +201,10 @@ namespace Svg
                 else
                 {
                     candidate = new PointF(bounds.Left, (p2.Y - p1.Y) / (p2.X - p1.X) * (bounds.Left - p1.X) + p1.Y);
-                    if (bounds.Top <= candidate.Y && candidate.Y <= bounds.Bottom && !results.Contains(candidate, new MyPointFEqualityComparer()))
+                    if (bounds.Top <= candidate.Y && candidate.Y <= bounds.Bottom && !results.Contains(candidate, new PointFEqualityComparer()))
                         results.Add(candidate);
                     candidate = new PointF(bounds.Right, (p2.Y - p1.Y) / (p2.X - p1.X) * (bounds.Right - p1.X) + p1.Y);
-                    if (bounds.Top <= candidate.Y && candidate.Y <= bounds.Bottom && !results.Contains(candidate, new MyPointFEqualityComparer()))
+                    if (bounds.Top <= candidate.Y && candidate.Y <= bounds.Bottom && !results.Contains(candidate, new PointFEqualityComparer()))
                         results.Add(candidate);
                 }
                 if ((p2.X == bounds.Left || p2.X == bounds.Right) && (p2.Y == bounds.Top || p2.Y == bounds.Bottom))
@@ -214,10 +214,10 @@ namespace Svg
                 else
                 {
                     candidate = new PointF((bounds.Top - p1.Y) / (p2.Y - p1.Y) * (p2.X - p1.X) + p1.X, bounds.Top);
-                    if (bounds.Left <= candidate.X && candidate.X <= bounds.Right && !results.Contains(candidate, new MyPointFEqualityComparer()))
+                    if (bounds.Left <= candidate.X && candidate.X <= bounds.Right && !results.Contains(candidate, new PointFEqualityComparer()))
                         results.Add(candidate);
                     candidate = new PointF((bounds.Bottom - p1.Y) / (p2.Y - p1.Y) * (p2.X - p1.X) + p1.X, bounds.Bottom);
-                    if (bounds.Left <= candidate.X && candidate.X <= bounds.Right && !results.Contains(candidate, new MyPointFEqualityComparer()))
+                    if (bounds.Left <= candidate.X && candidate.X <= bounds.Right && !results.Contains(candidate, new PointFEqualityComparer()))
                         results.Add(candidate);
                 }
             }
