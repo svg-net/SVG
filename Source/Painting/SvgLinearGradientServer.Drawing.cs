@@ -118,7 +118,11 @@ namespace Svg
             var effectiveEnd = specifiedEnd;
             var intersectionPoints = CandidateIntersections(bounds, specifiedStart, specifiedEnd);
 
-            Debug.Assert(intersectionPoints.Count == 2, "Unanticipated number of intersection points");
+            if (intersectionPoints.Count < 2)
+            {
+                Console.WriteLine("Unanticipated number of intersection points!");
+                return new GradientPoints(specifiedStart, specifiedEnd);
+            }
 
             if (!(Math.Sign(intersectionPoints[1].X - intersectionPoints[0].X) == Math.Sign(specifiedEnd.X - specifiedStart.X) &&
                   Math.Sign(intersectionPoints[1].Y - intersectionPoints[0].Y) == Math.Sign(specifiedEnd.Y - specifiedStart.Y)))
@@ -147,20 +151,23 @@ namespace Svg
             return new GradientPoints(effectiveStart, effectiveEnd);
         }
 
-        class MyPointFEqualityComparer : EqualityComparer<PointF>
+        class PointFEqualityComparer : EqualityComparer<PointF>
         {
             public override bool Equals(PointF pt1, PointF pt2)
             {
                 if (pt2 == null && pt1 == null)
                     return true;
-                else if (pt1 == null || pt2 == null)
+
+                if (pt1 == null || pt2 == null)
                     return false;
-                else if (pt1.X == pt2.X && pt2.Y == pt2.Y)
+
+                if (pt1.X == pt2.X && pt2.Y == pt2.Y)
                     return true;
-                else if (Math.Round(pt1.X) == Math.Round(pt2.X) && Math.Round(pt2.Y) == Math.Round(pt2.Y))
+
+                if (Math.Round(pt1.X) == Math.Round(pt2.X) && Math.Round(pt2.Y) == Math.Round(pt2.Y))
                     return true;
-                else
-                    return false;
+
+                return false;
             }
 
             public override int GetHashCode(PointF pt)
