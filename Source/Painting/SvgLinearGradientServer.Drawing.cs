@@ -120,7 +120,6 @@ namespace Svg
 
             if (intersectionPoints.Count < 2)
             {
-                Console.WriteLine("Unanticipated number of intersection points!");
                 return new GradientPoints(specifiedStart, specifiedEnd);
             }
 
