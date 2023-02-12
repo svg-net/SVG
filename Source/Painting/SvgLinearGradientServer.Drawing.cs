@@ -118,7 +118,10 @@ namespace Svg
             var effectiveEnd = specifiedEnd;
             var intersectionPoints = CandidateIntersections(bounds, specifiedStart, specifiedEnd);
 
-            Debug.Assert(intersectionPoints.Count == 2, "Unanticipated number of intersection points");
+            if (intersectionPoints.Count < 2)
+            {
+                return new GradientPoints(specifiedStart, specifiedEnd);
+            }
 
             if (!(Math.Sign(intersectionPoints[1].X - intersectionPoints[0].X) == Math.Sign(specifiedEnd.X - specifiedStart.X) &&
                   Math.Sign(intersectionPoints[1].Y - intersectionPoints[0].Y) == Math.Sign(specifiedEnd.Y - specifiedStart.Y)))
@@ -147,6 +150,32 @@ namespace Svg
             return new GradientPoints(effectiveStart, effectiveEnd);
         }
 
+        class PointFEqualityComparer : EqualityComparer<PointF>
+        {
+            public override bool Equals(PointF pt1, PointF pt2)
+            {
+                if (pt2 == null && pt1 == null)
+                    return true;
+
+                if (pt1 == null || pt2 == null)
+                    return false;
+
+                if (pt1.X == pt2.X && pt2.Y == pt2.Y)
+                    return true;
+
+                if (Math.Round(pt1.X) == Math.Round(pt2.X) && Math.Round(pt2.Y) == Math.Round(pt2.Y))
+                    return true;
+
+                return false;
+            }
+
+            public override int GetHashCode(PointF pt)
+            {
+                int hCode = (int)pt.X ^ (int)pt.Y;
+                return hCode.GetHashCode();
+            }
+        }
+
         private IList<PointF> CandidateIntersections(RectangleF bounds, PointF p1, PointF p2)
         {
             var results = new List<PointF>();
@@ -171,9 +200,11 @@ namespace Svg
                 else
                 {
                     candidate = new PointF(bounds.Left, (p2.Y - p1.Y) / (p2.X - p1.X) * (bounds.Left - p1.X) + p1.Y);
-                    if (bounds.Top <= candidate.Y && candidate.Y <= bounds.Bottom) results.Add(candidate);
+                    if (bounds.Top <= candidate.Y && candidate.Y <= bounds.Bottom && !results.Contains(candidate, new PointFEqualityComparer()))
+                        results.Add(candidate);
                     candidate = new PointF(bounds.Right, (p2.Y - p1.Y) / (p2.X - p1.X) * (bounds.Right - p1.X) + p1.Y);
-                    if (bounds.Top <= candidate.Y && candidate.Y <= bounds.Bottom) results.Add(candidate);
+                    if (bounds.Top <= candidate.Y && candidate.Y <= bounds.Bottom && !results.Contains(candidate, new PointFEqualityComparer()))
+                        results.Add(candidate);
                 }
                 if ((p2.X == bounds.Left || p2.X == bounds.Right) && (p2.Y == bounds.Top || p2.Y == bounds.Bottom))
                 {
@@ -182,9 +213,11 @@ namespace Svg
                 else
                 {
                     candidate = new PointF((bounds.Top - p1.Y) / (p2.Y - p1.Y) * (p2.X - p1.X) + p1.X, bounds.Top);
-                    if (bounds.Left <= candidate.X && candidate.X <= bounds.Right) results.Add(candidate);
+                    if (bounds.Left <= candidate.X && candidate.X <= bounds.Right && !results.Contains(candidate, new PointFEqualityComparer()))
+                        results.Add(candidate);
                     candidate = new PointF((bounds.Bottom - p1.Y) / (p2.Y - p1.Y) * (p2.X - p1.X) + p1.X, bounds.Bottom);
-                    if (bounds.Left <= candidate.X && candidate.X <= bounds.Right) results.Add(candidate);
+                    if (bounds.Left <= candidate.X && candidate.X <= bounds.Right && !results.Contains(candidate, new PointFEqualityComparer()))
+                        results.Add(candidate);
                 }
             }
 

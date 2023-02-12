@@ -5,6 +5,7 @@ The release versions are NuGet releases.
 
 ### Fixes
 * fixed build error in C# 11 (see [PR #1030](https://github.com/svg-net/SVG/pull/1030))
+* fixed out of memory exception on SVGs with gradients (see [PR #1038] (https://github.com/svg-net/SVG/pull/1038))
 
 ## [Version 3.4.4](https://www.nuget.org/packages/Svg/3.4.4)  (2022-10-29)
 
