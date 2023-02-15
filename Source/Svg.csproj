@@ -56,12 +56,6 @@
     <DefineConstants>$(DefineConstants);TRACE;RELEASE</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net452'">
-    <Title>Svg for .Net Framework 4.5.2</Title>
-    <DefineConstants>$(DefineConstants);NETFULL;NET452;Net4</DefineConstants>
-    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(TargetFramework)'=='net462'">
     <Title>Svg for .Net Framework 4.6.2</Title>
     <DefineConstants>$(DefineConstants);NETFULL;NET462;Net4</DefineConstants>
@@ -93,7 +87,7 @@
     <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD21</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net452' Or '$(TargetFramework)'=='net462'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net462'">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -136,7 +130,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
-    
+
   <PropertyGroup Condition="'$(TargetFramework)' != 'net452'">
     <DefineConstants>$(DefineConstants);USE_SOURCE_GENERATORS</DefineConstants>
   </PropertyGroup>

@@ -11,12 +11,6 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net452|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NETFULL;NET452</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net452|AnyCPU'">
-    <DefineConstants>TRACE;RELEASE;NETFULL;NET452</DefineConstants>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net462|AnyCPU'">
     <DefineConstants>TRACE;DEBUG;NETFULL;NET462</DefineConstants>
   </PropertyGroup>
@@ -78,7 +72,7 @@
     <ProjectReference Include="..\..\Source\Svg.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net452' Or '$(TargetFramework)'=='net462'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net462'">
     <Reference Include="WindowsBase" />
   </ItemGroup>
 
