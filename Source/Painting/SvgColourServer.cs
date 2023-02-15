@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 
 namespace Svg
@@ -33,7 +33,7 @@ namespace Svg
                 return "inherit";
 
             Color c = this.Colour;
-#if !NETSTANDARD20
+#if !NETSTANDARD2_0
             // Return the name if it exists
             if (c.IsKnownColor)
                 return c.Name;

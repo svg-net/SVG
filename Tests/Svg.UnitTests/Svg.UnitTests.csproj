@@ -11,31 +11,6 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net462|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NETFULL;NET462</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net462|AnyCPU'">
-    <DefineConstants>TRACE;RELEASE;NETFULL;NET462</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp2.1|AnyCPU'">
-    <DefineConstants>TRACE;RELEASE;NETCORE;NETCORE21</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp2.1|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NETCORE;NETCORE21</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp3.1|AnyCPU'">
-    <DefineConstants>TRACE;RELEASE;NETCORE;NETCORE31</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.1|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NETCORE;NETCORE31</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net5.0|AnyCPU'">
-    <DefineConstants>TRACE;RELEASE;NETCORE;NETCORE50</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net5.0|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NETCORE;NETCORE50</DefineConstants>
-  </PropertyGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Resources\Issue204_PrivateFont\BrushScriptMT2.ttf" />
     <EmbeddedResource Include="AllTests.csv" />

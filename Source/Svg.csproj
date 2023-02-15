@@ -58,33 +58,8 @@
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net462'">
     <Title>Svg for .Net Framework 4.6.2</Title>
-    <DefineConstants>$(DefineConstants);NETFULL;NET462;Net4</DefineConstants>
+    <DefineConstants>$(DefineConstants);NETFULL;Net4</DefineConstants>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp2.1'">
-    <Title>Svg for .Net Core 2.1</Title>
-    <DefineConstants>$(DefineConstants);NETCORE;NETCORE21</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
-    <Title>Svg for .Net Core 3.1</Title>
-    <DefineConstants>$(DefineConstants);NETCORE;NETCORE31</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0'">
-    <Title>Svg for .Net 5.0</Title>
-    <DefineConstants>$(DefineConstants);NETCORE;NETCORE50</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <Title>Svg for .Net Standard 2.0</Title>
-    <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
-    <Title>Svg for .Net Standard 2.1</Title>
-    <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD21</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net462'">
