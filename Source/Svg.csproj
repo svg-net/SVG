@@ -49,13 +49,6 @@
     <None Include="svg-logo-v.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DefineConstants>$(DefineConstants);TRACE;DEBUG</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <DefineConstants>$(DefineConstants);TRACE;RELEASE</DefineConstants>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(TargetFramework)'=='net462'">
     <Title>Svg for .Net Framework 4.6.2</Title>
     <DefineConstants>$(DefineConstants);NETFULL;Net4</DefineConstants>
