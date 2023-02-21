@@ -73,7 +73,7 @@ namespace Svg
         {
             bool isWindows;
 
-#if NETCORE
+#if NETCOREAPP
             isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #else
             var platform = Environment.OSVersion.Platform;
