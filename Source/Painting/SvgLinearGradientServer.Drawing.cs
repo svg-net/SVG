@@ -154,12 +154,6 @@ namespace Svg
         {
             public override bool Equals(PointF pt1, PointF pt2)
             {
-                if (pt2 == null && pt1 == null)
-                    return true;
-
-                if (pt1 == null || pt2 == null)
-                    return false;
-
                 if (pt1.X == pt2.X && pt2.Y == pt2.Y)
                     return true;
 
@@ -222,13 +216,6 @@ namespace Svg
             }
 
             return results;
-        }
-
-        private static PointF CalculateClosestIntersectionPoint(PointF sourcePoint, IList<PointF> targetPoints)
-        {
-            Debug.Assert(targetPoints.Count == 2, "Unexpected number of intersection points!");
-
-            return CalculateDistance(sourcePoint, targetPoints[0]) < CalculateDistance(sourcePoint, targetPoints[1]) ? targetPoints[0] : targetPoints[1];
         }
 
         private static PointF MovePointAlongVector(PointF start, PointF unitVector, float distance)
