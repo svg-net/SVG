@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Xml;
 using Svg.Transforms;
@@ -110,6 +111,8 @@ namespace Svg
             }
             return false;
         }
+
+        protected internal static HttpClient HttpClient { get; } = new HttpClient();
 
         /// <summary>
         /// Gets the namespaces that element has.

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
-using System.Net;
+using System.Net.Http;
 using System.Text;
 
 namespace Svg
@@ -209,22 +209,28 @@ namespace Svg
                     return null;
                 }
 
-                // should work with http: and file: protocol urls
-                var httpRequest = WebRequest.Create(uri);
-
-                using (var webResponse = httpRequest.GetResponse())
-                using (var stream = webResponse.GetResponseStream())
-                {
-                    if (stream.CanSeek)
-                        stream.Position = 0;
-
-                    if (webResponse.ContentType.StartsWith(MimeTypeSvg, StringComparison.InvariantCultureIgnoreCase) ||
-                        uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
-                        return LoadSvg(stream, uri);
-                    else
-                        using (var image = Image.FromStream(stream))
-                            return new Bitmap(image);
-                }
+                if (uri.IsFile)
+                    using (var stream = File.OpenRead(uri.AbsolutePath))
+                    {
+                        if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase))
+                            return LoadSvg(stream, uri);
+                        else
+                            using (var image = Image.FromStream(stream))
+                                return new Bitmap(image);
+                    }
+                else if (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
+                    using (var httpResponseMessage = HttpClient.GetAsync(uri).Result)
+                    using (var stream = httpResponseMessage.Content.ReadAsStreamAsync().Result)
+                    {
+                        if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase) ||
+                            httpResponseMessage.Headers.Contains(MimeTypeSvg))
+                            return LoadSvg(stream, uri);
+                        else
+                            using (var image = Image.FromStream(stream))
+                                return new Bitmap(image);
+                    }
+                else
+                    throw new NotSupportedException();
             }
             catch (Exception ex)
             {
