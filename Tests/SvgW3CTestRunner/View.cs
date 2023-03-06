@@ -66,6 +66,11 @@ namespace SvgW3CTestRunner
 
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
+#if NET5_0_OR_GREATER
+            if (!OperatingSystem.IsWindows())
+                return;
+#endif
+
             //render svg
             var lstFiles = sender as ListBox;
             var fileName = lstFiles.SelectedItem.ToString();
@@ -184,6 +189,9 @@ namespace SvgW3CTestRunner
             return description;
         }
 
+#if NET5_0_OR_GREATER
+        [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#endif
         unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)
         {
             Bitmap output = new Bitmap(a.Width, a.Height, PixelFormat.Format32bppArgb);
@@ -213,6 +221,9 @@ namespace SvgW3CTestRunner
         }
     }
 
+#if NET5_0_OR_GREATER
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#endif
     static class BitmapExtensions
     {
         public static DisposableImageData LockBitsDisposable(this Bitmap bitmap, Rectangle rect, ImageLockMode flags, PixelFormat format)

@@ -49,7 +49,12 @@ group.Children.Add(new SvgCircle
 
         private void Button2_Click(object sender, EventArgs e)
         {
+#if NET5_0_OR_GREATER
+            if (OperatingSystem.IsWindows())
+                pictureBox1.Image?.Dispose();
+#else
             pictureBox1.Image?.Dispose();
+#endif
             pictureBox1.Image = null;
             button1.Enabled = false;
 
