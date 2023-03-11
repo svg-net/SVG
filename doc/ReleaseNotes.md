@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased
 
+### Changes
+* removed out of support framework versions .NET 5 (replaced with .NET 6) (see PR [#1045](https://github.com/svg-net/SVG/pull/1045))
+
 ### Fixes
 * fixed build error in C# 11 (see [PR #1030](https://github.com/svg-net/SVG/pull/1030))
 * fixed out of memory exception on SVGs with gradients (see [PR #1038] (https://github.com/svg-net/SVG/pull/1038))
