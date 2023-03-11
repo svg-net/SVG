@@ -1,41 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Windows.Forms;
-using System.Drawing;
-using System.IO;
-using System.Text.RegularExpressions;
-using Svg;
 using System.Diagnostics;
-
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using Svg;
 
 namespace SvgW3CTestRunner
 {
     public partial class View : Form
     {
-        //DIRECTORY SEPARATOR: The value of this field is a slash ("/") on UNIX and on Mac OSX, and a backslash ("\") on the Windows operating systems.
-        static private string sprt = Path.DirectorySeparatorChar.ToString();
-
         //Data folders
-        private string _svgBasePath = @".." + sprt + ".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "svg" + sprt;
-        private string _pngBasePath = @".." + sprt + ".." + sprt + ".." + sprt + ".." + sprt + "W3CTestSuite" + sprt + "png" + sprt;
+        private string _svgBasePath = Path.Combine("..", "..", "..", "..", "W3CTestSuite", "svg");
+        private string _pngBasePath = Path.Combine("..", "..", "..", "..", "W3CTestSuite", "png");
 
         public View()
         {
             InitializeComponent();
             // ignore tests pertaining to javascript or xml reading
-            var passingtestsTxt = _svgBasePath + @".." + sprt + "PassingTests.txt";
+            var passingtestsTxt = Path.Combine(_svgBasePath, "..", "PassingTests.txt");
             var passes = File.ReadAllLines(passingtestsTxt).ToDictionary((f) => f, (f) => true);
-            var files = (from f in
-                         (from g in Directory.GetFiles(_svgBasePath)
-                          select Path.GetFileName(g))
+            var files = from f in
+                         from g in Directory.GetFiles(_svgBasePath) select Path.GetFileName(g)
                          where !f.StartsWith("animate-") && !f.StartsWith("conform-viewer") &&
                          !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-") &&
                          !f.StartsWith("script-") && f.EndsWith(".svg")
-                         && File.Exists(_pngBasePath + f.Substring(0, f.Length - 3) + "png")
+                         && File.Exists(Path.Combine(_pngBasePath, Path.ChangeExtension(f, "png")))
                          orderby f
-                         select (object)f);
+                         select (object)f;
 
             var other = files.Where(f => ((string)f).StartsWith("__"));
             lstFilesOtherPassing.Items.AddRange(other.Where(f => passes.ContainsKey((string)f)).ToArray());
@@ -44,8 +39,6 @@ namespace SvgW3CTestRunner
             lstW3CFilesPassing.Items.AddRange(files.Where(f => passes.ContainsKey((string)f)).ToArray());
             lstW3CFilesFailing.Items.AddRange(files.Where(f => !passes.ContainsKey((string)f)).ToArray());
         }
-
-
 
         private void boxConsoleLog_MouseDown(object sender, MouseEventArgs e)
         {
@@ -61,7 +54,6 @@ namespace SvgW3CTestRunner
             }
         }
 
-
         void CopyAction(object sender, EventArgs e)
         {
             if (boxConsoleLog.SelectedText != null && boxConsoleLog.SelectedText != "")
@@ -72,7 +64,6 @@ namespace SvgW3CTestRunner
             }
         }
 
-
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             //render svg
@@ -81,14 +72,14 @@ namespace SvgW3CTestRunner
             if (fileName.StartsWith("#")) return;
 
             //display png
-            var png = Image.FromFile(_pngBasePath + Path.GetFileNameWithoutExtension(fileName) + ".png");
+            var png = Image.FromFile(Path.Combine(_pngBasePath, Path.ChangeExtension(fileName, "png")));
             picPng.Image = png;
 
             var doc = new SvgDocument();
             try
             {
                 Debug.Print(fileName);
-                doc = SvgDocument.Open(_svgBasePath + fileName);
+                doc = SvgDocument.Open(Path.Combine(_svgBasePath, fileName));
                 if (fileName.StartsWith("__"))
                 {
                     picSvg.Image = doc.Draw();
