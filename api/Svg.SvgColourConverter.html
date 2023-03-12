@@ -89,25 +89,52 @@
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">SvgColourConverter</span></div>
+    <div class="level1"><a class="xref" href="System.Drawing.ColorConverter.html">ColorConverter</a></div>
+    <div class="level2"><span class="xref">SvgColourConverter</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_CanConvertFrom_ITypeDescriptorContext_Type_">ColorConverter.CanConvertFrom(ITypeDescriptorContext, Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_CanConvertTo_ITypeDescriptorContext_Type_">ColorConverter.CanConvertTo(ITypeDescriptorContext, Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_">ColorConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_Type_">ColorConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_GetStandardValues_ITypeDescriptorContext_">ColorConverter.GetStandardValues(ITypeDescriptorContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_GetStandardValuesSupported_ITypeDescriptorContext_">ColorConverter.GetStandardValuesSupported(ITypeDescriptorContext)</a>
+    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Svg.html">Svg</a></h6>
-  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgColourConverter_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public class SvgColourConverter : ColorConverter</code></pre>
   </div>
   <h3 id="methods">Methods
   </h3>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgColourConverter_CanConvertFrom_System_ComponentModel_ITypeDescriptorContext_Type_.md&amp;value=---%0Auid%3A%20Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext%2CType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Painting/SvgColourConverter.cs/#L176">View Source</a>
+  </span>
   <a id="Svg_SvgColourConverter_CanConvertFrom_" data-uid="Svg.SvgColourConverter.CanConvertFrom*"></a>
-  <h4 id="Svg_SvgColourConverter_CanConvertFrom_System_ComponentModel_ITypeDescriptorContext_System_Type_" data-uid="Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">CanConvertFrom(ITypeDescriptorContext, Type)</h4>
+  <h4 id="Svg_SvgColourConverter_CanConvertFrom_System_ComponentModel_ITypeDescriptorContext_Type_" data-uid="Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,Type)">CanConvertFrom(ComponentModel.ITypeDescriptorContext, Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)</code></pre>
+    <pre><code class="lang-csharp hljs">public override bool CanConvertFrom(ComponentModel.ITypeDescriptorContext context, Type sourceType)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -120,12 +147,12 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.itypedescriptorcontext">ITypeDescriptorContext</a></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.itypedescriptorcontext">ComponentModel.ITypeDescriptorContext</a></td>
         <td><span class="parametername">context</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="xref">Type</span></td>
         <td><span class="parametername">sourceType</span></td>
         <td></td>
       </tr>
@@ -146,15 +173,20 @@
       </tr>
     </tbody>
   </table>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgColourConverter_CanConvertTo_System_ComponentModel_ITypeDescriptorContext_Type_.md&amp;value=---%0Auid%3A%20Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext%2CType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Painting/SvgColourConverter.cs/#L186">View Source</a>
+  </span>
   <a id="Svg_SvgColourConverter_CanConvertTo_" data-uid="Svg.SvgColourConverter.CanConvertTo*"></a>
-  <h4 id="Svg_SvgColourConverter_CanConvertTo_System_ComponentModel_ITypeDescriptorContext_System_Type_" data-uid="Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">CanConvertTo(ITypeDescriptorContext, Type)</h4>
+  <h4 id="Svg_SvgColourConverter_CanConvertTo_System_ComponentModel_ITypeDescriptorContext_Type_" data-uid="Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,Type)">CanConvertTo(ComponentModel.ITypeDescriptorContext, Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)</code></pre>
+    <pre><code class="lang-csharp hljs">public override bool CanConvertTo(ComponentModel.ITypeDescriptorContext context, Type destinationType)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -167,12 +199,12 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.itypedescriptorcontext">ITypeDescriptorContext</a></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.itypedescriptorcontext">ComponentModel.ITypeDescriptorContext</a></td>
         <td><span class="parametername">context</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="xref">Type</span></td>
         <td><span class="parametername">destinationType</span></td>
         <td></td>
       </tr>
@@ -193,16 +225,21 @@
       </tr>
     </tbody>
   </table>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgColourConverter_ConvertFrom_System_ComponentModel_ITypeDescriptorContext_System_Globalization_CultureInfo_System_Object_.md&amp;value=---%0Auid%3A%20Svg.SvgColourConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext%2CSystem.Globalization.CultureInfo%2CSystem.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Painting/SvgColourConverter.cs/#L26">View Source</a>
+  </span>
   <a id="Svg_SvgColourConverter_ConvertFrom_" data-uid="Svg.SvgColourConverter.ConvertFrom*"></a>
-  <h4 id="Svg_SvgColourConverter_ConvertFrom_System_ComponentModel_ITypeDescriptorContext_System_Globalization_CultureInfo_System_Object_" data-uid="Svg.SvgColourConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)</h4>
+  <h4 id="Svg_SvgColourConverter_ConvertFrom_System_ComponentModel_ITypeDescriptorContext_System_Globalization_CultureInfo_System_Object_" data-uid="Svg.SvgColourConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">ConvertFrom(ComponentModel.ITypeDescriptorContext, Globalization.CultureInfo, Object)</h4>
   <div class="markdown level1 summary"><p>Converts the given object to the converter's native type.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)</code></pre>
+    <pre><code class="lang-csharp hljs">public override object ConvertFrom(ComponentModel.ITypeDescriptorContext context, Globalization.CultureInfo culture, object value)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -215,13 +252,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.itypedescriptorcontext">ITypeDescriptorContext</a></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.itypedescriptorcontext">ComponentModel.ITypeDescriptorContext</a></td>
         <td><span class="parametername">context</span></td>
         <td><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.typedescriptor">TypeDescriptor</a> that provides a format context. You can use this object to get additional information about the environment from which this converter is being invoked.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo">CultureInfo</a></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo">Globalization.CultureInfo</a></td>
         <td><span class="parametername">culture</span></td>
         <td><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo">CultureInfo</a> that specifies the culture to represent the color.</p>
 </td>
@@ -266,15 +303,20 @@
       </tr>
     </tbody>
   </table>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgColourConverter_ConvertTo_System_ComponentModel_ITypeDescriptorContext_CultureInfo_System_Object_Type_.md&amp;value=---%0Auid%3A%20Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext%2CCultureInfo%2CSystem.Object%2CType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Painting/SvgColourConverter.cs/#L196">View Source</a>
+  </span>
   <a id="Svg_SvgColourConverter_ConvertTo_" data-uid="Svg.SvgColourConverter.ConvertTo*"></a>
-  <h4 id="Svg_SvgColourConverter_ConvertTo_System_ComponentModel_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_" data-uid="Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,CultureInfo,System.Object,System.Type)">ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)</h4>
+  <h4 id="Svg_SvgColourConverter_ConvertTo_System_ComponentModel_ITypeDescriptorContext_CultureInfo_System_Object_Type_" data-uid="Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,CultureInfo,System.Object,Type)">ConvertTo(ComponentModel.ITypeDescriptorContext, CultureInfo, Object, Type)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)</code></pre>
+    <pre><code class="lang-csharp hljs">public override object ConvertTo(ComponentModel.ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -287,7 +329,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.itypedescriptorcontext">ITypeDescriptorContext</a></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.itypedescriptorcontext">ComponentModel.ITypeDescriptorContext</a></td>
         <td><span class="parametername">context</span></td>
         <td></td>
       </tr>
@@ -302,7 +344,7 @@
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="xref">Type</span></td>
         <td><span class="parametername">destinationType</span></td>
         <td></td>
       </tr>
@@ -330,6 +372,12 @@
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgColourConverter.md&amp;value=---%0Auid%3A%20Svg.SvgColourConverter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/svg-net/SVG/blob/master/Source/Painting/SvgColourConverter.cs/#L11" class="contribution-link">View Source</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

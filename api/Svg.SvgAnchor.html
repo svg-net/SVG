@@ -94,7 +94,7 @@
   <div class="implements">
     <h5>Implements</h5>
     <div><a class="xref" href="Svg.ISvgTransformable.html">ISvgTransformable</a></div>
-    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icloneable">ICloneable</a></div>
+    <div><span class="xref">ICloneable</span></div>
     <div><a class="xref" href="Svg.ISvgNode.html">ISvgNode</a></div>
   </div>
   <div class="inheritedMembers">
@@ -181,7 +181,7 @@
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_SpaceHandling">SvgElement.SpaceHandling</a>
     </div>
     <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_SetAndForceUniqueID_System_String_System_Boolean_System_Action_Svg_SvgElement_System_String_System_String__">SvgElement.SetAndForceUniqueID(String, Boolean, Action&lt;SvgElement, String, String&gt;)</a>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_SetAndForceUniqueID_System_String_System_Boolean_Action_Svg_SvgElement_System_String_System_String__">SvgElement.SetAndForceUniqueID(String, Boolean, Action&lt;SvgElement, String, String&gt;)</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_AddElement_Svg_SvgElement_System_Int32_">SvgElement.AddElement(SvgElement, Int32)</a>
@@ -408,47 +408,29 @@
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_ValidateFontFamily_System_String_Svg_SvgDocument_Svg_SvgFontManager_">SvgElement.ValidateFontFamily(String, SvgDocument, SvgFontManager)</a>
     </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Svg.html">Svg</a></h6>
-  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgAnchor_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[SvgElement(&quot;a&quot;)]
-public class SvgAnchor : SvgElement, ISvgTransformable, ICloneable, ISvgNode</code></pre>
+    <pre><code class="lang-csharp hljs">public class SvgAnchor : SvgElement, ISvgTransformable, ISvgNode</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgAnchor_Href.md&amp;value=---%0Auid%3A%20Svg.SvgAnchor.Href%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Linking/SvgAnchor.cs/#L6">View Source</a>
+  </span>
   <a id="Svg_SvgAnchor_Href_" data-uid="Svg.SvgAnchor.Href*"></a>
   <h4 id="Svg_SvgAnchor_Href" data-uid="Svg.SvgAnchor.Href">Href</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[SvgAttribute(&quot;href&quot;, &quot;http://www.w3.org/1999/xlink&quot;)]
-public string Href { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string Href { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -465,16 +447,20 @@ public string Href { get; set; }</code></pre>
       </tr>
     </tbody>
   </table>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgAnchor_Show.md&amp;value=---%0Auid%3A%20Svg.SvgAnchor.Show%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Linking/SvgAnchor.cs/#L13">View Source</a>
+  </span>
   <a id="Svg_SvgAnchor_Show_" data-uid="Svg.SvgAnchor.Show*"></a>
   <h4 id="Svg_SvgAnchor_Show" data-uid="Svg.SvgAnchor.Show">Show</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[SvgAttribute(&quot;show&quot;, &quot;http://www.w3.org/1999/xlink&quot;)]
-public string Show { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string Show { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -491,8 +477,13 @@ public string Show { get; set; }</code></pre>
       </tr>
     </tbody>
   </table>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgAnchor_Target.md&amp;value=---%0Auid%3A%20Svg.SvgAnchor.Target%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Linking/SvgAnchor.cs/#L27">View Source</a>
+  </span>
   <a id="Svg_SvgAnchor_Target_" data-uid="Svg.SvgAnchor.Target*"></a>
   <h4 id="Svg_SvgAnchor_Target" data-uid="Svg.SvgAnchor.Target">Target</h4>
   <div class="markdown level1 summary"></div>
@@ -516,16 +507,20 @@ public string Show { get; set; }</code></pre>
       </tr>
     </tbody>
   </table>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgAnchor_Title.md&amp;value=---%0Auid%3A%20Svg.SvgAnchor.Title%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Linking/SvgAnchor.cs/#L20">View Source</a>
+  </span>
   <a id="Svg_SvgAnchor_Title_" data-uid="Svg.SvgAnchor.Title*"></a>
   <h4 id="Svg_SvgAnchor_Title" data-uid="Svg.SvgAnchor.Title">Title</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[SvgAttribute(&quot;title&quot;, &quot;http://www.w3.org/1999/xlink&quot;)]
-public string Title { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string Title { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -544,8 +539,13 @@ public string Title { get; set; }</code></pre>
   </table>
   <h3 id="methods">Methods
   </h3>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgAnchor_DeepCopy.md&amp;value=---%0Auid%3A%20Svg.SvgAnchor.DeepCopy%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Linking/SvgAnchor.cs/#L34">View Source</a>
+  </span>
   <a id="Svg_SvgAnchor_DeepCopy_" data-uid="Svg.SvgAnchor.DeepCopy*"></a>
   <h4 id="Svg_SvgAnchor_DeepCopy" data-uid="Svg.SvgAnchor.DeepCopy">DeepCopy()</h4>
   <div class="markdown level1 summary"></div>
@@ -576,10 +576,23 @@ public string Title { get; set; }</code></pre>
       <a class="xref" href="Svg.ISvgTransformable.html">ISvgTransformable</a>
   </div>
   <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icloneable">System.ICloneable</a>
+      <span class="xref">ICloneable</span>
   </div>
   <div>
       <a class="xref" href="Svg.ISvgNode.html">ISvgNode</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Svg.SvgExtentions.html#Svg_SvgExtentions_GetXML_Svg_SvgElement_">SvgExtentions.GetXML(SvgElement)</a>
+  </div>
+  <div>
+      <a class="xref" href="Svg.SvgExtentions.html#Svg_SvgExtentions_HasNonEmptyCustomAttribute_Svg_SvgElement_System_String_">SvgExtentions.HasNonEmptyCustomAttribute(SvgElement, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="Svg.SvgExtentions.html#Svg_SvgExtentions_ApplyRecursive_Svg_SvgElement_Action_Svg_SvgElement__">SvgExtentions.ApplyRecursive(SvgElement, Action&lt;SvgElement&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Svg.SvgExtentions.html#Svg_SvgExtentions_ApplyRecursiveDepthFirst_Svg_SvgElement_Action_Svg_SvgElement__">SvgExtentions.ApplyRecursiveDepthFirst(SvgElement, Action&lt;SvgElement&gt;)</a>
   </div>
 </article>
           </div>
@@ -588,6 +601,12 @@ public string Title { get; set; }</code></pre>
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgAnchor.md&amp;value=---%0Auid%3A%20Svg.SvgAnchor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/svg-net/SVG/blob/master/Source/Linking/SvgAnchor.cs/#L3" class="contribution-link">View Source</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

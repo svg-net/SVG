@@ -205,11 +205,11 @@ references:
   commentId: T:Svg.DataTypes.SvgOrientConverter
   fullName: Svg.DataTypes.SvgOrientConverter
   nameWithType: SvgOrientConverter
-- uid: Svg.DataTypes.SvgOrientConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)
+- uid: Svg.DataTypes.SvgOrientConverter.CanConvertFrom(ITypeDescriptorContext,Type)
   name: CanConvertFrom(ITypeDescriptorContext, Type)
-  href: api/Svg.DataTypes.SvgOrientConverter.html#Svg_DataTypes_SvgOrientConverter_CanConvertFrom_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.DataTypes.SvgOrientConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)
-  fullName: Svg.DataTypes.SvgOrientConverter.CanConvertFrom(ITypeDescriptorContext, System.Type)
+  href: api/Svg.DataTypes.SvgOrientConverter.html#Svg_DataTypes_SvgOrientConverter_CanConvertFrom_ITypeDescriptorContext_Type_
+  commentId: M:Svg.DataTypes.SvgOrientConverter.CanConvertFrom(ITypeDescriptorContext,Type)
+  fullName: Svg.DataTypes.SvgOrientConverter.CanConvertFrom(ITypeDescriptorContext, Type)
   nameWithType: SvgOrientConverter.CanConvertFrom(ITypeDescriptorContext, Type)
 - uid: Svg.DataTypes.SvgOrientConverter.CanConvertFrom*
   name: CanConvertFrom
@@ -218,11 +218,11 @@ references:
   isSpec: "True"
   fullName: Svg.DataTypes.SvgOrientConverter.CanConvertFrom
   nameWithType: SvgOrientConverter.CanConvertFrom
-- uid: Svg.DataTypes.SvgOrientConverter.CanConvertTo(ITypeDescriptorContext,System.Type)
+- uid: Svg.DataTypes.SvgOrientConverter.CanConvertTo(ITypeDescriptorContext,Type)
   name: CanConvertTo(ITypeDescriptorContext, Type)
-  href: api/Svg.DataTypes.SvgOrientConverter.html#Svg_DataTypes_SvgOrientConverter_CanConvertTo_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.DataTypes.SvgOrientConverter.CanConvertTo(ITypeDescriptorContext,System.Type)
-  fullName: Svg.DataTypes.SvgOrientConverter.CanConvertTo(ITypeDescriptorContext, System.Type)
+  href: api/Svg.DataTypes.SvgOrientConverter.html#Svg_DataTypes_SvgOrientConverter_CanConvertTo_ITypeDescriptorContext_Type_
+  commentId: M:Svg.DataTypes.SvgOrientConverter.CanConvertTo(ITypeDescriptorContext,Type)
+  fullName: Svg.DataTypes.SvgOrientConverter.CanConvertTo(ITypeDescriptorContext, Type)
   nameWithType: SvgOrientConverter.CanConvertTo(ITypeDescriptorContext, Type)
 - uid: Svg.DataTypes.SvgOrientConverter.CanConvertTo*
   name: CanConvertTo
@@ -244,11 +244,11 @@ references:
   isSpec: "True"
   fullName: Svg.DataTypes.SvgOrientConverter.ConvertFrom
   nameWithType: SvgOrientConverter.ConvertFrom
-- uid: Svg.DataTypes.SvgOrientConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+- uid: Svg.DataTypes.SvgOrientConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
   name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.DataTypes.SvgOrientConverter.html#Svg_DataTypes_SvgOrientConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.DataTypes.SvgOrientConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.DataTypes.SvgOrientConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
+  href: api/Svg.DataTypes.SvgOrientConverter.html#Svg_DataTypes_SvgOrientConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_Type_
+  commentId: M:Svg.DataTypes.SvgOrientConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  fullName: Svg.DataTypes.SvgOrientConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, Type)
   nameWithType: SvgOrientConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
 - uid: Svg.DataTypes.SvgOrientConverter.ConvertTo*
   name: ConvertTo
@@ -263,11 +263,11 @@ references:
   commentId: T:Svg.DataTypes.SvgPreserveAspectRatioConverter
   fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter
   nameWithType: SvgPreserveAspectRatioConverter
-- uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)
+- uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertFrom(ITypeDescriptorContext,Type)
   name: CanConvertFrom(ITypeDescriptorContext, Type)
-  href: api/Svg.DataTypes.SvgPreserveAspectRatioConverter.html#Svg_DataTypes_SvgPreserveAspectRatioConverter_CanConvertFrom_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)
-  fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertFrom(ITypeDescriptorContext, System.Type)
+  href: api/Svg.DataTypes.SvgPreserveAspectRatioConverter.html#Svg_DataTypes_SvgPreserveAspectRatioConverter_CanConvertFrom_ITypeDescriptorContext_Type_
+  commentId: M:Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertFrom(ITypeDescriptorContext,Type)
+  fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertFrom(ITypeDescriptorContext, Type)
   nameWithType: SvgPreserveAspectRatioConverter.CanConvertFrom(ITypeDescriptorContext, Type)
 - uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertFrom*
   name: CanConvertFrom
@@ -276,11 +276,11 @@ references:
   isSpec: "True"
   fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertFrom
   nameWithType: SvgPreserveAspectRatioConverter.CanConvertFrom
-- uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertTo(ITypeDescriptorContext,System.Type)
+- uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertTo(ITypeDescriptorContext,Type)
   name: CanConvertTo(ITypeDescriptorContext, Type)
-  href: api/Svg.DataTypes.SvgPreserveAspectRatioConverter.html#Svg_DataTypes_SvgPreserveAspectRatioConverter_CanConvertTo_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertTo(ITypeDescriptorContext,System.Type)
-  fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertTo(ITypeDescriptorContext, System.Type)
+  href: api/Svg.DataTypes.SvgPreserveAspectRatioConverter.html#Svg_DataTypes_SvgPreserveAspectRatioConverter_CanConvertTo_ITypeDescriptorContext_Type_
+  commentId: M:Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertTo(ITypeDescriptorContext,Type)
+  fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertTo(ITypeDescriptorContext, Type)
   nameWithType: SvgPreserveAspectRatioConverter.CanConvertTo(ITypeDescriptorContext, Type)
 - uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertTo*
   name: CanConvertTo
@@ -290,11 +290,11 @@ references:
   fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter.CanConvertTo
   nameWithType: SvgPreserveAspectRatioConverter.CanConvertTo
 - uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertFrom(ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)
-  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+  name: ConvertFrom(ITypeDescriptorContext, Globalization.CultureInfo, Object)
   href: api/Svg.DataTypes.SvgPreserveAspectRatioConverter.html#Svg_DataTypes_SvgPreserveAspectRatioConverter_ConvertFrom_ITypeDescriptorContext_System_Globalization_CultureInfo_System_Object_
   commentId: M:Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertFrom(ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)
   fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertFrom(ITypeDescriptorContext, System.Globalization.CultureInfo, System.Object)
-  nameWithType: SvgPreserveAspectRatioConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+  nameWithType: SvgPreserveAspectRatioConverter.ConvertFrom(ITypeDescriptorContext, Globalization.CultureInfo, Object)
 - uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertFrom*
   name: ConvertFrom
   href: api/Svg.DataTypes.SvgPreserveAspectRatioConverter.html#Svg_DataTypes_SvgPreserveAspectRatioConverter_ConvertFrom_
@@ -302,11 +302,11 @@ references:
   isSpec: "True"
   fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertFrom
   nameWithType: SvgPreserveAspectRatioConverter.ConvertFrom
-- uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+- uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
   name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.DataTypes.SvgPreserveAspectRatioConverter.html#Svg_DataTypes_SvgPreserveAspectRatioConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
+  href: api/Svg.DataTypes.SvgPreserveAspectRatioConverter.html#Svg_DataTypes_SvgPreserveAspectRatioConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_Type_
+  commentId: M:Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  fullName: Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, Type)
   nameWithType: SvgPreserveAspectRatioConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
 - uid: Svg.DataTypes.SvgPreserveAspectRatioConverter.ConvertTo*
   name: ConvertTo
@@ -367,12 +367,12 @@ references:
   fullName.vb: Svg.EnumBaseConverter(Of T).EnumBaseConverter
   nameWithType: EnumBaseConverter<T>.EnumBaseConverter
   nameWithType.vb: EnumBaseConverter(Of T).EnumBaseConverter
-- uid: Svg.EnumBaseConverter`1.CanConvertFrom(ITypeDescriptorContext,System.Type)
+- uid: Svg.EnumBaseConverter`1.CanConvertFrom(ITypeDescriptorContext,Type)
   name: CanConvertFrom(ITypeDescriptorContext, Type)
-  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1_CanConvertFrom_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.EnumBaseConverter`1.CanConvertFrom(ITypeDescriptorContext,System.Type)
-  fullName: Svg.EnumBaseConverter<T>.CanConvertFrom(ITypeDescriptorContext, System.Type)
-  fullName.vb: Svg.EnumBaseConverter(Of T).CanConvertFrom(ITypeDescriptorContext, System.Type)
+  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1_CanConvertFrom_ITypeDescriptorContext_Type_
+  commentId: M:Svg.EnumBaseConverter`1.CanConvertFrom(ITypeDescriptorContext,Type)
+  fullName: Svg.EnumBaseConverter<T>.CanConvertFrom(ITypeDescriptorContext, Type)
+  fullName.vb: Svg.EnumBaseConverter(Of T).CanConvertFrom(ITypeDescriptorContext, Type)
   nameWithType: EnumBaseConverter<T>.CanConvertFrom(ITypeDescriptorContext, Type)
   nameWithType.vb: EnumBaseConverter(Of T).CanConvertFrom(ITypeDescriptorContext, Type)
 - uid: Svg.EnumBaseConverter`1.CanConvertFrom*
@@ -459,12 +459,12 @@ references:
   fullName.vb: Svg.EnumBaseConverter(Of T).ConvertFrom
   nameWithType: EnumBaseConverter<T>.ConvertFrom
   nameWithType.vb: EnumBaseConverter(Of T).ConvertFrom
-- uid: Svg.EnumBaseConverter`1.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+- uid: Svg.EnumBaseConverter`1.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
   name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.EnumBaseConverter`1.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.EnumBaseConverter<T>.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
-  fullName.vb: Svg.EnumBaseConverter(Of T).ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
+  href: api/Svg.EnumBaseConverter-1.html#Svg_EnumBaseConverter_1_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_Type_
+  commentId: M:Svg.EnumBaseConverter`1.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  fullName: Svg.EnumBaseConverter<T>.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, Type)
+  fullName.vb: Svg.EnumBaseConverter(Of T).ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, Type)
   nameWithType: EnumBaseConverter<T>.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
   nameWithType.vb: EnumBaseConverter(Of T).ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
 - uid: Svg.EnumBaseConverter`1.ConvertTo*
@@ -528,11 +528,11 @@ references:
   commentId: M:Svg.Exceptions.SvgMemoryException.#ctor(System.String)
   fullName: Svg.Exceptions.SvgMemoryException.SvgMemoryException(System.String)
   nameWithType: SvgMemoryException.SvgMemoryException(String)
-- uid: Svg.Exceptions.SvgMemoryException.#ctor(System.String,System.Exception)
+- uid: Svg.Exceptions.SvgMemoryException.#ctor(System.String,Exception)
   name: SvgMemoryException(String, Exception)
-  href: api/Svg.Exceptions.SvgMemoryException.html#Svg_Exceptions_SvgMemoryException__ctor_System_String_System_Exception_
-  commentId: M:Svg.Exceptions.SvgMemoryException.#ctor(System.String,System.Exception)
-  fullName: Svg.Exceptions.SvgMemoryException.SvgMemoryException(System.String, System.Exception)
+  href: api/Svg.Exceptions.SvgMemoryException.html#Svg_Exceptions_SvgMemoryException__ctor_System_String_Exception_
+  commentId: M:Svg.Exceptions.SvgMemoryException.#ctor(System.String,Exception)
+  fullName: Svg.Exceptions.SvgMemoryException.SvgMemoryException(System.String, Exception)
   nameWithType: SvgMemoryException.SvgMemoryException(String, Exception)
 - uid: Svg.Exceptions.SvgMemoryException.#ctor*
   name: SvgMemoryException
@@ -553,11 +553,11 @@ references:
   commentId: T:Svg.ExtensionMethods.UriExtensions
   fullName: Svg.ExtensionMethods.UriExtensions
   nameWithType: UriExtensions
-- uid: Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(System.Uri)
+- uid: Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(Uri)
   name: ReplaceWithNullIfNone(Uri)
-  href: api/Svg.ExtensionMethods.UriExtensions.html#Svg_ExtensionMethods_UriExtensions_ReplaceWithNullIfNone_System_Uri_
-  commentId: M:Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(System.Uri)
-  fullName: Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(System.Uri)
+  href: api/Svg.ExtensionMethods.UriExtensions.html#Svg_ExtensionMethods_UriExtensions_ReplaceWithNullIfNone_Uri_
+  commentId: M:Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(Uri)
+  fullName: Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone(Uri)
   nameWithType: UriExtensions.ReplaceWithNullIfNone(Uri)
 - uid: Svg.ExtensionMethods.UriExtensions.ReplaceWithNullIfNone*
   name: ReplaceWithNullIfNone
@@ -579,13 +579,13 @@ references:
   isSpec: "True"
   fullName: Svg.Extensions.Descendants
   nameWithType: Extensions.Descendants
-- uid: Svg.Extensions.Descendants``1(System.Collections.Generic.IEnumerable{``0})
+- uid: Svg.Extensions.Descendants``1(IEnumerable{``0})
   name: Descendants<T>(IEnumerable<T>)
-  href: api/Svg.Extensions.html#Svg_Extensions_Descendants__1_System_Collections_Generic_IEnumerable___0__
-  commentId: M:Svg.Extensions.Descendants``1(System.Collections.Generic.IEnumerable{``0})
+  href: api/Svg.Extensions.html#Svg_Extensions_Descendants__1_IEnumerable___0__
+  commentId: M:Svg.Extensions.Descendants``1(IEnumerable{``0})
   name.vb: Descendants(Of T)(IEnumerable(Of T))
-  fullName: Svg.Extensions.Descendants<T>(System.Collections.Generic.IEnumerable<T>)
-  fullName.vb: Svg.Extensions.Descendants(Of T)(System.Collections.Generic.IEnumerable(Of T))
+  fullName: Svg.Extensions.Descendants<T>(IEnumerable<T>)
+  fullName.vb: Svg.Extensions.Descendants(Of T)(IEnumerable(Of T))
   nameWithType: Extensions.Descendants<T>(IEnumerable<T>)
   nameWithType.vb: Extensions.Descendants(Of T)(IEnumerable(Of T))
 - uid: Svg.ExternalType
@@ -618,11 +618,11 @@ references:
   commentId: T:Svg.ExternalTypeExtensions
   fullName: Svg.ExternalTypeExtensions
   nameWithType: ExternalTypeExtensions
-- uid: Svg.ExternalTypeExtensions.AllowsResolving(Svg.ExternalType,System.Uri)
+- uid: Svg.ExternalTypeExtensions.AllowsResolving(Svg.ExternalType,Uri)
   name: AllowsResolving(ExternalType, Uri)
-  href: api/Svg.ExternalTypeExtensions.html#Svg_ExternalTypeExtensions_AllowsResolving_Svg_ExternalType_System_Uri_
-  commentId: M:Svg.ExternalTypeExtensions.AllowsResolving(Svg.ExternalType,System.Uri)
-  fullName: Svg.ExternalTypeExtensions.AllowsResolving(Svg.ExternalType, System.Uri)
+  href: api/Svg.ExternalTypeExtensions.html#Svg_ExternalTypeExtensions_AllowsResolving_Svg_ExternalType_Uri_
+  commentId: M:Svg.ExternalTypeExtensions.AllowsResolving(Svg.ExternalType,Uri)
+  fullName: Svg.ExternalTypeExtensions.AllowsResolving(Svg.ExternalType, Uri)
   nameWithType: ExternalTypeExtensions.AllowsResolving(ExternalType, Uri)
 - uid: Svg.ExternalTypeExtensions.AllowsResolving*
   name: AllowsResolving
@@ -667,13 +667,13 @@ references:
   commentId: T:Svg.FilterEffects.ImageBuffer
   fullName: Svg.FilterEffects.ImageBuffer
   nameWithType: ImageBuffer
-- uid: Svg.FilterEffects.ImageBuffer.#ctor(RectangleF,System.Single,Svg.ISvgRenderer,System.Action{Svg.ISvgRenderer})
+- uid: Svg.FilterEffects.ImageBuffer.#ctor(RectangleF,System.Single,Svg.ISvgRenderer,Action{Svg.ISvgRenderer})
   name: ImageBuffer(RectangleF, Single, ISvgRenderer, Action<ISvgRenderer>)
-  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer__ctor_RectangleF_System_Single_Svg_ISvgRenderer_System_Action_Svg_ISvgRenderer__
-  commentId: M:Svg.FilterEffects.ImageBuffer.#ctor(RectangleF,System.Single,Svg.ISvgRenderer,System.Action{Svg.ISvgRenderer})
+  href: api/Svg.FilterEffects.ImageBuffer.html#Svg_FilterEffects_ImageBuffer__ctor_RectangleF_System_Single_Svg_ISvgRenderer_Action_Svg_ISvgRenderer__
+  commentId: M:Svg.FilterEffects.ImageBuffer.#ctor(RectangleF,System.Single,Svg.ISvgRenderer,Action{Svg.ISvgRenderer})
   name.vb: ImageBuffer(RectangleF, Single, ISvgRenderer, Action(Of ISvgRenderer))
-  fullName: Svg.FilterEffects.ImageBuffer.ImageBuffer(RectangleF, System.Single, Svg.ISvgRenderer, System.Action<Svg.ISvgRenderer>)
-  fullName.vb: Svg.FilterEffects.ImageBuffer.ImageBuffer(RectangleF, System.Single, Svg.ISvgRenderer, System.Action(Of Svg.ISvgRenderer))
+  fullName: Svg.FilterEffects.ImageBuffer.ImageBuffer(RectangleF, System.Single, Svg.ISvgRenderer, Action<Svg.ISvgRenderer>)
+  fullName.vb: Svg.FilterEffects.ImageBuffer.ImageBuffer(RectangleF, System.Single, Svg.ISvgRenderer, Action(Of Svg.ISvgRenderer))
   nameWithType: ImageBuffer.ImageBuffer(RectangleF, Single, ISvgRenderer, Action<ISvgRenderer>)
   nameWithType.vb: ImageBuffer.ImageBuffer(RectangleF, Single, ISvgRenderer, Action(Of ISvgRenderer))
 - uid: Svg.FilterEffects.ImageBuffer.#ctor*
@@ -1834,13 +1834,13 @@ references:
   commentId: T:Svg.FilterEffects.SvgFilter
   fullName: Svg.FilterEffects.SvgFilter
   nameWithType: SvgFilter
-- uid: Svg.FilterEffects.SvgFilter.ApplyFilter(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Action{Svg.ISvgRenderer})
+- uid: Svg.FilterEffects.SvgFilter.ApplyFilter(Svg.SvgVisualElement,Svg.ISvgRenderer,Action{Svg.ISvgRenderer})
   name: ApplyFilter(SvgVisualElement, ISvgRenderer, Action<ISvgRenderer>)
-  href: api/Svg.FilterEffects.SvgFilter.html#Svg_FilterEffects_SvgFilter_ApplyFilter_Svg_SvgVisualElement_Svg_ISvgRenderer_System_Action_Svg_ISvgRenderer__
-  commentId: M:Svg.FilterEffects.SvgFilter.ApplyFilter(Svg.SvgVisualElement,Svg.ISvgRenderer,System.Action{Svg.ISvgRenderer})
+  href: api/Svg.FilterEffects.SvgFilter.html#Svg_FilterEffects_SvgFilter_ApplyFilter_Svg_SvgVisualElement_Svg_ISvgRenderer_Action_Svg_ISvgRenderer__
+  commentId: M:Svg.FilterEffects.SvgFilter.ApplyFilter(Svg.SvgVisualElement,Svg.ISvgRenderer,Action{Svg.ISvgRenderer})
   name.vb: ApplyFilter(SvgVisualElement, ISvgRenderer, Action(Of ISvgRenderer))
-  fullName: Svg.FilterEffects.SvgFilter.ApplyFilter(Svg.SvgVisualElement, Svg.ISvgRenderer, System.Action<Svg.ISvgRenderer>)
-  fullName.vb: Svg.FilterEffects.SvgFilter.ApplyFilter(Svg.SvgVisualElement, Svg.ISvgRenderer, System.Action(Of Svg.ISvgRenderer))
+  fullName: Svg.FilterEffects.SvgFilter.ApplyFilter(Svg.SvgVisualElement, Svg.ISvgRenderer, Action<Svg.ISvgRenderer>)
+  fullName.vb: Svg.FilterEffects.SvgFilter.ApplyFilter(Svg.SvgVisualElement, Svg.ISvgRenderer, Action(Of Svg.ISvgRenderer))
   nameWithType: SvgFilter.ApplyFilter(SvgVisualElement, ISvgRenderer, Action<ISvgRenderer>)
   nameWithType.vb: SvgFilter.ApplyFilter(SvgVisualElement, ISvgRenderer, Action(Of ISvgRenderer))
 - uid: Svg.FilterEffects.SvgFilter.ApplyFilter*
@@ -5628,12 +5628,12 @@ references:
   commentId: T:Svg.SvgColourConverter
   fullName: Svg.SvgColourConverter
   nameWithType: SvgColourConverter
-- uid: Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)
-  name: CanConvertFrom(ITypeDescriptorContext, Type)
-  href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_CanConvertFrom_System_ComponentModel_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)
-  fullName: Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext, System.Type)
-  nameWithType: SvgColourConverter.CanConvertFrom(ITypeDescriptorContext, Type)
+- uid: Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,Type)
+  name: CanConvertFrom(ComponentModel.ITypeDescriptorContext, Type)
+  href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_CanConvertFrom_System_ComponentModel_ITypeDescriptorContext_Type_
+  commentId: M:Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,Type)
+  fullName: Svg.SvgColourConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext, Type)
+  nameWithType: SvgColourConverter.CanConvertFrom(ComponentModel.ITypeDescriptorContext, Type)
 - uid: Svg.SvgColourConverter.CanConvertFrom*
   name: CanConvertFrom
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_CanConvertFrom_
@@ -5641,12 +5641,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgColourConverter.CanConvertFrom
   nameWithType: SvgColourConverter.CanConvertFrom
-- uid: Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)
-  name: CanConvertTo(ITypeDescriptorContext, Type)
-  href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_CanConvertTo_System_ComponentModel_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)
-  fullName: Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext, System.Type)
-  nameWithType: SvgColourConverter.CanConvertTo(ITypeDescriptorContext, Type)
+- uid: Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,Type)
+  name: CanConvertTo(ComponentModel.ITypeDescriptorContext, Type)
+  href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_CanConvertTo_System_ComponentModel_ITypeDescriptorContext_Type_
+  commentId: M:Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,Type)
+  fullName: Svg.SvgColourConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext, Type)
+  nameWithType: SvgColourConverter.CanConvertTo(ComponentModel.ITypeDescriptorContext, Type)
 - uid: Svg.SvgColourConverter.CanConvertTo*
   name: CanConvertTo
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_CanConvertTo_
@@ -5655,11 +5655,11 @@ references:
   fullName: Svg.SvgColourConverter.CanConvertTo
   nameWithType: SvgColourConverter.CanConvertTo
 - uid: Svg.SvgColourConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)
-  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+  name: ConvertFrom(ComponentModel.ITypeDescriptorContext, Globalization.CultureInfo, Object)
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_ConvertFrom_System_ComponentModel_ITypeDescriptorContext_System_Globalization_CultureInfo_System_Object_
   commentId: M:Svg.SvgColourConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)
   fullName: Svg.SvgColourConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext, System.Globalization.CultureInfo, System.Object)
-  nameWithType: SvgColourConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+  nameWithType: SvgColourConverter.ConvertFrom(ComponentModel.ITypeDescriptorContext, Globalization.CultureInfo, Object)
 - uid: Svg.SvgColourConverter.ConvertFrom*
   name: ConvertFrom
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_ConvertFrom_
@@ -5667,12 +5667,12 @@ references:
   isSpec: "True"
   fullName: Svg.SvgColourConverter.ConvertFrom
   nameWithType: SvgColourConverter.ConvertFrom
-- uid: Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_ConvertTo_System_ComponentModel_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
-  nameWithType: SvgColourConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
+- uid: Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  name: ConvertTo(ComponentModel.ITypeDescriptorContext, CultureInfo, Object, Type)
+  href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_ConvertTo_System_ComponentModel_ITypeDescriptorContext_CultureInfo_System_Object_Type_
+  commentId: M:Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  fullName: Svg.SvgColourConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext, CultureInfo, System.Object, Type)
+  nameWithType: SvgColourConverter.ConvertTo(ComponentModel.ITypeDescriptorContext, CultureInfo, Object, Type)
 - uid: Svg.SvgColourConverter.ConvertTo*
   name: ConvertTo
   href: api/Svg.SvgColourConverter.html#Svg_SvgColourConverter_ConvertTo_
@@ -6352,13 +6352,13 @@ references:
   fullName.vb: Svg.SvgDocument.Open(Of T)(Stream)
   nameWithType: SvgDocument.Open<T>(Stream)
   nameWithType.vb: SvgDocument.Open(Of T)(Stream)
-- uid: Svg.SvgDocument.Open``1(Stream,System.Collections.Generic.Dictionary{System.String,System.String})
+- uid: Svg.SvgDocument.Open``1(Stream,Dictionary{System.String,System.String})
   name: Open<T>(Stream, Dictionary<String, String>)
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_Stream_System_Collections_Generic_Dictionary_System_String_System_String__
-  commentId: M:Svg.SvgDocument.Open``1(Stream,System.Collections.Generic.Dictionary{System.String,System.String})
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_Stream_Dictionary_System_String_System_String__
+  commentId: M:Svg.SvgDocument.Open``1(Stream,Dictionary{System.String,System.String})
   name.vb: Open(Of T)(Stream, Dictionary(Of String, String))
-  fullName: Svg.SvgDocument.Open<T>(Stream, System.Collections.Generic.Dictionary<System.String, System.String>)
-  fullName.vb: Svg.SvgDocument.Open(Of T)(Stream, System.Collections.Generic.Dictionary(Of System.String, System.String))
+  fullName: Svg.SvgDocument.Open<T>(Stream, Dictionary<System.String, System.String>)
+  fullName.vb: Svg.SvgDocument.Open(Of T)(Stream, Dictionary(Of System.String, System.String))
   nameWithType: SvgDocument.Open<T>(Stream, Dictionary<String, String>)
   nameWithType.vb: SvgDocument.Open(Of T)(Stream, Dictionary(Of String, String))
 - uid: Svg.SvgDocument.Open``1(System.String)
@@ -6370,13 +6370,13 @@ references:
   fullName.vb: Svg.SvgDocument.Open(Of T)(System.String)
   nameWithType: SvgDocument.Open<T>(String)
   nameWithType.vb: SvgDocument.Open(Of T)(String)
-- uid: Svg.SvgDocument.Open``1(System.String,System.Collections.Generic.Dictionary{System.String,System.String})
+- uid: Svg.SvgDocument.Open``1(System.String,Dictionary{System.String,System.String})
   name: Open<T>(String, Dictionary<String, String>)
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_System_String_System_Collections_Generic_Dictionary_System_String_System_String__
-  commentId: M:Svg.SvgDocument.Open``1(System.String,System.Collections.Generic.Dictionary{System.String,System.String})
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_System_String_Dictionary_System_String_System_String__
+  commentId: M:Svg.SvgDocument.Open``1(System.String,Dictionary{System.String,System.String})
   name.vb: Open(Of T)(String, Dictionary(Of String, String))
-  fullName: Svg.SvgDocument.Open<T>(System.String, System.Collections.Generic.Dictionary<System.String, System.String>)
-  fullName.vb: Svg.SvgDocument.Open(Of T)(System.String, System.Collections.Generic.Dictionary(Of System.String, System.String))
+  fullName: Svg.SvgDocument.Open<T>(System.String, Dictionary<System.String, System.String>)
+  fullName.vb: Svg.SvgDocument.Open(Of T)(System.String, Dictionary(Of System.String, System.String))
   nameWithType: SvgDocument.Open<T>(String, Dictionary<String, String>)
   nameWithType.vb: SvgDocument.Open(Of T)(String, Dictionary(Of String, String))
 - uid: Svg.SvgDocument.Open``1(XmlReader)
@@ -6527,23 +6527,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgDocument.SkipGdiPlusCapabilityCheck
   nameWithType: SvgDocument.SkipGdiPlusCapabilityCheck
-- uid: Svg.SvgDocument.System#IServiceProvider#GetService(System.Type)
-  name: IServiceProvider.GetService(Type)
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_System_IServiceProvider_GetService_System_Type_
-  commentId: M:Svg.SvgDocument.System#IServiceProvider#GetService(System.Type)
-  name.vb: System.IServiceProvider.GetService(Type)
-  fullName: Svg.SvgDocument.System.IServiceProvider.GetService(System.Type)
-  nameWithType: SvgDocument.IServiceProvider.GetService(Type)
-  nameWithType.vb: SvgDocument.System.IServiceProvider.GetService(Type)
-- uid: Svg.SvgDocument.System#IServiceProvider#GetService*
-  name: IServiceProvider.GetService
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_System_IServiceProvider_GetService_
-  commentId: Overload:Svg.SvgDocument.System#IServiceProvider#GetService
-  isSpec: "True"
-  name.vb: System.IServiceProvider.GetService
-  fullName: Svg.SvgDocument.System.IServiceProvider.GetService
-  nameWithType: SvgDocument.IServiceProvider.GetService
-  nameWithType.vb: SvgDocument.System.IServiceProvider.GetService
 - uid: Svg.SvgDocument.SystemIsGdiPlusCapable
   name: SystemIsGdiPlusCapable()
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_SystemIsGdiPlusCapable
@@ -6990,24 +6973,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.ElementNamespace
   nameWithType: SvgElement.ElementNamespace
-- uid: Svg.SvgElement.EventAttributeTuple
-  name: SvgElement.EventAttributeTuple
-  href: api/Svg.SvgElement.EventAttributeTuple.html
-  commentId: T:Svg.SvgElement.EventAttributeTuple
-  fullName: Svg.SvgElement.EventAttributeTuple
-  nameWithType: SvgElement.EventAttributeTuple
-- uid: Svg.SvgElement.EventAttributeTuple.Attribute
-  name: Attribute
-  href: api/Svg.SvgElement.EventAttributeTuple.html#Svg_SvgElement_EventAttributeTuple_Attribute
-  commentId: F:Svg.SvgElement.EventAttributeTuple.Attribute
-  fullName: Svg.SvgElement.EventAttributeTuple.Attribute
-  nameWithType: SvgElement.EventAttributeTuple.Attribute
-- uid: Svg.SvgElement.EventAttributeTuple.Event
-  name: Event
-  href: api/Svg.SvgElement.EventAttributeTuple.html#Svg_SvgElement_EventAttributeTuple_Event
-  commentId: F:Svg.SvgElement.EventAttributeTuple.Event
-  fullName: Svg.SvgElement.EventAttributeTuple.Event
-  nameWithType: SvgElement.EventAttributeTuple.Event
 - uid: Svg.SvgElement.Events
   name: Events
   href: api/Svg.SvgElement.html#Svg_SvgElement_Events
@@ -7469,24 +7434,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.PopTransforms
   nameWithType: SvgElement.PopTransforms
-- uid: Svg.SvgElement.PropertyAttributeTuple
-  name: SvgElement.PropertyAttributeTuple
-  href: api/Svg.SvgElement.PropertyAttributeTuple.html
-  commentId: T:Svg.SvgElement.PropertyAttributeTuple
-  fullName: Svg.SvgElement.PropertyAttributeTuple
-  nameWithType: SvgElement.PropertyAttributeTuple
-- uid: Svg.SvgElement.PropertyAttributeTuple.Attribute
-  name: Attribute
-  href: api/Svg.SvgElement.PropertyAttributeTuple.html#Svg_SvgElement_PropertyAttributeTuple_Attribute
-  commentId: F:Svg.SvgElement.PropertyAttributeTuple.Attribute
-  fullName: Svg.SvgElement.PropertyAttributeTuple.Attribute
-  nameWithType: SvgElement.PropertyAttributeTuple.Attribute
-- uid: Svg.SvgElement.PropertyAttributeTuple.Property
-  name: Property
-  href: api/Svg.SvgElement.PropertyAttributeTuple.html#Svg_SvgElement_PropertyAttributeTuple_Property
-  commentId: F:Svg.SvgElement.PropertyAttributeTuple.Property
-  fullName: Svg.SvgElement.PropertyAttributeTuple.Property
-  nameWithType: SvgElement.PropertyAttributeTuple.Property
 - uid: Svg.SvgElement.PushTransforms(Svg.ISvgRenderer)
   name: PushTransforms(ISvgRenderer)
   href: api/Svg.SvgElement.html#Svg_SvgElement_PushTransforms_Svg_ISvgRenderer_
@@ -7643,13 +7590,13 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.RenderElement
   nameWithType: SvgElement.RenderElement
-- uid: Svg.SvgElement.SetAndForceUniqueID(System.String,System.Boolean,System.Action{Svg.SvgElement,System.String,System.String})
+- uid: Svg.SvgElement.SetAndForceUniqueID(System.String,System.Boolean,Action{Svg.SvgElement,System.String,System.String})
   name: SetAndForceUniqueID(String, Boolean, Action<SvgElement, String, String>)
-  href: api/Svg.SvgElement.html#Svg_SvgElement_SetAndForceUniqueID_System_String_System_Boolean_System_Action_Svg_SvgElement_System_String_System_String__
-  commentId: M:Svg.SvgElement.SetAndForceUniqueID(System.String,System.Boolean,System.Action{Svg.SvgElement,System.String,System.String})
+  href: api/Svg.SvgElement.html#Svg_SvgElement_SetAndForceUniqueID_System_String_System_Boolean_Action_Svg_SvgElement_System_String_System_String__
+  commentId: M:Svg.SvgElement.SetAndForceUniqueID(System.String,System.Boolean,Action{Svg.SvgElement,System.String,System.String})
   name.vb: SetAndForceUniqueID(String, Boolean, Action(Of SvgElement, String, String))
-  fullName: Svg.SvgElement.SetAndForceUniqueID(System.String, System.Boolean, System.Action<Svg.SvgElement, System.String, System.String>)
-  fullName.vb: Svg.SvgElement.SetAndForceUniqueID(System.String, System.Boolean, System.Action(Of Svg.SvgElement, System.String, System.String))
+  fullName: Svg.SvgElement.SetAndForceUniqueID(System.String, System.Boolean, Action<Svg.SvgElement, System.String, System.String>)
+  fullName.vb: Svg.SvgElement.SetAndForceUniqueID(System.String, System.Boolean, Action(Of Svg.SvgElement, System.String, System.String))
   nameWithType: SvgElement.SetAndForceUniqueID(String, Boolean, Action<SvgElement, String, String>)
   nameWithType.vb: SvgElement.SetAndForceUniqueID(String, Boolean, Action(Of SvgElement, String, String))
 - uid: Svg.SvgElement.SetAndForceUniqueID*
@@ -8089,13 +8036,13 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElementCollection.Add
   nameWithType: SvgElementCollection.Add
-- uid: Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement,System.Boolean,System.Boolean,System.Action{Svg.SvgElement,System.String,System.String})
+- uid: Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement,System.Boolean,System.Boolean,Action{Svg.SvgElement,System.String,System.String})
   name: AddAndForceUniqueID(SvgElement, Boolean, Boolean, Action<SvgElement, String, String>)
-  href: api/Svg.SvgElementCollection.html#Svg_SvgElementCollection_AddAndForceUniqueID_Svg_SvgElement_System_Boolean_System_Boolean_System_Action_Svg_SvgElement_System_String_System_String__
-  commentId: M:Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement,System.Boolean,System.Boolean,System.Action{Svg.SvgElement,System.String,System.String})
+  href: api/Svg.SvgElementCollection.html#Svg_SvgElementCollection_AddAndForceUniqueID_Svg_SvgElement_System_Boolean_System_Boolean_Action_Svg_SvgElement_System_String_System_String__
+  commentId: M:Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement,System.Boolean,System.Boolean,Action{Svg.SvgElement,System.String,System.String})
   name.vb: AddAndForceUniqueID(SvgElement, Boolean, Boolean, Action(Of SvgElement, String, String))
-  fullName: Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement, System.Boolean, System.Boolean, System.Action<Svg.SvgElement, System.String, System.String>)
-  fullName.vb: Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement, System.Boolean, System.Boolean, System.Action(Of Svg.SvgElement, System.String, System.String))
+  fullName: Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement, System.Boolean, System.Boolean, Action<Svg.SvgElement, System.String, System.String>)
+  fullName.vb: Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement, System.Boolean, System.Boolean, Action(Of Svg.SvgElement, System.String, System.String))
   nameWithType: SvgElementCollection.AddAndForceUniqueID(SvgElement, Boolean, Boolean, Action<SvgElement, String, String>)
   nameWithType.vb: SvgElementCollection.AddAndForceUniqueID(SvgElement, Boolean, Boolean, Action(Of SvgElement, String, String))
 - uid: Svg.SvgElementCollection.AddAndForceUniqueID*
@@ -8247,13 +8194,13 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElementCollection.Insert
   nameWithType: SvgElementCollection.Insert
-- uid: Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32,Svg.SvgElement,System.Boolean,System.Boolean,System.Action{Svg.SvgElement,System.String,System.String})
+- uid: Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32,Svg.SvgElement,System.Boolean,System.Boolean,Action{Svg.SvgElement,System.String,System.String})
   name: InsertAndForceUniqueID(Int32, SvgElement, Boolean, Boolean, Action<SvgElement, String, String>)
-  href: api/Svg.SvgElementCollection.html#Svg_SvgElementCollection_InsertAndForceUniqueID_System_Int32_Svg_SvgElement_System_Boolean_System_Boolean_System_Action_Svg_SvgElement_System_String_System_String__
-  commentId: M:Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32,Svg.SvgElement,System.Boolean,System.Boolean,System.Action{Svg.SvgElement,System.String,System.String})
+  href: api/Svg.SvgElementCollection.html#Svg_SvgElementCollection_InsertAndForceUniqueID_System_Int32_Svg_SvgElement_System_Boolean_System_Boolean_Action_Svg_SvgElement_System_String_System_String__
+  commentId: M:Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32,Svg.SvgElement,System.Boolean,System.Boolean,Action{Svg.SvgElement,System.String,System.String})
   name.vb: InsertAndForceUniqueID(Int32, SvgElement, Boolean, Boolean, Action(Of SvgElement, String, String))
-  fullName: Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32, Svg.SvgElement, System.Boolean, System.Boolean, System.Action<Svg.SvgElement, System.String, System.String>)
-  fullName.vb: Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32, Svg.SvgElement, System.Boolean, System.Boolean, System.Action(Of Svg.SvgElement, System.String, System.String))
+  fullName: Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32, Svg.SvgElement, System.Boolean, System.Boolean, Action<Svg.SvgElement, System.String, System.String>)
+  fullName.vb: Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32, Svg.SvgElement, System.Boolean, System.Boolean, Action(Of Svg.SvgElement, System.String, System.String))
   nameWithType: SvgElementCollection.InsertAndForceUniqueID(Int32, SvgElement, Boolean, Boolean, Action<SvgElement, String, String>)
   nameWithType.vb: SvgElementCollection.InsertAndForceUniqueID(Int32, SvgElement, Boolean, Boolean, Action(Of SvgElement, String, String))
 - uid: Svg.SvgElementCollection.InsertAndForceUniqueID*
@@ -8318,23 +8265,6 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElementCollection.RemoveAt
   nameWithType: SvgElementCollection.RemoveAt
-- uid: Svg.SvgElementCollection.System#Collections#IEnumerable#GetEnumerator
-  name: IEnumerable.GetEnumerator()
-  href: api/Svg.SvgElementCollection.html#Svg_SvgElementCollection_System_Collections_IEnumerable_GetEnumerator
-  commentId: M:Svg.SvgElementCollection.System#Collections#IEnumerable#GetEnumerator
-  name.vb: System.Collections.IEnumerable.GetEnumerator()
-  fullName: Svg.SvgElementCollection.System.Collections.IEnumerable.GetEnumerator()
-  nameWithType: SvgElementCollection.IEnumerable.GetEnumerator()
-  nameWithType.vb: SvgElementCollection.System.Collections.IEnumerable.GetEnumerator()
-- uid: Svg.SvgElementCollection.System#Collections#IEnumerable#GetEnumerator*
-  name: IEnumerable.GetEnumerator
-  href: api/Svg.SvgElementCollection.html#Svg_SvgElementCollection_System_Collections_IEnumerable_GetEnumerator_
-  commentId: Overload:Svg.SvgElementCollection.System#Collections#IEnumerable#GetEnumerator
-  isSpec: "True"
-  name.vb: System.Collections.IEnumerable.GetEnumerator
-  fullName: Svg.SvgElementCollection.System.Collections.IEnumerable.GetEnumerator
-  nameWithType: SvgElementCollection.IEnumerable.GetEnumerator
-  nameWithType.vb: SvgElementCollection.System.Collections.IEnumerable.GetEnumerator
 - uid: Svg.SvgElementEventArgs
   name: SvgElementEventArgs
   href: api/Svg.SvgElementEventArgs.html
@@ -8379,13 +8309,13 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElementIdManager.Add
   nameWithType: SvgElementIdManager.Add
-- uid: Svg.SvgElementIdManager.AddAndForceUniqueID(Svg.SvgElement,Svg.SvgElement,System.Boolean,System.Action{Svg.SvgElement,System.String,System.String})
+- uid: Svg.SvgElementIdManager.AddAndForceUniqueID(Svg.SvgElement,Svg.SvgElement,System.Boolean,Action{Svg.SvgElement,System.String,System.String})
   name: AddAndForceUniqueID(SvgElement, SvgElement, Boolean, Action<SvgElement, String, String>)
-  href: api/Svg.SvgElementIdManager.html#Svg_SvgElementIdManager_AddAndForceUniqueID_Svg_SvgElement_Svg_SvgElement_System_Boolean_System_Action_Svg_SvgElement_System_String_System_String__
-  commentId: M:Svg.SvgElementIdManager.AddAndForceUniqueID(Svg.SvgElement,Svg.SvgElement,System.Boolean,System.Action{Svg.SvgElement,System.String,System.String})
+  href: api/Svg.SvgElementIdManager.html#Svg_SvgElementIdManager_AddAndForceUniqueID_Svg_SvgElement_Svg_SvgElement_System_Boolean_Action_Svg_SvgElement_System_String_System_String__
+  commentId: M:Svg.SvgElementIdManager.AddAndForceUniqueID(Svg.SvgElement,Svg.SvgElement,System.Boolean,Action{Svg.SvgElement,System.String,System.String})
   name.vb: AddAndForceUniqueID(SvgElement, SvgElement, Boolean, Action(Of SvgElement, String, String))
-  fullName: Svg.SvgElementIdManager.AddAndForceUniqueID(Svg.SvgElement, Svg.SvgElement, System.Boolean, System.Action<Svg.SvgElement, System.String, System.String>)
-  fullName.vb: Svg.SvgElementIdManager.AddAndForceUniqueID(Svg.SvgElement, Svg.SvgElement, System.Boolean, System.Action(Of Svg.SvgElement, System.String, System.String))
+  fullName: Svg.SvgElementIdManager.AddAndForceUniqueID(Svg.SvgElement, Svg.SvgElement, System.Boolean, Action<Svg.SvgElement, System.String, System.String>)
+  fullName.vb: Svg.SvgElementIdManager.AddAndForceUniqueID(Svg.SvgElement, Svg.SvgElement, System.Boolean, Action(Of Svg.SvgElement, System.String, System.String))
   nameWithType: SvgElementIdManager.AddAndForceUniqueID(SvgElement, SvgElement, Boolean, Action<SvgElement, String, String>)
   nameWithType.vb: SvgElementIdManager.AddAndForceUniqueID(SvgElement, SvgElement, Boolean, Action(Of SvgElement, String, String))
 - uid: Svg.SvgElementIdManager.AddAndForceUniqueID*
@@ -8426,11 +8356,11 @@ references:
   commentId: M:Svg.SvgElementIdManager.GetElementById(System.String)
   fullName: Svg.SvgElementIdManager.GetElementById(System.String)
   nameWithType: SvgElementIdManager.GetElementById(String)
-- uid: Svg.SvgElementIdManager.GetElementById(System.Uri)
+- uid: Svg.SvgElementIdManager.GetElementById(Uri)
   name: GetElementById(Uri)
-  href: api/Svg.SvgElementIdManager.html#Svg_SvgElementIdManager_GetElementById_System_Uri_
-  commentId: M:Svg.SvgElementIdManager.GetElementById(System.Uri)
-  fullName: Svg.SvgElementIdManager.GetElementById(System.Uri)
+  href: api/Svg.SvgElementIdManager.html#Svg_SvgElementIdManager_GetElementById_Uri_
+  commentId: M:Svg.SvgElementIdManager.GetElementById(Uri)
+  fullName: Svg.SvgElementIdManager.GetElementById(Uri)
   nameWithType: SvgElementIdManager.GetElementById(Uri)
 - uid: Svg.SvgElementIdManager.GetElementById*
   name: GetElementById
@@ -8615,13 +8545,13 @@ references:
   commentId: T:Svg.SvgExtentions
   fullName: Svg.SvgExtentions
   nameWithType: SvgExtentions
-- uid: Svg.SvgExtentions.ApplyRecursive(Svg.SvgElement,System.Action{Svg.SvgElement})
+- uid: Svg.SvgExtentions.ApplyRecursive(Svg.SvgElement,Action{Svg.SvgElement})
   name: ApplyRecursive(SvgElement, Action<SvgElement>)
-  href: api/Svg.SvgExtentions.html#Svg_SvgExtentions_ApplyRecursive_Svg_SvgElement_System_Action_Svg_SvgElement__
-  commentId: M:Svg.SvgExtentions.ApplyRecursive(Svg.SvgElement,System.Action{Svg.SvgElement})
+  href: api/Svg.SvgExtentions.html#Svg_SvgExtentions_ApplyRecursive_Svg_SvgElement_Action_Svg_SvgElement__
+  commentId: M:Svg.SvgExtentions.ApplyRecursive(Svg.SvgElement,Action{Svg.SvgElement})
   name.vb: ApplyRecursive(SvgElement, Action(Of SvgElement))
-  fullName: Svg.SvgExtentions.ApplyRecursive(Svg.SvgElement, System.Action<Svg.SvgElement>)
-  fullName.vb: Svg.SvgExtentions.ApplyRecursive(Svg.SvgElement, System.Action(Of Svg.SvgElement))
+  fullName: Svg.SvgExtentions.ApplyRecursive(Svg.SvgElement, Action<Svg.SvgElement>)
+  fullName.vb: Svg.SvgExtentions.ApplyRecursive(Svg.SvgElement, Action(Of Svg.SvgElement))
   nameWithType: SvgExtentions.ApplyRecursive(SvgElement, Action<SvgElement>)
   nameWithType.vb: SvgExtentions.ApplyRecursive(SvgElement, Action(Of SvgElement))
 - uid: Svg.SvgExtentions.ApplyRecursive*
@@ -8631,13 +8561,13 @@ references:
   isSpec: "True"
   fullName: Svg.SvgExtentions.ApplyRecursive
   nameWithType: SvgExtentions.ApplyRecursive
-- uid: Svg.SvgExtentions.ApplyRecursiveDepthFirst(Svg.SvgElement,System.Action{Svg.SvgElement})
+- uid: Svg.SvgExtentions.ApplyRecursiveDepthFirst(Svg.SvgElement,Action{Svg.SvgElement})
   name: ApplyRecursiveDepthFirst(SvgElement, Action<SvgElement>)
-  href: api/Svg.SvgExtentions.html#Svg_SvgExtentions_ApplyRecursiveDepthFirst_Svg_SvgElement_System_Action_Svg_SvgElement__
-  commentId: M:Svg.SvgExtentions.ApplyRecursiveDepthFirst(Svg.SvgElement,System.Action{Svg.SvgElement})
+  href: api/Svg.SvgExtentions.html#Svg_SvgExtentions_ApplyRecursiveDepthFirst_Svg_SvgElement_Action_Svg_SvgElement__
+  commentId: M:Svg.SvgExtentions.ApplyRecursiveDepthFirst(Svg.SvgElement,Action{Svg.SvgElement})
   name.vb: ApplyRecursiveDepthFirst(SvgElement, Action(Of SvgElement))
-  fullName: Svg.SvgExtentions.ApplyRecursiveDepthFirst(Svg.SvgElement, System.Action<Svg.SvgElement>)
-  fullName.vb: Svg.SvgExtentions.ApplyRecursiveDepthFirst(Svg.SvgElement, System.Action(Of Svg.SvgElement))
+  fullName: Svg.SvgExtentions.ApplyRecursiveDepthFirst(Svg.SvgElement, Action<Svg.SvgElement>)
+  fullName.vb: Svg.SvgExtentions.ApplyRecursiveDepthFirst(Svg.SvgElement, Action(Of Svg.SvgElement))
   nameWithType: SvgExtentions.ApplyRecursiveDepthFirst(SvgElement, Action<SvgElement>)
   nameWithType.vb: SvgExtentions.ApplyRecursiveDepthFirst(SvgElement, Action(Of SvgElement))
 - uid: Svg.SvgExtentions.ApplyRecursiveDepthFirst*
@@ -8717,13 +8647,13 @@ references:
   commentId: M:Svg.SvgFallbackPaintServer.#ctor
   fullName: Svg.SvgFallbackPaintServer.SvgFallbackPaintServer()
   nameWithType: SvgFallbackPaintServer.SvgFallbackPaintServer()
-- uid: Svg.SvgFallbackPaintServer.#ctor(Svg.SvgPaintServer,System.Collections.Generic.IEnumerable{Svg.SvgPaintServer})
+- uid: Svg.SvgFallbackPaintServer.#ctor(Svg.SvgPaintServer,IEnumerable{Svg.SvgPaintServer})
   name: SvgFallbackPaintServer(SvgPaintServer, IEnumerable<SvgPaintServer>)
-  href: api/Svg.SvgFallbackPaintServer.html#Svg_SvgFallbackPaintServer__ctor_Svg_SvgPaintServer_System_Collections_Generic_IEnumerable_Svg_SvgPaintServer__
-  commentId: M:Svg.SvgFallbackPaintServer.#ctor(Svg.SvgPaintServer,System.Collections.Generic.IEnumerable{Svg.SvgPaintServer})
+  href: api/Svg.SvgFallbackPaintServer.html#Svg_SvgFallbackPaintServer__ctor_Svg_SvgPaintServer_IEnumerable_Svg_SvgPaintServer__
+  commentId: M:Svg.SvgFallbackPaintServer.#ctor(Svg.SvgPaintServer,IEnumerable{Svg.SvgPaintServer})
   name.vb: SvgFallbackPaintServer(SvgPaintServer, IEnumerable(Of SvgPaintServer))
-  fullName: Svg.SvgFallbackPaintServer.SvgFallbackPaintServer(Svg.SvgPaintServer, System.Collections.Generic.IEnumerable<Svg.SvgPaintServer>)
-  fullName.vb: Svg.SvgFallbackPaintServer.SvgFallbackPaintServer(Svg.SvgPaintServer, System.Collections.Generic.IEnumerable(Of Svg.SvgPaintServer))
+  fullName: Svg.SvgFallbackPaintServer.SvgFallbackPaintServer(Svg.SvgPaintServer, IEnumerable<Svg.SvgPaintServer>)
+  fullName.vb: Svg.SvgFallbackPaintServer.SvgFallbackPaintServer(Svg.SvgPaintServer, IEnumerable(Of Svg.SvgPaintServer))
   nameWithType: SvgFallbackPaintServer.SvgFallbackPaintServer(SvgPaintServer, IEnumerable<SvgPaintServer>)
   nameWithType.vb: SvgFallbackPaintServer.SvgFallbackPaintServer(SvgPaintServer, IEnumerable(Of SvgPaintServer))
 - uid: Svg.SvgFallbackPaintServer.#ctor*
@@ -9560,11 +9490,11 @@ references:
   isSpec: "True"
   fullName: Svg.SvgFontWeightConverter.ConvertFrom
   nameWithType: SvgFontWeightConverter.ConvertFrom
-- uid: Svg.SvgFontWeightConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+- uid: Svg.SvgFontWeightConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
   name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.SvgFontWeightConverter.html#Svg_SvgFontWeightConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.SvgFontWeightConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.SvgFontWeightConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
+  href: api/Svg.SvgFontWeightConverter.html#Svg_SvgFontWeightConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_Type_
+  commentId: M:Svg.SvgFontWeightConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  fullName: Svg.SvgFontWeightConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, Type)
   nameWithType: SvgFontWeightConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
 - uid: Svg.SvgFontWeightConverter.ConvertTo*
   name: ConvertTo
@@ -9917,11 +9847,11 @@ references:
   commentId: T:Svg.SvgGdiPlusCannotBeLoadedException
   fullName: Svg.SvgGdiPlusCannotBeLoadedException
   nameWithType: SvgGdiPlusCannotBeLoadedException
-- uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.Exception)
+- uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor(Exception)
   name: SvgGdiPlusCannotBeLoadedException(Exception)
-  href: api/Svg.SvgGdiPlusCannotBeLoadedException.html#Svg_SvgGdiPlusCannotBeLoadedException__ctor_System_Exception_
-  commentId: M:Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.Exception)
-  fullName: Svg.SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(System.Exception)
+  href: api/Svg.SvgGdiPlusCannotBeLoadedException.html#Svg_SvgGdiPlusCannotBeLoadedException__ctor_Exception_
+  commentId: M:Svg.SvgGdiPlusCannotBeLoadedException.#ctor(Exception)
+  fullName: Svg.SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(Exception)
   nameWithType: SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(Exception)
 - uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor*
   name: SvgGdiPlusCannotBeLoadedException
@@ -13782,11 +13712,11 @@ references:
   isSpec: "True"
   fullName: Svg.SvgTextDecorationConverter.ConvertFrom
   nameWithType: SvgTextDecorationConverter.ConvertFrom
-- uid: Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+- uid: Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
   name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.SvgTextDecorationConverter.html#Svg_SvgTextDecorationConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
+  href: api/Svg.SvgTextDecorationConverter.html#Svg_SvgTextDecorationConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_Type_
+  commentId: M:Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  fullName: Svg.SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, Type)
   nameWithType: SvgTextDecorationConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
 - uid: Svg.SvgTextDecorationConverter.ConvertTo*
   name: ConvertTo
@@ -14409,13 +14339,13 @@ references:
   commentId: T:Svg.SvgUnitCollection
   fullName: Svg.SvgUnitCollection
   nameWithType: SvgUnitCollection
-- uid: Svg.SvgUnitCollection.AddRange(System.Collections.Generic.IEnumerable{Svg.SvgUnit})
+- uid: Svg.SvgUnitCollection.AddRange(IEnumerable{Svg.SvgUnit})
   name: AddRange(IEnumerable<SvgUnit>)
-  href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_AddRange_System_Collections_Generic_IEnumerable_Svg_SvgUnit__
-  commentId: M:Svg.SvgUnitCollection.AddRange(System.Collections.Generic.IEnumerable{Svg.SvgUnit})
+  href: api/Svg.SvgUnitCollection.html#Svg_SvgUnitCollection_AddRange_IEnumerable_Svg_SvgUnit__
+  commentId: M:Svg.SvgUnitCollection.AddRange(IEnumerable{Svg.SvgUnit})
   name.vb: AddRange(IEnumerable(Of SvgUnit))
-  fullName: Svg.SvgUnitCollection.AddRange(System.Collections.Generic.IEnumerable<Svg.SvgUnit>)
-  fullName.vb: Svg.SvgUnitCollection.AddRange(System.Collections.Generic.IEnumerable(Of Svg.SvgUnit))
+  fullName: Svg.SvgUnitCollection.AddRange(IEnumerable<Svg.SvgUnit>)
+  fullName.vb: Svg.SvgUnitCollection.AddRange(IEnumerable(Of Svg.SvgUnit))
   nameWithType: SvgUnitCollection.AddRange(IEnumerable<SvgUnit>)
   nameWithType.vb: SvgUnitCollection.AddRange(IEnumerable(Of SvgUnit))
 - uid: Svg.SvgUnitCollection.AddRange*
@@ -14530,11 +14460,11 @@ references:
   commentId: T:Svg.SvgUnitConverter
   fullName: Svg.SvgUnitConverter
   nameWithType: SvgUnitConverter
-- uid: Svg.SvgUnitConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)
+- uid: Svg.SvgUnitConverter.CanConvertFrom(ITypeDescriptorContext,Type)
   name: CanConvertFrom(ITypeDescriptorContext, Type)
-  href: api/Svg.SvgUnitConverter.html#Svg_SvgUnitConverter_CanConvertFrom_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.SvgUnitConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)
-  fullName: Svg.SvgUnitConverter.CanConvertFrom(ITypeDescriptorContext, System.Type)
+  href: api/Svg.SvgUnitConverter.html#Svg_SvgUnitConverter_CanConvertFrom_ITypeDescriptorContext_Type_
+  commentId: M:Svg.SvgUnitConverter.CanConvertFrom(ITypeDescriptorContext,Type)
+  fullName: Svg.SvgUnitConverter.CanConvertFrom(ITypeDescriptorContext, Type)
   nameWithType: SvgUnitConverter.CanConvertFrom(ITypeDescriptorContext, Type)
 - uid: Svg.SvgUnitConverter.CanConvertFrom*
   name: CanConvertFrom
@@ -14543,11 +14473,11 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUnitConverter.CanConvertFrom
   nameWithType: SvgUnitConverter.CanConvertFrom
-- uid: Svg.SvgUnitConverter.CanConvertTo(ITypeDescriptorContext,System.Type)
+- uid: Svg.SvgUnitConverter.CanConvertTo(ITypeDescriptorContext,Type)
   name: CanConvertTo(ITypeDescriptorContext, Type)
-  href: api/Svg.SvgUnitConverter.html#Svg_SvgUnitConverter_CanConvertTo_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.SvgUnitConverter.CanConvertTo(ITypeDescriptorContext,System.Type)
-  fullName: Svg.SvgUnitConverter.CanConvertTo(ITypeDescriptorContext, System.Type)
+  href: api/Svg.SvgUnitConverter.html#Svg_SvgUnitConverter_CanConvertTo_ITypeDescriptorContext_Type_
+  commentId: M:Svg.SvgUnitConverter.CanConvertTo(ITypeDescriptorContext,Type)
+  fullName: Svg.SvgUnitConverter.CanConvertTo(ITypeDescriptorContext, Type)
   nameWithType: SvgUnitConverter.CanConvertTo(ITypeDescriptorContext, Type)
 - uid: Svg.SvgUnitConverter.CanConvertTo*
   name: CanConvertTo
@@ -14569,11 +14499,11 @@ references:
   isSpec: "True"
   fullName: Svg.SvgUnitConverter.ConvertFrom
   nameWithType: SvgUnitConverter.ConvertFrom
-- uid: Svg.SvgUnitConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+- uid: Svg.SvgUnitConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
   name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.SvgUnitConverter.html#Svg_SvgUnitConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.SvgUnitConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.SvgUnitConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
+  href: api/Svg.SvgUnitConverter.html#Svg_SvgUnitConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_Type_
+  commentId: M:Svg.SvgUnitConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  fullName: Svg.SvgUnitConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, Type)
   nameWithType: SvgUnitConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
 - uid: Svg.SvgUnitConverter.ConvertTo*
   name: ConvertTo
@@ -15409,13 +15339,13 @@ references:
   commentId: T:Svg.Transforms.SvgMatrix
   fullName: Svg.Transforms.SvgMatrix
   nameWithType: SvgMatrix
-- uid: Svg.Transforms.SvgMatrix.#ctor(System.Collections.Generic.List{System.Single})
+- uid: Svg.Transforms.SvgMatrix.#ctor(List{System.Single})
   name: SvgMatrix(List<Single>)
-  href: api/Svg.Transforms.SvgMatrix.html#Svg_Transforms_SvgMatrix__ctor_System_Collections_Generic_List_System_Single__
-  commentId: M:Svg.Transforms.SvgMatrix.#ctor(System.Collections.Generic.List{System.Single})
+  href: api/Svg.Transforms.SvgMatrix.html#Svg_Transforms_SvgMatrix__ctor_List_System_Single__
+  commentId: M:Svg.Transforms.SvgMatrix.#ctor(List{System.Single})
   name.vb: SvgMatrix(List(Of Single))
-  fullName: Svg.Transforms.SvgMatrix.SvgMatrix(System.Collections.Generic.List<System.Single>)
-  fullName.vb: Svg.Transforms.SvgMatrix.SvgMatrix(System.Collections.Generic.List(Of System.Single))
+  fullName: Svg.Transforms.SvgMatrix.SvgMatrix(List<System.Single>)
+  fullName.vb: Svg.Transforms.SvgMatrix.SvgMatrix(List(Of System.Single))
   nameWithType: SvgMatrix.SvgMatrix(List<Single>)
   nameWithType.vb: SvgMatrix.SvgMatrix(List(Of Single))
 - uid: Svg.Transforms.SvgMatrix.#ctor*
@@ -15973,13 +15903,13 @@ references:
   isSpec: "True"
   fullName: Svg.Transforms.SvgTransformCollection.Add
   nameWithType: SvgTransformCollection.Add
-- uid: Svg.Transforms.SvgTransformCollection.AddRange(System.Collections.Generic.IEnumerable{Svg.Transforms.SvgTransform})
+- uid: Svg.Transforms.SvgTransformCollection.AddRange(IEnumerable{Svg.Transforms.SvgTransform})
   name: AddRange(IEnumerable<SvgTransform>)
-  href: api/Svg.Transforms.SvgTransformCollection.html#Svg_Transforms_SvgTransformCollection_AddRange_System_Collections_Generic_IEnumerable_Svg_Transforms_SvgTransform__
-  commentId: M:Svg.Transforms.SvgTransformCollection.AddRange(System.Collections.Generic.IEnumerable{Svg.Transforms.SvgTransform})
+  href: api/Svg.Transforms.SvgTransformCollection.html#Svg_Transforms_SvgTransformCollection_AddRange_IEnumerable_Svg_Transforms_SvgTransform__
+  commentId: M:Svg.Transforms.SvgTransformCollection.AddRange(IEnumerable{Svg.Transforms.SvgTransform})
   name.vb: AddRange(IEnumerable(Of SvgTransform))
-  fullName: Svg.Transforms.SvgTransformCollection.AddRange(System.Collections.Generic.IEnumerable<Svg.Transforms.SvgTransform>)
-  fullName.vb: Svg.Transforms.SvgTransformCollection.AddRange(System.Collections.Generic.IEnumerable(Of Svg.Transforms.SvgTransform))
+  fullName: Svg.Transforms.SvgTransformCollection.AddRange(IEnumerable<Svg.Transforms.SvgTransform>)
+  fullName.vb: Svg.Transforms.SvgTransformCollection.AddRange(IEnumerable(Of Svg.Transforms.SvgTransform))
   nameWithType: SvgTransformCollection.AddRange(IEnumerable<SvgTransform>)
   nameWithType.vb: SvgTransformCollection.AddRange(IEnumerable(Of SvgTransform))
 - uid: Svg.Transforms.SvgTransformCollection.AddRange*
@@ -16121,11 +16051,11 @@ references:
   commentId: T:Svg.Transforms.SvgTransformConverter
   fullName: Svg.Transforms.SvgTransformConverter
   nameWithType: SvgTransformConverter
-- uid: Svg.Transforms.SvgTransformConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)
+- uid: Svg.Transforms.SvgTransformConverter.CanConvertFrom(ITypeDescriptorContext,Type)
   name: CanConvertFrom(ITypeDescriptorContext, Type)
-  href: api/Svg.Transforms.SvgTransformConverter.html#Svg_Transforms_SvgTransformConverter_CanConvertFrom_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.Transforms.SvgTransformConverter.CanConvertFrom(ITypeDescriptorContext,System.Type)
-  fullName: Svg.Transforms.SvgTransformConverter.CanConvertFrom(ITypeDescriptorContext, System.Type)
+  href: api/Svg.Transforms.SvgTransformConverter.html#Svg_Transforms_SvgTransformConverter_CanConvertFrom_ITypeDescriptorContext_Type_
+  commentId: M:Svg.Transforms.SvgTransformConverter.CanConvertFrom(ITypeDescriptorContext,Type)
+  fullName: Svg.Transforms.SvgTransformConverter.CanConvertFrom(ITypeDescriptorContext, Type)
   nameWithType: SvgTransformConverter.CanConvertFrom(ITypeDescriptorContext, Type)
 - uid: Svg.Transforms.SvgTransformConverter.CanConvertFrom*
   name: CanConvertFrom
@@ -16134,11 +16064,11 @@ references:
   isSpec: "True"
   fullName: Svg.Transforms.SvgTransformConverter.CanConvertFrom
   nameWithType: SvgTransformConverter.CanConvertFrom
-- uid: Svg.Transforms.SvgTransformConverter.CanConvertTo(ITypeDescriptorContext,System.Type)
+- uid: Svg.Transforms.SvgTransformConverter.CanConvertTo(ITypeDescriptorContext,Type)
   name: CanConvertTo(ITypeDescriptorContext, Type)
-  href: api/Svg.Transforms.SvgTransformConverter.html#Svg_Transforms_SvgTransformConverter_CanConvertTo_ITypeDescriptorContext_System_Type_
-  commentId: M:Svg.Transforms.SvgTransformConverter.CanConvertTo(ITypeDescriptorContext,System.Type)
-  fullName: Svg.Transforms.SvgTransformConverter.CanConvertTo(ITypeDescriptorContext, System.Type)
+  href: api/Svg.Transforms.SvgTransformConverter.html#Svg_Transforms_SvgTransformConverter_CanConvertTo_ITypeDescriptorContext_Type_
+  commentId: M:Svg.Transforms.SvgTransformConverter.CanConvertTo(ITypeDescriptorContext,Type)
+  fullName: Svg.Transforms.SvgTransformConverter.CanConvertTo(ITypeDescriptorContext, Type)
   nameWithType: SvgTransformConverter.CanConvertTo(ITypeDescriptorContext, Type)
 - uid: Svg.Transforms.SvgTransformConverter.CanConvertTo*
   name: CanConvertTo
@@ -16160,11 +16090,11 @@ references:
   isSpec: "True"
   fullName: Svg.Transforms.SvgTransformConverter.ConvertFrom
   nameWithType: SvgTransformConverter.ConvertFrom
-- uid: Svg.Transforms.SvgTransformConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
+- uid: Svg.Transforms.SvgTransformConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
   name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
-  href: api/Svg.Transforms.SvgTransformConverter.html#Svg_Transforms_SvgTransformConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_System_Type_
-  commentId: M:Svg.Transforms.SvgTransformConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,System.Type)
-  fullName: Svg.Transforms.SvgTransformConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, System.Type)
+  href: api/Svg.Transforms.SvgTransformConverter.html#Svg_Transforms_SvgTransformConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_Type_
+  commentId: M:Svg.Transforms.SvgTransformConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  fullName: Svg.Transforms.SvgTransformConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, Type)
   nameWithType: SvgTransformConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
 - uid: Svg.Transforms.SvgTransformConverter.ConvertTo*
   name: ConvertTo
@@ -16358,3 +16288,106 @@ references:
   isSpec: "True"
   fullName: Svg.XmlSpaceHandlingConverter.XmlSpaceHandlingConverter
   nameWithType: XmlSpaceHandlingConverter.XmlSpaceHandlingConverter
+- uid: System.Drawing
+  name: System.Drawing
+  href: api/System.Drawing.html
+  commentId: N:System.Drawing
+  fullName: System.Drawing
+  nameWithType: System.Drawing
+- uid: System.Drawing.ColorConverter
+  name: ColorConverter
+  href: api/System.Drawing.ColorConverter.html
+  commentId: T:System.Drawing.ColorConverter
+  fullName: System.Drawing.ColorConverter
+  nameWithType: ColorConverter
+- uid: System.Drawing.ColorConverter.#ctor
+  name: ColorConverter()
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter__ctor
+  commentId: M:System.Drawing.ColorConverter.#ctor
+  fullName: System.Drawing.ColorConverter.ColorConverter()
+  nameWithType: ColorConverter.ColorConverter()
+- uid: System.Drawing.ColorConverter.#ctor*
+  name: ColorConverter
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter__ctor_
+  commentId: Overload:System.Drawing.ColorConverter.#ctor
+  isSpec: "True"
+  fullName: System.Drawing.ColorConverter.ColorConverter
+  nameWithType: ColorConverter.ColorConverter
+- uid: System.Drawing.ColorConverter.CanConvertFrom(ITypeDescriptorContext,Type)
+  name: CanConvertFrom(ITypeDescriptorContext, Type)
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_CanConvertFrom_ITypeDescriptorContext_Type_
+  commentId: M:System.Drawing.ColorConverter.CanConvertFrom(ITypeDescriptorContext,Type)
+  fullName: System.Drawing.ColorConverter.CanConvertFrom(ITypeDescriptorContext, Type)
+  nameWithType: ColorConverter.CanConvertFrom(ITypeDescriptorContext, Type)
+- uid: System.Drawing.ColorConverter.CanConvertFrom*
+  name: CanConvertFrom
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_CanConvertFrom_
+  commentId: Overload:System.Drawing.ColorConverter.CanConvertFrom
+  isSpec: "True"
+  fullName: System.Drawing.ColorConverter.CanConvertFrom
+  nameWithType: ColorConverter.CanConvertFrom
+- uid: System.Drawing.ColorConverter.CanConvertTo(ITypeDescriptorContext,Type)
+  name: CanConvertTo(ITypeDescriptorContext, Type)
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_CanConvertTo_ITypeDescriptorContext_Type_
+  commentId: M:System.Drawing.ColorConverter.CanConvertTo(ITypeDescriptorContext,Type)
+  fullName: System.Drawing.ColorConverter.CanConvertTo(ITypeDescriptorContext, Type)
+  nameWithType: ColorConverter.CanConvertTo(ITypeDescriptorContext, Type)
+- uid: System.Drawing.ColorConverter.CanConvertTo*
+  name: CanConvertTo
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_CanConvertTo_
+  commentId: Overload:System.Drawing.ColorConverter.CanConvertTo
+  isSpec: "True"
+  fullName: System.Drawing.ColorConverter.CanConvertTo
+  nameWithType: ColorConverter.CanConvertTo
+- uid: System.Drawing.ColorConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  name: ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_ConvertFrom_ITypeDescriptorContext_CultureInfo_System_Object_
+  commentId: M:System.Drawing.ColorConverter.ConvertFrom(ITypeDescriptorContext,CultureInfo,System.Object)
+  fullName: System.Drawing.ColorConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, System.Object)
+  nameWithType: ColorConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, Object)
+- uid: System.Drawing.ColorConverter.ConvertFrom*
+  name: ConvertFrom
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_ConvertFrom_
+  commentId: Overload:System.Drawing.ColorConverter.ConvertFrom
+  isSpec: "True"
+  fullName: System.Drawing.ColorConverter.ConvertFrom
+  nameWithType: ColorConverter.ConvertFrom
+- uid: System.Drawing.ColorConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  name: ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_ConvertTo_ITypeDescriptorContext_CultureInfo_System_Object_Type_
+  commentId: M:System.Drawing.ColorConverter.ConvertTo(ITypeDescriptorContext,CultureInfo,System.Object,Type)
+  fullName: System.Drawing.ColorConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, System.Object, Type)
+  nameWithType: ColorConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, Object, Type)
+- uid: System.Drawing.ColorConverter.ConvertTo*
+  name: ConvertTo
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_ConvertTo_
+  commentId: Overload:System.Drawing.ColorConverter.ConvertTo
+  isSpec: "True"
+  fullName: System.Drawing.ColorConverter.ConvertTo
+  nameWithType: ColorConverter.ConvertTo
+- uid: System.Drawing.ColorConverter.GetStandardValues(ITypeDescriptorContext)
+  name: GetStandardValues(ITypeDescriptorContext)
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_GetStandardValues_ITypeDescriptorContext_
+  commentId: M:System.Drawing.ColorConverter.GetStandardValues(ITypeDescriptorContext)
+  fullName: System.Drawing.ColorConverter.GetStandardValues(ITypeDescriptorContext)
+  nameWithType: ColorConverter.GetStandardValues(ITypeDescriptorContext)
+- uid: System.Drawing.ColorConverter.GetStandardValues*
+  name: GetStandardValues
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_GetStandardValues_
+  commentId: Overload:System.Drawing.ColorConverter.GetStandardValues
+  isSpec: "True"
+  fullName: System.Drawing.ColorConverter.GetStandardValues
+  nameWithType: ColorConverter.GetStandardValues
+- uid: System.Drawing.ColorConverter.GetStandardValuesSupported(ITypeDescriptorContext)
+  name: GetStandardValuesSupported(ITypeDescriptorContext)
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_GetStandardValuesSupported_ITypeDescriptorContext_
+  commentId: M:System.Drawing.ColorConverter.GetStandardValuesSupported(ITypeDescriptorContext)
+  fullName: System.Drawing.ColorConverter.GetStandardValuesSupported(ITypeDescriptorContext)
+  nameWithType: ColorConverter.GetStandardValuesSupported(ITypeDescriptorContext)
+- uid: System.Drawing.ColorConverter.GetStandardValuesSupported*
+  name: GetStandardValuesSupported
+  href: api/System.Drawing.ColorConverter.html#System_Drawing_ColorConverter_GetStandardValuesSupported_
+  commentId: Overload:System.Drawing.ColorConverter.GetStandardValuesSupported
+  isSpec: "True"
+  fullName: System.Drawing.ColorConverter.GetStandardValuesSupported
+  nameWithType: ColorConverter.GetStandardValuesSupported

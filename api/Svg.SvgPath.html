@@ -98,12 +98,12 @@
   <div class="implements">
     <h5>Implements</h5>
     <div><a class="xref" href="Svg.ISvgTransformable.html">ISvgTransformable</a></div>
-    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icloneable">ICloneable</a></div>
+    <div><span class="xref">ICloneable</span></div>
     <div><a class="xref" href="Svg.ISvgNode.html">ISvgNode</a></div>
     <div><a class="xref" href="Svg.ISvgStylable.html">ISvgStylable</a></div>
     <div><a class="xref" href="Svg.ISvgBoundable.html">ISvgBoundable</a></div>
     <div><a class="xref" href="Svg.ISvgClipable.html">ISvgClipable</a></div>
-    <div><span class="xref">ISvgPathElement</span></div>
+    <div><a class="xref" href="Svg.Pathing.ISvgPathElement.html">ISvgPathElement</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -258,7 +258,7 @@
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_SpaceHandling">SvgElement.SpaceHandling</a>
     </div>
     <div>
-      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_SetAndForceUniqueID_System_String_System_Boolean_System_Action_Svg_SvgElement_System_String_System_String__">SvgElement.SetAndForceUniqueID(String, Boolean, Action&lt;SvgElement, String, String&gt;)</a>
+      <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_SetAndForceUniqueID_System_String_System_Boolean_Action_Svg_SvgElement_System_String_System_String__">SvgElement.SetAndForceUniqueID(String, Boolean, Action&lt;SvgElement, String, String&gt;)</a>
     </div>
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_AddElement_Svg_SvgElement_System_Int32_">SvgElement.AddElement(SvgElement, Int32)</a>
@@ -479,42 +479,25 @@
     <div>
       <a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_ValidateFontFamily_System_String_Svg_SvgDocument_Svg_SvgFontManager_">SvgElement.ValidateFontFamily(String, SvgDocument, SvgFontManager)</a>
     </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
-    </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Svg.html">Svg</a></h6>
-  <h6><strong>Assembly</strong>: cs.temp.dll.dll</h6>
+  <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgPath_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[SvgElement(&quot;path&quot;)]
-public class SvgPath : SvgMarkerElement, ISvgTransformable, ICloneable, ISvgNode, ISvgStylable, ISvgBoundable, ISvgClipable</code></pre>
+    <pre><code class="lang-csharp hljs">public class SvgPath : SvgMarkerElement, ISvgTransformable, ISvgNode, ISvgStylable, ISvgBoundable, ISvgClipable, ISvgPathElement</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgPath_PathData.md&amp;value=---%0Auid%3A%20Svg.SvgPath.PathData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Paths/SvgPath.cs/#L14">View Source</a>
+  </span>
   <a id="Svg_SvgPath_PathData_" data-uid="Svg.SvgPath.PathData*"></a>
   <h4 id="Svg_SvgPath_PathData" data-uid="Svg.SvgPath.PathData">PathData</h4>
-  <div class="markdown level1 summary"><p>Gets or sets a <see cref="!:SvgPathSegmentList"></see> of path data.</p>
+  <div class="markdown level1 summary"><p>Gets or sets a <a class="xref" href="Svg.Pathing.SvgPathSegmentList.html">SvgPathSegmentList</a> of path data.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -531,13 +514,18 @@ public class SvgPath : SvgMarkerElement, ISvgTransformable, ICloneable, ISvgNode
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">SvgPathSegmentList</span></td>
+        <td><a class="xref" href="Svg.Pathing.SvgPathSegmentList.html">SvgPathSegmentList</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgPath_PathLength.md&amp;value=---%0Auid%3A%20Svg.SvgPath.PathLength%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Paths/SvgPath.cs/#L32">View Source</a>
+  </span>
   <a id="Svg_SvgPath_PathLength_" data-uid="Svg.SvgPath.PathLength*"></a>
   <h4 id="Svg_SvgPath_PathLength" data-uid="Svg.SvgPath.PathLength">PathLength</h4>
   <div class="markdown level1 summary"><p>Gets or sets the length of the path.</p>
@@ -564,8 +552,13 @@ public class SvgPath : SvgMarkerElement, ISvgTransformable, ICloneable, ISvgNode
   </table>
   <h3 id="methods">Methods
   </h3>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgPath_DeepCopy.md&amp;value=---%0Auid%3A%20Svg.SvgPath.DeepCopy%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Paths/SvgPath.cs/#L45">View Source</a>
+  </span>
   <a id="Svg_SvgPath_DeepCopy_" data-uid="Svg.SvgPath.DeepCopy*"></a>
   <h4 id="Svg_SvgPath_DeepCopy" data-uid="Svg.SvgPath.DeepCopy">DeepCopy()</h4>
   <div class="markdown level1 summary"></div>
@@ -591,8 +584,13 @@ public class SvgPath : SvgMarkerElement, ISvgTransformable, ICloneable, ISvgNode
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_DeepCopy">SvgElement.DeepCopy()</a></div>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgPath_DeepCopy__1.md&amp;value=---%0Auid%3A%20Svg.SvgPath.DeepCopy%60%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Paths/SvgPath.cs/#L50">View Source</a>
+  </span>
   <a id="Svg_SvgPath_DeepCopy_" data-uid="Svg.SvgPath.DeepCopy*"></a>
   <h4 id="Svg_SvgPath_DeepCopy__1" data-uid="Svg.SvgPath.DeepCopy``1">DeepCopy&lt;T&gt;()</h4>
   <div class="markdown level1 summary"></div>
@@ -634,8 +632,13 @@ public class SvgPath : SvgMarkerElement, ISvgTransformable, ICloneable, ISvgNode
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="Svg.SvgElement.html#Svg_SvgElement_DeepCopy__1">SvgElement.DeepCopy&lt;T&gt;()</a></div>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgPath_OnPathUpdated.md&amp;value=---%0Auid%3A%20Svg.SvgPath.OnPathUpdated%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Paths/SvgPath.cs/#L39">View Source</a>
+  </span>
   <a id="Svg_SvgPath_OnPathUpdated_" data-uid="Svg.SvgPath.OnPathUpdated*"></a>
   <h4 id="Svg_SvgPath_OnPathUpdated" data-uid="Svg.SvgPath.OnPathUpdated">OnPathUpdated()</h4>
   <div class="markdown level1 summary"></div>
@@ -644,8 +647,13 @@ public class SvgPath : SvgMarkerElement, ISvgTransformable, ICloneable, ISvgNode
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void OnPathUpdated()</code></pre>
   </div>
-  
-  
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgPath_Path_Svg_ISvgRenderer_.md&amp;value=---%0Auid%3A%20Svg.SvgPath.Path(Svg.ISvgRenderer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/Paths/SvgPath.Drawing.cs/#L15">View Source</a>
+  </span>
   <a id="Svg_SvgPath_Path_" data-uid="Svg.SvgPath.Path*"></a>
   <h4 id="Svg_SvgPath_Path_Svg_ISvgRenderer_" data-uid="Svg.SvgPath.Path(Svg.ISvgRenderer)">Path(ISvgRenderer)</h4>
   <div class="markdown level1 summary"><p>Gets the <see cref="!:GraphicsPath"></see> for this element.</p>
@@ -694,7 +702,7 @@ public class SvgPath : SvgMarkerElement, ISvgTransformable, ICloneable, ISvgNode
       <a class="xref" href="Svg.ISvgTransformable.html">ISvgTransformable</a>
   </div>
   <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.icloneable">System.ICloneable</a>
+      <span class="xref">ICloneable</span>
   </div>
   <div>
       <a class="xref" href="Svg.ISvgNode.html">ISvgNode</a>
@@ -709,7 +717,20 @@ public class SvgPath : SvgMarkerElement, ISvgTransformable, ICloneable, ISvgNode
       <a class="xref" href="Svg.ISvgClipable.html">ISvgClipable</a>
   </div>
   <div>
-      <span class="xref">ISvgPathElement</span>
+      <a class="xref" href="Svg.Pathing.ISvgPathElement.html">ISvgPathElement</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Svg.SvgExtentions.html#Svg_SvgExtentions_GetXML_Svg_SvgElement_">SvgExtentions.GetXML(SvgElement)</a>
+  </div>
+  <div>
+      <a class="xref" href="Svg.SvgExtentions.html#Svg_SvgExtentions_HasNonEmptyCustomAttribute_Svg_SvgElement_System_String_">SvgExtentions.HasNonEmptyCustomAttribute(SvgElement, String)</a>
+  </div>
+  <div>
+      <a class="xref" href="Svg.SvgExtentions.html#Svg_SvgExtentions_ApplyRecursive_Svg_SvgElement_Action_Svg_SvgElement__">SvgExtentions.ApplyRecursive(SvgElement, Action&lt;SvgElement&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Svg.SvgExtentions.html#Svg_SvgExtentions_ApplyRecursiveDepthFirst_Svg_SvgElement_Action_Svg_SvgElement__">SvgExtentions.ApplyRecursiveDepthFirst(SvgElement, Action&lt;SvgElement&gt;)</a>
   </div>
 </article>
           </div>
@@ -718,6 +739,12 @@ public class SvgPath : SvgMarkerElement, ISvgTransformable, ICloneable, ISvgNode
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgPath.md&amp;value=---%0Auid%3A%20Svg.SvgPath%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/svg-net/SVG/blob/master/Source/Paths/SvgPath.Drawing.cs/#L8" class="contribution-link">View Source</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
