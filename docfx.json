@@ -3,8 +3,8 @@
     {
       "src": [
         {
-          "files": [ "**/*.cs" ],
-          "exclude": [ "**/bin/**", "**/obj/**", "External/**" ],
+          "files": [ "**/*.csproj" ],
+          "exclude": [ "**/bin/**", "**/obj/**" ],
           "src": "Source"
         }
       ],
