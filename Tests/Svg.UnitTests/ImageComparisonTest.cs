@@ -47,7 +47,6 @@ namespace Svg.UnitTests
             // W3C Test Suites use external references to local fonts
             SvgDocument.ResolveExternalXmlEntites = ExternalType.Local;
             SvgDocument.ResolveExternalElements = ExternalType.Local;
-            SvgDocument.ResolveExternalImages = ExternalType.Local;
 
             var basePath = testData.BasePath;
             while (!basePath.ToLower().EndsWith("svg"))

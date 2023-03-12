@@ -323,6 +323,7 @@ __pull_request-925-04.svg
 __pull_request-925-05.svg
 __pull_request-961-01.svg
 __pull_request-963-01.svg
+__pull_request-1045-01.svg
 __AJ_Digital_Camera.svg
 __Telefunken_FuBK_test_pattern.svg
 __tiger.svg
