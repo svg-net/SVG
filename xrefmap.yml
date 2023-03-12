@@ -7219,6 +7219,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.HasChildren
   nameWithType: SvgElement.HasChildren
+- uid: Svg.SvgElement.HttpClient
+  name: HttpClient
+  href: api/Svg.SvgElement.html#Svg_SvgElement_HttpClient
+  commentId: P:Svg.SvgElement.HttpClient
+  fullName: Svg.SvgElement.HttpClient
+  nameWithType: SvgElement.HttpClient
+- uid: Svg.SvgElement.HttpClient*
+  name: HttpClient
+  href: api/Svg.SvgElement.html#Svg_SvgElement_HttpClient_
+  commentId: Overload:Svg.SvgElement.HttpClient
+  isSpec: "True"
+  fullName: Svg.SvgElement.HttpClient
+  nameWithType: SvgElement.HttpClient
 - uid: Svg.SvgElement.ID
   name: ID
   href: api/Svg.SvgElement.html#Svg_SvgElement_ID
