@@ -90,7 +90,9 @@
   <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgTextDecoration_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum SvgTextDecoration : int</code></pre>
+    <pre><code class="lang-csharp hljs">[TypeConverter(typeof(SvgTextDecorationConverter))]
+[Flags]
+public enum SvgTextDecoration</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>

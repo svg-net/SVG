@@ -89,7 +89,8 @@
   <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_FilterEffects_SvgColourMatrixType_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum SvgColourMatrixType : int</code></pre>
+    <pre><code class="lang-csharp hljs">[TypeConverter(typeof(SvgColourMatrixTypeConverter))]
+public enum SvgColourMatrixType</code></pre>
   </div>
   <h3 id="fields">Fields
   </h3>

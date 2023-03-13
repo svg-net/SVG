@@ -90,7 +90,8 @@
   <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgGradientSpreadMethod_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum SvgGradientSpreadMethod : int</code></pre>
+    <pre><code class="lang-csharp hljs">[TypeConverter(typeof(SvgGradientSpreadMethodConverter))]
+public enum SvgGradientSpreadMethod</code></pre>
   </div>
   <h5 id="Svg_SvgGradientSpreadMethod_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>Possible values are: &apos;pad&apos;, which says to use the terminal colors of the gradient to fill the remainder of the target region, &apos;reflect&apos;, which says to reflect the gradient pattern start-to-end, end-to-start, start-to-end, etc. continuously until the target rectangle is filled, and repeat, which says to repeat the gradient pattern start-to-end, start-to-end, start-to-end, etc. continuously until the target region is filled.</p>

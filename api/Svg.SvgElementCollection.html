@@ -91,11 +91,42 @@
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><span class="xref">SvgElementCollection</span></div>
   </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Svg.SvgElement.html">SvgElement</a>&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Svg.SvgElement.html">SvgElement</a>&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Svg.SvgElement.html">SvgElement</a>&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Svg.html">Svg</a></h6>
   <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgElementCollection_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class SvgElementCollection : IList&lt;SvgElement&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class SvgElementCollection : IList&lt;SvgElement&gt;, ICollection&lt;SvgElement&gt;, IEnumerable&lt;SvgElement&gt;, IEnumerable</code></pre>
   </div>
   <h3 id="properties">Properties
   </h3>
@@ -242,13 +273,13 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgElementCollection_AddAndForceUniqueID_Svg_SvgElement_System_Boolean_System_Boolean_Action_Svg_SvgElement_System_String_System_String__.md&amp;value=---%0Auid%3A%20Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement%2CSystem.Boolean%2CSystem.Boolean%2CAction%7BSvg.SvgElement%2CSystem.String%2CSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgElementCollection_AddAndForceUniqueID_Svg_SvgElement_System_Boolean_System_Boolean_System_Action_Svg_SvgElement_System_String_System_String__.md&amp;value=---%0Auid%3A%20Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Action%7BSvg.SvgElement%2CSystem.String%2CSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/svg-net/SVG/blob/master/Source/SvgElementCollection.cs/#L92">View Source</a>
   </span>
   <a id="Svg_SvgElementCollection_AddAndForceUniqueID_" data-uid="Svg.SvgElementCollection.AddAndForceUniqueID*"></a>
-  <h4 id="Svg_SvgElementCollection_AddAndForceUniqueID_Svg_SvgElement_System_Boolean_System_Boolean_Action_Svg_SvgElement_System_String_System_String__" data-uid="Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement,System.Boolean,System.Boolean,Action{Svg.SvgElement,System.String,System.String})">AddAndForceUniqueID(SvgElement, Boolean, Boolean, Action&lt;SvgElement, String, String&gt;)</h4>
+  <h4 id="Svg_SvgElementCollection_AddAndForceUniqueID_Svg_SvgElement_System_Boolean_System_Boolean_System_Action_Svg_SvgElement_System_String_System_String__" data-uid="Svg.SvgElementCollection.AddAndForceUniqueID(Svg.SvgElement,System.Boolean,System.Boolean,System.Action{Svg.SvgElement,System.String,System.String})">AddAndForceUniqueID(SvgElement, Boolean, Boolean, Action&lt;SvgElement, String, String&gt;)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -281,7 +312,7 @@
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">Action</span>&lt;<a class="xref" href="Svg.SvgElement.html">SvgElement</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-3">Action</a>&lt;<a class="xref" href="Svg.SvgElement.html">SvgElement</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><span class="parametername">logElementOldIDNewID</span></td>
         <td></td>
       </tr>
@@ -460,7 +491,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerable</span>&lt;T&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -505,7 +536,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">IEnumerator</span>&lt;<a class="xref" href="Svg.SvgElement.html">SvgElement</a>&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;<a class="xref" href="Svg.SvgElement.html">SvgElement</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -648,13 +679,13 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgElementCollection_InsertAndForceUniqueID_System_Int32_Svg_SvgElement_System_Boolean_System_Boolean_Action_Svg_SvgElement_System_String_System_String__.md&amp;value=---%0Auid%3A%20Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32%2CSvg.SvgElement%2CSystem.Boolean%2CSystem.Boolean%2CAction%7BSvg.SvgElement%2CSystem.String%2CSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgElementCollection_InsertAndForceUniqueID_System_Int32_Svg_SvgElement_System_Boolean_System_Boolean_System_Action_Svg_SvgElement_System_String_System_String__.md&amp;value=---%0Auid%3A%20Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32%2CSvg.SvgElement%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Action%7BSvg.SvgElement%2CSystem.String%2CSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/svg-net/SVG/blob/master/Source/SvgElementCollection.cs/#L64">View Source</a>
   </span>
   <a id="Svg_SvgElementCollection_InsertAndForceUniqueID_" data-uid="Svg.SvgElementCollection.InsertAndForceUniqueID*"></a>
-  <h4 id="Svg_SvgElementCollection_InsertAndForceUniqueID_System_Int32_Svg_SvgElement_System_Boolean_System_Boolean_Action_Svg_SvgElement_System_String_System_String__" data-uid="Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32,Svg.SvgElement,System.Boolean,System.Boolean,Action{Svg.SvgElement,System.String,System.String})">InsertAndForceUniqueID(Int32, SvgElement, Boolean, Boolean, Action&lt;SvgElement, String, String&gt;)</h4>
+  <h4 id="Svg_SvgElementCollection_InsertAndForceUniqueID_System_Int32_Svg_SvgElement_System_Boolean_System_Boolean_System_Action_Svg_SvgElement_System_String_System_String__" data-uid="Svg.SvgElementCollection.InsertAndForceUniqueID(System.Int32,Svg.SvgElement,System.Boolean,System.Boolean,System.Action{Svg.SvgElement,System.String,System.String})">InsertAndForceUniqueID(Int32, SvgElement, Boolean, Boolean, Action&lt;SvgElement, String, String&gt;)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -692,7 +723,7 @@
         <td></td>
       </tr>
       <tr>
-        <td><span class="xref">Action</span>&lt;<a class="xref" href="Svg.SvgElement.html">SvgElement</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-3">Action</a>&lt;<a class="xref" href="Svg.SvgElement.html">SvgElement</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</td>
         <td><span class="parametername">logElementOldIDNewID</span></td>
         <td></td>
       </tr>
@@ -777,6 +808,55 @@
       </tr>
     </tbody>
   </table>
+  <h3 id="eii">Explicit Interface Implementations
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgElementCollection_System_Collections_IEnumerable_GetEnumerator.md&amp;value=---%0Auid%3A%20Svg.SvgElementCollection.System%23Collections%23IEnumerable%23GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/SvgElementCollection.cs/#L203">View Source</a>
+  </span>
+  <a id="Svg_SvgElementCollection_System_Collections_IEnumerable_GetEnumerator_" data-uid="Svg.SvgElementCollection.System#Collections#IEnumerable#GetEnumerator*"></a>
+  <h4 id="Svg_SvgElementCollection_System_Collections_IEnumerable_GetEnumerator" data-uid="Svg.SvgElementCollection.System#Collections#IEnumerable#GetEnumerator">IEnumerable.GetEnumerator()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerator IEnumerable.GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">System.Collections.Generic.IList&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">System.Collections.Generic.ICollection&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">System.Collections.Generic.IEnumerable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">System.Collections.IEnumerable</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Svg.Extensions.html#Svg_Extensions_Descendants__1_System_Collections_Generic_IEnumerable___0__">Extensions.Descendants&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
 </article>
           </div>
           

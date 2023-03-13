@@ -90,7 +90,8 @@
   <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgClipRule_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum SvgClipRule : int</code></pre>
+    <pre><code class="lang-csharp hljs">[TypeConverter(typeof(SvgClipRuleConverter))]
+public enum SvgClipRule</code></pre>
   </div>
   <h5 id="Svg_SvgClipRule_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>This rule determines the &quot;insideness&quot; of a point on the canvas by drawing a ray from 

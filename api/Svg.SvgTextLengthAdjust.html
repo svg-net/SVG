@@ -90,7 +90,8 @@
   <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgTextLengthAdjust_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum SvgTextLengthAdjust : int</code></pre>
+    <pre><code class="lang-csharp hljs">[TypeConverter(typeof(SvgTextLengthAdjustConverter))]
+public enum SvgTextLengthAdjust</code></pre>
   </div>
   <h5 id="Svg_SvgTextLengthAdjust_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>The user agent is required to achieve correct start and end positions for the text strings, but the locations of intermediate glyphs are not predictable because user agents might employ advanced algorithms to stretch or compress text strings in order to balance correct start and end positioning with optimal typography.</p>

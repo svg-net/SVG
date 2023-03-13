@@ -86,11 +86,27 @@
   <div class="markdown level0 summary"><p>It is often desirable to specify that a given set of graphics stretch to fit a particular container element. The viewBox attribute provides this capability.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.tostring#system-valuetype-tostring">ValueType.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+  </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Svg.html">Svg</a></h6>
   <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgViewBox_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public struct SvgViewBox</code></pre>
+    <pre><code class="lang-csharp hljs">[TypeConverter(typeof(SvgViewBoxConverter))]
+public struct SvgViewBox</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
@@ -441,6 +457,8 @@
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.equals#system-valuetype-equals(system-object)">ValueType.Equals(Object)</a></div>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
     <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgViewBox_GetHashCode.md&amp;value=---%0Auid%3A%20Svg.SvgViewBox.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
@@ -471,6 +489,8 @@
       </tr>
     </tbody>
   </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode#system-valuetype-gethashcode">ValueType.GetHashCode()</a></div>
   <h3 id="operators">Operators
   </h3>
   <span class="small pull-right mobile-hide">
@@ -527,64 +547,14 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgViewBox_op_Implicit_RectangleF__Svg_SvgViewBox.md&amp;value=---%0Auid%3A%20Svg.SvgViewBox.op_Implicit(RectangleF)~Svg.SvgViewBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/svg-net/SVG/blob/master/Source/DataTypes/SvgViewBox.cs/#L51">View Source</a>
-  </span>
-  <a id="Svg_SvgViewBox_op_Implicit_" data-uid="Svg.SvgViewBox.op_Implicit*"></a>
-  <h4 id="Svg_SvgViewBox_op_Implicit_RectangleF__Svg_SvgViewBox" data-uid="Svg.SvgViewBox.op_Implicit(RectangleF)~Svg.SvgViewBox">Implicit(RectangleF to SvgViewBox)</h4>
-  <div class="markdown level1 summary"><p>Performs an implicit conversion from <see cref="!:RectangleF"></see> to <a class="xref" href="Svg.SvgViewBox.html">SvgViewBox</a>.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static implicit operator SvgViewBox(RectangleF value)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">RectangleF</span></td>
-        <td><span class="parametername">value</span></td>
-        <td><p>The value.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Svg.SvgViewBox.html">SvgViewBox</a></td>
-        <td><p>The result of the conversion.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgViewBox_op_Implicit_Svg_SvgViewBox__RectangleF.md&amp;value=---%0Auid%3A%20Svg.SvgViewBox.op_Implicit(Svg.SvgViewBox)~RectangleF%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgViewBox_op_Implicit_Svg_SvgViewBox__System_Drawing_RectangleF.md&amp;value=---%0Auid%3A%20Svg.SvgViewBox.op_Implicit(Svg.SvgViewBox)~System.Drawing.RectangleF%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/svg-net/SVG/blob/master/Source/DataTypes/SvgViewBox.cs/#L41">View Source</a>
   </span>
   <a id="Svg_SvgViewBox_op_Implicit_" data-uid="Svg.SvgViewBox.op_Implicit*"></a>
-  <h4 id="Svg_SvgViewBox_op_Implicit_Svg_SvgViewBox__RectangleF" data-uid="Svg.SvgViewBox.op_Implicit(Svg.SvgViewBox)~RectangleF">Implicit(SvgViewBox to RectangleF)</h4>
-  <div class="markdown level1 summary"><p>Performs an implicit conversion from <a class="xref" href="Svg.SvgViewBox.html">SvgViewBox</a> to <see cref="!:RectangleF"></see>.</p>
+  <h4 id="Svg_SvgViewBox_op_Implicit_Svg_SvgViewBox__System_Drawing_RectangleF" data-uid="Svg.SvgViewBox.op_Implicit(Svg.SvgViewBox)~System.Drawing.RectangleF">Implicit(SvgViewBox to RectangleF)</h4>
+  <div class="markdown level1 summary"><p>Performs an implicit conversion from <a class="xref" href="Svg.SvgViewBox.html">SvgViewBox</a> to <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.drawing.rectanglef">RectangleF</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -619,7 +589,57 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">RectangleF</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.drawing.rectanglef">RectangleF</a></td>
+        <td><p>The result of the conversion.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgViewBox_op_Implicit_System_Drawing_RectangleF__Svg_SvgViewBox.md&amp;value=---%0Auid%3A%20Svg.SvgViewBox.op_Implicit(System.Drawing.RectangleF)~Svg.SvgViewBox%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/svg-net/SVG/blob/master/Source/DataTypes/SvgViewBox.cs/#L51">View Source</a>
+  </span>
+  <a id="Svg_SvgViewBox_op_Implicit_" data-uid="Svg.SvgViewBox.op_Implicit*"></a>
+  <h4 id="Svg_SvgViewBox_op_Implicit_System_Drawing_RectangleF__Svg_SvgViewBox" data-uid="Svg.SvgViewBox.op_Implicit(System.Drawing.RectangleF)~Svg.SvgViewBox">Implicit(RectangleF to SvgViewBox)</h4>
+  <div class="markdown level1 summary"><p>Performs an implicit conversion from <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.drawing.rectanglef">RectangleF</a> to <a class="xref" href="Svg.SvgViewBox.html">SvgViewBox</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator SvgViewBox(RectangleF value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.drawing.rectanglef">RectangleF</a></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Svg.SvgViewBox.html">SvgViewBox</a></td>
         <td><p>The result of the conversion.</p>
 </td>
       </tr>

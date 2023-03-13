@@ -90,7 +90,8 @@
   <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgOverflow_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum SvgOverflow : int</code></pre>
+    <pre><code class="lang-csharp hljs">[TypeConverter(typeof(SvgOverflowConverter))]
+public enum SvgOverflow</code></pre>
   </div>
   <h5 id="Svg_SvgOverflow_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>The ‘overflow’ property has the same parameter values and has the same meaning as defined in CSS2 ([CSS2], section 11.1.1); however, the following additional points apply:</p>

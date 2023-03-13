@@ -90,7 +90,8 @@
   <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgImageRendering_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum SvgImageRendering : int</code></pre>
+    <pre><code class="lang-csharp hljs">[TypeConverter(typeof(SvgImageRenderingConverter))]
+public enum SvgImageRendering</code></pre>
   </div>
   <h5 id="Svg_SvgImageRendering_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>Not Implemented yet.</p>

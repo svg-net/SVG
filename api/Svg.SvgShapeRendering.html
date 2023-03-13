@@ -90,7 +90,8 @@
   <h6><strong>Assembly</strong>: Svg.dll</h6>
   <h5 id="Svg_SvgShapeRendering_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public enum SvgShapeRendering : int</code></pre>
+    <pre><code class="lang-csharp hljs">[TypeConverter(typeof(SvgShapeRenderingConverter))]
+public enum SvgShapeRendering</code></pre>
   </div>
   <h5 id="Svg_SvgShapeRendering_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>Default is <a class="xref" href="Svg.SvgShapeRendering.html#Svg_SvgShapeRendering_Auto">Auto</a>.</p>
