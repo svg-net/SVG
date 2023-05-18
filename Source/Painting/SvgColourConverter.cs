@@ -204,7 +204,30 @@ namespace Svg
 #endif
             }
 
-            return base.ConvertTo(context, culture, value, destinationType);
+            return ToHtml((Color)value);
+        }
+
+        /// <summary>
+        /// Converts color to html string format.
+        /// Refer to https://source.dot.net/#System.Drawing.Primitives/System/Drawing/ColorTranslator.cs
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        private static string ToHtml(Color c)
+        {
+            var colorString = string.Empty;
+            if (c.IsEmpty)
+                return colorString;
+
+            if (c.IsNamedColor)
+            {
+                colorString = c == Color.LightGray ? "LightGrey" : c.Name;
+                colorString = colorString.ToLowerInvariant();
+            }
+            else
+                colorString = $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+
+            return colorString;
         }
 
         /// <summary>
