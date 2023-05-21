@@ -8,8 +8,9 @@ The release versions are NuGet releases.
 
 ### Fixes
 * fixed build error in C# 11 (see [PR #1030](https://github.com/svg-net/SVG/pull/1030))
-* fixed out of memory exception on SVGs with gradients (see [PR #1038] (https://github.com/svg-net/SVG/pull/1038))
-* fixed missing styles when `DeepCopy` the `SvgElement` (see [PR #1053] (https://github.com/svg-net/SVG/pull/1053))
+* fixed out of memory exception on SVGs with gradients (see [PR #1038](https://github.com/svg-net/SVG/pull/1038))
+* fixed missing styles when `DeepCopy` the `SvgElement` (see [PR #1053](https://github.com/svg-net/SVG/pull/1053))
+* fix the color string format incompatible with the Edge/Chrome browsers in case of no System.Drawing.Common (see [PR #1055](https://github.com/svg-net/SVG/pull/1055))
 
 ## [Version 3.4.4](https://www.nuget.org/packages/Svg/3.4.4)  (2022-10-29)
 
