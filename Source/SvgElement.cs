@@ -1042,7 +1042,7 @@ namespace Svg
                 newObj.CustomAttributes.Add(attribute.Key, attribute.Value);
 
             foreach (var node in Nodes)
-                newObj.Nodes.Add(node.DeepCopy());
+                newObj.Nodes.Add(node is SvgElement ? newObj.Children[Children.IndexOf((SvgElement)node)] : node.DeepCopy());
 
             foreach (var style in _styles)
                 foreach (var pair in style.Value)
