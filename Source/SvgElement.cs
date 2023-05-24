@@ -1045,8 +1045,8 @@ namespace Svg
                 newObj.Nodes.Add(node.DeepCopy());
 
             foreach (var style in _styles)
-            foreach (var pair in style.Value)
-                newObj.AddStyle(style.Key, pair.Value, pair.Key);
+                foreach (var pair in style.Value)
+                    newObj.AddStyle(style.Key, pair.Value, pair.Key);
 
             return newObj;
         }
