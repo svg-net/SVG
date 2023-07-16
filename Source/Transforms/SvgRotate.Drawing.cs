@@ -1,5 +1,4 @@
-#if !NO_SDC
-using System.Drawing.Drawing2D;
+﻿using System.Drawing.Drawing2D;
 
 namespace Svg.Transforms
 {
@@ -18,4 +17,3 @@ namespace Svg.Transforms
         }
     }
 }
-#endif

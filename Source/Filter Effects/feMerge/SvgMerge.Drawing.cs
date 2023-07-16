@@ -1,5 +1,4 @@
-#if !NO_SDC
-using System.Drawing;
+﻿using System.Drawing;
 using System.Linq;
 
 namespace Svg.FilterEffects
@@ -24,4 +23,3 @@ namespace Svg.FilterEffects
         }
     }
 }
-#endif

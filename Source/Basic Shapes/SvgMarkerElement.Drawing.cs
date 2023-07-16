@@ -1,5 +1,4 @@
-#if !NO_SDC
-using Svg.ExtensionMethods;
+﻿using Svg.ExtensionMethods;
 
 namespace Svg
 {
@@ -70,4 +69,3 @@ namespace Svg
         }
     }
 }
-#endif

@@ -1,5 +1,4 @@
-#if !NO_SDC
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing.Drawing2D;
 
 namespace Svg
@@ -57,4 +56,3 @@ namespace Svg
         }
     }
 }
-#endif

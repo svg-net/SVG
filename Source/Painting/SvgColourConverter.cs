@@ -125,7 +125,6 @@ namespace Svg
                         return SvgPaintServer.NotSet;
                 }
 
-#if !NO_SDC
                 switch (colour.ToLowerInvariant())
                 {
                     case "activeborder": return SystemColors.ActiveBorder;
@@ -156,7 +155,6 @@ namespace Svg
                     case "windowframe": return SystemColors.WindowFrame;
                     case "windowtext": return SystemColors.WindowText;
                 }
-#endif
                 int number;
                 if (Int32.TryParse(colour,NumberStyles.Integer, CultureInfo.InvariantCulture, out number))
                 {
@@ -197,11 +195,9 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
-#if !NO_SDC
                 var colorString = ColorTranslator.ToHtml((Color)value).Replace("LightGrey", "LightGray");
                 // color names are expected to be lower case in XML
                 return colorString.StartsWith("#", StringComparison.InvariantCulture) ? colorString : colorString.ToLowerInvariant();
-#endif
             }
 
             return ToHtml((Color)value);

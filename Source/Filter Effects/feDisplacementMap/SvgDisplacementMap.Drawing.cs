@@ -1,5 +1,4 @@
-﻿#if !NO_SDC
-namespace Svg.FilterEffects
+﻿namespace Svg.FilterEffects
 {
     public partial class SvgDisplacementMap : SvgFilterPrimitive
     {
@@ -10,4 +9,3 @@ namespace Svg.FilterEffects
         }
     }
 }
-#endif

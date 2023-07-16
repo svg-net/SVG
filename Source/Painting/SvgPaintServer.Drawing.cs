@@ -1,5 +1,4 @@
-#if !NO_SDC
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Svg
 {
@@ -24,4 +23,3 @@ namespace Svg
         public abstract Brush GetBrush(SvgVisualElement styleOwner, ISvgRenderer renderer, float opacity, bool forStroke = false);
     }
 }
-#endif

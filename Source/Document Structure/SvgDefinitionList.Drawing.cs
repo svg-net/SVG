@@ -1,5 +1,4 @@
-#if !NO_SDC
-namespace Svg
+﻿namespace Svg
 {
     public partial class SvgDefinitionList : SvgElement
     {
@@ -13,4 +12,3 @@ namespace Svg
         }
     }
 }
-#endif

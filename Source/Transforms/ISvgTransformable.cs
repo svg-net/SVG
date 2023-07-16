@@ -1,4 +1,4 @@
-using Svg.Transforms;
+﻿using Svg.Transforms;
 
 namespace Svg
 {
@@ -11,7 +11,6 @@ namespace Svg
         /// Gets or sets an <see cref="SvgTransformCollection"/> of element transforms.
         /// </summary>
         SvgTransformCollection Transforms { get; set; }
-#if !NO_SDC
         /// <summary>
         /// Applies the required transforms to <see cref="ISvgRenderer"/>.
         /// </summary>
@@ -22,6 +21,5 @@ namespace Svg
         /// </summary>
         /// <param name="renderer">The <see cref="ISvgRenderer"/> that should have transforms removed.</param>
         void PopTransforms(ISvgRenderer renderer);
-#endif
     }
 }

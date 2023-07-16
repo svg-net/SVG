@@ -1,5 +1,4 @@
-#if !NO_SDC
-using System;
+﻿using System;
 
 namespace Svg
 {
@@ -28,4 +27,3 @@ namespace Svg
         void ResetClip(ISvgRenderer renderer);
     }
 }
-#endif

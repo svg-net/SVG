@@ -1,5 +1,4 @@
-﻿#if !NO_SDC
-namespace Svg.FilterEffects
+﻿namespace Svg.FilterEffects
 {
     public partial class SvgBlend : SvgFilterPrimitive
     {
@@ -10,4 +9,3 @@ namespace Svg.FilterEffects
         }
     }
 }
-#endif

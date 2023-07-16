@@ -1,7 +1,5 @@
 ﻿// This file is based on
 // https://github.com/dotnet/runtime/blob/master/src/libraries/System.Drawing.Common/src/System/Drawing/ColorConverter.cs
-// 6a988c7d0389bf9e9aa20d23baa353e9393b2ea5
-#if NETSTANDARD2_0
 #pragma warning disable CS1589 // Unable to include XML fragment
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
@@ -73,9 +71,7 @@ namespace System.Drawing {
                     lock (SystemColorConstantsLock) {
                         if (systemColorConstants == null) {
                             Hashtable tempHash = new Hashtable(StringComparer.OrdinalIgnoreCase);
-#if !NETSTANDARD2_0
-                            FillConstants(tempHash, typeof(System.Drawing.SystemColors));
-#endif
+                            FillConstants(tempHash, typeof(SystemColors));
                             systemColorConstants = tempHash;
                         }
                     }
@@ -219,16 +215,10 @@ namespace System.Drawing {
                             }
                         }
                     }
-#if NETSTANDARD2_0
                     if (obj == null)
                     {
                         throw new ArgumentException(nameof(value));
                     }
-#else
-                    if (obj == null) {
-                        throw new ArgumentException(SR.Format(SR.InvalidColor, text));
-                    }
-#endif
                 }
                 return obj;
             }
@@ -259,18 +249,9 @@ namespace System.Drawing {
                         // If this is a known color, then Color can provide its own
                         // name.  Otherwise, we fabricate an ARGB value for it.
                         //
-#if NETSTANDARD2_0
                         if (c.IsNamedColor) {
                             return "'" + c.Name + "'";
                         }
-#else
-                        if (c.IsKnownColor) {
-                            return c.Name;
-                        }
-                        else if (c.IsNamedColor) {
-                            return "'" + c.Name + "'";
-                        
-#endif
                         else
                         {
                             if (culture == null) {
@@ -310,14 +291,6 @@ namespace System.Drawing {
                     if (c.IsEmpty) {
                         member = typeof(Color).GetField("Empty");
                     }
-#if !NETSTANDARD2_0
-                    else if (c.IsSystemColor) {
-                        member = typeof(SystemColors).GetProperty(c.Name);
-                    }
-                    else if (c.IsKnownColor) {
-                        member = typeof(Color).GetProperty(c.Name);
-                    }
-#endif
                     else if (c.A != 255) {
                         member = typeof(Color).GetMethod("FromArgb", new Type[] {typeof(int), typeof(int), typeof(int), typeof(int)});
                         args = new object[] {c.A, c.R, c.G, c.B};
@@ -438,4 +411,3 @@ namespace System.Drawing {
     }
 }
 #pragma warning restore CS1589 // Unable to include XML fragment
-#endif

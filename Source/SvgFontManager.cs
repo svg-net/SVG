@@ -1,5 +1,4 @@
-﻿#if !NO_SDC
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
@@ -36,8 +35,6 @@ namespace Svg
         internal SvgFontManager()
         {
             families.AddRange(FontFamily.Families);
-
-#if !NETSTANDARD
             using (var privateFontCollection = new PrivateFontCollection())
             {
                 foreach (var path in PrivateFontPathList)
@@ -61,7 +58,6 @@ namespace Svg
 
                 families.AddRange(privateFontCollection.Families);
             }
-#endif
 
             localizedFamilyNames.AddRange(LocalizedFamilyNames);
             localizedFamilyNames.AddRange(defaultLocalizedFamilyNames);
@@ -109,4 +105,3 @@ namespace Svg
         }
     }
 }
-#endif

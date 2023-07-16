@@ -1,5 +1,4 @@
-#if !NO_SDC
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace Svg.Pathing
@@ -35,4 +34,3 @@ namespace Svg.Pathing
         }
     }
 }
-#endif

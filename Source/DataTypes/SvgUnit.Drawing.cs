@@ -1,5 +1,4 @@
-﻿#if !NO_SDC
-using System;
+﻿using System;
 using System.Linq;
 using System.Drawing;
 
@@ -178,4 +177,3 @@ namespace Svg
         }
     }
 }
-#endif
