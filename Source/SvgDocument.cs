@@ -46,7 +46,7 @@ namespace Svg
 
         public static int PointsPerInch
         {
-            get { return pointsPerInch ?? (int)(pointsPerInch = GetSystemDpi()); }
+            get { return pointsPerInch ?? (int)(pointsPerInch = 72); }
             set { pointsPerInch = value; }
         }
 
@@ -67,28 +67,6 @@ namespace Svg
         public override SvgOverflow Overflow
         {
             get { return GetAttribute("overflow", false, SvgOverflow.Visible); }
-        }
-
-        private static int GetSystemDpi()
-        {
-            bool isWindows;
-
-#if NETCOREAPP
-            isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-#else
-            var platform = Environment.OSVersion.Platform;
-            isWindows = platform == PlatformID.Win32NT;
-#endif
-
-            if (isWindows)
-            {
-                return GetWin32SystemDpi();
-            }
-            else
-            {
-                // hack for macOS and Linux
-                return 96;
-            }
         }
 
         internal Dictionary<string, IEnumerable<SvgFontFace>> FontDefns()
