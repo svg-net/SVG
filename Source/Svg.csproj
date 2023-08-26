@@ -72,10 +72,6 @@
     <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.ObjectModel" Version="4.3.0" />
-  </ItemGroup>
-
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'net462'">
         <PackageReference Include="System.Memory" Version="4.5.4" />
     </ItemGroup>
