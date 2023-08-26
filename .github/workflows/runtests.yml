@@ -26,7 +26,7 @@ jobs:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget }}
     # .Net 3.1 update     
-    - name: Setup .NET 3.1 SDK
+    - name: Setup .NET 7 SDK
       uses: actions/setup-dotnet@v3
       with:
          dotnet-version: |
@@ -66,7 +66,7 @@ jobs:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-bench }}
     # .Net 3.1 update     
-    - name: Setup .NET 3.1 SDK
+    - name: Setup .NET 7 SDK
       uses: actions/setup-dotnet@v3
       with:
          dotnet-version: |
