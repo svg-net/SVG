@@ -24,13 +24,12 @@ jobs:
         id: cache
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget }}        
+          key: ${{ runner.os }}-nuget }}
       - name: Setup .NET 3.1 SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: |
-            3.1.x
-          include-prerelease: false   
+          dotnet-version: 3.1.x
+          include-prerelease: false
       - name: Restore NuGet Packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
@@ -67,8 +66,7 @@ jobs:
       - name: Setup .NET 3.1 SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: |
-            3.1.x
+          dotnet-version: 3.1.x
           include-prerelease: false
       - name: Restore NuGet Packages
         if: steps.cache.outputs.cache-hit != 'true'
