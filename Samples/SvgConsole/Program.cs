@@ -143,7 +143,7 @@ namespace SvgConsole
             }
         }
 
-        static async Task<int> Main(string[] args)
+        static Task<int> Main(string[] args)
         {
             var optionInputFiles = new Option(new[] { "--inputFiles", "-f" }, "The relative or absolute path to the input files")
             {
@@ -199,7 +199,7 @@ namespace SvgConsole
                 }
             });
 
-            return await rootCommand.InvokeAsync(args);
+            return rootCommand.InvokeAsync(args);
         }
     }
 }
