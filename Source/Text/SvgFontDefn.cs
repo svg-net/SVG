@@ -54,7 +54,7 @@ namespace Svg
         {
             var result = new List<RectangleF>();
             using (var path = GetPath(renderer, text, result, true)) { }
-            var nonEmpty = result.Where(r => r != RectangleF.Empty);
+            var nonEmpty = result.Where(r => r != RectangleF.Empty).ToArray();
             if (!nonEmpty.Any()) return SizeF.Empty;
             return new SizeF(nonEmpty.Last().Right - nonEmpty.First().Left, Ascent(renderer));
         }
