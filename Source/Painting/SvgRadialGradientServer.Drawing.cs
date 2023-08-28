@@ -199,10 +199,10 @@ namespace Svg
             rightPoints.Add(new PointF(bounds.Right, bounds.Bottom));
             rightPoints.Add(new PointF(bounds.Right, bounds.Top));
 
-            point = new PointF((leftPoints.First().X + rightPoints.First().X) / 2, bounds.Top);
+            point = new PointF((leftPoints[0].X + rightPoints[0].X) / 2, bounds.Top);
             leftPoints.Add(point);
             rightPoints.Add(point);
-            point = new PointF(point.X, (leftPoints.First().Y + rightPoints.First().Y) / 2);
+            point = new PointF(point.X, (leftPoints[0].Y + rightPoints[0].Y) / 2);
             leftPoints.Add(point);
             rightPoints.Add(point);
 
