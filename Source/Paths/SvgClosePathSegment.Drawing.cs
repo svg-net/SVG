@@ -1,4 +1,4 @@
-#if !NO_SDC
+﻿#if !NO_SDC
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -11,8 +11,9 @@ namespace Svg.Pathing
             graphicsPath.CloseFigure();
 
             var end = start;
+            var pathTypes = graphicsPath.PathTypes;
             for (var i = graphicsPath.PointCount - 1; i >= 0; --i)
-                if ((graphicsPath.PathTypes[i] & 0x7) == 0)
+                if ((pathTypes[i] & 0x7) == 0)
                 {
                     end = graphicsPath.PathPoints[i];
                     break;
