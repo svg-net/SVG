@@ -81,11 +81,11 @@ namespace Svg
             if (name == null)
                 return null;
 
-            var familyNames = localizedFamilyNames.Where(f => f.Contains(name, StringComparer.CurrentCultureIgnoreCase)).FirstOrDefault()
-                ?? Enumerable.Repeat(name, 1);
+            var familyNames = localizedFamilyNames.Find(f => f.Contains(name, StringComparer.CurrentCultureIgnoreCase))
+                              ?? Enumerable.Repeat(name, 1);
             foreach (var familyName in familyNames)
             {
-                var family = families.Where(f => f.Name.Equals(familyName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                var family = families.Find(f => f.Name.Equals(familyName, StringComparison.CurrentCultureIgnoreCase));
                 if (family != null)
                     return family;
             }
