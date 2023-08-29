@@ -26,8 +26,8 @@ namespace Svg.UnitTests
 
             var svgPath = Path.Combine(TestsRootPath, EntitiesSampleSvgPath);
             var doc = SvgDocument.Open<SvgDocument>(svgPath, entities);
-            Assert.That(doc.Children[0].Children[0].Fill, Is.EqualTo(new SvgColourServer(Color.Red)));
-            Assert.That(doc.Children[0].Children[1].Fill, Is.EqualTo(new SvgColourServer(Color.Yellow)));
+            Assert.That(doc.Children[0].Children[0].Fill, Is.EqualTo(new SvgColourServer(Color.FromArgb(255, 0 ,0))));
+            Assert.That(doc.Children[0].Children[1].Fill, Is.EqualTo(new SvgColourServer(Color.FromArgb(255, 255 ,0))));
         }
 
         [Test]
