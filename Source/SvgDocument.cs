@@ -444,7 +444,7 @@ namespace Svg
             if (styles.Any())
             {
                 var cssTotal = string.Join(Environment.NewLine, styles.Select(s => s.Content).ToArray());
-                var stylesheetParser = new StylesheetParser(true, true);
+                var stylesheetParser = new StylesheetParser(true, true, tolerateInvalidValues: true);
                 var stylesheet = stylesheetParser.Parse(cssTotal);
 
                 foreach (var rule in stylesheet.StyleRules)

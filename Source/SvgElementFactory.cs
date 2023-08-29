@@ -52,7 +52,7 @@ namespace Svg
         private static readonly Dictionary<string, ElementInfo> availableElementsWithoutSvg;
         private static readonly List<ElementInfo> availableElements;
 #endif
-        private readonly StylesheetParser stylesheetParser = new StylesheetParser(true, true);
+        private readonly StylesheetParser stylesheetParser = new StylesheetParser(true, true, tolerateInvalidValues: true);
 
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
