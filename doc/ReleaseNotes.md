@@ -5,6 +5,7 @@ The release versions are NuGet releases.
 
 ### Changes
 * removed out of support framework versions .NET 5 (replaced with .NET 6) (see PR [#1045](https://github.com/svg-net/SVG/pull/1045))
+* updated ExCSS to Version 4.2.1 (see PR[#1083] https://github.com/svg-net/SVG/pull/1083
 
 ### Fixes
 * fixed build error in C# 11 (see [PR #1030](https://github.com/svg-net/SVG/pull/1030))
