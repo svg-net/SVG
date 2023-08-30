@@ -82,10 +82,12 @@ namespace Svg
         public override GraphicsPath Path(ISvgRenderer renderer)
         {
             //if there is a TSpan inside of this text element then path should not be null (even if this text is empty!)
-            var nodes = GetContentNodes().Where(x => x is SvgContentNode &&
-                                                     string.IsNullOrEmpty(x.Content.Trim(new[] { '\r', '\n', '\t' })));
 
-            if (_path == null || IsPathDirty || nodes.Count() == 1)
+            var nodeCount = GetContentNodes().Count(x => x is SvgContentNode &&
+                                                         string.IsNullOrEmpty(x.Content.Trim(new[]
+                                                             {'\r', '\n', '\t'})));
+
+            if (_path == null || IsPathDirty || nodeCount == 1)
             {
                 if (renderer != null && renderer is IGraphicsProvider)
                     SetPath(new TextDrawingState(renderer, this));
@@ -555,11 +557,11 @@ namespace Svg
                         switch (Element.TextAnchor)
                         {
                             case SvgTextAnchor.Middle:
-                                if (_anchoredPaths.Count() == 1) xOffset -= this.TextBounds.Width / 2;
+                                if (_anchoredPaths.Count == 1) xOffset -= this.TextBounds.Width / 2;
                                 else xOffset -= (maxX - minX) / 2;
                                 break;
                             case SvgTextAnchor.End:
-                                if (_anchoredPaths.Count() == 1) xOffset -= this.TextBounds.Width;
+                                if (_anchoredPaths.Count == 1) xOffset -= this.TextBounds.Width;
                                 else xOffset -= (maxX - minX);
                                 break;
                         }

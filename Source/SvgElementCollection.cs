@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -191,7 +191,7 @@ namespace Svg
 
         public T GetSvgElementOf<T>() where T : SvgElement
         {
-            return _elements.FirstOrDefault(x => x is T) as T;
+            return _elements.Find(x => x is T) as T;
         }
 
 

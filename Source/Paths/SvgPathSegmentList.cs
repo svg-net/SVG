@@ -111,7 +111,7 @@ namespace Svg.Pathing
 
         public override string ToString()
         {
-            return string.Join(" ", this.Select(p => p.ToString()).ToArray());
+            return string.Join(" ", this.Select(p => p.ToString()));
         }
     }
 
