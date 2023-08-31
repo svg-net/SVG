@@ -60,7 +60,7 @@ namespace Svg.UnitTests
         }
 
         [Test]
-        public void Lexer_FileWithInvalidHex_ColorTagOnlyReverstToDefaultForTheInvalidTag()
+        public void Lexer_FileWithValid4Hex_ColorTagOnly()
         {
             // invalid/valid color combinations - default color is used for each invalid color
             var doc = GenerateLexerTestFile("fill: #ff00; stroke: #00ff00");
@@ -68,6 +68,26 @@ namespace Svg.UnitTests
             // default fill color is Black
             Assert.AreEqual(System.Drawing.Color.FromArgb(0,255,255,0), ((SvgColourServer)path.Fill).Colour);
             Assert.AreEqual(System.Drawing.Color.FromArgb( 0, 255, 0), ((SvgColourServer)path.Stroke).Colour);
+        }
+
+        [Test]
+        public void Lexer_FileWithValid4Hex_ColorTag()
+        {
+            // invalid/valid color combinations - default color is used for each invalid color
+            var doc = GenerateLexerTestFile("fill: #ff00");
+            var path = doc.GetElementById<SvgPath>("path1");
+            // default fill color is Black
+            Assert.AreEqual(System.Drawing.Color.FromArgb(0,255,255,0), ((SvgColourServer)path.Fill).Colour);
+        }
+
+        [Test]
+        public void Lexer_FileWithInvalid2Hex_ColorTagOnlyRevertsToDefaultForTheInvalidTag()
+        {
+            // invalid/valid color combinations - default color is used for each invalid color
+            var doc = GenerateLexerTestFile("fill: #ff");
+            var path = doc.GetElementById<SvgPath>("path1");
+            // default fill color is Black
+            Assert.AreEqual(System.Drawing.Color.Black, ((SvgColourServer)path.Fill).Colour);
         }
 
         [Test]
