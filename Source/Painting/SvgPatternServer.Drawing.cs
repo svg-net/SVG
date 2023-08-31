@@ -39,7 +39,7 @@ namespace Svg
                 chain.Add(curr);
                 curr = SvgDeferredPaintServer.TryGet<SvgPatternServer>(curr.InheritGradient, renderingElement);
             } while (curr != null);
-            
+
             var firstChildren = chain.Find(p => p.Children.Count > 0);
             if (firstChildren == null)
                 return null;
