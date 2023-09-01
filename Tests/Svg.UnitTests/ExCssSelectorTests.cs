@@ -20,6 +20,7 @@ namespace Svg.UnitTests
         [TestCase("styling-css-03-b")]
         [TestCase("__issue-280-01")]
         [TestCase("styling-css-01-b")]
+        [TestCase("__issue-034-02")]
         public void RunSelectorTests(string baseName)
         {
             var elementFactory = new SvgElementFactory();
@@ -49,6 +50,13 @@ namespace Svg.UnitTests
                     }
                 }
             }
+        }
+
+        [Test]
+        [TestCaseSource(typeof(TestSvg), nameof(TestSvg.AllSvgs))]
+        public void RunSelectorsOnSvgTests(TestSvg svg)
+        {
+            RunSelectorTests(svg.BaseName);
         }
 
         [Test]
@@ -156,6 +164,37 @@ namespace Svg.UnitTests
             var generator = new SelectorGenerator<SvgElement>(new SvgElementOps(elementFactory));
             Fizzler.Parser.Parse(selector, generator);
             return generator.Selector(Enumerable.Repeat(elem, 1));
+        }
+    }
+
+    public class TestSvg
+    {
+        private readonly string _baseName;
+
+        private TestSvg(string baseName)
+        {
+            _baseName = baseName;
+        }
+
+        public override string ToString()
+        {
+            return $"TestSvg - {BaseName}";
+        }
+
+        public string BaseName => _baseName;
+
+        public static IEnumerable<TestSvg> AllSvgs()
+        {
+            var basePath = ImageTestDataSource.SuiteTestsFolder;
+            var testSuite = Path.Combine(basePath, "W3CTestSuite", "svg");
+            // Enumerate all Test Svgs
+            foreach(var baseName in Directory.EnumerateFiles(testSuite))
+            {
+                if (Path.GetExtension(baseName) == ".svg")
+                {
+                    yield return new TestSvg(Path.GetFileNameWithoutExtension(baseName));
+                }
+            } 
         }
     }
 }

@@ -34,6 +34,22 @@ namespace Svg.Css
         }
 
         private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
+            ListSelector listSelector,
+            ExSvgElementOps ops,
+            Func<IEnumerable<SvgElement>,
+                IEnumerable<SvgElement>> inFunc)
+        {
+            foreach (var selector in listSelector)
+            {
+                // combine the selectors
+                throw new NotImplementedException();
+            }
+
+            // combine the selectors
+            throw new NotImplementedException();
+        }
+
+        private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
             PseudoClassSelector selector,
             ExSvgElementOps ops,
             Func<IEnumerable<SvgElement>,
@@ -145,21 +161,21 @@ namespace Svg.Css
                 AttrBeginsSelector attrBeginsSelector => ops.AttributePrefixMatch(attrBeginsSelector.Attribute, attrBeginsSelector.Value),
                 AttrContainsSelector attrContainsSelector => ops.AttributeSubstring(attrContainsSelector.Attribute, attrContainsSelector.Value),
                 AttrEndsSelector attrEndsSelector => ops.AttributeSuffixMatch(attrEndsSelector.Attribute, attrEndsSelector.Value),
-                AttrHyphenSelector attrHyphenSelector => ops.AttributeDashMatch(attrHyphenSelector.Attribute, attrHyphenSelector.Value), // TODO:,
-                AttrListSelector attrListSelector => ops.AttributeExists(attrListSelector.Attribute), // TODO:,
+                AttrHyphenSelector attrHyphenSelector => ops.AttributeDashMatch(attrHyphenSelector.Attribute, attrHyphenSelector.Value),
+                AttrListSelector attrListSelector => ops.AttributeExists(attrListSelector.Attribute),
                 AttrMatchSelector attrMatchSelector => ops.AttributeExact(attrMatchSelector.Attribute, attrMatchSelector.Value),
                 AttrNotMatchSelector attrNotMatchSelector => throw new NotImplementedException(), // TODO:,
                 ClassSelector classSelector => ops.Class(classSelector.Class),
                 ComplexSelector complexSelector =>  GetFunc(complexSelector, ops, inFunc),
                 CompoundSelector compoundSelector => GetFunc(compoundSelector, ops, inFunc),
-                FirstChildSelector firstChildSelector => ops.FirstChild(), // TODO:,
+                FirstChildSelector firstChildSelector => ops.FirstChild(), 
                 FirstColumnSelector firstColumnSelector => throw new NotImplementedException(), // TODO:,
                 FirstTypeSelector firstTypeSelector => throw new NotImplementedException(), // TODO:,
                 ChildSelector childSelector => throw new NotImplementedException(), // TODO:,
-                ListSelector listSelector => throw new NotImplementedException(), // TODO:,
+                ListSelector listSelector => GetFunc(listSelector, ops, inFunc), // TODO:,
                 NamespaceSelector namespaceSelector => throw new NotImplementedException(), // TODO:,
                 PageSelector pageSelector => throw new NotImplementedException(), // TODO:,
-                PseudoClassSelector pseudoClassSelector => GetFunc(pseudoClassSelector, ops, inFunc), // TODO:,
+                PseudoClassSelector pseudoClassSelector => GetFunc(pseudoClassSelector, ops, inFunc),
                 PseudoElementSelector pseudoElementSelector => throw new NotImplementedException(), // TODO:,
                 TypeSelector typeSelector => ops.Type(typeSelector.Name),
                 UnknownSelector unknownSelector => throw new NotImplementedException(), // TODO:,
