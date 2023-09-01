@@ -453,7 +453,7 @@ namespace Svg
                         var rootNode = new NonSvgElement();
                         rootNode.Children.Add(svgDocument);
 
-                        var elemsToStyle = rootNode.QuerySelectorAll(rule.Selector.Text, elementFactory);
+                        var elemsToStyle = rootNode.QuerySelectorAll(rule.Selector, elementFactory);
                         foreach (var elem in elemsToStyle)
                             foreach (var declaration in rule.Style)
                             {
