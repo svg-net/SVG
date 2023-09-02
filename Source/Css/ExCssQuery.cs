@@ -74,9 +74,27 @@ namespace Svg.Css
             {
                 pseudoFunc = ops.LastChild();
             }
+            else if (selector.Class == PseudoClassNames.Hover
+                     || selector.Class == PseudoClassNames.Focus
+                     || selector.Class == PseudoClassNames.Active
+                     || selector.Class == PseudoClassNames.Link
+                     || selector.Class == PseudoClassNames.Visited
+                     || selector.Class == PseudoClassNames.FocusVisible)
+            {
+                // this are dynamic pseudo-classes which are not evaluated, so ignore them
+                pseudoFunc = ops.Empty();
+            }
             else
             {
-                throw new NotImplementedException();
+                if (selector.Class.StartsWith(PseudoClassNames.Lang))
+                {
+                    // this are dynamic pseudo-classes which are not evaluated, so ignore them
+                    pseudoFunc = ops.Empty();
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
 
             if (inFunc == null)
