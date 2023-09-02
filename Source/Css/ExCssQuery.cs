@@ -190,7 +190,7 @@ namespace Svg.Css
                 AttrContainsSelector attrContainsSelector => ops.AttributeSubstring(attrContainsSelector.Attribute, attrContainsSelector.Value),
                 AttrEndsSelector attrEndsSelector => ops.AttributeSuffixMatch(attrEndsSelector.Attribute, attrEndsSelector.Value),
                 AttrHyphenSelector attrHyphenSelector => ops.AttributeDashMatch(attrHyphenSelector.Attribute, attrHyphenSelector.Value),
-                AttrListSelector attrListSelector => ops.AttributeExists(attrListSelector.Attribute),
+                AttrListSelector attrListSelector => ops.AttributeIncludes(attrListSelector.Attribute, attrListSelector.Value),
                 AttrMatchSelector attrMatchSelector => ops.AttributeExact(attrMatchSelector.Attribute, attrMatchSelector.Value),
                 AttrNotMatchSelector attrNotMatchSelector => ops.AttributeNotMatch(attrNotMatchSelector.Attribute, attrNotMatchSelector.Value), // TODO:,
                 ClassSelector classSelector => ops.Class(classSelector.Class),
