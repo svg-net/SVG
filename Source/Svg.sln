@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29215.179
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34004.107
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svg", "Svg.csproj", "{886A98C5-37C0-4E8B-885E-30C1D2F98B47}"
 EndProject
@@ -37,6 +37,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svg.Benchmark", "..\Tests\Svg.Benchmark\Svg.Benchmark.csproj", "{8DEB3EA7-5915-4EB9-8052-85A7AC4379EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generators", "Generators", "{FAFD6DC7-5203-4CED-A151-66379DD43695}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svg.AngleSharp", "..\Svg.AngleSharp\Svg.AngleSharp.csproj", "{9D95BBF5-07AE-43C9-A85A-1965D35E18AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +86,10 @@ Global
 		{8DEB3EA7-5915-4EB9-8052-85A7AC4379EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DEB3EA7-5915-4EB9-8052-85A7AC4379EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DEB3EA7-5915-4EB9-8052-85A7AC4379EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D95BBF5-07AE-43C9-A85A-1965D35E18AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D95BBF5-07AE-43C9-A85A-1965D35E18AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D95BBF5-07AE-43C9-A85A-1965D35E18AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D95BBF5-07AE-43C9-A85A-1965D35E18AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
