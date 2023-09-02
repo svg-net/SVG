@@ -3,6 +3,7 @@ using System.Text;
 using Svg.Css;
 using NUnit.Framework;
 using ExCSS;
+using Svg.UnitTests.Css;
 
 namespace Svg.UnitTests
 {

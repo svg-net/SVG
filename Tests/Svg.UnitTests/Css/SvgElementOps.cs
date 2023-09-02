@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Fizzler;
 
-namespace Svg.Css
+namespace Svg.UnitTests.Css
 {
     internal class SvgElementOps : IElementOps<SvgElement>
     {

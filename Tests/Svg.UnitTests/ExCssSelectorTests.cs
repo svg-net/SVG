@@ -8,6 +8,7 @@ using System.Xml;
 using ExCSS;
 using Fizzler;
 using Svg.Css;
+using Svg.UnitTests.Css;
 
 namespace Svg.UnitTests
 {

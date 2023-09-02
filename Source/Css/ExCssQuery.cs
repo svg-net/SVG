@@ -222,16 +222,16 @@ namespace Svg.Css
             return f => func(inFunc(f));
         }
 
-        ////public static int GetSpecificity(this ISelector selector)
-        ////{
-        ////    var specificity = 0x0;
-        ////    // ID selector
-        ////    specificity |= (1 << 12) * selector.Specificity.Ids;
-        ////    // class selector
-        ////    specificity |= (1 << 8) * selector.Specificity.Classes;
-        ////    // element selector
-        ////    specificity |= (1 << 4) * selector.Specificity.Tags;
-        ////    return specificity;
-        ////}
+        public static int GetSpecificity(this ISelector selector)
+        {
+            var specificity = 0x0;
+            // ID selector
+            specificity |= (1 << 12) * selector.Specificity.Ids;
+            // class selector
+            specificity |= (1 << 8) * selector.Specificity.Classes;
+            // element selector
+            specificity |= (1 << 4) * selector.Specificity.Tags;
+            return specificity;
+        }
     }
 }

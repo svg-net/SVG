@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Fizzler;
 using ExCSS;
+using Fizzler;
+using Svg.Css;
 
-namespace Svg.Css
+namespace Svg.UnitTests.Css
 {
     internal static class CssQuery
     {
