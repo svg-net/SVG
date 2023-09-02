@@ -107,6 +107,18 @@ namespace Svg.UnitTests
         [TestCase("rect","styling-css-01-b")]
         [TestCase(".warning", "styling-css-01-b")]
         [TestCase(".bar","styling-css-01-b")]
+        [TestCase(".line","__issue-034-02")]               
+        [TestCase(".bold-line","__issue-034-02")]                 
+        [TestCase(".thin-line","__issue-034-02")]                  
+        [TestCase(".filled","__issue-034-02")]                     
+        [TestCase("text.terminal","__issue-034-02")]               
+        [TestCase("text.nonterminal","__issue-034-02")]            
+        [TestCase("text.regexp","__issue-034-02")]                
+        [TestCase("rect, circle, polygon","__issue-034-02")]       
+        [TestCase("rect.terminal","__issue-034-02")]               
+        [TestCase("rect.nonterminal","__issue-034-02")]            
+        [TestCase("rect.text","__issue-034-02")]                   
+        [TestCase("polygon.regexp","__issue-034-02")]         
         public void RunSelectorTests(string selector, string baseName)
         {
             var elementFactory = new SvgElementFactory();

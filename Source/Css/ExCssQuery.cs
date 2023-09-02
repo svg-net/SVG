@@ -39,14 +39,24 @@ namespace Svg.Css
             Func<IEnumerable<SvgElement>,
                 IEnumerable<SvgElement>> inFunc)
         {
+            List<Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>>> results = new();
+
             foreach (var selector in listSelector)
             {
-                // combine the selectors
-                throw new NotImplementedException();
+                results.Add(GetFunc(selector, ops, null));
             }
 
-            // combine the selectors
-            throw new NotImplementedException();
+            return f =>
+            {
+                var svgElements = inFunc(f);
+                var nodes = results[0](svgElements);
+                for (int i = 1; i < results.Count; i++)
+                {
+                    nodes = nodes.Union(results[i](svgElements));
+                }
+
+                return nodes;
+            };
         }
 
         private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
