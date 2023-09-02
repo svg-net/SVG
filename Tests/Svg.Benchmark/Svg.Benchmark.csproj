@@ -16,6 +16,9 @@
     <EmbeddedResource Include="..\W3CTestSuite\svg\__tiger.svg">
       <Link>Assets\__tiger.svg</Link>
     </EmbeddedResource>
+	  <EmbeddedResource Include="..\W3CTestSuite\svg\struct-use-11-f.svg">
+		  <Link>Assets\struct-use-11-f.svg</Link>
+	  </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +40,17 @@
 
   <ItemGroup>
     <None Remove="BenchmarkDotNet.Artifacts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CoordinateParserBenchmarks.cs" />
+    <Compile Remove="SvgDocumentBenchmarks.cs" />
+    <Compile Remove="SvgNumberCollectionConverterBenchmarks.cs" />
+    <Compile Remove="SvgPathBuilderBenchmarks.cs" />
+    <Compile Remove="SvgTransformConverterBenchmarks.cs" />
+    <Compile Remove="SvgUnitCollectionConverterBenchmarks.cs" />
+    <Compile Remove="SvgUnitConverterBenchmarks.cs" />
+    <Compile Remove="ToStringBenchmarks.cs" />
   </ItemGroup>
 
 </Project>
