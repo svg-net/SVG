@@ -5,7 +5,7 @@
     <IsPackable>false</IsPackable>
     <LangVersion>8.0</LangVersion>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>C:\GitHub\SVG\Tests\Svg.UnitTests\svgkey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\Svg.UnitTests\svgkey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
