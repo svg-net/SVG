@@ -16,7 +16,7 @@ namespace Svg.Benchmark
         private readonly List<ISvgNode> _styles;
         private readonly SvgDocument _svgDokument;
         private readonly List<IStyleRule> _rules;
-        private SvgElementFactory _svgElementFactory;
+        private readonly SvgElementFactory _svgElementFactory;
 
         private Stream Open(string name) => typeof(Program).Assembly.GetManifestResourceStream($"Svg.Benchmark.Assets.{name}");
 
@@ -42,7 +42,7 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
-        public void SelectorPerformanceBenchmark()
+        public void SelectorPerformance()
         {
             var rootNode = new NonSvgElement();
             rootNode.Children.Add(_svgDokument);
@@ -52,7 +52,5 @@ namespace Svg.Benchmark
                 rootNode.QuerySelectorAll(rule.Selector, _svgElementFactory);
             }
         }
-
-
     }
 }

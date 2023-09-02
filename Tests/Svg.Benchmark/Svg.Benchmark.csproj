@@ -4,6 +4,8 @@
     <TargetFrameworks>net6.0;netcoreapp3.1;net462</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <LangVersion>8.0</LangVersion>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>C:\GitHub\SVG\Tests\Svg.UnitTests\svgkey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,17 +42,6 @@
 
   <ItemGroup>
     <None Remove="BenchmarkDotNet.Artifacts\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="CoordinateParserBenchmarks.cs" />
-    <Compile Remove="SvgDocumentBenchmarks.cs" />
-    <Compile Remove="SvgNumberCollectionConverterBenchmarks.cs" />
-    <Compile Remove="SvgPathBuilderBenchmarks.cs" />
-    <Compile Remove="SvgTransformConverterBenchmarks.cs" />
-    <Compile Remove="SvgUnitCollectionConverterBenchmarks.cs" />
-    <Compile Remove="SvgUnitConverterBenchmarks.cs" />
-    <Compile Remove="ToStringBenchmarks.cs" />
   </ItemGroup>
 
 </Project>
