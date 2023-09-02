@@ -47,6 +47,11 @@ namespace Svg.Css
             return nodes => nodes.Where(n => (n.TryGetAttribute(name, out var val) && val == value));
         }
 
+        public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> AttributeNotMatch(string name, string value)
+        {
+            return nodes => nodes.Where(n => (n.TryGetAttribute(name, out var val) && val != value));
+        }
+
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> AttributeIncludes(string name, string value)
         {
             return nodes => nodes.Where(n => (n.TryGetAttribute(name, out var val) && val.Split(' ').Contains(value)));

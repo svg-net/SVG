@@ -26,4 +26,5 @@ internal interface IExCssSelectorOps<T>
     Func<IEnumerable<T>, IEnumerable<T>> Adjacent();
     Func<IEnumerable<T>, IEnumerable<T>> GeneralSibling();
     Func<IEnumerable<T>, IEnumerable<T>> NthLastChild(int a, int b);
+    Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> AttributeNotMatch(string name, string value);
 }
