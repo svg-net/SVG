@@ -21,12 +21,18 @@ namespace Svg.UnitTests
         [TestCase("__issue-280-01")]
         [TestCase("styling-css-01-b")]
         [TestCase("__issue-034-02")]
-        public void RunSelectorTests(string baseName)
+        public void RunAllSelectorTests(string baseName)
+        {
+            RunAllSelectorTests(baseName, null);
+        }
+
+        public void RunAllSelectorTests(string baseName, string folder)
         {
             var elementFactory = new SvgElementFactory();
             var testSuite = Path.Combine(ImageTestDataSource.SuiteTestsFolder, "W3CTestSuite");
-            string basePath = testSuite;
-            var svgPath = Path.Combine(basePath, "svg", baseName + ".svg");
+            string basePath = folder ?? Path.Combine(testSuite, "svg");
+            var svgPath = Path.Combine(basePath, baseName + ".svg");
+
             var styles = new List<ISvgNode>();
             using (var xmlFragment = File.Open(svgPath, FileMode.Open))
             {
@@ -54,9 +60,10 @@ namespace Svg.UnitTests
 
         [Test]
         [TestCaseSource(typeof(TestSvg), nameof(TestSvg.AllSvgs))]
+        [TestCaseSource(typeof(TestSvg), nameof(TestSvg.AllImageSvgs))]
         public void RunSelectorsOnSvgTests(TestSvg svg)
         {
-            RunSelectorTests(svg.BaseName);
+            RunAllSelectorTests(svg.BaseName, svg.Folder);
         }
 
         [Test]
@@ -222,10 +229,12 @@ namespace Svg.UnitTests
     public class TestSvg
     {
         private readonly string _baseName;
+        private readonly string _folder;
 
-        private TestSvg(string baseName)
+        private TestSvg(string baseName, string folder)
         {
             _baseName = baseName;
+            _folder = folder;
         }
 
         public override string ToString()
@@ -234,6 +243,7 @@ namespace Svg.UnitTests
         }
 
         public string BaseName => _baseName;
+        public string Folder => _folder;
 
         public static IEnumerable<TestSvg> AllSvgs()
         {
@@ -244,7 +254,23 @@ namespace Svg.UnitTests
             {
                 if (Path.GetExtension(baseName) == ".svg")
                 {
-                    yield return new TestSvg(Path.GetFileNameWithoutExtension(baseName));
+                    yield return new TestSvg(Path.GetFileNameWithoutExtension(baseName), testSuite);
+                }
+            } 
+        }
+
+        public static IEnumerable<TestSvg> AllImageSvgs()
+        {
+            var basePath = ImageTestDataSource.SuiteTestsFolder;
+            var testSuite = Path.Combine(basePath, "W3CTestSuite", "images");
+            // Enumerate all Test Svgs
+            foreach(var baseName in Directory.EnumerateFiles(testSuite))
+            {
+                if (Path.GetExtension(baseName) == ".svg")
+                {
+                    yield return new TestSvg(
+                        Path.GetFileNameWithoutExtension(baseName),
+                        testSuite);
                 }
             } 
         }
