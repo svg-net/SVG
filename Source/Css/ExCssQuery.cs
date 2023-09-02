@@ -180,7 +180,7 @@ namespace Svg.Css
             return result;
         }
 
-        private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(ISelector selector, ExSvgElementOps ops, Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>>? inFunc)
+        private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(ISelector selector, ExSvgElementOps ops, Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> inFunc)
         {
             var func = selector switch
             {
