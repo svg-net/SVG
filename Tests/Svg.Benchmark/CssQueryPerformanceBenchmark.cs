@@ -8,6 +8,7 @@ using System.Xml;
 using BenchmarkDotNet.Attributes;
 using ExCSS;
 using Svg.Css;
+using Svg.UnitTests.Css;
 
 namespace Svg.Benchmark
 {
@@ -20,20 +21,15 @@ namespace Svg.Benchmark
 
         private Stream Open(string name) => typeof(Program).Assembly.GetManifestResourceStream($"Svg.Benchmark.Assets.{name}");
 
-        CssQueryPerformanceBenchmark()
+        public CssQueryPerformanceBenchmark()
         {
-            using var stream = Open("struct-use-11-f");
-            // Don't close the stream via a dispose: that is the client's job.
-            var reader = new SvgTextReader(stream, null)
-            {
-                XmlResolver = new SvgDtdResolver(),
-                WhitespaceHandling = WhitespaceHandling.Significant,
-                DtdProcessing = DtdProcessing.Ignore,
-            };
-
+            using var stream = Open("struct-use-11-f.svg");
             _styles = new List<ISvgNode>();
             _svgElementFactory = new SvgElementFactory();
-            _svgDokument = SvgDocument.Create<SvgDocument>(reader, _svgElementFactory, _styles);
+            using (var xmlTextReader = new XmlTextReader(stream))
+            {
+                _svgDokument = SvgDocument.Create<SvgDocument>(xmlTextReader, _svgElementFactory, _styles);
+            }
 
             var cssTotal = string.Join(Environment.NewLine, _styles.Select(s => s.Content).ToArray());
             var stylesheetParser = new StylesheetParser(true, true, tolerateInvalidValues: true);
@@ -42,7 +38,7 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
-        public void SelectorPerformance()
+        public void SelectorPerformanceExCss()
         {
             var rootNode = new NonSvgElement();
             rootNode.Children.Add(_svgDokument);
@@ -50,6 +46,18 @@ namespace Svg.Benchmark
             foreach (var rule in _rules)
             {
                 rootNode.QuerySelectorAll(rule.Selector, _svgElementFactory);
+            }
+        }
+
+        [Benchmark]
+        public void SelectorPerformanceFizzler()
+        {
+            var rootNode = new NonSvgElement();
+            rootNode.Children.Add(_svgDokument);
+
+            foreach (var rule in _rules)
+            {
+                rootNode.QuerySelectorAll(rule.Selector.Text, _svgElementFactory);
             }
         }
     }

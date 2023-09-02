@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Svg.csproj" />
+    <ProjectReference Include="..\Svg.UnitTests\Svg.UnitTests.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net462'">
