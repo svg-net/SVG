@@ -62,7 +62,7 @@ namespace Svg.Benchmark
         }
 
         [Benchmark]
-        public void SelectorPerformanceAngular()
+        public void SelectorPerformanceAngleSharp()
         {
             var rootNode = new NonSvgElement();
             rootNode.Children.Add(_svgDokument);
