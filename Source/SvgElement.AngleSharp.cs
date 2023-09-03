@@ -1,6 +1,7 @@
 ﻿#if AngleSharp
 using System;
 using System.IO;
+using System.Linq;
 using AngleSharp;
 using AngleSharp.Dom;
 using AngleSharp.Dom.Events;
@@ -139,9 +140,9 @@ namespace Svg
 
         IHtmlCollection<IElement> IParentNode.Children => Children;
 
-        public IElement FirstElementChild  => throw new NotImplementedException();
-        public IElement LastElementChild  => throw new NotImplementedException();
-        public int ChildElementCount  => throw new NotImplementedException();
+        public IElement FirstElementChild  => this.Children.First<SvgElement>();
+        public IElement LastElementChild  => this.Children.Last<SvgElement>();
+        public int ChildElementCount  => this.Children.Count;
         public void Before(params INode[] nodes)
         {
             throw new NotImplementedException();
@@ -162,8 +163,36 @@ namespace Svg
             throw new NotImplementedException();
         }
 
-        public IElement NextElementSibling => throw new NotImplementedException();
-        public IElement PreviousElementSibling  => throw new NotImplementedException();
+        public IElement NextElementSibling
+        {
+            get
+            {
+                var svgElementCollection = this.Parent.Children;
+                var index = svgElementCollection.IndexOf(this);
+                if (index < (svgElementCollection.Count -1))
+                {
+                    return svgElementCollection[index + 1];
+                }
+
+                return null;
+            }
+        }
+
+        public IElement PreviousElementSibling
+        {
+            get
+            {
+                var svgElementCollection = this.Parent.Children;
+                var index = svgElementCollection.IndexOf(this);
+                if (index > 0)
+                {
+                    return svgElementCollection[index - 1];
+                }
+
+                return null;
+            }
+        }
+
         public void Insert(AdjacentPosition position, string html)
         {
             throw new NotImplementedException();
