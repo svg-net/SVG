@@ -99,7 +99,7 @@ namespace Svg
         public string NodeName  => throw new NotImplementedException();
         public INodeList ChildNodes => this.Children;
         public IDocument Owner  => throw new NotImplementedException();
-        public IElement ParentElement  => throw new NotImplementedException();
+        public IElement ParentElement  => Parent;
         INode INode.Parent => Parent;
 
         public INode FirstChild => throw new NotImplementedException();
@@ -240,7 +240,7 @@ namespace Svg
         }
 
         public string Prefix  => throw new NotImplementedException();
-        public string LocalName  => throw new NotImplementedException();
+        public string LocalName  => AttributeName;
         public string NamespaceUri  => throw new NotImplementedException();
         public string GivenNamespaceUri  => throw new NotImplementedException();
         public ITokenList ClassList  => throw new NotImplementedException();
