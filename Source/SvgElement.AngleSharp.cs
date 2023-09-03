@@ -9,8 +9,6 @@ namespace Svg
 {
     public partial class SvgElement : IElement, INode, IParentNode, IChildNode, INonDocumentTypeChildNode
     {
-        private IHtmlCollection<IElement> _children1;
-
         public void AddEventListener(string type, DomEventHandler callback = null, bool capture = false)
         {
             throw new NotImplementedException();
@@ -96,23 +94,29 @@ namespace Svg
             throw new NotImplementedException();
         }
 
-        public string BaseUri { get; }
-        public Url BaseUrl { get; }
-        public string NodeName { get; }
-        public INodeList ChildNodes { get; }
-        public IDocument Owner { get; }
-        public IElement ParentElement { get; }
+        public string BaseUri  => throw new NotImplementedException();
+        public Url BaseUrl  => throw new NotImplementedException();
+        public string NodeName  => throw new NotImplementedException();
+        public INodeList ChildNodes => this.Children;
+        public IDocument Owner  => throw new NotImplementedException();
+        public IElement ParentElement  => throw new NotImplementedException();
         INode INode.Parent => Parent;
 
-        public INode FirstChild { get; }
-        public INode LastChild { get; }
-        public INode NextSibling { get; }
-        public INode PreviousSibling { get; }
-        public NodeType NodeType { get; }
-        public string NodeValue { get; set; }
-        public string TextContent { get; set; }
-        public bool HasChildNodes { get; }
-        public NodeFlags Flags { get; }
+        public INode FirstChild => throw new NotImplementedException();
+        public INode LastChild  => throw new NotImplementedException();
+        public INode NextSibling  => throw new NotImplementedException();
+        public INode PreviousSibling  => throw new NotImplementedException();
+        public NodeType NodeType  => throw new NotImplementedException();
+        public string NodeValue  {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+        public string TextContent  {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+        public bool HasChildNodes  => throw new NotImplementedException();
+        public NodeFlags Flags  => throw new NotImplementedException();
         public void Append(params INode[] nodes)
         {
             throw new NotImplementedException();
@@ -130,14 +134,14 @@ namespace Svg
 
         public IHtmlCollection<IElement> QuerySelectorAll(string selectors)
         {
-            throw new NotImplementedException();
+            return ChildNodes.QuerySelectorAll(selectors, this);
         }
 
-        IHtmlCollection<IElement> IParentNode.Children => _children1;
+        IHtmlCollection<IElement> IParentNode.Children => Children;
 
-        public IElement FirstElementChild { get; }
-        public IElement LastElementChild { get; }
-        public int ChildElementCount { get; }
+        public IElement FirstElementChild  => throw new NotImplementedException();
+        public IElement LastElementChild  => throw new NotImplementedException();
+        public int ChildElementCount  => throw new NotImplementedException();
         public void Before(params INode[] nodes)
         {
             throw new NotImplementedException();
@@ -158,8 +162,8 @@ namespace Svg
             throw new NotImplementedException();
         }
 
-        public IElement NextElementSibling { get; }
-        public IElement PreviousElementSibling { get; }
+        public IElement NextElementSibling => throw new NotImplementedException();
+        public IElement PreviousElementSibling  => throw new NotImplementedException();
         public void Insert(AdjacentPosition position, string html)
         {
             throw new NotImplementedException();
@@ -235,22 +239,45 @@ namespace Svg
             throw new NotImplementedException();
         }
 
-        public string Prefix { get; }
-        public string LocalName { get; }
-        public string NamespaceUri { get; }
-        public string GivenNamespaceUri { get; }
-        public ITokenList ClassList { get; }
-        public string ClassName { get; set; }
-        public string Id { get; set; }
-        public string InnerHtml { get; set; }
-        public string OuterHtml { get; set; }
-        public string TagName { get; }
-        public IElement AssignedSlot { get; }
-        public string Slot { get; set; }
-        public IShadowRoot ShadowRoot { get; }
-        public bool IsFocused { get; }
-        public ISourceReference SourceReference { get; }
-        INamedNodeMap IElement.Attributes { get; } 
+        public string Prefix  => throw new NotImplementedException();
+        public string LocalName  => throw new NotImplementedException();
+        public string NamespaceUri  => throw new NotImplementedException();
+        public string GivenNamespaceUri  => throw new NotImplementedException();
+        public ITokenList ClassList  => throw new NotImplementedException();
+
+        public string ClassName
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public string Id
+        {
+            get => ID;
+            set => ID = value;
+        }
+
+        public string InnerHtml
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+        public string OuterHtml
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+        public string TagName => throw new NotImplementedException();
+        public IElement AssignedSlot => throw new NotImplementedException();
+        public string Slot
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+        public IShadowRoot ShadowRoot => throw new NotImplementedException();
+        public bool IsFocused => throw new NotImplementedException();
+        public ISourceReference SourceReference => throw new NotImplementedException();
+        INamedNodeMap IElement.Attributes => throw new NotImplementedException();
     }
 }
 #endif

@@ -1,4 +1,4 @@
-#if !NO_SDC
+﻿#if !NO_SDC
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -120,7 +120,7 @@ namespace Svg
                         markerPath.Transform(transMatrix);
                         if (pRenderPen != null) pRenderer.DrawPath(pRenderPen, markerPath);
 
-                        SvgPaintServer pFill = this.Children.First().Fill;
+                        SvgPaintServer pFill = this.Children.First<SvgElement>().Fill;
                         SvgFillRule pFillRule = FillRule;    // TODO: What do we use the fill rule for?
 
                         if (pFill != null)

@@ -5,10 +5,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using AngleSharp.Css.Dom;
 using ExCSS;
 using Fizzler;
 using Svg.Css;
 using Svg.UnitTests.Css;
+using AngleSharp.Dom;
+using AngleSharp.Css.Parser;
 
 namespace Svg.UnitTests
 {
@@ -187,28 +190,23 @@ namespace Svg.UnitTests
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                Assert.Inconclusive("Fizzler can't handle this selector");
+                return;
             }
           
+            Debug.WriteLine("AngleSharp:\r\n");
+            var angleSharpElements = QuerySelectorAngleSharpAll(rootNode, selector, elementFactory).OrderBy(f => f.ElementName).ToList();
+            Debug.WriteLine(Environment.NewLine);
+            
             Debug.WriteLine("ExCss:\r\n");
             var exCssElements = QuerySelectorExCssAll(rootNode, selector, elementFactory).OrderBy(f => f.ElementName).ToList();
             Debug.WriteLine(Environment.NewLine);
-
-            if (fizzlerElements == null)
-            {
-                Assert.IsTrue(true, "Fizzler can't handle this selector");
-            }
-            else
-            {
-                var areEqual = fizzlerElements.SequenceEqual(exCssElements);
-                if (!areEqual)
-                {
-                    Assert.IsTrue(areEqual, "should select the same elements");
-                }
-                else
-                {
-                    Assert.IsTrue(areEqual, "should select the same elements");
-                }
-            }
+            
+            var areEqualFizzler = fizzlerElements.SequenceEqual(exCssElements);
+            Assert.IsTrue(areEqualFizzler, "should select the same elements");
+            
+            var areEqualAngleSharp = fizzlerElements.SequenceEqual(angleSharpElements);
+            Assert.IsTrue(areEqualAngleSharp, "should select the same elements");
         }
 
         private IEnumerable<SvgElement> QuerySelectorExCssAll(NonSvgElement elem, string selector, SvgElementFactory elementFactory)
@@ -224,6 +222,13 @@ namespace Svg.UnitTests
             var generator = new SelectorGenerator<SvgElement>(new SvgElementOps(elementFactory));
             Fizzler.Parser.Parse(selector, generator);
             return generator.Selector(Enumerable.Repeat(elem, 1));
+        }
+        
+        private IEnumerable<SvgElement> QuerySelectorAngleSharpAll(NonSvgElement elem, string selector, SvgElementFactory elementFactory)
+        {
+            var parser = new CssSelectorParser();
+            var angleSelector = parser.ParseSelector(selector);
+            return angleSelector.MatchAll(elem.Children.OfType<SvgElement>(), elem).Cast<SvgElement>();
         }
     }
 
