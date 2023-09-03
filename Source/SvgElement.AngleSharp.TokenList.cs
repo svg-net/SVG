@@ -1,5 +1,4 @@
-﻿#if AngleSharp
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +8,26 @@ using AngleSharp.Dom;
 
 namespace Svg
 {
-    public partial class SvgAttributeCollection : ITokenList
+    public partial class SvgElement : ITokenList
     {
-        IEnumerator<string> IEnumerable<string>.GetEnumerator()
+        public IEnumerator<string> GetEnumerator()
         {
-            return this.Keys.GetEnumerator();
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public bool Contains(string token)
         {
-            return this.TryGetValue(token, out _);
+            if (this.TryGetAttribute("class", out var value))
+            {
+                return value.Split(' ')?.Contains(token) ?? false;
+            }
+
+            return false;
         }
 
         public void Add(params string[] tokens)
@@ -36,11 +45,8 @@ namespace Svg
             throw new NotImplementedException();
         }
 
-        public int Length => throw new NotImplementedException();
+        public int Length { get; }
 
         public string this[int index] => throw new NotImplementedException();
     }
 }
-#endif
-
-
