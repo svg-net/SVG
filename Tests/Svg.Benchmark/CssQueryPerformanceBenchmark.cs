@@ -60,5 +60,17 @@ namespace Svg.Benchmark
                 rootNode.QuerySelectorAll(rule.Selector.Text, _svgElementFactory);
             }
         }
+
+        [Benchmark]
+        public void SelectorPerformanceAngular()
+        {
+            var rootNode = new NonSvgElement();
+            rootNode.Children.Add(_svgDokument);
+
+            foreach (var rule in _rules)
+            {
+                rootNode.AngleSharpQuerySelectorAll(rule.Selector.Text, _svgElementFactory);
+            }
+        }
     }
 }
