@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if AngleSharp
+using System;
 using System.IO;
 using AngleSharp;
 using AngleSharp.Dom;
@@ -6,7 +7,7 @@ using AngleSharp.Dom.Events;
 
 namespace Svg
 {
-    public partial class SvgElement : IElement
+    public partial class SvgElement : IElement, INode, IParentNode, IChildNode, INonDocumentTypeChildNode
     {
         private IHtmlCollection<IElement> _children1;
 
@@ -249,5 +250,7 @@ namespace Svg
         public IShadowRoot ShadowRoot { get; }
         public bool IsFocused { get; }
         public ISourceReference SourceReference { get; }
+        INamedNodeMap IElement.Attributes { get; } 
     }
 }
+#endif
