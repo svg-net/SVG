@@ -74,27 +74,9 @@ namespace Svg.Css
             {
                 pseudoFunc = ops.LastChild();
             }
-            else if (selector.Class == PseudoClassNames.Hover
-                     || selector.Class == PseudoClassNames.Focus
-                     || selector.Class == PseudoClassNames.Active
-                     || selector.Class == PseudoClassNames.Link
-                     || selector.Class == PseudoClassNames.Visited
-                     || selector.Class == PseudoClassNames.FocusVisible)
-            {
-                // this are dynamic pseudo-classes which are not evaluated, so ignore them
-                pseudoFunc = ops.Empty();
-            }
             else
             {
-                if (selector.Class.StartsWith(PseudoClassNames.Lang))
-                {
-                    // this are dynamic pseudo-classes which are not evaluated, so ignore them
-                    pseudoFunc = ops.Empty();
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
+                throw new NotImplementedException();
             }
 
             if (inFunc == null)
@@ -112,7 +94,7 @@ namespace Svg.Css
                 IEnumerable<SvgElement>> inFunc)
         {
             List<Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>>> results = new();
-            
+
 
             foreach (var it in selector)
             {
@@ -197,7 +179,7 @@ namespace Svg.Css
                 ComplexSelector complexSelector =>  GetFunc(complexSelector, ops, inFunc),
                 CompoundSelector compoundSelector => GetFunc(compoundSelector, ops, inFunc),
                 FirstChildSelector firstChildSelector => ops.FirstChild(),
-                LastChildSelector lastChildSelector => ops.LastChild(), 
+                LastChildSelector lastChildSelector => ops.LastChild(),
                 FirstColumnSelector firstColumnSelector => throw new NotImplementedException(), // TODO:,
                 LastColumnSelector firstColumnSelector => throw new NotImplementedException(), // TODO:,
                 FirstTypeSelector firstTypeSelector => throw new NotImplementedException(), // TODO:,
