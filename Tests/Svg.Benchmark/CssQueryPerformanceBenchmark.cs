@@ -61,6 +61,7 @@ namespace Svg.Benchmark
             }
         }
 
+#if AngleSharp        
         [Benchmark]
         public void SelectorPerformanceAngleSharp()
         {
@@ -72,5 +73,6 @@ namespace Svg.Benchmark
                 rootNode.AngleSharpQuerySelectorAll(rule.Selector.Text, _svgElementFactory);
             }
         }
+#endif
     }
 }

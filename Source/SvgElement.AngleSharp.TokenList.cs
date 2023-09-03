@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if AngleSharp
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,3 +51,4 @@ namespace Svg
         public string this[int index] => throw new NotImplementedException();
     }
 }
+#endif

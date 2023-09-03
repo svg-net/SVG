@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if AngleSharp
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -36,3 +37,4 @@ namespace Svg
         IElement IHtmlCollection<IElement>.this[int index] => this[index];
     }
 }
+#endif

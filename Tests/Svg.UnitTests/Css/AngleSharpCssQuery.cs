@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if AngleSharp
+using System.Collections.Generic;
 using System.Linq;
 using AngleSharp.Css.Dom;
 using AngleSharp.Css.Parser;
@@ -18,3 +19,4 @@ namespace Svg.UnitTests.Css
         }
     }
 }
+#endif

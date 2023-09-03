@@ -39,7 +39,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\$(TargetFramework)\GeneratedFiles</CompilerGeneratedFilesOutputPath>
-    <DefineConstants>$(DefineConstants);AngleSharp</DefineConstants>
+    <!--<DefineConstants>$(DefineConstants);AngleSharp</DefineConstants>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -89,7 +89,7 @@
 
   <ItemGroup>
     <PackageReference Include="ExCSS" Version="4.2.2-release0000" />
-    <PackageReference Include="AngleSharp" Version="1.0.4" />
+    <!--<PackageReference Include="AngleSharp" Version="1.0.4" />-->
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
