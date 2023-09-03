@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  >
 	<!--Svg Custom Project so that the NO_SDC is detected as used and not optimized away or broken. The original csproj is found here. -->
 	<!-- https://github.com/wieslawsoltes/Svg.Skia/blob/master/src/Svg.Custom/Svg.Custom.csproj -->
   <PropertyGroup>
