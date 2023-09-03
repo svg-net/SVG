@@ -272,7 +272,7 @@ namespace Svg
         public string LocalName  => AttributeName;
         public string NamespaceUri  => throw new NotImplementedException();
         public string GivenNamespaceUri  => throw new NotImplementedException();
-        public ITokenList ClassList  => throw new NotImplementedException();
+        public ITokenList ClassList  => Attributes;
 
         public string ClassName
         {

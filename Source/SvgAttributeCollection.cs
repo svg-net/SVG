@@ -6,7 +6,7 @@ namespace Svg
     /// <summary>
     /// A collection of Scalable Vector Attributes that can be inherited from the owner elements ancestors.
     /// </summary>
-    public sealed class SvgAttributeCollection : Dictionary<string, object>
+    public sealed partial class SvgAttributeCollection : Dictionary<string, object>
     {
         private readonly SvgElement _owner;
 
