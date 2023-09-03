@@ -200,7 +200,7 @@ namespace Svg
 
         public bool HasAttribute(string name)
         {
-            throw new NotImplementedException();
+            return this.TryGetAttribute(name, out _);
         }
 
         public bool HasAttribute(string namespaceUri, string localName)
@@ -210,7 +210,12 @@ namespace Svg
 
         public string GetAttribute(string name)
         {
-            throw new NotImplementedException();
+            if (TryGetAttribute(name, out var value))
+            {
+                return value;
+            }
+
+            return null;
         }
 
         public string GetAttribute(string namespaceUri, string localName)
