@@ -52,7 +52,7 @@ namespace Svg
         private static readonly Dictionary<string, ElementInfo> availableElementsWithoutSvg;
         private static readonly List<ElementInfo> availableElements;
 #endif
-        private readonly StylesheetParser stylesheetParser = new StylesheetParser(true, true);
+        private readonly StylesheetParser stylesheetParser = new StylesheetParser(true, true, tolerateInvalidValues: true);
 
         /// <summary>
         /// Gets a list of available types that can be used when creating an <see cref="SvgElement"/>.
@@ -186,7 +186,7 @@ namespace Svg
                         var inlineSheet = stylesheetParser.Parse("#a{" + reader.Value + "}");
                         foreach (var rule in inlineSheet.StyleRules)
                             foreach (var declaration in rule.Style)
-                                element.AddStyle(declaration.Name, declaration.Value, SvgElement.StyleSpecificity_InlineStyle);
+                                element.AddStyle(declaration.Name, declaration.Original, SvgElement.StyleSpecificity_InlineStyle);
                     }
                     else if (prefix.Length == 0 && IsStyleAttribute(localName))
                     {
