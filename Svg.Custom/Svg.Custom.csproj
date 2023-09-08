@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<!--Svg Custom Project so that the NO_SDC is detected as used and not optimized away or broken. The original csproj is found here. -->
+	<!-- https://github.com/wieslawsoltes/Svg.Skia/blob/master/src/Svg.Custom/Svg.Custom.csproj -->
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
+    <EnableDefaultItems>False</EnableDefaultItems>
+    <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+    <NoWarn>CS1591;SYSLIB0014</NoWarn>
+    <IsPackable>True</IsPackable>
+    <Nullable>disable</Nullable>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\$(TargetFramework)\GeneratedFiles</CompilerGeneratedFilesOutputPath>
+    <DefineConstants>$(DefineConstants);NO_SDC</DefineConstants>
+	<LangVersion>10.0</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>Custom build of the SVG rendering library.</Description>
+    <PackageId>Svg.Custom</PackageId>
+    <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
+    <PackageTags>svg;vector graphics;rendering;2d;graphics;geometry;shapes</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SvgSourcesBasePath>..</SvgSourcesBasePath>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <!-- https://github.com/vvvv/SVG/blob/master/Source/SvgDtdResolver.cs#L32 -->
+    <EmbeddedResource Include="$(SvgSourcesBasePath)\Source\Resources\svg11.dtd">
+      <Link>Resources\svg11.dtd</Link>
+      <LogicalName>Svg.Resources.svg11.dtd</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="**\*.cs" Exclude="bin\**;obj\**" />
+    <Compile Include="$(SvgSourcesBasePath)\Source\**\*.cs" Exclude="$(SvgSourcesBasePath)\Source\obj\**" />
+    <Compile Remove="$(SvgSourcesBasePath)\Source\Properties\AssemblyInfo.cs" />
+    <Compile Remove="$(SvgSourcesBasePath)\Source\Resources\svg11.dtd" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <DefineConstants>$(DefineConstants);NETCORE;NET6</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">        
+    <PackageReference Include="System.Memory" Version="4.5.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fizzler" Version="1.2.1" />
+    <PackageReference Include="ExCSS" Version="4.1.4" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);USE_SOURCE_GENERATORS</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(SvgSourcesBasePath)\Generators\Svg.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+</Project>

@@ -38,6 +38,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svg.Benchmark", "..\Tests\S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generators", "Generators", "{FAFD6DC7-5203-4CED-A151-66379DD43695}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svg.Custom", "..\Svg.Custom\Svg.Custom.csproj", "{6FAA2B79-FE5C-456B-A743-E9290665B223}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +86,10 @@ Global
 		{8DEB3EA7-5915-4EB9-8052-85A7AC4379EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DEB3EA7-5915-4EB9-8052-85A7AC4379EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DEB3EA7-5915-4EB9-8052-85A7AC4379EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FAA2B79-FE5C-456B-A743-E9290665B223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FAA2B79-FE5C-456B-A743-E9290665B223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FAA2B79-FE5C-456B-A743-E9290665B223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FAA2B79-FE5C-456B-A743-E9290665B223}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
