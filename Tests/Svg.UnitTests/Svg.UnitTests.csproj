@@ -41,6 +41,7 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="Fizzler" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -343,7 +343,51 @@ namespace Svg
             }
         }
 
+       
         private static T Create<T>(XmlReader reader) where T : SvgDocument, new()
+        {
+            var styles = new List<ISvgNode>();
+            var elementFactory = new SvgElementFactory();
+
+            var svgDocument = Create<T>(reader, elementFactory, styles);
+
+            if (styles.Any())
+            {
+                var cssTotal = string.Join(Environment.NewLine, styles.Select(s => s.Content).ToArray());
+                var stylesheetParser = new StylesheetParser(true, true, tolerateInvalidValues: true);
+                var stylesheet = stylesheetParser.Parse(cssTotal);
+
+                foreach (var rule in stylesheet.StyleRules)
+                    try
+                    {
+                        var rootNode = new NonSvgElement();
+                        rootNode.Children.Add(svgDocument);
+
+                        var elemsToStyle = rootNode.QuerySelectorAll(rule.Selector, elementFactory);
+                        foreach (var elem in elemsToStyle)
+                            foreach (var declaration in rule.Style)
+                            {
+                                elem.AddStyle(declaration.Name, declaration.Value, rule.Selector.GetSpecificity());
+                            }
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.TraceWarning(ex.Message);
+                    }
+            }
+
+            svgDocument?.FlushStyles(true);
+            return svgDocument;
+        }
+
+        /// <summary> Open Svg Document without applying Stylesheets. </summary>
+        /// <typeparam name="T">SvgDocument to create</typeparam>
+        /// <param name="reader">reader</param>
+        /// <param name="elementFactory">elementFactory</param>
+        /// <param name="styles">read svg StyleSheets</param>
+        /// <returns>Created Svg Document</returns>
+        internal static T Create<T>(XmlReader reader, SvgElementFactory elementFactory, List<ISvgNode> styles)
+            where T : SvgDocument, new()
         {
 #if !NO_SDC
             if (!SkipGdiPlusCapabilityCheck)
@@ -356,9 +400,6 @@ namespace Svg
             SvgElement element = null;
             SvgElement parent;
             T svgDocument = null;
-            var elementFactory = new SvgElementFactory();
-
-            var styles = new List<ISvgNode>();
 
             while (reader.Read())
             {
@@ -421,6 +462,7 @@ namespace Svg
                             {
                                 styles.Add(unknown);
                             }
+
                             break;
                         case XmlNodeType.CDATA:
                         case XmlNodeType.Text:
@@ -441,32 +483,6 @@ namespace Svg
                 }
             }
 
-            if (styles.Any())
-            {
-                var cssTotal = string.Join(Environment.NewLine, styles.Select(s => s.Content).ToArray());
-                var stylesheetParser = new StylesheetParser(true, true, tolerateInvalidValues: true);
-                var stylesheet = stylesheetParser.Parse(cssTotal);
-
-                foreach (var rule in stylesheet.StyleRules)
-                    try
-                    {
-                        var rootNode = new NonSvgElement();
-                        rootNode.Children.Add(svgDocument);
-
-                        var elemsToStyle = rootNode.QuerySelectorAll(rule.Selector.Text, elementFactory);
-                        foreach (var elem in elemsToStyle)
-                            foreach (var declaration in rule.Style)
-                            {
-                                elem.AddStyle(declaration.Name, declaration.Original, rule.Selector.GetSpecificity());
-                            }
-                    }
-                    catch (Exception ex)
-                    {
-                        Trace.TraceWarning(ex.Message);
-                    }
-            }
-
-            svgDocument?.FlushStyles(true);
             return svgDocument;
         }
 
