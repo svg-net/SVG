@@ -176,6 +176,105 @@ namespace Svg.UnitTests
             }
         }
 
+        [Test]
+        [TestCase("*:first-child")]
+        [TestCase("p:first-child")]
+        [TestCase("*:last-child")]
+        [TestCase("p:last-child")]
+        [TestCase("*:only-child")]
+        [TestCase("p:only-child")]
+        [TestCase("*:empty")]
+        [TestCase(":nth-child(2)")]
+        [TestCase("*:nth-child(2)")]
+        [TestCase("p:nth-child(2)")]
+        [TestCase(":nth-last-child(2)")]
+        [TestCase("#myDiv :nth-last-child(2)")]
+        [TestCase("span:nth-last-child(3)")]
+        [TestCase("span:nth-last-child(2)")]
+        [TestCase("p.hiclass,a")]
+        [TestCase("p.hiclass, a")]
+        [TestCase("p.hiclass , a")]
+        [TestCase("p.hiclass ,a")]
+        [TestCase("#myDiv")]
+        [TestCase("div#myDiv")]
+        [TestCase("#theBody #myDiv")]
+        [TestCase("#theBody #whatwhatwhat")]
+        [TestCase("#whatwhatwhat #someOtherDiv")]
+        [TestCase("#myDiv *")]
+        [TestCase("div#myDiv")]
+        [TestCase("#theBody #myDiv")]
+        [TestCase("#theBody #whatwhatwhat")]
+        [TestCase("#whatwhatwhat #someOtherDiv")]
+        [TestCase("#myDiv *")]
+        [TestCase("#theBody>#myDiv")]
+        [TestCase("#theBody>#someOtherDiv")]
+        [TestCase("#myDiv>*")]
+        [TestCase("#someOtherDiv>*")]
+        [TestCase("*")]
+        [TestCase("body")]
+        [TestCase("p")]
+        [TestCase("head p")]
+        [TestCase("div p")]
+        [TestCase("div a")]
+        [TestCase("div p a")]
+        [TestCase("div p a")]
+        [TestCase("div div")]
+        [TestCase("form input")]
+        [TestCase(".checkit")]
+        [TestCase(".omg.ohyeah")]
+        [TestCase("p.ohyeah")]
+        [TestCase("p.ohyeah")]
+        [TestCase("div .ohyeah")]
+        [TestCase("div > p")]
+        [TestCase("div> p")]
+        [TestCase("div >p")]
+        [TestCase("div>p")]
+        [TestCase("div > p.ohyeah")]
+        [TestCase("p > *")]
+        [TestCase("div > * > *")]
+        [TestCase("a + span")]
+        [TestCase("a+ span")]
+        [TestCase("a +span")]
+        [TestCase("a+span")]
+        [TestCase("a + span, div > p")]
+        [TestCase("div ~ form")]
+        [TestCase("div[id]")]
+        [TestCase("div[id=\"someOtherDiv\"]")]
+        [TestCase("p[class~=\"ohyeah\"]")]
+        [TestCase("p[class~='']")]
+        [TestCase("span[class|=\"separated\"]")]
+        [TestCase("[class=\"checkit\"]")]
+        [TestCase("*[class=\"checkit\"]")]
+        [TestCase("*[class=\"checkit\"]")]
+        [TestCase("*[class^=check]")]
+        [TestCase("*[class^='']")]
+        [TestCase("*[class$=it]")]
+        [TestCase("*[class$='']")]
+        [TestCase("*[class*=heck]")]
+        [TestCase("*[class*='']")]
+        [TestCase("p[class!='hiclass']")]
+        public void RunSelectorTests(string selector)
+        {
+            string baseName = "struct-use-11-f";
+            var elementFactory = new SvgElementFactory();
+            var testSuite = Path.Combine(ImageTestDataSource.SuiteTestsFolder, "W3CTestSuite");
+            string basePath = testSuite;
+            var svgPath = Path.Combine(basePath, "svg", baseName + ".svg");
+            var styles = new List<ISvgNode>();
+            using (var xmlFragment = File.Open(svgPath, FileMode.Open))
+            {
+                using (var xmlTextReader = new XmlTextReader(xmlFragment))
+                {
+                    var svgDocument = SvgDocument.Create<SvgDocument>(xmlTextReader, elementFactory, styles);
+
+                    var rootNode = new NonSvgElement();
+                    rootNode.Children.Add(svgDocument);
+
+                    TestSelector(selector, rootNode, elementFactory);
+                }
+            }
+        }
+
         private void TestSelector(string selector, NonSvgElement rootNode, SvgElementFactory elementFactory)
         {
             ////SvgElementOps.NodeDebug = SvgElementOps.NodeDebug = string.Empty; // nameof(SvgElementOpsFunc.Child);

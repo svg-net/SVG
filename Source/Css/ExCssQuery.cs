@@ -74,6 +74,14 @@ namespace Svg.Css
             {
                 pseudoFunc = ops.LastChild();
             }
+            else if (selector.Class == PseudoClassNames.Empty)
+            {
+                pseudoFunc = ops.Empty();
+            }
+            else if (selector.Class == PseudoClassNames.OnlyChild)
+            {
+                pseudoFunc = ops.OnlyChild();
+            }
             else
             {
                 throw new NotImplementedException();
