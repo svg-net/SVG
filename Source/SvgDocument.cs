@@ -367,7 +367,7 @@ namespace Svg
                         foreach (var elem in elemsToStyle)
                             foreach (var declaration in rule.Style)
                             {
-                                elem.AddStyle(declaration.Name, declaration.Value, rule.Selector.GetSpecificity());
+                                elem.AddStyle(declaration.Name, declaration.Original, rule.Selector.GetSpecificity());
                             }
                     }
                     catch (Exception ex)
