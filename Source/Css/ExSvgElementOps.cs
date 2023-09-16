@@ -125,7 +125,7 @@ namespace Svg.Css
 
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> Descendant()
         {
-            return nodes => nodes.SelectMany(n => Descendants(n));
+            return nodes => nodes.SelectMany(Descendants);
         }
 
         private IEnumerable<SvgElement> Descendants(SvgElement elem)
@@ -147,7 +147,7 @@ namespace Svg.Css
 
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GeneralSibling()
         {
-            return nodes => nodes.SelectMany(n => ElementsAfterSelf(n));
+            return nodes => nodes.SelectMany(ElementsAfterSelf);
         }
 
         private IEnumerable<SvgElement> ElementsAfterSelf(SvgElement self)
@@ -157,7 +157,7 @@ namespace Svg.Css
 
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> NthLastChild(int a, int b)
         {
-            throw new NotImplementedException();
+            return nodes => nodes.Reverse().Where(n => n.Parent != null && GetByIds(n.Parent.Children, (from i in Enumerable.Range(0, n.Parent.Children.Count / a) select a * i + b)).Contains(n));
         }
     }
 }

@@ -1,12 +1,16 @@
 ﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ExCSS;
+ using System.Reflection;
+ using ExCSS;
 
 namespace Svg.Css
 {
     internal static class ExCssQuery
     {
+        private static PropertyInfo offsetProperty;
+        private static PropertyInfo stepProperty;
+
         public static IEnumerable<SvgElement> QuerySelectorAll(this SvgElement elem, ISelector selector, SvgElementFactory elementFactory)
         {
             var input = Enumerable.Repeat(elem, 1);
@@ -31,6 +35,60 @@ namespace Svg.Css
             }
 
             return inFunc;
+        }
+
+        private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
+            FirstChildSelector selector,
+            ExSvgElementOps ops,
+            Func<IEnumerable<SvgElement>,
+                IEnumerable<SvgElement>> inFunc)
+        {
+            var step = GetStep(selector);
+            var offset = GetOffset(selector);
+
+            if (offset == 0)
+            {
+                return ops.FirstChild();
+            }
+
+            return ops.NthChild(step, offset);
+        }
+
+        private static int GetOffset(ChildSelector selector)
+        {
+            if (offsetProperty == null)
+            {
+                offsetProperty = typeof(ChildSelector).GetProperty("Offset", BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+
+            return (int)offsetProperty.GetValue(selector);
+        }
+
+        private static int GetStep(ChildSelector selector)
+        {
+            if (stepProperty == null)
+            {
+                stepProperty = typeof(ChildSelector).GetProperty("Step", BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+
+            return (int)stepProperty.GetValue(selector);
+        }
+
+        private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
+            LastChildSelector selector,
+            ExSvgElementOps ops,
+            Func<IEnumerable<SvgElement>,
+                IEnumerable<SvgElement>> inFunc)
+        {
+            var step = GetStep(selector);
+            var offset = GetOffset(selector);
+
+            if (offset == 0)
+            {
+                return ops.LastChild();
+            }
+
+            return ops.NthLastChild(step, offset);
         }
 
         private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
@@ -186,8 +244,8 @@ namespace Svg.Css
                 ClassSelector classSelector => ops.Class(classSelector.Class),
                 ComplexSelector complexSelector =>  GetFunc(complexSelector, ops, inFunc),
                 CompoundSelector compoundSelector => GetFunc(compoundSelector, ops, inFunc),
-                FirstChildSelector firstChildSelector => ops.FirstChild(),
-                LastChildSelector lastChildSelector => ops.LastChild(),
+                FirstChildSelector firstChildSelector => GetFunc(firstChildSelector, ops),
+                LastChildSelector lastChildSelector => GetFunc(lastChildSelector, ops),
                 FirstColumnSelector firstColumnSelector => throw new NotImplementedException(), // TODO:,
                 LastColumnSelector firstColumnSelector => throw new NotImplementedException(), // TODO:,
                 FirstTypeSelector firstTypeSelector => throw new NotImplementedException(), // TODO:,
