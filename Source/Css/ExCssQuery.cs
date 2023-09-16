@@ -8,8 +8,8 @@ namespace Svg.Css
 {
     internal static class ExCssQuery
     {
-        private static PropertyInfo offsetProperty;
-        private static PropertyInfo stepProperty;
+        private static FieldInfo offsetField;
+        private static FieldInfo stepField;
 
         public static IEnumerable<SvgElement> QuerySelectorAll(this SvgElement elem, ISelector selector, SvgElementFactory elementFactory)
         {
@@ -54,22 +54,27 @@ namespace Svg.Css
 
         private static int GetOffset(ChildSelector selector)
         {
-            if (offsetProperty == null)
+            if (offsetField == null)
             {
-                offsetProperty = typeof(ChildSelector).GetProperty("Offset", BindingFlags.Instance | BindingFlags.NonPublic);
+                offsetField = typeof(ChildSelector).GetField("Offset", BindingFlags.Instance | BindingFlags.NonPublic);
             }
 
-            return (int)offsetProperty.GetValue(selector);
+            return (int)offsetField.GetValue(selector);
         }
 
         private static int GetStep(ChildSelector selector)
         {
-            if (stepProperty == null)
+            if (stepField == null)
             {
-                stepProperty = typeof(ChildSelector).GetProperty("Step", BindingFlags.Instance | BindingFlags.NonPublic);
+                stepField = typeof(ChildSelector).GetField("Step", BindingFlags.Instance | BindingFlags.NonPublic);
             }
 
-            return (int)stepProperty.GetValue(selector);
+            var result = (int)stepField.GetValue(selector);
+            if (result == 0)
+            {
+                result = 1;
+            }
+            return result;
         }
 
         private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
