@@ -39,9 +39,7 @@ namespace Svg.Css
 
         private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
             FirstChildSelector selector,
-            ExSvgElementOps ops,
-            Func<IEnumerable<SvgElement>,
-                IEnumerable<SvgElement>> inFunc)
+            ExSvgElementOps ops)
         {
             var step = GetStep(selector);
             var offset = GetOffset(selector);
@@ -76,9 +74,7 @@ namespace Svg.Css
 
         private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
             LastChildSelector selector,
-            ExSvgElementOps ops,
-            Func<IEnumerable<SvgElement>,
-                IEnumerable<SvgElement>> inFunc)
+            ExSvgElementOps ops)
         {
             var step = GetStep(selector);
             var offset = GetOffset(selector);
