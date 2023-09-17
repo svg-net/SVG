@@ -177,7 +177,7 @@ namespace Svg.Css
 
         public Selector<SvgElement> NthLastChild(int a, int b)
         {
-            throw new NotImplementedException();
+            return nodes => nodes.Reverse().Where(n => n.Parent != null && GetByIds(n.Parent.Children, (from i in Enumerable.Range(0, n.Parent.Children.Count / a) select a * i + b)).Contains(n));
         }
     }
 }
