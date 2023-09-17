@@ -462,7 +462,6 @@ namespace Svg
                             {
                                 styles.Add(unknown);
                             }
-
                             break;
                         case XmlNodeType.CDATA:
                         case XmlNodeType.Text:
