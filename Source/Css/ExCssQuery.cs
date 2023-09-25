@@ -241,7 +241,7 @@ namespace Svg.Css
                 AttrHyphenSelector attrHyphenSelector => ops.AttributeDashMatch(attrHyphenSelector.Attribute, attrHyphenSelector.Value),
                 AttrListSelector attrListSelector => ops.AttributeIncludes(attrListSelector.Attribute, attrListSelector.Value),
                 AttrMatchSelector attrMatchSelector => ops.AttributeExact(attrMatchSelector.Attribute, attrMatchSelector.Value),
-                AttrNotMatchSelector attrNotMatchSelector => ops.AttributeNotMatch(attrNotMatchSelector.Attribute, attrNotMatchSelector.Value), // TODO:,
+                AttrNotMatchSelector attrNotMatchSelector => ops.AttributeNotMatch(attrNotMatchSelector.Attribute, attrNotMatchSelector.Value),
                 ClassSelector classSelector => ops.Class(classSelector.Class),
                 ComplexSelector complexSelector =>  GetFunc(complexSelector, ops, inFunc),
                 CompoundSelector compoundSelector => GetFunc(compoundSelector, ops, inFunc),
