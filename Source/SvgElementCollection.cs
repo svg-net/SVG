@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,7 @@ namespace Svg
     /// <summary>
     /// Represents a collection of <see cref="SvgElement"/>s.
     /// </summary>
-    public sealed class SvgElementCollection : IList<SvgElement>
+    public sealed partial class SvgElementCollection : IList<SvgElement>
     {
         private List<SvgElement> _elements;
         private SvgElement _owner;
