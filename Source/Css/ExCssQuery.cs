@@ -38,7 +38,7 @@ namespace Svg.Css
             FirstChildSelector selector,
             ExSvgElementOps ops)
         {
-            var step = selector.Step;;
+            var step = GetStep(selector);
             var offset = selector.Offset;
 
             if (offset == 0)
@@ -49,11 +49,22 @@ namespace Svg.Css
             return ops.NthChild(step, offset);
         }
 
+        private static int GetStep(ChildSelector selector)
+        {
+            var result = selector.Step;
+            if (result == 0)
+            {
+                result = 1;
+            }
+
+            return result;
+        }
+
         private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
             LastChildSelector selector,
             ExSvgElementOps ops)
         {
-            var step = selector.Step;
+            var step = GetStep(selector);
             var offset = selector.Offset;
 
             if (offset == 0)
