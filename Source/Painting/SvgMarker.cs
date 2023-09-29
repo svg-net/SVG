@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Svg.DataTypes;
 
 namespace Svg
@@ -17,7 +17,7 @@ namespace Svg
             {
                 if (_markerElement == null)
                 {
-                    _markerElement = (SvgVisualElement)this.Children.FirstOrDefault(x => x is SvgVisualElement);
+                    _markerElement = (SvgVisualElement)this.Children.FirstOrDefault<SvgElement>(x => x is SvgVisualElement);
                 }
                 return _markerElement;
             }
