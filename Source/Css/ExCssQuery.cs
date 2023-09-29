@@ -8,9 +8,6 @@ namespace Svg.Css
 {
     internal static class ExCssQuery
     {
-        private static FieldInfo offsetField;
-        private static FieldInfo stepField;
-
         public static IEnumerable<SvgElement> QuerySelectorAll(this SvgElement elem, ISelector selector, SvgElementFactory elementFactory)
         {
             var input = Enumerable.Repeat(elem, 1);
@@ -41,8 +38,8 @@ namespace Svg.Css
             FirstChildSelector selector,
             ExSvgElementOps ops)
         {
-            var step = GetStep(selector);
-            var offset = GetOffset(selector);
+            var step = selector.Step;;
+            var offset = selector.Offset;
 
             if (offset == 0)
             {
@@ -52,37 +49,12 @@ namespace Svg.Css
             return ops.NthChild(step, offset);
         }
 
-        private static int GetOffset(ChildSelector selector)
-        {
-            if (offsetField == null)
-            {
-                offsetField = typeof(ChildSelector).GetField("Offset", BindingFlags.Instance | BindingFlags.NonPublic);
-            }
-
-            return (int)offsetField.GetValue(selector);
-        }
-
-        private static int GetStep(ChildSelector selector)
-        {
-            if (stepField == null)
-            {
-                stepField = typeof(ChildSelector).GetField("Step", BindingFlags.Instance | BindingFlags.NonPublic);
-            }
-
-            var result = (int)stepField.GetValue(selector);
-            if (result == 0)
-            {
-                result = 1;
-            }
-            return result;
-        }
-
         private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
             LastChildSelector selector,
             ExSvgElementOps ops)
         {
-            var step = GetStep(selector);
-            var offset = GetOffset(selector);
+            var step = selector.Step;
+            var offset = selector.Offset;
 
             if (offset == 0)
             {
