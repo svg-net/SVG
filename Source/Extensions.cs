@@ -10,7 +10,7 @@ namespace Svg
         {
             if (source == null) throw new ArgumentNullException("source");
 
-            return GetDescendants(source, false);
+            return GetDescendants<T>(source, false);
         }
 
         private static IEnumerable<SvgElement> GetAncestors<T>(IEnumerable<T> source, bool self) where T : SvgElement

@@ -8,7 +8,7 @@ namespace Svg
     /// <summary>
     /// Represents a collection of <see cref="SvgElement"/>s.
     /// </summary>
-    public sealed partial class SvgElementCollection : IList<SvgElement>
+    public sealed class SvgElementCollection : IList<SvgElement>
     {
         private List<SvgElement> _elements;
         private SvgElement _owner;
