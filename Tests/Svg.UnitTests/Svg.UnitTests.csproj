@@ -9,7 +9,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Configurations>Debug;Release</Configurations>
     <NoWarn>1591</NoWarn>
-	<!--<DefineConstants>$(DefineConstants);AngleSharp</DefineConstants>-->
   </PropertyGroup>
 
   <ItemGroup>

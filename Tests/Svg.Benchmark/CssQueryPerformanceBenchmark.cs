@@ -59,19 +59,5 @@ namespace Svg.Benchmark
                 rootNode.QuerySelectorAll(rule.Selector.Text, _svgElementFactory);
             }
         }
-
-#if AngleSharp        
-        [Benchmark]
-        public void SelectorPerformanceAngleSharp()
-        {
-            var rootNode = new NonSvgElement();
-            rootNode.Children.Add(_svgDokument);
-
-            foreach (var rule in _rules)
-            {
-                rootNode.AngleSharpQuerySelectorAll(rule.Selector.Text, _svgElementFactory);
-            }
-        }
-#endif
     }
 }

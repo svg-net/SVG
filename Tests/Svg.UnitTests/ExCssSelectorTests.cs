@@ -8,11 +8,6 @@ using System.Xml;
 using ExCSS;
 using Fizzler;
 using Svg.Css;
-#if AngleSharp
-using AngleSharp.Css.Dom;
-using AngleSharp.Dom;
-using AngleSharp.Css.Parser;
-#endif
 
 namespace Svg.UnitTests
 {
@@ -295,14 +290,6 @@ namespace Svg.UnitTests
                 Assert.Inconclusive("Fizzler can't handle this selector");
                 return;
             }
-#if AngleSharp
-            Debug.WriteLine("AngleSharp:\r\n");
-            var angleSharpElements = QuerySelectorAngleSharpAll(rootNode, selector, elementFactory).OrderBy(f => f.ElementName).ToList();
-            Debug.WriteLine(Environment.NewLine);
-
-            var areEqualAngleSharp = fizzlerElements.SequenceEqual(angleSharpElements);
-            Assert.IsTrue(areEqualAngleSharp, "should select the same elements");
-#endif
 
             Debug.WriteLine("ExCss:\r\n");
             var exCssElements = QuerySelectorExCssAll(rootNode, selector, elementFactory).OrderBy(f => f.ElementName).ToList();
@@ -326,15 +313,6 @@ namespace Svg.UnitTests
             Fizzler.Parser.Parse(selector, generator);
             return generator.Selector(Enumerable.Repeat(elem, 1));
         }
-
-#if AngleSharp        
-        private IEnumerable<SvgElement> QuerySelectorAngleSharpAll(NonSvgElement elem, string selector, SvgElementFactory elementFactory)
-        {
-            var parser = new CssSelectorParser();
-            var angleSelector = parser.ParseSelector(selector);
-            return angleSelector.MatchAll(elem.Children.OfType<SvgElement>(), elem).Cast<SvgElement>();
-        }
-#endif
     }
 
     public class TestSvg
