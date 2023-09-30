@@ -186,7 +186,7 @@ namespace Svg
         /// <returns></returns>
         public T FindSvgElementOf<T>() where T : SvgElement
         {
-            return _elements.OfType<T>().FirstOrDefault() ?? _elements.Select(x => x.Children.FindSvgElementOf<T>()).FirstOrDefault<T>(x => x != null);
+            return _elements.OfType<T>().FirstOrDefault() ?? _elements.Select(x => x.Children.FindSvgElementOf<T>()).FirstOrDefault(x => x != null);
         }
 
         public T GetSvgElementOf<T>() where T : SvgElement

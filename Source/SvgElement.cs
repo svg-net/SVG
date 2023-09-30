@@ -1117,12 +1117,12 @@ namespace Svg
             {
                 var rpcID = this.ID + "/";
 
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onclick", CreateMouseEventAction(RaiseMouseClick));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmousedown", CreateMouseEventAction(RaiseMouseDown));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseup", CreateMouseEventAction(RaiseMouseUp));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmousemove", CreateMouseEventAction(RaiseMouseMove));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseover", CreateMouseEventAction(RaiseMouseOver));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseout", CreateMouseEventAction(RaiseMouseOut));
+                caller.RegisterAction(rpcID + "onclick", CreateMouseEventAction(RaiseMouseClick));
+                caller.RegisterAction(rpcID + "onmousedown", CreateMouseEventAction(RaiseMouseDown));
+                caller.RegisterAction(rpcID + "onmouseup", CreateMouseEventAction(RaiseMouseUp));
+                caller.RegisterAction(rpcID + "onmousemove", CreateMouseEventAction(RaiseMouseMove));
+                caller.RegisterAction(rpcID + "onmouseover", CreateMouseEventAction(RaiseMouseOver));
+                caller.RegisterAction(rpcID + "onmouseout", CreateMouseEventAction(RaiseMouseOut));
                 caller.RegisterAction<int, bool, bool, bool, string>(rpcID + "onmousescroll", OnMouseScroll);
             }
         }

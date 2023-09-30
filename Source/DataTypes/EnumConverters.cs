@@ -44,7 +44,7 @@ namespace Svg
                 if (CaseHandlingMode == CaseHandling.KebabCase)
                     stringValue = stringValue.Replace("-", string.Empty);
 
-                if (Enum.TryParse<T>(stringValue, true, out T result))
+                if (Enum.TryParse(stringValue, true, out T result))
                     return result;
             }
 

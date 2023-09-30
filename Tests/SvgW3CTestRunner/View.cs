@@ -163,7 +163,7 @@ namespace SvgW3CTestRunner
 
         private SvgElement GetChildWithDescription(SvgElement element, string description)
         {
-            var docElements = element.Children.Where<SvgElement>(child => child is NonSvgElement && (child as NonSvgElement).Name == description);
+            var docElements = element.Children.Where(child => child is NonSvgElement && (child as NonSvgElement).Name == description);
             return docElements.Count() > 0 ? docElements.First() : null;
         }
 

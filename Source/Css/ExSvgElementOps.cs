@@ -87,12 +87,12 @@ namespace Svg.Css
 
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> FirstChild()
         {
-            return nodes => nodes.Where(n => n.Parent == null || n.Parent.Children.First<SvgElement>() == n);
+            return nodes => nodes.Where(n => n.Parent == null || n.Parent.Children.First() == n);
         }
 
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> LastChild()
         {
-            return nodes => nodes.Where(n => n.Parent == null || n.Parent.Children.Last<SvgElement>() == n);
+            return nodes => nodes.Where(n => n.Parent == null || n.Parent.Children.Last() == n);
         }
 
         private IEnumerable<T> GetByIds<T>(IList<T> items, IEnumerable<int> indices)
@@ -120,7 +120,7 @@ namespace Svg.Css
 
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> Child()
         {
-            return nodes => nodes.SelectMany<SvgElement, SvgElement>(n => n.Children);
+            return nodes => nodes.SelectMany(n => n.Children);
         }
 
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> Descendant()
@@ -152,7 +152,7 @@ namespace Svg.Css
 
         private IEnumerable<SvgElement> ElementsAfterSelf(SvgElement self)
         {
-            return (self.Parent == null ? Enumerable.Empty<SvgElement>() : self.Parent.Children.Skip<SvgElement>(self.Parent.Children.IndexOf(self) + 1));
+            return (self.Parent == null ? Enumerable.Children.IndexOf(self) + 1));
         }
 
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> NthLastChild(int a, int b)
