@@ -21,7 +21,7 @@ namespace Svg.UnitTests
         /// </summary>
         private SvgScript GetScriptElementFromDocument(SvgDocument doc)
         {
-            var el = doc.Children.FirstOrDefault(c => c.ElementName == "script");
+            var el = doc.Children.FirstOrDefault<SvgElement>(c => c.ElementName == "script");
             Assert.IsNotNull(el, "Could not find the script element");
             Assert.IsAssignableFrom(typeof(SvgScript), el, "Script tag was not correctly typed, expected SvgScript as type");
             return el as SvgScript;
@@ -36,7 +36,7 @@ namespace Svg.UnitTests
             var doc = SvgDocument.Open(GetXMLDocFromResource(TestResource));
             Assert.IsNotNull(doc);
             
-            var circleElement = doc.Children.FirstOrDefault(c => c.ElementName == "circle");
+            var circleElement = doc.Children.FirstOrDefault<SvgElement>(c => c.ElementName == "circle");
             Assert.IsNotNull(circleElement, "Expected to find the circle element in the document");
             Assert.IsAssignableFrom(typeof(SvgCircle), circleElement, "Expected the found circle element to be of type SvgCircle");
             

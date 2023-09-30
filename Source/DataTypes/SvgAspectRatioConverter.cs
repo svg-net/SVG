@@ -38,7 +38,7 @@ namespace Svg.DataTypes
             }
 
 #if Net4
-            if (!Enum.TryParse(sParts[nAlignIndex], out eAlign))
+            if (!Enum.TryParse<SvgPreserveAspectRatio>(sParts[nAlignIndex], out eAlign))
                 throw new ArgumentOutOfRangeException("value is not a member of SvgPreserveAspectRatio");
 #else
             eAlign = (SvgPreserveAspectRatio)Enum.Parse(typeof(SvgPreserveAspectRatio), sParts[nAlignIndex]);
