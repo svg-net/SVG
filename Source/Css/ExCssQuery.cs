@@ -1,6 +1,7 @@
 ﻿﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+ using System.Diagnostics;
+ using System.Linq;
  using System.Reflection;
  using ExCSS;
 
@@ -126,6 +127,14 @@ namespace Svg.Css
             }
             else
             {
+                if (selector.Class.StartsWith(PseudoClassNames.Not))
+                {
+                    var sel = selector.Class.Substring(PseudoClassNames.Not.Length + 1, selector.Class.Length - 2 - PseudoClassNames.Not.Length);
+                    var parser = new StylesheetParser(true, true, tolerateInvalidValues: true);
+                    var styleSheet = parser.Parse(sel);
+                    var newSelector = styleSheet.StyleRules.First().Selector;
+                    Debug.WriteLine(sel);
+                }
                 throw new NotImplementedException();
             }
 

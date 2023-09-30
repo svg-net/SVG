@@ -250,6 +250,7 @@ namespace Svg.UnitTests
         [TestCase("p[class!='hiclass']")]
         [TestCase(":nth-of-type(2)")]
         [TestCase(":nth-last-of-type(2)")]
+        [TestCase(":not(p)")]
         public void RunSelectorTests(string selector)
         {
             string baseName = "struct-use-11-f";
