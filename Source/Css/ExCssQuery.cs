@@ -125,6 +125,11 @@ namespace Svg.Css
             {
                 pseudoFunc = ops.OnlyChild();
             }
+            else if (selector.Class == PseudoClassNames.Hover)
+            {
+                // Currently no Hover Property exists in SvgElement so ignoring it now and returning empty
+                pseudoFunc = ops.Empty();
+            }
             else
             {
                 if (selector.Class.StartsWith(PseudoClassNames.Not))
@@ -144,6 +149,11 @@ namespace Svg.Css
                         notElements ??= func(f).ToHashSet();
                         return !notElements.Contains(e);
                     });
+                }
+                else if (selector.Class.StartsWith(PseudoClassNames.Lang))
+                {
+                    // Currently no Language Property exists in SvgElement so ignoring it now and returning empty
+                    pseudoFunc = ops.Empty();
                 }
                 else
                 {
