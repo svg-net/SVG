@@ -137,7 +137,7 @@ namespace Svg.Css
                     var descendants = ops.Descendant();
                     var func1 = func;
                     func = f => func1(descendants(f));
-                    HashSet<SvgElement>? notElements = null;
+                    HashSet<SvgElement> notElements = null;
 
                     pseudoFunc = f => f.Where(e =>
                     {
