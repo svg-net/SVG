@@ -133,9 +133,22 @@ namespace Svg.Css
                     var parser = new StylesheetParser(true, true, tolerateInvalidValues: true);
                     var styleSheet = parser.Parse(sel);
                     var newSelector = styleSheet.StyleRules.First().Selector;
-                    Debug.WriteLine(sel);
+                    var func = GetFunc(newSelector, ops, ops.Universal());
+                    var descendants = ops.Descendant();
+                    var func1 = func;
+                    func = f => func1(descendants(f));
+                    HashSet<SvgElement>? notElements = null;
+
+                    pseudoFunc = f => f.Where(e =>
+                    {
+                        notElements ??= func(f).ToHashSet();
+                        return !notElements.Contains(e);
+                    });
                 }
-                throw new NotImplementedException();
+                else
+                {
+                    throw new NotImplementedException();    
+                }
             }
 
             if (inFunc == null)
@@ -262,6 +275,19 @@ namespace Svg.Css
 
             return f => func(inFunc(f));
         }
+
+#if NETSTANDARD2_0 || NET462_OR_GREATER
+        private static HashSet<T> ToHashSet<T>(this IEnumerable<T> enumarable)
+        {
+            var result = new HashSet<T>();
+            foreach (var it in enumarable)
+            {
+                result.Add(it);
+            }
+
+            return result;
+        }
+#endif
 
         public static int GetSpecificity(this ISelector selector)
         {
