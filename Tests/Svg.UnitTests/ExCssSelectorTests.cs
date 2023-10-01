@@ -276,6 +276,7 @@ namespace Svg.UnitTests
         private void TestSelector(string selector, NonSvgElement rootNode, SvgElementFactory elementFactory)
         {
             ////SvgElementOps.NodeDebug = SvgElementOps.NodeDebug = string.Empty; // nameof(SvgElementOpsFunc.Child);
+            bool fizzler = !(selector.Contains("nth-child") || selector.Contains("nth-last-child"));
 
             List<SvgElement> fizzlerElements = null;
             Debug.WriteLine(Environment.NewLine);
@@ -288,16 +289,22 @@ namespace Svg.UnitTests
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                Assert.Inconclusive("Fizzler can't handle this selector");
-                return;
+                fizzler = false;
             }
 
             Debug.WriteLine("ExCss:\r\n");
             var exCssElements = QuerySelectorExCssAll(rootNode, selector, elementFactory).OrderBy(f => f.ElementName).ToList();
             Debug.WriteLine(Environment.NewLine);
-            
-            var areEqualFizzler = fizzlerElements.SequenceEqual(exCssElements);
-            Assert.IsTrue(areEqualFizzler, "should select the same elements");
+
+            if (fizzler)
+            {
+                var areEqualFizzler = fizzlerElements.SequenceEqual(exCssElements);
+                Assert.IsTrue(areEqualFizzler, "should select the same elements");
+            }
+            else
+            {
+                Assert.Inconclusive("Fizzler can't handle this selector");
+            }
         }
 
         private IEnumerable<SvgElement> QuerySelectorExCssAll(NonSvgElement elem, string selector, SvgElementFactory elementFactory)

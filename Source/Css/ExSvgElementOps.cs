@@ -52,6 +52,16 @@ namespace Svg.Css
             return nodes => nodes.Where(n => (n.TryGetAttribute(name, out var val) && val != value));
         }
 
+        public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> NthType(int step, int offset)
+        {
+            return nodes => nodes.Where(n => n.Parent != null && GetByTypes(n.Parent.Children, step, offset).Contains(n));
+        }
+
+        public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> NthLastType(int step, int offset)
+        {
+            return nodes => nodes.Where(n => n.Parent != null && GetByTypes(n.Parent.Children.Reverse(), step, offset).Contains(n));
+        }
+
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> AttributeIncludes(string name, string value)
         {
             return nodes => nodes.Where(n => (n.TryGetAttribute(name, out var val) && val.Split(' ').Contains(value)));
@@ -103,6 +113,35 @@ namespace Svg.Css
             }
         }
 
+        private IEnumerable<SvgElement> GetByTypes(IEnumerable<SvgElement> items, int step, int offset)
+        {
+            Dictionary<string, int> counter = new();
+
+            foreach (var it in items)
+            {
+                var type = it.ElementName;
+                counter.TryGetValue(type, out var count);
+
+                if (offset == count)
+                {
+                    yield return it;
+                }
+                else if (offset > count)
+                {
+                    if (step != 0)
+                    {
+                        if ((count - offset) % step == 0)
+                        {
+                            yield return it;
+                        }
+                    }
+                }
+
+                count++;
+                counter[type] = count;
+            }
+        }
+
         private IEnumerable<T> GetByIdsReverse<T>(IList<T> items, IEnumerable<int> indices)
         {
             foreach (var i in indices)
@@ -111,9 +150,9 @@ namespace Svg.Css
             }
         }
 
-        public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> NthChild(int a, int b)
+        public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> NthChild(int step, int offset)
         {
-            return nodes => nodes.Where(n => n.Parent != null && GetByIds(n.Parent.Children, a == 0 ? new[]{b} : (from i in Enumerable.Range(0, n.Parent.Children.Count / a) select a * i + b)).Contains(n));
+            return nodes => nodes.Where(n => n.Parent != null && GetByIds(n.Parent.Children, step == 0 ? new[]{offset} : (from i in Enumerable.Range(0, n.Parent.Children.Count / step) select step * i + offset)).Contains(n));
         }
 
         public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> OnlyChild()
@@ -163,9 +202,9 @@ namespace Svg.Css
             return (self.Parent == null ? Enumerable.Empty<SvgElement>() : self.Parent.Children.Skip(self.Parent.Children.IndexOf(self) + 1));
         }
 
-        public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> NthLastChild(int a, int b)
+        public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> NthLastChild(int step, int offset)
         {
-            return nodes => nodes.Where(n => n.Parent != null && GetByIdsReverse(n.Parent.Children, a == 0 ? new[]{b} : (from i in Enumerable.Range(0, n.Parent.Children.Count / a) select a * i + b)).Contains(n));
+            return nodes => nodes.Where(n => n.Parent != null && GetByIdsReverse(n.Parent.Children, step == 0 ? new[]{offset} : (from i in Enumerable.Range(0, n.Parent.Children.Count / step) select step * i + offset)).Contains(n));
         }
     }
 }

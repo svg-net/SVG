@@ -51,6 +51,26 @@ namespace Svg.Css
         }
 
         private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
+            FirstTypeSelector selector,
+            ExSvgElementOps ops)
+        {
+            var step = selector.Step;
+            var offset = selector.Offset;
+
+            return ops.NthType(step, offset);
+        }
+
+        private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
+            LastTypeSelector selector,
+            ExSvgElementOps ops)
+        {
+            var step = selector.Step;
+            var offset = selector.Offset;
+
+            return ops.NthLastType(step, offset);
+        }
+
+        private static Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> GetFunc(
             LastChildSelector selector,
             ExSvgElementOps ops)
         {
@@ -253,8 +273,8 @@ namespace Svg.Css
                 LastChildSelector lastChildSelector => GetFunc(lastChildSelector, ops),
                 FirstColumnSelector firstColumnSelector => throw new NotImplementedException(),
                 LastColumnSelector lastColumnSelector => throw new NotImplementedException(),
-                FirstTypeSelector firstTypeSelector => throw new NotImplementedException(),
-                LastTypeSelector lastTypeSelector => throw new NotImplementedException(),
+                FirstTypeSelector firstTypeSelector => GetFunc(firstTypeSelector, ops),
+                LastTypeSelector lastTypeSelector => GetFunc(lastTypeSelector, ops),
                 ChildSelector childSelector => ops.Child(),
                 ListSelector listSelector => GetFunc(listSelector, ops, inFunc),
                 NamespaceSelector namespaceSelector => throw new NotImplementedException(),

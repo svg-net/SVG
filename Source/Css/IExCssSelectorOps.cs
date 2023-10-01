@@ -18,13 +18,15 @@ internal interface IExCssSelectorOps<T>
     Func<IEnumerable<T>, IEnumerable<T>> AttributeSubstring(string name, string value);
     Func<IEnumerable<T>, IEnumerable<T>> FirstChild();
     Func<IEnumerable<T>, IEnumerable<T>> LastChild();
-    Func<IEnumerable<T>, IEnumerable<T>> NthChild(int a, int b);
+    Func<IEnumerable<T>, IEnumerable<T>> NthChild(int step, int offset);
     Func<IEnumerable<T>, IEnumerable<T>> OnlyChild();
     Func<IEnumerable<T>, IEnumerable<T>> Empty();
     Func<IEnumerable<T>, IEnumerable<T>> Child();
     Func<IEnumerable<T>, IEnumerable<T>> Descendant();
     Func<IEnumerable<T>, IEnumerable<T>> Adjacent();
     Func<IEnumerable<T>, IEnumerable<T>> GeneralSibling();
-    Func<IEnumerable<T>, IEnumerable<T>> NthLastChild(int a, int b);
+    Func<IEnumerable<T>, IEnumerable<T>> NthLastChild(int step, int offset);
     Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> AttributeNotMatch(string name, string value);
+    Func<IEnumerable<T>, IEnumerable<T>> NthType(int step, int offset);
+    Func<IEnumerable<T>, IEnumerable<T>> NthLastType(int step, int offset);
 }
