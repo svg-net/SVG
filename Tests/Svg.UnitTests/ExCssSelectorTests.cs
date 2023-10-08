@@ -251,6 +251,7 @@ namespace Svg.UnitTests
         [TestCase(":nth-of-type(2)")]
         [TestCase(":nth-last-of-type(2)")]
         [TestCase(":not(p)")]
+        [TestCase(":root")]
         public void RunSelectorTests(string selector)
         {
             string baseName = "struct-use-11-f";

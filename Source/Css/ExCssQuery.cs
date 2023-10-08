@@ -164,6 +164,10 @@ namespace Svg.Css
                     // Currently no Language Property exists in SvgElement so ignoring it now and returning empty
                     pseudoFunc = ops.Empty();
                 }
+                else if (selector.Class.StartsWith(PseudoClassNames.Root))
+                {
+                    pseudoFunc = ops.Root();
+                }
                 else
                 {
                     throw new NotImplementedException();    

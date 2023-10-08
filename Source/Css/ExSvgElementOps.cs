@@ -206,5 +206,25 @@ namespace Svg.Css
         {
             return nodes => nodes.Where(n => n.Parent != null && GetByIdsReverse(n.Parent.Children, step == 0 ? new[]{offset} : (from i in Enumerable.Range(0, n.Parent.Children.Count / step) select step * i + offset)).Contains(n));
         }
+
+        public Func<IEnumerable<SvgElement>, IEnumerable<SvgElement>> Root()
+        {
+            return nodes =>
+            {
+                var node = nodes.FirstOrDefault();
+                if (node == null)
+                {
+                    return Enumerable.Empty<SvgElement>();
+                }
+
+                var  root = node;
+                while (root.Parent != null)
+                {
+                    root = root.Parent;
+                }
+
+                return new List<SvgElement> { root };
+            };
+        }
     }
 }
