@@ -61,9 +61,9 @@ namespace Svg
             {
                 if (DeferredId == "currentColor")
                 {
-                    var colorElement = (from e in styleOwner.ParentsAndSelf.OfType<SvgElement>()
-                                        where e.Color != None && e.Color != NotSet && e.Color != Inherit
-                                        select e).FirstOrDefault();
+                    var colorElement = styleOwner.ParentsAndSelf.OfType<SvgElement>().FirstOrDefault(
+                        e => e.Color != None && e.Color != NotSet && e.Color != Inherit);
+
                     _concreteServer = colorElement?.Color;
                 }
                 else

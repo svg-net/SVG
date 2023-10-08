@@ -40,18 +40,18 @@ namespace Svg
                 curr = SvgDeferredPaintServer.TryGet<SvgPatternServer>(curr.InheritGradient, renderingElement);
             } while (curr != null);
 
-            var firstChildren = chain.Where(p => p.Children.Count > 0).FirstOrDefault();
+            var firstChildren = chain.Find(p => p.Children.Count > 0);
             if (firstChildren == null)
                 return null;
-            var firstX = chain.Where(p => p.X != SvgUnit.None).FirstOrDefault();
-            var firstY = chain.Where(p => p.Y != SvgUnit.None).FirstOrDefault();
-            var firstWidth = chain.Where(p => p.Width != SvgUnit.None).FirstOrDefault();
-            var firstHeight = chain.Where(p => p.Height != SvgUnit.None).FirstOrDefault();
+            var firstX = chain.Find(p => p.X != SvgUnit.None);
+            var firstY = chain.Find(p => p.Y != SvgUnit.None);
+            var firstWidth = chain.Find(p => p.Width != SvgUnit.None);
+            var firstHeight = chain.Find(p => p.Height != SvgUnit.None);
             if (firstWidth == null || firstHeight == null)
                 return null;
-            var firstPatternUnit = chain.Where(p => p._patternUnits.HasValue).FirstOrDefault();
-            var firstPatternContentUnit = chain.Where(p => p._patternContentUnits.HasValue).FirstOrDefault();
-            var firstViewBox = chain.Where(p => p.ViewBox != SvgViewBox.Empty).FirstOrDefault();
+            var firstPatternUnit = chain.Find(p => p._patternUnits.HasValue);
+            var firstPatternContentUnit = chain.Find(p => p._patternContentUnits.HasValue);
+            var firstViewBox = chain.Find(p => p.ViewBox != SvgViewBox.Empty);
 
             var xUnit = firstX == null ? new SvgUnit(0f) : firstX.X;
             var yUnit = firstY == null ? new SvgUnit(0f) : firstY.Y;

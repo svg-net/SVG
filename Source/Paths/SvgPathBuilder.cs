@@ -17,7 +17,7 @@ namespace Svg
 
         public static string ToSvgString(this PointF p)
         {
-            return p.X.ToSvgString() + " " + p.Y.ToSvgString();
+            return $"{p.X.ToSvgString()} {p.Y.ToSvgString()}";
         }
     }
 
