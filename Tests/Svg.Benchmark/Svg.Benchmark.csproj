@@ -4,6 +4,8 @@
     <TargetFrameworks>net6.0;netcoreapp3.1;net462</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <LangVersion>8.0</LangVersion>
+	<SignAssembly>True</SignAssembly>
+	<AssemblyOriginatorKeyFile>..\Svg.UnitTests\svgkey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Svg.csproj" />
+    <ProjectReference Include="..\Svg.UnitTests\Svg.UnitTests.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net462'">

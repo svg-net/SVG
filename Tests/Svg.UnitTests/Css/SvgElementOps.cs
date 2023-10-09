@@ -123,6 +123,14 @@ namespace Svg.Css
             }
         }
 
+        private IEnumerable<T> GetByIdsReverse<T>(IList<T> items, IEnumerable<int> indices)
+        {
+            foreach (var i in indices)
+            {
+                if (i >= 0 && i < items.Count) yield return items[items.Count - 1 -i];
+            }
+        }
+
         public Selector<SvgElement> NthChild(int a, int b)
         {
             return nodes => nodes.Where(n => n.Parent != null && GetByIds(n.Parent.Children, (from i in Enumerable.Range(0, n.Parent.Children.Count / a) select a * i + b)).Contains(n));
@@ -177,7 +185,7 @@ namespace Svg.Css
 
         public Selector<SvgElement> NthLastChild(int a, int b)
         {
-            throw new NotImplementedException();
+            return nodes => nodes.Where(n => n.Parent != null && GetByIdsReverse(n.Parent.Children, (from i in Enumerable.Range(0, n.Parent.Children.Count / a) select a * i + b)).Contains(n));
         }
     }
 }

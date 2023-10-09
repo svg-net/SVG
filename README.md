@@ -27,5 +27,4 @@ This project has dependencies on other open-source projects. These projects are 
 
 |Project|Author|Sources|License|
 |--------|-----|---|---------|
-|Fizzler|Atif Aziz (@atifaziz)|[GitHub](https://github.com/atifaziz/Fizzler)|[LGPL](https://github.com/atifaziz/Fizzler/blob/master/COPYING.txt)|
 |ExCSS|Tyler Brinks (@tylerbrinks)|[GitHub](https://github.com/TylerBrinks/ExCSS)|[MIT](https://github.com/TylerBrinks/ExCSS/blob/master/license.txt)|
