@@ -1,7 +1,7 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
-## Unreleased
+## [Version 3.4.5](https://www.nuget.org/packages/Svg/3.4.5)  (2023-10-31)
 
 ### Changes
 * removed out of support framework versions .NET 5 (replaced with .NET 6) (see PR [#1045](https://github.com/svg-net/SVG/pull/1045))
