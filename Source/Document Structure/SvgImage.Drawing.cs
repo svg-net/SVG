@@ -223,7 +223,7 @@ namespace Svg
                     using (var stream = httpResponseMessage.Content.ReadAsStreamAsync().Result)
                     {
                         if (uri.LocalPath.EndsWith(".svg", StringComparison.InvariantCultureIgnoreCase) ||
-                            httpResponseMessage.Headers.Contains(MimeTypeSvg))
+                            httpResponseMessage.Content.Headers.ContentType.MediaType == MimeTypeSvg)
                             return LoadSvg(stream, uri);
                         else
                             using (var image = Image.FromStream(stream))
