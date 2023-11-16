@@ -1,6 +1,11 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
+## Unreleased
+
+### Fixes
+* fixed load embedded images (see [#1101](https://github.com/svg-net/SVG/issues/1101))
+
 ## [Version 3.4.5](https://www.nuget.org/packages/Svg/3.4.5)  (2023-10-31)
 
 ### Changes
