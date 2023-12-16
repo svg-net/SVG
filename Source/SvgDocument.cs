@@ -226,7 +226,7 @@ namespace Svg
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
         public static SvgDocument Open(string path)
         {
-            return Open<SvgDocument>(path, null);
+            return Open<SvgDocument>(path, null, null);
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Svg
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
         public static T Open<T>(string path) where T : SvgDocument, new()
         {
-            return Open<T>(path, null);
+            return Open<T>(path, null, null);
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace Svg
         /// <param name="entities">A dictionary of custom entity definitions to be used when resolving XML entities within the document.</param>
         /// <returns>An <see cref="SvgDocument"/> with the contents loaded.</returns>
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
-        public static T Open<T>(string path, Dictionary<string, string> entities) where T : SvgDocument, new()
+        public static T Open<T>(string path, Dictionary<string, string> entities, string css = null) where T : SvgDocument, new()
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -261,7 +261,7 @@ namespace Svg
 
             using (var stream = File.OpenRead(path))
             {
-                var doc = Open<T>(stream, entities);
+                var doc = Open<T>(stream, entities, css);
                 doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
                 return doc;
             }
@@ -282,7 +282,7 @@ namespace Svg
         /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
         /// <param name="entities">Custom entity definitions.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="stream"/> parameter cannot be <c>null</c>.</exception>
-        public static T Open<T>(Stream stream, Dictionary<string, string> entities) where T : SvgDocument, new()
+        public static T Open<T>(Stream stream, Dictionary<string, string> entities, string css = null) where T : SvgDocument, new()
         {
             if (stream == null)
             {
@@ -296,7 +296,7 @@ namespace Svg
                 WhitespaceHandling = WhitespaceHandling.Significant,
                 DtdProcessing = DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
             };
-            return Create<T>(reader);
+            return Create<T>(reader, css);
         }
 
         /// <summary>
@@ -343,13 +343,16 @@ namespace Svg
             }
         }
 
-       
-        private static T Create<T>(XmlReader reader) where T : SvgDocument, new()
+        private static T Create<T>(XmlReader reader, string css = null) where T : SvgDocument, new()
         {
             var styles = new List<ISvgNode>();
             var elementFactory = new SvgElementFactory();
 
             var svgDocument = Create<T>(reader, elementFactory, styles);
+            
+            if (css != null) {
+                styles.Add(new SvgUnknownElement() { Content = css });
+            }
 
             if (styles.Any())
             {
