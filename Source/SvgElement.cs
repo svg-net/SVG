@@ -516,7 +516,7 @@ namespace Svg
                     {
                         foreach (var kvp in this.Namespaces)
                         {
-                            if (kvp.Value == this.ElementNamespace && !string.IsNullOrEmpty(kvp.Key))
+                            if (kvp.Value.Equals(this.ElementNamespace) && !string.IsNullOrEmpty(kvp.Key))
                             {
                                 prefix = kvp.Key;
                                 break;

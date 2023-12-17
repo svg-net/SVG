@@ -1,7 +1,7 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
-## [Version X.X.X](https://www.nuget.org/packages/Svg/X.X.X)  (20XX-XX-XX)
+## Unreleased
 
 ### Fixes
 * fixed XML namespace prefixes are also applied for nodes declaring them (see [PR #1106](https://github.com/svg-net/SVG/pull/1106))
