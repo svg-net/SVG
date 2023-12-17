@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased
 
+### Changes
+* added css parameter to Open so that this can be used for transforming the svgdocument.
+
 ### Fixes
 * fixed XML namespace prefixes are also applied for nodes declaring them (see [PR #1106](https://github.com/svg-net/SVG/pull/1106))
 
