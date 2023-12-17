@@ -73,8 +73,13 @@
 <h1 id="svgnet-release-notes">SVG.NET Release Notes</h1>
 
 <p>The release versions are NuGet releases.</p>
-<h2 id="version-346--2023-11-16"><a href="https://www.nuget.org/packages/Svg/3.4.6">Version 3.4.6</a>  (2023-11-16)</h2>
+<h2 id="unreleased">Unreleased</h2>
 <h3 id="fixes">Fixes</h3>
+<ul>
+<li>fixed XML namespace prefixes are also applied for nodes declaring them (see <a href="https://github.com/svg-net/SVG/pull/1106">PR #1106</a>)</li>
+</ul>
+<h2 id="version-346--2023-11-16"><a href="https://www.nuget.org/packages/Svg/3.4.6">Version 3.4.6</a>  (2023-11-16)</h2>
+<h3 id="fixes-1">Fixes</h3>
 <ul>
 <li>fixed loading of embedded images (see <a href="https://github.com/svg-net/SVG/issues/1101">#1101</a>)</li>
 </ul>
@@ -83,7 +88,7 @@
 <ul>
 <li>removed out of support framework versions .NET 5 (replaced with .NET 6) (see PR <a href="https://github.com/svg-net/SVG/pull/1045">#1045</a>)</li>
 </ul>
-<h3 id="fixes-1">Fixes</h3>
+<h3 id="fixes-2">Fixes</h3>
 <ul>
 <li>fixed build error in C# 11 (see <a href="https://github.com/svg-net/SVG/pull/1030">PR #1030</a>)</li>
 <li>fixed out of memory exception on SVGs with gradients (see <a href="https://github.com/svg-net/SVG/pull/1038">PR #1038</a>)</li>
@@ -96,7 +101,7 @@
 <li>Update ExCSS to 4.2.2 (see <a href="https://github.com/svg-net/SVG/pull/1091">PR #1091</a>)</li>
 </ul>
 <h2 id="version-344--2022-10-29"><a href="https://www.nuget.org/packages/Svg/3.4.4">Version 3.4.4</a>  (2022-10-29)</h2>
-<h3 id="fixes-2">Fixes</h3>
+<h3 id="fixes-3">Fixes</h3>
 <ul>
 <li>fixed localized family names in <code>SvgFontManager</code> (see <a href="https://github.com/svg-net/SVG/pull/993">PR #993</a>)</li>
 <li>fixed out of memory Exception in <code>SvgImage.Render()</code> (see <a href="https://github.com/svg-net/SVG/issues/1003">#1003</a>)</li>
@@ -116,7 +121,7 @@
 <ul>
 <li>update XMLOutputTester (rename to SVGBuilder) (see <a href="https://github.com/svg-net/SVG/pull/983">PR #983</a>)</li>
 </ul>
-<h3 id="fixes-3">Fixes</h3>
+<h3 id="fixes-4">Fixes</h3>
 <ul>
 <li>fixed out of memory in Svg 3.4.2 (see <a href="https://github.com/svg-net/SVG/issues/989">#989</a>)</li>
 </ul>
@@ -130,14 +135,14 @@
 <ul>
 <li>made anti-aliasing behavior more consistent with rendering in browsers (see <a href="https://github.com/svg-net/SVG/issues/960">#960</a>)</li>
 </ul>
-<h3 id="fixes-4">Fixes</h3>
+<h3 id="fixes-5">Fixes</h3>
 <ul>
 <li>fixed issue for <code>SvgTextBase.Bounds</code> with blank <code>SvgTextSpan</code> (see <a href="https://github.com/svg-net/SVG/pull/963">PR #963</a>)</li>
 <li>fixed precision issue in <code>SvgUnit</code> (see <a href="https://github.com/svg-net/SVG/pull/969">PR #969</a>)</li>
 <li>fixed <code>InheritGradient</code> values are not inherited (see <a href="https://github.com/svg-net/SVG/issues/966">#966</a>)</li>
 </ul>
 <h2 id="version-341--2022-03-19"><a href="https://www.nuget.org/packages/Svg/3.4.1">Version 3.4.1</a>  (2022-03-19)</h2>
-<h3 id="fixes-5">Fixes</h3>
+<h3 id="fixes-6">Fixes</h3>
 <ul>
 <li>fixed <code>text-decoration</code> conversion (see <a href="https://github.com/svg-net/SVG/issues/941">#941</a>)</li>
 <li>fixed <code>text-transformation</code> (see <a href="https://github.com/svg-net/SVG/issues/952">#952</a>)</li>
@@ -153,7 +158,7 @@
 <ul>
 <li>support relative commands in Paths (see <a href="https://github.com/svg-net/SVG/pull/925">PR #925</a>)</li>
 </ul>
-<h3 id="fixes-6">Fixes</h3>
+<h3 id="fixes-7">Fixes</h3>
 <ul>
 <li>fixed color blend position (see <a href="https://github.com/svg-net/SVG/issues/902">#902</a>)</li>
 <li>remove override method that is no longer needed in <code>SvgPath</code> (see <a href="https://github.com/svg-net/SVG/issues/830">#830</a>)</li>
@@ -176,7 +181,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>manage namespaces and prefixes (see <a href="https://github.com/svg-net/SVG/issues/604">#604</a>)</li>
 <li>add <code>Open(XmlReader)</code> method in <code>SvgDocument</code> (see <a href="https://github.com/svg-net/SVG/issues/877">#877</a>)</li>
 </ul>
-<h3 id="fixes-7">Fixes</h3>
+<h3 id="fixes-8">Fixes</h3>
 <ul>
 <li>fixed filled polyline not displayed with <code>stroke-width=0</code> (see <a href="https://github.com/svg-net/SVG/issues/785">#785</a>)</li>
 <li>added basic implementation of filter classes (see <a href="https://github.com/svg-net/SVG/issues/768">#768</a>)</li>
@@ -197,7 +202,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>added support for <code>miter-clip</code> and <code>arcs</code> line joins, and for <code>fr</code> radial gradiant property
 (SVG2 features, see <a href="https://github.com/svg-net/SVG/pull/621">PR #621</a>)</li>
 </ul>
-<h3 id="fixes-8">Fixes</h3>
+<h3 id="fixes-9">Fixes</h3>
 <ul>
 <li>fixed filter Inherited (see <a href="https://github.com/svg-net/SVG/issues/541">#541</a> and <a href="https://github.com/svg-net/SVG/pull/689">PR #689</a>)</li>
 <li>fixed calculate required layout rectangle (see <a href="https://github.com/svg-net/SVG/issues/732">#732</a> and <a href="https://github.com/svg-net/SVG/pull/741">PR #741</a>)</li>
@@ -226,7 +231,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>added Href property to SvgFilter (see <a href="https://github.com/svg-net/SVG/pull/679">PR #679</a>)</li>
 <li>supports localized family names (see <a href="https://github.com/svg-net/SVG/pull/706">PR #706</a>)</li>
 </ul>
-<h3 id="fixes-9">Fixes</h3>
+<h3 id="fixes-10">Fixes</h3>
 <ul>
 <li>fixed CoordinateParser handling of invalid state (see <a href="https://github.com/svg-net/SVG/pull/640">PR #640</a>)</li>
 <li>fixed CoordinateParser handling of invalid state (see <a href="https://github.com/svg-net/SVG/pull/642">PR #642</a>)</li>
@@ -261,7 +266,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>add support for <code>&lt;a&gt;</code> element (see <a href="https://github.com/svg-net/SVG/issues/626">#626</a> and <a href="https://github.com/svg-net/SVG/pull/628">PR #628</a>))</li>
 <li>added ColorConverter from dotnet runtime codebase to make Netstandard 2.0 target more complete (see <a href="https://github.com/svg-net/SVG/pull/630">PR #630</a>)</li>
 </ul>
-<h3 id="fixes-10">Fixes</h3>
+<h3 id="fixes-11">Fixes</h3>
 <ul>
 <li>fixed nested svg tags not rendered properly (see <a href="https://github.com/svg-net/SVG/issues/622">#622</a>)</li>
 <li>added handling of invalid property in parser (see <a href="https://github.com/svg-net/SVG/issues/632">#632</a>)</li>
@@ -291,7 +296,7 @@ Drawing2D is not fully supported</li>
 <li>moved documentation to GitHub pages</li>
 <li>added auto-generated API documentation</li>
 </ul>
-<h3 id="fixes-11">Fixes</h3>
+<h3 id="fixes-12">Fixes</h3>
 <ul>
 <li>fixed scaling of embedded images (see <a href="https://github.com/svg-net/SVG/issues/592">#592</a>)</li>
 <li>fixed issue for stroke dasharray with odd number of values (see <a href="https://github.com/svg-net/SVG/pull/584">PR #584</a>)</li>
@@ -321,7 +326,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 <ul>
 <li>added &quot;Getting Started&quot; Wiki page</li>
 </ul>
-<h3 id="fixes-12">Fixes</h3>
+<h3 id="fixes-13">Fixes</h3>
 <ul>
 <li>added check for invalid bounds (see <a href="https://github.com/svg-net/SVG/issues/554">#554</a>)</li>
 <li>added support for &quot;Grey&quot; color (see <a href="https://github.com/svg-net/SVG/pull/551">PR #551</a>)</li>
@@ -360,7 +365,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 (see <a href="https://github.com/svg-net/SVG/issues/436">#436</a>)</li>
 </ul>
 <h2 id="version-243-2019-05-07"><a href="https://www.nuget.org/packages/Svg/2.4.3">Version 2.4.3</a> (2019-05-07)</h2>
-<h3 id="fixes-13">Fixes</h3>
+<h3 id="fixes-14">Fixes</h3>
 <ul>
 <li>fixed boundary drawing with corner and stroke (see PR <a href="https://github.com/svg-net/SVG/pull/444">#444</a>)</li>
 <li>fixed rendering with fill opacity 0 (see <a href="https://github.com/svg-net/SVG/issues/437">#437</a>)</li>
@@ -373,7 +378,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 <li>added font manager to allow user-defined font handling
 (see PR <a href="https://github.com/svg-net/SVG/pull/414">#414</a>)</li>
 </ul>
-<h3 id="fixes-14">Fixes</h3>
+<h3 id="fixes-15">Fixes</h3>
 <ul>
 <li>fixed handling of invalid hex color and whitespace after hex color (see <a href="https://github.com/svg-net/SVG/issues/399">#399</a>)</li>
 <li>fixed default font size (caused text not to be displayed, see <a href="https://github.com/svg-net/SVG/issues/419">#419</a>)</li>
@@ -402,7 +407,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 <li><code>ExCSS</code> lives now in the <code>Svg</code> namespace to avoid namespace collusions
 (see <a href="https://github.com/svg-net/SVG/issues/408">#408</a>)</li>
 </ul>
-<h3 id="fixes-15">Fixes</h3>
+<h3 id="fixes-16">Fixes</h3>
 <ul>
 <li>fixed handling of url IDs enclosed in apostrophes (see <a href="https://github.com/svg-net/SVG/issues/345">#345</a>)</li>
 <li>fixed calculation of percentage values (PR <a href="https://github.com/svg-net/SVG/pull/410">#410</a>)</li>
@@ -427,7 +432,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 <li>added copy of license</li>
 <li>added automatic unit test execution after check-in in AppVeyor</li>
 </ul>
-<h3 id="fixes-16">Fixes</h3>
+<h3 id="fixes-17">Fixes</h3>
 <ul>
 <li>fixed display of rounded caps for dashed lines using dasharray (see <a href="https://github.com/svg-net/SVG/issues/191">#191</a>)</li>
 <li>fixed calculation of percentage units in 'y' (see <a href="https://github.com/svg-net/SVG/issues/329">#329</a>)</li>
