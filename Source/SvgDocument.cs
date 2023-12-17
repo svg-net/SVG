@@ -247,6 +247,19 @@ namespace Svg
         /// <param name="entities">A dictionary of custom entity definitions to be used when resolving XML entities within the document.</param>
         /// <returns>An <see cref="SvgDocument"/> with the contents loaded.</returns>
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
+        public static T Open<T>(string path, Dictionary<string, string> entities) where T : SvgDocument, new()
+        {
+            return Open<T>(path, entities, null);
+        }
+
+        /// <summary>
+        /// Opens the document at the specified path and loads the SVG contents.
+        /// </summary>
+        /// <param name="path">A <see cref="string"/> containing the path of the file to open.</param>
+        /// <param name="entities">A dictionary of custom entity definitions to be used when resolving XML entities within the document.</param>
+        /// <param name="css">Css Style that will be applied to the Svg Document</param>
+        /// <returns>A <see cref="SvgDocument"/> with the contents loaded.</returns>
+        /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
         public static T Open<T>(string path, Dictionary<string, string> entities, string css = null) where T : SvgDocument, new()
         {
             if (string.IsNullOrEmpty(path))
@@ -281,6 +294,19 @@ namespace Svg
         /// </summary>
         /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
         /// <param name="entities">Custom entity definitions.</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="stream"/> parameter cannot be <c>null</c>.</exception>
+        public static T Open<T>(Stream stream, Dictionary<string, string> entities)
+            where T : SvgDocument, new()
+        {
+            return Open<T>(stream, entities, null);
+        }
+
+        /// <summary>
+        /// Opens an SVG document from the specified <see cref="Stream"/> and adds the specified entities.
+        /// </summary>
+        /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
+        /// <param name="entities">Custom entity definitions.</param>
+        /// <param name="css">Css Style that will be applied to the Svg Document</param>
         /// <exception cref="ArgumentNullException">The <paramref name="stream"/> parameter cannot be <c>null</c>.</exception>
         public static T Open<T>(Stream stream, Dictionary<string, string> entities, string css = null) where T : SvgDocument, new()
         {
