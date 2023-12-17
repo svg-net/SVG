@@ -512,6 +512,17 @@ namespace Svg
                 else
                 {
                     var prefix = writer.LookupPrefix(this.ElementNamespace);
+                    if (prefix == null && !this.ElementNamespace.Equals(SvgNamespaces.SvgNamespace))
+                    {
+                        foreach (var kvp in this.Namespaces)
+                        {
+                            if (kvp.Value.Equals(this.ElementNamespace) && !string.IsNullOrEmpty(kvp.Key))
+                            {
+                                prefix = kvp.Key;
+                                break;
+                            }
+                        }
+                    }
                     if (prefix == null)
                         writer.WriteStartElement(this.ElementName, this.ElementNamespace);
                     else
