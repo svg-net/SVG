@@ -620,13 +620,8 @@ namespace Svg
                                     opacityValues.Add(property.AttributeName + "-opacity", opacity);
                                 }
                             }
-
-#if NETFULL
-                            var value = (string)property.Converter.ConvertTo(propertyValue, typeof(string));
-#else
                             // dotnetcore throws exception if input is null
                             var value = propertyValue == null ? null : (string)property.Converter.ConvertTo(propertyValue, typeof(string));
-#endif
 
                             if (propertyValue != null)
                             {
@@ -912,50 +907,6 @@ namespace Svg
             onmouseout = "<anything>"
          */
 
-#if Net4
-        /// <summary>
-        /// Use this method to provide your implementation ISvgEventCaller which can register Actions
-        /// and call them if one of the events occurs. Make sure, that your SvgElement has a unique ID.
-        /// The SvgTextElement overwrites this and regsiters the Change event tor its text content.
-        /// </summary>
-        /// <param name="caller"></param>
-        public virtual void RegisterEvents(ISvgEventCaller caller)
-        {
-            if (caller != null && !string.IsNullOrEmpty(this.ID))
-            {
-                var rpcID = this.ID + "/";
-
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onclick", CreateMouseEventAction(RaiseMouseClick));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmousedown", CreateMouseEventAction(RaiseMouseDown));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseup", CreateMouseEventAction(RaiseMouseUp));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmousemove", CreateMouseEventAction(RaiseMouseMove));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseover", CreateMouseEventAction(RaiseMouseOver));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseout", CreateMouseEventAction(RaiseMouseOut));
-                caller.RegisterAction<int, bool, bool, bool, string>(rpcID + "onmousescroll", OnMouseScroll);
-            }
-        }
-
-        /// <summary>
-        /// Use this method to provide your implementation ISvgEventCaller to unregister Actions
-        /// </summary>
-        /// <param name="caller"></param>
-        public virtual void UnregisterEvents(ISvgEventCaller caller)
-        {
-            if (caller != null && !string.IsNullOrEmpty(this.ID))
-            {
-                var rpcID = this.ID + "/";
-
-                caller.UnregisterAction(rpcID + "onclick");
-                caller.UnregisterAction(rpcID + "onmousedown");
-                caller.UnregisterAction(rpcID + "onmouseup");
-                caller.UnregisterAction(rpcID + "onmousemove");
-                caller.UnregisterAction(rpcID + "onmousescroll");
-                caller.UnregisterAction(rpcID + "onmouseover");
-                caller.UnregisterAction(rpcID + "onmouseout");
-            }
-        }
-#endif
-
         [SvgAttribute("onclick")]
         public event EventHandler<MouseArg> Click;
 
@@ -976,14 +927,6 @@ namespace Svg
 
         [SvgAttribute("onmouseout")]
         public event EventHandler<MouseArg> MouseOut;
-
-#if Net4
-        protected Action<float, float, int, int, bool, bool, bool, string> CreateMouseEventAction(Action<object, MouseArg> eventRaiser)
-        {
-            return (x, y, button, clickCount, altKey, shiftKey, ctrlKey, sessionID) =>
-                eventRaiser(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount, AltKey = altKey, ShiftKey = shiftKey, CtrlKey = ctrlKey, SessionID = sessionID });
-        }
-#endif
 
         //click
         protected void RaiseMouseClick(object sender, MouseArg e)
@@ -1092,23 +1035,6 @@ namespace Svg
         public SvgElement NewChild;
         public SvgElement BeforeSibling;
     }
-
-#if Net4
-    //deriving class registers event actions and calls the actions if the event occurs
-    public interface ISvgEventCaller
-    {
-        void RegisterAction(string rpcID, Action action);
-        void RegisterAction<T1>(string rpcID, Action<T1> action);
-        void RegisterAction<T1, T2>(string rpcID, Action<T1, T2> action);
-        void RegisterAction<T1, T2, T3>(string rpcID, Action<T1, T2, T3> action);
-        void RegisterAction<T1, T2, T3, T4>(string rpcID, Action<T1, T2, T3, T4> action);
-        void RegisterAction<T1, T2, T3, T4, T5>(string rpcID, Action<T1, T2, T3, T4, T5> action);
-        void RegisterAction<T1, T2, T3, T4, T5, T6>(string rpcID, Action<T1, T2, T3, T4, T5, T6> action);
-        void RegisterAction<T1, T2, T3, T4, T5, T6, T7>(string rpcID, Action<T1, T2, T3, T4, T5, T6, T7> action);
-        void RegisterAction<T1, T2, T3, T4, T5, T6, T7, T8>(string rpcID, Action<T1, T2, T3, T4, T5, T6, T7, T8> action);
-        void UnregisterAction(string rpcID);
-    }
-#endif
 
     /// <summary>
     /// Represents the state of the mouse at the moment the event occured.

@@ -287,26 +287,6 @@ namespace Svg
             }
         }
 
-#if Net4
-        public override void RegisterEvents(ISvgEventCaller caller)
-        {
-            //register basic events
-            base.RegisterEvents(caller);
-
-            //add change event for text
-            caller.RegisterAction<string, string>(this.ID + "/onchange", OnChange);
-        }
-
-        public override void UnregisterEvents(ISvgEventCaller caller)
-        {
-            //unregister base events
-            base.UnregisterEvents(caller);
-
-            //unregister change event
-            caller.UnregisterAction(this.ID + "/onchange");
-        }
-#endif
-
         public override SvgElement DeepCopy<T>()
         {
             var newObj = base.DeepCopy<T>() as SvgTextBase;

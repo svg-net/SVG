@@ -54,11 +54,7 @@ namespace Svg
             // (e.g., 'M 100 100 L 200 200' contains unnecessary spaces and could be expressed more compactly as 'M100 100L200 200')."
             // http://www.w3.org/TR/SVGTiny12/paths.html#PathDataGeneralInformation
             // https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d#Notes
-#if Net4
-            return string.Join(" ", this.Select(u => u.ToString()));
-#else
             return string.Join(" ", this.Select(u => u.ToString()).ToArray());
-#endif
         }
 
         public static bool IsNullOrEmpty(SvgUnitCollection collection)
