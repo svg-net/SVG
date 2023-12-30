@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased
 
+### Enhancements
+* made exceptions serializable to be able to cross AppDomain boundaries (see [#826](https://github.com/svg-net/SVG/pull/826))
+
 ### Fixes
 * fixed XML namespace prefixes are also applied for nodes declaring them (see [PR #1106](https://github.com/svg-net/SVG/pull/1106))
 
