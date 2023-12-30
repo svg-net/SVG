@@ -74,6 +74,10 @@
 
 <p>The release versions are NuGet releases.</p>
 <h2 id="unreleased">Unreleased</h2>
+<h3 id="enhancements">Enhancements</h3>
+<ul>
+<li>made exceptions serializable to be able to cross AppDomain boundaries (see <a href="https://github.com/svg-net/SVG/pull/826">#826</a>)</li>
+</ul>
 <h3 id="fixes">Fixes</h3>
 <ul>
 <li>fixed XML namespace prefixes are also applied for nodes declaring them (see <a href="https://github.com/svg-net/SVG/pull/1106">PR #1106</a>)</li>
@@ -117,7 +121,7 @@
 <ul>
 <li>removed out of support framework versions .NET 4.5.2/4.6.1 (replaced with 4.6.2) and .NET Core 2.1 (see PR <a href="https://github.com/svg-net/SVG/pull/980">#980</a>)</li>
 </ul>
-<h3 id="enhancements">Enhancements</h3>
+<h3 id="enhancements-1">Enhancements</h3>
 <ul>
 <li>update XMLOutputTester (rename to SVGBuilder) (see <a href="https://github.com/svg-net/SVG/pull/983">PR #983</a>)</li>
 </ul>
@@ -154,7 +158,7 @@
 <ul>
 <li>reduce very high memory usage (see <a href="https://github.com/svg-net/SVG/issues/909">#909</a>)</li>
 </ul>
-<h3 id="enhancements-1">Enhancements</h3>
+<h3 id="enhancements-2">Enhancements</h3>
 <ul>
 <li>support relative commands in Paths (see <a href="https://github.com/svg-net/SVG/pull/925">PR #925</a>)</li>
 </ul>
@@ -175,7 +179,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>made <code>SvgExtentions.Traverse</code> and <code>SvgExtentions.TraverseDepthFirst</code> internal to avoid polluting the API
 (see <a href="https://github.com/svg-net/SVG/issues/889">#889</a>)</li>
 </ul>
-<h3 id="enhancements-2">Enhancements</h3>
+<h3 id="enhancements-3">Enhancements</h3>
 <ul>
 <li>minimize <code>XmlTextReader</code> customization (see <a href="https://github.com/svg-net/SVG/pull/836">PR #836</a>)</li>
 <li>manage namespaces and prefixes (see <a href="https://github.com/svg-net/SVG/issues/604">#604</a>)</li>
@@ -195,7 +199,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>fixed index is outside arrary boundary (see <a href="https://github.com/svg-net/SVG/issues/888">#888</a>)</li>
 </ul>
 <h2 id="version-323-2021-01-12"><a href="https://www.nuget.org/packages/Svg/3.2.3">Version 3.2.3</a> (2021-01-12)</h2>
-<h3 id="enhancements-3">Enhancements</h3>
+<h3 id="enhancements-4">Enhancements</h3>
 <ul>
 <li>implement font-weight bolder and lighter (see <a href="https://github.com/svg-net/SVG/pull/727">PR #727</a>)</li>
 <li>check if BaseUri is absolute (see <a href="https://github.com/svg-net/SVG/pull/738">PR #738</a>)</li>
@@ -218,7 +222,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>fixed size zero pattern issue (see <a href="https://github.com/vvvv/SVG/pull/793">PR #793</a> and <a href="https://github.com/vvvv/SVG/pull/794">PR #794</a>)</li>
 </ul>
 <h2 id="version-311-2020-05-01"><a href="https://www.nuget.org/packages/Svg/3.1.1">Version 3.1.1</a> (2020-05-01)</h2>
-<h3 id="enhancements-4">Enhancements</h3>
+<h3 id="enhancements-5">Enhancements</h3>
 <ul>
 <li>added new filter effects classes (see <a href="https://github.com/svg-net/SVG/pull/641">PR #641</a>)</li>
 <li>added FilterUnits and PrimitiveUnits properties to SvgFilter class (see <a href="https://github.com/svg-net/SVG/pull/641">PR #641</a>)</li>
@@ -260,7 +264,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>removed support for .NET 3.5</li>
 <li>upgraded the used Fizzler libary to 1.2.0 (supports Netstandard 1.0 and 2.0)</li>
 </ul>
-<h3 id="enhancements-5">Enhancements</h3>
+<h3 id="enhancements-6">Enhancements</h3>
 <ul>
 <li>check that there is a <code>moveto</code> command at the beginning of a path (see <a href="https://github.com/svg-net/SVG/pull/616">PR #616</a>)</li>
 <li>add support for <code>&lt;a&gt;</code> element (see <a href="https://github.com/svg-net/SVG/issues/626">#626</a> and <a href="https://github.com/svg-net/SVG/pull/628">PR #628</a>))</li>
@@ -279,7 +283,7 @@ and other resources are not resolved by default (see <a href="https://github.com
 <li>a compatibility warning from the Fizzler library is shown during build;
 this can be safely ignored and will be gone in the next version</li>
 </ul>
-<h3 id="enhancements-6">Enhancements</h3>
+<h3 id="enhancements-7">Enhancements</h3>
 <ul>
 <li>added preliminary support for .NET Standard 2.0 (see <a href="https://github.com/svg-net/SVG/issues/346">#346</a>);
 Drawing2D is not fully supported</li>
@@ -306,7 +310,7 @@ Drawing2D is not fully supported</li>
 <h2 id="version-3049-2019-08-30"><a href="https://www.nuget.org/packages/Svg/3.0.49">Version 3.0.49</a> (2019-08-30)</h2>
 <p><strong>Note:</strong> this is the first version that supports .NET Core alongside .NET.
 To build it yourself, you need at least Visual Studio 2017 due to the added multi-platform support.</p>
-<h3 id="enhancements-7">Enhancements</h3>
+<h3 id="enhancements-8">Enhancements</h3>
 <ul>
 <li>added support for .NET Core 2.2 (see PR <a href="https://github.com/svg-net/SVG/pull/448">#448</a>)</li>
 <li>handle missing gdi+ library on MacOs or Linux by a descriptive exception (see <a href="https://github.com/svg-net/SVG/issues/501">#501</a>)</li>
@@ -373,7 +377,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 <li>fixed bounds calculation with stroke (see PR <a href="https://github.com/svg-net/SVG/pull/433">#433</a>)</li>
 </ul>
 <h2 id="version-242-2019-03-01"><a href="https://www.nuget.org/packages/Svg/2.4.2">Version 2.4.2</a> (2019-03-01)</h2>
-<h3 id="enhancements-8">Enhancements</h3>
+<h3 id="enhancements-9">Enhancements</h3>
 <ul>
 <li>added font manager to allow user-defined font handling
 (see PR <a href="https://github.com/svg-net/SVG/pull/414">#414</a>)</li>
@@ -418,7 +422,7 @@ and <a href="https://github.com/svg-net/SVG/issues/220">#220</a>)</li>
 <li>fixed handling of <code>fill=currentColor</code> (see <a href="https://github.com/svg-net/SVG/issues/398">#398</a>)</li>
 </ul>
 <h2 id="version-240-2019-01-08"><a href="https://www.nuget.org/packages/Svg/2.4.0">Version 2.4.0</a> (2019-01-08)</h2>
-<h3 id="enhancements-9">Enhancements</h3>
+<h3 id="enhancements-10">Enhancements</h3>
 <ul>
 <li>added basic support for CSS text-transform</li>
 <li>added optional size parameter to <code>SvgDocument.Draw()</code></li>

@@ -8662,12 +8662,30 @@ references:
   commentId: T:Svg.SvgException
   fullName: Svg.SvgException
   nameWithType: SvgException
+- uid: Svg.SvgException.#ctor
+  name: SvgException()
+  href: api/Svg.SvgException.html#Svg_SvgException__ctor
+  commentId: M:Svg.SvgException.#ctor
+  fullName: Svg.SvgException.SvgException()
+  nameWithType: SvgException.SvgException()
+- uid: Svg.SvgException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: SvgException(SerializationInfo, StreamingContext)
+  href: api/Svg.SvgException.html#Svg_SvgException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:Svg.SvgException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  fullName: Svg.SvgException.SvgException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: SvgException.SvgException(SerializationInfo, StreamingContext)
 - uid: Svg.SvgException.#ctor(System.String)
   name: SvgException(String)
   href: api/Svg.SvgException.html#Svg_SvgException__ctor_System_String_
   commentId: M:Svg.SvgException.#ctor(System.String)
   fullName: Svg.SvgException.SvgException(System.String)
   nameWithType: SvgException.SvgException(String)
+- uid: Svg.SvgException.#ctor(System.String,System.Exception)
+  name: SvgException(String, Exception)
+  href: api/Svg.SvgException.html#Svg_SvgException__ctor_System_String_System_Exception_
+  commentId: M:Svg.SvgException.#ctor(System.String,System.Exception)
+  fullName: Svg.SvgException.SvgException(System.String, System.Exception)
+  nameWithType: SvgException.SvgException(String, Exception)
 - uid: Svg.SvgException.#ctor*
   name: SvgException
   href: api/Svg.SvgException.html#Svg_SvgException__ctor_
@@ -9983,12 +10001,36 @@ references:
   commentId: T:Svg.SvgGdiPlusCannotBeLoadedException
   fullName: Svg.SvgGdiPlusCannotBeLoadedException
   nameWithType: SvgGdiPlusCannotBeLoadedException
+- uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor
+  name: SvgGdiPlusCannotBeLoadedException()
+  href: api/Svg.SvgGdiPlusCannotBeLoadedException.html#Svg_SvgGdiPlusCannotBeLoadedException__ctor
+  commentId: M:Svg.SvgGdiPlusCannotBeLoadedException.#ctor
+  fullName: Svg.SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException()
+  nameWithType: SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException()
 - uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.Exception)
   name: SvgGdiPlusCannotBeLoadedException(Exception)
   href: api/Svg.SvgGdiPlusCannotBeLoadedException.html#Svg_SvgGdiPlusCannotBeLoadedException__ctor_System_Exception_
   commentId: M:Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.Exception)
   fullName: Svg.SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(System.Exception)
   nameWithType: SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(Exception)
+- uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: SvgGdiPlusCannotBeLoadedException(SerializationInfo, StreamingContext)
+  href: api/Svg.SvgGdiPlusCannotBeLoadedException.html#Svg_SvgGdiPlusCannotBeLoadedException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  fullName: Svg.SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(SerializationInfo, StreamingContext)
+- uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.String)
+  name: SvgGdiPlusCannotBeLoadedException(String)
+  href: api/Svg.SvgGdiPlusCannotBeLoadedException.html#Svg_SvgGdiPlusCannotBeLoadedException__ctor_System_String_
+  commentId: M:Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.String)
+  fullName: Svg.SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(System.String)
+  nameWithType: SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(String)
+- uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.String,System.Exception)
+  name: SvgGdiPlusCannotBeLoadedException(String, Exception)
+  href: api/Svg.SvgGdiPlusCannotBeLoadedException.html#Svg_SvgGdiPlusCannotBeLoadedException__ctor_System_String_System_Exception_
+  commentId: M:Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.String,System.Exception)
+  fullName: Svg.SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(System.String, System.Exception)
+  nameWithType: SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(String, Exception)
 - uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor*
   name: SvgGdiPlusCannotBeLoadedException
   href: api/Svg.SvgGdiPlusCannotBeLoadedException.html#Svg_SvgGdiPlusCannotBeLoadedException__ctor_
@@ -10567,12 +10609,30 @@ references:
   commentId: T:Svg.SvgIDException
   fullName: Svg.SvgIDException
   nameWithType: SvgIDException
+- uid: Svg.SvgIDException.#ctor
+  name: SvgIDException()
+  href: api/Svg.SvgIDException.html#Svg_SvgIDException__ctor
+  commentId: M:Svg.SvgIDException.#ctor
+  fullName: Svg.SvgIDException.SvgIDException()
+  nameWithType: SvgIDException.SvgIDException()
+- uid: Svg.SvgIDException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: SvgIDException(SerializationInfo, StreamingContext)
+  href: api/Svg.SvgIDException.html#Svg_SvgIDException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:Svg.SvgIDException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  fullName: Svg.SvgIDException.SvgIDException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: SvgIDException.SvgIDException(SerializationInfo, StreamingContext)
 - uid: Svg.SvgIDException.#ctor(System.String)
   name: SvgIDException(String)
   href: api/Svg.SvgIDException.html#Svg_SvgIDException__ctor_System_String_
   commentId: M:Svg.SvgIDException.#ctor(System.String)
   fullName: Svg.SvgIDException.SvgIDException(System.String)
   nameWithType: SvgIDException.SvgIDException(String)
+- uid: Svg.SvgIDException.#ctor(System.String,System.Exception)
+  name: SvgIDException(String, Exception)
+  href: api/Svg.SvgIDException.html#Svg_SvgIDException__ctor_System_String_System_Exception_
+  commentId: M:Svg.SvgIDException.#ctor(System.String,System.Exception)
+  fullName: Svg.SvgIDException.SvgIDException(System.String, System.Exception)
+  nameWithType: SvgIDException.SvgIDException(String, Exception)
 - uid: Svg.SvgIDException.#ctor*
   name: SvgIDException
   href: api/Svg.SvgIDException.html#Svg_SvgIDException__ctor_
@@ -10586,12 +10646,30 @@ references:
   commentId: T:Svg.SvgIDExistsException
   fullName: Svg.SvgIDExistsException
   nameWithType: SvgIDExistsException
+- uid: Svg.SvgIDExistsException.#ctor
+  name: SvgIDExistsException()
+  href: api/Svg.SvgIDExistsException.html#Svg_SvgIDExistsException__ctor
+  commentId: M:Svg.SvgIDExistsException.#ctor
+  fullName: Svg.SvgIDExistsException.SvgIDExistsException()
+  nameWithType: SvgIDExistsException.SvgIDExistsException()
+- uid: Svg.SvgIDExistsException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: SvgIDExistsException(SerializationInfo, StreamingContext)
+  href: api/Svg.SvgIDExistsException.html#Svg_SvgIDExistsException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:Svg.SvgIDExistsException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  fullName: Svg.SvgIDExistsException.SvgIDExistsException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: SvgIDExistsException.SvgIDExistsException(SerializationInfo, StreamingContext)
 - uid: Svg.SvgIDExistsException.#ctor(System.String)
   name: SvgIDExistsException(String)
   href: api/Svg.SvgIDExistsException.html#Svg_SvgIDExistsException__ctor_System_String_
   commentId: M:Svg.SvgIDExistsException.#ctor(System.String)
   fullName: Svg.SvgIDExistsException.SvgIDExistsException(System.String)
   nameWithType: SvgIDExistsException.SvgIDExistsException(String)
+- uid: Svg.SvgIDExistsException.#ctor(System.String,System.Exception)
+  name: SvgIDExistsException(String, Exception)
+  href: api/Svg.SvgIDExistsException.html#Svg_SvgIDExistsException__ctor_System_String_System_Exception_
+  commentId: M:Svg.SvgIDExistsException.#ctor(System.String,System.Exception)
+  fullName: Svg.SvgIDExistsException.SvgIDExistsException(System.String, System.Exception)
+  nameWithType: SvgIDExistsException.SvgIDExistsException(String, Exception)
 - uid: Svg.SvgIDExistsException.#ctor*
   name: SvgIDExistsException
   href: api/Svg.SvgIDExistsException.html#Svg_SvgIDExistsException__ctor_
@@ -10605,12 +10683,30 @@ references:
   commentId: T:Svg.SvgIDWrongFormatException
   fullName: Svg.SvgIDWrongFormatException
   nameWithType: SvgIDWrongFormatException
+- uid: Svg.SvgIDWrongFormatException.#ctor
+  name: SvgIDWrongFormatException()
+  href: api/Svg.SvgIDWrongFormatException.html#Svg_SvgIDWrongFormatException__ctor
+  commentId: M:Svg.SvgIDWrongFormatException.#ctor
+  fullName: Svg.SvgIDWrongFormatException.SvgIDWrongFormatException()
+  nameWithType: SvgIDWrongFormatException.SvgIDWrongFormatException()
+- uid: Svg.SvgIDWrongFormatException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  name: SvgIDWrongFormatException(SerializationInfo, StreamingContext)
+  href: api/Svg.SvgIDWrongFormatException.html#Svg_SvgIDWrongFormatException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
+  commentId: M:Svg.SvgIDWrongFormatException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
+  fullName: Svg.SvgIDWrongFormatException.SvgIDWrongFormatException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
+  nameWithType: SvgIDWrongFormatException.SvgIDWrongFormatException(SerializationInfo, StreamingContext)
 - uid: Svg.SvgIDWrongFormatException.#ctor(System.String)
   name: SvgIDWrongFormatException(String)
   href: api/Svg.SvgIDWrongFormatException.html#Svg_SvgIDWrongFormatException__ctor_System_String_
   commentId: M:Svg.SvgIDWrongFormatException.#ctor(System.String)
   fullName: Svg.SvgIDWrongFormatException.SvgIDWrongFormatException(System.String)
   nameWithType: SvgIDWrongFormatException.SvgIDWrongFormatException(String)
+- uid: Svg.SvgIDWrongFormatException.#ctor(System.String,System.Exception)
+  name: SvgIDWrongFormatException(String, Exception)
+  href: api/Svg.SvgIDWrongFormatException.html#Svg_SvgIDWrongFormatException__ctor_System_String_System_Exception_
+  commentId: M:Svg.SvgIDWrongFormatException.#ctor(System.String,System.Exception)
+  fullName: Svg.SvgIDWrongFormatException.SvgIDWrongFormatException(System.String, System.Exception)
+  nameWithType: SvgIDWrongFormatException.SvgIDWrongFormatException(String, Exception)
 - uid: Svg.SvgIDWrongFormatException.#ctor*
   name: SvgIDWrongFormatException
   href: api/Svg.SvgIDWrongFormatException.html#Svg_SvgIDWrongFormatException__ctor_
