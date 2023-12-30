@@ -14,6 +14,12 @@ namespace Svg.UnitTests
     [TestFixture]
     public class ImageComparisonTest
     {
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            TestsUtils.EnsureTestsExists(ImageTestDataSource.SuiteTestsFolder).Wait();
+        }
+
         public TestContext TestContext { get; set; }
 
 #if NETSTANDARD || NETCOREAPP
@@ -53,14 +59,16 @@ namespace Svg.UnitTests
             {
                 basePath = Path.GetDirectoryName(basePath);
             }
-            basePath = Path.Combine(Path.Combine(basePath, "Tests"), "W3CTestSuite");
-            var svgBasePath = Path.Combine(basePath, "svg");
+            // var svgBasePath = Path.Combine(basePath, "svg");
             var baseName = testData.BaseName;
             bool testSaveLoad = !baseName.StartsWith("#");
             if (!testSaveLoad)
             {
                 baseName = baseName.Substring(1);
             }
+            var testsRoot = Path.Combine(basePath, "Tests");
+            basePath = TestsUtils.GetPath(testsRoot, baseName);
+            // basePath = Path.Combine(Path.Combine(basePath, "Tests"), "Issues");
             var svgPath = Path.Combine(Path.Combine(basePath, "svg"), baseName + ".svg");
             var pngPath = Path.Combine(Path.Combine(basePath, "png"), baseName + ".png");
             CompareSvgImageWithReferenceImpl(baseName, svgPath, pngPath, testSaveLoad);
@@ -115,14 +123,16 @@ namespace Svg.UnitTests
         public void RecordDiffForAllSvgImagesWithReference()
         {
 #if NETSTANDARD || NETCOREAPP
-            var basePath = Path.Combine(ImageTestDataSource.SuiteTestsFolder, "W3CTestSuite");
+            var testsRoot = ImageTestDataSource.SuiteTestsFolder;
 #else
-            var basePath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDirectory))); //TODO: Tthe get dir name was parsed from the testparams -> Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestRunDirectory)));
-            basePath = Path.Combine(Path.Combine(basePath, "Tests"), "W3CTestSuite");
+            var testsRoot = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDirectory))); //TODO: Tthe get dir name was parsed from the testparams -> Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestRunDirectory)));
+            testsRoot = Path.Combine(Path.Combine(testsRoot, "Tests"));
 #endif
             string[] lines = File.ReadAllLines(@"..\..\..\..\Tests\Svg.UnitTests\all.csv");
             foreach (var baseName in lines)
             {
+                var basePath = TestsUtils.GetPath(testsRoot, baseName);
+
                 var svgPath = Path.Combine(Path.Combine(basePath, "svg"), baseName + ".svg");
                 var pngPath = Path.Combine(Path.Combine(basePath, "png"), baseName + ".png");
                 if (File.Exists(pngPath) && File.Exists(svgPath))
@@ -305,10 +315,15 @@ namespace Svg.UnitTests
         public static IEnumerable<TestData> PassingTests()
         {
             var basePath = SuiteTestsFolder;
-            var testSuite = Path.Combine(basePath, "W3CTestSuite");
+            var W3CPath = Path.Combine(basePath, TestsUtils.W3CTests);
+            var IssuesPath = Path.Combine(basePath, TestsUtils.IssuesTests);
             var rows = new ImageTestDataSource().LoadRowsFromResourceCsv().Skip(1); // Skip header row
             foreach (var row in rows)
+            {
+                var testSuite = row.StartsWith(TestsUtils.IssuesPrefix) ? IssuesPath : W3CPath;
+
                 yield return new TestData() { BasePath = testSuite, BaseName = row };
+            }
         }
 
         private const string ResourceIdentifier = "PassingTests.csv";

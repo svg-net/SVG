@@ -9,13 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\W3CTestSuite\svg\__AJ_Digital_Camera.svg">
+    <EmbeddedResource Include="..\Issues\svg\__AJ_Digital_Camera.svg">
       <Link>Assets\__AJ_Digital_Camera.svg</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\W3CTestSuite\svg\__issue-134-01.svg">
+    <EmbeddedResource Include="..\Issues\svg\__issue-134-01.svg">
       <Link>Assets\__issue-134-01.svg</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\W3CTestSuite\svg\__tiger.svg">
+    <EmbeddedResource Include="..\Issues\svg\__tiger.svg">
       <Link>Assets\__tiger.svg</Link>
     </EmbeddedResource>
   </ItemGroup>
