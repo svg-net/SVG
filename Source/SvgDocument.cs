@@ -226,7 +226,7 @@ namespace Svg
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
         public static SvgDocument Open(string path)
         {
-            return Open<SvgDocument>(path, null, null);
+            return Open<SvgDocument>(path, new SvgOptions());
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Svg
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
         public static T Open<T>(string path) where T : SvgDocument, new()
         {
-            return Open<T>(path, null, null);
+            return Open<T>(path, new SvgOptions());
         }
 
         /// <summary>
@@ -249,18 +249,17 @@ namespace Svg
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
         public static T Open<T>(string path, Dictionary<string, string> entities) where T : SvgDocument, new()
         {
-            return Open<T>(path, entities, null);
+            return Open<T>(path, new SvgOptions(entities));
         }
 
         /// <summary>
         /// Opens the document at the specified path and loads the SVG contents.
         /// </summary>
         /// <param name="path">A <see cref="string"/> containing the path of the file to open.</param>
-        /// <param name="entities">A dictionary of custom entity definitions to be used when resolving XML entities within the document.</param>
-        /// <param name="css">Css Style that will be applied to the Svg Document</param>
+        /// <param name="svgOptions">A dictionary of custom entity definitions to be used when resolving XML entities within the document.</param>
         /// <returns>A <see cref="SvgDocument"/> with the contents loaded.</returns>
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
-        public static T Open<T>(string path, Dictionary<string, string> entities, string css = null) where T : SvgDocument, new()
+        public static T Open<T>(string path, SvgOptions svgOptions) where T : SvgDocument, new()
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -274,7 +273,7 @@ namespace Svg
 
             using (var stream = File.OpenRead(path))
             {
-                var doc = Open<T>(stream, entities, css);
+                var doc = Open<T>(stream, svgOptions);
                 doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
                 return doc;
             }
@@ -286,7 +285,7 @@ namespace Svg
         /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
         public static T Open<T>(Stream stream) where T : SvgDocument, new()
         {
-            return Open<T>(stream, null);
+            return Open<T>(stream, new SvgOptions());
         }
 
         /// <summary>
@@ -298,17 +297,16 @@ namespace Svg
         public static T Open<T>(Stream stream, Dictionary<string, string> entities)
             where T : SvgDocument, new()
         {
-            return Open<T>(stream, entities, null);
+            return Open<T>(stream, new SvgOptions(entities));
         }
 
         /// <summary>
         /// Opens an SVG document from the specified <see cref="Stream"/> and adds the specified entities.
         /// </summary>
         /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
-        /// <param name="entities">Custom entity definitions.</param>
-        /// <param name="css">Css Style that will be applied to the Svg Document</param>
+        /// <param name="svgOptions">Css Style that will be applied to the Svg Document</param>
         /// <exception cref="ArgumentNullException">The <paramref name="stream"/> parameter cannot be <c>null</c>.</exception>
-        public static T Open<T>(Stream stream, Dictionary<string, string> entities, string css = null) where T : SvgDocument, new()
+        public static T Open<T>(Stream stream, SvgOptions svgOptions) where T : SvgDocument, new()
         {
             if (stream == null)
             {
@@ -316,13 +314,13 @@ namespace Svg
             }
 
             // Don't close the stream via a dispose: that is the client's job.
-            var reader = new SvgTextReader(stream, entities)
+            var reader = new SvgTextReader(stream, svgOptions.Entities)
             {
                 XmlResolver = new SvgDtdResolver(),
                 WhitespaceHandling = WhitespaceHandling.Significant,
                 DtdProcessing = DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
             };
-            return Create<T>(reader, css);
+            return Create<T>(reader, svgOptions.Css);
         }
 
         /// <summary>
