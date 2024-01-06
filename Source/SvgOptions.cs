@@ -15,6 +15,17 @@ public class SvgOptions
         Entities = entities;
     }
 
+    public SvgOptions(Dictionary<string, string> entities, string css)
+    {
+        Entities = entities;
+        Css = css;
+    }
+
+    public SvgOptions(string css)
+    {
+        Css = css;
+    }
+
     public Dictionary<string, string>? Entities { get; set; }
     public string? Css { get; set; }
 }
