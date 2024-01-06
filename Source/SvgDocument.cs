@@ -247,6 +247,7 @@ namespace Svg
         /// <param name="entities">A dictionary of custom entity definitions to be used when resolving XML entities within the document.</param>
         /// <returns>An <see cref="SvgDocument"/> with the contents loaded.</returns>
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
+        [Obsolete("Use Open<T>(string path, SvgOptions svgOptions)")]
         public static T Open<T>(string path, Dictionary<string, string> entities) where T : SvgDocument, new()
         {
             return Open<T>(path, new SvgOptions(entities));
@@ -294,6 +295,7 @@ namespace Svg
         /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
         /// <param name="entities">Custom entity definitions.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="stream"/> parameter cannot be <c>null</c>.</exception>
+        [Obsolete("Use Open<T>(Stream stream, SvgOptions svgOptions)")]
         public static T Open<T>(Stream stream, Dictionary<string, string> entities)
             where T : SvgDocument, new()
         {
