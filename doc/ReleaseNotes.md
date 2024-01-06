@@ -4,7 +4,7 @@ The release versions are NuGet releases.
 ## Unreleased
 
 ### Changes
-* added css parameter to Open so that this can be used for transforming the svgdocument.
+* added SvgOptions with css parameter to Open so that this can be used for transforming the svgdocument.
 ### Enhancements
 * made exceptions serializable to be able to cross AppDomain boundaries (see [#826](https://github.com/svg-net/SVG/pull/826))
 
