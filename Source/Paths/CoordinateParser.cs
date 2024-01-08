@@ -24,7 +24,7 @@ namespace Svg
         public int Position;
         public bool HasMore;
 
-        public CoordinateParserState(ref ReadOnlySpan<char> chars)
+        public CoordinateParserState(ReadOnlySpan<char> chars)
         {
             CurrNumState = NumState.Separator;
             NewNumState = NumState.Separator;

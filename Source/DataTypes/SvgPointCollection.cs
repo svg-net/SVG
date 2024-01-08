@@ -61,7 +61,7 @@ namespace Svg
             if (value is string s)
             {
                 var coords = s.AsSpan().Trim();
-                var state = new CoordinateParserState(ref coords);
+                var state = new CoordinateParserState(coords);
                 var result = new SvgPointCollection();
                 while (CoordinateParser.TryGetFloat(out var pointValue, ref coords, ref state))
                 {

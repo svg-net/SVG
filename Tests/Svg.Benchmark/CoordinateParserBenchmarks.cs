@@ -11,7 +11,7 @@ namespace Svg.Benchmark
         public void CoordinateParser_TryGetBool()
         {
             var chars = "false".AsSpan().Trim();
-            var state = new CoordinateParserState(ref chars);
+            var state = new CoordinateParserState(chars);
             CoordinateParser.TryGetBool(out var result, ref chars, ref state);
         }
 
@@ -19,7 +19,7 @@ namespace Svg.Benchmark
         public void CoordinateParser_TryGetFloat_Points()
         {
             var chars = "1.6,3.2 1.2,5".AsSpan().Trim();
-            var state = new CoordinateParserState(ref chars);
+            var state = new CoordinateParserState(chars);
             while (CoordinateParser.TryGetFloat(out var result, ref chars, ref state))
             {
             }

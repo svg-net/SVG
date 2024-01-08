@@ -50,14 +50,14 @@ namespace Svg
                         if (command.Length > 0)
                         {
                             var commandSetTrimmed = pathTrimmed.Slice(start, length).Trim();
-                            var state = new CoordinateParserState(ref commandSetTrimmed);
+                            var state = new CoordinateParserState(commandSetTrimmed);
                             CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
                         }
 
                         if (pathLength == i + 1)
                         {
                             var commandSetTrimmed = pathTrimmed.Slice(i, 1).Trim();
-                            var state = new CoordinateParserState(ref commandSetTrimmed);
+                            var state = new CoordinateParserState(commandSetTrimmed);
                             CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
                         }
                     }
@@ -70,7 +70,7 @@ namespace Svg
                         if (command.Length > 0)
                         {
                             var commandSetTrimmed = pathTrimmed.Slice(start, length).Trim();
-                            var state = new CoordinateParserState(ref commandSetTrimmed);
+                            var state = new CoordinateParserState(commandSetTrimmed);
                             CreatePathSegment(commandSetTrimmed[0], segments, ref state, ref commandSetTrimmed);
                         }
                     }
