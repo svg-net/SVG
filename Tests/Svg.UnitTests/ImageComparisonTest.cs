@@ -17,6 +17,7 @@ namespace Svg.UnitTests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
+            this.TestContext = TestContext.CurrentContext;
             TestsUtils.EnsureTestsExists(ImageTestDataSource.SuiteTestsFolder).Wait();
         }
 
@@ -119,18 +120,17 @@ namespace Svg.UnitTests
         /// of all considered W3C tests.
         /// Can be used to enhance the difference calculation.
         /// </summary>
-        // [TestFixture]
+        // [Test]
         public void RecordDiffForAllSvgImagesWithReference()
         {
-#if NETSTANDARD || NETCOREAPP
             var testsRoot = ImageTestDataSource.SuiteTestsFolder;
-#else
-            var testsRoot = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestDirectory))); //TODO: Tthe get dir name was parsed from the testparams -> Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(TestContext.TestRunDirectory)));
-            testsRoot = Path.Combine(Path.Combine(testsRoot, "Tests"));
-#endif
-            string[] lines = File.ReadAllLines(@"..\..\..\..\Tests\Svg.UnitTests\all.csv");
+            //string[] lines = File.ReadAllLines(@"..\..\..\..\Tests\Svg.UnitTests\all.csv");
+            string[] lines = File.ReadAllLines(Path.Combine(testsRoot, @"Svg.UnitTests\AllTests.csv"));
+            TestContext.Progress.WriteLine("RecordDiffForAllSvgImagesWithReference: Outputs");
             foreach (var baseName in lines)
             {
+                if (baseName.Equals("BaseName"))
+                    continue; // Skip the column header
                 var basePath = TestsUtils.GetPath(testsRoot, baseName);
 
                 var svgPath = Path.Combine(Path.Combine(basePath, "svg"), baseName + ".svg");
@@ -143,7 +143,7 @@ namespace Svg.UnitTests
                     using (var svgImage = LoadSvgImage(svgDoc, useFixedSize))
                     {
                         var difference = svgImage.PercentageDifference(pngImage);
-                        Console.WriteLine(baseName + " " + (difference * 100.0).ToString());
+                        TestContext.Progress.WriteLine("    " + baseName + " " + (difference * 100.0).ToString());
                     }
                 }
             }

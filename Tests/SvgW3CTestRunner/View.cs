@@ -110,7 +110,7 @@ namespace SvgW3CTestRunner
             return true;
         }
 
-        private static async Task DownloadW3CTestSuite(string downloadeFilePath)
+        private static async Task DownloadW3CTestSuite(string downloadedFilePath)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
@@ -118,7 +118,7 @@ namespace SvgW3CTestRunner
             {
                 using (Stream streamToReadFrom = await client.GetStreamAsync(W3CTestSuiteUrl))
                 {
-                    using (Stream streamToWriteTo = new FileStream(downloadeFilePath, FileMode.CreateNew))
+                    using (Stream streamToWriteTo = new FileStream(downloadedFilePath, FileMode.CreateNew))
                     {
                         await streamToReadFrom.CopyToAsync(streamToWriteTo);
                     }
@@ -131,27 +131,27 @@ namespace SvgW3CTestRunner
             if (!IsTestSuiteAvailable())
             {
                 string svgDir = Path.GetFullPath(_svgW3CBasePath);
-                var downloadeFilePath = Path.GetFullPath(Path.Combine(svgDir, "..", "Svg11.zip"));
-                string destinationDirectory = Path.GetDirectoryName(downloadeFilePath);
+                var downloadedFilePath = Path.GetFullPath(Path.Combine(svgDir, "..", "Svg11.zip"));
+                string destinationDirectory = Path.GetDirectoryName(downloadedFilePath);
 
-                if (File.Exists(downloadeFilePath))
+                if (File.Exists(downloadedFilePath))
                 {
-                    File.Delete(downloadeFilePath);
+                    File.Delete(downloadedFilePath);
                 }
 
-                await DownloadW3CTestSuite(downloadeFilePath);
+                await DownloadW3CTestSuite(downloadedFilePath);
 
                 await Task.Delay(100);
 
-                ZipFile.ExtractToDirectory(downloadeFilePath, destinationDirectory);
+                ZipFile.ExtractToDirectory(downloadedFilePath, destinationDirectory);
 
                 var sourceImage = Path.Combine(destinationDirectory, "images", FixImage);
                 var destImage = Path.Combine(destinationDirectory, "svg", FixImage);
                 File.Copy(sourceImage, destImage);
 
-                if (File.Exists(downloadeFilePath))
+                if (File.Exists(downloadedFilePath))
                 {
-                    File.Delete(downloadeFilePath);
+                    File.Delete(downloadedFilePath);
                 }
             }
 

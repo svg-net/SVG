@@ -38,21 +38,21 @@ namespace Svg.UnitTests
             var testsPath = Path.Combine(testsRoot, W3CTests);
             if (!IsTestSuiteAvailable(testsPath))
             {
-                var downloadeFilePath = Path.GetFullPath(Path.Combine(testsPath, "Svg11.zip"));
-                string destinationDirectory = Path.GetDirectoryName(downloadeFilePath);
+                var downloadedFilePath = Path.GetFullPath(Path.Combine(testsPath, "Svg11.zip"));
+                string destinationDirectory = Path.GetDirectoryName(downloadedFilePath);
 
-                if (File.Exists(downloadeFilePath))
+                if (File.Exists(downloadedFilePath))
                 {
-                    File.Delete(downloadeFilePath);
+                    File.Delete(downloadedFilePath);
                 }
 
-                await DownloadW3CTestSuite(downloadeFilePath);
+                await DownloadW3CTestSuite(downloadedFilePath);
 
-                ZipFile.ExtractToDirectory(downloadeFilePath, destinationDirectory);
+                ZipFile.ExtractToDirectory(downloadedFilePath, destinationDirectory);
 
-                if (File.Exists(downloadeFilePath))
+                if (File.Exists(downloadedFilePath))
                 {
-                    File.Delete(downloadeFilePath);
+                    File.Delete(downloadedFilePath);
                 }
 
                 var sourceImage = Path.Combine(destinationDirectory, "images", FixImage);
@@ -93,7 +93,7 @@ namespace Svg.UnitTests
             return true;
         }
 
-        private static async Task DownloadW3CTestSuite(string downloadeFilePath)
+        private static async Task DownloadW3CTestSuite(string downloadedFilePath)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
@@ -101,7 +101,7 @@ namespace Svg.UnitTests
             {
                 using (Stream streamToReadFrom = await client.GetStreamAsync(W3CTestSuiteUrl))
                 {
-                    using (Stream streamToWriteTo = new FileStream(downloadeFilePath, FileMode.CreateNew))
+                    using (Stream streamToWriteTo = new FileStream(downloadedFilePath, FileMode.CreateNew))
                     {
                         await streamToReadFrom.CopyToAsync(streamToWriteTo);
                     }
