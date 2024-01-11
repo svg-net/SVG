@@ -2,42 +2,199 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+
 using Svg;
 
 namespace SvgW3CTestRunner
 {
     public partial class View : Form
     {
+        private const string FixImage = "smiley.png";
+
+        private const string IssuesPrefix = "__";
+
         //Data folders
-        private string _svgBasePath = Path.Combine("..", "..", "..", "..", "W3CTestSuite", "svg");
-        private string _pngBasePath = Path.Combine("..", "..", "..", "..", "W3CTestSuite", "png");
+        private static readonly string _svgW3CBasePath = Path.Combine("..", "..", "..", "..", "W3CTestSuite", "svg");
+        private static readonly string _pngW3CBasePath = Path.Combine("..", "..", "..", "..", "W3CTestSuite", "png");
+
+        //Data folders
+        private static readonly string _svgIssuesBasePath = Path.Combine("..", "..", "..", "..", "Issues", "svg");
+        private static readonly string _pngIssuesBasePath = Path.Combine("..", "..", "..", "..", "Issues", "png");
+
+        [DllImport("Shlwapi.dll", EntryPoint = "PathIsDirectoryEmpty")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsDirectoryEmpty([MarshalAs(UnmanagedType.LPStr)] string directory);
+
+        private const string W3CTestSuiteUrl
+            = "https://github.com/ElinamLLC/SharpVectors-TestSuites/raw/master/Svg11.zip";
 
         public View()
         {
             InitializeComponent();
+
+            this.Load += OnFormLoad;
+
+            var screenBounds = Screen.PrimaryScreen.WorkingArea;
+
+            int width = screenBounds.Width;
+            int height = screenBounds.Height;
+            if (width <= 1280)
+            {
+                this.Width = (int)(Math.Min(1280, width) * 0.95);
+            }
+            else
+            {
+                this.Width = (int)(width * 0.80);
+            }
+            this.Height = (int)(height * 0.90);
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.F))
+            {
+                ListBox[] listItems = { 
+                    lstW3CFilesPassing, 
+                    lstW3CFilesFailing, 
+                    lstFilesOtherPassing,
+                    lstFilesOtherFailing
+                };
+
+                ListSearchDialog dlg = new ListSearchDialog();
+                dlg.ListItems = listItems;
+                dlg.SeletedTabIndex = fileTabBox.SelectedIndex;
+                if (dlg.ShowDialog(this) == DialogResult.OK)
+                {
+                    var selectedList = listItems[dlg.SeletedTabIndex];
+                    var selectedIndex = selectedList.SelectedIndex;
+                    selectedList.ClearSelected();
+
+                    fileTabBox.SelectedIndex = dlg.SeletedTabIndex;
+                    selectedList.SelectedIndex = selectedIndex;
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private static bool IsTestSuiteAvailable()
+        {
+            if (Directory.Exists(_svgW3CBasePath) == false)
+            {
+                return false;
+            }
+            if (Directory.Exists(_pngW3CBasePath) == false)
+            {
+                return false;
+            }
+            string svgDir = Path.GetFullPath(_svgW3CBasePath);
+            if (!Directory.Exists(svgDir) || IsDirectoryEmpty(svgDir) == true)
+            {
+                return false;
+            }
+            string pngDir = Path.Combine(_pngW3CBasePath);
+            if (!Directory.Exists(pngDir) || IsDirectoryEmpty(pngDir) == true)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static async Task DownloadW3CTestSuite(string downloadedFilePath)
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
+            using (HttpClient client = new HttpClient())
+            {
+                using (Stream streamToReadFrom = await client.GetStreamAsync(W3CTestSuiteUrl))
+                {
+                    using (Stream streamToWriteTo = new FileStream(downloadedFilePath, FileMode.CreateNew))
+                    {
+                        await streamToReadFrom.CopyToAsync(streamToWriteTo);
+                    }
+                }
+            }
+        }
+
+        private async void OnFormLoad(object sender, EventArgs e)
+        {
+            if (!IsTestSuiteAvailable())
+            {
+                string svgDir = Path.GetFullPath(_svgW3CBasePath);
+                var downloadedFilePath = Path.GetFullPath(Path.Combine(svgDir, "..", "Svg11.zip"));
+                string destinationDirectory = Path.GetDirectoryName(downloadedFilePath);
+
+                if (File.Exists(downloadedFilePath))
+                {
+                    File.Delete(downloadedFilePath);
+                }
+
+                await DownloadW3CTestSuite(downloadedFilePath);
+
+                await Task.Delay(100);
+
+                ZipFile.ExtractToDirectory(downloadedFilePath, destinationDirectory);
+
+                var sourceImage = Path.Combine(destinationDirectory, "images", FixImage);
+                var destImage = Path.Combine(destinationDirectory, "svg", FixImage);
+                File.Copy(sourceImage, destImage);
+
+                if (File.Exists(downloadedFilePath))
+                {
+                    File.Delete(downloadedFilePath);
+                }
+            }
+
+            this.LoadW3CTestSuite();
+            this.LoadIssuesAndPullRequests();
+        }
+
+        private void LoadW3CTestSuite()
+        {
             // ignore tests pertaining to javascript or xml reading
-            var passingtestsTxt = Path.Combine(_svgBasePath, "..", "PassingTests.txt");
+            var passingtestsTxt = Path.Combine(_svgW3CBasePath, "..", "PassingTests.txt");
             var passes = File.ReadAllLines(passingtestsTxt).ToDictionary((f) => f, (f) => true);
             var files = from f in
-                         from g in Directory.GetFiles(_svgBasePath) select Path.GetFileName(g)
+                         from g in Directory.GetFiles(_svgW3CBasePath) select Path.GetFileName(g)
                          where !f.StartsWith("animate-") && !f.StartsWith("conform-viewer") &&
                          !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-") &&
                          !f.StartsWith("script-") && f.EndsWith(".svg")
-                         && File.Exists(Path.Combine(_pngBasePath, Path.ChangeExtension(f, "png")))
+                         && File.Exists(Path.Combine(_pngW3CBasePath, Path.ChangeExtension(f, "png")))
                          orderby f
                          select (object)f;
 
-            var other = files.Where(f => ((string)f).StartsWith("__"));
-            lstFilesOtherPassing.Items.AddRange(other.Where(f => passes.ContainsKey((string)f)).ToArray());
-            lstFilesOtherFailing.Items.AddRange(other.Where(f => !passes.ContainsKey((string)f)).ToArray());
-            files = files.Where(f => !((string)f).StartsWith("__"));
+            //files = files.Where(f => !((string)f).StartsWith(IssuesPrefix));
             lstW3CFilesPassing.Items.AddRange(files.Where(f => passes.ContainsKey((string)f)).ToArray());
             lstW3CFilesFailing.Items.AddRange(files.Where(f => !passes.ContainsKey((string)f)).ToArray());
+        }
+
+        private void LoadIssuesAndPullRequests()
+        {
+            // ignore tests pertaining to javascript or xml reading
+            var passingtestsTxt = Path.Combine(_svgIssuesBasePath, "..", "PassingTests.txt");
+            var passes = File.ReadAllLines(passingtestsTxt).ToDictionary((f) => f, (f) => true);
+            var files = from f in
+                         from g in Directory.GetFiles(_svgIssuesBasePath) select Path.GetFileName(g)
+                         where !f.StartsWith("animate-") && !f.StartsWith("conform-viewer") &&
+                         !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-") &&
+                         !f.StartsWith("script-") && f.EndsWith(".svg")
+                         && File.Exists(Path.Combine(_pngIssuesBasePath, Path.ChangeExtension(f, "png")))
+                         orderby f
+                         select (object)f;
+
+            //var other = files.Where(f => ((string)f).StartsWith(IssuesPrefix));
+            lstFilesOtherPassing.Items.AddRange(files.Where(f => passes.ContainsKey((string)f)).ToArray());
+            lstFilesOtherFailing.Items.AddRange(files.Where(f => !passes.ContainsKey((string)f)).ToArray());
         }
 
         private void boxConsoleLog_MouseDown(object sender, MouseEventArgs e)
@@ -64,7 +221,7 @@ namespace SvgW3CTestRunner
             }
         }
 
-        private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
+        private void OnW3CSelectedIndexChanged(object sender, EventArgs e)
         {
 #if NET5_0_OR_GREATER
             if (!OperatingSystem.IsWindows())
@@ -73,19 +230,24 @@ namespace SvgW3CTestRunner
 
             //render svg
             var lstFiles = sender as ListBox;
+            if (lstFiles.SelectedIndex < 0)
+            {
+                return;
+            }
+
             var fileName = lstFiles.SelectedItem.ToString();
             if (fileName.StartsWith("#")) return;
 
             //display png
-            var png = Image.FromFile(Path.Combine(_pngBasePath, Path.ChangeExtension(fileName, "png")));
+            var png = Image.FromFile(Path.Combine(_pngW3CBasePath, Path.ChangeExtension(fileName, "png")));
             picPng.Image = png;
 
             var doc = new SvgDocument();
             try
             {
                 Debug.Print(fileName);
-                doc = SvgDocument.Open(Path.Combine(_svgBasePath, fileName));
-                if (fileName.StartsWith("__"))
+                doc = SvgDocument.Open(Path.Combine(_svgW3CBasePath, fileName));
+                if (fileName.StartsWith(IssuesPrefix))
                 {
                     picSvg.Image = doc.Draw();
                 }
@@ -119,7 +281,7 @@ namespace SvgW3CTestRunner
                     doc = SvgDocument.Open<SvgDocument>(memStream);
                     doc.BaseUri = baseUri;
 
-                    if (fileName.StartsWith("__"))
+                    if (fileName.StartsWith(IssuesPrefix))
                     {
                         picSaveLoad.Image = doc.Draw();
                     }
@@ -142,7 +304,101 @@ namespace SvgW3CTestRunner
             //compare svg to png
             try
             {
-                picSVGPNG.Image = PixelDiff((Bitmap)picPng.Image, (Bitmap)picSvg.Image);
+                picSVGPNG.Image = BitmapUtils.PixelDiff((Bitmap)picPng.Image, (Bitmap)picSvg.Image);
+            }
+            catch (Exception ex)
+            {
+                this.boxConsoleLog.AppendText("Result: TEST FAILED\n");
+                this.boxConsoleLog.AppendText("SVG TO PNG COMPARISON ERROR for " + fileName + "\n");
+                this.boxConsoleLog.AppendText(ex.ToString());
+                picSVGPNG.Image = null;
+            }
+        }
+
+        private void OnIssuesSelectedIndexChanged(object sender, EventArgs e)
+        {
+#if NET5_0_OR_GREATER
+            if (!OperatingSystem.IsWindows())
+                return;
+#endif
+
+            //render svg
+            var lstFiles = sender as ListBox;
+            if (lstFiles.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            var fileName = lstFiles.SelectedItem.ToString();
+            if (fileName.StartsWith("#")) return;
+
+            //display png
+            var png = Image.FromFile(Path.Combine(_pngIssuesBasePath, Path.ChangeExtension(fileName, "png")));
+            picPng.Image = png;
+
+            var doc = new SvgDocument();
+            try
+            {
+                Debug.Print(fileName);
+                doc = SvgDocument.Open(Path.Combine(_svgIssuesBasePath, fileName));
+                if (fileName.StartsWith(IssuesPrefix))
+                {
+                    picSvg.Image = doc.Draw();
+                }
+                else
+                {
+                    var img = new Bitmap(480, 360);
+                    doc.Draw(img);
+                    picSvg.Image = img;
+                }
+
+                this.boxConsoleLog.AppendText("\n\nIssues/Pull-Requests TEST " + fileName + "\n");
+                this.boxDescription.Text = GetDescription(doc);
+
+            }
+            catch (Exception ex)
+            {
+                this.boxConsoleLog.AppendText("Result: TEST FAILED\n");
+                this.boxConsoleLog.AppendText("SVG RENDERING ERROR for " + fileName + "\n");
+                this.boxConsoleLog.AppendText(ex.ToString());
+                picSvg.Image = null;
+            }
+
+            //save load
+            try
+            {
+                using (var memStream = new MemoryStream())
+                {
+                    doc.Write(memStream);
+                    memStream.Position = 0;
+                    var baseUri = doc.BaseUri;
+                    doc = SvgDocument.Open<SvgDocument>(memStream);
+                    doc.BaseUri = baseUri;
+
+                    if (fileName.StartsWith(IssuesPrefix))
+                    {
+                        picSaveLoad.Image = doc.Draw();
+                    }
+                    else
+                    {
+                        var img = new Bitmap(480, 360);
+                        doc.Draw(img);
+                        picSaveLoad.Image = img;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.boxConsoleLog.AppendText("Result: TEST FAILED\n");
+                this.boxConsoleLog.AppendText("SVG SERIALIZATION ERROR for " + fileName + "\n");
+                this.boxConsoleLog.AppendText(ex.ToString());
+                picSaveLoad.Image = null;
+            }
+
+            //compare svg to png
+            try
+            {
+                picSVGPNG.Image = BitmapUtils.PixelDiff((Bitmap)picPng.Image, (Bitmap)picSvg.Image);
             }
             catch (Exception ex)
             {
@@ -189,93 +445,5 @@ namespace SvgW3CTestRunner
             return description;
         }
 
-#if NET5_0_OR_GREATER
-        [System.Runtime.Versioning.SupportedOSPlatform("windows")]
-#endif
-        unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)
-        {
-            Bitmap output = new Bitmap(a.Width, a.Height, PixelFormat.Format32bppArgb);
-            Rectangle rect = new Rectangle(Point.Empty, a.Size);
-            using (var aData = a.LockBitsDisposable(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-            using (var bData = b.LockBitsDisposable(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-            using (var outputData = output.LockBitsDisposable(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
-            {
-                byte* aPtr = (byte*)aData.Scan0;
-                byte* bPtr = (byte*)bData.Scan0;
-                byte* outputPtr = (byte*)outputData.Scan0;
-                int len = aData.Stride * aData.Height;
-                for (int i = 0; i < len; i++)
-                {
-                    // For alpha use the average of both images (otherwise pixels with the same alpha won't be visible)
-                    if ((i + 1) % 4 == 0)
-                        *outputPtr = (byte)((*aPtr + *bPtr) / 2);
-                    else
-                        *outputPtr = (byte)~(*aPtr ^ *bPtr);
-
-                    outputPtr++;
-                    aPtr++;
-                    bPtr++;
-                }
-            }
-            return output;
-        }
-    }
-
-#if NET5_0_OR_GREATER
-    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
-#endif
-    static class BitmapExtensions
-    {
-        public static DisposableImageData LockBitsDisposable(this Bitmap bitmap, Rectangle rect, ImageLockMode flags, PixelFormat format)
-        {
-            return new DisposableImageData(bitmap, rect, flags, format);
-        }
-
-        public class DisposableImageData : IDisposable
-        {
-            private readonly Bitmap _bitmap;
-            private readonly BitmapData _data;
-
-            internal DisposableImageData(Bitmap bitmap, Rectangle rect, ImageLockMode flags, PixelFormat format)
-            {
-                _bitmap = bitmap;
-                _data = bitmap.LockBits(rect, flags, format);
-            }
-
-            public void Dispose()
-            {
-                _bitmap.UnlockBits(_data);
-            }
-
-            public IntPtr Scan0
-            {
-                get { return _data.Scan0; }
-            }
-
-            public int Stride
-            {
-                get { return _data.Stride; }
-            }
-
-            public int Width
-            {
-                get { return _data.Width; }
-            }
-
-            public int Height
-            {
-                get { return _data.Height; }
-            }
-
-            public PixelFormat PixelFormat
-            {
-                get { return _data.PixelFormat; }
-            }
-
-            public int Reserved
-            {
-                get { return _data.Reserved; }
-            }
-        }
     }
 }
