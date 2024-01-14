@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -12,6 +12,8 @@ namespace Svg
     /// </summary>
     public class SvgElementIdManager
     {
+        private static readonly HttpClient _httpClient = new HttpClient();
+
         private SvgDocument _document;
         private Dictionary<string, SvgElement> _idValueMap;
 
@@ -68,14 +70,12 @@ namespace Svg
                         return doc.IdManager.GetElementById(fragment);
                     }
                     else if (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
-                    {
-                        var httpRequest = WebRequest.Create(uri);
-                        using (var webResponse = httpRequest.GetResponse())
+                        using (var httpResponseMessage = _httpClient.GetAsync(uri).Result)
+                        using (var stream = httpResponseMessage.Content.ReadAsStreamAsync().Result)
                         {
-                            var doc = SvgDocument.Open<SvgDocument>(webResponse.GetResponseStream());
+                            var doc = SvgDocument.Open<SvgDocument>(stream);
                             return doc.IdManager.GetElementById(fragment);
                         }
-                    }
                     else
                         throw new NotSupportedException();
                 }

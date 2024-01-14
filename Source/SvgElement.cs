@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Xml;
 using Svg.Transforms;
@@ -17,32 +16,12 @@ namespace Svg
     {
         internal const int StyleSpecificity_PresAttribute = 0;
         internal const int StyleSpecificity_InlineStyle = 1 << 16;
-#if !USE_SOURCE_GENERATORS
-        //optimization
-        protected class PropertyAttributeTuple
-        {
-            public PropertyDescriptor Property;
-            public SvgAttributeAttribute Attribute;
-        }
-
-        protected class EventAttributeTuple
-        {
-            public FieldInfo Event;
-            public SvgAttributeAttribute Attribute;
-        }
-
-        //reflection cache
-        private IEnumerable<PropertyAttributeTuple> _svgPropertyAttributes;
-        private IEnumerable<EventAttributeTuple> _svgEventAttributes;
-#endif
         internal SvgElement _parent;
         private string _elementName;
         private SvgAttributeCollection _attributes;
         private EventHandlerList _eventHandlers;
         private SvgElementCollection _children;
         private static readonly object _loadEventKey = new object();
-        private Matrix _graphicsTransform;
-        private Region _graphicsClip;
         private SvgCustomAttributeCollection _customAttributes;
         private List<ISvgNode> _nodes = new List<ISvgNode>();
 
@@ -115,6 +94,8 @@ namespace Svg
             return false;
         }
 
+        protected internal static HttpClient HttpClient { get; } = new HttpClient();
+
         /// <summary>
         /// Gets the namespaces that element has.
         /// </summary>
@@ -135,7 +116,6 @@ namespace Svg
             {
                 if (string.IsNullOrEmpty(this._elementName))
                 {
-#if USE_SOURCE_GENERATORS
                     // There is special case for SvgDocument as valid attribute is only set on SvgFragment.
                     if (SvgElements.ElementNames.TryGetValue(this.GetType(), out var elementName))
                     {
@@ -148,13 +128,6 @@ namespace Svg
                         // The ElementName for SvgDocument is set explicitly here as that is the exception to attribute convention used accross codebase.
                         this._elementName = "svg";
                     }
-#else
-                    var attr = TypeDescriptor.GetAttributes(this).OfType<SvgElementAttribute>().SingleOrDefault();
-                    if (attr != null)
-                    {
-                        this._elementName = attr.ElementName;
-                    }
-#endif
                 }
 
                 return this._elementName;
@@ -337,67 +310,6 @@ namespace Svg
         }
 
         /// <summary>
-        /// Applies the required transforms to <see cref="ISvgRenderer"/>.
-        /// </summary>
-        /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
-        protected internal virtual bool PushTransforms(ISvgRenderer renderer)
-        {
-            _graphicsTransform = renderer.Transform;
-            _graphicsClip = renderer.GetClip();
-
-            var transforms = Transforms;
-            // Return if there are no transforms
-            if (transforms == null || transforms.Count == 0)
-                return true;
-
-            using (var transformMatrix = transforms.GetMatrix())
-            {
-                using (var zeroMatrix = new Matrix(0f, 0f, 0f, 0f, 0f, 0f))
-                    if (zeroMatrix.Equals(transformMatrix))
-                        return false;
-
-                using (var graphicsTransform = _graphicsTransform.Clone())
-                {
-                    graphicsTransform.Multiply(transformMatrix);
-                    renderer.Transform = graphicsTransform;
-                }
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Removes any previously applied transforms from the specified <see cref="ISvgRenderer"/>.
-        /// </summary>
-        /// <param name="renderer">The <see cref="ISvgRenderer"/> that should have transforms removed.</param>
-        protected internal virtual void PopTransforms(ISvgRenderer renderer)
-        {
-            renderer.Transform = _graphicsTransform;
-            _graphicsTransform.Dispose();
-            _graphicsTransform = null;
-            renderer.SetClip(_graphicsClip);
-            _graphicsClip = null;
-        }
-
-        /// <summary>
-        /// Applies the required transforms to <see cref="ISvgRenderer"/>.
-        /// </summary>
-        /// <param name="renderer">The <see cref="ISvgRenderer"/> to be transformed.</param>
-        void ISvgTransformable.PushTransforms(ISvgRenderer renderer)
-        {
-            PushTransforms(renderer);
-        }
-
-        /// <summary>
-        /// Removes any previously applied transforms from the specified <see cref="ISvgRenderer"/>.
-        /// </summary>
-        /// <param name="renderer">The <see cref="ISvgRenderer"/> that should have transforms removed.</param>
-        void ISvgTransformable.PopTransforms(ISvgRenderer renderer)
-        {
-            PopTransforms(renderer);
-        }
-
-        /// <summary>
         /// Gets or sets the element transforms.
         /// </summary>
         /// <value>The transforms.</value>
@@ -413,27 +325,6 @@ namespace Svg
                 value.TransformChanged += Attributes_AttributeChanged;
                 Attributes["transform"] = value;
             }
-        }
-
-        /// <summary>
-        /// Transforms the given rectangle with the set transformation, if any.
-        /// Can be applied to bounds calculated without considering the element transformation.
-        /// </summary>
-        /// <param name="bounds">The rectangle to be transformed.</param>
-        /// <returns>The transformed rectangle, or the original rectangle if no transformation exists.</returns>
-        protected RectangleF TransformedBounds(RectangleF bounds)
-        {
-            if (Transforms != null && Transforms.Count > 0)
-            {
-                using (var path = new GraphicsPath())
-                using (var matrix = Transforms.GetMatrix())
-                {
-                    path.AddRectangle(bounds);
-                    path.Transform(matrix);
-                    return path.GetBounds();
-                }
-            }
-            return bounds;
         }
 
         /// <summary>
@@ -554,18 +445,6 @@ namespace Svg
             //subscribe to attribute events
             Attributes.AttributeChanged += Attributes_AttributeChanged;
             CustomAttributes.AttributeChanged += Attributes_AttributeChanged;
-#if !USE_SOURCE_GENERATORS
-            //find svg attribute descriptions
-            _svgPropertyAttributes = from PropertyDescriptor a in TypeDescriptor.GetProperties(this)
-                                     let attribute = a.Attributes[typeof(SvgAttributeAttribute)] as SvgAttributeAttribute
-                                     where attribute != null
-                                     select new PropertyAttributeTuple { Property = a, Attribute = attribute };
-
-            _svgEventAttributes = from EventDescriptor a in TypeDescriptor.GetEvents(this)
-                                  let attribute = a.Attributes[typeof(SvgAttributeAttribute)] as SvgAttributeAttribute
-                                  where attribute != null
-                                  select new EventAttributeTuple { Event = a.ComponentType.GetField(a.Name, BindingFlags.Instance | BindingFlags.NonPublic), Attribute = attribute };
-#endif
         }
 
         //dispatch attribute event
@@ -577,15 +456,6 @@ namespace Svg
         public virtual void InitialiseFromXML(XmlReader reader, SvgDocument document)
         {
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Renders this element to the <see cref="ISvgRenderer"/>.
-        /// </summary>
-        /// <param name="renderer">The <see cref="ISvgRenderer"/> that the element should use to render itself.</param>
-        public void RenderElement(ISvgRenderer renderer)
-        {
-            Render(renderer);
         }
 
         /// <summary>Derrived classes may decide that the element should not be written. For example, the text element shouldn't be written if it's empty.</summary>
@@ -604,6 +474,17 @@ namespace Svg
                 else
                 {
                     var prefix = writer.LookupPrefix(this.ElementNamespace);
+                    if (prefix == null && !this.ElementNamespace.Equals(SvgNamespaces.SvgNamespace))
+                    {
+                        foreach (var kvp in this.Namespaces)
+                        {
+                            if (kvp.Value.Equals(this.ElementNamespace) && !string.IsNullOrEmpty(kvp.Key))
+                            {
+                                prefix = kvp.Key;
+                                break;
+                            }
+                        }
+                    }
                     if (prefix == null)
                         writer.WriteStartElement(this.ElementName, this.ElementNamespace);
                     else
@@ -638,7 +519,6 @@ namespace Svg
             // events
             if (AutoPublishEvents)
             {
-#if USE_SOURCE_GENERATORS
                 foreach (var property in this.GetProperties().Where(x => x.DescriptorType == DescriptorType.Event))
                 {
                     var evt = property.GetValue(this);
@@ -650,19 +530,6 @@ namespace Svg
                         WriteAttributeString(writer, property.AttributeName, null, evtValue);
                     }
                 }
-#else
-                foreach (var attr in _svgEventAttributes)
-                {
-                    var evt = attr.Event.GetValue(this);
-
-                    // if someone has registered publish the attribute
-                    if (evt != null && !string.IsNullOrEmpty(this.ID))
-                    {
-                        string evtValue = this.ID + "/" + attr.Attribute.Name;
-                        WriteAttributeString(writer, attr.Attribute.Name, null, evtValue);
-                    }
-                }
-#endif
             }
 
             // add the custom attributes
@@ -697,8 +564,6 @@ namespace Svg
         private Dictionary<string, string> WritePropertyAttributes(XmlWriter writer)
         {
             var styles = _styles.ToDictionary(_styles => _styles.Key, _styles => _styles.Value.Last().Value);
-
-#if USE_SOURCE_GENERATORS
             var opacityAttributes = new List<ISvgPropertyDescriptor>();
             var opacityValues = new Dictionary<string, float>();
 
@@ -822,127 +687,6 @@ namespace Svg
             {
                 Writing = false;
             }
-#else
-            var opacityAttributes = new List<PropertyAttributeTuple>();
-            var opacityValues = new Dictionary<string, float>();
-
-            try
-            {
-                Writing = true;
-
-                foreach (var attr in _svgPropertyAttributes)
-                {
-                    if (attr.Property.Converter.CanConvertTo(typeof(string)))
-                    {
-                        if (attr.Attribute.Name == "fill-opacity" || attr.Attribute.Name == "stroke-opacity")
-                        {
-                            opacityAttributes.Add(attr);
-                            continue;
-                        }
-
-                        if (Attributes.ContainsKey(attr.Attribute.Name))
-                        {
-                            var propertyValue = attr.Property.GetValue(this);
-
-                            var forceWrite = false;
-                            var writeStyle = attr.Attribute.Name == "fill" || attr.Attribute.Name == "stroke";
-
-                            if (Parent != null)
-                            {
-                                if (writeStyle && propertyValue == SvgPaintServer.NotSet)
-                                    continue;
-
-                                object parentValue;
-                                if (TryResolveParentAttributeValue(attr.Attribute.Name, out parentValue))
-                                {
-                                    if ((parentValue == propertyValue)
-                                        || ((parentValue != null) && parentValue.Equals(propertyValue)))
-                                    {
-                                        if (writeStyle)
-                                            continue;
-                                    }
-                                    else
-                                        forceWrite = true;
-                                }
-                            }
-
-                            var hasOpacity = writeStyle;
-                            if (hasOpacity)
-                            {
-                                if (propertyValue is SvgColourServer && ((SvgColourServer)propertyValue).Colour.A < 255)
-                                {
-                                    var opacity = ((SvgColourServer)propertyValue).Colour.A / 255f;
-                                    opacityValues.Add(attr.Attribute.Name + "-opacity", opacity);
-                                }
-                            }
-
-#if NETFULL
-                            var value = (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
-#else
-                            // dotnetcore throws exception if input is null
-                            var value = propertyValue == null ? null : (string)attr.Property.Converter.ConvertTo(propertyValue, typeof(string));
-#endif
-
-                            if (propertyValue != null)
-                            {
-                                //Only write the attribute's value if it is not the default value, not null/empty, or we're forcing the write.
-                                if (forceWrite || !string.IsNullOrEmpty(value))
-                                {
-                                    if (writeStyle)
-                                    {
-                                        styles[attr.Attribute.Name] = value;
-                                    }
-                                    else
-                                    {
-                                        WriteAttributeString(writer, attr.Attribute.Name, attr.Attribute.NameSpace, value);
-                                    }
-                                }
-                            }
-                            else if (attr.Attribute.Name == "fill") //if fill equals null, write 'none'
-                            {
-                                if (writeStyle)
-                                {
-                                    styles[attr.Attribute.Name] = value;
-                                }
-                                else
-                                {
-                                    WriteAttributeString(writer, attr.Attribute.Name, attr.Attribute.NameSpace, value);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                foreach (var attr in opacityAttributes)
-                {
-                    var opacity = 1f;
-                    var write = false;
-
-                    var key = attr.Attribute.Name;
-                    if (opacityValues.ContainsKey(key))
-                    {
-                        opacity = opacityValues[key];
-                        write = true;
-                    }
-                    if (Attributes.ContainsKey(key))
-                    {
-                        opacity *= (float)attr.Property.GetValue(this);
-                        write = true;
-                    }
-                    if (write)
-                    {
-                        opacity = (float)Math.Round(opacity, 2, MidpointRounding.AwayFromZero);
-                        var value = (string)attr.Property.Converter.ConvertTo(opacity, typeof(string));
-                        if (!string.IsNullOrEmpty(value))
-                            WriteAttributeString(writer, attr.Attribute.Name, attr.Attribute.NameSpace, value);
-                    }
-                }
-            }
-            finally
-            {
-                Writing = false;
-            }
-#endif
             return styles;
         }
 
@@ -1040,132 +784,6 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
-        /// </summary>
-        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
-        protected virtual void Render(ISvgRenderer renderer)
-        {
-            try
-            {
-                PushTransforms(renderer);
-                RenderChildren(renderer);
-            }
-            finally
-            {
-                PopTransforms(renderer);
-            }
-        }
-
-        /// <summary>
-        /// Renders the children of this <see cref="SvgElement"/>.
-        /// </summary>
-        /// <param name="renderer">The <see cref="ISvgRenderer"/> to render the child <see cref="SvgElement"/>s to.</param>
-        protected virtual void RenderChildren(ISvgRenderer renderer)
-        {
-            foreach (var element in Children)
-                element.Render(renderer);
-        }
-
-        /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="ISvgRenderer"/> object.
-        /// </summary>
-        /// <param name="renderer">The <see cref="ISvgRenderer"/> object to render to.</param>
-        void ISvgElement.Render(ISvgRenderer renderer)
-        {
-            Render(renderer);
-        }
-
-        /// <summary>
-        /// Recursive method to add up the paths of all children
-        /// </summary>
-        /// <param name="elem"></param>
-        /// <param name="path"></param>
-        protected void AddPaths(SvgElement elem, GraphicsPath path)
-        {
-            foreach (var child in elem.Children)
-            {
-                // Skip to avoid double calculate Symbol element
-                // symbol element is only referenced by use element
-                // So here we need to skip when it is directly considered
-                if (child is SvgSymbol)
-                    continue;
-
-                if (child is SvgVisualElement)
-                {
-                    if (!(child is SvgGroup))
-                    {
-                        var childPath = ((SvgVisualElement)child).Path(null);
-                        if (childPath != null)
-                            using (childPath = (GraphicsPath)childPath.Clone())
-                            {
-                                if (child.Transforms != null)
-                                    using (var matrix = child.Transforms.GetMatrix())
-                                        childPath.Transform(matrix);
-
-                                if (childPath.PointCount > 0)
-                                    path.AddPath(childPath, false);
-                            }
-                    }
-                }
-
-                if (!(child is SvgPaintServer)) AddPaths(child, path);
-            }
-        }
-
-        /// <summary>
-        /// Recursive method to add up the paths of all children
-        /// </summary>
-        /// <param name="elem"></param>
-        /// <param name="renderer"></param>
-        protected GraphicsPath GetPaths(SvgElement elem, ISvgRenderer renderer)
-        {
-            var ret = new GraphicsPath();
-
-            foreach (var child in elem.Children)
-            {
-                if (child is SvgVisualElement)
-                {
-                    if (child is SvgGroup)
-                    {
-                        var childPath = GetPaths(child, renderer);
-                        if (childPath.PointCount > 0)
-                        {
-                            if (child.Transforms != null)
-                                using (var matrix = child.Transforms.GetMatrix())
-                                    childPath.Transform(matrix);
-
-                            ret.AddPath(childPath, false);
-                        }
-                    }
-                    else
-                    {
-                        var childPath = ((SvgVisualElement)child).Path(renderer);
-                        childPath = childPath != null ? (GraphicsPath)childPath.Clone() : new GraphicsPath();
-
-                        // Non-group element can have child element which we have to consider. i.e tspan in text element
-                        if (child.Children.Count > 0)
-                        {
-                            var descendantPath = GetPaths(child, renderer);
-                            if (descendantPath.PointCount > 0)
-                                childPath.AddPath(descendantPath, false);
-                        }
-
-                        if (childPath.PointCount > 0)
-                        {
-                            if (child.Transforms != null)
-                                using (var matrix = child.Transforms.GetMatrix())
-                                    childPath.Transform(matrix);
-
-                            ret.AddPath(childPath, false);
-                        }
-                    }
-                }
-            }
-
-            return ret;
-        }
-
-        /// <summary>
         /// Creates a new object that is a copy of the current instance.
         /// </summary>
         /// <returns>
@@ -1203,7 +821,6 @@ namespace Svg
             foreach (var child in Children)
                 newObj.Children.Add(child.DeepCopy());
 
-#if USE_SOURCE_GENERATORS
             foreach (var property in this.GetProperties().Where(x => x.DescriptorType == DescriptorType.Event))
             {
                 var evt = property.GetValue(this);
@@ -1229,38 +846,26 @@ namespace Svg
                         (newObj as SvgText).Change += delegate { };
                 }
             }
-#else
-            foreach (var attr in _svgEventAttributes)
-            {
-                var evt = attr.Event.GetValue(this);
-
-                // if someone has registered also register here
-                if (evt != null)
-                {
-                    if (attr.Event.Name == "MouseDown")
-                        newObj.MouseDown += delegate { };
-                    else if (attr.Event.Name == "MouseUp")
-                        newObj.MouseUp += delegate { };
-                    else if (attr.Event.Name == "MouseOver")
-                        newObj.MouseOver += delegate { };
-                    else if (attr.Event.Name == "MouseOut")
-                        newObj.MouseOut += delegate { };
-                    else if (attr.Event.Name == "MouseMove")
-                        newObj.MouseMove += delegate { };
-                    else if (attr.Event.Name == "MouseScroll")
-                        newObj.MouseScroll += delegate { };
-                    else if (attr.Event.Name == "Click")
-                        newObj.Click += delegate { };
-                    else if (attr.Event.Name == "Change") // text element
-                        (newObj as SvgText).Change += delegate { };
-                }
-            }
-#endif
             foreach (var attribute in CustomAttributes)
                 newObj.CustomAttributes.Add(attribute.Key, attribute.Value);
 
             foreach (var node in Nodes)
+            {
+                if (node is SvgElement)
+                {
+                    var index = Children.IndexOf((SvgElement)node);
+                    if (index >= 0)
+                    {
+                        newObj.Nodes.Add(newObj.Children[index]);
+                        continue;
+                    }
+                }
                 newObj.Nodes.Add(node.DeepCopy());
+            }
+
+            foreach (var style in _styles)
+                foreach (var pair in style.Value)
+                    newObj.AddStyle(style.Key, pair.Value, pair.Key);
 
             return newObj;
         }
@@ -1589,6 +1194,8 @@ namespace Svg
         SvgElementCollection Children { get; }
         IList<ISvgNode> Nodes { get; }
 
+#if !NO_SDC
         void Render(ISvgRenderer renderer);
+#endif
     }
 }

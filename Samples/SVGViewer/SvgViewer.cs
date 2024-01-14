@@ -69,7 +69,12 @@ namespace SVGViewer
 
         private void RenderSvg(SvgDocument svgDoc)
         {
+#if NET5_0_OR_GREATER
+            if (OperatingSystem.IsWindows())
+                svgImage.Image?.Dispose();
+#else
             svgImage.Image?.Dispose();
+#endif
 
             //using (var render = new DebugRenderer())
             //    svgDoc.Draw(render);
@@ -77,7 +82,12 @@ namespace SVGViewer
 
             var baseUri = svgDoc.BaseUri;
             var outputDir = Path.GetDirectoryName(baseUri != null && baseUri.IsFile ? baseUri.LocalPath : Application.ExecutablePath);
+#if NET5_0_OR_GREATER
+            if (OperatingSystem.IsWindows())
+                svgImage.Image?.Save(Path.Combine(outputDir, "output.png"));
+#else
             svgImage.Image?.Save(Path.Combine(outputDir, "output.png"));
+#endif
             svgDoc.Write(Path.Combine(outputDir, "output.svg"));
         }
     }

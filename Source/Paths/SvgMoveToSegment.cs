@@ -1,23 +1,24 @@
-﻿using System.Drawing;
-using System.Drawing.Drawing2D;
+using System.Drawing;
 
 namespace Svg.Pathing
 {
-    public class SvgMoveToSegment : SvgPathSegment
+    public sealed partial class SvgMoveToSegment : SvgPathSegment
     {
-        public SvgMoveToSegment(PointF moveTo)
-            : base(moveTo, moveTo)
+        public SvgMoveToSegment(bool isRelative, PointF moveTo)
+            : base(isRelative, moveTo)
         {
-        }
-
-        public override void AddToPath(GraphicsPath graphicsPath)
-        {
-            graphicsPath.StartFigure();
         }
 
         public override string ToString()
         {
-            return "M" + Start.ToSvgString();
+            return (IsRelative ? "m" : "M") + End.ToSvgString();
+        }
+
+        [System.Obsolete("Use new constructor.")]
+        public SvgMoveToSegment(PointF moveTo)
+            : this(false, moveTo)
+        {
+            Start = moveTo;
         }
     }
 }

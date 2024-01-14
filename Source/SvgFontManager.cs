@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NO_SDC
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
@@ -18,6 +19,7 @@ namespace Svg
         {
             // Japanese
             new string[]{ "Meiryo", "メイリオ", },
+            new string[]{ "MS Gothic", "ＭＳ ゴシック", },
             new string[]{ "MS Mincho", "ＭＳ 明朝", },
         };
 
@@ -79,11 +81,11 @@ namespace Svg
             if (name == null)
                 return null;
 
-            var familyNames = localizedFamilyNames.Where(f => f.Contains(name, StringComparer.CurrentCultureIgnoreCase)).FirstOrDefault()
-                ?? Enumerable.Repeat(name, 1);
+            var familyNames = localizedFamilyNames.Find(f => f.Contains(name, StringComparer.CurrentCultureIgnoreCase))
+                              ?? Enumerable.Repeat(name, 1);
             foreach (var familyName in familyNames)
             {
-                var family = families.Where(f => f.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+                var family = families.Find(f => f.Name.Equals(familyName, StringComparison.CurrentCultureIgnoreCase));
                 if (family != null)
                     return family;
             }
@@ -107,3 +109,4 @@ namespace Svg
         }
     }
 }
+#endif

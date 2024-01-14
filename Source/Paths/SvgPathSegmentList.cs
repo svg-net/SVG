@@ -31,15 +31,13 @@ namespace Svg.Pathing
         public void Insert(int index, SvgPathSegment item)
         {
             _segments.Insert(index, item);
-            if (Owner != null)
-                Owner.OnPathUpdated();
+            Owner?.OnPathUpdated();
         }
 
         public void RemoveAt(int index)
         {
             _segments.RemoveAt(index);
-            if (Owner != null)
-                Owner.OnPathUpdated();
+            Owner?.OnPathUpdated();
         }
 
         public SvgPathSegment this[int index]
@@ -48,16 +46,14 @@ namespace Svg.Pathing
             set
             {
                 _segments[index] = value;
-                if (Owner != null)
-                    Owner.OnPathUpdated();
+                Owner?.OnPathUpdated();
             }
         }
 
         public void Add(SvgPathSegment item)
         {
             _segments.Add(item);
-            if (Owner != null)
-                Owner.OnPathUpdated();
+            Owner?.OnPathUpdated();
         }
 
         public void Clear()
@@ -89,8 +85,8 @@ namespace Svg.Pathing
         {
             var removed = _segments.Remove(item);
 
-            if (removed && Owner != null)
-                Owner.OnPathUpdated();
+            if (removed)
+                Owner?.OnPathUpdated();
 
             return removed;
         }
@@ -115,7 +111,7 @@ namespace Svg.Pathing
 
         public override string ToString()
         {
-            return string.Join(" ", this.Select(p => p.ToString()).ToArray());
+            return string.Join(" ", this.Select(p => p.ToString()));
         }
     }
 

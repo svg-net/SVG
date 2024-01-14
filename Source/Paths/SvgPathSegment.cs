@@ -1,28 +1,33 @@
+using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 
 namespace Svg.Pathing
 {
-    public abstract class SvgPathSegment
+    public abstract partial class SvgPathSegment
     {
-        public PointF Start { get; set; }
+        protected static readonly PointF NaN = new PointF(float.NaN, float.NaN);
+
+        public bool IsRelative { get; set; }
+
         public PointF End { get; set; }
 
-        protected SvgPathSegment()
+        protected SvgPathSegment(bool isRelative)
         {
+            IsRelative = isRelative;
         }
 
-        protected SvgPathSegment(PointF start, PointF end)
+        protected SvgPathSegment(bool isRelative, PointF end)
+            : this(isRelative)
         {
-            Start = start;
             End = end;
         }
-
-        public abstract void AddToPath(GraphicsPath graphicsPath);
 
         public SvgPathSegment Clone()
         {
             return MemberwiseClone() as SvgPathSegment;
         }
+
+        [Obsolete("Will be removed.")]
+        public PointF Start { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿#if !NO_SDC
+using System.Drawing;
 
 namespace Svg
 {
@@ -7,3 +8,4 @@ namespace Svg
         Graphics GetGraphics();
     }
 }
+#endif

@@ -1,10 +1,92 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
-## Unreleased (master)
+## Unreleased
+
+### Changes
+* added SvgOptions with css parameter to Open so that this can be used for transforming the svgdocument.
+### Enhancements
+* made exceptions serializable to be able to cross AppDomain boundaries (see [#826](https://github.com/svg-net/SVG/pull/826))
+
+### Fixes
+* fixed XML namespace prefixes are also applied for nodes declaring them (see [PR #1106](https://github.com/svg-net/SVG/pull/1106))
+
+## [Version 3.4.6](https://www.nuget.org/packages/Svg/3.4.6)  (2023-11-16)
+
+### Fixes
+* fixed loading of embedded images (see [#1101](https://github.com/svg-net/SVG/issues/1101))
+
+## [Version 3.4.5](https://www.nuget.org/packages/Svg/3.4.5)  (2023-10-31)
+
+### Changes
+* removed out of support framework versions .NET 5 (replaced with .NET 6) (see PR [#1045](https://github.com/svg-net/SVG/pull/1045))
+
+### Fixes
+* fixed build error in C# 11 (see [PR #1030](https://github.com/svg-net/SVG/pull/1030))
+* fixed out of memory exception on SVGs with gradients (see [PR #1038](https://github.com/svg-net/SVG/pull/1038))
+* fixed missing styles when `DeepCopy` the `SvgElement` (see [PR #1053](https://github.com/svg-net/SVG/pull/1053))
+* fix the color string format incompatible with the Edge/Chrome browsers in case of no System.Drawing.Common (see [PR #1055](https://github.com/svg-net/SVG/pull/1055))
+* fixed duplication of excessive `SvgElement`s in `DeepCopy` (see [#1054](https://github.com/svg-net/SVG/issues/1054))
+
+### Infrastructure
+* Update ExCSS to 4.2.2 (see [PR #1091](https://github.com/svg-net/SVG/pull/1091))
+
+## [Version 3.4.4](https://www.nuget.org/packages/Svg/3.4.4)  (2022-10-29)
+
+### Fixes
+* fixed localized family names in `SvgFontManager` (see [PR #993](https://github.com/svg-net/SVG/pull/993))
+* fixed out of memory Exception in `SvgImage.Render()` (see [#1003](https://github.com/svg-net/SVG/issues/1003))
+* fixed argument Exception in `Draw(Graphics)` (see [#1004](https://github.com/svg-net/SVG/issues/1004))
+* updated `System.Drawing.Common` to prevent Remote Code Execution Vulnerability (see [#1025](https://github.com/svg-net/SVG/issues/1025))
+
+### Performance
+* performance optimization for `SvgPath.Path()` (see [#1018](https://github.com/svg-net/SVG/issues/1018), [#1013](https://github.com/svg-net/SVG/issues/1013))
+
+## [Version 3.4.3](https://www.nuget.org/packages/Svg/3.4.3)  (2022-07-16)
+
+### Changes
+* removed out of support framework versions .NET 4.5.2/4.6.1 (replaced with 4.6.2) and .NET Core 2.1 (see PR [#980](https://github.com/svg-net/SVG/pull/980))
+
+### Enhancements
+* update XMLOutputTester (rename to SVGBuilder) (see [PR #983](https://github.com/svg-net/SVG/pull/983))
+
+### Fixes
+* fixed out of memory in Svg 3.4.2 (see [#989](https://github.com/svg-net/SVG/issues/989))
+
+### Infrastructure
+* the ExCSS library is now included via NuGet instead of copying the sources
+  (see [#596](https://github.com/svg-net/SVG/issues/596))
+
+## [Version 3.4.2](https://www.nuget.org/packages/Svg/3.4.2)  (2022-04-11)
+
+### Changes
+* made anti-aliasing behavior more consistent with rendering in browsers (see [#960](https://github.com/svg-net/SVG/issues/960))
+
+### Fixes
+* fixed issue for `SvgTextBase.Bounds` with blank `SvgTextSpan` (see [PR #963](https://github.com/svg-net/SVG/pull/963))
+* fixed precision issue in `SvgUnit` (see [PR #969](https://github.com/svg-net/SVG/pull/969))
+* fixed `InheritGradient` values are not inherited (see [#966](https://github.com/svg-net/SVG/issues/966))
+
+## [Version 3.4.1](https://www.nuget.org/packages/Svg/3.4.1)  (2022-03-19)
+
+### Fixes
+* fixed `text-decoration` conversion (see [#941](https://github.com/svg-net/SVG/issues/941))
+* fixed `text-transformation` (see [#952](https://github.com/svg-net/SVG/issues/952))
+* fixed invalid value is set in `Attributes` of `SvgTextBase` (see [#954](https://github.com/svg-net/SVG/issues/954))
+* fixed precision issue in `SvgUnit` (see [PR #961](https://github.com/svg-net/SVG/pull/961))
+
+## [Version 3.4.0](https://www.nuget.org/packages/Svg/3.4.0)  (2022-01-09)
+
+### Performance
+* reduce very high memory usage (see [#909](https://github.com/svg-net/SVG/issues/909))
+
+### Enhancements
+* support relative commands in Paths (see [PR #925](https://github.com/svg-net/SVG/pull/925))
 
 ### Fixes
 * fixed color blend position (see [#902](https://github.com/svg-net/SVG/issues/902))
+* remove override method that is no longer needed in `SvgPath` (see [#830](https://github.com/svg-net/SVG/issues/830))
+* fixed size of inner `<svg>` (see [#917](https://github.com/svg-net/SVG/issues/917))
 
 ## [Version 3.3.0](https://www.nuget.org/packages/Svg/3.3.0)  (2021-09-23)
 

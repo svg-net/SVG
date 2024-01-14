@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="105" height="105">
+  <linearGradient id="grad" gradientUnits="userSpaceOnUse" x1="-140" y1="-140" x2="120" y2="120">
+    <stop offset="0" stop-color="white" />
+    <stop offset="1" stop-color="black" />
+  </linearGradient>
+
+  <path fill="url(#grad)" d="M 10,30 A 20,20 0,0,1 50,30 A 20,20 0,0,1 90,30 Q 90,60 50,90 Q 10,60 10,30 z" />
+</svg>

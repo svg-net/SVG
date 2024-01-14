@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Text;
 using System.Xml;
 using System.Linq;
-using Svg.ExCSS;
 using Svg.Css;
 using System.Threading;
 using System.Globalization;
-using Svg.Exceptions;
 using System.Runtime.InteropServices;
+using ExCSS;
 
 namespace Svg
 {
@@ -22,14 +20,6 @@ namespace Svg
     /// </summary>
     public partial class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
-        /// <summary>
-        /// Skip check whether the GDI+ can be loaded.
-        /// </summary>
-        /// <remarks>
-        /// Set to true on systems that do not support GDI+ like UWP.
-        /// </remarks>
-        public static bool SkipGdiPlusCapabilityCheck { get; set; }
-
         /// <summary>
         /// Skip the Dtd Processing for faster loading of svgs that have a DTD specified.
         /// For Example Adobe Illustrator svgs.
@@ -83,7 +73,7 @@ namespace Svg
         {
             bool isWindows;
 
-#if NETCORE
+#if NETCOREAPP
             isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #else
             var platform = Environment.OSVersion.Platform;
@@ -92,12 +82,7 @@ namespace Svg
 
             if (isWindows)
             {
-                // NOTE: starting with Windows 8.1, the DPI is no longer system-wide but screen-specific
-                IntPtr hDC = GetDC(IntPtr.Zero);
-                const int LOGPIXELSY = 90;
-                int result = GetDeviceCaps(hDC, LOGPIXELSY);
-                ReleaseDC(IntPtr.Zero, hDC);
-                return result;
+                return GetWin32SystemDpi();
             }
             else
             {
@@ -105,15 +90,6 @@ namespace Svg
                 return 96;
             }
         }
-
-        [DllImport("gdi32.dll")]
-        private static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetDC(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
         internal Dictionary<string, IEnumerable<SvgFontFace>> FontDefns()
         {
@@ -188,8 +164,6 @@ namespace Svg
         /// </summary>
         public string ExternalCSSHref { get; set; }
 
-        internal SvgFontManager FontManager { get; private set; }
-
         #region ITypeDescriptorContext Members
 
         IContainer ITypeDescriptorContext.Container
@@ -245,74 +219,6 @@ namespace Svg
         }
 
         /// <summary>
-        /// Validate whether the system has GDI+ capabilities (non Windows related).
-        /// </summary>
-        /// <returns>Boolean whether the system is capable of using GDI+</returns>
-        public static bool SystemIsGdiPlusCapable()
-        {
-            try
-            {
-                EnsureSystemIsGdiPlusCapable();
-            }
-            catch (SvgGdiPlusCannotBeLoadedException)
-            {
-                return false;
-            }
-            catch (Exception)
-            {
-                // If somehow another type of exception is raised by the ensure function we will let it bubble up, since that might indicate other issues/problems
-                throw;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Ensure that the running system is GDI capable, if not this will yield a
-        /// SvgGdiPlusCannotBeLoadedException exception.
-        /// </summary>
-        public static void EnsureSystemIsGdiPlusCapable()
-        {
-            try
-            {
-                using (var matrix = new Matrix(0f, 0f, 0f, 0f, 0f, 0f)) { }
-            }
-            // GDI+ loading errors will result in TypeInitializationExceptions,
-            // for readability we will catch and wrap the error
-            catch (Exception e)
-            {
-                if (ExceptionCaughtIsGdiPlusRelated(e))
-                {
-                    // Throw only the customized exception if we are sure GDI+ is causing the problem
-                    throw new SvgGdiPlusCannotBeLoadedException(e);
-                }
-                // If the Matrix creation is causing another type of exception we should just raise that one
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Check if the current exception or one of its children is the targeted GDI+ exception.
-        /// It can be hidden in one of the InnerExceptions, so we need to iterate over them.
-        /// </summary>
-        /// <param name="e">The exception to validate against the GDI+ check</param>
-        private static bool ExceptionCaughtIsGdiPlusRelated(Exception e)
-        {
-            var currE = e;
-            int cnt = 0; // Keep track of depth to prevent endless-loops
-            while (currE != null && cnt < 10)
-            {
-                var typeException = currE as DllNotFoundException;
-                if (typeException?.Message?.LastIndexOf("libgdiplus", StringComparison.OrdinalIgnoreCase) > -1)
-                {
-                    return true;
-                }
-                currE = currE.InnerException;
-                cnt++;
-            }
-            return false;
-        }
-
-        /// <summary>
         /// Opens the document at the specified path and loads the SVG contents.
         /// </summary>
         /// <param name="path">A <see cref="string"/> containing the path of the file to open.</param>
@@ -320,7 +226,7 @@ namespace Svg
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
         public static SvgDocument Open(string path)
         {
-            return Open<SvgDocument>(path, null);
+            return Open<SvgDocument>(path, new SvgOptions());
         }
 
         /// <summary>
@@ -331,7 +237,7 @@ namespace Svg
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
         public static T Open<T>(string path) where T : SvgDocument, new()
         {
-            return Open<T>(path, null);
+            return Open<T>(path, new SvgOptions());
         }
 
         /// <summary>
@@ -341,7 +247,20 @@ namespace Svg
         /// <param name="entities">A dictionary of custom entity definitions to be used when resolving XML entities within the document.</param>
         /// <returns>An <see cref="SvgDocument"/> with the contents loaded.</returns>
         /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
+        [Obsolete("Use Open<T>(string path, SvgOptions svgOptions)")]
         public static T Open<T>(string path, Dictionary<string, string> entities) where T : SvgDocument, new()
+        {
+            return Open<T>(path, new SvgOptions(entities));
+        }
+
+        /// <summary>
+        /// Opens the document at the specified path and loads the SVG contents.
+        /// </summary>
+        /// <param name="path">A <see cref="string"/> containing the path of the file to open.</param>
+        /// <param name="svgOptions">A dictionary of custom entity definitions to be used when resolving XML entities within the document.</param>
+        /// <returns>A <see cref="SvgDocument"/> with the contents loaded.</returns>
+        /// <exception cref="FileNotFoundException">The document at the specified <paramref name="path"/> cannot be found.</exception>
+        public static T Open<T>(string path, SvgOptions svgOptions) where T : SvgDocument, new()
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -355,7 +274,7 @@ namespace Svg
 
             using (var stream = File.OpenRead(path))
             {
-                var doc = Open<T>(stream, entities);
+                var doc = Open<T>(stream, svgOptions);
                 doc.BaseUri = new Uri(System.IO.Path.GetFullPath(path));
                 return doc;
             }
@@ -367,7 +286,7 @@ namespace Svg
         /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
         public static T Open<T>(Stream stream) where T : SvgDocument, new()
         {
-            return Open<T>(stream, null);
+            return Open<T>(stream, new SvgOptions());
         }
 
         /// <summary>
@@ -376,7 +295,20 @@ namespace Svg
         /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
         /// <param name="entities">Custom entity definitions.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="stream"/> parameter cannot be <c>null</c>.</exception>
-        public static T Open<T>(Stream stream, Dictionary<string, string> entities) where T : SvgDocument, new()
+        [Obsolete("Use Open<T>(Stream stream, SvgOptions svgOptions)")]
+        public static T Open<T>(Stream stream, Dictionary<string, string> entities)
+            where T : SvgDocument, new()
+        {
+            return Open<T>(stream, new SvgOptions(entities));
+        }
+
+        /// <summary>
+        /// Opens an SVG document from the specified <see cref="Stream"/> and adds the specified entities.
+        /// </summary>
+        /// <param name="stream">The <see cref="Stream"/> containing the SVG document to open.</param>
+        /// <param name="svgOptions">Css Style that will be applied to the Svg Document</param>
+        /// <exception cref="ArgumentNullException">The <paramref name="stream"/> parameter cannot be <c>null</c>.</exception>
+        public static T Open<T>(Stream stream, SvgOptions svgOptions) where T : SvgDocument, new()
         {
             if (stream == null)
             {
@@ -384,13 +316,13 @@ namespace Svg
             }
 
             // Don't close the stream via a dispose: that is the client's job.
-            var reader = new SvgTextReader(stream, entities)
+            var reader = new SvgTextReader(stream, svgOptions.Entities)
             {
                 XmlResolver = new SvgDtdResolver(),
                 WhitespaceHandling = WhitespaceHandling.Significant,
                 DtdProcessing = DisableDtdProcessing ? DtdProcessing.Ignore : DtdProcessing.Parse,
             };
-            return Create<T>(reader);
+            return Create<T>(reader, svgOptions.Css);
         }
 
         /// <summary>
@@ -437,20 +369,66 @@ namespace Svg
             }
         }
 
-        private static T Create<T>(XmlReader reader) where T : SvgDocument, new()
+        private static T Create<T>(XmlReader reader, string css = null) where T : SvgDocument, new()
         {
+            var styles = new List<ISvgNode>();
+            var elementFactory = new SvgElementFactory();
+
+            var svgDocument = Create<T>(reader, elementFactory, styles);
+            
+            if (css != null) {
+                styles.Add(new SvgUnknownElement() { Content = css });
+            }
+
+            if (styles.Any())
+            {
+                var cssTotal = string.Join(Environment.NewLine, styles.Select(s => s.Content).ToArray());
+                var stylesheetParser = new StylesheetParser(true, true, tolerateInvalidValues: true);
+                var stylesheet = stylesheetParser.Parse(cssTotal);
+
+                foreach (var rule in stylesheet.StyleRules)
+                    try
+                    {
+                        var rootNode = new NonSvgElement();
+                        rootNode.Children.Add(svgDocument);
+
+                        var elemsToStyle = rootNode.QuerySelectorAll(rule.Selector, elementFactory);
+                        foreach (var elem in elemsToStyle)
+                            foreach (var declaration in rule.Style)
+                            {
+                                elem.AddStyle(declaration.Name, declaration.Original, rule.Selector.GetSpecificity());
+                            }
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.TraceWarning(ex.Message);
+                    }
+            }
+
+            svgDocument?.FlushStyles(true);
+            return svgDocument;
+        }
+
+        /// <summary> Open Svg Document without applying Stylesheets. </summary>
+        /// <typeparam name="T">SvgDocument to create</typeparam>
+        /// <param name="reader">reader</param>
+        /// <param name="elementFactory">elementFactory</param>
+        /// <param name="styles">read svg StyleSheets</param>
+        /// <returns>Created Svg Document</returns>
+        internal static T Create<T>(XmlReader reader, SvgElementFactory elementFactory, List<ISvgNode> styles)
+            where T : SvgDocument, new()
+        {
+#if !NO_SDC
             if (!SkipGdiPlusCapabilityCheck)
             {
                 EnsureSystemIsGdiPlusCapable(); // Validate whether the GDI+ can be loaded, this will yield an exception if not
             }
+#endif
             var elementStack = new Stack<SvgElement>();
             bool elementEmpty;
             SvgElement element = null;
             SvgElement parent;
             T svgDocument = null;
-            var elementFactory = new SvgElementFactory();
-
-            var styles = new List<ISvgNode>();
 
             while (reader.Read())
             {
@@ -501,7 +479,7 @@ namespace Svg
 
                             if (element.Nodes.OfType<SvgContentNode>().Any())
                             {
-                                element.Content = (from e in element.Nodes select e.Content).Aggregate((p, c) => p + c);
+                                element.Content = string.Concat((from n in element.Nodes select n.Content).ToArray());
                             }
                             else
                             {
@@ -533,36 +511,6 @@ namespace Svg
                 }
             }
 
-            if (styles.Any())
-            {
-                var cssTotal = styles.Select((s) => s.Content).Aggregate((p, c) => p + Environment.NewLine + c);
-                var cssParser = new Parser();
-                var sheet = cssParser.Parse(cssTotal ?? string.Empty);
-
-                foreach (var rule in sheet.StyleRules)
-                {
-                    try
-                    {
-                        var rootNode = new NonSvgElement();
-                        rootNode.Children.Add(svgDocument);
-
-                        var elemsToStyle = rootNode.QuerySelectorAll(rule.Selector.ToString(), elementFactory);
-                        foreach (var elem in elemsToStyle)
-                        {
-                            foreach (var decl in rule.Declarations)
-                            {
-                                elem.AddStyle(decl.Name, decl.Term.ToString(), rule.Selector.GetSpecificity());
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Trace.TraceWarning(ex.Message);
-                    }
-                }
-            }
-
-            svgDocument?.FlushStyles(true);
             return svgDocument;
         }
 
@@ -580,171 +528,6 @@ namespace Svg
 
             var reader = new SvgNodeReader(document.DocumentElement, null);
             return Create<SvgDocument>(reader);
-        }
-
-        public static Bitmap OpenAsBitmap(string path)
-        {
-            return null;
-        }
-
-        public static Bitmap OpenAsBitmap(XmlDocument document)
-        {
-            return null;
-        }
-
-        private void Draw(ISvgRenderer renderer, ISvgBoundable boundable)
-        {
-            using (FontManager = new SvgFontManager())
-            {
-                renderer.SetBoundable(boundable);
-                Render(renderer);
-                FontManager = null;
-            }
-        }
-
-        /// <summary>
-        /// Renders the <see cref="SvgDocument"/> to the specified <see cref="ISvgRenderer"/>.
-        /// </summary>
-        /// <param name="renderer">The <see cref="ISvgRenderer"/> to render the document with.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="renderer"/> parameter cannot be <c>null</c>.</exception>
-        public void Draw(ISvgRenderer renderer)
-        {
-            if (renderer == null)
-            {
-                throw new ArgumentNullException("renderer");
-            }
-
-            this.Draw(renderer, this);
-        }
-
-        /// <summary>
-        /// Renders the <see cref="SvgDocument"/> to the specified <see cref="Graphics"/>.
-        /// </summary>
-        /// <param name="graphics">The <see cref="Graphics"/> to be rendered to.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
-        public void Draw(Graphics graphics)
-        {
-            this.Draw(graphics, null);
-        }
-
-        /// <summary>
-        /// Renders the <see cref="SvgDocument"/> to the specified <see cref="Graphics"/>.
-        /// </summary>
-        /// <param name="graphics">The <see cref="Graphics"/> to be rendered to.</param>
-        /// <param name="size">The <see cref="SizeF"/> to render the document. If <c>null</c> document is rendered at the default document size.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="graphics"/> parameter cannot be <c>null</c>.</exception>
-        public void Draw(Graphics graphics, SizeF? size)
-        {
-            if (graphics == null)
-            {
-                throw new ArgumentNullException("graphics");
-            }
-
-            using (var renderer = SvgRenderer.FromGraphics(graphics))
-            {
-                var boundable = size.HasValue ? (ISvgBoundable)new GenericBoundable(0, 0, size.Value.Width, size.Value.Height) : this;
-                this.Draw(renderer, boundable);
-            }
-        }
-
-        /// <summary>
-        /// Renders the <see cref="SvgDocument"/> and returns the image as a <see cref="Bitmap"/>.
-        /// </summary>
-        /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
-        public virtual Bitmap Draw()
-        {
-            //Trace.TraceInformation("Begin Render");
-
-            var size = Size.Round(GetDimensions());
-            if (size.Width <= 0 || size.Height <= 0)
-                return null;
-
-            Bitmap bitmap = null;
-            try
-            {
-                try
-                {
-                    bitmap = new Bitmap(size.Width, size.Height);
-                }
-                catch (ArgumentException e)
-                {
-                    // When processing too many files at one the system can run out of memory
-                    throw new SvgMemoryException("Cannot process SVG file, cannot allocate the required memory", e);
-                }
-
-                //bitmap.SetResolution(300, 300);
-
-                this.Draw(bitmap);
-            }
-            catch
-            {
-                bitmap?.Dispose();
-                throw;
-            }
-
-            //Trace.TraceInformation("End Render");
-            return bitmap;
-        }
-
-        /// <summary>
-        /// Renders the <see cref="SvgDocument"/> into a given Bitmap <see cref="Bitmap"/>.
-        /// </summary>
-        public virtual void Draw(Bitmap bitmap)
-        {
-            //Trace.TraceInformation("Begin Render");
-
-            using (var renderer = SvgRenderer.FromImage(bitmap))
-            {
-                var boundable = new GenericBoundable(0, 0, bitmap.Width, bitmap.Height);
-                this.Draw(renderer, boundable);
-            }
-
-            //Trace.TraceInformation("End Render");
-        }
-
-        /// <summary>
-        /// Renders the <see cref="SvgDocument"/> in given size and returns the image as a <see cref="Bitmap"/>.
-        /// If one of rasterWidth and rasterHeight is zero, the image is scaled preserving aspect ratio,
-        /// otherwise the aspect ratio is ignored.
-        /// </summary>
-        /// <returns>A <see cref="Bitmap"/> containing the rendered document.</returns>
-        public virtual Bitmap Draw(int rasterWidth, int rasterHeight)
-        {
-            var svgSize = GetDimensions();
-            var imageSize = svgSize;
-            this.RasterizeDimensions(ref imageSize, rasterWidth, rasterHeight);
-
-            var bitmapSize = Size.Round(imageSize);
-            if (bitmapSize.Width <= 0 || bitmapSize.Height <= 0)
-                return null;
-
-            Bitmap bitmap = null;
-            try
-            {
-                try
-                {
-                    bitmap = new Bitmap(bitmapSize.Width, bitmapSize.Height);
-                }
-                catch (ArgumentException e)
-                {
-                    // When processing too many files at one the system can run out of memory
-                    throw new SvgMemoryException("Cannot process SVG file, cannot allocate the required memory", e);
-                }
-
-                using (var renderer = SvgRenderer.FromImage(bitmap))
-                {
-                    renderer.ScaleTransform(imageSize.Width / svgSize.Width, imageSize.Height / svgSize.Height);
-                    var boundable = new GenericBoundable(0, 0, svgSize.Width, svgSize.Height);
-                    this.Draw(renderer, boundable);
-                }
-            }
-            catch
-            {
-                bitmap?.Dispose();
-                throw;
-            }
-
-            return bitmap;
         }
 
         /// <summary>

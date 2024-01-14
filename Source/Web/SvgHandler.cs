@@ -4,7 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
+#if !NO_SDC
 using System.Drawing.Imaging;
+#endif
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -75,11 +77,11 @@ namespace Svg.Web
         /// <param name="result">An <see cref="T:System.IAsyncResult"/> that contains information about the status of the process.</param>
         public void EndProcessRequest(IAsyncResult result)
         {
-            
+
         }
 
         /// <summary>
-        /// The class to be used when 
+        /// The class to be used when
         /// </summary>
         protected sealed class SvgAsyncRender
         {

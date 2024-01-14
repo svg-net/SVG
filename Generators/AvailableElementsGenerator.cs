@@ -305,7 +305,9 @@ namespace Svg
 
             // Group all properties by element type.
             var elementProperties = items.SelectMany(x => x.Value.Properties).Distinct(new PropertyEqualityComparer());
-            var elementPropertiesDict = elementProperties.GroupBy(x => x.Symbol.ContainingType).ToDictionary(x => x.Key, y => y.ToList());
+            var elementPropertiesDict = elementProperties
+                .GroupBy(x => x.Symbol.ContainingType, SymbolEqualityComparer.Default)
+                .ToDictionary(x => x.Key, y => y.ToList(), SymbolEqualityComparer.Default);
 
             // Generate SvgElement base class with Properties dictionary.
 

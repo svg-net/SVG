@@ -5,6 +5,9 @@ using Svg;
 
 namespace SVGViewer
 {
+#if NET5_0_OR_GREATER
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#endif
     class DebugRenderer : ISvgRenderer
     {
         private readonly Stack<ISvgBoundable> _boundables = new Stack<ISvgBoundable>();

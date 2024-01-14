@@ -55,9 +55,5 @@ namespace Svg
         {
             return base.DeepCopy<SvgFont>();
         }
-
-        protected override void Render(ISvgRenderer renderer)
-        {
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if !NO_SDC
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -134,6 +135,7 @@ namespace Svg
             g.CompositingQuality = CompositingQuality.HighQuality;
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
             g.TextContrast = 1;
+            g.InterpolationMode = InterpolationMode.NearestNeighbor;
             return g;
         }
 
@@ -164,3 +166,4 @@ namespace Svg
         }
     }
 }
+#endif

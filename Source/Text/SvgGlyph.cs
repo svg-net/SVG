@@ -1,4 +1,3 @@
-﻿using System.Drawing.Drawing2D;
 using System.Linq;
 using Svg.Pathing;
 
@@ -7,8 +6,6 @@ namespace Svg
     [SvgElement("glyph")]
     public partial class SvgGlyph : SvgPathBasedElement, ISvgPathElement
     {
-        private GraphicsPath _path;
-
         /// <summary>
         /// Gets or sets a <see cref="SvgPathSegmentList"/> of path data.
         /// </summary>
@@ -66,24 +63,6 @@ namespace Svg
         {
             get { return GetAttribute("vert-origin-y", true, Parents.OfType<SvgFont>().First().VertOriginY); }
             set { Attributes["vert-origin-y"] = value; }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="GraphicsPath"/> for this element.
-        /// </summary>
-        public override GraphicsPath Path(ISvgRenderer renderer)
-        {
-            if (_path == null || IsPathDirty)
-            {
-                _path = new GraphicsPath();
-
-                if (PathData != null)
-                    foreach (var segment in PathData)
-                        segment.AddToPath(_path);
-
-                IsPathDirty = false;
-            }
-            return _path;
         }
 
         public void OnPathUpdated()

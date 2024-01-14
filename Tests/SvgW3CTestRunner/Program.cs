@@ -13,6 +13,9 @@ namespace SvgW3CTestRunner
         [STAThread]
         static void Main()
         {
+#if (NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER)
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new View());

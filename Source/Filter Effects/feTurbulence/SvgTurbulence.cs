@@ -38,12 +38,6 @@
             set { Attributes["type"] = value; }
         }
 
-        public override void Process(ImageBuffer buffer)
-        {
-            // TODO: Implement feTurbulence filter Process().
-            buffer[Result] = buffer[Input];
-        }
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgTurbulence>();

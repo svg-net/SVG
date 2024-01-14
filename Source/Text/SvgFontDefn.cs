@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NO_SDC
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,20 +43,28 @@ namespace Svg
             return _ppi / 72f * baselineOffset;
         }
 
-        public IList<System.Drawing.RectangleF> MeasureCharacters(ISvgRenderer renderer, string text)
+        public IList<RectangleF> MeasureCharacters(ISvgRenderer renderer, string text)
         {
             var result = new List<RectangleF>();
             using (var path = GetPath(renderer, text, result, false)) { }
             return result;
         }
 
-        public System.Drawing.SizeF MeasureString(ISvgRenderer renderer, string text)
+        public SizeF MeasureString(ISvgRenderer renderer, string text)
         {
             var result = new List<RectangleF>();
-            using (var path = GetPath(renderer, text, result, true)) { }
-            var nonEmpty = result.Where(r => r != RectangleF.Empty);
-            if (!nonEmpty.Any()) return SizeF.Empty;
-            return new SizeF(nonEmpty.Last().Right - nonEmpty.First().Left, Ascent(renderer));
+            using (_ = GetPath(renderer, text, result, true)) { }
+
+            float? firstLeft = null;
+            float? lastRight = null;
+            foreach (var rect in result.Where(r => r != RectangleF.Empty))
+            {
+                firstLeft ??= rect.Left;
+                lastRight = rect.Right;
+            }
+
+            if (firstLeft == null) return SizeF.Empty;
+            return new SizeF(lastRight.Value - firstLeft.Value, Ascent(renderer));
         }
 
         public void AddStringToPath(ISvgRenderer renderer, GraphicsPath path, string text, PointF location)
@@ -137,3 +146,4 @@ namespace Svg
         }
     }
 }
+#endif

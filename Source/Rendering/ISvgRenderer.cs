@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NO_SDC
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -24,3 +25,4 @@ namespace Svg
         void DrawImage(Image image, RectangleF destRect, RectangleF srcRect, GraphicsUnit graphicsUnit, float opacity);
     }
 }
+#endif

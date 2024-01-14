@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NO_SDC
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,7 @@ namespace Svg
         float Ascent(ISvgRenderer renderer);
         IList<RectangleF> MeasureCharacters(ISvgRenderer renderer, string text);
         SizeF MeasureString(ISvgRenderer renderer, string text);
+
     }
 }
+#endif

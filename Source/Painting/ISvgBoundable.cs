@@ -4,6 +4,7 @@ namespace Svg
 {
     public interface ISvgBoundable
     {
+#if !NO_SDC
         PointF Location
         {
             get;
@@ -18,5 +19,6 @@ namespace Svg
         {
             get;
         }
+#endif
     }
 }

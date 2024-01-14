@@ -17,12 +17,6 @@
             set { Attributes["flood-opacity"] = FixOpacityValue(value); }
         }
 
-        public override void Process(ImageBuffer buffer)
-        {
-            // TODO: Implement feFlood filter Process().
-            buffer[Result] = buffer[Input];
-        }
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgFlood>();

@@ -1,8 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using Svg.Transforms;
 
 namespace Svg
@@ -12,14 +11,6 @@ namespace Svg
     /// </summary>
     public abstract partial class SvgGradientServer : SvgPaintServer
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SvgGradientServer"/> class.
-        /// </summary>
-        internal SvgGradientServer()
-        {
-            Stops = new List<SvgGradientStop>();
-        }
-
         /// <summary>
         /// Called by the underlying <see cref="SvgElement"/> when an element has been added to the
         /// 'Children' collection.
@@ -50,7 +41,7 @@ namespace Svg
         /// <summary>
         /// Gets the ramp of colors to use on a gradient.
         /// </summary>
-        public List<SvgGradientStop> Stops { get; private set; }
+        public List<SvgGradientStop> Stops { get; } = new List<SvgGradientStop>();
 
         /// <summary>
         /// Specifies what happens if the gradient starts or ends inside the bounds of the target rectangle.
@@ -58,7 +49,7 @@ namespace Svg
         [SvgAttribute("spreadMethod")]
         public SvgGradientSpreadMethod SpreadMethod
         {
-            get { return GetAttribute("spreadMethod", false, SvgGradientSpreadMethod.Pad); }
+            get { return GetAttribute("spreadMethod", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.SpreadMethod ?? SvgGradientSpreadMethod.Pad); }
             set { Attributes["spreadMethod"] = value; }
         }
 
@@ -68,7 +59,7 @@ namespace Svg
         [SvgAttribute("gradientUnits")]
         public SvgCoordinateUnits GradientUnits
         {
-            get { return GetAttribute("gradientUnits", false, SvgCoordinateUnits.ObjectBoundingBox); }
+            get { return GetAttribute("gradientUnits", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.GradientUnits ?? SvgCoordinateUnits.ObjectBoundingBox); }
             set { Attributes["gradientUnits"] = value; }
         }
 
@@ -85,7 +76,7 @@ namespace Svg
         [SvgAttribute("gradientTransform")]
         public SvgTransformCollection GradientTransform
         {
-            get { return GetAttribute<SvgTransformCollection>("gradientTransform", false); }
+            get { return GetAttribute("gradientTransform", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.GradientTransform); }
             set { Attributes["gradientTransform"] = value; }
         }
 
@@ -96,7 +87,7 @@ namespace Svg
         [TypeConverter(typeof(SvgPaintServerFactory))]
         public SvgPaintServer StopColor
         {
-            get { return GetAttribute<SvgPaintServer>("stop-color", false, new SvgColourServer(System.Drawing.Color.Black)); }
+            get { return GetAttribute("stop-color", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.StopColor ?? new SvgColourServer(System.Drawing.Color.Black)); }
             set { Attributes["stop-color"] = value; }
         }
 
@@ -106,115 +97,8 @@ namespace Svg
         [SvgAttribute("stop-opacity")]
         public float StopOpacity
         {
-            get { return GetAttribute("stop-opacity", false, 1f); }
+            get { return GetAttribute("stop-opacity", false, SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, null)?.StopOpacity ?? 1f); }
             set { Attributes["stop-opacity"] = FixOpacityValue(value); }
-        }
-
-        protected Matrix EffectiveGradientTransform
-        {
-            get
-            {
-                var transform = new Matrix();
-
-                if (GradientTransform != null)
-                    using (var matrix = GradientTransform.GetMatrix())
-                        transform.Multiply(matrix);
-
-                return transform;
-            }
-        }
-
-        /// <summary>
-        /// Gets a <see cref="ColorBlend"/> representing the <see cref="SvgGradientServer"/>'s gradient stops.
-        /// </summary>
-        /// <param name="renderer">The renderer <see cref="ISvgRenderer"/>.</param>
-        /// <param name="opacity">The opacity of the colour blend.</param>
-        /// <param name="radial">True if it's a radial gradiant.</param>
-        protected ColorBlend GetColorBlend(ISvgRenderer renderer, float opacity, bool radial)
-        {
-            var colourBlends = Stops.Count;
-            var insertStart = false;
-            var insertEnd = false;
-
-            //gradient.Transform = renderingElement.Transforms.Matrix;
-
-            //stops should be processed in reverse order if it's a radial gradient
-
-            // May need to increase the number of colour blends because the range *must* be from 0.0 to 1.0.
-            // E.g. 0.5 - 0.8 isn't valid therefore the rest need to be calculated.
-
-            // If the first stop doesn't start at zero
-            if (Stops[0].Offset.Value > 0f)
-            {
-                colourBlends++;
-
-                if (radial)
-                    insertEnd = true;
-                else
-                    insertStart = true;
-            }
-
-            // If the last stop doesn't end at 1 a stop
-            var lastValue = Stops[Stops.Count - 1].Offset.Value;
-            if (lastValue < 100f || lastValue < 1f)
-            {
-                colourBlends++;
-                if (radial)
-                    insertStart = true;
-                else
-                    insertEnd = true;
-            }
-
-            var blend = new ColorBlend(colourBlends);
-
-            // Set positions and colour values
-            var actualStops = 0;
-
-            for (var i = 0; i < colourBlends; i++)
-            {
-                var currentStop = Stops[radial ? Stops.Count - 1 - actualStops : actualStops];
-                var boundWidth = renderer.GetBoundable().Bounds.Width;
-
-                var mergedOpacity = opacity * currentStop.StopOpacity;
-                var position =
-                    radial
-                    ? 1 - (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth)
-                    : (currentStop.Offset.ToDeviceValue(renderer, UnitRenderingType.Horizontal, this) / boundWidth);
-                position = Math.Min(Math.Max(position, 0f), 1f);
-                var colour = System.Drawing.Color.FromArgb((int)Math.Round(mergedOpacity * 255), currentStop.GetColor(this));
-
-                actualStops++;
-
-                // Insert this colour before itself at position 0
-                if (insertStart && i == 0)
-                {
-                    blend.Positions[i] = 0.0f;
-                    blend.Colors[i] = colour;
-
-                    i++;
-                }
-
-                blend.Positions[i] = position;
-                blend.Colors[i] = colour;
-
-                // Insert this colour after itself at position 0
-                if (insertEnd && i == colourBlends - 2)
-                {
-                    i++;
-
-                    blend.Positions[i] = 1.0f;
-                    blend.Colors[i] = colour;
-                }
-            }
-
-            return blend;
-        }
-
-        protected void LoadStops(SvgVisualElement parent)
-        {
-            var core = SvgDeferredPaintServer.TryGet<SvgGradientServer>(InheritGradient, parent);
-            if (Stops.Count == 0 && core != null)
-                Stops.AddRange(core.Stops);
         }
 
         protected static double CalculateDistance(PointF first, PointF second)
@@ -225,6 +109,18 @@ namespace Svg
         protected static float CalculateLength(PointF vector)
         {
             return (float)Math.Sqrt(Math.Pow(vector.X, 2) + Math.Pow(vector.Y, 2));
+        }
+
+        private void LoadStops(SvgVisualElement parent)
+        {
+            Stops.RemoveAll(s => s.Parent != this);
+
+            var gradient = this;
+            while (gradient?.Stops.Count == 0)
+                gradient = SvgDeferredPaintServer.TryGet<SvgGradientServer>(gradient.InheritGradient, parent);
+
+            if (gradient != this && gradient != null)
+                Stops.AddRange(gradient.Stops);
         }
     }
 }

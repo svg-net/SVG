@@ -34,7 +34,7 @@ namespace Svg.UnitTests
         public void TestOpenWithoutEntities()
         {
             var svgPath = Path.Combine(TestsRootPath, EntitiesSampleSvgPath);
-            Assert.That(() => { SvgDocument.Open<SvgDocument>(svgPath, null); },
+            Assert.That(() => { SvgDocument.Open<SvgDocument>(svgPath, (Dictionary<string,string>)null); },
                 Throws.TypeOf<System.Xml.XmlException>().With.Message.Contains("entity"));
         }
 

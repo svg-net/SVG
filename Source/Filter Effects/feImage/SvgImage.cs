@@ -17,12 +17,6 @@
             set { Attributes["preserveAspectRatio"] = value; }
         }
 
-        public override void Process(ImageBuffer buffer)
-        {
-            // TODO: Implement feImage filter Process().
-            buffer[Result] = buffer[Input];
-        }
-
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgImage>();

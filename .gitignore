@@ -355,3 +355,9 @@ MigrationBackup/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# W3C Test Suites
+Tests/W3CTestSuite/images
+Tests/W3CTestSuite/png
+Tests/W3CTestSuite/resources
+Tests/W3CTestSuite/svg

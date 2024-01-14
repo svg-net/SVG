@@ -114,12 +114,18 @@ namespace Svg
                         throw new SvgException("Colour is in an invalid format: '" + colour + "'");
                     }
                 }
-                else if (colour.StartsWith("#", StringComparison.InvariantCulture) && colour.Length == 4)
+                else if (colour.StartsWith("#", StringComparison.InvariantCulture))
                 {
-                    colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
-                    return base.ConvertFrom(context, culture, colour);
+                    if (colour.Length == 4)
+                    {
+                        colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
+                        return base.ConvertFrom(context, culture, colour);
+                    }
+                    else if (colour.Length != 7)
+                        return SvgPaintServer.NotSet;
                 }
 
+#if !NO_SDC
                 switch (colour.ToLowerInvariant())
                 {
                     case "activeborder": return SystemColors.ActiveBorder;
@@ -150,11 +156,12 @@ namespace Svg
                     case "windowframe": return SystemColors.WindowFrame;
                     case "windowtext": return SystemColors.WindowText;
                 }
+#endif
                 int number;
                 if (Int32.TryParse(colour,NumberStyles.Integer, CultureInfo.InvariantCulture, out number))
                 {
                     // numbers are handled as colors by System.Drawing.ColorConverter - we
-                    // have to prevent this and ignore the color instead (see #342) 
+                    // have to prevent this and ignore the color instead (see #342)
                     return SvgPaintServer.NotSet;
                 }
 
@@ -190,12 +197,37 @@ namespace Svg
         {
             if (destinationType == typeof(string))
             {
+#if !NO_SDC
                 var colorString = ColorTranslator.ToHtml((Color)value).Replace("LightGrey", "LightGray");
                 // color names are expected to be lower case in XML
                 return colorString.StartsWith("#", StringComparison.InvariantCulture) ? colorString : colorString.ToLowerInvariant();
+#endif
             }
 
-            return base.ConvertTo(context, culture, value, destinationType);
+            return ToHtml((Color)value);
+        }
+
+        /// <summary>
+        /// Converts color to html string format.
+        /// Refer to https://source.dot.net/#System.Drawing.Primitives/System/Drawing/ColorTranslator.cs
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        private static string ToHtml(Color c)
+        {
+            var colorString = string.Empty;
+            if (c.IsEmpty)
+                return colorString;
+
+            if (c.IsNamedColor)
+            {
+                colorString = c == Color.LightGray ? "LightGrey" : c.Name;
+                colorString = colorString.ToLowerInvariant();
+            }
+            else
+                colorString = $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+
+            return colorString;
         }
 
         /// <summary>

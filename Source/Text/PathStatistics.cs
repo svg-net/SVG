@@ -1,7 +1,6 @@
-﻿using System;
+﻿#if !NO_SDC
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing.Drawing2D;
 using System.Drawing;
 
@@ -115,7 +114,7 @@ namespace Svg
                 offset -= StartOffset;
                 if (offset < 0 || offset > _length) throw new ArgumentOutOfRangeException();
                 point = new PointF((float)(_start.X + (offset / _length) * (_end.X - _start.X)),
-                                   (float)(_start.Y + (offset / _length) * (_end.Y - _start.Y)));
+                    (float)(_start.Y + (offset / _length) * (_end.Y - _start.Y)));
                 rotation = (float)_rotation;
             }
         }
@@ -240,16 +239,16 @@ namespace Svg
             private PointF CubicBezierCurve(PointF p0, PointF p1, PointF p2, PointF p3, double t)
             {
                 return new PointF((float)(Math.Pow(1 - t, 3) * p0.X + 3 * Math.Pow(1 - t, 2) * t * p1.X +
-                                            3 * (1 - t) * Math.Pow(t, 2) * p2.X + Math.Pow(t, 3) * p3.X),
-                                    (float)(Math.Pow(1 - t, 3) * p0.Y + 3 * Math.Pow(1 - t, 2) * t * p1.Y +
-                                            3 * (1 - t) * Math.Pow(t, 2) * p2.Y + Math.Pow(t, 3) * p3.Y));
+                                          3 * (1 - t) * Math.Pow(t, 2) * p2.X + Math.Pow(t, 3) * p3.X),
+                    (float)(Math.Pow(1 - t, 3) * p0.Y + 3 * Math.Pow(1 - t, 2) * t * p1.Y +
+                            3 * (1 - t) * Math.Pow(t, 2) * p2.Y + Math.Pow(t, 3) * p3.Y));
             }
 
             /// <remarks>http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html</remarks>
             private PointF CubicBezierDerivative(PointF p0, PointF p1, PointF p2, PointF p3, double t)
             {
                 return new PointF((float)(3 * Math.Pow(1 - t, 2) * (p1.X - p0.X) + 6 * (1 - t) * t * (p2.X - p1.X) + 3 * Math.Pow(t, 2) * (p3.X - p2.X)),
-                                  (float)(3 * Math.Pow(1 - t, 2) * (p1.Y - p0.Y) + 6 * (1 - t) * t * (p2.Y - p1.Y) + 3 * Math.Pow(t, 2) * (p3.Y - p2.Y)));
+                    (float)(3 * Math.Pow(1 - t, 2) * (p1.Y - p0.Y) + 6 * (1 - t) * t * (p2.Y - p1.Y) + 3 * Math.Pow(t, 2) * (p3.Y - p2.Y)));
             }
 
 
@@ -261,3 +260,4 @@ namespace Svg
         }
     }
 }
+#endif

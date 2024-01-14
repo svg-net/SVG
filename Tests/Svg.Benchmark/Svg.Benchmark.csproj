@@ -1,33 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp3.1;net5.0;net461</TargetFrameworks>
+    <TargetFrameworks>net6.0;netcoreapp3.1;net462</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <LangVersion>8.0</LangVersion>
+	<SignAssembly>True</SignAssembly>
+	<AssemblyOriginatorKeyFile>..\Svg.UnitTests\svgkey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="..\W3CTestSuite\svg\__AJ_Digital_Camera.svg">
+    <EmbeddedResource Include="..\Issues\svg\__AJ_Digital_Camera.svg">
       <Link>Assets\__AJ_Digital_Camera.svg</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\W3CTestSuite\svg\__issue-134-01.svg">
+    <EmbeddedResource Include="..\Issues\svg\__issue-134-01.svg">
       <Link>Assets\__issue-134-01.svg</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\W3CTestSuite\svg\__tiger.svg">
+    <EmbeddedResource Include="..\Issues\svg\__tiger.svg">
       <Link>Assets\__tiger.svg</Link>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Svg.csproj" />
+    <ProjectReference Include="..\Svg.UnitTests\Svg.UnitTests.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net461'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net462'">
     <Reference Include="WindowsBase" />
   </ItemGroup>
 
