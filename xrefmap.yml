@@ -6369,15 +6369,24 @@ references:
   fullName.vb: Svg.SvgDocument.Open(Of T)(System.IO.Stream)
   nameWithType: SvgDocument.Open<T>(Stream)
   nameWithType.vb: SvgDocument.Open(Of T)(Stream)
-- uid: Svg.SvgDocument.Open``1(System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String)
-  name: Open<T>(Stream, Dictionary<String, String>, String)
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_System_IO_Stream_System_Collections_Generic_Dictionary_System_String_System_String__System_String_
-  commentId: M:Svg.SvgDocument.Open``1(System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String)
-  name.vb: Open(Of T)(Stream, Dictionary(Of String, String), String)
-  fullName: Svg.SvgDocument.Open<T>(System.IO.Stream, System.Collections.Generic.Dictionary<System.String, System.String>, System.String)
-  fullName.vb: Svg.SvgDocument.Open(Of T)(System.IO.Stream, System.Collections.Generic.Dictionary(Of System.String, System.String), System.String)
-  nameWithType: SvgDocument.Open<T>(Stream, Dictionary<String, String>, String)
-  nameWithType.vb: SvgDocument.Open(Of T)(Stream, Dictionary(Of String, String), String)
+- uid: Svg.SvgDocument.Open``1(System.IO.Stream,Svg.SvgOptions)
+  name: Open<T>(Stream, SvgOptions)
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_System_IO_Stream_Svg_SvgOptions_
+  commentId: M:Svg.SvgDocument.Open``1(System.IO.Stream,Svg.SvgOptions)
+  name.vb: Open(Of T)(Stream, SvgOptions)
+  fullName: Svg.SvgDocument.Open<T>(System.IO.Stream, Svg.SvgOptions)
+  fullName.vb: Svg.SvgDocument.Open(Of T)(System.IO.Stream, Svg.SvgOptions)
+  nameWithType: SvgDocument.Open<T>(Stream, SvgOptions)
+  nameWithType.vb: SvgDocument.Open(Of T)(Stream, SvgOptions)
+- uid: Svg.SvgDocument.Open``1(System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String})
+  name: Open<T>(Stream, Dictionary<String, String>)
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_System_IO_Stream_System_Collections_Generic_Dictionary_System_String_System_String__
+  commentId: M:Svg.SvgDocument.Open``1(System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String})
+  name.vb: Open(Of T)(Stream, Dictionary(Of String, String))
+  fullName: Svg.SvgDocument.Open<T>(System.IO.Stream, System.Collections.Generic.Dictionary<System.String, System.String>)
+  fullName.vb: Svg.SvgDocument.Open(Of T)(System.IO.Stream, System.Collections.Generic.Dictionary(Of System.String, System.String))
+  nameWithType: SvgDocument.Open<T>(Stream, Dictionary<String, String>)
+  nameWithType.vb: SvgDocument.Open(Of T)(Stream, Dictionary(Of String, String))
 - uid: Svg.SvgDocument.Open``1(System.String)
   name: Open<T>(String)
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_System_String_
@@ -6387,15 +6396,24 @@ references:
   fullName.vb: Svg.SvgDocument.Open(Of T)(System.String)
   nameWithType: SvgDocument.Open<T>(String)
   nameWithType.vb: SvgDocument.Open(Of T)(String)
-- uid: Svg.SvgDocument.Open``1(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)
-  name: Open<T>(String, Dictionary<String, String>, String)
-  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_System_String_System_Collections_Generic_Dictionary_System_String_System_String__System_String_
-  commentId: M:Svg.SvgDocument.Open``1(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String)
-  name.vb: Open(Of T)(String, Dictionary(Of String, String), String)
-  fullName: Svg.SvgDocument.Open<T>(System.String, System.Collections.Generic.Dictionary<System.String, System.String>, System.String)
-  fullName.vb: Svg.SvgDocument.Open(Of T)(System.String, System.Collections.Generic.Dictionary(Of System.String, System.String), System.String)
-  nameWithType: SvgDocument.Open<T>(String, Dictionary<String, String>, String)
-  nameWithType.vb: SvgDocument.Open(Of T)(String, Dictionary(Of String, String), String)
+- uid: Svg.SvgDocument.Open``1(System.String,Svg.SvgOptions)
+  name: Open<T>(String, SvgOptions)
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_System_String_Svg_SvgOptions_
+  commentId: M:Svg.SvgDocument.Open``1(System.String,Svg.SvgOptions)
+  name.vb: Open(Of T)(String, SvgOptions)
+  fullName: Svg.SvgDocument.Open<T>(System.String, Svg.SvgOptions)
+  fullName.vb: Svg.SvgDocument.Open(Of T)(System.String, Svg.SvgOptions)
+  nameWithType: SvgDocument.Open<T>(String, SvgOptions)
+  nameWithType.vb: SvgDocument.Open(Of T)(String, SvgOptions)
+- uid: Svg.SvgDocument.Open``1(System.String,System.Collections.Generic.Dictionary{System.String,System.String})
+  name: Open<T>(String, Dictionary<String, String>)
+  href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_System_String_System_Collections_Generic_Dictionary_System_String_System_String__
+  commentId: M:Svg.SvgDocument.Open``1(System.String,System.Collections.Generic.Dictionary{System.String,System.String})
+  name.vb: Open(Of T)(String, Dictionary(Of String, String))
+  fullName: Svg.SvgDocument.Open<T>(System.String, System.Collections.Generic.Dictionary<System.String, System.String>)
+  fullName.vb: Svg.SvgDocument.Open(Of T)(System.String, System.Collections.Generic.Dictionary(Of System.String, System.String))
+  nameWithType: SvgDocument.Open<T>(String, Dictionary<String, String>)
+  nameWithType.vb: SvgDocument.Open(Of T)(String, Dictionary(Of String, String))
 - uid: Svg.SvgDocument.Open``1(System.Xml.XmlReader)
   name: Open<T>(XmlReader)
   href: api/Svg.SvgDocument.html#Svg_SvgDocument_Open__1_System_Xml_XmlReader_
@@ -11706,6 +11724,75 @@ references:
   isSpec: "True"
   fullName: Svg.SvgNumberCollectionConverter.Parse
   nameWithType: SvgNumberCollectionConverter.Parse
+- uid: Svg.SvgOptions
+  name: SvgOptions
+  href: api/Svg.SvgOptions.html
+  commentId: T:Svg.SvgOptions
+  fullName: Svg.SvgOptions
+  nameWithType: SvgOptions
+- uid: Svg.SvgOptions.#ctor
+  name: SvgOptions()
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions__ctor
+  commentId: M:Svg.SvgOptions.#ctor
+  fullName: Svg.SvgOptions.SvgOptions()
+  nameWithType: SvgOptions.SvgOptions()
+- uid: Svg.SvgOptions.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})
+  name: SvgOptions(Dictionary<String, String>)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions__ctor_System_Collections_Generic_Dictionary_System_String_System_String__
+  commentId: M:Svg.SvgOptions.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})
+  name.vb: SvgOptions(Dictionary(Of String, String))
+  fullName: Svg.SvgOptions.SvgOptions(System.Collections.Generic.Dictionary<System.String, System.String>)
+  fullName.vb: Svg.SvgOptions.SvgOptions(System.Collections.Generic.Dictionary(Of System.String, System.String))
+  nameWithType: SvgOptions.SvgOptions(Dictionary<String, String>)
+  nameWithType.vb: SvgOptions.SvgOptions(Dictionary(Of String, String))
+- uid: Svg.SvgOptions.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},System.String)
+  name: SvgOptions(Dictionary<String, String>, String)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions__ctor_System_Collections_Generic_Dictionary_System_String_System_String__System_String_
+  commentId: M:Svg.SvgOptions.#ctor(System.Collections.Generic.Dictionary{System.String,System.String},System.String)
+  name.vb: SvgOptions(Dictionary(Of String, String), String)
+  fullName: Svg.SvgOptions.SvgOptions(System.Collections.Generic.Dictionary<System.String, System.String>, System.String)
+  fullName.vb: Svg.SvgOptions.SvgOptions(System.Collections.Generic.Dictionary(Of System.String, System.String), System.String)
+  nameWithType: SvgOptions.SvgOptions(Dictionary<String, String>, String)
+  nameWithType.vb: SvgOptions.SvgOptions(Dictionary(Of String, String), String)
+- uid: Svg.SvgOptions.#ctor(System.String)
+  name: SvgOptions(String)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions__ctor_System_String_
+  commentId: M:Svg.SvgOptions.#ctor(System.String)
+  fullName: Svg.SvgOptions.SvgOptions(System.String)
+  nameWithType: SvgOptions.SvgOptions(String)
+- uid: Svg.SvgOptions.#ctor*
+  name: SvgOptions
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions__ctor_
+  commentId: Overload:Svg.SvgOptions.#ctor
+  isSpec: "True"
+  fullName: Svg.SvgOptions.SvgOptions
+  nameWithType: SvgOptions.SvgOptions
+- uid: Svg.SvgOptions.Css
+  name: Css
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Css
+  commentId: P:Svg.SvgOptions.Css
+  fullName: Svg.SvgOptions.Css
+  nameWithType: SvgOptions.Css
+- uid: Svg.SvgOptions.Css*
+  name: Css
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Css_
+  commentId: Overload:Svg.SvgOptions.Css
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Css
+  nameWithType: SvgOptions.Css
+- uid: Svg.SvgOptions.Entities
+  name: Entities
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Entities
+  commentId: P:Svg.SvgOptions.Entities
+  fullName: Svg.SvgOptions.Entities
+  nameWithType: SvgOptions.Entities
+- uid: Svg.SvgOptions.Entities*
+  name: Entities
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Entities_
+  commentId: Overload:Svg.SvgOptions.Entities
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Entities
+  nameWithType: SvgOptions.Entities
 - uid: Svg.SvgOrient
   name: SvgOrient
   href: api/Svg.SvgOrient.html
