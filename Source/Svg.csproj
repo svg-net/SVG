@@ -68,7 +68,6 @@
 
     <ItemGroup>
         <EmbeddedResource Include="Resources\svg11.dtd" />
-        <Folder Include="Web\Resources\" />
         <None Include="Basic Shapes\DOM.cd" />
         <None Include="svgkey.snk" />
         <None Include="svg-logo-v.png" Pack="true" PackagePath="" />
