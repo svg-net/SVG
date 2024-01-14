@@ -1,55 +1,72 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <IsTestProject>true</IsTestProject>
-    <TargetFrameworks>net6.0;netcoreapp3.1;net462</TargetFrameworks>
-    <IsPackable>false</IsPackable>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Configurations>Debug;Release</Configurations>
-    <NoWarn>1591</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup>
+		<IsTestProject>true</IsTestProject>
+		<TargetFrameworks>net6.0;netcoreapp3.1;net462</TargetFrameworks>
+		<IsPackable>false</IsPackable>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
+		<DelaySign>false</DelaySign>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<Configurations>Debug;Release</Configurations>
+		<NoWarn>1591</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Issue204_PrivateFont\BrushScriptMT2.ttf" />
-    <EmbeddedResource Include="AllTests.csv" />
-    <EmbeddedResource Include="PassingTests.csv" />
-    <None Include="svgkey.snk" />
-  </ItemGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<NoWarn>$(NoWarn);CS0618;NETSDK1138</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<NoWarn>$(NoWarn);CS1591;CS0618;NETSDK1138</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Issue204_PrivateFont\Text.svg" />
-    <EmbeddedResource Include="Resources\Issue210_Metafile\3DSceneSnapshotBIG.svg" />
-    <EmbeddedResource Include="Resources\Issue212_MakerEnd\OperatingPlan.svg" />
-    <EmbeddedResource Include="Resources\Issue_Multirender\TestFile.svg" />
-    <EmbeddedResource Include="Resources\Issue225_LargeUri\Speedometer.svg" />
-    <EmbeddedResource Include="Resources\hotfix-image-data-uri\Speedometer.svg" />
-    <EmbeddedResource Include="Resources\Issue_TextElement\Text.svg" />
-    <EmbeddedResource Include="Resources\Issue281_Bounds\BoundsTest.svg" />
-    <EmbeddedResource Include="Resources\Issue_Threading\TestFile.svg" />
-    <EmbeddedResource Include="Resources\Issue508_DashArray\DashArray.svg" />
-    <EmbeddedResource Include="Resources\Issue399_LexerIssue\LexerTestTemplate.svg" />
-    <EmbeddedResource Include="Resources\Issue399_LexerIssue\EmptyDTag.svg" />
-    <EmbeddedResource Include="Resources\Issue518_Entities\Entities.svg" />
-    <EmbeddedResource Include="Resources\ScriptTag\TestFile.svg" />
-  </ItemGroup>
+	<PropertyGroup>
+		<DefineConstants Condition="$(TargetFramework.StartsWith('net46'))">$(DefineConstants);DOTNET46;NETFULL</DefineConstants>
+		<DefineConstants Condition="$(TargetFramework.StartsWith('net47'))">$(DefineConstants);DOTNET47;NETFULL</DefineConstants>
+		<DefineConstants Condition="$(TargetFramework.StartsWith('net48'))">$(DefineConstants);DOTNET48;NETFULL</DefineConstants>
+		<DefineConstants Condition="$(TargetFramework.StartsWith('netstandard'))">$(DefineConstants);NETSTANDARD</DefineConstants>
+		<DefineConstants Condition="$(TargetFramework.StartsWith('netcore'))">$(DefineConstants);NETCORE</DefineConstants>
+		<DefineConstants Condition="$(TargetFramework.StartsWith('net6'))">$(DefineConstants);NETCORE;NETNEXT</DefineConstants>
+		<DefineConstants Condition="$(TargetFramework.StartsWith('net7'))">$(DefineConstants);NETCORE;NETNEXT</DefineConstants>
+		<DefineConstants Condition="$(TargetFramework.StartsWith('net8'))">$(DefineConstants);NETCORE;NETNEXT</DefineConstants>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-    <PackageReference Include="NUnit" Version="3.13.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="Moq" Version="4.16.1" />
-    <PackageReference Include="Fizzler" Version="1.3.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\Issue204_PrivateFont\BrushScriptMT2.ttf" />
+		<EmbeddedResource Include="AllTests.csv" />
+		<EmbeddedResource Include="PassingTests.csv" />
+		<None Include="svgkey.snk" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Source\Svg.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\Issue204_PrivateFont\Text.svg" />
+		<EmbeddedResource Include="Resources\Issue210_Metafile\3DSceneSnapshotBIG.svg" />
+		<EmbeddedResource Include="Resources\Issue212_MakerEnd\OperatingPlan.svg" />
+		<EmbeddedResource Include="Resources\Issue_Multirender\TestFile.svg" />
+		<EmbeddedResource Include="Resources\Issue225_LargeUri\Speedometer.svg" />
+		<EmbeddedResource Include="Resources\hotfix-image-data-uri\Speedometer.svg" />
+		<EmbeddedResource Include="Resources\Issue_TextElement\Text.svg" />
+		<EmbeddedResource Include="Resources\Issue281_Bounds\BoundsTest.svg" />
+		<EmbeddedResource Include="Resources\Issue_Threading\TestFile.svg" />
+		<EmbeddedResource Include="Resources\Issue508_DashArray\DashArray.svg" />
+		<EmbeddedResource Include="Resources\Issue399_LexerIssue\LexerTestTemplate.svg" />
+		<EmbeddedResource Include="Resources\Issue399_LexerIssue\EmptyDTag.svg" />
+		<EmbeddedResource Include="Resources\Issue518_Entities\Entities.svg" />
+		<EmbeddedResource Include="Resources\ScriptTag\TestFile.svg" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net462'">
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+		<PackageReference Include="NUnit" Version="3.13.0" />
+		<PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+		<PackageReference Include="Moq" Version="4.16.1" />
+		<PackageReference Include="Fizzler" Version="1.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Source\Svg.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net462'">
+		<Reference Include="WindowsBase" />
+	</ItemGroup>
 
 </Project>

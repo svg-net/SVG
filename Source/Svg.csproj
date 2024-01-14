@@ -1,102 +1,151 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.1;netstandard2.0;net462</TargetFrameworks>
-    <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
-    <RootNamespace>Svg</RootNamespace>
-    <AssemblyName>Svg</AssemblyName>
-    <IsPackable>true</IsPackable>
-    <Company></Company>
-    <Authors>davescriven, jvenema, mrbean-bremen, H1Gdev, Wiesław Šoltés, owaits, ddpruitt, Ralf1108, Tebjan Halm, and others</Authors>
-    <PackageId>Svg</PackageId>
-    <Product>SVG Rendering Library</Product>
-    <Summary>SVG Rendering Library</Summary>
-    <Description>
-      Public fork of the C# SVG rendering library on codeplex: https://svg.codeplex.com/
-      This started out as a minor modification to enable the writing of proper SVG strings. But now after almost two years we have so many fixes and improvements that we decided to share our current codebase to the public in order to improve it even further.
-      So please feel free to fork it and open pull requests for any fix, improvement or feature you add.
-      License: Microsoft Public License: https://svg.codeplex.com/license
-    </Description>
-    <Copyright>Copyright © vvvv.org</Copyright>
-    <Tags>svg, vector graphics, rendering</Tags>
-    <ProjectGuid>{886A98C5-37C0-4E8B-885E-30C1D2F98B47}</ProjectGuid>
-    <Configurations>Debug;Release</Configurations>
-    <NoWarn>1591</NoWarn>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
-    <PackageTags>svg, vector graphics, rendering</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Fixed a regression in loading embedded images (see Release Notes: http://svg-net.github.io/SVG/doc/ReleaseNotes.html).
-    </PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/svg-net/SVG</PackageProjectUrl>
-    <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
-    <PackageIcon>svg-logo-v.png</PackageIcon>
-    <LangVersion>10.0</LangVersion>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-    <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\$(TargetFramework)\GeneratedFiles</CompilerGeneratedFilesOutputPath>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.1;netstandard2.0;net462;net472;net481</TargetFrameworks>
+        <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
+        <RootNamespace>Svg</RootNamespace>
+        <AssemblyName>Svg</AssemblyName>
+        <IsPackable>true</IsPackable>
+        <Company></Company>
+        <Authors>davescriven, jvenema, mrbean-bremen, H1Gdev, Wiesław Šoltés, owaits, ddpruitt, Ralf1108, Tebjan Halm, and others</Authors>
+        <PackageId>Svg</PackageId>
+        <Product>SVG Rendering Library</Product>
+        <Summary>SVG Rendering Library</Summary>
+        <Description>
+            Public fork of the C# SVG rendering library on codeplex.
+            This started out as a minor modification to enable the writing of proper SVG strings. But now after almost two years we have so many fixes and improvements that we decided to share our current codebase to the public in order to improve it even further.
+            So please feel free to fork it and open pull requests for any fix, improvement or feature you add.
+            License: Microsoft Public License.
+        </Description>
+        <Copyright>Copyright © vvvv.org</Copyright>
+        <Tags>svg, vector graphics, rendering</Tags>
+        <ProjectGuid>{886A98C5-37C0-4E8B-885E-30C1D2F98B47}</ProjectGuid>
+        <Configurations>Debug;Release</Configurations>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
+        <PackageTags>svg, vector graphics, rendering</PackageTags>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageReleaseNotes>
+            Fixed a regression in loading embedded images (see Release Notes: http://svg-net.github.io/SVG/doc/ReleaseNotes.html).
+        </PackageReleaseNotes>
+        <PackageProjectUrl>https://github.com/svg-net/SVG</PackageProjectUrl>
+        <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>
+        <PackageIcon>svg-logo-v.png</PackageIcon>
+        <LangVersion>10.0</LangVersion>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\$(TargetFramework)\GeneratedFiles</CompilerGeneratedFilesOutputPath>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <NoWarn>$(NoWarn);CS0618;NETSDK1138</NoWarn>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>portable</DebugType>
+        <Optimize>true</Optimize>
+        <DefineConstants>TRACE</DefineConstants>
+        <NoWarn>$(NoWarn);CS1591;CS0618;NETSDK1138</NoWarn>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net46'))">$(DefineConstants);DOTNET46;NETFULL</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net47'))">$(DefineConstants);DOTNET47;NETFULL</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net48'))">$(DefineConstants);DOTNET48;NETFULL</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('netstandard'))">$(DefineConstants);NETSTANDARD</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('netcore'))">$(DefineConstants);NETCORE</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net6'))">$(DefineConstants);NETCORE;NETNEXT</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net7'))">$(DefineConstants);NETCORE;NETNEXT</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net8'))">$(DefineConstants);NETCORE;NETNEXT</DefineConstants>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\svg11.dtd" />
-    <Folder Include="Web\Resources\" />
-    <None Include="Basic Shapes\DOM.cd" />
-    <None Include="svgkey.snk" />
-    <None Include="svg-logo-v.png" Pack="true" PackagePath="" />
-  </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\svg11.dtd" />
+        <Folder Include="Web\Resources\" />
+        <None Include="Basic Shapes\DOM.cd" />
+        <None Include="svgkey.snk" />
+        <None Include="svg-logo-v.png" Pack="true" PackagePath="" />
+    </ItemGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net462'">
-    <Title>Svg for .Net Framework 4.6.2</Title>
-    <DefineConstants>$(DefineConstants);NETFULL;Net4</DefineConstants>
-    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-  </PropertyGroup>
+    <ItemGroup>
+        <Compile Remove=".\Resources\svg11.dtd" />
+    </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net462'">
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Drawing" />
+        <Reference Include="System.Web" />
+        <Reference Include="System.Xml" />
+        <PackageReference Include="System.Memory" Version="4.5.5" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Drawing" />
+        <Reference Include="System.Web" />
+        <Reference Include="System.Net.Http" />
+        <Reference Include="System.Xml" />
+        <PackageReference Include="System.Memory" Version="4.5.5" />
+    </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'netstandard2.1' Or '$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net481'">
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Drawing" />
+        <Reference Include="System.Web" />
+        <Reference Include="System.Net.Http" />
+        <Reference Include="System.Xml" />
+        <PackageReference Include="System.Memory" Version="4.5.5" />
+    </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' Or '$(TargetFramework)' == 'net462'">
-    <PackageReference Include="System.Memory" Version="4.5.5" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <PackageReference Include="System.Memory" Version="4.5.5" />
+        <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
+        <!-- Mac specific include -->
+        <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
+    </ItemGroup>
 
-  <!-- Mac specific include -->
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+        <!-- Mac specific include -->
+        <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
+        <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
+    </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1' Or '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+        <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Remove=".\Resources\svg11.dtd" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+        <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="ExCSS" Version="4.2.3" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+        <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Generators\Svg.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="ExCSS" Version="4.2.3" />
+        <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Generators\Svg.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    </ItemGroup>
 
 </Project>
