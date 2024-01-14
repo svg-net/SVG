@@ -1,52 +1,52 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFrameworks>net6.0;netcoreapp3.1;net462</TargetFrameworks>
-		<IsPackable>false</IsPackable>
-		<LangVersion>8.0</LangVersion>
-		<SignAssembly>True</SignAssembly>
-		<AssemblyOriginatorKeyFile>..\Svg.UnitTests\svgkey.snk</AssemblyOriginatorKeyFile>
-	</PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFrameworks>net6.0;netcoreapp3.1;net462</TargetFrameworks>
+        <IsPackable>false</IsPackable>
+        <LangVersion>8.0</LangVersion>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\Svg.UnitTests\svgkey.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
 
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<NoWarn>$(NoWarn);CS0618;NETSDK1138</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<NoWarn>$(NoWarn);CS1591;CS0618;NETSDK1138</NoWarn>
-	</PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <NoWarn>$(NoWarn);CS0618;NETSDK1138</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <NoWarn>$(NoWarn);CS1591;CS0618;NETSDK1138</NoWarn>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<EmbeddedResource Include="..\Issues\svg\__AJ_Digital_Camera.svg">
-			<Link>Assets\__AJ_Digital_Camera.svg</Link>
-		</EmbeddedResource>
-		<EmbeddedResource Include="..\Issues\svg\__issue-134-01.svg">
-			<Link>Assets\__issue-134-01.svg</Link>
-		</EmbeddedResource>
-		<EmbeddedResource Include="..\Issues\svg\__tiger.svg">
-			<Link>Assets\__tiger.svg</Link>
-		</EmbeddedResource>
-	</ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="..\Issues\svg\__AJ_Digital_Camera.svg">
+            <Link>Assets\__AJ_Digital_Camera.svg</Link>
+        </EmbeddedResource>
+        <EmbeddedResource Include="..\Issues\svg\__issue-134-01.svg">
+            <Link>Assets\__issue-134-01.svg</Link>
+        </EmbeddedResource>
+        <EmbeddedResource Include="..\Issues\svg\__tiger.svg">
+            <Link>Assets\__tiger.svg</Link>
+        </EmbeddedResource>
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
-		<PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+        <PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\Source\Svg.csproj" />
-		<ProjectReference Include="..\Svg.UnitTests\Svg.UnitTests.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\Source\Svg.csproj" />
+        <ProjectReference Include="..\Svg.UnitTests\Svg.UnitTests.csproj" />
+    </ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)'=='net462'">
-		<Reference Include="WindowsBase" />
-	</ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)'=='net462'">
+        <Reference Include="WindowsBase" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<None Remove="BenchmarkDotNet.Artifacts\**" />
-	</ItemGroup>
+    <ItemGroup>
+        <None Remove="BenchmarkDotNet.Artifacts\**" />
+    </ItemGroup>
 
 </Project>
