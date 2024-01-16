@@ -219,22 +219,4 @@ namespace Svg
     public sealed class SvgStitchTypeConverter : EnumBaseConverter<SvgStitchType> { }
 
     public sealed class SvgTurbulenceTypeConverter : EnumBaseConverter<SvgTurbulenceType> { }
-
-    //public static class Enums
-    //{
-    //    [CLSCompliant(false)]
-    //    public static bool TryParse<TEnum>(string value, out TEnum result) where TEnum : struct, IConvertible
-    //    {
-    //        try
-    //        {
-    //            result = (TEnum)Enum.Parse(typeof(TEnum), value, true);
-    //            return true;
-    //        }
-    //        catch
-    //        {
-    //            result = default(TEnum);
-    //            return false;
-    //        }
-    //    }
-    //}
 }
