@@ -476,28 +476,6 @@ references:
   fullName.vb: Svg.EnumBaseConverter(Of T).ConvertTo
   nameWithType: EnumBaseConverter<T>.ConvertTo
   nameWithType.vb: EnumBaseConverter(Of T).ConvertTo
-- uid: Svg.Enums
-  name: Enums
-  href: api/Svg.Enums.html
-  commentId: T:Svg.Enums
-  fullName: Svg.Enums
-  nameWithType: Enums
-- uid: Svg.Enums.TryParse*
-  name: TryParse
-  href: api/Svg.Enums.html#Svg_Enums_TryParse_
-  commentId: Overload:Svg.Enums.TryParse
-  isSpec: "True"
-  fullName: Svg.Enums.TryParse
-  nameWithType: Enums.TryParse
-- uid: Svg.Enums.TryParse``1(System.String,``0@)
-  name: TryParse<TEnum>(String, out TEnum)
-  href: api/Svg.Enums.html#Svg_Enums_TryParse__1_System_String___0__
-  commentId: M:Svg.Enums.TryParse``1(System.String,``0@)
-  name.vb: TryParse(Of TEnum)(String, ByRef TEnum)
-  fullName: Svg.Enums.TryParse<TEnum>(System.String, out TEnum)
-  fullName.vb: Svg.Enums.TryParse(Of TEnum)(System.String, ByRef TEnum)
-  nameWithType: Enums.TryParse<TEnum>(String, out TEnum)
-  nameWithType.vb: Enums.TryParse(Of TEnum)(String, ByRef TEnum)
 - uid: Svg.Exceptions
   name: Svg.Exceptions
   href: api/Svg.Exceptions.html
@@ -3339,6 +3317,110 @@ references:
   commentId: T:Svg.ISvgDescriptiveElement
   fullName: Svg.ISvgDescriptiveElement
   nameWithType: ISvgDescriptiveElement
+- uid: Svg.ISvgEventCaller
+  name: ISvgEventCaller
+  href: api/Svg.ISvgEventCaller.html
+  commentId: T:Svg.ISvgEventCaller
+  fullName: Svg.ISvgEventCaller
+  nameWithType: ISvgEventCaller
+- uid: Svg.ISvgEventCaller.RegisterAction(System.String,System.Action)
+  name: RegisterAction(String, Action)
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_RegisterAction_System_String_System_Action_
+  commentId: M:Svg.ISvgEventCaller.RegisterAction(System.String,System.Action)
+  fullName: Svg.ISvgEventCaller.RegisterAction(System.String, System.Action)
+  nameWithType: ISvgEventCaller.RegisterAction(String, Action)
+- uid: Svg.ISvgEventCaller.RegisterAction*
+  name: RegisterAction
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_RegisterAction_
+  commentId: Overload:Svg.ISvgEventCaller.RegisterAction
+  isSpec: "True"
+  fullName: Svg.ISvgEventCaller.RegisterAction
+  nameWithType: ISvgEventCaller.RegisterAction
+- uid: Svg.ISvgEventCaller.RegisterAction``1(System.String,System.Action{``0})
+  name: RegisterAction<T1>(String, Action<T1>)
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_RegisterAction__1_System_String_System_Action___0__
+  commentId: M:Svg.ISvgEventCaller.RegisterAction``1(System.String,System.Action{``0})
+  name.vb: RegisterAction(Of T1)(String, Action(Of T1))
+  fullName: Svg.ISvgEventCaller.RegisterAction<T1>(System.String, System.Action<T1>)
+  fullName.vb: Svg.ISvgEventCaller.RegisterAction(Of T1)(System.String, System.Action(Of T1))
+  nameWithType: ISvgEventCaller.RegisterAction<T1>(String, Action<T1>)
+  nameWithType.vb: ISvgEventCaller.RegisterAction(Of T1)(String, Action(Of T1))
+- uid: Svg.ISvgEventCaller.RegisterAction``2(System.String,System.Action{``0,``1})
+  name: RegisterAction<T1, T2>(String, Action<T1, T2>)
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_RegisterAction__2_System_String_System_Action___0___1__
+  commentId: M:Svg.ISvgEventCaller.RegisterAction``2(System.String,System.Action{``0,``1})
+  name.vb: RegisterAction(Of T1, T2)(String, Action(Of T1, T2))
+  fullName: Svg.ISvgEventCaller.RegisterAction<T1, T2>(System.String, System.Action<T1, T2>)
+  fullName.vb: Svg.ISvgEventCaller.RegisterAction(Of T1, T2)(System.String, System.Action(Of T1, T2))
+  nameWithType: ISvgEventCaller.RegisterAction<T1, T2>(String, Action<T1, T2>)
+  nameWithType.vb: ISvgEventCaller.RegisterAction(Of T1, T2)(String, Action(Of T1, T2))
+- uid: Svg.ISvgEventCaller.RegisterAction``3(System.String,System.Action{``0,``1,``2})
+  name: RegisterAction<T1, T2, T3>(String, Action<T1, T2, T3>)
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_RegisterAction__3_System_String_System_Action___0___1___2__
+  commentId: M:Svg.ISvgEventCaller.RegisterAction``3(System.String,System.Action{``0,``1,``2})
+  name.vb: RegisterAction(Of T1, T2, T3)(String, Action(Of T1, T2, T3))
+  fullName: Svg.ISvgEventCaller.RegisterAction<T1, T2, T3>(System.String, System.Action<T1, T2, T3>)
+  fullName.vb: Svg.ISvgEventCaller.RegisterAction(Of T1, T2, T3)(System.String, System.Action(Of T1, T2, T3))
+  nameWithType: ISvgEventCaller.RegisterAction<T1, T2, T3>(String, Action<T1, T2, T3>)
+  nameWithType.vb: ISvgEventCaller.RegisterAction(Of T1, T2, T3)(String, Action(Of T1, T2, T3))
+- uid: Svg.ISvgEventCaller.RegisterAction``4(System.String,System.Action{``0,``1,``2,``3})
+  name: RegisterAction<T1, T2, T3, T4>(String, Action<T1, T2, T3, T4>)
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_RegisterAction__4_System_String_System_Action___0___1___2___3__
+  commentId: M:Svg.ISvgEventCaller.RegisterAction``4(System.String,System.Action{``0,``1,``2,``3})
+  name.vb: RegisterAction(Of T1, T2, T3, T4)(String, Action(Of T1, T2, T3, T4))
+  fullName: Svg.ISvgEventCaller.RegisterAction<T1, T2, T3, T4>(System.String, System.Action<T1, T2, T3, T4>)
+  fullName.vb: Svg.ISvgEventCaller.RegisterAction(Of T1, T2, T3, T4)(System.String, System.Action(Of T1, T2, T3, T4))
+  nameWithType: ISvgEventCaller.RegisterAction<T1, T2, T3, T4>(String, Action<T1, T2, T3, T4>)
+  nameWithType.vb: ISvgEventCaller.RegisterAction(Of T1, T2, T3, T4)(String, Action(Of T1, T2, T3, T4))
+- uid: Svg.ISvgEventCaller.RegisterAction``5(System.String,System.Action{``0,``1,``2,``3,``4})
+  name: RegisterAction<T1, T2, T3, T4, T5>(String, Action<T1, T2, T3, T4, T5>)
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_RegisterAction__5_System_String_System_Action___0___1___2___3___4__
+  commentId: M:Svg.ISvgEventCaller.RegisterAction``5(System.String,System.Action{``0,``1,``2,``3,``4})
+  name.vb: RegisterAction(Of T1, T2, T3, T4, T5)(String, Action(Of T1, T2, T3, T4, T5))
+  fullName: Svg.ISvgEventCaller.RegisterAction<T1, T2, T3, T4, T5>(System.String, System.Action<T1, T2, T3, T4, T5>)
+  fullName.vb: Svg.ISvgEventCaller.RegisterAction(Of T1, T2, T3, T4, T5)(System.String, System.Action(Of T1, T2, T3, T4, T5))
+  nameWithType: ISvgEventCaller.RegisterAction<T1, T2, T3, T4, T5>(String, Action<T1, T2, T3, T4, T5>)
+  nameWithType.vb: ISvgEventCaller.RegisterAction(Of T1, T2, T3, T4, T5)(String, Action(Of T1, T2, T3, T4, T5))
+- uid: Svg.ISvgEventCaller.RegisterAction``6(System.String,System.Action{``0,``1,``2,``3,``4,``5})
+  name: RegisterAction<T1, T2, T3, T4, T5, T6>(String, Action<T1, T2, T3, T4, T5, T6>)
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_RegisterAction__6_System_String_System_Action___0___1___2___3___4___5__
+  commentId: M:Svg.ISvgEventCaller.RegisterAction``6(System.String,System.Action{``0,``1,``2,``3,``4,``5})
+  name.vb: RegisterAction(Of T1, T2, T3, T4, T5, T6)(String, Action(Of T1, T2, T3, T4, T5, T6))
+  fullName: Svg.ISvgEventCaller.RegisterAction<T1, T2, T3, T4, T5, T6>(System.String, System.Action<T1, T2, T3, T4, T5, T6>)
+  fullName.vb: Svg.ISvgEventCaller.RegisterAction(Of T1, T2, T3, T4, T5, T6)(System.String, System.Action(Of T1, T2, T3, T4, T5, T6))
+  nameWithType: ISvgEventCaller.RegisterAction<T1, T2, T3, T4, T5, T6>(String, Action<T1, T2, T3, T4, T5, T6>)
+  nameWithType.vb: ISvgEventCaller.RegisterAction(Of T1, T2, T3, T4, T5, T6)(String, Action(Of T1, T2, T3, T4, T5, T6))
+- uid: Svg.ISvgEventCaller.RegisterAction``7(System.String,System.Action{``0,``1,``2,``3,``4,``5,``6})
+  name: RegisterAction<T1, T2, T3, T4, T5, T6, T7>(String, Action<T1, T2, T3, T4, T5, T6, T7>)
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_RegisterAction__7_System_String_System_Action___0___1___2___3___4___5___6__
+  commentId: M:Svg.ISvgEventCaller.RegisterAction``7(System.String,System.Action{``0,``1,``2,``3,``4,``5,``6})
+  name.vb: RegisterAction(Of T1, T2, T3, T4, T5, T6, T7)(String, Action(Of T1, T2, T3, T4, T5, T6, T7))
+  fullName: Svg.ISvgEventCaller.RegisterAction<T1, T2, T3, T4, T5, T6, T7>(System.String, System.Action<T1, T2, T3, T4, T5, T6, T7>)
+  fullName.vb: Svg.ISvgEventCaller.RegisterAction(Of T1, T2, T3, T4, T5, T6, T7)(System.String, System.Action(Of T1, T2, T3, T4, T5, T6, T7))
+  nameWithType: ISvgEventCaller.RegisterAction<T1, T2, T3, T4, T5, T6, T7>(String, Action<T1, T2, T3, T4, T5, T6, T7>)
+  nameWithType.vb: ISvgEventCaller.RegisterAction(Of T1, T2, T3, T4, T5, T6, T7)(String, Action(Of T1, T2, T3, T4, T5, T6, T7))
+- uid: Svg.ISvgEventCaller.RegisterAction``8(System.String,System.Action{``0,``1,``2,``3,``4,``5,``6,``7})
+  name: RegisterAction<T1, T2, T3, T4, T5, T6, T7, T8>(String, Action<T1, T2, T3, T4, T5, T6, T7, T8>)
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_RegisterAction__8_System_String_System_Action___0___1___2___3___4___5___6___7__
+  commentId: M:Svg.ISvgEventCaller.RegisterAction``8(System.String,System.Action{``0,``1,``2,``3,``4,``5,``6,``7})
+  name.vb: RegisterAction(Of T1, T2, T3, T4, T5, T6, T7, T8)(String, Action(Of T1, T2, T3, T4, T5, T6, T7, T8))
+  fullName: Svg.ISvgEventCaller.RegisterAction<T1, T2, T3, T4, T5, T6, T7, T8>(System.String, System.Action<T1, T2, T3, T4, T5, T6, T7, T8>)
+  fullName.vb: Svg.ISvgEventCaller.RegisterAction(Of T1, T2, T3, T4, T5, T6, T7, T8)(System.String, System.Action(Of T1, T2, T3, T4, T5, T6, T7, T8))
+  nameWithType: ISvgEventCaller.RegisterAction<T1, T2, T3, T4, T5, T6, T7, T8>(String, Action<T1, T2, T3, T4, T5, T6, T7, T8>)
+  nameWithType.vb: ISvgEventCaller.RegisterAction(Of T1, T2, T3, T4, T5, T6, T7, T8)(String, Action(Of T1, T2, T3, T4, T5, T6, T7, T8))
+- uid: Svg.ISvgEventCaller.UnregisterAction(System.String)
+  name: UnregisterAction(String)
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_UnregisterAction_System_String_
+  commentId: M:Svg.ISvgEventCaller.UnregisterAction(System.String)
+  fullName: Svg.ISvgEventCaller.UnregisterAction(System.String)
+  nameWithType: ISvgEventCaller.UnregisterAction(String)
+- uid: Svg.ISvgEventCaller.UnregisterAction*
+  name: UnregisterAction
+  href: api/Svg.ISvgEventCaller.html#Svg_ISvgEventCaller_UnregisterAction_
+  commentId: Overload:Svg.ISvgEventCaller.UnregisterAction
+  isSpec: "True"
+  fullName: Svg.ISvgEventCaller.UnregisterAction
+  nameWithType: ISvgEventCaller.UnregisterAction
 - uid: Svg.ISvgNode
   name: ISvgNode
   href: api/Svg.ISvgNode.html
@@ -7023,6 +7105,22 @@ references:
   commentId: E:Svg.SvgElement.ContentChanged
   fullName: Svg.SvgElement.ContentChanged
   nameWithType: SvgElement.ContentChanged
+- uid: Svg.SvgElement.CreateMouseEventAction(System.Action{System.Object,Svg.MouseArg})
+  name: CreateMouseEventAction(Action<Object, MouseArg>)
+  href: api/Svg.SvgElement.html#Svg_SvgElement_CreateMouseEventAction_System_Action_System_Object_Svg_MouseArg__
+  commentId: M:Svg.SvgElement.CreateMouseEventAction(System.Action{System.Object,Svg.MouseArg})
+  name.vb: CreateMouseEventAction(Action(Of Object, MouseArg))
+  fullName: Svg.SvgElement.CreateMouseEventAction(System.Action<System.Object, Svg.MouseArg>)
+  fullName.vb: Svg.SvgElement.CreateMouseEventAction(System.Action(Of System.Object, Svg.MouseArg))
+  nameWithType: SvgElement.CreateMouseEventAction(Action<Object, MouseArg>)
+  nameWithType.vb: SvgElement.CreateMouseEventAction(Action(Of Object, MouseArg))
+- uid: Svg.SvgElement.CreateMouseEventAction*
+  name: CreateMouseEventAction
+  href: api/Svg.SvgElement.html#Svg_SvgElement_CreateMouseEventAction_
+  commentId: Overload:Svg.SvgElement.CreateMouseEventAction
+  isSpec: "True"
+  fullName: Svg.SvgElement.CreateMouseEventAction
+  nameWithType: SvgElement.CreateMouseEventAction
 - uid: Svg.SvgElement.CustomAttributes
   name: CustomAttributes
   href: api/Svg.SvgElement.html#Svg_SvgElement_CustomAttributes
@@ -7675,6 +7773,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.RaiseMouseUp
   nameWithType: SvgElement.RaiseMouseUp
+- uid: Svg.SvgElement.RegisterEvents(Svg.ISvgEventCaller)
+  name: RegisterEvents(ISvgEventCaller)
+  href: api/Svg.SvgElement.html#Svg_SvgElement_RegisterEvents_Svg_ISvgEventCaller_
+  commentId: M:Svg.SvgElement.RegisterEvents(Svg.ISvgEventCaller)
+  fullName: Svg.SvgElement.RegisterEvents(Svg.ISvgEventCaller)
+  nameWithType: SvgElement.RegisterEvents(ISvgEventCaller)
+- uid: Svg.SvgElement.RegisterEvents*
+  name: RegisterEvents
+  href: api/Svg.SvgElement.html#Svg_SvgElement_RegisterEvents_
+  commentId: Overload:Svg.SvgElement.RegisterEvents
+  isSpec: "True"
+  fullName: Svg.SvgElement.RegisterEvents
+  nameWithType: SvgElement.RegisterEvents
 - uid: Svg.SvgElement.RemoveElement(Svg.SvgElement)
   name: RemoveElement(SvgElement)
   href: api/Svg.SvgElement.html#Svg_SvgElement_RemoveElement_Svg_SvgElement_
@@ -8018,6 +8129,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgElement.TryGetAttribute
   nameWithType: SvgElement.TryGetAttribute
+- uid: Svg.SvgElement.UnregisterEvents(Svg.ISvgEventCaller)
+  name: UnregisterEvents(ISvgEventCaller)
+  href: api/Svg.SvgElement.html#Svg_SvgElement_UnregisterEvents_Svg_ISvgEventCaller_
+  commentId: M:Svg.SvgElement.UnregisterEvents(Svg.ISvgEventCaller)
+  fullName: Svg.SvgElement.UnregisterEvents(Svg.ISvgEventCaller)
+  nameWithType: SvgElement.UnregisterEvents(ISvgEventCaller)
+- uid: Svg.SvgElement.UnregisterEvents*
+  name: UnregisterEvents
+  href: api/Svg.SvgElement.html#Svg_SvgElement_UnregisterEvents_
+  commentId: Overload:Svg.SvgElement.UnregisterEvents
+  isSpec: "True"
+  fullName: Svg.SvgElement.UnregisterEvents
+  nameWithType: SvgElement.UnregisterEvents
 - uid: Svg.SvgElement.ValidateFontFamily(System.String,Svg.SvgDocument,Svg.SvgFontManager)
   name: ValidateFontFamily(String, SvgDocument, SvgFontManager)
   href: api/Svg.SvgElement.html#Svg_SvgElement_ValidateFontFamily_System_String_Svg_SvgDocument_Svg_SvgFontManager_
@@ -11767,6 +11891,112 @@ references:
   isSpec: "True"
   fullName: Svg.SvgOptions.SvgOptions
   nameWithType: SvgOptions.SvgOptions
+- uid: Svg.SvgOptions.Add(System.Collections.Generic.KeyValuePair{System.String,System.String})
+  name: Add(KeyValuePair<String, String>)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Add_System_Collections_Generic_KeyValuePair_System_String_System_String__
+  commentId: M:Svg.SvgOptions.Add(System.Collections.Generic.KeyValuePair{System.String,System.String})
+  name.vb: Add(KeyValuePair(Of String, String))
+  fullName: Svg.SvgOptions.Add(System.Collections.Generic.KeyValuePair<System.String, System.String>)
+  fullName.vb: Svg.SvgOptions.Add(System.Collections.Generic.KeyValuePair(Of System.String, System.String))
+  nameWithType: SvgOptions.Add(KeyValuePair<String, String>)
+  nameWithType.vb: SvgOptions.Add(KeyValuePair(Of String, String))
+- uid: Svg.SvgOptions.Add(System.String,System.String)
+  name: Add(String, String)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Add_System_String_System_String_
+  commentId: M:Svg.SvgOptions.Add(System.String,System.String)
+  fullName: Svg.SvgOptions.Add(System.String, System.String)
+  nameWithType: SvgOptions.Add(String, String)
+- uid: Svg.SvgOptions.Add*
+  name: Add
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Add_
+  commentId: Overload:Svg.SvgOptions.Add
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Add
+  nameWithType: SvgOptions.Add
+- uid: Svg.SvgOptions.Clear
+  name: Clear()
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Clear
+  commentId: M:Svg.SvgOptions.Clear
+  fullName: Svg.SvgOptions.Clear()
+  nameWithType: SvgOptions.Clear()
+- uid: Svg.SvgOptions.Clear*
+  name: Clear
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Clear_
+  commentId: Overload:Svg.SvgOptions.Clear
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Clear
+  nameWithType: SvgOptions.Clear
+- uid: Svg.SvgOptions.Clone
+  name: Clone()
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Clone
+  commentId: M:Svg.SvgOptions.Clone
+  fullName: Svg.SvgOptions.Clone()
+  nameWithType: SvgOptions.Clone()
+- uid: Svg.SvgOptions.Clone*
+  name: Clone
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Clone_
+  commentId: Overload:Svg.SvgOptions.Clone
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Clone
+  nameWithType: SvgOptions.Clone
+- uid: Svg.SvgOptions.Contains(System.Collections.Generic.KeyValuePair{System.String,System.String})
+  name: Contains(KeyValuePair<String, String>)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Contains_System_Collections_Generic_KeyValuePair_System_String_System_String__
+  commentId: M:Svg.SvgOptions.Contains(System.Collections.Generic.KeyValuePair{System.String,System.String})
+  name.vb: Contains(KeyValuePair(Of String, String))
+  fullName: Svg.SvgOptions.Contains(System.Collections.Generic.KeyValuePair<System.String, System.String>)
+  fullName.vb: Svg.SvgOptions.Contains(System.Collections.Generic.KeyValuePair(Of System.String, System.String))
+  nameWithType: SvgOptions.Contains(KeyValuePair<String, String>)
+  nameWithType.vb: SvgOptions.Contains(KeyValuePair(Of String, String))
+- uid: Svg.SvgOptions.Contains*
+  name: Contains
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Contains_
+  commentId: Overload:Svg.SvgOptions.Contains
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Contains
+  nameWithType: SvgOptions.Contains
+- uid: Svg.SvgOptions.ContainsKey(System.String)
+  name: ContainsKey(String)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_ContainsKey_System_String_
+  commentId: M:Svg.SvgOptions.ContainsKey(System.String)
+  fullName: Svg.SvgOptions.ContainsKey(System.String)
+  nameWithType: SvgOptions.ContainsKey(String)
+- uid: Svg.SvgOptions.ContainsKey*
+  name: ContainsKey
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_ContainsKey_
+  commentId: Overload:Svg.SvgOptions.ContainsKey
+  isSpec: "True"
+  fullName: Svg.SvgOptions.ContainsKey
+  nameWithType: SvgOptions.ContainsKey
+- uid: Svg.SvgOptions.CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.String}[],System.Int32)
+  name: CopyTo(KeyValuePair<String, String>[], Int32)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_CopyTo_System_Collections_Generic_KeyValuePair_System_String_System_String____System_Int32_
+  commentId: M:Svg.SvgOptions.CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.String}[],System.Int32)
+  name.vb: CopyTo(KeyValuePair(Of String, String)(), Int32)
+  fullName: Svg.SvgOptions.CopyTo(System.Collections.Generic.KeyValuePair<System.String, System.String>[], System.Int32)
+  fullName.vb: Svg.SvgOptions.CopyTo(System.Collections.Generic.KeyValuePair(Of System.String, System.String)(), System.Int32)
+  nameWithType: SvgOptions.CopyTo(KeyValuePair<String, String>[], Int32)
+  nameWithType.vb: SvgOptions.CopyTo(KeyValuePair(Of String, String)(), Int32)
+- uid: Svg.SvgOptions.CopyTo*
+  name: CopyTo
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_CopyTo_
+  commentId: Overload:Svg.SvgOptions.CopyTo
+  isSpec: "True"
+  fullName: Svg.SvgOptions.CopyTo
+  nameWithType: SvgOptions.CopyTo
+- uid: Svg.SvgOptions.Count
+  name: Count
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Count
+  commentId: P:Svg.SvgOptions.Count
+  fullName: Svg.SvgOptions.Count
+  nameWithType: SvgOptions.Count
+- uid: Svg.SvgOptions.Count*
+  name: Count
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Count_
+  commentId: Overload:Svg.SvgOptions.Count
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Count
+  nameWithType: SvgOptions.Count
 - uid: Svg.SvgOptions.Css
   name: Css
   href: api/Svg.SvgOptions.html#Svg_SvgOptions_Css
@@ -11793,6 +12023,172 @@ references:
   isSpec: "True"
   fullName: Svg.SvgOptions.Entities
   nameWithType: SvgOptions.Entities
+- uid: Svg.SvgOptions.GetEnumerator
+  name: GetEnumerator()
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_GetEnumerator
+  commentId: M:Svg.SvgOptions.GetEnumerator
+  fullName: Svg.SvgOptions.GetEnumerator()
+  nameWithType: SvgOptions.GetEnumerator()
+- uid: Svg.SvgOptions.GetEnumerator*
+  name: GetEnumerator
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_GetEnumerator_
+  commentId: Overload:Svg.SvgOptions.GetEnumerator
+  isSpec: "True"
+  fullName: Svg.SvgOptions.GetEnumerator
+  nameWithType: SvgOptions.GetEnumerator
+- uid: Svg.SvgOptions.GetValue(System.String,System.String)
+  name: GetValue(String, String)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_GetValue_System_String_System_String_
+  commentId: M:Svg.SvgOptions.GetValue(System.String,System.String)
+  fullName: Svg.SvgOptions.GetValue(System.String, System.String)
+  nameWithType: SvgOptions.GetValue(String, String)
+- uid: Svg.SvgOptions.GetValue*
+  name: GetValue
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_GetValue_
+  commentId: Overload:Svg.SvgOptions.GetValue
+  isSpec: "True"
+  fullName: Svg.SvgOptions.GetValue
+  nameWithType: SvgOptions.GetValue
+- uid: Svg.SvgOptions.IsReadOnly
+  name: IsReadOnly
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_IsReadOnly
+  commentId: P:Svg.SvgOptions.IsReadOnly
+  fullName: Svg.SvgOptions.IsReadOnly
+  nameWithType: SvgOptions.IsReadOnly
+- uid: Svg.SvgOptions.IsReadOnly*
+  name: IsReadOnly
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_IsReadOnly_
+  commentId: Overload:Svg.SvgOptions.IsReadOnly
+  isSpec: "True"
+  fullName: Svg.SvgOptions.IsReadOnly
+  nameWithType: SvgOptions.IsReadOnly
+- uid: Svg.SvgOptions.Item(System.String)
+  name: Item[String]
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Item_System_String_
+  commentId: P:Svg.SvgOptions.Item(System.String)
+  name.vb: Item(String)
+  fullName: Svg.SvgOptions.Item[System.String]
+  fullName.vb: Svg.SvgOptions.Item(System.String)
+  nameWithType: SvgOptions.Item[String]
+  nameWithType.vb: SvgOptions.Item(String)
+- uid: Svg.SvgOptions.Item*
+  name: Item
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Item_
+  commentId: Overload:Svg.SvgOptions.Item
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Item
+  nameWithType: SvgOptions.Item
+- uid: Svg.SvgOptions.Keys
+  name: Keys
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Keys
+  commentId: P:Svg.SvgOptions.Keys
+  fullName: Svg.SvgOptions.Keys
+  nameWithType: SvgOptions.Keys
+- uid: Svg.SvgOptions.Keys*
+  name: Keys
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Keys_
+  commentId: Overload:Svg.SvgOptions.Keys
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Keys
+  nameWithType: SvgOptions.Keys
+- uid: Svg.SvgOptions.Remove(System.Collections.Generic.KeyValuePair{System.String,System.String})
+  name: Remove(KeyValuePair<String, String>)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Remove_System_Collections_Generic_KeyValuePair_System_String_System_String__
+  commentId: M:Svg.SvgOptions.Remove(System.Collections.Generic.KeyValuePair{System.String,System.String})
+  name.vb: Remove(KeyValuePair(Of String, String))
+  fullName: Svg.SvgOptions.Remove(System.Collections.Generic.KeyValuePair<System.String, System.String>)
+  fullName.vb: Svg.SvgOptions.Remove(System.Collections.Generic.KeyValuePair(Of System.String, System.String))
+  nameWithType: SvgOptions.Remove(KeyValuePair<String, String>)
+  nameWithType.vb: SvgOptions.Remove(KeyValuePair(Of String, String))
+- uid: Svg.SvgOptions.Remove(System.String)
+  name: Remove(String)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Remove_System_String_
+  commentId: M:Svg.SvgOptions.Remove(System.String)
+  fullName: Svg.SvgOptions.Remove(System.String)
+  nameWithType: SvgOptions.Remove(String)
+- uid: Svg.SvgOptions.Remove*
+  name: Remove
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Remove_
+  commentId: Overload:Svg.SvgOptions.Remove
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Remove
+  nameWithType: SvgOptions.Remove
+- uid: Svg.SvgOptions.SetValue(System.String,System.String)
+  name: SetValue(String, String)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_SetValue_System_String_System_String_
+  commentId: M:Svg.SvgOptions.SetValue(System.String,System.String)
+  fullName: Svg.SvgOptions.SetValue(System.String, System.String)
+  nameWithType: SvgOptions.SetValue(String, String)
+- uid: Svg.SvgOptions.SetValue*
+  name: SetValue
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_SetValue_
+  commentId: Overload:Svg.SvgOptions.SetValue
+  isSpec: "True"
+  fullName: Svg.SvgOptions.SetValue
+  nameWithType: SvgOptions.SetValue
+- uid: Svg.SvgOptions.System#Collections#IEnumerable#GetEnumerator
+  name: IEnumerable.GetEnumerator()
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_System_Collections_IEnumerable_GetEnumerator
+  commentId: M:Svg.SvgOptions.System#Collections#IEnumerable#GetEnumerator
+  name.vb: System.Collections.IEnumerable.GetEnumerator()
+  fullName: Svg.SvgOptions.System.Collections.IEnumerable.GetEnumerator()
+  nameWithType: SvgOptions.IEnumerable.GetEnumerator()
+  nameWithType.vb: SvgOptions.System.Collections.IEnumerable.GetEnumerator()
+- uid: Svg.SvgOptions.System#Collections#IEnumerable#GetEnumerator*
+  name: IEnumerable.GetEnumerator
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_System_Collections_IEnumerable_GetEnumerator_
+  commentId: Overload:Svg.SvgOptions.System#Collections#IEnumerable#GetEnumerator
+  isSpec: "True"
+  name.vb: System.Collections.IEnumerable.GetEnumerator
+  fullName: Svg.SvgOptions.System.Collections.IEnumerable.GetEnumerator
+  nameWithType: SvgOptions.IEnumerable.GetEnumerator
+  nameWithType.vb: SvgOptions.System.Collections.IEnumerable.GetEnumerator
+- uid: Svg.SvgOptions.System#ICloneable#Clone
+  name: ICloneable.Clone()
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_System_ICloneable_Clone
+  commentId: M:Svg.SvgOptions.System#ICloneable#Clone
+  name.vb: System.ICloneable.Clone()
+  fullName: Svg.SvgOptions.System.ICloneable.Clone()
+  nameWithType: SvgOptions.ICloneable.Clone()
+  nameWithType.vb: SvgOptions.System.ICloneable.Clone()
+- uid: Svg.SvgOptions.System#ICloneable#Clone*
+  name: ICloneable.Clone
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_System_ICloneable_Clone_
+  commentId: Overload:Svg.SvgOptions.System#ICloneable#Clone
+  isSpec: "True"
+  name.vb: System.ICloneable.Clone
+  fullName: Svg.SvgOptions.System.ICloneable.Clone
+  nameWithType: SvgOptions.ICloneable.Clone
+  nameWithType.vb: SvgOptions.System.ICloneable.Clone
+- uid: Svg.SvgOptions.TryGetValue(System.String,System.String@)
+  name: TryGetValue(String, out String)
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_TryGetValue_System_String_System_String__
+  commentId: M:Svg.SvgOptions.TryGetValue(System.String,System.String@)
+  name.vb: TryGetValue(String, ByRef String)
+  fullName: Svg.SvgOptions.TryGetValue(System.String, out System.String)
+  fullName.vb: Svg.SvgOptions.TryGetValue(System.String, ByRef System.String)
+  nameWithType: SvgOptions.TryGetValue(String, out String)
+  nameWithType.vb: SvgOptions.TryGetValue(String, ByRef String)
+- uid: Svg.SvgOptions.TryGetValue*
+  name: TryGetValue
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_TryGetValue_
+  commentId: Overload:Svg.SvgOptions.TryGetValue
+  isSpec: "True"
+  fullName: Svg.SvgOptions.TryGetValue
+  nameWithType: SvgOptions.TryGetValue
+- uid: Svg.SvgOptions.Values
+  name: Values
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Values
+  commentId: P:Svg.SvgOptions.Values
+  fullName: Svg.SvgOptions.Values
+  nameWithType: SvgOptions.Values
+- uid: Svg.SvgOptions.Values*
+  name: Values
+  href: api/Svg.SvgOptions.html#Svg_SvgOptions_Values_
+  commentId: Overload:Svg.SvgOptions.Values
+  isSpec: "True"
+  fullName: Svg.SvgOptions.Values
+  nameWithType: SvgOptions.Values
 - uid: Svg.SvgOrient
   name: SvgOrient
   href: api/Svg.SvgOrient.html
@@ -13827,6 +14223,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgTextBase.RaiseChange
   nameWithType: SvgTextBase.RaiseChange
+- uid: Svg.SvgTextBase.RegisterEvents(Svg.ISvgEventCaller)
+  name: RegisterEvents(ISvgEventCaller)
+  href: api/Svg.SvgTextBase.html#Svg_SvgTextBase_RegisterEvents_Svg_ISvgEventCaller_
+  commentId: M:Svg.SvgTextBase.RegisterEvents(Svg.ISvgEventCaller)
+  fullName: Svg.SvgTextBase.RegisterEvents(Svg.ISvgEventCaller)
+  nameWithType: SvgTextBase.RegisterEvents(ISvgEventCaller)
+- uid: Svg.SvgTextBase.RegisterEvents*
+  name: RegisterEvents
+  href: api/Svg.SvgTextBase.html#Svg_SvgTextBase_RegisterEvents_
+  commentId: Overload:Svg.SvgTextBase.RegisterEvents
+  isSpec: "True"
+  fullName: Svg.SvgTextBase.RegisterEvents
+  nameWithType: SvgTextBase.RegisterEvents
 - uid: Svg.SvgTextBase.RenderFillAndStroke(Svg.ISvgRenderer)
   name: RenderFillAndStroke(ISvgRenderer)
   href: api/Svg.SvgTextBase.html#Svg_SvgTextBase_RenderFillAndStroke_Svg_ISvgRenderer_
@@ -13918,6 +14327,19 @@ references:
   isSpec: "True"
   fullName: Svg.SvgTextBase.ToString
   nameWithType: SvgTextBase.ToString
+- uid: Svg.SvgTextBase.UnregisterEvents(Svg.ISvgEventCaller)
+  name: UnregisterEvents(ISvgEventCaller)
+  href: api/Svg.SvgTextBase.html#Svg_SvgTextBase_UnregisterEvents_Svg_ISvgEventCaller_
+  commentId: M:Svg.SvgTextBase.UnregisterEvents(Svg.ISvgEventCaller)
+  fullName: Svg.SvgTextBase.UnregisterEvents(Svg.ISvgEventCaller)
+  nameWithType: SvgTextBase.UnregisterEvents(ISvgEventCaller)
+- uid: Svg.SvgTextBase.UnregisterEvents*
+  name: UnregisterEvents
+  href: api/Svg.SvgTextBase.html#Svg_SvgTextBase_UnregisterEvents_
+  commentId: Overload:Svg.SvgTextBase.UnregisterEvents
+  isSpec: "True"
+  fullName: Svg.SvgTextBase.UnregisterEvents
+  nameWithType: SvgTextBase.UnregisterEvents
 - uid: Svg.SvgTextBase.WordSpacing
   name: WordSpacing
   href: api/Svg.SvgTextBase.html#Svg_SvgTextBase_WordSpacing
