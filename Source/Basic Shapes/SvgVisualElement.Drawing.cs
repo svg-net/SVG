@@ -38,13 +38,13 @@ namespace Svg
         /// <summary>
         /// Gets the bounds of the element relative to <see cref="SvgElement.Parent"/>.
         /// </summary>
-        /// <value>The bounds.</value>
+        /// <value>The bounds of the element.</value>
         public abstract RectangleF Bounds { get; }
 
         /// <summary>
         /// Gets the bounds of the element relative to the top-level <see cref="SvgElement.Parent"/>.
         /// </summary>
-        /// <value>The bounds.</value>
+        /// <value>The bounds of the element.</value>
 
         public abstract RectangleF BoundsRelativeToTop { get; }
         /// <summary>
