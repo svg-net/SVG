@@ -334,17 +334,17 @@ namespace Svg
                         switch (state)
                         {
                             case FontParseState.fontStyle:
-                                success = Enums.TryParse(part, out fontStyle);
+                                success = Enum.TryParse(part, out fontStyle);
                                 if (success) FontStyle = fontStyle;
                                 state++;
                                 break;
                             case FontParseState.fontVariant:
-                                success = Enums.TryParse(part, out fontVariant);
+                                success = Enum.TryParse(part, out fontVariant);
                                 if (success) FontVariant = fontVariant;
                                 state++;
                                 break;
                             case FontParseState.fontWeight:
-                                success = Enums.TryParse(part, out fontWeight);
+                                success = Enum.TryParse(part, out fontWeight);
                                 if (success) FontWeight = fontWeight;
                                 state++;
                                 break;

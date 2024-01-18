@@ -287,7 +287,6 @@ namespace Svg
             }
         }
 
-#if Net4
         public override void RegisterEvents(ISvgEventCaller caller)
         {
             //register basic events
@@ -305,7 +304,6 @@ namespace Svg
             //unregister change event
             caller.UnregisterAction(this.ID + "/onchange");
         }
-#endif
 
         public override SvgElement DeepCopy<T>()
         {

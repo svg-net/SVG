@@ -1,36 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFrameworks>net6.0-windows;netcoreapp3.1;net462</TargetFrameworks>
-		<UseWindowsForms>true</UseWindowsForms>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
-	</PropertyGroup>
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFrameworks>net6.0-windows;netcoreapp3.1;net462</TargetFrameworks>
+        <UseWindowsForms>true</UseWindowsForms>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    </PropertyGroup>
 
-	<PropertyGroup>
-		<DefineConstants Condition="$(TargetFramework.StartsWith('net46'))">$(DefineConstants);DOTNET46;NETFULL</DefineConstants>
-		<DefineConstants Condition="$(TargetFramework.StartsWith('net47'))">$(DefineConstants);DOTNET47;NETFULL</DefineConstants>
-		<DefineConstants Condition="$(TargetFramework.StartsWith('net48'))">$(DefineConstants);DOTNET48;NETFULL</DefineConstants>
-		<DefineConstants Condition="$(TargetFramework.StartsWith('netstandard'))">$(DefineConstants);NETSTANDARD</DefineConstants>
-		<DefineConstants Condition="$(TargetFramework.StartsWith('netcore'))">$(DefineConstants);NETCORE</DefineConstants>
-		<DefineConstants Condition="$(TargetFramework.StartsWith('net6'))">$(DefineConstants);NETNEXT;NET60</DefineConstants>
-		<DefineConstants Condition="$(TargetFramework.StartsWith('net7'))">$(DefineConstants);NETNEXT;NET70</DefineConstants>
-		<DefineConstants Condition="$(TargetFramework.StartsWith('net8'))">$(DefineConstants);NETNEXT;NET80</DefineConstants>
-	</PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <NoWarn>$(NoWarn);CS0618;NETSDK1138</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <NoWarn>$(NoWarn);CS1591;CS0618;NETSDK1138</NoWarn>
+    </PropertyGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net462'">
-		<Reference Include="System.Design" />
-		<Reference Include="System.Net.Http" />
-		<Reference Include="System.IO.Compression" />
-	</ItemGroup>
+    <PropertyGroup>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net46'))">$(DefineConstants);DOTNET46;NETFULL</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net47'))">$(DefineConstants);DOTNET47;NETFULL</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net48'))">$(DefineConstants);DOTNET48;NETFULL</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('netstandard'))">$(DefineConstants);NETSTANDARD</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('netcore'))">$(DefineConstants);NETCORE</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net6'))">$(DefineConstants);NETNEXT;NET60</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net7'))">$(DefineConstants);NETNEXT;NET70</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net8'))">$(DefineConstants);NETNEXT;NET80</DefineConstants>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\Source\Svg.csproj" />
-	</ItemGroup>
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net462'">
+        <Reference Include="System.Design" />
+        <Reference Include="System.Net.Http" />
+        <Reference Include="System.IO.Compression" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\Source\Svg.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Resources.Extensions" Version="5.0.0" />
+    </ItemGroup>
 </Project>

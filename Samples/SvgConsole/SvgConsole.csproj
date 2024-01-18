@@ -1,27 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <IsPackable>False</IsPackable>
-    <IsTool>True</IsTool>
-    <PackAsTool>True</PackAsTool>
-    <ToolCommandName>SvgConsole</ToolCommandName>
-    <LangVersion>7.3</LangVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <IsPackable>False</IsPackable>
+        <IsTool>True</IsTool>
+        <PackAsTool>True</PackAsTool>
+        <ToolCommandName>SvgConsole</ToolCommandName>
+        <LangVersion>7.3</LangVersion>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <PublishTrimmed>False</PublishTrimmed>
-    <PublishReadyToRun>False</PublishReadyToRun>
-  </PropertyGroup>
+    <PropertyGroup>
+        <PublishTrimmed>False</PublishTrimmed>
+        <PublishReadyToRun>False</PublishReadyToRun>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Source\Svg.csproj" />
-  </ItemGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <NoWarn>$(NoWarn);CS0618;NETSDK1138</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <NoWarn>$(NoWarn);CS1591;CS0618;NETSDK1138</NoWarn>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20104.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\Source\Svg.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta1.20104.2" />
+    </ItemGroup>
 
 </Project>

@@ -35,8 +35,7 @@ namespace Svg
         /// <param name="specificity">The specificity value.</param>
         public void AddStyle(string name, string value, int specificity)
         {
-            SortedDictionary<int, string> rules;
-            if (!_styles.TryGetValue(name, out rules))
+            if (!_styles.TryGetValue(name, out SortedDictionary<int, string> rules))
             {
                 rules = new SortedDictionary<int, string>();
                 _styles[name] = rules;
@@ -71,21 +70,19 @@ namespace Svg
 
         public bool ContainsAttribute(string name)
         {
-            SortedDictionary<int, string> rules;
             return (this.Attributes.ContainsKey(name) || this.CustomAttributes.ContainsKey(name) ||
-                (_styles.TryGetValue(name, out rules)) && (rules.ContainsKey(StyleSpecificity_InlineStyle) || rules.ContainsKey(StyleSpecificity_PresAttribute)));
+                (_styles.TryGetValue(name, out SortedDictionary<int, string> rules))
+                && (rules.ContainsKey(StyleSpecificity_InlineStyle) || rules.ContainsKey(StyleSpecificity_PresAttribute)));
         }
         public bool TryGetAttribute(string name, out string value)
         {
-            object objValue;
-            if (this.Attributes.TryGetValue(name, out objValue))
+            if (this.Attributes.TryGetValue(name, out object objValue))
             {
                 value = objValue.ToString();
                 return true;
             }
             if (this.CustomAttributes.TryGetValue(name, out value)) return true;
-            SortedDictionary<int, string> rules;
-            if (_styles.TryGetValue(name, out rules))
+            if (_styles.TryGetValue(name, out SortedDictionary<int, string> rules))
             {
                 // Get staged styles that are
                 if (rules.TryGetValue(StyleSpecificity_InlineStyle, out value)) return true;
@@ -597,8 +594,7 @@ namespace Svg
                                 if (writeStyle && propertyValue == SvgPaintServer.NotSet)
                                     continue;
 
-                                object parentValue;
-                                if (TryResolveParentAttributeValue(property.AttributeName, out parentValue))
+                                if (TryResolveParentAttributeValue(property.AttributeName, out object parentValue))
                                 {
                                     if ((parentValue == propertyValue)
                                         || ((parentValue != null) && parentValue.Equals(propertyValue)))
@@ -690,7 +686,7 @@ namespace Svg
             return styles;
         }
 
-        private void WriteAttributeString(XmlWriter writer, string name, string ns, string value)
+        private static void WriteAttributeString(XmlWriter writer, string name, string ns, string value)
         {
             if (string.IsNullOrEmpty(ns))
                 writer.WriteAttributeString(name, value);
@@ -912,7 +908,6 @@ namespace Svg
             onmouseout = "<anything>"
          */
 
-#if Net4
         /// <summary>
         /// Use this method to provide your implementation ISvgEventCaller which can register Actions
         /// and call them if one of the events occurs. Make sure, that your SvgElement has a unique ID.
@@ -925,12 +920,12 @@ namespace Svg
             {
                 var rpcID = this.ID + "/";
 
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onclick", CreateMouseEventAction(RaiseMouseClick));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmousedown", CreateMouseEventAction(RaiseMouseDown));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseup", CreateMouseEventAction(RaiseMouseUp));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmousemove", CreateMouseEventAction(RaiseMouseMove));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseover", CreateMouseEventAction(RaiseMouseOver));
-                caller.RegisterAction<float, float, int, int, bool, bool, bool, string>(rpcID + "onmouseout", CreateMouseEventAction(RaiseMouseOut));
+                caller.RegisterAction(rpcID + "onclick", CreateMouseEventAction(RaiseMouseClick));
+                caller.RegisterAction(rpcID + "onmousedown", CreateMouseEventAction(RaiseMouseDown));
+                caller.RegisterAction(rpcID + "onmouseup", CreateMouseEventAction(RaiseMouseUp));
+                caller.RegisterAction(rpcID + "onmousemove", CreateMouseEventAction(RaiseMouseMove));
+                caller.RegisterAction(rpcID + "onmouseover", CreateMouseEventAction(RaiseMouseOver));
+                caller.RegisterAction(rpcID + "onmouseout", CreateMouseEventAction(RaiseMouseOut));
                 caller.RegisterAction<int, bool, bool, bool, string>(rpcID + "onmousescroll", OnMouseScroll);
             }
         }
@@ -954,7 +949,6 @@ namespace Svg
                 caller.UnregisterAction(rpcID + "onmouseout");
             }
         }
-#endif
 
         [SvgAttribute("onclick")]
         public event EventHandler<MouseArg> Click;
@@ -977,13 +971,11 @@ namespace Svg
         [SvgAttribute("onmouseout")]
         public event EventHandler<MouseArg> MouseOut;
 
-#if Net4
         protected Action<float, float, int, int, bool, bool, bool, string> CreateMouseEventAction(Action<object, MouseArg> eventRaiser)
         {
             return (x, y, button, clickCount, altKey, shiftKey, ctrlKey, sessionID) =>
                 eventRaiser(this, new MouseArg { x = x, y = y, Button = button, ClickCount = clickCount, AltKey = altKey, ShiftKey = shiftKey, CtrlKey = ctrlKey, SessionID = sessionID });
         }
-#endif
 
         //click
         protected void RaiseMouseClick(object sender, MouseArg e)
@@ -1093,7 +1085,6 @@ namespace Svg
         public SvgElement BeforeSibling;
     }
 
-#if Net4
     //deriving class registers event actions and calls the actions if the event occurs
     public interface ISvgEventCaller
     {
@@ -1108,7 +1099,6 @@ namespace Svg
         void RegisterAction<T1, T2, T3, T4, T5, T6, T7, T8>(string rpcID, Action<T1, T2, T3, T4, T5, T6, T7, T8> action);
         void UnregisterAction(string rpcID);
     }
-#endif
 
     /// <summary>
     /// Represents the state of the mouse at the moment the event occured.
