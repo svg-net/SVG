@@ -11,6 +11,10 @@ namespace Svg.Pathing
             graphicsPath.CloseFigure();
 
             var end = start;
+            // Check for empty path, as graphicsPath.PathTypes will throw exception: ArgumentException 
+            if (graphicsPath.PointCount == 0)
+                return end;
+
             var pathTypes = graphicsPath.PathTypes;
             for (var i = graphicsPath.PointCount - 1; i >= 0; --i)
                 if ((pathTypes[i] & 0x7) == 0)
