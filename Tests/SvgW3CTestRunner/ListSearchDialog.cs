@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SvgW3CTestRunner
@@ -18,14 +11,12 @@ namespace SvgW3CTestRunner
         public ListSearchDialog()
         {
             InitializeComponent();
-
-            this.Load += OnFormDialogLoad;
         }
 
         public int SeletedTabIndex { get => _seletedTabIndex; set => _seletedTabIndex = value; }
         public ListBox[] ListItems { get => _listItems; set => _listItems = value; }
 
-        private void OnFormDialogLoad(object sender, EventArgs e)
+        private void OnLoadDialog(object sender, EventArgs e)
         {
             if (_listItems != null && _listItems.Length == 4)
             {

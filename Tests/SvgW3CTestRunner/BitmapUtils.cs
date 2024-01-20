@@ -1,5 +1,6 @@
 ﻿using System.Drawing.Imaging;
 using System.Drawing;
+using System;
 
 namespace SvgW3CTestRunner
 {
@@ -10,8 +11,10 @@ namespace SvgW3CTestRunner
 #endif
         public static unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)
         {
-            Bitmap output = new Bitmap(a.Width, a.Height, PixelFormat.Format32bppArgb);
-            Rectangle rect = new Rectangle(Point.Empty, a.Size);
+            var width = Math.Min(a.Width, b.Width);
+            var height = Math.Min(a.Height, b.Height);
+            Bitmap output = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+            Rectangle rect = new Rectangle(Point.Empty, new Size(width, height));
             using (var aData = a.LockBitsDisposable(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
             using (var bData = b.LockBitsDisposable(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
             using (var outputData = output.LockBitsDisposable(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))

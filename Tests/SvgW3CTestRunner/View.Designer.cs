@@ -53,6 +53,9 @@ namespace SvgW3CTestRunner
             lstFilesOtherPassing = new System.Windows.Forms.ListBox();
             failOtherTabPage = new System.Windows.Forms.TabPage();
             lstFilesOtherFailing = new System.Windows.Forms.ListBox();
+            panelButtons = new System.Windows.Forms.Panel();
+            buttonFind = new System.Windows.Forms.Button();
+            buttonRun = new System.Windows.Forms.Button();
             bottomTabBox = new System.Windows.Forms.TabControl();
             outputTab = new System.Windows.Forms.TabPage();
             boxConsoleLog = new System.Windows.Forms.RichTextBox();
@@ -76,6 +79,7 @@ namespace SvgW3CTestRunner
             failW3CTabPage.SuspendLayout();
             passOtherTabPage.SuspendLayout();
             failOtherTabPage.SuspendLayout();
+            panelButtons.SuspendLayout();
             bottomTabBox.SuspendLayout();
             outputTab.SuspendLayout();
             descriptionTab.SuspendLayout();
@@ -236,6 +240,7 @@ namespace SvgW3CTestRunner
             // 
             splitContainerBase.Panel1.BackColor = SystemColors.Control;
             splitContainerBase.Panel1.Controls.Add(fileTabBox);
+            splitContainerBase.Panel1.Controls.Add(panelButtons);
             // 
             // splitContainerBase.Panel2
             // 
@@ -259,7 +264,7 @@ namespace SvgW3CTestRunner
             fileTabBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             fileTabBox.Name = "fileTabBox";
             fileTabBox.SelectedIndex = 0;
-            fileTabBox.Size = new Size(278, 992);
+            fileTabBox.Size = new Size(278, 956);
             fileTabBox.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             fileTabBox.TabIndex = 3;
             fileTabBox.SelectedIndexChanged += fileTabBox_TabIndexChanged;
@@ -270,7 +275,7 @@ namespace SvgW3CTestRunner
             passW3CTabPage.Location = new Point(4, 32);
             passW3CTabPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             passW3CTabPage.Name = "passW3CTabPage";
-            passW3CTabPage.Size = new Size(270, 956);
+            passW3CTabPage.Size = new Size(270, 920);
             passW3CTabPage.TabIndex = 0;
             passW3CTabPage.Text = "Pass W3C";
             passW3CTabPage.UseVisualStyleBackColor = true;
@@ -283,7 +288,7 @@ namespace SvgW3CTestRunner
             lstW3CFilesPassing.Location = new Point(0, 0);
             lstW3CFilesPassing.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lstW3CFilesPassing.Name = "lstW3CFilesPassing";
-            lstW3CFilesPassing.Size = new Size(270, 956);
+            lstW3CFilesPassing.Size = new Size(270, 920);
             lstW3CFilesPassing.TabIndex = 1;
             lstW3CFilesPassing.SelectedIndexChanged += OnW3CSelectedIndexChanged;
             // 
@@ -293,7 +298,7 @@ namespace SvgW3CTestRunner
             failW3CTabPage.Location = new Point(4, 32);
             failW3CTabPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             failW3CTabPage.Name = "failW3CTabPage";
-            failW3CTabPage.Size = new Size(270, 956);
+            failW3CTabPage.Size = new Size(270, 920);
             failW3CTabPage.TabIndex = 1;
             failW3CTabPage.Text = "Fail W3C";
             failW3CTabPage.UseVisualStyleBackColor = true;
@@ -306,7 +311,7 @@ namespace SvgW3CTestRunner
             lstW3CFilesFailing.Location = new Point(0, 0);
             lstW3CFilesFailing.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lstW3CFilesFailing.Name = "lstW3CFilesFailing";
-            lstW3CFilesFailing.Size = new Size(270, 956);
+            lstW3CFilesFailing.Size = new Size(270, 920);
             lstW3CFilesFailing.TabIndex = 0;
             lstW3CFilesFailing.SelectedIndexChanged += OnW3CSelectedIndexChanged;
             // 
@@ -316,7 +321,7 @@ namespace SvgW3CTestRunner
             passOtherTabPage.Location = new Point(4, 32);
             passOtherTabPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             passOtherTabPage.Name = "passOtherTabPage";
-            passOtherTabPage.Size = new Size(270, 956);
+            passOtherTabPage.Size = new Size(270, 920);
             passOtherTabPage.TabIndex = 2;
             passOtherTabPage.Text = "Pass Other";
             passOtherTabPage.UseVisualStyleBackColor = true;
@@ -329,7 +334,7 @@ namespace SvgW3CTestRunner
             lstFilesOtherPassing.Location = new Point(0, 0);
             lstFilesOtherPassing.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lstFilesOtherPassing.Name = "lstFilesOtherPassing";
-            lstFilesOtherPassing.Size = new Size(270, 956);
+            lstFilesOtherPassing.Size = new Size(270, 920);
             lstFilesOtherPassing.TabIndex = 0;
             lstFilesOtherPassing.SelectedIndexChanged += OnIssuesSelectedIndexChanged;
             // 
@@ -339,7 +344,7 @@ namespace SvgW3CTestRunner
             failOtherTabPage.Location = new Point(4, 32);
             failOtherTabPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             failOtherTabPage.Name = "failOtherTabPage";
-            failOtherTabPage.Size = new Size(270, 956);
+            failOtherTabPage.Size = new Size(270, 920);
             failOtherTabPage.TabIndex = 2;
             failOtherTabPage.Text = "Fail Other";
             failOtherTabPage.UseVisualStyleBackColor = true;
@@ -352,9 +357,43 @@ namespace SvgW3CTestRunner
             lstFilesOtherFailing.Location = new Point(0, 0);
             lstFilesOtherFailing.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lstFilesOtherFailing.Name = "lstFilesOtherFailing";
-            lstFilesOtherFailing.Size = new Size(270, 956);
+            lstFilesOtherFailing.Size = new Size(270, 920);
             lstFilesOtherFailing.TabIndex = 0;
             lstFilesOtherFailing.SelectedIndexChanged += OnIssuesSelectedIndexChanged;
+            // 
+            // panelButtons
+            // 
+            panelButtons.Controls.Add(buttonFind);
+            panelButtons.Controls.Add(buttonRun);
+            panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panelButtons.Location = new Point(0, 956);
+            panelButtons.Name = "panelButtons";
+            panelButtons.Size = new Size(278, 36);
+            panelButtons.TabIndex = 4;
+            // 
+            // buttonFind
+            // 
+            buttonFind.Dock = System.Windows.Forms.DockStyle.Right;
+            buttonFind.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonFind.Location = new Point(203, 0);
+            buttonFind.Name = "buttonFind";
+            buttonFind.Size = new Size(75, 36);
+            buttonFind.TabIndex = 1;
+            buttonFind.Text = "Search";
+            buttonFind.UseVisualStyleBackColor = true;
+            buttonFind.Click += OnClickSearch;
+            // 
+            // buttonRun
+            // 
+            buttonRun.Dock = System.Windows.Forms.DockStyle.Left;
+            buttonRun.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonRun.Location = new Point(0, 0);
+            buttonRun.Name = "buttonRun";
+            buttonRun.Size = new Size(75, 36);
+            buttonRun.TabIndex = 0;
+            buttonRun.Text = "Run Tests";
+            buttonRun.UseVisualStyleBackColor = true;
+            buttonRun.Click += OnClickRunTests;
             // 
             // bottomTabBox
             // 
@@ -448,6 +487,7 @@ namespace SvgW3CTestRunner
             failW3CTabPage.ResumeLayout(false);
             passOtherTabPage.ResumeLayout(false);
             failOtherTabPage.ResumeLayout(false);
+            panelButtons.ResumeLayout(false);
             bottomTabBox.ResumeLayout(false);
             outputTab.ResumeLayout(false);
             descriptionTab.ResumeLayout(false);
@@ -484,6 +524,9 @@ namespace SvgW3CTestRunner
         private System.Windows.Forms.Panel panelSVGPNG;
         private System.Windows.Forms.Label labelSVGPNG;
         private System.Windows.Forms.PictureBox picSVGPNG;
+        private System.Windows.Forms.Panel panelButtons;
+        private System.Windows.Forms.Button buttonFind;
+        private System.Windows.Forms.Button buttonRun;
     }
 }
 

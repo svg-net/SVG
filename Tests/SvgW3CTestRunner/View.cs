@@ -18,6 +18,7 @@ namespace SvgW3CTestRunner
 {
     public partial class View : Form
     {
+        private const string TitleSVGPNG = "SVG vs PNG";
         private const string FixImage = "smiley.png";
 
         private const string IssuesPrefix = "__";
@@ -36,6 +37,12 @@ namespace SvgW3CTestRunner
 
         private const string W3CTestSuiteUrl
             = "https://github.com/ElinamLLC/SharpVectors-TestSuites/raw/master/Svg11.zip";
+
+        private string[] listW3CPassing;
+        private string[] listW3CFailing;
+
+        private string[] listOtherPassing;
+        private string[] listOtherFailing;
 
         public View()
         {
@@ -62,9 +69,9 @@ namespace SvgW3CTestRunner
         {
             if (keyData == (Keys.Control | Keys.F))
             {
-                ListBox[] listItems = { 
-                    lstW3CFilesPassing, 
-                    lstW3CFilesFailing, 
+                ListBox[] listItems = {
+                    lstW3CFilesPassing,
+                    lstW3CFilesFailing,
                     lstFilesOtherPassing,
                     lstFilesOtherFailing
                 };
@@ -165,17 +172,18 @@ namespace SvgW3CTestRunner
             var passingtestsTxt = Path.Combine(_svgW3CBasePath, "..", "PassingTests.txt");
             var passes = File.ReadAllLines(passingtestsTxt).ToDictionary((f) => f, (f) => true);
             var files = from f in
-                         from g in Directory.GetFiles(_svgW3CBasePath) select Path.GetFileName(g)
-                         where !f.StartsWith("animate-") && !f.StartsWith("conform-viewer") &&
-                         !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-") &&
-                         !f.StartsWith("script-") && f.EndsWith(".svg")
-                         && File.Exists(Path.Combine(_pngW3CBasePath, Path.ChangeExtension(f, "png")))
-                         orderby f
-                         select (object)f;
+                            from g in Directory.GetFiles(_svgW3CBasePath) select Path.GetFileName(g)
+                        where !f.StartsWith("animate-") && !f.StartsWith("conform-viewer") &&
+                        !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-") &&
+                        !f.StartsWith("script-") && f.EndsWith(".svg")
+                        && File.Exists(Path.Combine(_pngW3CBasePath, Path.ChangeExtension(f, "png")))
+                        orderby f
+                        select f;
 
-            //files = files.Where(f => !((string)f).StartsWith(IssuesPrefix));
-            lstW3CFilesPassing.Items.AddRange(files.Where(f => passes.ContainsKey((string)f)).ToArray());
-            lstW3CFilesFailing.Items.AddRange(files.Where(f => !passes.ContainsKey((string)f)).ToArray());
+            listW3CPassing = files.Where(f => passes.ContainsKey(f)).ToArray();
+            listW3CFailing = files.Where(f => !passes.ContainsKey(f)).ToArray();
+            lstW3CFilesPassing.Items.AddRange(listW3CPassing);
+            lstW3CFilesFailing.Items.AddRange(listW3CFailing);
         }
 
         private void LoadIssuesAndPullRequests()
@@ -184,17 +192,18 @@ namespace SvgW3CTestRunner
             var passingtestsTxt = Path.Combine(_svgIssuesBasePath, "..", "PassingTests.txt");
             var passes = File.ReadAllLines(passingtestsTxt).ToDictionary((f) => f, (f) => true);
             var files = from f in
-                         from g in Directory.GetFiles(_svgIssuesBasePath) select Path.GetFileName(g)
-                         where !f.StartsWith("animate-") && !f.StartsWith("conform-viewer") &&
-                         !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-") &&
-                         !f.StartsWith("script-") && f.EndsWith(".svg")
-                         && File.Exists(Path.Combine(_pngIssuesBasePath, Path.ChangeExtension(f, "png")))
-                         orderby f
-                         select (object)f;
+                            from g in Directory.GetFiles(_svgIssuesBasePath) select Path.GetFileName(g)
+                        where !f.StartsWith("animate-") && !f.StartsWith("conform-viewer") &&
+                        !f.Contains("-dom-") && !f.StartsWith("linking-") && !f.StartsWith("interact-") &&
+                        !f.StartsWith("script-") && f.EndsWith(".svg")
+                        && File.Exists(Path.Combine(_pngIssuesBasePath, Path.ChangeExtension(f, "png")))
+                        orderby f
+                        select f;
 
-            //var other = files.Where(f => ((string)f).StartsWith(IssuesPrefix));
-            lstFilesOtherPassing.Items.AddRange(files.Where(f => passes.ContainsKey((string)f)).ToArray());
-            lstFilesOtherFailing.Items.AddRange(files.Where(f => !passes.ContainsKey((string)f)).ToArray());
+            listOtherPassing = files.Where(f => passes.ContainsKey(f)).ToArray();
+            listOtherFailing = files.Where(f => !passes.ContainsKey(f)).ToArray();
+            lstFilesOtherPassing.Items.AddRange(listOtherPassing);
+            lstFilesOtherFailing.Items.AddRange(listOtherFailing);
         }
 
         private void boxConsoleLog_MouseDown(object sender, MouseEventArgs e)
@@ -228,6 +237,8 @@ namespace SvgW3CTestRunner
                 return;
 #endif
 
+            this.ClearPictureBoxes();
+
             //render svg
             var lstFiles = sender as ListBox;
             if (lstFiles.SelectedIndex < 0)
@@ -237,6 +248,8 @@ namespace SvgW3CTestRunner
 
             var fileName = lstFiles.SelectedItem.ToString();
             if (fileName.StartsWith("#")) return;
+
+            this.Cursor = Cursors.WaitCursor;
 
             //display png
             var png = Image.FromFile(Path.Combine(_pngW3CBasePath, Path.ChangeExtension(fileName, "png")));
@@ -258,7 +271,7 @@ namespace SvgW3CTestRunner
                     picSvg.Image = img;
                 }
 
-                this.boxConsoleLog.AppendText("\n\nWC3 TEST " + fileName + "\n");
+                this.boxConsoleLog.AppendText("WC3 TEST " + fileName + "\n");
                 this.boxDescription.Text = GetDescription(doc);
 
             }
@@ -305,6 +318,10 @@ namespace SvgW3CTestRunner
             try
             {
                 picSVGPNG.Image = BitmapUtils.PixelDiff((Bitmap)picPng.Image, (Bitmap)picSvg.Image);
+                var difference = picSvg.Image.PercentageDifference(picPng.Image);
+                var percentage = Math.Round(difference * 100.0, 2);
+                labelSVGPNG.Text = $"{TitleSVGPNG} - Difference is {percentage}%";
+                labelSVGPNG.ForeColor = percentage > 5.0 ? Color.Crimson : Color.Black;
             }
             catch (Exception ex)
             {
@@ -312,6 +329,12 @@ namespace SvgW3CTestRunner
                 this.boxConsoleLog.AppendText("SVG TO PNG COMPARISON ERROR for " + fileName + "\n");
                 this.boxConsoleLog.AppendText(ex.ToString());
                 picSVGPNG.Image = null;
+                labelSVGPNG.Text = $"{TitleSVGPNG} - Exception occurred";
+                labelSVGPNG.ForeColor = Color.Red;
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
             }
         }
 
@@ -321,6 +344,7 @@ namespace SvgW3CTestRunner
             if (!OperatingSystem.IsWindows())
                 return;
 #endif
+            this.ClearPictureBoxes();
 
             //render svg
             var lstFiles = sender as ListBox;
@@ -331,6 +355,8 @@ namespace SvgW3CTestRunner
 
             var fileName = lstFiles.SelectedItem.ToString();
             if (fileName.StartsWith("#")) return;
+
+            this.Cursor = Cursors.WaitCursor;
 
             //display png
             var png = Image.FromFile(Path.Combine(_pngIssuesBasePath, Path.ChangeExtension(fileName, "png")));
@@ -343,7 +369,15 @@ namespace SvgW3CTestRunner
                 doc = SvgDocument.Open(Path.Combine(_svgIssuesBasePath, fileName));
                 if (fileName.StartsWith(IssuesPrefix))
                 {
-                    picSvg.Image = doc.Draw();
+                    var svgImage = doc.Draw();
+                    // Check for a large difference in image size, if not nearly equal recreate it
+                    if (Math.Abs(svgImage.Width - png.Width) > 10 || Math.Abs(svgImage.Height - png.Height) > 10)
+                    {
+                        svgImage.Dispose();
+                        svgImage = new Bitmap(png.Width, png.Height);
+                        doc.Draw(svgImage);
+                    }
+                    picSvg.Image = svgImage;
                 }
                 else
                 {
@@ -352,9 +386,13 @@ namespace SvgW3CTestRunner
                     picSvg.Image = img;
                 }
 
-                this.boxConsoleLog.AppendText("\n\nIssues/Pull-Requests TEST " + fileName + "\n");
+                this.boxConsoleLog.AppendText("Issues/Pull-Requests TEST " + fileName + "\n");
                 this.boxDescription.Text = GetDescription(doc);
 
+                var difference = picSvg.Image.PercentageDifference(picPng.Image);
+                var percentage = Math.Round(difference * 100.0, 2);
+                labelSVGPNG.Text = $"{TitleSVGPNG} - Difference is {percentage}%";
+                labelSVGPNG.ForeColor = percentage > 5.0 ? Color.Crimson : Color.Black;
             }
             catch (Exception ex)
             {
@@ -362,6 +400,8 @@ namespace SvgW3CTestRunner
                 this.boxConsoleLog.AppendText("SVG RENDERING ERROR for " + fileName + "\n");
                 this.boxConsoleLog.AppendText(ex.ToString());
                 picSvg.Image = null;
+                labelSVGPNG.Text = $"{TitleSVGPNG} - Exception occurred";
+                labelSVGPNG.ForeColor = Color.Red;
             }
 
             //save load
@@ -407,14 +447,34 @@ namespace SvgW3CTestRunner
                 this.boxConsoleLog.AppendText(ex.ToString());
                 picSVGPNG.Image = null;
             }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void ClearPictureBoxes()
+        {
+            PictureBox[] pictureBoxes = {
+                picSvg,
+                picPng,
+                picSaveLoad,
+                picSVGPNG
+            };
+            foreach (var pictureBox in pictureBoxes)
+            {
+                var pictureImage = pictureBox.Image;
+                pictureBox.Image = null;
+                pictureImage?.Dispose();
+            }
+
+            labelSVGPNG.Text = TitleSVGPNG;
+            labelSVGPNG.ForeColor = Color.Black;
         }
 
         private void fileTabBox_TabIndexChanged(object sender, EventArgs e)
         {
-            picSvg.Image = null;
-            picPng.Image = null;
-            picSaveLoad.Image = null;
-            picSVGPNG.Image = null;
+            this.ClearPictureBoxes();
         }
 
         private SvgElement GetChildWithDescription(SvgElement element, string description)
@@ -445,5 +505,57 @@ namespace SvgW3CTestRunner
             return description;
         }
 
+        private void OnClickRunTests(object sender, EventArgs e)
+        {
+            List<string[]> listItems = new List<string[]>{
+                listW3CPassing,
+                listW3CFailing,
+                listOtherPassing,
+                listOtherFailing
+            };
+
+            var dlg = new RunTestsDialog();
+            dlg.ListItems = listItems;
+            dlg.SeletedTabIndex = fileTabBox.SelectedIndex;
+
+            dlg.SvgW3CBasePath = _svgW3CBasePath;
+            dlg.PngW3CBasePath = _pngW3CBasePath;
+            dlg.SvgIssuesBasePath = _svgIssuesBasePath;
+            dlg.PngIssuesBasePath = _pngIssuesBasePath;
+
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                //var selectedList = listItems[dlg.SeletedTabIndex];
+                //var selectedIndex = selectedList.SelectedIndex;
+                //selectedList.ClearSelected();
+
+                //fileTabBox.SelectedIndex = dlg.SeletedTabIndex;
+                //selectedList.SelectedIndex = selectedIndex;
+            }
+        }
+
+        private void OnClickSearch(object sender, EventArgs e)
+        {
+            ListBox[] listItems = {
+                lstW3CFilesPassing,
+                lstW3CFilesFailing,
+                lstFilesOtherPassing,
+                lstFilesOtherFailing
+            };
+
+            ListSearchDialog dlg = new ListSearchDialog();
+            dlg.ListItems = listItems;
+            dlg.SeletedTabIndex = fileTabBox.SelectedIndex;
+
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                var selectedList = listItems[dlg.SeletedTabIndex];
+                var selectedIndex = selectedList.SelectedIndex;
+                selectedList.ClearSelected();
+
+                fileTabBox.SelectedIndex = dlg.SeletedTabIndex;
+                selectedList.SelectedIndex = selectedIndex;
+            }
+        }
     }
 }
