@@ -30,6 +30,7 @@ namespace SvgW3CTestRunner
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(View));
             uniformGrid = new System.Windows.Forms.TableLayoutPanel();
             panelSvg = new System.Windows.Forms.Panel();
             picSvg = new System.Windows.Forms.PictureBox();
@@ -464,6 +465,7 @@ namespace SvgW3CTestRunner
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new Size(1492, 998);
             Controls.Add(splitContainerBase);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "View";
             Padding = new System.Windows.Forms.Padding(3);

@@ -44,6 +44,10 @@ namespace SvgW3CTestRunner
         private string[] listOtherPassing;
         private string[] listOtherFailing;
 
+        private ListBox[] _listboxes;
+
+        private RunTestsDialog runTestsDialog;
+
         public View()
         {
             InitializeComponent();
@@ -63,25 +67,25 @@ namespace SvgW3CTestRunner
                 this.Width = (int)(width * 0.80);
             }
             this.Height = (int)(height * 0.90);
+
+            _listboxes = new ListBox[] {
+                lstW3CFilesPassing,
+                lstW3CFilesFailing,
+                lstFilesOtherPassing,
+                lstFilesOtherFailing
+            };
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == (Keys.Control | Keys.F))
             {
-                ListBox[] listItems = {
-                    lstW3CFilesPassing,
-                    lstW3CFilesFailing,
-                    lstFilesOtherPassing,
-                    lstFilesOtherFailing
-                };
-
                 ListSearchDialog dlg = new ListSearchDialog();
-                dlg.ListItems = listItems;
+                dlg.ListItems = _listboxes;
                 dlg.SeletedTabIndex = fileTabBox.SelectedIndex;
                 if (dlg.ShowDialog(this) == DialogResult.OK)
                 {
-                    var selectedList = listItems[dlg.SeletedTabIndex];
+                    var selectedList = _listboxes[dlg.SeletedTabIndex];
                     var selectedIndex = selectedList.SelectedIndex;
                     selectedList.ClearSelected();
 
@@ -455,6 +459,11 @@ namespace SvgW3CTestRunner
 
         private void ClearPictureBoxes()
         {
+#if NET5_0_OR_GREATER
+            if (!OperatingSystem.IsWindows())
+                return;
+#endif
+
             PictureBox[] pictureBoxes = {
                 picSvg,
                 picPng,
@@ -507,49 +516,65 @@ namespace SvgW3CTestRunner
 
         private void OnClickRunTests(object sender, EventArgs e)
         {
-            List<string[]> listItems = new List<string[]>{
-                listW3CPassing,
-                listW3CFailing,
-                listOtherPassing,
-                listOtherFailing
-            };
-
-            var dlg = new RunTestsDialog();
-            dlg.ListItems = listItems;
-            dlg.SeletedTabIndex = fileTabBox.SelectedIndex;
-
-            dlg.SvgW3CBasePath = _svgW3CBasePath;
-            dlg.PngW3CBasePath = _pngW3CBasePath;
-            dlg.SvgIssuesBasePath = _svgIssuesBasePath;
-            dlg.PngIssuesBasePath = _pngIssuesBasePath;
-
-            if (dlg.ShowDialog(this) == DialogResult.OK)
+            if (runTestsDialog == null || runTestsDialog.IsDisposed)
             {
-                //var selectedList = listItems[dlg.SeletedTabIndex];
-                //var selectedIndex = selectedList.SelectedIndex;
-                //selectedList.ClearSelected();
+                List<string[]> _listItems = new List<string[]>{
+                    listW3CPassing,
+                    listW3CFailing,
+                    listOtherPassing,
+                    listOtherFailing
+                };
 
-                //fileTabBox.SelectedIndex = dlg.SeletedTabIndex;
-                //selectedList.SelectedIndex = selectedIndex;
+                runTestsDialog = new RunTestsDialog();
+                runTestsDialog.ListItems = _listItems;
+                runTestsDialog.SeletedTabIndex = fileTabBox.SelectedIndex;
+
+                runTestsDialog.SvgW3CBasePath = _svgW3CBasePath;
+                runTestsDialog.PngW3CBasePath = _pngW3CBasePath;
+                runTestsDialog.SvgIssuesBasePath = _svgIssuesBasePath;
+                runTestsDialog.PngIssuesBasePath = _pngIssuesBasePath;
+
+                runTestsDialog.ViewEvent += OnRunTestsDialogViewEvent;
+                runTestsDialog.FormClosing += OnRunTestsDialogClosing;
             }
+
+            runTestsDialog.Owner = this;
+            runTestsDialog.Show();
+        }
+
+        private void OnRunTestsDialogViewEvent(object sender, RunTestsDialog.ViewEventArgs e)
+        {
+            int seletedTabIndex = e.SeletedTabIndex;
+            int selectedListIndex = e.SelectedListIndex;
+            if (seletedTabIndex < 0 || selectedListIndex < 0)
+            {
+                return;
+            }
+
+            var selectedList = _listboxes[seletedTabIndex];
+            fileTabBox.SelectedIndex = seletedTabIndex;
+            selectedList.SelectedIndex = selectedListIndex;
+        }
+
+        private void OnRunTestsDialogClosing(object sender, FormClosingEventArgs e)
+        {
+            if (runTestsDialog == null)
+            {
+                return;
+            }
+            runTestsDialog.ViewEvent -= OnRunTestsDialogViewEvent;
+            runTestsDialog.FormClosing -= OnRunTestsDialogClosing;
         }
 
         private void OnClickSearch(object sender, EventArgs e)
         {
-            ListBox[] listItems = {
-                lstW3CFilesPassing,
-                lstW3CFilesFailing,
-                lstFilesOtherPassing,
-                lstFilesOtherFailing
-            };
-
             ListSearchDialog dlg = new ListSearchDialog();
-            dlg.ListItems = listItems;
+            dlg.ListItems = _listboxes;
             dlg.SeletedTabIndex = fileTabBox.SelectedIndex;
 
             if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                var selectedList = listItems[dlg.SeletedTabIndex];
+                var selectedList = _listboxes[dlg.SeletedTabIndex];
                 var selectedIndex = selectedList.SelectedIndex;
                 selectedList.ClearSelected();
 
