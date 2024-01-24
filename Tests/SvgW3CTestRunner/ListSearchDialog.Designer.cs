@@ -117,6 +117,7 @@
             ShowInTaskbar = false;
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "List Search Dialog";
+            Load += OnLoadDialog;
             ResumeLayout(false);
             PerformLayout();
         }
