@@ -6,8 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using ExCSS;
-using Fizzler;
 using Svg.Css;
+
+using Svg.Tests.Common;
 
 namespace Svg.UnitTests
 {
@@ -290,7 +291,7 @@ namespace Svg.UnitTests
             try
             {
                 Debug.WriteLine("Fizzler:\r\n");
-                fizzlerElements = QuerySelectorFizzlerAll(rootNode, selector, elementFactory).OrderBy(f => f.ElementName).ToList();
+                fizzlerElements = CssQuery.QuerySelectorFizzlerAll(rootNode, selector, elementFactory).OrderBy(f => f.ElementName).ToList();
                 Debug.WriteLine(Environment.NewLine);
             }
             catch (Exception ex)
@@ -300,7 +301,7 @@ namespace Svg.UnitTests
             }
 
             Debug.WriteLine("ExCss:\r\n");
-            var exCssElements = QuerySelectorExCssAll(rootNode, selector, elementFactory).OrderBy(f => f.ElementName).ToList();
+            var exCssElements = CssQuery.QuerySelectorExCssAll(rootNode, selector, elementFactory).OrderBy(f => f.ElementName).ToList();
             Debug.WriteLine(Environment.NewLine);
 
             if (fizzler)
@@ -312,21 +313,6 @@ namespace Svg.UnitTests
             {
                 Assert.Inconclusive("Fizzler can't handle this selector");
             }
-        }
-
-        private IEnumerable<SvgElement> QuerySelectorExCssAll(NonSvgElement elem, string selector, SvgElementFactory elementFactory)
-        {
-            var stylesheetParser = new StylesheetParser(true, true);
-            var stylesheet = stylesheetParser.Parse(selector + " {color:black}");
-            var exCssSelector = stylesheet.StyleRules.First().Selector;
-            return elem.QuerySelectorAll(exCssSelector, elementFactory);
-        }
-
-        private IEnumerable<SvgElement> QuerySelectorFizzlerAll(NonSvgElement elem, string selector, SvgElementFactory elementFactory)
-        {
-            var generator = new SelectorGenerator<SvgElement>(new SvgElementOps(elementFactory));
-            Fizzler.Parser.Parse(selector, generator);
-            return generator.Selector(Enumerable.Repeat(elem, 1));
         }
     }
 

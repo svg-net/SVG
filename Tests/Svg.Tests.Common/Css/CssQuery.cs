@@ -25,5 +25,24 @@ namespace Svg.Css
             specificity |= (1 << 4) * selector.Specificity.Tags;
             return specificity;
         }
+
+
+        public static IEnumerable<SvgElement> QuerySelectorExCssAll(NonSvgElement elem, 
+            string selector, SvgElementFactory elementFactory)
+        {
+            var stylesheetParser = new StylesheetParser(true, true);
+            var stylesheet = stylesheetParser.Parse(selector + " {color:black}");
+            var exCssSelector = stylesheet.StyleRules.First().Selector;
+            return elem.QuerySelectorAll(exCssSelector, elementFactory);
+        }
+
+        public static IEnumerable<SvgElement> QuerySelectorFizzlerAll(NonSvgElement elem, 
+            string selector, SvgElementFactory elementFactory)
+        {
+            var generator = new SelectorGenerator<SvgElement>(new SvgElementOps(elementFactory));
+            Fizzler.Parser.Parse(selector, generator);
+            return generator.Selector(Enumerable.Repeat(elem, 1));
+        }
+
     }
 }

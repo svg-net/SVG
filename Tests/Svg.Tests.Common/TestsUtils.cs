@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using System.IO;
 using System.IO.Compression;
 
-namespace Svg.UnitTests
+namespace Svg.Tests.Common
 {
-    internal static class TestsUtils
+    public static class TestsUtils
     {
         private const string FixImage = "smiley.png";
 

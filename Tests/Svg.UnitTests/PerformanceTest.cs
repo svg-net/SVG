@@ -7,6 +7,8 @@ using System.Text;
 using NUnit.Framework;
 using System.Linq;
 
+using Svg.Tests.Common;
+
 namespace Svg.UnitTests
 {
     [TestFixture]

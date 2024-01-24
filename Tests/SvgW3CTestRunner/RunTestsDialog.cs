@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 
 using Svg;
+using Svg.Tests.Common;
 
 namespace SvgW3CTestRunner
 {
