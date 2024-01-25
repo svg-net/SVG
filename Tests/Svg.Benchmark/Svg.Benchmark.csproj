@@ -32,17 +32,12 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
         <PackageReference Include="BenchmarkDotNet" Version="0.13.5" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\Source\Svg.csproj" />
-        <ProjectReference Include="..\Svg.UnitTests\Svg.UnitTests.csproj" />
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)'=='net462'">
-        <Reference Include="WindowsBase" />
+        <ProjectReference Include="..\Svg.Tests.Common\Svg.Tests.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup>

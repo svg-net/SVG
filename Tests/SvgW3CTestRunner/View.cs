@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 using Svg;
+using Svg.Tests.Common;
 
 namespace SvgW3CTestRunner
 {
@@ -97,74 +95,13 @@ namespace SvgW3CTestRunner
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private static bool IsTestSuiteAvailable()
-        {
-            if (Directory.Exists(_svgW3CBasePath) == false)
-            {
-                return false;
-            }
-            if (Directory.Exists(_pngW3CBasePath) == false)
-            {
-                return false;
-            }
-            string svgDir = Path.GetFullPath(_svgW3CBasePath);
-            if (!Directory.Exists(svgDir) || IsDirectoryEmpty(svgDir) == true)
-            {
-                return false;
-            }
-            string pngDir = Path.Combine(_pngW3CBasePath);
-            if (!Directory.Exists(pngDir) || IsDirectoryEmpty(pngDir) == true)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private static async Task DownloadW3CTestSuite(string downloadedFilePath)
-        {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-
-            using (HttpClient client = new HttpClient())
-            {
-                using (Stream streamToReadFrom = await client.GetStreamAsync(W3CTestSuiteUrl))
-                {
-                    using (Stream streamToWriteTo = new FileStream(downloadedFilePath, FileMode.CreateNew))
-                    {
-                        await streamToReadFrom.CopyToAsync(streamToWriteTo);
-                    }
-                }
-            }
-        }
-
         private async void OnFormLoad(object sender, EventArgs e)
         {
-            if (!IsTestSuiteAvailable())
-            {
-                string svgDir = Path.GetFullPath(_svgW3CBasePath);
-                var downloadedFilePath = Path.GetFullPath(Path.Combine(svgDir, "..", "Svg11.zip"));
-                string destinationDirectory = Path.GetDirectoryName(downloadedFilePath);
+            string testsRoot = Path.GetDirectoryName(Path.GetDirectoryName(_svgW3CBasePath));
 
-                if (File.Exists(downloadedFilePath))
-                {
-                    File.Delete(downloadedFilePath);
-                }
+            await TestsUtils.EnsureTestsExists(testsRoot);
 
-                await DownloadW3CTestSuite(downloadedFilePath);
-
-                await Task.Delay(100);
-
-                ZipFile.ExtractToDirectory(downloadedFilePath, destinationDirectory);
-
-                var sourceImage = Path.Combine(destinationDirectory, "images", FixImage);
-                var destImage = Path.Combine(destinationDirectory, "svg", FixImage);
-                File.Copy(sourceImage, destImage);
-
-                if (File.Exists(downloadedFilePath))
-                {
-                    File.Delete(downloadedFilePath);
-                }
-            }
+            await Task.Delay(100);
 
             this.LoadW3CTestSuite();
             this.LoadIssuesAndPullRequests();

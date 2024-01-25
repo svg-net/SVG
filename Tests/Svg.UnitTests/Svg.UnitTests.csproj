@@ -58,15 +58,11 @@
         <PackageReference Include="NUnit" Version="3.13.0" />
         <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
         <PackageReference Include="Moq" Version="4.16.1" />
-        <PackageReference Include="Fizzler" Version="1.3.0" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\Source\Svg.csproj" />
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)'=='net462'">
-        <Reference Include="WindowsBase" />
+        <ProjectReference Include="..\Svg.Tests.Common\Svg.Tests.Common.csproj" />
     </ItemGroup>
 
 </Project>
