@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
 using Svg.Helpers;
@@ -81,7 +81,7 @@ namespace Svg
             }
 
             var valSpan = identifierIndex > -1 ? unit.Slice(0, identifierIndex) : unit;
-            var val = StringParser.ToFloat(ref valSpan);
+            var val = StringParser.ToFloat(valSpan);
             if (identifierIndex == -1)
             {
                 return new SvgUnit(val);

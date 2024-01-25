@@ -10,9 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A417AF1E-BEDB-4715-B4FD-D795579217F9}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		Local.testsettings = Local.testsettings
-		Svg.vsmdi = Svg.vsmdi
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 		version.json = version.json
 	EndProjectSection
 EndProject
@@ -40,7 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generators", "Generators", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svg.Custom", "..\Svg.Custom\Svg.Custom.csproj", "{6FAA2B79-FE5C-456B-A743-E9290665B223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Svg.Tests.Common", "..\Tests\Svg.Tests.Common\Svg.Tests.Common.csproj", "{D7C625E8-79EA-4859-A457-2C4A90786790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Svg.Tests.Common", "..\Tests\Svg.Tests.Common\Svg.Tests.Common.csproj", "{D7C625E8-79EA-4859-A457-2C4A90786790}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

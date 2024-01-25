@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <IsTestProject>true</IsTestProject>
-        <TargetFrameworks>net6.0;netcoreapp3.1;net462</TargetFrameworks>
+        <TargetFrameworks>net8.0;net6.0;netcoreapp3.1;net462</TargetFrameworks>
         <IsPackable>false</IsPackable>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
         <DelaySign>false</DelaySign>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <Configurations>Debug;Release</Configurations>
-        <NoWarn>1591</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

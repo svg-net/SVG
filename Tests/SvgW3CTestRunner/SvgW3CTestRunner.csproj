@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFrameworks>net6.0-windows;netcoreapp3.1;net462</TargetFrameworks>
+        <TargetFrameworks>net8.0-windows;net6.0-windows;netcoreapp3.1;net462</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>

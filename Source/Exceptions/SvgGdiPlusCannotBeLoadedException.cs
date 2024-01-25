@@ -1,5 +1,7 @@
 ﻿using System;
+#if !NET8_0_OR_GREATER
 using System.Runtime.Serialization;
+#endif
 
 namespace Svg
 {
@@ -13,7 +15,9 @@ namespace Svg
         public SvgGdiPlusCannotBeLoadedException(Exception inner) : base(gdiErrorMsg, inner) {}
         public SvgGdiPlusCannotBeLoadedException(string message, Exception inner) : base(message, inner) { }
 
+#if !NET8_0_OR_GREATER
         protected SvgGdiPlusCannotBeLoadedException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
+#endif
     }
 }

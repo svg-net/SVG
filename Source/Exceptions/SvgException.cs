@@ -1,5 +1,7 @@
 ﻿using System;
+#if !NET8_0_OR_GREATER
 using System.Runtime.Serialization;
+#endif
 
 namespace Svg
 {
@@ -10,8 +12,10 @@ namespace Svg
         public SvgException(string message) : base(message) { }
         public SvgException(string message, Exception inner) : base(message, inner) { }
 
+#if !NET8_0_OR_GREATER
         protected SvgException(SerializationInfo info, StreamingContext context)
             : base (info, context) { }
+#endif
     }
 
     [Serializable]
@@ -21,8 +25,10 @@ namespace Svg
         public SvgIDException(string message) : base(message) { }
         public SvgIDException(string message, Exception inner) : base(message, inner) { }
 
+#if !NET8_0_OR_GREATER
         protected SvgIDException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
+#endif
     }
 
     [Serializable]
@@ -32,8 +38,10 @@ namespace Svg
         public SvgIDExistsException(string message) : base(message) { }
         public SvgIDExistsException(string message, Exception inner) : base(message, inner) { }
 
+#if !NET8_0_OR_GREATER
         protected SvgIDExistsException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
+#endif
     }
 
     [Serializable]
@@ -43,7 +51,9 @@ namespace Svg
         public SvgIDWrongFormatException(string message) : base(message) { }
         public SvgIDWrongFormatException(string message, Exception inner) : base(message, inner) { }
 
+#if !NET8_0_OR_GREATER
         protected SvgIDWrongFormatException(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
+#endif
     }
 }

@@ -7,7 +7,7 @@ namespace Svg.Helpers
     {
         private static readonly CultureInfo Format = CultureInfo.InvariantCulture;
 
-        public static float ToFloat(ref ReadOnlySpan<char> value)
+        public static float ToFloat(ReadOnlySpan<char> value)
         {
 #if NETSTANDARD2_1 || NETCOREAPP2_1_OR_GREATER
             return float.Parse(value, NumberStyles.Float, Format);
@@ -16,7 +16,7 @@ namespace Svg.Helpers
 #endif
         }
 
-        public static float ToFloatAny(ref ReadOnlySpan<char> value)
+        public static float ToFloatAny(ReadOnlySpan<char> value)
         {
 #if NETSTANDARD2_1 || NETCOREAPP2_1_OR_GREATER
             return float.Parse(value, NumberStyles.Any, Format);
@@ -25,7 +25,7 @@ namespace Svg.Helpers
 #endif
         }
 
-        public static double ToDouble(ref ReadOnlySpan<char> value)
+        public static double ToDouble(ReadOnlySpan<char> value)
         {
 #if NETSTANDARD2_1 || NETCOREAPP2_1_OR_GREATER
             return double.Parse(value, NumberStyles.Any, Format);
@@ -34,7 +34,7 @@ namespace Svg.Helpers
 #endif
         }
 
-        public static int ToInt(ref ReadOnlySpan<char> value)
+        public static int ToInt(ReadOnlySpan<char> value)
         {
 #if NETSTANDARD2_1 || NETCOREAPP2_1_OR_GREATER
             return int.Parse(value, NumberStyles.Integer, Format);

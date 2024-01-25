@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net6.0;netcoreapp3.1;netstandard2.1;netstandard2.0;net462;net472;net481</TargetFrameworks>
+        <TargetFrameworks>net8.0;net6.0;netcoreapp3.1;netstandard2.1;netstandard2.0;net462;net472;net481</TargetFrameworks>
         <PackageLicenseExpression>MS-PL</PackageLicenseExpression>
         <RootNamespace>Svg</RootNamespace>
         <AssemblyName>Svg</AssemblyName>
@@ -141,6 +141,10 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
     </ItemGroup>
 
     <ItemGroup>
