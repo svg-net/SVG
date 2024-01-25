@@ -38,7 +38,7 @@ jobs:
       - name: Restore NuGet Packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          nuget restore Source/Svg.sln
+          nuget restore Tests/Svg.UnitTests.sln
           nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory tools
       - name: Run tests
         env:
@@ -75,7 +75,7 @@ jobs:
       - name: Restore NuGet Packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          nuget restore Source/Svg.sln
+          nuget restore Tests/Svg.Benchmark.sln
       - name: Run benchmarks
         env:
           DOTNET_NOLOGO: true
