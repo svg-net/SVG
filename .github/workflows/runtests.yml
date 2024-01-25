@@ -18,7 +18,7 @@ jobs:
         framework: [net8.0, net6.0, netcoreapp3.1, net462]
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # needed for GitVersioning to work
       - name: Setup NuGet
@@ -45,7 +45,7 @@ jobs:
           DOTNET_NOLOGO: true
           DOTNET_CLI_TELEMETRY_OPTOUT: true
         run: |
-          dotnet test --framework ${{ matrix.framework }} Tests/Svg.UnitTests/Svg.UnitTests.csproj
+          dotnet test -c Release -f ${{ matrix.framework }} Tests/Svg.UnitTests/Svg.UnitTests.csproj
           
   benchmark:
     runs-on: ${{ matrix.os }}
@@ -57,7 +57,7 @@ jobs:
         framework: [net8.0]
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Setup NuGet
