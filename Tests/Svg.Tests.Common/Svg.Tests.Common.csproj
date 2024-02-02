@@ -8,6 +8,7 @@
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Configurations>Debug;Release</Configurations>
     </PropertyGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net462'">

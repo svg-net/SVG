@@ -12,7 +12,6 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <NoWarn>$(NoWarn);CS0618</NoWarn>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

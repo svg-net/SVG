@@ -11,7 +11,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <NoWarn>$(NoWarn);CS0618;NETSDK1138</NoWarn>
+        <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <NoWarn>$(NoWarn);CS1591;CS0618;NETSDK1138</NoWarn>
