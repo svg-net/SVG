@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0  # needed for GitVersioning to work
       - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1
+        uses: NuGet/setup-nuget@v2
       - name: Cache NuGet packages
         uses: actions/cache@v4
         id: cache
@@ -61,7 +61,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1
+        uses: NuGet/setup-nuget@v2
       - name: Cache NuGet packages
         uses: actions/cache@v4
         id: cache
