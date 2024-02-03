@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class SvgElementAttribute
+    <title>Class ElementFactoryAttribute
    | SVG.NET API </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class SvgElementAttribute
+    <meta name="title" content="Class ElementFactoryAttribute
    | SVG.NET API ">
     <meta name="generator" content="docfx 2.59.4.0">
     
@@ -78,19 +78,18 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Svg.SvgElementAttribute">
+            <article class="content wrap" id="_content" data-uid="Svg.ElementFactoryAttribute">
   
   
-  <h1 id="Svg_SvgElementAttribute" data-uid="Svg.SvgElementAttribute" class="text-break">Class SvgElementAttribute
+  <h1 id="Svg_ElementFactoryAttribute" data-uid="Svg.ElementFactoryAttribute" class="text-break">Class ElementFactoryAttribute
   </h1>
-  <div class="markdown level0 summary"><p>Specifies the SVG name of an <a class="xref" href="Svg.SvgElement.html">SvgElement</a>.</p>
-</div>
+  <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
     <div class="level1"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.attribute">Attribute</a></div>
-    <div class="level2"><span class="xref">SvgElementAttribute</span></div>
+    <div class="level2"><span class="xref">ElementFactoryAttribute</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -223,80 +222,11 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="Svg.html">Svg</a></h6>
   <h6><strong>Assembly</strong>: Svg.dll</h6>
-  <h5 id="Svg_SvgElementAttribute_syntax">Syntax</h5>
+  <h5 id="Svg_ElementFactoryAttribute_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Class)]
-public sealed class SvgElementAttribute : Attribute</code></pre>
+    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+public sealed class ElementFactoryAttribute : Attribute</code></pre>
   </div>
-  <h3 id="constructors">Constructors
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgElementAttribute__ctor_System_String_.md&amp;value=---%0Auid%3A%20Svg.SvgElementAttribute.%23ctor(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/svg-net/SVG/blob/master/Source/SvgElementAttribute.cs/#L23">View Source</a>
-  </span>
-  <a id="Svg_SvgElementAttribute__ctor_" data-uid="Svg.SvgElementAttribute.#ctor*"></a>
-  <h4 id="Svg_SvgElementAttribute__ctor_System_String_" data-uid="Svg.SvgElementAttribute.#ctor(System.String)">SvgElementAttribute(String)</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Svg.SvgElementAttribute.html">SvgElementAttribute</a> class with the specified element name;</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public SvgElementAttribute(string elementName)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td><span class="parametername">elementName</span></td>
-        <td><p>The name of the SVG element.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-  </h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgElementAttribute_ElementName.md&amp;value=---%0Auid%3A%20Svg.SvgElementAttribute.ElementName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/svg-net/SVG/blob/master/Source/SvgElementAttribute.cs/#L17">View Source</a>
-  </span>
-  <a id="Svg_SvgElementAttribute_ElementName_" data-uid="Svg.SvgElementAttribute.ElementName*"></a>
-  <h4 id="Svg_SvgElementAttribute_ElementName" data-uid="Svg.SvgElementAttribute.ElementName">ElementName</h4>
-  <div class="markdown level1 summary"><p>Gets the name of the SVG element.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string ElementName { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
 </article>
           </div>
           
@@ -305,10 +235,10 @@ public sealed class SvgElementAttribute : Attribute</code></pre>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_SvgElementAttribute.md&amp;value=---%0Auid%3A%20Svg.SvgElementAttribute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/svg-net/SVG/new/master/apiSpec/new?filename=Svg_ElementFactoryAttribute.md&amp;value=---%0Auid%3A%20Svg.ElementFactoryAttribute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/svg-net/SVG/blob/master/Source/SvgElementAttribute.cs/#L11" class="contribution-link">View Source</a>
+                    <a href="https://github.com/svg-net/SVG/blob/master/Source/SvgModel.cs/#L8" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

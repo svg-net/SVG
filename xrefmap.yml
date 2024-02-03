@@ -340,6 +340,12 @@ references:
   isSpec: "True"
   fullName: Svg.Document_Structure.SvgSymbol.SvgSymbol
   nameWithType: SvgSymbol.SvgSymbol
+- uid: Svg.ElementFactoryAttribute
+  name: ElementFactoryAttribute
+  href: api/Svg.ElementFactoryAttribute.html
+  commentId: T:Svg.ElementFactoryAttribute
+  fullName: Svg.ElementFactoryAttribute
+  nameWithType: ElementFactoryAttribute
 - uid: Svg.EnumBaseConverter`1
   name: EnumBaseConverter<T>
   href: api/Svg.EnumBaseConverter-1.html
