@@ -361,3 +361,5 @@ Tests/W3CTestSuite/images
 Tests/W3CTestSuite/png
 Tests/W3CTestSuite/resources
 Tests/W3CTestSuite/svg
+
+Source/Generated/**/*.cs

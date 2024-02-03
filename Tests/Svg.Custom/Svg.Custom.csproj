@@ -11,7 +11,7 @@
         <IsPackable>True</IsPackable>
         <Nullable>disable</Nullable>
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-        <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\$(TargetFramework)\GeneratedFiles</CompilerGeneratedFilesOutputPath>
+        <CompilerGeneratedFilesOutputPath>$(SvgSourcesBasePath)\Generated</CompilerGeneratedFilesOutputPath>
         <DefineConstants>$(DefineConstants);NO_SDC</DefineConstants>
         <LangVersion>10.0</LangVersion>
     </PropertyGroup>
@@ -24,7 +24,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <SvgSourcesBasePath>..</SvgSourcesBasePath>
+        <SvgSourcesBasePath>..\..</SvgSourcesBasePath>
     </PropertyGroup>
 
     <ItemGroup>
@@ -40,6 +40,11 @@
         <Compile Include="$(SvgSourcesBasePath)\Source\**\*.cs" Exclude="$(SvgSourcesBasePath)\Source\obj\**" />
         <Compile Remove="$(SvgSourcesBasePath)\Source\Properties\AssemblyInfo.cs" />
         <Compile Remove="$(SvgSourcesBasePath)\Source\Resources\svg11.dtd" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
+        <Compile Remove="$(SvgSourcesBasePath)\Source\Generated\**\*.cs" />
     </ItemGroup>
 
     <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
