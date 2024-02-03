@@ -63,7 +63,7 @@ namespace Svg
                 var coords = s.AsSpan().Trim();
                 var state = new CoordinateParserState(ref coords);
                 var result = new SvgPointCollection();
-                while (CoordinateParser.TryGetFloat(out var pointValue, ref coords, ref state))
+                while (CoordinateParser.TryGetFloat(out var pointValue, coords, ref state))
                 {
                     result.Add(new SvgUnit(SvgUnitType.User, pointValue));
                 }

@@ -1,7 +1,11 @@
 name: Testsuite
 
 on:
-  [push, pull_request]
+  workflow_dispatch: # Allows manual triggering of workflow
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
   test:
@@ -11,36 +15,37 @@ jobs:
       matrix:
         os: [windows-latest]
         # os: [windows-latest, ubuntu-latest]
-        framework: [netcoreapp3.1, net6.0, net462]
+        framework: [net8.0, net6.0, netcoreapp3.1, net462]
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # needed for GitVersioning to work
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1
       - name: Cache NuGet packages
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         id: cache
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget }}
-      - name: Setup .NET 3.1 SDK
-        uses: actions/setup-dotnet@v3
+      - name: Setup .NET 3.1/8.0 SDK
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 3.1.x
-          include-prerelease: false
+          dotnet-version: |
+            3.1.x
+            8.0.x
       - name: Restore NuGet Packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          nuget restore Source/Svg.sln
-          nuget install NUnit.ConsoleRunner -Version 3.10.0 -OutputDirectory tools
+          nuget restore Tests/Svg.UnitTests.sln
+          nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory tools
       - name: Run tests
         env:
           DOTNET_NOLOGO: true
           DOTNET_CLI_TELEMETRY_OPTOUT: true
         run: |
-          dotnet test --framework ${{ matrix.framework }} Tests/Svg.UnitTests/Svg.UnitTests.csproj
+          dotnet test -c Release -f ${{ matrix.framework }} Tests/Svg.UnitTests/Svg.UnitTests.csproj
           
   benchmark:
     runs-on: ${{ matrix.os }}
@@ -49,29 +54,28 @@ jobs:
         benchmark: [SvgDocument, SvgPathBuilder, SvgTransformConverter, CoordinateParser]
         os: [windows-latest]
         # os: [windows-latest, ubuntu-latest]
-        framework: [netcoreapp3.1]
+        framework: [net8.0]
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1
       - name: Cache NuGet packages
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         id: cache
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-bench }}
-      - name: Setup .NET 3.1 SDK
-        uses: actions/setup-dotnet@v3
+      - name: Setup .NET 8.x SDK
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 3.1.x
-          include-prerelease: false
+          dotnet-version: 8.0.x
       - name: Restore NuGet Packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          nuget restore Source/Svg.sln
+          nuget restore Tests/Svg.Benchmark.sln
       - name: Run benchmarks
         env:
           DOTNET_NOLOGO: true

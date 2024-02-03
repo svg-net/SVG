@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net6.0;netcoreapp3.1;net462</TargetFrameworks>
+        <TargetFrameworks>net8.0;net6.0;netcoreapp3.1;net462</TargetFrameworks>
         <SignAssembly>False</SignAssembly>
         <DelaySign>False</DelaySign>
         <IsPackable>False</IsPackable>
         <SignAssembly>True</SignAssembly>
         <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Configurations>Debug;Release</Configurations>
     </PropertyGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net462'">

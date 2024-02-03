@@ -2,15 +2,16 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFrameworks>net6.0-windows;netcoreapp3.1;net462</TargetFrameworks>
+        <TargetFrameworks>net8.0-windows;net6.0-windows;netcoreapp3.1;net462</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
         <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+        <Configurations>Debug;Release</Configurations>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <NoWarn>$(NoWarn);CS0618;NETSDK1138</NoWarn>
+        <NoWarn>$(NoWarn);NETSDK1138</NoWarn>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <NoWarn>$(NoWarn);CS1591;CS0618;NETSDK1138</NoWarn>

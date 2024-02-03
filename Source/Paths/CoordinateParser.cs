@@ -44,7 +44,7 @@ namespace Svg
             return hasMode;
         }
 
-        public static bool TryGetBool(out bool result, ref ReadOnlySpan<char> chars, ref CoordinateParserState state)
+        public static bool TryGetBool(out bool result, ReadOnlySpan<char> chars, ref CoordinateParserState state)
         {
             var charsLength = chars.Length;
 
@@ -88,7 +88,7 @@ namespace Svg
             return MarkState(false, ref state);
         }
 
-        public static bool TryGetFloat(out float result, ref ReadOnlySpan<char> chars, ref CoordinateParserState state)
+        public static bool TryGetFloat(out float result, ReadOnlySpan<char> chars, ref CoordinateParserState state)
         {
             var charsLength = chars.Length;
 
@@ -289,7 +289,7 @@ namespace Svg
                 if (state.CurrNumState != NumState.Separator && state.NewNumState < state.CurrNumState)
                 {
                     var value = chars.Slice(state.Position, state.CharsPosition - state.Position);
-                    result = StringParser.ToFloat(ref value);
+                    result = StringParser.ToFloat(value);
                     state.Position = state.CharsPosition;
                     state.CurrNumState = state.NewNumState;
                     return MarkState(true, ref state);
@@ -316,7 +316,7 @@ namespace Svg
             else
             {
                 var value = chars.Slice(state.Position, charsLength - state.Position);
-                result = StringParser.ToFloat(ref value);
+                result = StringParser.ToFloat(value);
                 state.Position = charsLength;
                 return MarkState(true, ref state);
             }

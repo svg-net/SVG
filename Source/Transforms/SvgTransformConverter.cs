@@ -99,11 +99,11 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                x = StringParser.ToFloat(ref partValue);
+                                x = StringParser.ToFloat(partValue);
                             }
                             else if (count == 1)
                             {
-                                y = StringParser.ToFloat(ref partValue);
+                                y = StringParser.ToFloat(partValue);
                             }
 
                             count++;
@@ -129,15 +129,15 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                angle = StringParser.ToFloat(ref partValue);
+                                angle = StringParser.ToFloat(partValue);
                             }
                             else if (count == 1)
                             {
-                                cx = StringParser.ToFloat(ref partValue);
+                                cx = StringParser.ToFloat(partValue);
                             }
                             else if (count == 2)
                             {
-                                cy = StringParser.ToFloat(ref partValue);
+                                cy = StringParser.ToFloat(partValue);
                             }
 
                             count++;
@@ -162,11 +162,11 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                sx = StringParser.ToFloat(ref partValue);
+                                sx = StringParser.ToFloat(partValue);
                             }
                             else if (count == 1)
                             {
-                                sy = StringParser.ToFloat(ref partValue);
+                                sy = StringParser.ToFloat(partValue);
                             }
 
                             count++;
@@ -195,27 +195,27 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                m11 = StringParser.ToFloat(ref partValue);
+                                m11 = StringParser.ToFloat(partValue);
                             }
                             else if (count == 1)
                             {
-                                m12 = StringParser.ToFloat(ref partValue);
+                                m12 = StringParser.ToFloat(partValue);
                             }
                             else if (count == 2)
                             {
-                                m21 = StringParser.ToFloat(ref partValue);
+                                m21 = StringParser.ToFloat(partValue);
                             }
                             else if (count == 3)
                             {
-                                m22 = StringParser.ToFloat(ref partValue);
+                                m22 = StringParser.ToFloat(partValue);
                             }
                             else if (count == 4)
                             {
-                                dx = StringParser.ToFloat(ref partValue);
+                                dx = StringParser.ToFloat(partValue);
                             }
                             else if (count == 5)
                             {
-                                dy = StringParser.ToFloat(ref partValue);
+                                dy = StringParser.ToFloat(partValue);
                             }
 
                             count++;
@@ -241,11 +241,11 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                hx = StringParser.ToFloat(ref partValue);
+                                hx = StringParser.ToFloat(partValue);
                             }
                             else if (count == 1)
                             {
-                                hy = StringParser.ToFloat(ref partValue);
+                                hy = StringParser.ToFloat(partValue);
                             }
 
                             count++;
@@ -269,7 +269,7 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                ax = StringParser.ToFloat(ref partValue);
+                                ax = StringParser.ToFloat(partValue);
                             }
 
                             count++;
@@ -293,7 +293,7 @@ namespace Svg.Transforms
                             var partValue = part.Value;
                             if (count == 0)
                             {
-                                ay = StringParser.ToFloat(ref partValue);
+                                ay = StringParser.ToFloat(partValue);
                             }
 
                             count++;
