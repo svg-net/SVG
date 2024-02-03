@@ -61,15 +61,15 @@ references:
   commentId: T:Svg.CoordinateParser
   fullName: Svg.CoordinateParser
   nameWithType: CoordinateParser
-- uid: Svg.CoordinateParser.TryGetBool(System.Boolean@,System.ReadOnlySpan{System.Char}@,Svg.CoordinateParserState@)
-  name: TryGetBool(out Boolean, ref ReadOnlySpan<Char>, ref CoordinateParserState)
-  href: api/Svg.CoordinateParser.html#Svg_CoordinateParser_TryGetBool_System_Boolean__System_ReadOnlySpan_System_Char___Svg_CoordinateParserState__
-  commentId: M:Svg.CoordinateParser.TryGetBool(System.Boolean@,System.ReadOnlySpan{System.Char}@,Svg.CoordinateParserState@)
-  name.vb: TryGetBool(ByRef Boolean, ByRef ReadOnlySpan(Of Char), ByRef CoordinateParserState)
-  fullName: Svg.CoordinateParser.TryGetBool(out System.Boolean, ref System.ReadOnlySpan<System.Char>, ref Svg.CoordinateParserState)
-  fullName.vb: Svg.CoordinateParser.TryGetBool(ByRef System.Boolean, ByRef System.ReadOnlySpan(Of System.Char), ByRef Svg.CoordinateParserState)
-  nameWithType: CoordinateParser.TryGetBool(out Boolean, ref ReadOnlySpan<Char>, ref CoordinateParserState)
-  nameWithType.vb: CoordinateParser.TryGetBool(ByRef Boolean, ByRef ReadOnlySpan(Of Char), ByRef CoordinateParserState)
+- uid: Svg.CoordinateParser.TryGetBool(System.Boolean@,System.ReadOnlySpan{System.Char},Svg.CoordinateParserState@)
+  name: TryGetBool(out Boolean, ReadOnlySpan<Char>, ref CoordinateParserState)
+  href: api/Svg.CoordinateParser.html#Svg_CoordinateParser_TryGetBool_System_Boolean__System_ReadOnlySpan_System_Char__Svg_CoordinateParserState__
+  commentId: M:Svg.CoordinateParser.TryGetBool(System.Boolean@,System.ReadOnlySpan{System.Char},Svg.CoordinateParserState@)
+  name.vb: TryGetBool(ByRef Boolean, ReadOnlySpan(Of Char), ByRef CoordinateParserState)
+  fullName: Svg.CoordinateParser.TryGetBool(out System.Boolean, System.ReadOnlySpan<System.Char>, ref Svg.CoordinateParserState)
+  fullName.vb: Svg.CoordinateParser.TryGetBool(ByRef System.Boolean, System.ReadOnlySpan(Of System.Char), ByRef Svg.CoordinateParserState)
+  nameWithType: CoordinateParser.TryGetBool(out Boolean, ReadOnlySpan<Char>, ref CoordinateParserState)
+  nameWithType.vb: CoordinateParser.TryGetBool(ByRef Boolean, ReadOnlySpan(Of Char), ByRef CoordinateParserState)
 - uid: Svg.CoordinateParser.TryGetBool*
   name: TryGetBool
   href: api/Svg.CoordinateParser.html#Svg_CoordinateParser_TryGetBool_
@@ -77,15 +77,15 @@ references:
   isSpec: "True"
   fullName: Svg.CoordinateParser.TryGetBool
   nameWithType: CoordinateParser.TryGetBool
-- uid: Svg.CoordinateParser.TryGetFloat(System.Single@,System.ReadOnlySpan{System.Char}@,Svg.CoordinateParserState@)
-  name: TryGetFloat(out Single, ref ReadOnlySpan<Char>, ref CoordinateParserState)
-  href: api/Svg.CoordinateParser.html#Svg_CoordinateParser_TryGetFloat_System_Single__System_ReadOnlySpan_System_Char___Svg_CoordinateParserState__
-  commentId: M:Svg.CoordinateParser.TryGetFloat(System.Single@,System.ReadOnlySpan{System.Char}@,Svg.CoordinateParserState@)
-  name.vb: TryGetFloat(ByRef Single, ByRef ReadOnlySpan(Of Char), ByRef CoordinateParserState)
-  fullName: Svg.CoordinateParser.TryGetFloat(out System.Single, ref System.ReadOnlySpan<System.Char>, ref Svg.CoordinateParserState)
-  fullName.vb: Svg.CoordinateParser.TryGetFloat(ByRef System.Single, ByRef System.ReadOnlySpan(Of System.Char), ByRef Svg.CoordinateParserState)
-  nameWithType: CoordinateParser.TryGetFloat(out Single, ref ReadOnlySpan<Char>, ref CoordinateParserState)
-  nameWithType.vb: CoordinateParser.TryGetFloat(ByRef Single, ByRef ReadOnlySpan(Of Char), ByRef CoordinateParserState)
+- uid: Svg.CoordinateParser.TryGetFloat(System.Single@,System.ReadOnlySpan{System.Char},Svg.CoordinateParserState@)
+  name: TryGetFloat(out Single, ReadOnlySpan<Char>, ref CoordinateParserState)
+  href: api/Svg.CoordinateParser.html#Svg_CoordinateParser_TryGetFloat_System_Single__System_ReadOnlySpan_System_Char__Svg_CoordinateParserState__
+  commentId: M:Svg.CoordinateParser.TryGetFloat(System.Single@,System.ReadOnlySpan{System.Char},Svg.CoordinateParserState@)
+  name.vb: TryGetFloat(ByRef Single, ReadOnlySpan(Of Char), ByRef CoordinateParserState)
+  fullName: Svg.CoordinateParser.TryGetFloat(out System.Single, System.ReadOnlySpan<System.Char>, ref Svg.CoordinateParserState)
+  fullName.vb: Svg.CoordinateParser.TryGetFloat(ByRef System.Single, System.ReadOnlySpan(Of System.Char), ByRef Svg.CoordinateParserState)
+  nameWithType: CoordinateParser.TryGetFloat(out Single, ReadOnlySpan<Char>, ref CoordinateParserState)
+  nameWithType.vb: CoordinateParser.TryGetFloat(ByRef Single, ReadOnlySpan(Of Char), ByRef CoordinateParserState)
 - uid: Svg.CoordinateParser.TryGetFloat*
   name: TryGetFloat
   href: api/Svg.CoordinateParser.html#Svg_CoordinateParser_TryGetFloat_
@@ -494,12 +494,6 @@ references:
   commentId: M:Svg.Exceptions.SvgMemoryException.#ctor
   fullName: Svg.Exceptions.SvgMemoryException.SvgMemoryException()
   nameWithType: SvgMemoryException.SvgMemoryException()
-- uid: Svg.Exceptions.SvgMemoryException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  name: SvgMemoryException(SerializationInfo, StreamingContext)
-  href: api/Svg.Exceptions.SvgMemoryException.html#Svg_Exceptions_SvgMemoryException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
-  commentId: M:Svg.Exceptions.SvgMemoryException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  fullName: Svg.Exceptions.SvgMemoryException.SvgMemoryException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
-  nameWithType: SvgMemoryException.SvgMemoryException(SerializationInfo, StreamingContext)
 - uid: Svg.Exceptions.SvgMemoryException.#ctor(System.String)
   name: SvgMemoryException(String)
   href: api/Svg.Exceptions.SvgMemoryException.html#Svg_Exceptions_SvgMemoryException__ctor_System_String_
@@ -8810,12 +8804,6 @@ references:
   commentId: M:Svg.SvgException.#ctor
   fullName: Svg.SvgException.SvgException()
   nameWithType: SvgException.SvgException()
-- uid: Svg.SvgException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  name: SvgException(SerializationInfo, StreamingContext)
-  href: api/Svg.SvgException.html#Svg_SvgException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
-  commentId: M:Svg.SvgException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  fullName: Svg.SvgException.SvgException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
-  nameWithType: SvgException.SvgException(SerializationInfo, StreamingContext)
 - uid: Svg.SvgException.#ctor(System.String)
   name: SvgException(String)
   href: api/Svg.SvgException.html#Svg_SvgException__ctor_System_String_
@@ -10155,12 +10143,6 @@ references:
   commentId: M:Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.Exception)
   fullName: Svg.SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(System.Exception)
   nameWithType: SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(Exception)
-- uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  name: SvgGdiPlusCannotBeLoadedException(SerializationInfo, StreamingContext)
-  href: api/Svg.SvgGdiPlusCannotBeLoadedException.html#Svg_SvgGdiPlusCannotBeLoadedException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
-  commentId: M:Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  fullName: Svg.SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
-  nameWithType: SvgGdiPlusCannotBeLoadedException.SvgGdiPlusCannotBeLoadedException(SerializationInfo, StreamingContext)
 - uid: Svg.SvgGdiPlusCannotBeLoadedException.#ctor(System.String)
   name: SvgGdiPlusCannotBeLoadedException(String)
   href: api/Svg.SvgGdiPlusCannotBeLoadedException.html#Svg_SvgGdiPlusCannotBeLoadedException__ctor_System_String_
@@ -10757,12 +10739,6 @@ references:
   commentId: M:Svg.SvgIDException.#ctor
   fullName: Svg.SvgIDException.SvgIDException()
   nameWithType: SvgIDException.SvgIDException()
-- uid: Svg.SvgIDException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  name: SvgIDException(SerializationInfo, StreamingContext)
-  href: api/Svg.SvgIDException.html#Svg_SvgIDException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
-  commentId: M:Svg.SvgIDException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  fullName: Svg.SvgIDException.SvgIDException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
-  nameWithType: SvgIDException.SvgIDException(SerializationInfo, StreamingContext)
 - uid: Svg.SvgIDException.#ctor(System.String)
   name: SvgIDException(String)
   href: api/Svg.SvgIDException.html#Svg_SvgIDException__ctor_System_String_
@@ -10794,12 +10770,6 @@ references:
   commentId: M:Svg.SvgIDExistsException.#ctor
   fullName: Svg.SvgIDExistsException.SvgIDExistsException()
   nameWithType: SvgIDExistsException.SvgIDExistsException()
-- uid: Svg.SvgIDExistsException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  name: SvgIDExistsException(SerializationInfo, StreamingContext)
-  href: api/Svg.SvgIDExistsException.html#Svg_SvgIDExistsException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
-  commentId: M:Svg.SvgIDExistsException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  fullName: Svg.SvgIDExistsException.SvgIDExistsException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
-  nameWithType: SvgIDExistsException.SvgIDExistsException(SerializationInfo, StreamingContext)
 - uid: Svg.SvgIDExistsException.#ctor(System.String)
   name: SvgIDExistsException(String)
   href: api/Svg.SvgIDExistsException.html#Svg_SvgIDExistsException__ctor_System_String_
@@ -10831,12 +10801,6 @@ references:
   commentId: M:Svg.SvgIDWrongFormatException.#ctor
   fullName: Svg.SvgIDWrongFormatException.SvgIDWrongFormatException()
   nameWithType: SvgIDWrongFormatException.SvgIDWrongFormatException()
-- uid: Svg.SvgIDWrongFormatException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  name: SvgIDWrongFormatException(SerializationInfo, StreamingContext)
-  href: api/Svg.SvgIDWrongFormatException.html#Svg_SvgIDWrongFormatException__ctor_System_Runtime_Serialization_SerializationInfo_System_Runtime_Serialization_StreamingContext_
-  commentId: M:Svg.SvgIDWrongFormatException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)
-  fullName: Svg.SvgIDWrongFormatException.SvgIDWrongFormatException(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)
-  nameWithType: SvgIDWrongFormatException.SvgIDWrongFormatException(SerializationInfo, StreamingContext)
 - uid: Svg.SvgIDWrongFormatException.#ctor(System.String)
   name: SvgIDWrongFormatException(String)
   href: api/Svg.SvgIDWrongFormatException.html#Svg_SvgIDWrongFormatException__ctor_System_String_
