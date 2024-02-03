@@ -36,18 +36,12 @@ namespace Svg.Generators
         /// <inheritdoc/>
         public void Execute(GeneratorExecutionContext context)
         {
-            //// Add the ElementFactory model source to compilation. 
-            //context.AddSource("Svg.Model.g.cs", SourceText.From(SourceTexts.ModelText, Encoding.UTF8));
-
             // Check is we have our SyntaxReceiver object used to filter compiled code.
             if (!(context.SyntaxReceiver is SyntaxReceiver receiver))
             {
                 return;
             }
 
-            //var options = (context.Compilation as CSharpCompilation)?.SyntaxTrees[0].Options as CSharpParseOptions;
-            //var compilation = context.Compilation.AddSyntaxTrees(CSharpSyntaxTree.ParseText(
-            //    SourceText.From(SourceTexts.ModelText, Encoding.UTF8), options));
             var compilation = context.Compilation;
 
             var elementFactoryAttribute = compilation.GetTypeByMetadataName("Svg.ElementFactoryAttribute");
