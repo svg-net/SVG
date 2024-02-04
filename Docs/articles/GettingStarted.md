@@ -1,3 +1,5 @@
+# Getting Started
+
 ## Getting the library
 
 Depending on the way you want to work with the library you can get the SVG library via NuGet, or roll your own binary from the sources or a personal fork of the sources. 
