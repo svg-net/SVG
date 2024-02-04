@@ -1,3 +1,4 @@
+# Q & A
 This is currently a collection of answered questions in issues that have been closed meanwhile.
 The format of the page is preliminary and maybe changed if more questions accumulate.
 

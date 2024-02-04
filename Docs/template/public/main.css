@@ -1,0 +1,11 @@
+/* Checkout https://getbootstrap.com/docs/5.3/customize/color/ for more customization options */
+.navbar-brand #logo {
+    width: 36px;
+    height: 36px;
+    margin-right:10px;
+}
+/* 
+#navbar ul.navbar-nav {
+    margin-top: -3px;
+}
+ */
