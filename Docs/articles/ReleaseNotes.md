@@ -15,13 +15,14 @@ The release versions are NuGet releases.
 * made exceptions serializable to be able to cross AppDomain boundaries (see [#826](https://github.com/svg-net/SVG/pull/826))
 
 ### Fixes
-* fixed XML namespace prefixes are also applied for nodes declaring them (see [PR #1106](https://github.com/svg-net/SVG/pull/1106))
-* fixed Parameter is not valid (see [PR #1131](https://github.com/svg-net/SVG/pull/1131))
+* Fixed XML namespace prefixes are also applied for nodes declaring them (see [PR #1106](https://github.com/svg-net/SVG/pull/1106))
+* Fixed Parameter is not valid (see [PR #1131](https://github.com/svg-net/SVG/pull/1131))
 
 ### Infrastructure
 * Split tests SVG/PNG files into Issues and W3C Test Suite. W3C Test Suite files are not automatically downloaded.
 * Repository clean-up, reducing the download zip size from 22MB to 4.5MB.
 * Added: A new project, `Tests/Svg.Tests.Common` for sharing codes between test applications.
+* Moved: The `ReleaseNotes.md` to `Docs/ReleaseNotes.md`.
 
 
 ## [Version 3.4.6](https://www.nuget.org/packages/Svg/3.4.6)  (2023-11-16)
