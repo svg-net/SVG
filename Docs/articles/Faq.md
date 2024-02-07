@@ -116,7 +116,7 @@ Older versions of the package threw a NullReferenceException when calling the Sv
 ### Using libgdiplus on Ubuntu Linux
 
 You can install libgdiplus on Ubuntu Linux using the Quamotion PPA. Follow these steps:
-```
+```bash
 sudo add-apt-repository ppa:quamotion/ppa
 sudo apt-get update
 sudo apt-get install -y libgdiplus
@@ -128,7 +128,7 @@ On macOS, add a reference to the runtime.osx.10.10-x64.CoreCompat.System.Drawing
 ```dotnet add package runtime.osx.10.10-x64.CoreCompat.System.Drawing```
 
 When building from source-code you can also uncomment the 
-```
+```xml
 <!-- <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.6.20" />
   </ItemGroup> -->
