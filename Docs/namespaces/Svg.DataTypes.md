@@ -2,4 +2,4 @@
 uid: Svg.DataTypes
 summary: *content
 ---
-The **Svg.DataTypes** namespace contains classes defining the basic data types used by the SVG-NET library.
+The **Svg.DataTypes** namespace contains classes defining the basic data types used by this SVG for .NET library.
