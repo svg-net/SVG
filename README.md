@@ -7,10 +7,19 @@ This started out as a private fork by [vvvv](https://vvvv.org) with some minor m
 After almost two years of fixes and improvements the company decided to share the codebase with the public in order to improve it even further.
 In 2021, the repository has been transferred from the company organization `vvvv` to the new organization `svg-net` (e.g. SVG.NET). 
 
-Please feel free to fork it and open pull requests for any fix, improvement or feature you want to add.
+## Contributing
+This project is in need of contributors.
+Assistance in areas such as code reviews and testing is particularly needed. 
+If you can contribute, your help would be invaluable.
+For those interested in leading or contributing to specific initiatives like the codebase segmentation, please let us know.
+
+Please feel free to fork the repository and open pull requests for any fix, improvement or feature you want to add.
 You may check the [contributing guide](https://github.com/svg-net/SVG/blob/master/CONTRIBUTING.md) for more information on how to do this. 
 
+## Documentation
 For information on installation and usage of the library, and for release notes please check the [documentation pages](https://svg-net.github.io/SVG/).
+Note that the documentation is incomplete - any help to improve it is greatly appreciated!
+
 
 ## Projects using the library
 
