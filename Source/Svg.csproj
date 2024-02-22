@@ -27,7 +27,7 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageReleaseNotes>
-            Fixed a regression in loading embedded images (see Release Notes: http://svg-net.github.io/SVG/doc/ReleaseNotes.html).
+            New SVGOptions class, support for .NET 8, and bug fixes (see Release Notes: http://svg-net.github.io/SVG/doc/ReleaseNotes.html).
         </PackageReleaseNotes>
         <PackageProjectUrl>https://github.com/svg-net/SVG</PackageProjectUrl>
         <PackageIconUrl>https://www.w3.org/Icons/SVG/svg-logo-v.png</PackageIconUrl>

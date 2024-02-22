@@ -1,18 +1,15 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
-## Unreleased
+## [Version 3.4.7](https://www.nuget.org/packages/Svg/3.4.7)  (2024-02-22)
 
 ### Changes
 * Added: A class, `SvgOptions`, with external css parameters for styling or transforming the `SvgDocument`.
-* Split tests SVG/PNG files into Issues and W3C Test Suite. W3C Test Suite files are not automatically downloaded.
-* Repository clean-up, reducing the download zip size from 22MB to 4.5MB.
 * Added: Support for .NET 4.7.2, .NET 4.8.1 and .NET 8.0.
-* Added: A new project, `Tests/Svg.Tests.Common` for sharing codes between test applications.
 * [Breaking change] The support for .NET 8 resulted in a breaking change to the signature of methods in `CoordinateParser`.
   * The changes are needed to fix a compiler error `CS8352`.
   * The use of read-only arguments as referenced variable is not necessary.
-  * The use of `ref` in the function arguements resulting in `CS8352` error are all removed.
+  * The use of `ref` in the function arguments resulting in `CS8352` error are all removed.
 
 ### Enhancements
 * made exceptions serializable to be able to cross AppDomain boundaries (see [#826](https://github.com/svg-net/SVG/pull/826))
@@ -20,6 +17,12 @@ The release versions are NuGet releases.
 ### Fixes
 * fixed XML namespace prefixes are also applied for nodes declaring them (see [PR #1106](https://github.com/svg-net/SVG/pull/1106))
 * fixed Parameter is not valid (see [PR #1131](https://github.com/svg-net/SVG/pull/1131))
+
+### Infrastructure
+* Split tests SVG/PNG files into Issues and W3C Test Suite. W3C Test Suite files are not automatically downloaded.
+* Repository clean-up, reducing the download zip size from 22MB to 4.5MB.
+* Added: A new project, `Tests/Svg.Tests.Common` for sharing codes between test applications.
+
 
 ## [Version 3.4.6](https://www.nuget.org/packages/Svg/3.4.6)  (2023-11-16)
 
