@@ -11,12 +11,12 @@ You may check the [contributing guide](https://github.com/svg-net/SVG/blob/maste
 
 ## Downloads
 The SVG-NET is available as [NuGet Package](https://www.nuget.org/packages/svg).
-The respository includes
+The repository includes
 * **Source:** The main source code directory.
 * **Generators:** A Roslyn source code generator for generating the SVG factory elements.
 * **Tests:** NUnit based test unit project, benchmark project and other test tools, and
 * **Samples:** For sample applications
-* **Docs:** For the documentations (in markdown format).
+* **Docs:** For the documentations (in Markdown format).
 
 ## License
 Licensed under the [MS-PL license](https://github.com/svg-net/SVG?tab=MS-PL-1-ov-file),
