@@ -132,14 +132,14 @@ The release versions are NuGet releases.
 * prevent `ISvgRenderer.SmoothingMode` reset when `RequiresSmoothRendering` is `true`
   (see [#882](https://github.com/svg-net/SVG/issues/882))
 * ignore `x` and `y` attributes in outermost svg as per standard (see [#886](https://github.com/svg-net/SVG/issues/886))
-* fixed index is outside arrary boundary (see [#888](https://github.com/svg-net/SVG/issues/888))
+* fixed index is outside array boundary (see [#888](https://github.com/svg-net/SVG/issues/888))
 
 ## [Version 3.2.3](https://www.nuget.org/packages/Svg/3.2.3) (2021-01-12)
 
 ### Enhancements
 * implement font-weight bolder and lighter (see [PR #727](https://github.com/svg-net/SVG/pull/727))
 * check if BaseUri is absolute (see [PR #738](https://github.com/svg-net/SVG/pull/738))
-* added support for `miter-clip` and `arcs` line joins, and for `fr` radial gradiant property
+* added support for `miter-clip` and `arcs` line joins, and for `fr` radial gradient property
   (SVG2 features, see [PR #621](https://github.com/svg-net/SVG/pull/621))
 
 ### Fixes
@@ -242,7 +242,7 @@ _**Note:**_
 To build it yourself, you need at least Visual Studio 2017 due to the added multi-platform support.
 
 ### Enhancements
-* added support for .NET Core 2.2 (see PR [#448](https://github.com/svg-net/SVG/pull/448))
+* added support for .NET Core 2.2 (see PR [#448](https://github.com/svg-net/SVG/pull/448))[Faq.md](Faq.md)
 * handle missing gdi+ library on MacOs or Linux by a descriptive exception (see [#501](https://github.com/svg-net/SVG/issues/501))
 * allow ID start with a number (see [#138](https://github.com/svg-net/SVG/issues/138))
 * added support for embedded SVG in data URIs (see [#71](https://github.com/svg-net/SVG/issues/71)
@@ -281,7 +281,7 @@ To build it yourself, you need at least Visual Studio 2017 due to the added mult
 * prevent exception for zero bounds and opacity not one (see [#479](https://github.com/svg-net/SVG/issues/479))
 * make sure mask elements are written back to svg (see [#271](https://github.com/svg-net/SVG/issues/271))
 * fixed incorrect clip region (see [#363](https://github.com/svg-net/SVG/issues/363))
-* fixed overflow error on 1 character text with tspan (see [#488](https://github.com/svg-net/SVG/issues/488))
+* fixed overflow error on 1-character text with tspan (see [#488](https://github.com/svg-net/SVG/issues/488))
 * fixed crash with unsupported pseudo classes (see [#315](https://github.com/svg-net/SVG/issues/315))
 * fixes wrong text position in some scenarios (see PR [#475](https://github.com/svg-net/SVG/pull/475))
 * fixed handling of spaces for `xml:space="default"` (see PR [#471](https://github.com/svg-net/SVG/pull/471))
@@ -322,14 +322,14 @@ To build it yourself, you need at least Visual Studio 2017 due to the added mult
   (see [#272](https://github.com/svg-net/SVG/issues/272))
 * several fixes for markers:
   * added support for marker attributes in groups
-  * partly fixed marker appearance (stroke and fill color, scaling, deafult orientation)
+  * partly fixed marker appearance (stroke and fill color, scaling, default orientation)
   * apply transformations in the marker drawing element (see [#215](https://github.com/svg-net/SVG/issues/215))
-  * correctly show mid markers for paths with Bezier curves
+  * correctly show middle markers for paths with Bezier curves
   * handle markers on paths with successive equal points
 
 ## [Version 2.4.1](https://www.nuget.org/packages/Svg/2.4.1) (2019-01-25)
 ### Changes
-* `ExCSS` lives now in the `Svg` namespace to avoid namespace collusions 
+* `ExCSS` lives now in the `Svg` namespace to avoid namespace collisions 
   (see [#408](https://github.com/svg-net/SVG/issues/408))
 
 ### Fixes
@@ -375,7 +375,7 @@ To build it yourself, you need at least Visual Studio 2017 due to the added mult
   * fixed path parsing mistaking 'E' as a command instead of an exponent
   * fixed image opacity
   * fixed usage of `ms colortranslator` class
-  * fixed inproper use of UTF8Encoding
+  * fixed improper use of UTF8Encoding
   * fixed runtime error after accessing added `SvgText` element (see [#332](https://github.com/svg-net/SVG/issues/332)) 
   * fixed rendering error due to invalid `ColorBlend` position
   * fixed inheriting `text-anchor` and `baseline-shift` attributes

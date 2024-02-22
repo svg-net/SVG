@@ -55,11 +55,11 @@ The library depends on GDI+ (see also [here](http://svg-net.github.io/SVG/doc/Q&
 .NET Core does not support GDI+ out of the box for non-Windows systems. For Mac and Linux you need to add a special compatibility package.
 This is not included in the packages by default, since this would break rendering on Windows systems.
 
-I you distribute your application as platform independent, you might want to add the following instructions (or a reference to this guide)
+If you distribute your application as platform independent, you might want to add the following instructions (or a reference to this guide)
 in your installation instructions to aid Mac and Linux users that want to utilize your application/library.
 
 ### Linux (Ubuntu)
-For Linux you need to install `libgdiplus` from the `quamotion/ppa` feed on your machine/container:
+For Linux, you need to install `libgdiplus` from the `quamotion/ppa` feed on your machine/container:
 ```
 sudo add-apt-repository ppa:quamotion/ppa
 sudo apt-get update
@@ -99,9 +99,9 @@ dotnet add reference SVG/sources/Svg.csproj
 This approach will also take over all references required to the target project (e.g. when you added the `CoreCompat` package for Mac).
 This will also compile the Svg sources when you build your own project, which might be useful if you plan to make changes in the Svg project yourself.
 
-If you don't want to reference the project, you can get the `Svg.dll` file from the outpot folders after you compiled the project with the steps outlined above and reference it.
+If you don't want to reference the project, you can get the `Svg.dll` file from the output folders after you compiled the project with the steps outlined above and reference it.
 The Svg library does not utilize other external references under Windows, and by only using the `Svg.dll` file you will be able to use the library. 
-However please keep in mind that the Mac and Linux versions require additional tooling/packages.
+However, please keep in mind that the Mac and Linux versions require additional tooling/packages.
 
 ## Using the library (examples)
 This part will be extended in the future, for now please refer to the [Q&A](http://svg-net.github.io/SVG/doc/Q&A.html) for examples of how to use the library.
