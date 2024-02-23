@@ -1,0 +1,91 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "Svg.csproj"
+          ],
+          "src": "../Source/",
+          "properties": {
+            "TargetFramework": "net8.0"
+          }          
+        }
+      ],
+      "dest": "api",
+      "outputFormat": "mref",
+      "includePrivateMembers": false,
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+	  "filter": "filterConfig.yml",
+      "noRestore": false,
+      "namespaceLayout": "flattened",
+      "memberLayout": "samePage",
+      "enumSortOrder": "alphabetic",
+      "allowCompilationErrors": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "api/**.yml",
+          "api/index.md"
+        ]
+      },
+      {
+        "files": [
+          "articles/**.md",
+          "articles/**/toc.yml",
+          "toc.yml",
+          "*.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "overwrite": [
+      {
+        "files": [
+		  "namespaces/**.md"
+        ],
+        "exclude": [
+          "obj/**"
+        ]
+      }
+    ],	
+    "globalMetadata": {
+      "_appName": "SVG-NET",
+      "_appTitle": "SVG-NET Documentation",
+      "_appLogoPath": "images/svg.png",
+      "_appFaviconPath": "images/svg.png",	  
+      "_enableDiagrams": true,
+      "_enableSearch": true,
+      "pdf": false,
+      "pdfTocPage": false,
+      "_appFooter": "<div class=\"d-flex flex-column flex-sm-row justify-content-between pt-1\"><p> &copy; 2013 - 2024 SVG-NET</p><p>Made with <a href=\"https://dotnet.github.io/docfx\">DocFX</a></p></div>",
+      "_gitContribute": {
+        "repo": "https://github.com/svg-net/SVG",
+		"branch": "master"
+      },
+      "_gitUrlPattern": "github"
+    },    
+    "output": "_site",
+	"xref": [ "https://github.com/dotnet/docfx/raw/main/.xrefmap.json" ],
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+      "default",
+      "modern",
+      "template"
+    ],
+    "postProcessors": [],
+    "keepFileLink": false,
+    "disableGitFeatures": false
+  }
+}

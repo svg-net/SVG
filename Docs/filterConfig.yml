@@ -1,0 +1,4 @@
+apiRules:
+- exclude:
+    uidRegex: ^Svg\.Document_Structure$
+    type: Namespace	
