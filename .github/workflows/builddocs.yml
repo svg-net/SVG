@@ -2,7 +2,9 @@ name: DocBuild
 
 on:
   push:
-    branches: master
+    branches: 
+      - master
+      - doc-3.4.7
 
 defaults:
   run:
