@@ -1,49 +1,49 @@
+# GitHub workflow file under .github/workflows/
 name: DocBuild
 
+# Trigger the action on push to master
 on:
   push:
     branches: 
       - master
       - doc-3.4.7
 
-defaults:
-  run:
-    shell: bash
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+  
 jobs:
-  build_docs:
+  publish-docs:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: windows-latest
     steps:
-      - name: Checkout master
-        uses: actions/checkout@v2
-        with:
-          path: main
-      - name: Get last commit message
-        run: |
-          cd main
-          echo "LAST_COMMIT=$(echo `git log -1 --pretty=%B`)" >> $GITHUB_ENV
-          cd ..
-      - name: Checkout gh-pages
-        uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-          path: doc
-      - name: Install requirements
-        run: choco install docfx -y
-      - name: Build documentation
-        run: |
-          echo `pwd`
-          cd main
-          docfx docfx.json
-          cd ../doc
-          git config --global core.autocrlf false
-          git config --global user.email "SVG@noreply.com"
-          git config --global user.name "CI Build"
-          cp -r ../main/_site/* .
-          git add -A
-          if [ `git status -s | wc -l` = 0 ]; then
-            echo "No changes in built documentation, skipping"
-            exit 0
-          fi
-          git commit -m "$LAST_COMMIT" -q
-          git push origin gh-pages -q
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Dotnet Setup
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.x
+
+    - run: dotnet tool update -g docfx
+    - run: docfx Docs/docfx.json
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        # Upload entire repository
+        path: 'Docs/_site'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v3

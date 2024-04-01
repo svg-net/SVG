@@ -5,14 +5,14 @@
 Welcome to the documentation for the SVG.NET library!
 
 ### Usage documentation
-- [Getting Started](doc/GettingStarted.html)
-- [Q&A](doc/Q&A.html)
-- [Generated API documentation](api/Svg.html)
-- [Sample Code](doc/Samples.html)
+- [Getting Started](articles/GettingStarted.md)
+- [Q&A](articles/Faq.md)
+- [Generated API documentation](api/index.md)
+- [Sample Code](articles/Samples.md)
   
 ### Project documentation
-- [Release Notes](doc/ReleaseNotes.html)
-- [Contributing Guide](CONTRIBUTING.html)
+- [Release Notes](articles/ReleaseNotes.md)
+- [Contributing Guide](https://github.com/svg-net/SVG/blob/master/CONTRIBUTING.md)
 
 _Note that this documentation is work in progress.
 You are always welcome to help improving it!_
