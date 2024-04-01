@@ -68,7 +68,7 @@
       "_enableSearch": true,
       "pdf": false,
       "pdfTocPage": false,
-      "_appFooter": "<div class=\"d-flex flex-column flex-sm-row justify-content-between pt-1\"><p> &copy; 2013 - 2024 SVG-NET</p><p>Made with <a href=\"https://dotnet.github.io/docfx\">DocFX</a></p></div>",
+      "_appFooter": "<div class=\"d-flex flex-column flex-sm-row justify-content-between pt-1\"><p> &copy; Copyright 2009 Microsoft. All Rights Reserved. &copy; Copyright 2011 vvvv Group. All Rights Reserved. &copy; Copyright 2021 SVG.NET Contributors.</p><p>Made with <a href=\"https://dotnet.github.io/docfx\">DocFX</a></p></div>",
       "_gitContribute": {
         "repo": "https://github.com/svg-net/SVG",
 		"branch": "master"
