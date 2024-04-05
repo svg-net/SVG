@@ -3,7 +3,7 @@ This is currently a collection of answered questions in issues that have been cl
 The format of the page is preliminary and may be changed, if more questions accumulate.
 
 ## How to get started
-Please use our [getting started article](http://svg-net.github.io/SVG/doc/GettingStarted.html) to get started with installation and implementation of the SVG library.
+Please use our [getting started article](http://svg-net.github.io/SVG/articles/GettingStarted.html) to get started with installation and implementation of the SVG library.
 
 ## How to re-render an SVG faster?
 
