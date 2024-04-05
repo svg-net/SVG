@@ -5,25 +5,24 @@
 Depending on the way you want to work with the library you can get the SVG library via NuGet, or roll your own binary from the sources or a personal fork of the sources. 
 
 ### Which version to choose?
-There are 2 major supported versions at the moment: version `2.4.*` and version `3.0.*`. Version `2.4.*` is a .NET Framework specific version (non .NET Core compatible)
+There are 2 major supported versions at the moment: version `2.4.*` and version `3.x`. Version `2.4.*` is a .NET Framework specific version (non .NET Core compatible)
 which can be considered rather stable for use within a .NET project.
-The `3.0` version is a more recent version with added .NET Core compatibility and the possibility to run the package in .NET Core projects under Windows, Linux and MacOs.
+The `3.0` version is a more recent version with added .NET Core compatibility and the possibility to run the package in .NET Core projects under Windows, Linux and macOS.
 The .NET framework compatibility is also maintained, which allows you to use the package in the regular .NET framework (version 3.5 and above).
-The `3.0` version also contains some bugfixes which are not (yet) in the `2.4` version,
-but this is a limited set and if required these fixes can be merged into the `2.4` version on request.
+The `3.x` versions also contain some bugfixes which are not in the `2.4` version, and if required some of these fixes can be merged into the `2.4` version.
 
-If you are going to use the package for the first time, your best bet is to go for the `3.0.*` version - this allows for maximum flexibility and portability.
+If you are going to use the package for the first time, your best bet is to go for the latest `3.x` version - this allows for maximum flexibility and portability.
 If you are already using version `2.4` or use other libraries depending on the `2.4` versions you can also upgrade,
 but there is a possibility that you might encounter compatibility issues/errors.
-The library is unit tested, but it cannot be guaranteed that versions `3.0` and `2.4` behave completely the same.
+The library is unit tested, but it cannot be guaranteed that versions `3.x` and `2.4` behave completely the same.
 If you are working with the .NET framework version you are likely to encounter no big issues, but if you switch to the .NET Core version or switch platforms
-(e.g. to MacOs or Linux) you need to test and validate the calling code to be sure everything keeps working as expected.
+(e.g. to macOS or Linux) you need to test and validate the calling code to be sure everything keeps working as expected.
 
 ### Installing via NuGet
 The library is available as a NuGet package in the public NuGet feed (https://www.nuget.org/packages/Svg/).
 Depending on your development stack you can add it to your code base.
 
-For Visual Studio 2013 - 2019 you can add it by searching it in the NuGet wizard or by using the following command in the NuGet Console:
+In Visual Studio you can add it by searching it in the NuGet wizard or by using the following command in the NuGet Console:
 ```
 Install-Package Svg
 ```
@@ -44,14 +43,14 @@ Once you downloaded the sources you can use the IDE of your choice to open the s
 and use your IDE to compile the version you would like to have.
 
 If you would like to use `dotnet-cli` to build the sources you can use the following command in the `Sources/` folder to build the library
-for .NET Core 3.1 with the compiler setting for release:
+for example for .NET 8.0 with the compiler setting for release:
 ```
-dotnet build -c release -f netcoreapp3.1 Svg.csproj
+dotnet build -c release -f net8.0 Svg.csproj
 ```
-This will put the output into the `bin/Release/netcoreapp3.1/` folder.
+This will put the output into the `bin/Release/net8.0/` folder.
 
 ## Special instructions for Mac and Linux
-The library depends on GDI+ (see also [here](http://svg-net.github.io/SVG/doc/Q&A.html#im-getting-a-svggdipluscannotbeloadedexception-if-running-under-linux-or-macos)) for rendering.
+The library depends on GDI+ (see also [here](http://svg-net.github.io/SVG/articles/Faq.html#im-getting-a-svggdipluscannotbeloadedexception-if-running-under-linux-or-macos) ) for rendering.
 .NET Core does not support GDI+ out of the box for non-Windows systems. For Mac and Linux you need to add a special compatibility package.
 This is not included in the packages by default, since this would break rendering on Windows systems.
 
@@ -66,16 +65,16 @@ sudo apt-get update
 sudo apt-get install -y libgdiplus
 ```
 
-### MacOs
-MacOs does not require you to install a system-wide package, but allows you to use a compatibility package that is included in the application.
+### macOS
+macOS does not require you to install a system-wide package, but allows you to use a compatibility package that is included in the application.
 This package can be included in the SVG component if you roll your own version from source.
 This can be achieved by altering the `Svg.csproj` file and un-comment the following block of code:
 ```
-<!-- 
-<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-  <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
-</ItemGroup> 
--->
+<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    ...
+    <!-- Mac specific include -->
+    <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.8.64" />
+</ItemGroup>
 ```
 This will link the `CoreCompat` package in the project.
 If you make a project reference to `Svg.csproj` the consuming application/library will automatically also include the `CoreCompat` package.
@@ -104,8 +103,8 @@ The Svg library does not utilize other external references under Windows, and by
 However, please keep in mind that the Mac and Linux versions require additional tooling/packages.
 
 ## Using the library (examples)
-This part will be extended in the future, for now please refer to the [Q&A](http://svg-net.github.io/SVG/doc/Q&A.html) for examples of how to use the library.
+This part will be extended in the future, for now please refer to the [Q&A](http://svg-net.github.io/SVG/articles/Faq.html) for examples of how to use the library.
 
 ## Troubleshooting
-If you encounter any problems or difficulties, please refer to the [Q&A part of the documentation](http://svg-net.github.io/SVG/doc/Q&A.html).
+If you encounter any problems or difficulties, please refer to the [Q&A part of the documentation](http://svg-net.github.io/SVG/articles/Faq.html).
 If the Q&A does not solve your problem, please open a ticket with your request.

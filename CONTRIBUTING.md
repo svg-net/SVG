@@ -31,14 +31,15 @@ The preferred workflow for contributing code is to
 [fork](https://help.github.com/articles/fork-a-repo/) the [repository](https://github.com/svg-net/SVG) on GitHub, clone it, 
 develop on a feature branch, and [create a pull request](https://help.github.com/articles/creating-a-pull-request-from-a-fork) when done.
 There are a few things to consider for contributing code:
-  * Please use the same coding style as in the rest of the code
-  * Use spaces instead of tabs
+  * Please use the same coding style as in the rest of the code.
+  * Use spaces instead of tabs.
   * Provide unit tests for bug fixes, or provide a test svg with a respective png counterpart showing the correct rendering 
-    (refer to existing test images for naming conventions) 
-  * Provide meaningful commit messages and/or PR comments
-  * Check that the automatic tests on [AppVeyor](https://ci.appveyor.com/project/tebjan/svg) all pass for your pull request
-  * Be ready to adapt your changes after a code review 
-  * When copying existing code from other sources or repositories, please keep licensing in mind
+    (refer to existing test images for naming conventions).
+  * Provide meaningful commit messages and/or PR comments. Normally, the commits will be squashed, but if you want to retain
+    separate commits for separate parts of your feature, please edit the commit messages accordingly (rebasing the commits is ok).
+  * Check that the automatic tests via [GitHub Actions](https://github.com/svg-net/SVG/actions) all pass for your pull request.
+  * Be ready to adapt your changes after a code review.
+  * When copying existing code from other sources or repositories, please keep licensing in mind.
   
 ### Contributing Documentation
 
