@@ -1,6 +1,11 @@
 # SVG.NET Release Notes
 The release versions are NuGet releases.
 
+## Unreleased
+
+### Fixes
+* Fixed: `<CompilerGeneratedFilesOutputPath>` in `Svg.Custom` to generate `Generated` directory under project. (see [PR #1153](https://github.com/svg-net/SVG/pull/1153))
+
 ## [Version 3.4.7](https://www.nuget.org/packages/Svg/3.4.7)  (2024-02-22)
 
 ### Changes
