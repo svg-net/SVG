@@ -24,15 +24,10 @@ The release versions are NuGet releases.
 * Fixed: Parameter is not valid (see [PR #1131](https://github.com/svg-net/SVG/pull/1131)).
 
 ### Infrastructure
-* Moved: The `ReleaseNotes.md` to `Docs/ReleaseNotes.md`.
-* Repository clean-up, reducing the download zip size from 22MB to 4.5MB.
-
-### Infrastructure
 * Split tests SVG/PNG files into Issues and W3C Test Suite. W3C Test Suite files are not automatically downloaded.
 * Repository clean-up, reducing the download zip size from 22MB to 4.5MB.
 * Added: A new project, `Tests/Svg.Tests.Common` for sharing codes between test applications.
 * Moved: The `ReleaseNotes.md` to `Docs/ReleaseNotes.md`.
-
 
 ## [Version 3.4.6](https://www.nuget.org/packages/Svg/3.4.6)  (2023-11-16)
 
