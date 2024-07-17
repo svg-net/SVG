@@ -122,7 +122,7 @@ namespace Svg
                     {
                         // The SvgDocument does not have SvgElement attribute set, instead the attitude is used on SvgFragment so there would be duplicate im dictionary.
                         // The SvgDocument is not valid Svg element (that is SvgFragment) and is mainly used as abstraction for document reading and writing.
-                        // The ElementName for SvgDocument is set explicitly here as that is the exception to attribute convention used accross codebase.
+                        // The ElementName for SvgDocument is set explicitly here as that is the exception to attribute convention used across the codebase.
                         this._elementName = "svg";
                     }
                 }
@@ -455,7 +455,7 @@ namespace Svg
             throw new NotImplementedException();
         }
 
-        /// <summary>Derrived classes may decide that the element should not be written. For example, the text element shouldn't be written if it's empty.</summary>
+        /// <summary>Derived classes may decide that the element should not be written. For example, the text element shouldn't be written if it's empty.</summary>
         public virtual bool ShouldWriteElement()
         {
             //Write any element who has a name.
@@ -867,7 +867,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Fired when an Atrribute of this Element has changed
+        /// Fired when an Attribute of this Element has changed
         /// </summary>
         public event EventHandler<AttributeEventArgs> AttributeChanged;
 
@@ -881,7 +881,7 @@ namespace Svg
         }
 
         /// <summary>
-        /// Fired when an Atrribute of this Element has changed
+        /// Fired when an Attribute of this Element has changed
         /// </summary>
         public event EventHandler<ContentEventArgs> ContentChanged;
 
@@ -911,7 +911,7 @@ namespace Svg
         /// <summary>
         /// Use this method to provide your implementation ISvgEventCaller which can register Actions
         /// and call them if one of the events occurs. Make sure, that your SvgElement has a unique ID.
-        /// The SvgTextElement overwrites this and regsiters the Change event tor its text content.
+        /// The SvgTextElement overwrites this and registers the Change event tor its text content.
         /// </summary>
         /// <param name="caller"></param>
         public virtual void RegisterEvents(ISvgEventCaller caller)
@@ -1069,7 +1069,7 @@ namespace Svg
     }
 
     /// <summary>
-    /// Content of this whas was set
+    /// Describes the Content of this which was set
     /// </summary>
     public class ContentEventArgs : SVGArg
     {
@@ -1101,7 +1101,7 @@ namespace Svg
     }
 
     /// <summary>
-    /// Represents the state of the mouse at the moment the event occured.
+    /// Represents the state of the mouse at the moment the event occurred.
     /// </summary>
     public class MouseArg : SVGArg
     {
