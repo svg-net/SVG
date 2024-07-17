@@ -1,7 +1,7 @@
-namespace Svg
+﻿namespace Svg
 {
     /// <summary>
-    /// Represents and SVG line element.
+    /// Represents an SVG line element.
     /// </summary>
     [SvgElement("line")]
     public partial class SvgLine : SvgMarkerElement
