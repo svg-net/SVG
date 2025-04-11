@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased
 
+### Enhancements
+* Added support for `Switch` element with "systemLanguage" selector attribute (see [#1176](https://github.com/svg-net/SVG/issues/1176)).
+
 ### Fixes
 * Fixed: `<CompilerGeneratedFilesOutputPath>` in `Svg.Custom` to generate `Generated` directory under project. (see [PR #1153](https://github.com/svg-net/SVG/pull/1153))
 

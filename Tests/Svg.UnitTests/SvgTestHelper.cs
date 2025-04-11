@@ -327,9 +327,9 @@ namespace Svg.UnitTests
             // Calculate percentage.
             int totalPixelCount = img1.Width * img1.Height;
             var imgDiffFactor = ((float)diffPixelCount / totalPixelCount);
-            imgEqualPercentage = imgDiffFactor * 100;
+            imgEqualPercentage = 100 - imgDiffFactor * 100;
 
-            return (imgDiffFactor == 1f);
+            return imgDiffFactor == 0;
         }
     }
 }
