@@ -1,11 +1,16 @@
 #if !NO_SDC
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
+using System.Linq;
 
 namespace Svg
 {
     public partial class SvgSwitch : SvgVisualElement
     {
+        private readonly string _systemLanguageName = CultureInfo.CurrentCulture.Name.ToLower();
+        private readonly string _systemLanguageShortName = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.
         /// </summary>
@@ -50,7 +55,9 @@ namespace Svg
         }
 
         /// <summary>
-        /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
+        /// Renders the first <see cref="SvgElement"/> that either matches the system language,
+        /// or has no "systemLanguage" attribute.
+        /// Any "requiredExtensions" or "requiredFeatures" attribute is ignored.
         /// </summary>
         /// <param name="renderer">The <see cref="Graphics"/> object to render to.</param>
         protected override void Render(ISvgRenderer renderer)
@@ -60,12 +67,27 @@ namespace Svg
 
             try
             {
-                if (PushTransforms(renderer))
+                if (!PushTransforms(renderer))
+                    return;
+
+                SetClip(renderer);
+                foreach (var element in Children)
                 {
-                    SetClip(renderer);
-                    base.RenderChildren(renderer);
-                    ResetClip(renderer);
+                    if (element.CustomAttributes.ContainsKey("systemLanguage"))
+                    {
+                        var languages = element.CustomAttributes["systemLanguage"].Split(',');
+                        if (!languages.Contains(_systemLanguageName) && !languages.Contains(_systemLanguageShortName))
+                        {
+                            continue;
+                        }
+                    }
+
+                    // only the first matching child element shall be rendered
+                    element.RenderElement(renderer);
+                    break;
                 }
+
+                ResetClip(renderer);
             }
             finally
             {

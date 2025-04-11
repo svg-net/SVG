@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 10 10">
+    <switch>
+		<rect x="0" y="0" width="10" height="10" fill="red" systemLanguage="en-us" />
+		<rect x="0" y="0" width="10" height="10" fill="blue" systemLanguage="en" />
+		<rect x="0" y="0" width="10" height="10" fill="green" systemLanguage="ru,es" />
+		<rect x="0" y="0" width="10" height="10" fill="yellow" />
+	</switch>
+</svg>
