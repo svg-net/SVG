@@ -54,7 +54,19 @@
         <NoWarn>$(NoWarn);CS1591;CS0618;NETSDK1138</NoWarn>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
-    
+
+    <!-- Trimming parameters -->
+    <PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))">
+        <IsTrimmable>true</IsTrimmable>
+        <SuppressTrimAnalysisWarnings>false</SuppressTrimAnalysisWarnings>
+        <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    </PropertyGroup>
+    <!-- AOT parameters -->
+    <PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
+        <IsAotCompatible>true</IsAotCompatible>
+        <EnableAotAnalyzer>true</EnableAotAnalyzer>
+    </PropertyGroup>
+
     <PropertyGroup>
         <DefineConstants Condition="$(TargetFramework.StartsWith('net46'))">$(DefineConstants);DOTNET46;NETFULL</DefineConstants>
         <DefineConstants Condition="$(TargetFramework.StartsWith('net47'))">$(DefineConstants);DOTNET47;NETFULL</DefineConstants>
