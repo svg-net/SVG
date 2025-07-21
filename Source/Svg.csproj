@@ -64,7 +64,6 @@
     <!-- AOT parameters -->
     <PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
         <IsAotCompatible>true</IsAotCompatible>
-        <EnableAotAnalyzer>true</EnableAotAnalyzer>
     </PropertyGroup>
 
     <PropertyGroup>
