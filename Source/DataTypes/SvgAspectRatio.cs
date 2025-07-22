@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Svg.DataTypes;
 
 namespace Svg
@@ -54,6 +55,11 @@ namespace Svg
             return MemberwiseClone();
         }
 
+#if NET6_0_OR_GREATER
+        [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods, typeof(SvgPreserveAspectRatioConverter))]
+        [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "DynamicDependency keeps converter safe")]
+        [UnconditionalSuppressMessage("AOT", "IL3050")]
+#endif
         public override string ToString()
         {
             return TypeDescriptor.GetConverter(typeof(SvgPreserveAspectRatio)).ConvertToString(this.Align) + (Slice ? " slice" : "");
