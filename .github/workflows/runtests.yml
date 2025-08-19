@@ -18,7 +18,7 @@ jobs:
         framework: [net8.0, net6.0, netcoreapp3.1, net462]
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0  # needed for GitVersioning to work
       - name: Setup NuGet
@@ -57,7 +57,7 @@ jobs:
         framework: [net8.0]
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Setup NuGet
