@@ -34,6 +34,7 @@ In 2021, the repository has been transferred from the company organization `vvvv
 * [Timeliner](https://github.com/vvvv/Timeliner) a Posh based timeline that can be controlled by and sends out its values via OSC.
 * [Chordious](https://chordious.com) a fretboard diagram generator for fretted stringed instruments.
 * [HttpMaster](https://www.httpmaster.net) a Windows tool for HTTP testing and debugging.
+* [Mappalachia](https://github.com/AHeroicLlama/Mappalachia) a Windows tool for generating maps of the game 'Fallout 76'.
 
 If you want your project in this list, send a pull request on this file, or a link and short description to tebjan (at) vvvv.org.
 
