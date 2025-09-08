@@ -30,7 +30,7 @@ jobs:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget }}
       - name: Setup .NET 3.1/8.0 SDK
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: |
             3.1.x
@@ -69,7 +69,7 @@ jobs:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-bench }}
       - name: Setup .NET 8.x SDK
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 8.0.x
       - name: Restore NuGet Packages
