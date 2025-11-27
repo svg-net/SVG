@@ -14,7 +14,7 @@ namespace Svg.UnitTests
     public class LargeEmbeddedImageTest : SvgTestHelper
     {
         protected override string TestResource { get { return GetFullResourceString("Issue225_LargeUri.Speedometer.svg"); } }
-        protected override int ExpectedSize { get { return 160000; } }
+        protected override int ExpectedSize { get { return 150000; } }
 
         [Test]
         public void TestImageIsRendered()

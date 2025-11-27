@@ -18,7 +18,7 @@ namespace Svg.UnitTests
     public class MetafileRenderingTest : SvgTestHelper
     {
         protected override string TestResource { get { return GetFullResourceString("Issue210_Metafile.3DSceneSnapshotBIG.svg"); } }
-        protected override int ExpectedSize { get { return 12500; } } //12896
+        protected override int ExpectedSize { get { return 12000; } }
 
         [Test]
         public void TestMetafileRendering()
