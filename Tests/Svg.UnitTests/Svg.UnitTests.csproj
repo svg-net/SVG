@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <IsTestProject>true</IsTestProject>
-        <TargetFrameworks>net8.0;net6.0;netcoreapp3.1;net462</TargetFrameworks>
+        <TargetFrameworks>net8.0;net9.0;netcoreapp3.1;net462</TargetFrameworks>
         <IsPackable>false</IsPackable>
         <SignAssembly>true</SignAssembly>
         <AssemblyOriginatorKeyFile>svgkey.snk</AssemblyOriginatorKeyFile>
@@ -23,9 +23,8 @@
         <DefineConstants Condition="$(TargetFramework.StartsWith('net48'))">$(DefineConstants);DOTNET48;NETFULL</DefineConstants>
         <DefineConstants Condition="$(TargetFramework.StartsWith('netstandard'))">$(DefineConstants);NETSTANDARD</DefineConstants>
         <DefineConstants Condition="$(TargetFramework.StartsWith('netcore'))">$(DefineConstants);NETCORE</DefineConstants>
-        <DefineConstants Condition="$(TargetFramework.StartsWith('net6'))">$(DefineConstants);NETCORE;NETNEXT</DefineConstants>
-        <DefineConstants Condition="$(TargetFramework.StartsWith('net7'))">$(DefineConstants);NETCORE;NETNEXT</DefineConstants>
         <DefineConstants Condition="$(TargetFramework.StartsWith('net8'))">$(DefineConstants);NETCORE;NETNEXT</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net9'))">$(DefineConstants);NETCORE;NETNEXT</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>

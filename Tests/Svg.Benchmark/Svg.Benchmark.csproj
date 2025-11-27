@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFrameworks>net8.0;net6.0;netcoreapp3.1;net462</TargetFrameworks>
+        <TargetFrameworks>net8.0;net9.0;netcoreapp3.1;net462</TargetFrameworks>
         <IsPackable>false</IsPackable>
         <LangVersion>10.0</LangVersion>
         <SignAssembly>True</SignAssembly>

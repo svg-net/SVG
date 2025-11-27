@@ -3,6 +3,9 @@ The release versions are NuGet releases.
 
 ## Unreleased
 
+### Changes
+* Removed support for unsupported .NET 6 and .NET 7, added support for .NET 9. (see [PR #1192](https://github.com/svg-net/SVG/pull/1192))
+
 ### Enhancements
 * Added support for `Switch` element with "systemLanguage" selector attribute (see [#1176](https://github.com/svg-net/SVG/issues/1176)).
 * Enabled `IsTrimmable` and `IsAotCompatible` attributes on the assembly (see [#1184](https://github.com/svg-net/SVG/pull/1184)).

@@ -3,7 +3,7 @@
     <!-- https://github.com/wieslawsoltes/Svg.Skia/blob/master/src/Svg.Custom/Svg.Custom.csproj -->
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <TargetFrameworks>netstandard2.0;net6.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;net8.0;net9.0</TargetFrameworks>
         <EnableDefaultCompileItems>False</EnableDefaultCompileItems>
         <EnableDefaultItems>False</EnableDefaultItems>
         <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
@@ -48,8 +48,12 @@
         <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
-        <DefineConstants>$(DefineConstants);NETCORE;NET6</DefineConstants>
+    <PropertyGroup Condition="'$(TargetFramework)'=='net8.0'">
+        <DefineConstants>$(DefineConstants);NETCORE;NET8</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)'=='net9.0'">
+        <DefineConstants>$(DefineConstants);NETCORE;NET9</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
