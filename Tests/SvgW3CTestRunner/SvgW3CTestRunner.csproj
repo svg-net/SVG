@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFrameworks>net8.0-windows;net6.0-windows;netcoreapp3.1;net462</TargetFrameworks>
+        <TargetFrameworks>net8.0-windows;net9.0-windows;netcoreapp3.1;net462</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -23,9 +23,8 @@
         <DefineConstants Condition="$(TargetFramework.StartsWith('net48'))">$(DefineConstants);DOTNET48;NETFULL</DefineConstants>
         <DefineConstants Condition="$(TargetFramework.StartsWith('netstandard'))">$(DefineConstants);NETSTANDARD</DefineConstants>
         <DefineConstants Condition="$(TargetFramework.StartsWith('netcore'))">$(DefineConstants);NETCORE</DefineConstants>
-        <DefineConstants Condition="$(TargetFramework.StartsWith('net6'))">$(DefineConstants);NETNEXT;NET60</DefineConstants>
-        <DefineConstants Condition="$(TargetFramework.StartsWith('net7'))">$(DefineConstants);NETNEXT;NET70</DefineConstants>
         <DefineConstants Condition="$(TargetFramework.StartsWith('net8'))">$(DefineConstants);NETNEXT;NET80</DefineConstants>
+        <DefineConstants Condition="$(TargetFramework.StartsWith('net9'))">$(DefineConstants);NETNEXT;NET90</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net462'">

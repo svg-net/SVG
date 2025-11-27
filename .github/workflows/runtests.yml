@@ -15,7 +15,7 @@ jobs:
       matrix:
         os: [windows-latest]
         # os: [windows-latest, ubuntu-latest]
-        framework: [net8.0, net6.0, netcoreapp3.1, net462]
+        framework: [net8.0, net9.0, netcoreapp3.1, net462]
     steps:
       - name: Checkout source
         uses: actions/checkout@v5
