@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
@@ -32,6 +32,11 @@ namespace Svg
             else if (colorValue.StartsWith("url(", StringComparison.OrdinalIgnoreCase))
             {
                 var nextIndex = colorValue.IndexOf(')', 4) + 1;
+
+                // Malformed url, missing closing parenthesis
+                if (nextIndex == 0)
+                    return new SvgDeferredPaintServer(colorValue + ")", null);
+
                 var id = colorValue.Substring(0, nextIndex);
 
                 colorValue = colorValue.Substring(nextIndex).Trim();
