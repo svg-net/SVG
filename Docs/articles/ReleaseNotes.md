@@ -5,6 +5,7 @@ The release versions are NuGet releases.
 
 ### Changes
 * Removed support for unsupported .NET 6 and .NET 7, added support for .NET 9. (see [PR #1192](https://github.com/svg-net/SVG/pull/1192))
+* Fixes SVG rendering with invalid syntax, i.e. `fill="url(foo"` where url is not closed properly. (see [PR #1196](https://github.com/svg-net/SVG/pull/1196))
 
 ### Enhancements
 * Added support for `Switch` element with "systemLanguage" selector attribute (see [#1176](https://github.com/svg-net/SVG/issues/1176)).
