@@ -92,6 +92,11 @@ namespace Svg
 
     public sealed class SvgTextAnchorConverter : EnumBaseConverter<SvgTextAnchor> { }
 
+    public sealed class SvgDominantBaselineConverter : EnumBaseConverter<SvgDominantBaseline>
+    {
+        public SvgDominantBaselineConverter() : base(CaseHandling.KebabCase) { }
+    }
+
     public sealed class SvgStrokeLineCapConverter : EnumBaseConverter<SvgStrokeLineCap> { }
 
     public sealed class SvgStrokeLineJoinConverter : EnumBaseConverter<SvgStrokeLineJoin> { }
