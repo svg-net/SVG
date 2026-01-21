@@ -205,6 +205,16 @@ namespace Svg
         }
 
         /// <summary>
+        /// Gets or sets the dominant baseline.
+        /// </summary>
+        [SvgAttribute("dominant-baseline")]
+        public virtual SvgDominantBaseline DominantBaseline
+        {
+            get { return GetAttribute("dominant-baseline", true, SvgDominantBaseline.Auto); }
+            set { Attributes["dominant-baseline"] = value; IsPathDirty = true; }
+        }
+
+        /// <summary>
         /// Specifies dominant-baseline positioning of text.
         /// </summary>
         [SvgAttribute("baseline-shift")]
