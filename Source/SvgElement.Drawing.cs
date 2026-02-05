@@ -79,7 +79,7 @@ namespace Svg
         /// <returns>The transformed rectangle, or the original rectangle if no transformation exists.</returns>
         protected RectangleF TransformedBounds(RectangleF bounds)
         {
-            if (Transforms != null && Transforms.Count > 0)
+            if (Transforms != null && Transforms.Count > 0 && !bounds.IsEmpty)
             {
                 using (var path = new GraphicsPath())
                 using (var matrix = Transforms.GetMatrix())
@@ -90,6 +90,20 @@ namespace Svg
                 }
             }
             return bounds;
+        }
+        protected RectangleF TransformedBoundsFromPathToClone(GraphicsPath path)
+        {
+            if (path is null) return default;
+            if (Transforms != null && Transforms.Count > 0)
+            {
+                using (path = (GraphicsPath)path.Clone())
+                using (var matrix = Transforms.GetMatrix())
+                {
+                    path.Transform(matrix);
+                    return path.GetBounds();
+                }
+            }
+            return path.GetBounds();
         }
 
         /// <summary>
