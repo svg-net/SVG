@@ -13,6 +13,7 @@ The release versions are NuGet releases.
 
 ### Fixes
 * Fixed: `<CompilerGeneratedFilesOutputPath>` in `Svg.Custom` to generate `Generated` directory under project. (see [PR #1153](https://github.com/svg-net/SVG/pull/1153))
+* Fixed `SvgElementCollection.Insert()` to allow child elements to be added to end of list (see [PR #1200](https://github.com/svg-net/SVG/issues/1101))
 
 ## [Version 3.4.7](https://www.nuget.org/packages/Svg/3.4.7)  (2024-02-22)
 
