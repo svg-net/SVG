@@ -202,7 +202,7 @@ namespace Svg
         /// Retrieves the <see cref="SvgElement"/> with the specified ID.
         /// </summary>
         /// <param name="id">A <see cref="string"/> containing the ID of the element to find.</param>
-        /// <returns>An <see cref="SvgElement"/> of one exists with the specified ID; otherwise false.</returns>
+        /// <returns>An <see cref="SvgElement"/> if one exists with the specified ID; otherwise null.</returns>
         public virtual SvgElement GetElementById(string id)
         {
             return IdManager.GetElementById(id);
@@ -212,7 +212,7 @@ namespace Svg
         /// Retrieves the <see cref="SvgElement"/> with the specified ID.
         /// </summary>
         /// <param name="id">A <see cref="string"/> containing the ID of the element to find.</param>
-        /// <returns>An <see cref="SvgElement"/> of one exists with the specified ID; otherwise false.</returns>
+        /// <returns>An <see cref="SvgElement"/> if one exists with the specified ID; otherwise null.</returns>
         public virtual TSvgElement GetElementById<TSvgElement>(string id) where TSvgElement : SvgElement
         {
             return (this.GetElementById(id) as TSvgElement);
