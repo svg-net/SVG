@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using Svg.DataTypes;
 
@@ -54,10 +54,10 @@ namespace Svg
             return MemberwiseClone();
         }
 
-public override string ToString()
-{
-    return Align.ToString() + (Slice ? " slice" : "");
-}
+        public override string ToString()
+        {
+            return Align.ToString() + (Slice ? " slice" : "");
+        }
     }
 
     [TypeConverter(typeof(SvgPreserveAspectRatioConverter))]
