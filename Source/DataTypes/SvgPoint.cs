@@ -1,4 +1,4 @@
-using Svg.DataTypes;
+﻿using Svg.DataTypes;
 
 namespace Svg
 {
@@ -39,13 +39,13 @@ namespace Svg
             return base.GetHashCode();
         }
 
-public SvgPoint(string x, string y)
-{
-    var converter = new SvgUnitConverter();
+        public SvgPoint(string x, string y)
+        {
+            var converter = new SvgUnitConverter();
 
-    this.x = (SvgUnit)converter.ConvertFrom(x)!;
-    this.y = (SvgUnit)converter.ConvertFrom(y)!;
-}
+            this.x = (SvgUnit)converter.ConvertFrom(x)!;
+            this.y = (SvgUnit)converter.ConvertFrom(y)!;
+        }
 
         public SvgPoint(SvgUnit x, SvgUnit y)
         {
