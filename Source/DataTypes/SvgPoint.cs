@@ -1,5 +1,3 @@
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using Svg.DataTypes;
 
 namespace Svg
@@ -41,17 +39,13 @@ namespace Svg
             return base.GetHashCode();
         }
 
-#if NET6_0_OR_GREATER
-        [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods, typeof(SvgUnitConverter))]
-        [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "DynamicDependency keeps converter safe")]
-#endif
-        public SvgPoint(string x, string y)
-        {
-            TypeConverter converter = TypeDescriptor.GetConverter(typeof(SvgUnit));
+public SvgPoint(string x, string y)
+{
+    var converter = new SvgUnitConverter();
 
-            this.x = (SvgUnit)converter.ConvertFrom(x)!;
-            this.y = (SvgUnit)converter.ConvertFrom(y)!;
-        }
+    this.x = (SvgUnit)converter.ConvertFrom(x)!;
+    this.y = (SvgUnit)converter.ConvertFrom(y)!;
+}
 
         public SvgPoint(SvgUnit x, SvgUnit y)
         {
