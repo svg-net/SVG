@@ -1,6 +1,4 @@
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using Svg.DataTypes;
+﻿using Svg.DataTypes;
 
 namespace Svg
 {
@@ -41,13 +39,9 @@ namespace Svg
             return base.GetHashCode();
         }
 
-#if NET6_0_OR_GREATER
-        [DynamicDependency(DynamicallyAccessedMemberTypes.PublicMethods, typeof(SvgUnitConverter))]
-        [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "DynamicDependency keeps converter safe")]
-#endif
         public SvgPoint(string x, string y)
         {
-            TypeConverter converter = TypeDescriptor.GetConverter(typeof(SvgUnit));
+            var converter = new SvgUnitConverter();
 
             this.x = (SvgUnit)converter.ConvertFrom(x)!;
             this.y = (SvgUnit)converter.ConvertFrom(y)!;
