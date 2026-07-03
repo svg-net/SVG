@@ -44,6 +44,29 @@ namespace Svg
 
                 return new SvgDeferredPaintServer(id, fallbackServer);
             }
+            else if (colorValue.StartsWith("var(", StringComparison.OrdinalIgnoreCase))
+            {
+                // Find the closing ')' that matches the '(' after 'var'
+                var closeIndex = FindMatchingClose(colorValue, 3);
+                if (closeIndex < 0)
+                    closeIndex = colorValue.Length - 1;
+
+                // Content between 'var(' and its matching ')'
+                var inner = colorValue.Substring(4, closeIndex - 4);
+
+                var commaIndex = FindFirstTopLevelComma(inner);
+                if (commaIndex < 0)
+                {
+                    return new SvgCssVariablePaintServer(inner.Trim());
+                }
+                else
+                {
+                    var varName = inner.Substring(0, commaIndex).Trim();
+                    var fallbackStr = inner.Substring(commaIndex + 1).Trim();
+                    var fallback = string.IsNullOrEmpty(fallbackStr) ? null : Create(fallbackStr, document);
+                    return new SvgCssVariablePaintServer(varName, fallback);
+                }
+            }
 
             // Otherwise try and parse as colour
             return new SvgColourServer((Color)_colourConverter.ConvertFrom(colorValue));
@@ -91,6 +114,12 @@ namespace Svg
                     return new SvgColourConverter().ConvertTo(colourServer.Colour, typeof(string));
                 }
 
+                var cssVar = value as SvgCssVariablePaintServer;
+                if (cssVar != null)
+                {
+                    return cssVar.ToString();
+                }
+
                 var deferred = value as SvgDeferredPaintServer;
                 if (deferred != null)
                 {
@@ -108,6 +137,37 @@ namespace Svg
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        /// <summary>
+        /// Returns the index of the <c>)</c> that matches the <c>(</c> at <paramref name="openIndex"/>.
+        /// Returns -1 if no matching close is found.
+        /// </summary>
+        private static int FindMatchingClose(string s, int openIndex)
+        {
+            var depth = 1;
+            for (var i = openIndex + 1; i < s.Length; i++)
+            {
+                if (s[i] == '(') depth++;
+                else if (s[i] == ')') { depth--; if (depth == 0) return i; }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Returns the index of the first comma in <paramref name="s"/> that is not nested
+        /// inside parentheses, or -1 if none is found.
+        /// </summary>
+        private static int FindFirstTopLevelComma(string s)
+        {
+            var depth = 0;
+            for (var i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(') depth++;
+                else if (s[i] == ')') depth--;
+                else if (s[i] == ',' && depth == 0) return i;
+            }
+            return -1;
         }
     }
 }
