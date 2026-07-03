@@ -91,6 +91,28 @@ namespace Svg
             return false;
         }
 
+        /// <summary>
+        /// Attempts to get the value of a CSS custom property (CSS variable) defined on this element.
+        /// Unlike <see cref="TryGetAttribute"/>, this checks every specificity level in the style
+        /// dictionary and returns the value with the highest specificity, making it suitable for
+        /// resolving custom properties sourced from external stylesheets as well as inline styles.
+        /// </summary>
+        /// <param name="name">The custom property name, including the leading '--'.</param>
+        /// <param name="value">The resolved value if found; otherwise <c>null</c>.</param>
+        /// <returns><c>true</c> if the custom property was found on this element; otherwise <c>false</c>.</returns>
+        public bool TryGetCustomProperty(string name, out string value)
+        {
+            if (_styles.TryGetValue(name, out SortedDictionary<int, string> rules) && rules.Count > 0)
+            {
+                value = rules.Last().Value;
+                return true;
+            }
+            if (CustomAttributes.TryGetValue(name, out value))
+                return true;
+            value = null;
+            return false;
+        }
+
         protected internal static HttpClient HttpClient { get; } = new HttpClient();
 
         /// <summary>
