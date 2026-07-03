@@ -7,7 +7,7 @@ namespace Svg
     /// Use the <see cref="Content"/> property to get or set the CSS content.
     /// </summary>
     [SvgElement("style")]
-    public partial class SvgStyle : SvgElement
+    public partial class SvgStyle : SvgElement, ISvgDescriptiveElement
     {
         [SvgAttribute("type")]
         public string StyleType
