@@ -54,6 +54,7 @@
         <EmbeddedResource Include="Resources\Issue1176_Switch\Green.png" />
         <EmbeddedResource Include="Resources\Issue1176_Switch\Yellow.png" />
         <EmbeddedResource Include="Resources\ScriptTag\TestFile.svg" />
+        <EmbeddedResource Include="Resources\StyleTag\TestFile.svg" />
     </ItemGroup>
 
     <ItemGroup>

@@ -377,7 +377,7 @@ namespace Svg
             var svgDocument = Create<T>(reader, elementFactory, styles);
             
             if (css != null) {
-                styles.Add(new SvgUnknownElement() { Content = css });
+                styles.Add(new SvgStyle() { Content = css });
             }
 
             if (styles.Any())
@@ -486,10 +486,9 @@ namespace Svg
                                 element.Nodes.Clear(); // No sense wasting the space where it isn't needed
                             }
 
-                            var unknown = element as SvgUnknownElement;
-                            if (unknown != null && unknown.ElementName == "style")
+                            if (element is SvgStyle)
                             {
-                                styles.Add(unknown);
+                                styles.Add(element);
                             }
                             break;
                         case XmlNodeType.CDATA:
