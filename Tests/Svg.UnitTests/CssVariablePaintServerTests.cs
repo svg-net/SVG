@@ -7,6 +7,34 @@ namespace Svg.UnitTests
     public class CssVariablePaintServerTests
     {
         [Test]
+        public void Parse_StyleBlockWithoutFallback_CreatesCssVariablePaintServer()
+        {
+            const string svg = @"<svg xmlns='http://www.w3.org/2000/svg'>
+                <style>
+                    :root{
+                        --my-color: red;
+                    }
+                </style>
+                <rect id='r' style='fill:var(--my-color)' width='10' height='10'/>
+            </svg>";
+
+            var doc = SvgDocument.FromSvg<SvgDocument>(svg);
+            var rect = (SvgRectangle)doc.GetElementById("r");
+
+            Assert.IsInstanceOf<SvgCssVariablePaintServer>(rect.Fill,
+                "fill should be an SvgCssVariablePaintServer");
+
+            var cssVar = (SvgCssVariablePaintServer)rect.Fill;
+
+            var resolved = cssVar.Resolve(rect);
+            Assert.IsInstanceOf<SvgColourServer>(resolved,
+                "resolved server should be a colour server");
+            Assert.AreEqual(Color.Red, ((SvgColourServer)resolved).Colour);
+            Assert.AreEqual("--my-color", cssVar.VariableName);
+            Assert.IsNull(cssVar.FallbackServer, "no fallback should be set");
+        }
+
+        [Test]
         public void Parse_VarWithNoFallback_CreatesCssVariablePaintServer()
         {
             const string svg = @"<svg xmlns='http://www.w3.org/2000/svg'>

@@ -113,6 +113,22 @@ namespace Svg
             return false;
         }
 
+        /// <summary>
+        /// Copies all CSS custom properties (names starting with '<c>--</c>') from this
+        /// element's style dictionary to <paramref name="target"/>, preserving specificity.
+        /// </summary>
+        internal void ForwardCustomPropertiesTo(SvgElement target)
+        {
+            foreach (var kvp in _styles)
+            {
+                if (kvp.Key.StartsWith("--"))
+                {
+                    foreach (var rule in kvp.Value)
+                        target.AddStyle(kvp.Key, rule.Value, rule.Key);
+                }
+            }
+        }
+
         protected internal static HttpClient HttpClient { get; } = new HttpClient();
 
         /// <summary>
