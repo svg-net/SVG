@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Drawing;
+using System.Xml;
 
 namespace Svg.UnitTests
 {
@@ -30,6 +31,34 @@ namespace Svg.UnitTests
             Assert.IsInstanceOf<SvgColourServer>(resolved,
                 "resolved server should be a colour server");
             Assert.AreEqual(Color.Red, ((SvgColourServer)resolved).Colour);
+            Assert.AreEqual("--my-color", cssVar.VariableName);
+            Assert.IsNull(cssVar.FallbackServer, "no fallback should be set");
+        }
+
+        [Test]
+        public void Parse_InlineStyleTakesPrecedenceOverStyleBlock()
+        {
+            const string svg = @"<svg xmlns='http://www.w3.org/2000/svg' style='--my-color: blue;'>
+                <style>
+                    :root{
+                        --my-color: red;
+                    }
+                </style>
+                <rect id='r' style='fill:var(--my-color)' width='10' height='10'/>
+            </svg>";
+
+            var doc = SvgDocument.FromSvg<SvgDocument>(svg);
+            var rect = (SvgRectangle)doc.GetElementById("r");
+
+            Assert.IsInstanceOf<SvgCssVariablePaintServer>(rect.Fill,
+                "fill should be an SvgCssVariablePaintServer");
+
+            var cssVar = (SvgCssVariablePaintServer)rect.Fill;
+
+            var resolved = cssVar.Resolve(rect);
+            Assert.IsInstanceOf<SvgColourServer>(resolved,
+                "resolved server should be a colour server");
+            Assert.AreEqual(Color.Blue, ((SvgColourServer)resolved).Colour);
             Assert.AreEqual("--my-color", cssVar.VariableName);
             Assert.IsNull(cssVar.FallbackServer, "no fallback should be set");
         }
@@ -162,6 +191,62 @@ namespace Svg.UnitTests
             var fallback = new SvgColourServer(Color.Red);
             var server = new SvgCssVariablePaintServer("--my-color", fallback);
             Assert.AreEqual("var(--my-color, Red)", server.ToString());
+        }
+
+        /// <summary>
+        /// A CSS custom property defined via <c>:root</c> in a <c><style></style></c> block must
+        /// be resolvable at runtime but must not be duplicated as an inline <c>style</c>
+        /// attribute on the <c><svg></c> element when serialized. After a round-trip
+        /// (parse → serialize → re-parse) the variable must still resolve correctly.
+        /// </summary>
+        [Test]
+        public void RoundTrip_StyleBlockCustomProperty_NotDuplicatedAsInlineStyle()
+        {
+            const string svg = @"<svg xmlns='http://www.w3.org/2000/svg'>
+                <style id='s'>
+                    :root{
+                        --my-color: red;
+                    }
+                </style>
+                <rect id='r' style='fill:var(--my-color)' width='10' height='10'/>
+            </svg>";
+
+            // 1. Parse and verify the custom property resolves.
+            var doc = SvgDocument.FromSvg<SvgDocument>(svg);
+            Assert.IsTrue(doc.TryGetCustomProperty("--my-color", out var value),
+                "custom property should be resolvable on the document");
+            Assert.AreEqual("red", value);
+
+            // 2. Serialize and inspect the raw XML.
+            var xml = doc.GetXML();
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(xml);
+            var nsMgr = new XmlNamespaceManager(xmlDoc.NameTable);
+            nsMgr.AddNamespace("svg", "http://www.w3.org/2000/svg");
+
+            var svgNode = xmlDoc.DocumentElement;
+            var inlineStyle = svgNode.GetAttribute("style");
+            Assert.IsFalse(inlineStyle.Contains("--my-color"),
+                "stylesheet-originated custom property must not appear as inline style");
+
+            var styleEl = xmlDoc.SelectSingleNode("//svg:style[@id='s']", nsMgr);
+            Assert.IsNotNull(styleEl, "style element should be preserved");
+            StringAssert.Contains("--my-color", styleEl.InnerText,
+                "custom property should remain inside the <style> element");
+
+            // 3. Re-parse and verify the variable still resolves.
+            var doc2 = SvgDocument.FromSvg<SvgDocument>(xml);
+            var rect2 = (SvgRectangle)doc2.GetElementById("r");
+
+            Assert.IsInstanceOf<SvgCssVariablePaintServer>(rect2.Fill,
+                "fill should survive the round-trip as an SvgCssVariablePaintServer");
+
+            var cssVar2 = (SvgCssVariablePaintServer)rect2.Fill;
+            var resolved2 = cssVar2.Resolve(rect2);
+            Assert.IsInstanceOf<SvgColourServer>(resolved2,
+                "resolved server should be a colour server after round-trip");
+            Assert.AreEqual(Color.Red, ((SvgColourServer)resolved2).Colour,
+                "custom property should still resolve to red after round-trip");
         }
     }
 }

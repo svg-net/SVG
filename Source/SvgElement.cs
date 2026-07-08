@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Svg.Transforms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
-using System.Reflection;
 using System.Xml;
-using Svg.Transforms;
 
 namespace Svg
 {
@@ -114,8 +113,11 @@ namespace Svg
         }
 
         /// <summary>
-        /// Copies all CSS custom properties (names starting with '<c>--</c>') from this
+        /// Copies all CSS custom properties (names starting with '--') from this
         /// element's style dictionary to <paramref name="target"/>, preserving specificity.
+        /// Unlike <see cref="AddStyle"/>, existing values at the same specificity key are
+        /// overwritten rather than accumulated. Only custom properties are affected;
+        /// regular style entries are not touched.
         /// </summary>
         internal void ForwardCustomPropertiesTo(SvgElement target)
         {
@@ -123,8 +125,13 @@ namespace Svg
             {
                 if (kvp.Key.StartsWith("--"))
                 {
+                    if (!target._styles.TryGetValue(kvp.Key, out var rules))
+                    {
+                        rules = new SortedDictionary<int, string>();
+                        target._styles[kvp.Key] = rules;
+                    }
                     foreach (var rule in kvp.Value)
-                        target.AddStyle(kvp.Key, rule.Value, rule.Key);
+                        rules[rule.Key] = rule.Value;
                 }
             }
         }
@@ -598,7 +605,12 @@ namespace Svg
 
         private Dictionary<string, string> WritePropertyAttributes(XmlWriter writer)
         {
-            var styles = _styles.ToDictionary(_styles => _styles.Key, _styles => _styles.Value.Last().Value);
+            // Custom properties (--*) that originated from stylesheet rules are already
+            // preserved inside <style> elements and must not be duplicated as inline styles.
+            // Only include them when their highest specificity is at inline-style level.
+            var styles = _styles
+                .Where(s => !s.Key.StartsWith("--") || s.Value.Last().Key >= StyleSpecificity_InlineStyle)
+                .ToDictionary(s => s.Key, s => s.Value.Last().Value);
             var opacityAttributes = new List<ISvgPropertyDescriptor>();
             var opacityValues = new Dictionary<string, float>();
 
