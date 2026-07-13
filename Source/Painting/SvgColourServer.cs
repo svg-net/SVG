@@ -39,7 +39,13 @@ namespace Svg
                 return c.Name;
 #endif
             // Return the hex value
-            return String.Format("#{0}", c.ToArgb().ToString("x8").Substring(2));
+            return String.Format("#{0}{1}{2}{3}",
+                c.R.ToString("x2"),
+                c.G.ToString("x2"),
+                c.B.ToString("x2"),
+                c.A == byte.MaxValue ? String.Empty : c.A.ToString("x2")
+            );
+
         }
 
         public override SvgElement DeepCopy()
