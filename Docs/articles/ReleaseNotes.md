@@ -10,6 +10,7 @@ The release versions are NuGet releases.
 ### Enhancements
 * Added support for `Switch` element with "systemLanguage" selector attribute (see [#1176](https://github.com/svg-net/SVG/issues/1176)).
 * Enabled `IsTrimmable` and `IsAotCompatible` attributes on the assembly (see [#1184](https://github.com/svg-net/SVG/pull/1184)).
+* `SvgDocumentMetadata` will now keep existing children "as-is" when parsing. (see [#1219](https://github.com/svg-net/SVG/pull/1220)).
 
 ### Fixes
 * Fixed `SvgGradientStop(SvgUnit, Color)` to apply the supplied color to `StopColor`. (see [PR #1217](https://github.com/svg-net/SVG/issues/1216))
