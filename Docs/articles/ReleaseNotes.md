@@ -12,7 +12,7 @@ The release versions are NuGet releases.
 * Enabled `IsTrimmable` and `IsAotCompatible` attributes on the assembly (see [#1184](https://github.com/svg-net/SVG/pull/1184)).
 
 ### Fixes
-* Fixed `SvgGradientStop(SvgUnit, Color)` to apply the supplied color to `StopColor`.
+* Fixed `SvgGradientStop(SvgUnit, Color)` to apply the supplied color to `StopColor`. (see [PR #1217](https://github.com/svg-net/SVG/issues/1216))
 * Fixed: `<CompilerGeneratedFilesOutputPath>` in `Svg.Custom` to generate `Generated` directory under project. (see [PR #1153](https://github.com/svg-net/SVG/pull/1153))
 * Fixed `SvgElementCollection.Insert()` to allow child elements to be added to end of list (see [PR #1200](https://github.com/svg-net/SVG/issues/1101))
 
