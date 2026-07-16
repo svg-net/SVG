@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-  <style type="text/css">
-	.sample {
-	  fill: #ff000080;
-	}
-  </style>
-  <rect width="100" height="100" fill="white" />
-  <rect x="20" y="20" width="60" height="60" class="sample" />
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="246" height="64" viewBox="0 0 246 64">
+	<style type="text/css">
+		.rgba100 {
+			fill: rgba(255, 0, 0, 1);
+		}
+		.rgba50 {
+			fill: rgba(255, 0, 0, 0.5);
+		}
+		.hex100 {
+			fill: #ff0000ff;
+		}
+		.hex50 {
+			fill: #ff000080;
+		}
+		.hex0 {
+			fill: #ff000000;
+		}
+	</style>
+
+	<rect fill="white" width="100%" height="100%" />
+	<rect stroke="black" stroke-width="1" class="rgba100" x="4" y="8" width="28" height="48" />
+	<rect stroke="black" stroke-width="1" class="rgba50" x="34" y="8" width="28" height="48" />
+	<rect stroke="black" stroke-width="1" class="hex100" x="64" y="8" width="28" height="48" />
+	<rect stroke="black" stroke-width="1" class="hex50" x="94" y="8" width="28" height="48" />
+	<rect stroke="black" stroke-width="1" class="hex0" x="124" y="8" width="28" height="48" />
+	<rect stroke="black" stroke-width="1" fill="#ff0000ff" x="154" y="8" width="28" height="48" />
+	<rect stroke="black" stroke-width="1" fill="#ff000080" x="184" y="8" width="28" height="48" />
+	<rect stroke="black" stroke-width="1" fill="#ff000000" x="214" y="8" width="28" height="48" />
+
 </svg>
