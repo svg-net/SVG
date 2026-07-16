@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <style type="text/css">
+	.sample {
+	  fill: #ff000080;
+	}
+  </style>
+  <rect width="100" height="100" fill="white" />
+  <rect x="20" y="20" width="60" height="60" class="sample" />
+</svg>
