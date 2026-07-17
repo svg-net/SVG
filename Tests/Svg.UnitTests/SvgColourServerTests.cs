@@ -30,5 +30,18 @@ namespace Svg.UnitTests
             Assert.AreEqual(0x00, color.B);
             Assert.AreEqual(0x80, color.A);
         }
+
+        [Test]
+        public void ConvertFrom_HexWithoutAlpha()
+        {
+            var converter = new SvgColourConverter();
+
+            var color = (Color)converter.ConvertFrom(null, CultureInfo.InvariantCulture, "#aabbcc");
+
+            Assert.AreEqual(0xAA, color.R);
+            Assert.AreEqual(0xBB, color.G);
+            Assert.AreEqual(0xCC, color.B);
+            Assert.AreEqual(0xFF, color.A);
+        }
     }
 }
