@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 
@@ -69,6 +69,7 @@ namespace Svg
         public SvgGradientStop(SvgUnit offset, Color colour)
         {
             this._offset = offset;
+            StopColor = new SvgColourServer(colour);
         }
 
         public Color GetColor(SvgElement parent)

@@ -121,6 +121,14 @@ namespace Svg
                         colour = string.Format(culture, "#{0}{0}{1}{1}{2}{2}", colour[1], colour[2], colour[3]);
                         return base.ConvertFrom(context, culture, colour);
                     }
+                    else if (colour.Length == 9)
+                    {
+                        var r = int.Parse(colour.Substring(1, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                        var g = int.Parse(colour.Substring(3, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                        var b = int.Parse(colour.Substring(5, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                        var a = int.Parse(colour.Substring(7, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                        return Color.FromArgb(a, r, g, b);
+                    }
                     else if (colour.Length != 7)
                         return SvgPaintServer.NotSet;
                 }

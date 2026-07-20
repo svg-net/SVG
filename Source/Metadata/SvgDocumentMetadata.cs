@@ -18,7 +18,16 @@ namespace Svg
 
         protected override void WriteChildren(XmlWriter writer)
         {
-            writer.WriteRaw(this.Content); // write out metadata as is
+            if (Nodes.Count > 0 || Children.Count > 0)
+            {
+                base.WriteChildren(writer);
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(Content))
+            {
+                writer.WriteRaw(Content); // write out metadata fragment as-is
+            }
         }
 
         public override SvgElement DeepCopy()
@@ -28,8 +37,6 @@ namespace Svg
 
         public override void InitialiseFromXML(XmlReader reader, SvgDocument document)
         {
-            base.InitialiseFromXML(reader, document);
-
             // read in the metadata just as a string ready to be written straight back out again
             Content = reader.ReadInnerXml();
         }
