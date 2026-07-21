@@ -4,7 +4,7 @@ namespace Svg
 {
     /// <summary>
     /// An element used to embed CSS style sheets within SVG documents.
-    /// Use the <see cref="Content"/> property to get or set the CSS content.
+    /// Use the <see cref="SvgElement.Content"/> property to get or set the CSS content.
     /// </summary>
     [SvgElement("style")]
     public partial class SvgStyle : SvgElement, ISvgDescriptiveElement
