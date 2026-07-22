@@ -9,6 +9,10 @@ namespace Svg
     [SvgElement("style")]
     public partial class SvgStyle : SvgElement, ISvgDescriptiveElement
     {
+        /// <summary>
+        /// This attribute specifies the style sheet language of the element's contents, as a media type.
+        /// If the attribute is not specified, then the style sheet language is assumed to be CSS.
+        /// </summary>
         [SvgAttribute("type")]
         public string StyleType
         {
@@ -16,6 +20,10 @@ namespace Svg
             set { Attributes["type"] = value; }
         }
 
+        /// <summary>
+        /// This attribute specifies a media query that must be matched for the style sheet to apply.
+        /// Its value is parsed as a <see href="https://www.w3.org/TR/mediaqueries-3/#syntax">media_query_list</see>. If not specified, the style sheet applies unconditionally.
+        /// </summary>
         [SvgAttribute("media")]
         public string Media
         {
@@ -23,6 +31,9 @@ namespace Svg
             set { Attributes["media"] = value; }
         }
 
+        /// <summary>
+        /// This attribute specifies a title for the style sheet, which is used when exposing and selecting between alternate style sheets. The attribute takes any value.
+        /// </summary>
         [SvgAttribute("title")]
         public string Title
         {
