@@ -23,6 +23,13 @@ namespace Svg
             set { Attributes["media"] = value; }
         }
 
+        [SvgAttribute("title")]
+        public string Title
+        {
+            get { return GetAttribute<string>("title", false); }
+            set { Attributes["title"] = value; }
+        }
+
         public override SvgElement DeepCopy()
         {
             return DeepCopy<SvgStyle>();
