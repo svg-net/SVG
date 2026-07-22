@@ -79,15 +79,22 @@ namespace SvgW3CTestRunner
             columnNumber.TextAlign = HorizontalAlignment.Right;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SeletedTabIndex { get => _seletedTabIndex; set => _seletedTabIndex = value; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SelectedListIndex { get => _selectedListIndex; set => _selectedListIndex = value; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<string[]> ListItems { get => _listItems; set => _listItems = value; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string SvgW3CBasePath { get => _svgW3CBasePath; set => _svgW3CBasePath = value; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string PngW3CBasePath { get => _pngW3CBasePath; set => _pngW3CBasePath = value; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string SvgIssuesBasePath { get => _svgIssuesBasePath; set => _svgIssuesBasePath = value; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string PngIssuesBasePath { get => _pngIssuesBasePath; set => _pngIssuesBasePath = value; }
 
         private void OnLoadDialog(object sender, EventArgs e)

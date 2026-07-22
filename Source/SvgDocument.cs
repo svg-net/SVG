@@ -377,7 +377,7 @@ namespace Svg
             var svgDocument = Create<T>(reader, elementFactory, styles);
             
             if (css != null) {
-                styles.Add(new SvgUnknownElement() { Content = css });
+                styles.Add(new SvgStyle() { Content = css });
             }
 
             if (styles.Any())
@@ -386,12 +386,12 @@ namespace Svg
                 var stylesheetParser = new StylesheetParser(true, true, tolerateInvalidValues: true);
                 var stylesheet = stylesheetParser.Parse(cssTotal);
 
+                var rootNode = new NonSvgElement();
+                rootNode.Children.Add(svgDocument);
+
                 foreach (var rule in stylesheet.StyleRules)
                     try
                     {
-                        var rootNode = new NonSvgElement();
-                        rootNode.Children.Add(svgDocument);
-
                         var elemsToStyle = rootNode.QuerySelectorAll(rule.Selector, elementFactory);
                         foreach (var elem in elemsToStyle)
                             foreach (var declaration in rule.Style)
@@ -403,6 +403,10 @@ namespace Svg
                     {
                         Trace.TraceWarning(ex.Message);
                     }
+
+                // Forward CSS custom properties (--*) that landed on the wrapper
+                // (e.g. via :root selector) to the actual document root.
+                rootNode.ForwardCustomPropertiesTo(svgDocument);
             }
 
             svgDocument?.FlushStyles(true);
@@ -486,10 +490,9 @@ namespace Svg
                                 element.Nodes.Clear(); // No sense wasting the space where it isn't needed
                             }
 
-                            var unknown = element as SvgUnknownElement;
-                            if (unknown != null && unknown.ElementName == "style")
+                            if (element is SvgStyle)
                             {
-                                styles.Add(unknown);
+                                styles.Add(element);
                             }
                             break;
                         case XmlNodeType.CDATA:

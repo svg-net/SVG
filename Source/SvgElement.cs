@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Svg.Transforms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
-using System.Reflection;
 using System.Xml;
-using Svg.Transforms;
 
 namespace Svg
 {
@@ -89,6 +88,52 @@ namespace Svg
                 if (rules.TryGetValue(StyleSpecificity_PresAttribute, out value)) return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Attempts to get the value of a CSS custom property (CSS variable) defined on this element.
+        /// Unlike <see cref="TryGetAttribute"/>, this checks every specificity level in the style
+        /// dictionary and returns the value with the highest specificity, making it suitable for
+        /// resolving custom properties sourced from external stylesheets as well as inline styles.
+        /// </summary>
+        /// <param name="name">The custom property name, including the leading '--'.</param>
+        /// <param name="value">The resolved value if found; otherwise <c>null</c>.</param>
+        /// <returns><c>true</c> if the custom property was found on this element; otherwise <c>false</c>.</returns>
+        public bool TryGetCustomProperty(string name, out string value)
+        {
+            if (_styles.TryGetValue(name, out SortedDictionary<int, string> rules) && rules.Count > 0)
+            {
+                value = rules.Last().Value;
+                return true;
+            }
+            if (CustomAttributes.TryGetValue(name, out value))
+                return true;
+            value = null;
+            return false;
+        }
+
+        /// <summary>
+        /// Copies all CSS custom properties (names starting with '--') from this
+        /// element's style dictionary to <paramref name="target"/>, preserving specificity.
+        /// Unlike <see cref="AddStyle"/>, existing values at the same specificity key are
+        /// overwritten rather than accumulated. Only custom properties are affected;
+        /// regular style entries are not touched.
+        /// </summary>
+        internal void ForwardCustomPropertiesTo(SvgElement target)
+        {
+            foreach (var kvp in _styles)
+            {
+                if (kvp.Key.StartsWith("--"))
+                {
+                    if (!target._styles.TryGetValue(kvp.Key, out var rules))
+                    {
+                        rules = new SortedDictionary<int, string>();
+                        target._styles[kvp.Key] = rules;
+                    }
+                    foreach (var rule in kvp.Value)
+                        rules[rule.Key] = rule.Value;
+                }
+            }
         }
 
         protected internal static HttpClient HttpClient { get; } = new HttpClient();
@@ -560,7 +605,12 @@ namespace Svg
 
         private Dictionary<string, string> WritePropertyAttributes(XmlWriter writer)
         {
-            var styles = _styles.ToDictionary(_styles => _styles.Key, _styles => _styles.Value.Last().Value);
+            // Custom properties (--*) that originated from stylesheet rules are already
+            // preserved inside <style> elements and must not be duplicated as inline styles.
+            // Only include them when their highest specificity is at inline-style level.
+            var styles = _styles
+                .Where(s => !s.Key.StartsWith("--") || s.Value.Last().Key >= StyleSpecificity_InlineStyle)
+                .ToDictionary(s => s.Key, s => s.Value.Last().Value);
             var opacityAttributes = new List<ISvgPropertyDescriptor>();
             var opacityValues = new Dictionary<string, float>();
 

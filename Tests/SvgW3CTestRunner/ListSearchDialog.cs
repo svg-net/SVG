@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace SvgW3CTestRunner
@@ -13,7 +14,9 @@ namespace SvgW3CTestRunner
             InitializeComponent();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SeletedTabIndex { get => _seletedTabIndex; set => _seletedTabIndex = value; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ListBox[] ListItems { get => _listItems; set => _listItems = value; }
 
         private void OnLoadDialog(object sender, EventArgs e)
