@@ -9,11 +9,7 @@ namespace Svg
 {
     public abstract partial class SvgTextBase : SvgVisualElement
     {
-        /// <summary>
-        /// Gets the bounds of the element.
-        /// </summary>
-        /// <value>The bounds.</value>
-        public override RectangleF Bounds
+        GraphicsPath RawPath
         {
             get
             {
@@ -27,17 +23,13 @@ namespace Svg
 
                     path.AddPath(elem.Path(null), false);
                 }
-                if (Transforms == null || Transforms.Count == 0)
-                    return path.GetBounds();
-
-                using (path = (GraphicsPath)path.Clone())
-                using (var matrix = Transforms.GetMatrix())
-                {
-                    path.Transform(matrix);
-                    return path.GetBounds();
-                }
+                return path;
             }
         }
+        /// <inheritdoc/>
+        public override RectangleF Bounds => TransformedBoundsFromPathToClone(RawPath);
+        /// <inheritdoc/>
+        public override RectangleF BoundsRelativeToTop => TransformedBoundsPlusParentsFromPathToClone(RawPath);
 
         //private static GraphicsPath GetPath(string text, Font font)
         //{

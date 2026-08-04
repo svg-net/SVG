@@ -15,11 +15,7 @@ namespace Svg
         private bool _gettingBounds;
         private GraphicsPath _path;
 
-        /// <summary>
-        /// Gets the bounds of the element.
-        /// </summary>
-        /// <value>The bounds.</value>
-        public override RectangleF Bounds
+        RectangleF RawBounds
         {
             get
             {
@@ -31,13 +27,18 @@ namespace Svg
                     return new RectangleF();
                 }
                 _gettingBounds = true;
-                var bounds = TransformedBounds(new RectangleF(Location.ToDeviceValue(null, this),
+                var bounds = new RectangleF(Location.ToDeviceValue(null, this),
                     new SizeF(Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this),
-                        Height.ToDeviceValue(null, UnitRenderingType.Vertical, this))));
+                        Height.ToDeviceValue(null, UnitRenderingType.Vertical, this)));
                 _gettingBounds = false;
                 return bounds;
             }
         }
+        /// <inheritdoc/>
+        public override RectangleF Bounds => TransformedBounds(RawBounds);
+        /// <inheritdoc/>
+        public override RectangleF BoundsRelativeToTop => TransformedBoundsPlusParents(RawBounds);
+
 
         /// <summary>
         /// Gets the <see cref="GraphicsPath"/> for this element.

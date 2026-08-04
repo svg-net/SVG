@@ -27,28 +27,24 @@ namespace Svg
             return (element != null && !this.HasRecursiveReference()) ? element.Path(renderer) : null;
         }
 
-        /// <summary>
-        /// Gets the bounds of the element.
-        /// </summary>
-        /// <value>The bounds.</value>
-        public override RectangleF Bounds
+        RectangleF RawBounds(Func<SvgVisualElement, RectangleF> boundsGetter, Func<RectangleF, RectangleF> transform)
         {
-            get
+            var ew = this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this);
+            var eh = this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this);
+            if (ew > 0 && eh > 0)
+                return transform(new RectangleF(this.Location.ToDeviceValue(null, this),
+                    new SizeF(ew, eh)));
+            if (this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement) is SvgVisualElement element)
             {
-                var ew = this.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, this);
-                var eh = this.Height.ToDeviceValue(null, UnitRenderingType.Vertical, this);
-                if (ew > 0 && eh > 0)
-                    return TransformedBounds(new RectangleF(this.Location.ToDeviceValue(null, this),
-                        new SizeF(ew, eh)));
-                var element = this.OwnerDocument.IdManager.GetElementById(this.ReferencedElement) as SvgVisualElement;
-                if (element != null)
-                {
-                    return element.Bounds;
-                }
-
-                return new RectangleF();
+                return boundsGetter(element);
             }
+
+            return new RectangleF();
         }
+        /// <inheritdoc/>
+        public override RectangleF Bounds => RawBounds(e => e.Bounds, TransformedBounds);
+        /// <inheritdoc/>
+        public override RectangleF BoundsRelativeToTop => RawBounds(e => e.BoundsRelativeToTop, r => r);
 
         protected override void RenderChildren(ISvgRenderer renderer)
         {
