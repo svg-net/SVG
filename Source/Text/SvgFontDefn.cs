@@ -50,6 +50,15 @@ namespace Svg
             return result;
         }
 
+        // Text placement needs the pen advance, which can differ from the
+        // glyph's ink bounds (including a space with no outline).
+        internal IList<RectangleF> MeasureCharacterAdvances(ISvgRenderer renderer, string text)
+        {
+            var result = new List<RectangleF>();
+            using (var path = GetPath(renderer, text, result, false, true)) { }
+            return result;
+        }
+
         public SizeF MeasureString(ISvgRenderer renderer, string text)
         {
             var result = new List<RectangleF>();
@@ -81,7 +90,7 @@ namespace Svg
             }
         }
 
-        private GraphicsPath GetPath(ISvgRenderer renderer, string text, IList<RectangleF> ranges, bool measureSpaces)
+        private GraphicsPath GetPath(ISvgRenderer renderer, string text, IList<RectangleF> ranges, bool measureSpaces, bool measureAdvances = false)
         {
             EnsureDictionaries();
 
@@ -115,7 +124,7 @@ namespace Svg
                 bounds = path.GetBounds();
                 if (ranges != null)
                 {
-                    if (measureSpaces && bounds == RectangleF.Empty)
+                    if (measureAdvances || (measureSpaces && bounds == RectangleF.Empty))
                     {
                         ranges.Add(new RectangleF(xPos, 0, glyph.HorizAdvX * _emScale, ascent));
                     }

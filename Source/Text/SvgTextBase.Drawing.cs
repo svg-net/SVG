@@ -101,6 +101,8 @@ namespace Svg
         private void SetPath(TextDrawingState state)
         {
             SetPath(state, true);
+            if (state.Parent == null && state.Chunks != null)
+                state.Chunks.Complete();
         }
 
         /// <summary>
@@ -137,6 +139,7 @@ namespace Svg
                 }
                 else
                 {
+                    if (state.Chunks != null) state.FlushPath();
                     TextDrawingState newState = new TextDrawingState(state, textNode);
 
                     textNode.SetPath(newState);
@@ -234,6 +237,52 @@ namespace Svg
             }
         }
 
+        // A tspan changes styling, not necessarily the anchored text chunk.
+        // Keep its path separate for rendering, but align all fragments only
+        // when an absolute position starts another chunk or layout finishes.
+        private class AnchoredTextChunks
+        {
+            private readonly List<TextDrawingState> _states = new List<TextDrawingState>();
+            private readonly List<GraphicsPath> _paths = new List<GraphicsPath>();
+            private float? _start;
+            private float _end;
+            private SvgTextAnchor _anchor;
+
+            public void AddState(TextDrawingState state) { _states.Add(state); }
+            public void AddPath(GraphicsPath path) { _paths.Add(path); }
+            public void StartAt(float x, SvgTextAnchor anchor)
+            {
+                if (!_start.HasValue)
+                {
+                    _start = x;
+                    _anchor = anchor;
+                }
+            }
+            public void EndAt(float x) { _end = x; }
+            public void Begin()
+            {
+                var width = _start.HasValue ? _end - _start.Value : 0;
+                var offset = _anchor == SvgTextAnchor.Middle ? -width / 2 :
+                             _anchor == SvgTextAnchor.End ? -width : 0;
+                if (offset != 0)
+                {
+                    using (var matrix = new Matrix())
+                    {
+                        matrix.Translate(offset, 0);
+                        foreach (var path in _paths)
+                            if (path.PointCount > 0) path.Transform(matrix);
+                    }
+                }
+                _paths.Clear();
+                _start = null;
+            }
+            public void Complete()
+            {
+                Begin();
+                foreach (var state in _states) state.CommitPath();
+            }
+        }
+
         private class TextDrawingState
         {
             private float _xAnchor = float.MinValue;
@@ -241,6 +290,8 @@ namespace Svg
             private GraphicsPath _currPath = null;
             private GraphicsPath _finalPath = null;
             private float _authorPathLength = 0;
+            private readonly List<GraphicsPath> _pathParts = new List<GraphicsPath>();
+            public AnchoredTextChunks Chunks { get; private set; }
 
             public GraphicsPath BaselinePath { get; set; }
             public PointF Current { get; set; }
@@ -253,7 +304,7 @@ namespace Svg
             public float StartOffsetAdjust { get; set; }
 
             private TextDrawingState() { }
-            public TextDrawingState(ISvgRenderer renderer, SvgTextBase element)
+            public TextDrawingState(ISvgRenderer renderer, SvgTextBase element, bool useTextChunks = true)
             {
                 this.Element = element;
                 this.Renderer = renderer;
@@ -262,12 +313,22 @@ namespace Svg
                 _xAnchor = 0;
                 this.BaselinePath = element.GetBaselinePath(renderer);
                 _authorPathLength = element.GetAuthorPathLength();
+                // Retain the separate measurement/layout passes for textLength
+                // and textPath; this shared chunk layout is for ordinary text.
+                if (useTextChunks && BaselinePath == null && element.TextLength == SvgUnit.None &&
+                    !element.Descendants().OfType<SvgTextBase>().Any(e => e is SvgTextPath || e.TextLength != SvgUnit.None))
+                {
+                    Chunks = new AnchoredTextChunks();
+                    Chunks.AddState(this);
+                }
             }
 
             public TextDrawingState(TextDrawingState parent, SvgTextBase element)
-                : this(parent.Renderer, element)
+                : this(parent.Renderer, element, false)
             {
                 this.Parent = parent;
+                this.Chunks = parent.Chunks;
+                if (Chunks != null) Chunks.AddState(this);
                 this.Current = parent.Current;
                 this.TextBounds = parent.TextBounds;
                 this.BaselinePath = this.BaselinePath ?? parent.BaselinePath;
@@ -278,7 +339,25 @@ namespace Svg
             public GraphicsPath GetPath()
             {
                 FlushPath();
+                if (Chunks != null) return BuildPath();
                 return _finalPath;
+            }
+
+            private GraphicsPath BuildPath()
+            {
+                var result = new GraphicsPath();
+                foreach (var part in _pathParts)
+                    if (part.PointCount > 0) result.AddPath(part, false);
+                return result;
+            }
+
+            public void CommitPath()
+            {
+                var path = BuildPath();
+                Element._path.Dispose(); // Interim path is private to this layout pass.
+                Element._path = path;
+                foreach (var part in _pathParts) part.Dispose();
+                _pathParts.Clear();
             }
 
             public TextDrawingState Clone()
@@ -296,8 +375,24 @@ namespace Svg
                 return result;
             }
 
+            private IList<RectangleF> MeasureCharacters(IFontDefn font, string text)
+            {
+                var svgFont = font as SvgFontDefn;
+                return Chunks != null && svgFont != null ? svgFont.MeasureCharacterAdvances(Renderer, text) :
+                    font.MeasureCharacters(Renderer, text);
+            }
+
+            private float MeasureAdvance(IFontDefn font, string text)
+            {
+                var svgFont = font as SvgFontDefn;
+                if (Chunks == null || svgFont == null) return font.MeasureString(Renderer, text).Width;
+                var advances = svgFont.MeasureCharacterAdvances(Renderer, text);
+                return advances.Count == 0 ? 0 : advances.Last().Right;
+            }
+
             public void DrawString(string value)
             {
+                if (Chunks != null && value.Length == 0) return;
                 // Get any defined anchors
                 var xAnchors = GetValues(value.Length, e => e._x, UnitRenderingType.HorizontalOffset);
                 var yAnchors = GetValues(value.Length, e => e._y, UnitRenderingType.VerticalOffset);
@@ -403,6 +498,7 @@ namespace Svg
                     for (int i = 0; i < xAnchors.Count - 1; i++)
                     {
                         FlushPath();
+                        if (Chunks != null) Chunks.Begin();
                         _xAnchor = xAnchors[i] + (xOffsets.Count > i ? xOffsets[i] : 0);
                         EnsurePath();
                         yPos = (yAnchors.Count > i ? yAnchors[i] : yPos) + (yOffsets.Count > i ? yOffsets[i] : 0);
@@ -410,6 +506,7 @@ namespace Svg
                         xTextStart = xTextStart.Equals(Current.X) ? _xAnchor : xTextStart;
                         DrawStringOnCurrPath(value[i].ToString(), font, new PointF(_xAnchor, yPos),
                             fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
+                        if (Chunks != null) Chunks.EndAt(_xAnchor + MeasureAdvance(font, value[i].ToString()));
                     }
 
                     // Render any remaining characters
@@ -418,9 +515,15 @@ namespace Svg
                     if (xAnchors.Any())
                     {
                         FlushPath();
+                        if (Chunks != null) Chunks.Begin();
                         renderChar = xAnchors.Count - 1;
                         xPos = xAnchors.Last();
                         _xAnchor = xPos;
+                    }
+                    else if (Chunks != null && yAnchors.Any())
+                    {
+                        FlushPath();
+                        Chunks.Begin();
                     }
                     EnsurePath();
 
@@ -430,7 +533,7 @@ namespace Svg
                     if (rotations.LastOrDefault() != 0.0f || pathStats != null) lastIndividualChar = value.Length;
                     if (lastIndividualChar > renderChar)
                     {
-                        var charBounds = font.MeasureCharacters(this.Renderer, value.Substring(renderChar, Math.Min(lastIndividualChar + 1, value.Length) - renderChar));
+                        var charBounds = MeasureCharacters(font, value.Substring(renderChar, Math.Min(lastIndividualChar + 1, value.Length) - renderChar));
                         PointF pathPoint;
                         float rotation;
                         float halfWidth;
@@ -440,9 +543,16 @@ namespace Svg
                             yPos = (yAnchors.Count > i ? yAnchors[i] : yPos) + (yOffsets.Count > i ? yOffsets[i] : 0);
                             if (pathStats == null)
                             {
+                                if (Chunks != null && i > renderChar && yAnchors.Count > i)
+                                {
+                                    FlushPath();
+                                    Chunks.Begin();
+                                    EnsurePath();
+                                }
                                 xTextStart = xTextStart.Equals(Current.X) ? xPos : xTextStart;
                                 DrawStringOnCurrPath(value[i].ToString(), font, new PointF(xPos, yPos),
                                     fontBaselineHeight, (rotations.Count > i ? rotations[i] : rotations.LastOrDefault()));
+                                if (Chunks != null) Chunks.EndAt(xPos + charBounds[i - renderChar].Width);
                             }
                             else
                             {
@@ -477,22 +587,29 @@ namespace Svg
                         yPos = (yAnchors.Count > lastIndividualChar ? yAnchors[lastIndividualChar] : yPos) +
                                (yOffsets.Count > lastIndividualChar ? yOffsets[lastIndividualChar] : 0);
                         xTextStart = xTextStart.Equals(Current.X) ? xPos : xTextStart;
+                        if (Chunks != null && lastIndividualChar > renderChar && yAnchors.Count > lastIndividualChar)
+                        {
+                            FlushPath();
+                            Chunks.Begin();
+                            EnsurePath();
+                        }
                         DrawStringOnCurrPath(value.Substring(lastIndividualChar), font, new PointF(xPos, yPos),
                             fontBaselineHeight, rotations.LastOrDefault());
-                        var bounds = font.MeasureString(this.Renderer, value.Substring(lastIndividualChar));
-                        xPos += bounds.Width;
+                        xPos += MeasureAdvance(font, value.Substring(lastIndividualChar));
                     }
 
 
                     NumChars += value.Length;
                     // Undo any baseline shift.  This is not persisted, unlike normal vertical offsets.
                     this.Current = new PointF(xPos, yPos - baselineShift);
+                    if (Chunks != null) Chunks.EndAt(xPos);
                     this.TextBounds = new RectangleF(xTextStart, 0, this.Current.X - xTextStart, 0);
                 }
             }
 
             private void DrawStringOnCurrPath(string value, IFontDefn font, PointF location, float fontBaselineHeight, float rotation)
             {
+                if (Chunks != null) Chunks.StartAt(location.X, Element.TextAnchor);
                 var drawPath = _currPath;
                 if (rotation != 0.0f) drawPath = new GraphicsPath();
                 font.AddStringToPath(this.Renderer, drawPath, value, new PointF(location.X, location.Y - fontBaselineHeight));
@@ -516,6 +633,11 @@ namespace Svg
                 {
                     _currPath = new GraphicsPath();
                     _currPath.StartFigure();
+                    if (Chunks != null)
+                    {
+                        Chunks.AddPath(_currPath);
+                        return;
+                    }
 
                     var currState = this;
                     while (currState != null && currState._xAnchor <= float.MinValue)
@@ -526,8 +648,18 @@ namespace Svg
                 }
             }
 
-            private void FlushPath()
+            public void FlushPath()
             {
+                if (Chunks != null)
+                {
+                    if (_currPath != null)
+                    {
+                        _currPath.CloseFigure();
+                        _pathParts.Add(_currPath);
+                        _currPath = null;
+                    }
+                    return;
+                }
                 if (_currPath != null)
                 {
                     _currPath.CloseFigure();
