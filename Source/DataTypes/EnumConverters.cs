@@ -58,7 +58,7 @@ namespace Svg
             {
                 var stringValue = ((T)value).ToString();
                 if (CaseHandlingMode == CaseHandling.CamelCase)
-                    return string.Format("{0}{1}", stringValue[0].ToString().ToLower(), stringValue.Substring(1));
+                    return string.Format("{0}{1}", stringValue[0].ToString().ToLowerInvariant(), stringValue.Substring(1));
 
                 if (CaseHandlingMode == CaseHandling.PascalCase)
                     return stringValue;
@@ -66,7 +66,7 @@ namespace Svg
                 if (CaseHandlingMode == CaseHandling.KebabCase)
                     stringValue = Regex.Replace(stringValue, @"(\w)([A-Z])", "$1-$2", RegexOptions.CultureInvariant);
 
-                return stringValue.ToLower();
+                return stringValue.ToLowerInvariant();
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
