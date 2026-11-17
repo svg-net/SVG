@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Globalization;
 
 namespace Svg.UnitTests
 {
@@ -54,6 +55,23 @@ namespace Svg.UnitTests
                 var result = convertTo.Invoke(converter, new object[] { converted, typeof(string) });
 
                 Assert.AreEqual(expected, result);
+            }
+        }
+
+        [TestCase(typeof(SvgFontStyleConverter), "normal", "italic", "oblique", "inherit")]
+        [TestCase(typeof(SvgTextAnchorConverter), "start", "middle", "end", "inherit")]
+        public void TestConvertWithTurkishCulture(Type enumConverter, params string[] expectedList)
+        {
+            // In tr-TR, "I".ToLower() is the dotless "ı", so culture-sensitive lowercasing writes "ınherit"
+            var currentCulture = CultureInfo.CurrentCulture;
+            try
+            {
+                CultureInfo.CurrentCulture = new CultureInfo("tr-TR");
+                TestConvert(enumConverter, expectedList);
+            }
+            finally
+            {
+                CultureInfo.CurrentCulture = currentCulture;
             }
         }
     }
